@@ -306,29 +306,31 @@
                     <li><a href="~/IndustrialSurveys">تصاريح مساكن العمال</a></li>
                     <li class="divider"></li>
                     <li><a href="#">تصاريح الحفر</a></li>
-                    
+
                 </ul>
             </li>
             @*<li><a href="#" style="font-size:15px; font-weight:bold;"> تواصل معنا</a></li>*@
             @if (Session["UserInfo"] == null)
             {
-        <li>
-            <a href="#">الخدمات</a>
+                <li><a href="@Url.Content("~/UsersLogin/Login")"> تسجيل الدخول </a></li>
+                <li class="divider"></li>
+                <li>
+                    <a href="#">الخدمات</a>
                     <ul>
                         <li><a href="@Url.Action("ConsultancyOwnerService","Home")">صاحب المكتب الاستشاري</a></li>
                         <li><a href="@Url.Action("ConsultancyEngineerService","Home")"> المهندس الاستشاري </a></li>
                         <li><a href="@Url.Action("LandOwnerService","Home")"> مالك المشروع </a></li>
                         <li><a href="@Url.Action("ContractorService","Home")"> المقاول </a></li>
                     </ul>
-        </li>
-        <li class="divider"></li>
+                </li>
+                <li class="divider"></li>
 
             }
             else
             {
-        <li><a href="#" style="font-weight:bold;">مرحباً :  @(((DMeServices.Models.User)Session["UserInfo"]).FirstName)  @(((DMeServices.Models.User)Session["UserInfo"]).SecondName)</a></li>
-        <li class="divider"></li>
-        <li class="out_position"><a href=" @Url.Action("Logout", "UsersLogin")"> تسجيل الخروج</a></li>
+                <li><a href="#" style="font-weight:bold;">مرحباً :  @(((DMeServices.Models.User)Session["UserInfo"]).FirstName)  @(((DMeServices.Models.User)Session["UserInfo"]).SecondName)</a></li>
+                <li class="divider"></li>
+                <li class="out_position"><a href=" @Url.Action("Logout", "UsersLogin")"> تسجيل الخروج</a></li>
 
             }
         </ul>

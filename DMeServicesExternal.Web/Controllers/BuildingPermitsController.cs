@@ -60,10 +60,12 @@ namespace DMeServicesExternal.Web.Controllers
             return responseObj;
         }
 
-        public ActionResult Pay()
+        public async Task<ActionResult> Pay()
         {
-            var result = DMeServices.Models.Common.PaymentCom.PayAmount();
-            return View(result);
+            var payment = new DMeServices.Models.Common.PaymentCom();
+            await payment.GetListAsync();
+
+            return View();
         }
 
         public ActionResult NewPermits()
