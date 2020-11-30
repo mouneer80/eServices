@@ -14,7 +14,7 @@
     </li>
 </ul>
 
-<div class="col-lg-9 col-sm-9">
+<div class="col-lg-12 col-sm-12">
     <a href="@Url.Action("Index", new {@controller = "Register"})" class="btn btn-primary ">
         <i class="glyphicon glyphicon-plus icon-white"></i> إضافة شركة جديدة
     </a>
@@ -49,7 +49,7 @@
                                     </td>
                                     <td class="center">
                                         <a class="btn btn-primary modal-link" 
-                                           href="">متابعة أعمال الشركة </a>
+                                           href="@Url.Action("CompanyOwner", "BuildingPermits", new { @Id = item.COMMERCIAL_NO })">متابعة أعمال الشركة </a>
                                     </td>
                                 </tr>
                             }
