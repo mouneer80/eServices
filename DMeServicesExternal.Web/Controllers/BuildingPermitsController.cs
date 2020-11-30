@@ -103,15 +103,10 @@ namespace DMeServicesExternal.Web.Controllers
             return View("SaveNewPermitsSuccessPage");
         }
 
-
-
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult SaveConsultantPermits(PermitsViewModel oModel)
         {
-
-
             oModel.ListOfAttachments = (List<PermitsAttachments>)TempData["Attachments"];
             TempData["Attachments"] = null;
             oModel.ListOfAttachments = SaveConsultantFiles(oModel);
@@ -122,8 +117,6 @@ namespace DMeServicesExternal.Web.Controllers
             ViewBag.TranseID = oModel.BuildingPermits.TransactNo;
             return View("SaveConsultatPermitsPage");
         }
-
-
 
         public ActionResult PermitDetails(int Id = -99)
         {

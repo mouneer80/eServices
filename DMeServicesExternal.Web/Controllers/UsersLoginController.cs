@@ -1,10 +1,6 @@
 ﻿using DMeServices.Models;
 using DMeServices.Models.Common.Account;
 using DMeServices.Models.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace DMeServicesExternal.Web.Controllers
@@ -14,14 +10,11 @@ namespace DMeServicesExternal.Web.Controllers
         public object MembershipService { get; private set; }
 
         // GET: UsersLogin
-
         public ActionResult Login()
         {
             ViewBag.returnUrl = Request.QueryString["returnUrl"];
             return View();
         }
-
-
         [HttpPost]
         public ActionResult Login(LoginViewModel login, string returnUrl)
         { 
@@ -38,7 +31,6 @@ namespace DMeServicesExternal.Web.Controllers
                 {
                     return RedirectToAction("Index", "Home");
                 }
-                
             }
             else
             {
@@ -46,21 +38,12 @@ namespace DMeServicesExternal.Web.Controllers
                 return View();
             }
         }
-
-
-
         public ActionResult Logout()
         {
             Session["UserInfo"] = null;
             Session.Clear();
             Session.Abandon();
-
             return RedirectToAction("Index", "Home");
-
         }
-
-
-
-
     }
 }

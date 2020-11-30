@@ -10,19 +10,16 @@ using System.Web;
 
 namespace DMeServices.Models.ViewModels.Permits
 {
-   public class PermitsViewModel
+    public class PermitsViewModel
     {
         public PermitsViewModel()
         {
-         oUserInfo = new User();
+            oUserInfo = new User();
             if (HttpContext.Current.Session["UserInfo"] != null)
             {
                 oUserInfo = (User)HttpContext.Current.Session["UserInfo"];
-
                 BuildingPermits = new BuildingPermits { ConsultantCivilId = oUserInfo.CivilId };
-
             }
-   
         }
 
         public User oUserInfo { get; set; }
@@ -31,7 +28,7 @@ namespace DMeServices.Models.ViewModels.Permits
 
         public List<BuildingPermits> ListBuildingPermits { get; set; }
 
-        public  List<PermitsAttachments> ListOfAttachments { get; set; }
+        public List<PermitsAttachments> ListOfAttachments { get; set; }
 
         public PermitsAttachments Attachments { get; set; }
 

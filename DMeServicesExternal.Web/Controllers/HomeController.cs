@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using DMeServices.DAL;
 using DMeServices.Models;
+using DMeServices.Models.Common.Account;
+using DMeServices.Models.Common.BuildingServices;
 using DMeServices.Models.ViewModels;
 
 namespace DMeServicesExternal.Web.Controllers
@@ -14,44 +16,49 @@ namespace DMeServicesExternal.Web.Controllers
         public ActionResult Index()
         {
             return View();
-            if (HttpContext.Request.Cookies["SSO"] != null)
-            {
-                HttpCookie cookie = HttpContext.Request.Cookies.Get("SSO");
-                var civilID = GetUserDataFromOracleDB(cookie.Value);
-                User user = GetUserByCivilID(civilID);
-                if (user != null)
-                {
-                    Session["UserInfo"] = user;
-                    return View(user);
-                }
-            }
-            return Redirect("https://www.dhofar.gov.om/");
+            //if (HttpContext.Request.Cookies["SSO"] != null)
+            //{
+            //    HttpCookie cookie = HttpContext.Request.Cookies.Get("SSO");
+            //    var civilID = GetUserDataFromOracleDB(cookie.Value);
+            //    User user = GetUserByCivilId(civilID);
+            //    if (user != null)
+            //    {
+            //        Session["UserInfo"] = user;
+            //        return View(user);
+            //    }
+            //}
+            //return Redirect("https://www.dhofar.gov.om/");
         }
 
-        private string GetUserDataFromOracleDB(string cookieValue)
+        private User GetUserDataFromOracleDb()
         {
-            throw new NotImplementedException();
+            User oUser = Account.UserLogin("test", "abc@123");
+            if (oUser != null && oUser.Id > 0)
+            {
+                Session["UserInfo"] = oUser;
+            }
+            return oUser;
         }
 
         public ActionResult ConsultancyOwnerService()
         {
-            User user = new User();
-            CompanyViewModel companyViewModel = new CompanyViewModel();
-            companyViewModel.CompaniesList = GetCompaniesOwnedByPerson(user.CivilId);
+            User user = GetUserDataFromOracleDb();
+            CompanyViewModel companyViewModel = new CompanyViewModel
+            {
+                CompaniesList = MociCompaniesData.CompaniesByOwnerCivilId(user.CivilId)
+            };
             return View("CompanyList", companyViewModel);
         }
 
-        private List<MociData> GetCompaniesOwnedByPerson(long civilID)
+        private List<MociData> GetCompaniesOwnedByPerson(long civilId)
         {
             throw new NotImplementedException();
         }
 
         public ActionResult ConsultancyEngineerService()
         {
-            //TODO: IS he already registered as an consultant engineer
-            //TODO: If registered (and still work in this company) display all services links ( Request Permit + ??) 
-            //TODO: If Not registered Nothing he can do
-            return HttpNotFound();
+            User oUser = GetUserDataFromOracleDb();
+            return RedirectToAction("index", "BuildingPermits");
         }
         public ActionResult LandOwnerService()
         {
@@ -65,7 +72,7 @@ namespace DMeServicesExternal.Web.Controllers
             return HttpNotFound();
         }
 
-        private User GetUserByCivilID(string civilID)
+        private User GetUserByCivilId(string civilId)
         {
             throw new NotImplementedException();
         }
@@ -80,16 +87,13 @@ namespace DMeServicesExternal.Web.Controllers
 
         public ActionResult About()
         {
-
             ViewBag.Message = "Your application description page.";
-
             return View();
         }
 
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
-
             return View();
         }
 

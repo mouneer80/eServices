@@ -2,15 +2,10 @@
 using DMeServices.DAL;
 using DMeServices.Models.BuildingServices;
 using DMeServices.Models.ViewModels.Permits;
-using DMeServices.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 
 namespace DMeServices.Models.Common.BuildingServices
@@ -33,7 +28,6 @@ namespace DMeServices.Models.Common.BuildingServices
 
         #endregion
 
-
         #region Method :: Permit By ID
 
         public static BuildingPermits PermitsByID(int Id)
@@ -49,8 +43,6 @@ namespace DMeServices.Models.Common.BuildingServices
 
         }
         #endregion
-
-
 
         #region Method :: Permit By TransNo
 
@@ -72,11 +64,6 @@ namespace DMeServices.Models.Common.BuildingServices
 
         #endregion
 
-
-
-
-
-
         #region Method :: Permit By ConsultantNo
 
 
@@ -92,11 +79,7 @@ namespace DMeServices.Models.Common.BuildingServices
         }
         #endregion
 
-
-
         #region Method :: Permit By CivilId
-
-
         public static List<BuildingPermits> PermitsByConsultantCivilId(long CivilId)
         {
             using (eServicesEntities db = new eServicesEntities())
@@ -105,12 +88,8 @@ namespace DMeServices.Models.Common.BuildingServices
                 List<BuildingPermits> _BuildingPermits = Mapper.Map<List<BldPermits>, List<BuildingPermits>>(_BldPermits);
                 return _BuildingPermits;
             }
-
         }
         #endregion
-
-
-
 
         #region Method :: Get All New Permits By CivilId
 
@@ -142,7 +121,6 @@ namespace DMeServices.Models.Common.BuildingServices
         }
         #endregion
 
-
         #region Method :: Permit By Engineer Number
 
 
@@ -159,8 +137,6 @@ namespace DMeServices.Models.Common.BuildingServices
 
         }
         #endregion
-
-
 
         #region Method :: Save Permits 
 
@@ -224,7 +200,6 @@ namespace DMeServices.Models.Common.BuildingServices
 
 
         #endregion
-
 
         #region Method :: Save Engineer Permits 
 
@@ -367,11 +342,8 @@ namespace DMeServices.Models.Common.BuildingServices
 
         #endregion
 
-
         #region Method :: Delete Permits 
         #endregion
-
-
 
         #region Method :: Generate Transaction Number
 
@@ -421,13 +393,6 @@ namespace DMeServices.Models.Common.BuildingServices
         }
 
         #endregion
-
-
-
-
-
-
-
 
     }
 }
