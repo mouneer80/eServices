@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewBag.Title = "_SubLayout";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+
+@RenderBody()
+
+<!-- left menu starts -->
+@section Note
+{
+    @*<div class="col-sm-3 col-lg-3" id="LeftBar" >
+        <div class="sidebar-nav">
+            <div class="nav-canvas">
+                <div class="nav-sm nav nav-stacked">
+                </div>
+                <ul class="nav nav-pills nav-stacked main-menu">
+                    <li>
+                        <a class="ajax-link" href="#" style="font-weight:bold; color:#309fda; font-size:14pt"><span> أكثر الخدمات استخداما</span></a>
+                    </li>
+                    <li>
+                        <a class="ajax-link RemoveBorder" href="~/HealthRenewal"><i class="glyphicon glyphicon_new glyphicon-eye-open"></i><span> تصاريح البلدية</span></a>
+                    </li>
+                    <li>
+                        <a class="ajax-link RemoveBorder" href="@Url.Action("Index","BuildingPermits")"><i class="glyphicon glyphicon_new glyphicon-eye-open"></i><span> تصاريح البناء</span></a>
+                    </li>
+                    <li>
+                        <a class="ajax-link RemoveBorder" href="#"> <i class="glyphicon glyphicon_new glyphicon-edit"></i><span> تصاريح الحفر</span></a>
+                    </li>
+                    <li>
+                        <a class="ajax-link RemoveBorder" href="#"><i class="glyphicon glyphicon_new glyphicon-list-alt"></i><span> البطاقات الصحية</span></a>
+                    </li>
+                    <li>
+                        <a class="ajax-link RemoveBorder" href="#"><i class="glyphicon glyphicon_new glyphicon-font"></i><span> فحص المركبات</span></a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+
+        <div class="sidebar-nav" style="margin-top:20px;">
+            <div class="nav-canvas">
+                <div class="nav-sm nav nav-stacked">
+                </div>
+                <ul class="nav nav-pills nav-stacked main-menu">
+                    <li>
+                        <a class="ajax-link RemoveBorder" href="#"><i class="glyphicon glyphicon_new glyphicon-list-alt"></i><span> رأيك فى موقعنا</span></a>
+                    </li>
+                    <li>
+                        <a class="ajax-link RemoveBorder" href="#"><i class="glyphicon glyphicon_new glyphicon-question-sign"></i><span> الأسئلة الشائعة</span></a>
+                    </li>
+                    <li>
+                        <a class="ajax-link RemoveBorder" href="#"><i class="glyphicon glyphicon_new glyphicon-th-large"></i><span> استطلاع الرأي</span></a>
+                    </li>
+                    <li>
+                        <a class="ajax-link RemoveBorder" href="#"><i class="glyphicon glyphicon_new glyphicon-eye-open"></i><span> إقتراحات</span></a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>*@
+    <!-- left menu ends -->
+}

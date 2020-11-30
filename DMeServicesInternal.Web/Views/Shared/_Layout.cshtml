@@ -1,0 +1,400 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خدمات بلدية ظفار</title>
+    @Html.Raw(RadPdf.Web.UI.PdfWebControl.RenderHead())
+    <!-- The styles -->
+    <link href="~/Content/css/bootstrap-cerulean_ar.min.css" rel="stylesheet">
+    <link href="~/Content/css/charisma-app_ar.css" rel="stylesheet">
+    <link href='~/Content/bower_components/fullcalendar/dist/fullcalendar.css' rel='stylesheet'>
+    <link href='~/Content/bower_components/fullcalendar/dist/fullcalendar.print.css' rel='stylesheet' media='print'>
+    <link href='~/Content/bower_components/chosen/chosen_ar.min.css' rel='stylesheet'>
+    <link href='~/Content/bower_components/colorbox/example3/colorbox.css' rel='stylesheet'>
+    <link href='~/Content/bower_components/responsive-tables/responsive-tables_ar.css' rel='stylesheet'>
+    <link href='~/Content/bower_components/bootstrap-tour/build/css/bootstrap-tour.min.css' rel='stylesheet'>
+    <link href='~/Content/css/jquery.noty.css' rel='stylesheet'>
+    <link href='~/Content/css/noty_theme_default.css' rel='stylesheet'>
+    <link href='~/Content/css/elfinder.min.css' rel='stylesheet'>
+    <link href='~/Content/css/elfinder.theme.css' rel='stylesheet'>
+    <link href='~/Content/css/jquery.iphone.toggle.css' rel='stylesheet'>
+    <link href='~/Content/css/uploadify.css' rel='stylesheet'>
+    <link href='~/Content/css/animate.min.css' rel='stylesheet'>
+    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/droid-arabic-kufi" type="text/css" />
+    <!-- jQuery -->
+    <script src="~/Content/bower_components/jquery/jquery.min.js"></script>
+    <style>
+        .RemoveBorder {
+            border: 0px solid rgba(221, 221, 221, 0.46) !important;
+        }
+
+        .glyphicon_new {
+            top: 5px !important;
+            font-size: 15pt !important;
+        }
+    </style>
+    <script>
+        function gmod(n, m) {
+            return ((n % m) + m) % m;
+        }
+
+        function kuwaiticalendar(adjust) {
+            var today = new Date();
+            if (adjust) {
+                adjustmili = 1000 * 60 * 60 * 24 * adjust;
+                todaymili = today.getTime() + adjustmili;
+                today = new Date(todaymili);
+            }
+            day = today.getDate();
+            month = today.getMonth();
+            year = today.getFullYear();
+            m = month + 1;
+            y = year;
+            if (m < 3) {
+                y -= 1;
+                m += 12;
+            }
+
+            a = Math.floor(y / 100.);
+            b = 2 - a + Math.floor(a / 4.);
+            if (y < 1583) b = 0;
+            if (y == 1582) {
+                if (m > 10) b = -10;
+                if (m == 10) {
+                    b = 0;
+                    if (day > 4) b = -10;
+                }
+            }
+
+            jd = Math.floor(365.25 * (y + 4716)) + Math.floor(30.6001 * (m + 1)) + day + b - 1524;
+
+            b = 0;
+            if (jd > 2299160) {
+                a = Math.floor((jd - 1867216.25) / 36524.25);
+                b = 1 + a - Math.floor(a / 4.);
+            }
+            bb = jd + b + 1524;
+            cc = Math.floor((bb - 122.1) / 365.25);
+            dd = Math.floor(365.25 * cc);
+            ee = Math.floor((bb - dd) / 30.6001);
+            day = (bb - dd) - Math.floor(30.6001 * ee);
+            month = ee - 1;
+            if (ee > 13) {
+                cc += 1;
+                month = ee - 13;
+            }
+            year = cc - 4716;
+
+            if (adjust) {
+                wd = gmod(jd + 1 - adjust, 7) + 1;
+            } else {
+                wd = gmod(jd + 1, 7) + 1;
+            }
+
+            iyear = 10631. / 30.;
+            epochastro = 1948084;
+            epochcivil = 1948085;
+
+            shift1 = 8.01 / 60.;
+
+            z = jd - epochastro;
+            cyc = Math.floor(z / 10631.);
+            z = z - 10631 * cyc;
+            j = Math.floor((z - shift1) / iyear);
+            iy = 30 * cyc + j;
+            z = z - Math.floor(j * iyear + shift1);
+            im = Math.floor((z + 28.5001) / 29.5);
+            if (im == 13) im = 12;
+            id = z - Math.floor(29.5001 * im - 29);
+
+            var myRes = new Array(8);
+
+            myRes[0] = day; //calculated day (CE)
+            myRes[1] = month - 1; //calculated month (CE)
+            myRes[2] = year; //calculated year (CE)
+            myRes[3] = jd - 1; //julian day number
+            myRes[4] = wd - 1; //weekday number
+            myRes[5] = id; //islamic date
+            myRes[6] = im - 1; //islamic month
+            myRes[7] = iy; //islamic year
+
+            return myRes;
+        }
+        function writeIslamicDate(adjustment) {
+
+            var wdNames = new Array("الاحد", "الاثنين", "الثلاثاء", "الاربعاء", "الخميس", "الجمعة", "السبت");
+            var iMonthNames = new Array("محرم", "صفر", "ربيع أول", "ربيع الثاني",
+                "جمادي الاول", "جمادي الثاني", "رجب", "شعبان",
+                "رمضان", "شوال", "ذي القعدة", "ذي الحجة");
+            var iDate = kuwaiticalendar(adjustment);
+            var outputIslamicDate = wdNames[iDate[4]] + ", "
+                + iDate[5] + " " + iMonthNames[iDate[6]] + " " + iDate[7] + " ه";
+            return outputIslamicDate;
+        }
+    </script>
+</head>
+<body>
+    <!-- topbar starts -->
+    <div class="container">
+        <span> <a href="~/Home"><img src="~/img/header/LOGOH.png" style="height:80px;" /></a></span>
+        <span> <img src="~/img/header/Easy.png" style="height:80px; float:left; margin-left:5px;" /></span>
+    </div>
+    <div class="navbar navbar-default" role="navigation">
+        <div class="navbar-inner container">
+            
+            <!-- theme selector ends -->
+            <ul class="collapse navbar-collapse nav navbar-nav top-menu" style="font-size:15px; font-weight:bold;">
+                <li><a href="~/Home"> الرئيسية</a></li>
+                <li><a href="~/Home"> عن بلدية ظفار</a></li>
+                <li class="dropdown">
+                    <a href="#" data-toggle="dropdown">
+                        خدماتنا <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">تصاريح البلدية</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">تصاريح البناء</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">تصاريح الحفر</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">البطاقات الصحية</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">فحص المركبات </a></li>
+
+                    </ul>
+                </li>
+                <li><a href="#"> المركز الإعلامي</a></li>
+                <li><a href="#" style="font-size:15px; font-weight:bold;"> تواصل معنا</a></li>
+                <li class="dropdown">
+                    <a href="#" data-toggle="dropdown">
+                        الدخول <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">تسجيل الدخول</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">الملف الشخصي</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">الخدمات</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">تسجيل الخروج</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+            <ul class="collapse navbar-collapse nav navbar-nav top-menu" style="font-size:15px; font-weight:bold;float:left;">
+                <li style="color: white;font-size:15px; font-weight:bold;margin-top: 9px;padding: 0px;">
+                    <script>
+                        var now = new Date();
+                        var dayNames = new Array("الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس", "يوم الجمعة", "يوم السبت");
+                        var monNames = new Array(" يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "اكتوبر", "نوفمبر", "ديسمبر");
+                        document.write(writeIslamicDate() + " | " + "" + now.getDate() + " " + monNames[now.getMonth()] + " " + now.getFullYear() + " م");
+                    </script>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- topbar ends -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 col-sm-9">
+                <div class="body-content">
+                    @RenderBody()
+                    <hr />
+                    @*<footer>
+                            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+                        </footer>*@
+                </div>
+            </div>
+
+            <!-- left menu starts -->
+            <div class="col-sm-3 col-lg-3" style="margin-top:68px;">
+                <div class="sidebar-nav">
+                    <div class="nav-canvas">
+                        <div class="nav-sm nav nav-stacked">
+                        </div>
+                        <ul class="nav nav-pills nav-stacked main-menu">
+                            <li>
+                                <a class="ajax-link" href="index.html" style="font-weight:bold; color:#309fda; font-size:14pt"><span> أكثر الخدمات استخداما</span></a>
+                            </li>
+                            <li>
+                                <a class="ajax-link RemoveBorder" href="ui.html"><i class="glyphicon glyphicon_new glyphicon-eye-open"></i><span> تصاريح البلدية</span></a>
+                            </li>
+                            <li>
+                                <a class="ajax-link RemoveBorder" href="ui.html"><i class="glyphicon glyphicon_new glyphicon-eye-open"></i><span> تصاريح البناء</span></a>
+                            </li>
+                            <li>
+                                <a class="ajax-link RemoveBorder" href="form.html"> <i class="glyphicon glyphicon_new glyphicon-edit"></i><span> تصاريح الحفر</span></a>
+                            </li>
+                            <li>
+                                <a class="ajax-link RemoveBorder" href="chart.html"><i class="glyphicon glyphicon_new glyphicon-list-alt"></i><span> البطاقات الصحية</span></a>
+                            </li>
+                            <li>
+                                <a class="ajax-link RemoveBorder" href="typography.html"><i class="glyphicon glyphicon_new glyphicon-font"></i><span> فحص المركبات</span></a>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+
+                <div class="sidebar-nav" style="margin-top:20px;">
+                    <div class="nav-canvas">
+                        <div class="nav-sm nav nav-stacked">
+                        </div>
+                        <ul class="nav nav-pills nav-stacked main-menu">
+                            <li>
+                                <a class="ajax-link RemoveBorder" href="#"><i class="glyphicon glyphicon_new glyphicon-list-alt"></i><span> رأيك فى موقعنا</span></a>
+                            </li>
+                            <li>
+                                <a class="ajax-link RemoveBorder" href="#"><i class="glyphicon glyphicon_new glyphicon-question-sign"></i><span> الأسئلة الشائعة</span></a>
+                            </li>
+                            <li>
+                                <a class="ajax-link RemoveBorder" href="#"><i class="glyphicon glyphicon_new glyphicon-th-large"></i><span> استطلاع الرأي</span></a>
+                            </li>
+                            <li>
+                                <a class="ajax-link RemoveBorder" href="#"><i class="glyphicon glyphicon_new glyphicon-eye-open"></i><span> إقتراحات</span></a>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+            <!-- left menu ends -->
+
+        </div>
+    </div>
+    <footer style="margin-top:20px;">
+        <div class="navbar" style="margin-bottom:0px;">
+            <div style="color:#ffffff">
+                <div class="col-sm-3">
+                    <div class="contact_block">
+                        <div style="margin: 10px;"></div>
+                        <span style="color: #09323e;font-weight: bold;font-size: 15px;">
+                            تابعونا <br>
+                        </span>
+                        <div style="margin: 10px;"></div>
+                        <div class="row">
+
+                            <a href="http://www.instagram.com/Dhofar_Municipality" target="_blank">
+                                <img src="~/img/Social_Media/insta.png">
+                            </a>
+                            <a href="http://www.instagram.com/Dhofar_Municipality" target="_blank">
+                                <img src="~/img/Social_Media/facbook.png">
+                            </a>
+                            <a href="http://www.instagram.com/Dhofar_Municipality" target="_blank">
+                                <img src="~/img/Social_Media/twiter.png">
+                            </a>
+                            <a href="http://www.instagram.com/Dhofar_Municipality" target="_blank">
+                                <img src="~/img/Social_Media/youtube.png">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="contact_block">
+                        <div style="margin: 10px;"></div>
+                        <span style="color: #09323e;font-weight: bold;font-size: 15px;">
+                            روابط خارجية <br>
+                        </span>
+                        <div style="margin: 10px;"></div>
+                        <span style="line-height:1.9">
+                            مهرجان صلالة<br>
+                        </span>
+                        <span style="line-height:1.9">
+                            الهيئة العامة لحماية المستهلك <br>
+                        </span>
+                        <span style="line-height:1.9">
+                            المركز الوطني للاحصاء والمعلومات<br><br />
+                        </span>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="contact_block">
+                        <div style="margin: 10px;"></div>
+                        <span style="color: #09323e;font-weight: bold;font-size: 15px;">
+                            روابط خارجية <br>
+                        </span>
+                        <div style="margin: 10px;"></div>
+                        <span>
+                            خدمات الحكومة الالكترونية<br>
+                        </span>
+                        <span style="line-height:1.9">
+                            المواقع الحكومية <br>
+                        </span>
+                        <span style="line-height:1.9">
+                            شرطة عمان السلطانية<br>
+                        </span>
+
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="contact_block">
+                        <span style="color: #09323e;font-weight: bold;font-size: 15px;">
+                            مركز الاتصال
+                        </span>
+                        <div style="margin: 10px;"></div>
+                        <span>
+                            بلدية ظفار ص ب 50 رب 211, محافظة ظفار ,<br />مدينة صلالة سلطنة عمان
+                        </span>
+                    </div>
+                    <div class="contact_block">
+                        <hr />
+
+                        <div style="margin: 10px;"></div>
+                        <span>
+                            (1450) - (80071450)
+                        </span>
+
+                        <span>
+                            admin@dm.gov.om
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div style="background-color:#08323E;">
+            <p style="color:#ffffff; text-align:center; margin:0px;">
+                جميع الحقوق محفوظة بلدية ظفار ©
+                <script type="text/javascript">document.write((new Date()).getFullYear())</script> م -
+                <script type="text/javascript">var y = (new Date()).getFullYear(); var h = Math.round((y - 623) * (33 / 32)); document.write(h)</script> هـ
+                .
+            </p>
+        </div>
+    </footer>
+    <!-- hijri date -->
+    <script src="~/Scripts/js/hijricalendar-oman.js"></script>
+    <script src="~/Content/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- library for cookie management -->
+    <script src="~/Scripts/js/jquery.cookie.js"></script>
+    <!-- calender plugin -->
+    <script src='~/Content/bower_components/moment/min/moment.min.js'></script>
+    <script src='~/Content/bower_components/fullcalendar/dist/fullcalendar.min.js'></script>
+    <!-- data table plugin -->
+    <script src='~/Scripts/js/jquery.dataTables.min.js'></script>
+    <!-- select or dropdown enhancer -->
+    <script src="~/Content/bower_components/chosen/chosen.jquery.min.js"></script>
+    <!-- plugin for gallery image view -->
+    <script src="~/Content/bower_components/colorbox/jquery.colorbox-min.js"></script>
+    <!-- notification plugin -->
+    <script src="~/Scripts/js/jquery.noty.js"></script>
+    <!-- library for making tables responsive -->
+    <script src="~/Content/bower_components/responsive-tables/responsive-tables.js"></script>
+    <!-- tour plugin -->
+    <script src="~/Content/bower_components/bootstrap-tour/build/js/bootstrap-tour.min.js"></script>
+    <!-- star rating plugin -->
+    <script src="~/Scripts/js/jquery.raty.min.js"></script>
+    <!-- for iOS style toggle switch -->
+    <script src="~/Scripts/js/jquery.iphone.toggle.js"></script>
+    <!-- autogrowing textarea plugin -->
+    <script src="~/Scripts/js/jquery.autogrow-textarea.js"></script>
+    <!-- multiple file upload plugin -->
+    <script src="~/Scripts/js/jquery.uploadify-3.1.min.js"></script>
+    <!-- history.js for cross-browser state change on ajax -->
+    <script src="~/Scripts/js/jquery.history.js"></script>
+    <!-- application script for Charisma demo -->
+    <script src="~/Scripts/js/charisma.js"></script>
+</body>
+</html>

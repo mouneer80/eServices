@@ -1,0 +1,428 @@
+﻿@model DMeServices.Models.ViewModels.Permits.SurveysViewModel
+@{
+    ViewBag.Title = "CollectiveResidenceDetails";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var sel = $("#ResidenceType").val();
+        if (sel == 0 || sel == 1) {
+            // show time div, hide fromTo div
+            $('#details').hide();
+
+        }
+        else if (sel == 2) {
+            // show fromTo div, hide time div
+            $('#details').show();
+
+        }
+
+        $('#ResidenceType').change(function () {
+            var ddlValue = $(this).val();
+
+            if (ddlValue == 0 || ddlValue == 1) {
+                // show time div, hide fromTo div
+                $('#details').hide();
+
+            }
+            else if (ddlValue == 2) {
+                // show fromTo div, hide time div
+                $('#details').show();
+
+            }
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        var counter = 0;
+
+        $("#addrow").on("click", function () {
+            var newRow = $("<tr>");
+            var cols = "";
+            cols += '<td><select data-rel="chosen" style="width:75%;padding: 0px 12px;" class="form-control" name="AreaType' + counter + '"><option>منزل</option><option>فيلا</option><option>محل</option></select></td>';
+            cols += '<td><input type="file" name="Attachment' + counter + '"/></td>';
+            cols += '<td><textarea type="text" class="form-control" rows="1" name="phone' + counter + '"></textarea></td>';
+
+            cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="حذف"></td>';
+            newRow.append(cols);
+            $("table.order-list").append(newRow);
+            counter++;
+        });
+
+        $("table.order-list").on("click", ".ibtnDel", function (event) {
+            $(this).closest("tr").remove();
+            counter -= 1
+        });
+
+
+        function ClearInputs() {
+            debugger;
+            $('#FileNotes').text('');
+            $('#FileUpload').text('');
+
+        }
+
+    });
+
+</script>
+
+<style>
+    .form-group {
+        margin-bottom: 2px;
+    }
+
+    .table > tbody > tr > td, .table > thead > tr > td {
+        padding: 4px;
+    }
+
+    .dropdown-toggle {
+        background-color: transparent;
+        border-color: #000000;
+        border-style: solid;
+    }
+</style>
+
+<div>
+    <ul class="breadcrumb">
+        <li>
+            <a href="@Url.Action("Index","Home")">الرئيسية</a>
+        </li>
+        <li>
+            <a href="#">تعديل بيانات مسكن جماعي</a>
+        </li>
+        <li>
+            <a href="#"> بيانات مسكن جماعي</a>
+        </li>
+    </ul>
+</div>
+
+<div class="col-lg-9 col-sm-9">
+    <div class="row">
+
+
+        @using (Html.BeginForm("EditDetails", "IndustrialSurveys", FormMethod.Post, new { encType = "multipart/form-data", @id = "LandSurveysform" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(x => x.LandSurvey.SurveyID, new { @id = "SurveyID" })
+            //@Html.HiddenFor(x => x.LandSurvey.ConsultantCivilId)
+            @Html.HiddenFor(x => x.LandSurvey.TransactNo)
+
+
+        <div class="box col-md-12">
+            <div class="form-group col-md-6">
+
+                <label class="control-label">محافظة</label>
+                <input class="form-control" placeholder="ظفار" readonly="readonly" />
+
+            </div>
+            <div class="form-group col-md-6">
+
+                <label class="control-label">الولاية</label>
+                @Html.DropDownListFor(m => m.LandSurvey.WelyahID, (List<SelectListItem>)ViewBag.DDWelayat, new { style = "padding:0px", @class = "form-control", id = "Welayah" })
+
+            </div>
+
+            <div class="form-group col-md-6">
+
+                <label class="control-label">اسم القرية</label>
+                @Html.DropDownListFor(m => m.LandSurvey.RegionID, (List<SelectListItem>)ViewBag.DDRegion, new { style = "padding:0px", @class = "form-control", id = "Region" })
+
+            </div>
+            <div class="form-group col-md-6">
+
+                <label class="control-label">نوع السكن الجماعي</label>
+                @Html.DropDownListFor(m => m.LandSurvey.CollectiveResidenceType, new List<SelectListItem> {
+                   new SelectListItem { Value = "0" , Text = "اختر نوع السكن الجماعي" },
+                   new SelectListItem { Value = "1" , Text = "مؤقت" },
+                   new SelectListItem { Value = "2" , Text = "دائم" }
+                }, new { style = "padding:0px", @class = "form-control", id = "ResidenceType" })
+
+            </div>
+
+            <div class="form-group col-md-6">
+
+                <label class="control-label">رقم المربع</label>
+                @Html.DropDownListFor(m => m.LandSurvey.SquareLetterID, (List<SelectListItem>)ViewBag.DDSquareLetters, new { style = "padding:0px", @class = "form-control", id = "SquareLetter" })
+
+            </div>
+            <div class="form-group col-md-6">
+
+                <label class="control-label">رقم قطعة الأرض</label>
+                @Html.TextBoxFor(m => m.LandSurvey.LandNo, new { @readonly = "readonly", @class = "form-control", id = "LandNo", @placeholder = "رقم قطعة الأرض" })
+
+            </div>
+            @*<div class="form-group col-md-6">
+
+            <label class="control-label">رقم حساب الكهرباء</label>
+            @Html.TextBoxFor(m => m.LandSurvey.ElectricityAccountNo, new { @class = "form-control", id = "LandNo", @placeholder = "رقم حساب الكهرباء" })
+
+        </div>*@
+            <div class="form-group col-md-6">
+
+                <label class="control-label">احداثيات قطعة الأرض</label>
+                @Html.TextBoxFor(m => m.LandSurvey.LandCoordinates, new { @class = "form-control", id = "LandNo", @placeholder = "احداثيات قطعة الأرض" })
+
+            </div>
+            @*<div class="form-group col-md-6">
+
+                <label class="control-label">نوع استعمال قطعة الأرض</label>
+                @Html.DropDownListFor(m => m.LandSurvey.LandUseTypeID, (List<SelectListItem>)ViewBag.DDLandUseTypes, new { style = "padding:0px", @class = "form-control", id = "LandUseType" })
+
+            </div>*@
+            @*<div class="form-group col-md-6">
+
+                <label class="control-label">نوع المبنى</label>
+                @Html.DropDownListFor(m => m.LandSurvey.BuildingTypeID, (List<SelectListItem>)ViewBag.DDBuildingTypes, new { style = "padding:0px", @class = "form-control", id = "BuildingType" })
+
+            </div>*@
+            @*<div class="form-group col-md-6">
+
+                <label class="control-label">اسم المنطقة الصناعية / التجارية</label>
+                @Html.DropDownListFor(m => m.LandSurvey.IndustrialSurveyID, (List<SelectListItem>)ViewBag.DDArea, new { style = "padding:0px", @class = "form-control", id = "Area" })
+
+            </div>*@
+            @*<div class="form-group col-md-6">
+
+            <label class="control-label">اجمالي عدد المباني</label>
+            @Html.TextBoxFor(m => m.LandSurvey.BuildingsCount, new { @class = "form-control", id = "BuildingsCount", @placeholder = "اجمالي عدد المباني" })
+
+        </div>
+        <div class="form-group col-md-6">
+
+            <label class="control-label">اجمالي عدد الشقق</label>
+            @Html.TextBoxFor(m => m.LandSurvey.FlatsCount, new { @class = "form-control", id = "FlatsCount", @placeholder = "اجمالي عدد الغرف" })
+
+        </div>
+            <div class="form-group col-md-6">
+
+            <label class="control-label">اجمالي عدد المحلات</label>
+            @Html.TextBoxFor(m => m.LandSurvey.ShopsCount, new { @class = "form-control", id = "ShopsCount", @placeholder = "اجمالي عدد المحلات" })
+
+
+        </div>*@
+            <div id="details">
+                <div class="form-group col-md-6">
+
+                    <label class="control-label">رقم حساب الكهرباء</label>
+                    @Html.TextBoxFor(m => m.LandSurvey.ElectricityAccountNo, new { @class = "form-control", id = "ElectricityAccountNo", @placeholder = "رقم حساب الكهرباء" })
+
+                </div>
+
+                <div class="form-group col-md-6">
+
+                    <label class="control-label">اجمالي عدد الغرف</label>
+                    @Html.TextBoxFor(m => m.LandSurvey.RoomsCount, new { @class = "form-control", id = "RoomsCount", @placeholder = "اجمالي عدد الغرف" })
+
+                </div>
+            </div>
+        </div>
+            <div class="box col-md-12">
+                <div class="form-group col-sm-6">
+
+                </div>
+                <div class="col-sm-6">
+                    <div style="margin-bottom:20px;">
+                        <label class="control-label">ملاحظات</label>
+                        @Html.TextAreaFor(m => m.LandSurvey.Notes, new { @class = "form-control", id = "Notes", @placeholder = "ملاحظات" })
+                        @*@Html.DropDownListFor(m => m.BuildingPermits.WorkflowStatus, (List<SelectListItem>)ViewBag.DDPermitsStatus, new { @class = "dropdown-toggle", Id = "PermitsStatus" })
+                        @Html.ValidationMessageFor(m => m.BuildingPermits.WorkflowStatus, "", new { @style = "color:orange;" })*@
+
+                    </div>
+                </div>
+            </div>
+        }
+            <br />
+            <h5> أضافة بيانات العمال</h5>
+            <br />
+
+            <div class="form-group col-md-12">
+
+                <div class="col-sm-1" style="width:15%;">
+                    <input type="submit" id="SaveWorker" name="SaveWorker" class="btn " value="إضافة بيان" />
+                </div>
+
+
+                <div class="col-sm-5" style="width:25%;">
+                    @Html.TextBoxFor(m => m.Workers.WorkerPhone, new { @class = "form-control", id = "WorkerPhone", @placeholder = "رقم التليفون" })
+                    @Html.ValidationMessageFor(m => m.Workers.WorkerPhone, "", new { @style = "color:orange;" })
+
+                </div>
+                <div class="col-sm-5" style="width:35%;">
+                    @Html.TextBoxFor(m => m.Workers.WorkerID, new { @class = "form-control", id = "WorkerID", @placeholder = "الرقم المدني" })
+                    @Html.ValidationMessageFor(m => m.Workers.WorkerID, "", new { @style = "color:orange;" })
+
+                </div>
+                <div class="col-sm-5" style="width:25%;">
+                    @Html.TextBoxFor(m => m.Workers.WorkerName, new { @class = "form-control", id = "WorkerName", @placeholder = "الاسم" })
+                    @Html.ValidationMessageFor(m => m.Workers.WorkerName, "", new { @style = "color:orange;" })
+
+                </div>
+            </div>
+                
+            </div>
+            <br />
+            <br />
+            <div id="divWorkers" class="row">
+                @{Html.RenderPartial("_ListWorkers", Model);}
+            </div>
+
+            <br />
+
+            <br />
+
+            <div class="col-sm-6">
+
+
+
+
+                @*<div class="col-sm-6" style="margin-bottom:20px;">
+                    <label class="control-label">رأي المهندس</label>
+                    @Html.DropDownListFor(m => m.BuildingPermits.WorkflowStatus, (List<SelectListItem>)ViewBag.DDPermitsStatus, new { @class = "dropdown-toggle", Id = "PermitsStatus" })
+                    @Html.ValidationMessageFor(m => m.BuildingPermits.WorkflowStatus, "", new { @style = "color:orange;" })
+
+                </div>*@
+                <button class="btn btn-primary" id="Save" onclick="return confirm('هل انت متاكد من حفظ التعديلات !');">
+                    <i class="glyphicon glyphicon-ok"></i> حفظ
+                </button>
+                <a style="float:left" href="@Url.Action( "Index","IndustrialSurveys")" class="btn btn-primary" role="button">رجوع</a>
+            </div>
+
+
+        
+</div>
+
+
+
+<div class="modal fade" id="MainModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        
+
+        $("#Save").click(function () {
+            $("#LandSurveysform").submit();
+        });
+
+
+
+    });
+</script>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        //Country Dropdown Selectedchange event
+        $("#Welayah").change(function () {
+            $("#Region").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetRegions")', // Calling json method
+                dataType: 'json',
+                data: { id: $("#Welayah").val() },
+                // Get Selected Country ID.
+                success: function (states) {
+                    $.each(states, function (i, state) {
+                        $("#Region").append('<option value="' + state.Value + '">' +
+                             state.Text + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve states.' + ex);
+                }
+            });
+            return false;
+        })
+    });
+</script>
+
+
+
+
+
+<script type="text/javascript">
+    $(function () {
+        // Initialize numeric spinner input boxes
+        //$(".numeric-spinner").spinedit();
+
+        // Initalize modal dialog
+        // attach modal-container bootstrap attributes to links with .modal-link class.
+        // when a link is clicked with these attributes, bootstrap will display the href content in a modal dialog.
+
+        $('body').on('click', '.modal-link', function (e) {
+
+            $(this).attr('data-target', '#MainModal');
+            $(this).attr('data-toggle', 'modal');
+        });
+
+
+        // Attach listener to .modal-close-btn's so that when the button is pressed the modal dialog disappears
+        $('body').on('click', '.modal-close-btn', function () {
+
+            $('#MainModal').modal('hide');
+        });
+
+        //clear modal cache, so that new content can be loaded
+        $('#MainModal').on('hidden.bs.modal', function () {
+
+            $(this).removeData('bs.modal');
+        });
+
+        $(document).on("hidden.bs.modal", function (e) {
+            $(e.target).removeData("bs.modal").find(".modal-content").empty();
+        });
+
+        $('#CancelModal').on('click', function () {
+            return false;
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+
+
+            $("#SaveWorker").click(function () {
+
+
+                var data = new FormData();
+
+                data.append("WorkerPhone", $("#WorkerPhone").val());
+                data.append("WorkerID", $("#WorkerID").val());
+                data.append("WorkerName", $("#WorkerName").val());
+                data.append("SurveyID", $("#SurveyID").val());
+
+             var url = "@Url.Action("SaveWorker", "IndustrialSurveys")";
+            $.ajax({
+                url: url,
+                type: "POST",
+                processData: false,
+                contentType: false,
+                data: data,
+                success: function (response) {
+                    $('#WorkerPhone').val('');
+                    $('#WorkerID').val('');
+                    $('#WorkerName').val('');
+                    
+                    $('#SaveWorker').attr('disabled', false);
+
+                    $('#divWorkers').html(response)
+                },
+                error: function (er) {
+                    swal(er);
+                    $('#SaveWorker').attr('disabled', false);
+                }
+
+            });
+        });
+        });
+</script>

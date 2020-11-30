@@ -1,0 +1,489 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خدمات بلدية ظفار</title>
+
+    <!-- The styles -->
+    <link href="~/Content/css/bootstrap-cerulean_ar.min.css" rel="stylesheet">
+    <link href="~/Content/css/charisma-app_ar.css" rel="stylesheet">
+    <link href='~/Content/bower_components/fullcalendar/dist/fullcalendar.css' rel='stylesheet'>
+    <link href='~/Content/bower_components/fullcalendar/dist/fullcalendar.print.css' rel='stylesheet' media='print'>
+    <link href='~/Content/bower_components/chosen/chosen_ar.min.css' rel='stylesheet'>
+    <link href='~/Content/bower_components/colorbox/example3/colorbox.css' rel='stylesheet'>
+    <link href='~/Content/bower_components/responsive-tables/responsive-tables_ar.css' rel='stylesheet'>
+    <link href='~/Content/bower_components/bootstrap-tour/build/css/bootstrap-tour.min.css' rel='stylesheet'>
+    <link href='~/Content/css/jquery.noty.css' rel='stylesheet'>
+    <link href='~/Content/css/noty_theme_default.css' rel='stylesheet'>
+    <link href='~/Content/css/elfinder.min.css' rel='stylesheet'>
+    <link href='~/Content/css/elfinder.theme.css' rel='stylesheet'>
+    <link href='~/Content/css/jquery.iphone.toggle.css' rel='stylesheet'>
+    <link href='~/Content/css/uploadify.css' rel='stylesheet'>
+    <link href='~/Content/css/animate.min.css' rel='stylesheet'>
+    <link href="~/Content/css/navbar-menu.css" rel="stylesheet" />
+    <link href="~/Content/css/sm-core-css.css" rel="stylesheet" />
+    <link href="~/Content/css/sm-blue.css" rel="stylesheet" />
+    <link href="~/Content/css/font.css" rel="stylesheet" />
+    @*<link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/droid-arabic-kufi" type="text/css" />*@
+    <!-- jQuery -->
+    <script src="~/Content/bower_components/jquery/jquery.min.js"></script>
+    <style>
+        .RemoveBorder {
+            border: 0px solid rgba(221, 221, 221, 0.46) !important;
+        }
+
+        .glyphicon_new {
+            top: 5px !important;
+            font-size: 15pt !important;
+        }
+    </style>
+    <script>
+        function gmod(n, m) {
+            return ((n % m) + m) % m;
+        }
+
+        function kuwaiticalendar(adjust) {
+            var today = new Date();
+            if (adjust) {
+                adjustmili = 1000 * 60 * 60 * 24 * adjust;
+                todaymili = today.getTime() + adjustmili;
+                today = new Date(todaymili);
+            }
+            day = today.getDate();
+            month = today.getMonth();
+            year = today.getFullYear();
+            m = month + 1;
+            y = year;
+            if (m < 3) {
+                y -= 1;
+                m += 12;
+            }
+
+            a = Math.floor(y / 100.);
+            b = 2 - a + Math.floor(a / 4.);
+            if (y < 1583) b = 0;
+            if (y == 1582) {
+                if (m > 10) b = -10;
+                if (m == 10) {
+                    b = 0;
+                    if (day > 4) b = -10;
+                }
+            }
+
+            jd = Math.floor(365.25 * (y + 4716)) + Math.floor(30.6001 * (m + 1)) + day + b - 1524;
+
+            b = 0;
+            if (jd > 2299160) {
+                a = Math.floor((jd - 1867216.25) / 36524.25);
+                b = 1 + a - Math.floor(a / 4.);
+            }
+            bb = jd + b + 1524;
+            cc = Math.floor((bb - 122.1) / 365.25);
+            dd = Math.floor(365.25 * cc);
+            ee = Math.floor((bb - dd) / 30.6001);
+            day = (bb - dd) - Math.floor(30.6001 * ee);
+            month = ee - 1;
+            if (ee > 13) {
+                cc += 1;
+                month = ee - 13;
+            }
+            year = cc - 4716;
+
+            if (adjust) {
+                wd = gmod(jd + 1 - adjust, 7) + 1;
+            } else {
+                wd = gmod(jd + 1, 7) + 1;
+            }
+
+            iyear = 10631. / 30.;
+            epochastro = 1948084;
+            epochcivil = 1948085;
+
+            shift1 = 8.01 / 60.;
+
+            z = jd - epochastro;
+            cyc = Math.floor(z / 10631.);
+            z = z - 10631 * cyc;
+            j = Math.floor((z - shift1) / iyear);
+            iy = 30 * cyc + j;
+            z = z - Math.floor(j * iyear + shift1);
+            im = Math.floor((z + 28.5001) / 29.5);
+            if (im == 13) im = 12;
+            id = z - Math.floor(29.5001 * im - 29);
+
+            var myRes = new Array(8);
+
+            myRes[0] = day; //calculated day (CE)
+            myRes[1] = month - 1; //calculated month (CE)
+            myRes[2] = year; //calculated year (CE)
+            myRes[3] = jd - 1; //julian day number
+            myRes[4] = wd - 1; //weekday number
+            myRes[5] = id; //islamic date
+            myRes[6] = im - 1; //islamic month
+            myRes[7] = iy; //islamic year
+
+            return myRes;
+        }
+        function writeIslamicDate(adjustment) {
+
+            var wdNames = new Array("الاحد", "الاثنين", "الثلاثاء", "الاربعاء", "الخميس", "الجمعة", "السبت");
+            var iMonthNames = new Array("محرم", "صفر", "ربيع أول", "ربيع الثاني",
+                "جمادي الاول", "جمادي الثاني", "رجب", "شعبان",
+                "رمضان", "شوال", "ذي القعدة", "ذي الحجة");
+            var iDate = kuwaiticalendar(adjustment);
+            var outputIslamicDate = wdNames[iDate[4]] + ", "
+                + iDate[5] + " " + iMonthNames[iDate[6]] + " " + iDate[7] + " ه";
+            return outputIslamicDate;
+        }
+        
+        //$(document).ready(function () {
+        //    $(window).resize(function () {
+        //        windowWidth = $(window).width();
+        //        if (windowWidth > 767) {
+                   
+
+        //            $("#tower_logo").css("display", "inline-block");
+        //            $("#easy_logo").css("display", "inline");
+        //            $("#hijri_goergian_date").css("display", "inline-block");
+        //            $("#main-navbar-menu").css("display", "block");
+
+
+        //            $("#myTopnav").css("display", "none");
+
+        //        }
+        //        else {
+                   
+        //            $("#tower_logo").css("display", "none");
+        //            $("#easy_logo").css("display", "none");
+        //            $("#hijri_goergian_date").css("display", "none");
+        //            $("#main-navbar-menu").css("display", "none");
+        //            $("#myTopnav").css("display", "block");
+
+        //        }
+        //    });
+
+        //})
+        //function myFunction() {
+        //    var x = document.getElementById("myTopnav");
+        //    if (x.className === "topnav") {
+        //        x.className += " responsive";
+        //    } else {
+        //        x.className = "topnav";
+        //    }
+        //}
+
+
+        // SmartMenus init
+        $(function () {
+            $('#main-menu').smartmenus({
+                subMenusSubOffsetX: 1,
+                subMenusSubOffsetY: -8
+            });
+        });
+
+        // SmartMenus mobile menu toggle button
+        $(function () {
+            var $mainMenuState = $('#main-menu-state');
+            if ($mainMenuState.length) {
+                // animate mobile menu
+                $mainMenuState.change(function (e) {
+                    var $menu = $('#main-menu');
+                    if (this.checked) {
+                        $menu.hide().slideDown(250, function () { $menu.css('display', ''); });
+                    } else {
+                        $menu.show().slideUp(250, function () { $menu.css('display', ''); });
+                    }
+                });
+                // hide mobile menu beforeunload
+                $(window).bind('beforeunload unload', function () {
+                    if ($mainMenuState[0].checked) {
+                        $mainMenuState[0].click();
+                    }
+                });
+            }
+        });
+    </script>
+</head>
+<body>
+    <!-- topbar starts -->
+    <div class="container">
+        <span id="tower_logo"> <a href="#"><img src="~/img/header/logo.png" class="towerlogo" style="height:80px;" /></a></span>
+        <span id="main_text_logo" > <a href="#"><img src="~/img/header/Header_1.png" class="maintextlogo" style="height:80px;" /></a></span>
+        <span id="easy_logo" class="easylogo"> <img src="~/img/header/Easy.png" style="height:80px; float:left; margin-left:5px;" /></span>
+        <span id="hijri_goergian_date" class="hijri_goergian_date" style="font-size:12pt;font-weight:bold;  float:left;color:#2F9BD5;margin-top:60px;margin-left:5px">
+            <script>
+                var now = new Date();
+                var dayNames = new Array("الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس", "يوم الجمعة", "يوم السبت");
+                var monNames = new Array(" يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "اكتوبر", "نوفمبر", "ديسمبر");
+                document.write(writeIslamicDate() + " | " + "" + now.getDate() + " " + monNames[now.getMonth()] + " " + now.getFullYear() + " م");
+            </script>
+        </span>
+    </div>
+    @*<div id="main-navbar-menu" class="navbar navbar-default" role="navigation">
+                <div class="navbar-inner container">
+
+
+                    <ul class="collapse navbar-collapse nav navbar-nav top-menu" style="font-size:15px; font-weight:bold;">
+                        <li><a href="~/Home"> الرئيسية</a></li>
+                        <li><a href="~/Home"> عن بلدية ظفار</a></li>
+                        <li class="dropdown">
+                            <a href="#" data-toggle="dropdown">
+                                خدماتنا <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="~/HealthRenewal">تصاريح البلدية</a></li>
+                                <li class="divider"></li>
+                                <li><a href="~/BuildingPermits">تصاريح البناء</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">تصاريح الحفر</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">البطاقات الصحية</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">فحص المركبات </a></li>
+
+                            </ul>
+                        </li>
+                        <li><a href="#"> المركز الإعلامي</a></li>
+                        <li><a href="#" style="font-size:15px; font-weight:bold;"> تواصل معنا</a></li>
+                        <li class="dropdown">
+                            <a href="#" data-toggle="dropdown">
+                                الدخول <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                @if (Session["UserInfo"] == null)
+            {
+                            <li><a href="@Url.Content("~/UsersLogin/Login")"> تسجيل الدخول </a></li>
+                            <li class="divider"></li>
+
+        }
+        else
+        {
+                            <li><a href="#" style="font-weight:bold;">مرحباً :  @(((DMeServices.Models.User)Session["UserInfo"]).FirstName)  @(((DMeServices.Models.User)Session["UserInfo"]).SecondName)</a></li>
+                            <li class="divider"></li>
+                            <li><a href=" @Url.Action("Logout","UsersLogin")"> تسجيل الخروج</a></li>
+
+        }
+
+                            </ul>
+                        </li>
+
+                    </ul>
+
+                </div>
+            </div>*@
+    @*<div style="display:none" class="topnav" id="myTopnav">
+            <a href="~/Home" class="active">الرئيسية</a>
+            <a href="www.dm.gov.om"> عن بلدية ظفار</a>
+            <a href="UsersLogin/Login"> الخدمات الالكترونية</a>
+            <a href="#"> المركز الاعلامي</a>
+            <a href="#"> تواصل معنا</a>
+            <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+        </div>*@
+
+
+    <nav class="main-nav" role="navigation">
+
+        <!-- Mobile menu toggle button (hamburger/x icon) -->
+        @*<input id="main-menu-state" type="checkbox" />
+        <label class="main-menu-btn" for="main-menu-state">
+            <span class="main-menu-btn-icon"></span> Toggle main menu visibility
+        </label>*@
+
+       
+
+        <!-- Sample menu definition -->
+        <ul id="main-menu" class="sm sm-blue">
+            <li><a href="~/Home"> الرئيسية</a></li>
+            @*<li><a href="~/Home"> عن بلدية ظفار</a></li>*@
+            <li>
+                <a href="#">خدمات الشؤون الهندسية</a>
+                <ul>
+
+                    <li><a href="~/BuildingPermits">تصاريح البناء</a></li>
+                    <li class="divider"></li>
+                    <li><a href="~/IndustrialSurveys">تصاريح مساكن العمال</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">تصاريح الحفر</a></li>
+                    
+                </ul>
+            </li>
+            @*<li><a href="#" style="font-size:15px; font-weight:bold;"> تواصل معنا</a></li>*@
+            @if (Session["UserInfo"] == null)
+            {
+        <li>
+            <a href="#">الخدمات</a>
+                    <ul>
+                        <li><a href="@Url.Action("ConsultancyOwnerService","Home")">صاحب المكتب الاستشاري</a></li>
+                        <li><a href="@Url.Action("ConsultancyEngineerService","Home")"> المهندس الاستشاري </a></li>
+                        <li><a href="@Url.Action("LandOwnerService","Home")"> مالك المشروع </a></li>
+                        <li><a href="@Url.Action("ContractorService","Home")"> المقاول </a></li>
+                    </ul>
+        </li>
+        <li class="divider"></li>
+
+            }
+            else
+            {
+        <li><a href="#" style="font-weight:bold;">مرحباً :  @(((DMeServices.Models.User)Session["UserInfo"]).FirstName)  @(((DMeServices.Models.User)Session["UserInfo"]).SecondName)</a></li>
+        <li class="divider"></li>
+        <li class="out_position"><a href=" @Url.Action("Logout", "UsersLogin")"> تسجيل الخروج</a></li>
+
+            }
+        </ul>
+    </nav>
+
+
+    <!-- topbar ends -->
+    @RenderSection("Slider", required: false)
+    <div class="container">
+        <div class="row">
+            @*<div class="col-lg-9 col-sm-9">
+                <div class="body-content">*@
+            @RenderBody()
+            @*<hr />
+                        </div>
+                </div>*@
+            @RenderSection("Note", required: false)
+        </div>
+    </div>
+    <footer style="margin-top:20px;">
+        <div class="navbar" style="margin-bottom:0px;">
+            <div style="color:#ffffff">
+                <div class="col-sm-3">
+                    <div class="contact_block">
+                        <div style="margin: 10px;"></div>
+                        <span style="color: #fff;font-weight: bold;font-size: 15px;">
+                            تابعونا <br>
+                        </span>
+                        <div style="margin: 10px;"></div>
+                        <div class="row">
+
+                            <a href="http://www.instagram.com/Dhofar_Municipality" target="_blank">
+                                <img src="~/img/Social_Media/insta.png">
+                            </a>
+                            <a href="http://www.instagram.com/Dhofar_Municipality" target="_blank">
+                                <img src="~/img/Social_Media/facbook.png">
+                            </a>
+                            <a href="http://www.instagram.com/Dhofar_Municipality" target="_blank">
+                                <img src="~/img/Social_Media/twiter.png">
+                            </a>
+                            <a href="http://www.instagram.com/Dhofar_Municipality" target="_blank">
+                                <img src="~/img/Social_Media/youtube.png">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="col-sm-3">
+                    <div class="contact_block">
+                        <div style="margin: 10px;"></div>
+                        <span style="color: #fff;font-weight: bold;font-size: 15px;">
+                            مواقع فرعية
+                            <br>
+                        </span>
+                        <div style="margin: 10px;"></div>
+                        <span style="line-height:1.9">
+                            مهرجان صلالة<br>
+                        </span>
+                        <span style="line-height:1.9">
+                            الهيئة العامة لحماية المستهلك <br>
+                        </span>
+                        <span style="line-height:1.9">
+                            المركز الوطني للاحصاء والمعلومات<br><br />
+                        </span>
+                    </div>
+                </div>*@
+                @*<div class="col-sm-3">
+                    <div class="contact_block">
+                        <div style="margin: 10px;"></div>
+                        <span style="color: #fff;font-weight: bold;font-size: 15px;">
+                            روابط خارجية <br>
+                        </span>
+                        <div style="margin: 10px;"></div>
+                        <span>
+                            خدمات الحكومة الالكترونية<br>
+                        </span>
+                        <span style="line-height:1.9">
+                            المواقع الحكومية <br>
+                        </span>
+                        <span style="line-height:1.9">
+                            شرطة عمان السلطانية<br>
+                        </span>
+
+                    </div>
+                </div>*@
+
+                <div class="col-sm-3">
+                    <div class="contact_block">
+                        <span style="color: #fff;font-weight: bold;font-size: 15px;">
+                            مركز الاتصال
+                        </span>
+                        <div style="margin: 10px;"></div>
+                        <span>
+                            بلدية ظفار ص ب 50 رب 211, محافظة ظفار ,<br />مدينة صلالة سلطنة عمان
+                        </span>
+                    </div>
+                    <div class="contact_block">
+                        @*<hr />*@
+
+                        <div style="margin: 10px;"></div>
+                        <span>
+                            (1450) - (80071450)
+                        </span>
+
+                        <span>
+                            admin@dm.gov.om
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div style="background-color: #09323e;">
+            <img src="~/img/department-vision---sky-line.png" style="width:100% ; height:100%"/>
+        </div>
+        <div style="background-color:#08323E;">
+            <p style="font-weight:bold;color:#ffffff; text-align:center; margin:0px;">
+                جميع الحقوق محفوظة بلدية ظفار ©
+                <script type="text/javascript">document.write((new Date()).getFullYear())</script> م -
+                <script type="text/javascript">var y = (new Date()).getFullYear(); var h = Math.round((y - 623) * (33 / 32)); document.write(h)</script> هـ
+                .
+            </p>
+        </div>
+    </footer>
+    <!-- hijri date -->
+    <script src="~/Scripts/js/hijricalendar-oman.js"></script>
+    <script src="~/Content/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- library for cookie management -->
+    <script src="~/Scripts/js/jquery.cookie.js"></script>
+    <!-- calender plugin -->
+    <script src='~/Content/bower_components/moment/min/moment.min.js'></script>
+    <script src='~/Content/bower_components/fullcalendar/dist/fullcalendar.min.js'></script>
+    <!-- data table plugin -->
+    <script src='~/Scripts/js/jquery.dataTables.min.js'></script>
+    <!-- select or dropdown enhancer -->
+    <script src="~/Content/bower_components/chosen/chosen.jquery.min.js"></script>
+    <!-- plugin for gallery image view -->
+    <script src="~/Content/bower_components/colorbox/jquery.colorbox-min.js"></script>
+    <!-- notification plugin -->
+    <script src="~/Scripts/js/jquery.noty.js"></script>
+    <!-- library for making tables responsive -->
+    <script src="~/Content/bower_components/responsive-tables/responsive-tables.js"></script>
+    <!-- tour plugin -->
+    <script src="~/Content/bower_components/bootstrap-tour/build/js/bootstrap-tour.min.js"></script>
+    <!-- star rating plugin -->
+    <script src="~/Scripts/js/jquery.raty.min.js"></script>
+    <!-- for iOS style toggle switch -->
+    <script src="~/Scripts/js/jquery.iphone.toggle.js"></script>
+    <!-- autogrowing textarea plugin -->
+    <script src="~/Scripts/js/jquery.autogrow-textarea.js"></script>
+    <!-- multiple file upload plugin -->
+    <script src="~/Scripts/js/jquery.uploadify-3.1.min.js"></script>
+    <!-- history.js for cross-browser state change on ajax -->
+    <script src="~/Scripts/js/jquery.history.js"></script>
+    <!-- application script for Charisma demo -->
+    <script src="~/Scripts/js/charisma.js"></script>
+    <script src="~/Scripts/js/jquery.smartmenus.js"></script>
+</body>
+</html>

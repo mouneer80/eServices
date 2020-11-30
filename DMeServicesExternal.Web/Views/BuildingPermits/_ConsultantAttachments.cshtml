@@ -1,0 +1,110 @@
+﻿
+
+
+<div class="box-inner">
+    <div class="box-header well" data-original-title="">
+        <h2><i class="glyphicon glyphicon-edit"></i> الخرائط</h2>
+    </div>
+    <div class="box-content">
+        <!--item details-->
+        <div class="">
+            <table id="myTable" class=" table order-list">
+                <thead>
+                    <tr>
+                        <td>نوع المرفق</td>
+                        <td>الملاحظات</td>
+                        <td>تاريخ الاضافة</td>
+                        <td>وقت الاضافة</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.ListOfAttachments != null)
+                    {
+                        int i = 0;
+                        foreach (var item in Model.ListOfAttachments)
+                        {
+                            if (item.AttachmentTypeId > 3)
+                            {
+                                <tr>
+                                    <td class="col-sm-1" style="width:10%;">
+                                        @DMeServices.Models.Common.BuildingServices.AttachmentTypesCom.TypeByID((int)item.AttachmentTypeId).Name
+
+                                    </td>
+                                    <td class="col-sm-1" style="width:5%;">
+                                        @item.Description
+                                    </td>
+
+                                    <td class="col-sm-1" unprintable>
+
+                                        @item.InsertDate.ToShortDateString()
+
+                                    </td>
+
+                                    <td class="col-sm-1" unprintable>
+
+                                        @item.InsertDate.ToShortTimeString()
+
+                                    </td>
+
+                                    <td class="col-sm-1" unprintable>
+
+                                        <a class="modal-link" href="@Url.Action("GetFile", new { @controller = "BuildingPermits", @Id = item.Id })">عرض الملف<i class="fa fa-eye-slash"></i></a>
+
+                                    </td>
+
+
+
+
+                                    @{
+
+                                        int ListDetails = DMeServices.Models.Common.BuildingServices.PermitsAttachmentsCom.AttachmentsDetailsByAttachmentsID((int)item.Id).Count();
+
+
+                                        if (ListDetails > 0)
+                                        {
+                                            <td class="col-sm-1" unprintable>
+                                                <a href="#" style="color:darkgreen;" fileID="@item.Id" PrimID="@Model.BuildingPermits.Id" class="GetDetails">عرض تفاصيل الخريطة<i class="fa fa-eye-slash glyphicon glyphicon-collapse-down"></i>     </a>
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td class="col-sm-1" unprintable>
+                                                @if (item.CreatedBy == null)
+                                                {
+                                                    using (Ajax.BeginForm("DeleteConsultantAttachment", new { @controller = "BuildingPermits", @Id = i }, new AjaxOptions { UpdateTargetId = "divConsultatAttachments" }, new { @style = "display: inline-block;" }))
+                                                    {
+                                                        <button type="submit" class="btn btn-danger" onclick="return confirm('هل انت متأكد من الحذف؟')">
+                                                            <i class="fa fa-close"></i>&nbsp; حذف
+                                                        </button>
+                                                    }
+                                                }
+                                            </td>
+                                        }
+
+                                    }
+
+
+
+
+                                </tr>
+                            }
+                            i++;
+                        }
+
+                    }
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="10" style="text-align:center;"></td>
+                    </tr>
+                    <tr></tr>
+                </tfoot>
+            </table>
+        </div>
+        <!--end of item details-->
+    </div>
+</div>
+
+

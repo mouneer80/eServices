@@ -1,0 +1,134 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+
+@*<link href="~/Content/css/style.css" rel="stylesheet" type="text/css">
+<link href="~/Content/style.css" rel="stylesheet" />
+<link href="~/Content/css/linecons.css" rel="stylesheet" type="text/css">
+<link href="~/Content/css/font-awesome.css" rel="stylesheet" type="text/css">
+<link href="~/Content/css/responsive.css" rel="stylesheet" type="text/css">
+<link href="~/Content/css/animate.css" rel="stylesheet" type="text/css">
+<script src="~/Scripts/js/wow.js"></script>*@
+
+<style>
+    #myCarousel .nav a small {
+        display: block;
+    }
+
+    #myCarousel .nav {
+        background: #eee;
+    }
+
+        #myCarousel .nav a {
+            border-radius: 0px;
+        }
+
+    .Underline {
+        text-decoration: none !important;
+    }
+
+    .background {
+        margin-top: 20px;
+        background-image: url(../img/bgpattern.png) !important;
+        background-color: #7d979969;
+    }
+
+    .fullwidth {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+
+    .navbar {
+        margin-bottom: 2px !important;
+    }
+
+    .col-sm-4 {
+        padding-right: 0px !important;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $('#myCarousel').carousel({
+            interval: 4000
+        });
+
+        var clickEvent = false;
+        $('#myCarousel').on('click', '.nav a', function () {
+            clickEvent = true;
+            $('.nav li').removeClass('active');
+            $(this).parent().addClass('active');
+        }).on('slid.bs.carousel', function (e) {
+            if (!clickEvent) {
+                var count = $('.nav').children().length - 1;
+                var current = $('.nav li.active');
+                current.removeClass('active').next().addClass('active');
+                var id = parseInt(current.data('slide-to'));
+                if (count == id) {
+                    $('.nav li').first().addClass('active');
+                }
+            }
+            clickEvent = false;
+        });
+    });
+</script>
+
+@section Slider
+{
+    <div class="col-lg-12 col-sm-12 fullwidth">
+        @*<div class="body-content">
+                <div class=" row">
+                    <div class="col-md-12 col-sm-12">
+                        <img src="~/img/Slider/E-Payment.jpg" style="width:100%; height:280px;" /><br /><br />
+                    </div>
+                </div>
+            </div>*@
+        <div class="">
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+
+                    <div class="item active">
+                        <img src="@Url.Content("~/img/Slider/E-Payment.jpg")" style=" width:100%" />
+                    </div><!-- End Item -->
+
+                    <div class="item">
+                        <img src="@Url.Content("~/img/Slider/Easy_Services.jpg")" style=" width:100%" />
+                    </div><!-- End Item -->
+
+                    <div class="item">
+                        <img src="@Url.Content("~/img/Slider/Electronic_payment.jpg")" style=" width:100%" />
+                    </div><!-- End Item -->
+
+                </div><!-- End Carousel Inner -->
+
+                <ul class="nav nav-pills nav-justified">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"><a href="#" style="font-weight: bold;">نحو التحول<small>الإلكتروني الكامل</small></a></li>
+                    <li data-target="#myCarousel" data-slide-to="1"><a href="#" style="font-weight: bold;">خدمات إلكترونية <small>سهلة و سريعة</small></a></li>
+                    <li data-target="#myCarousel" data-slide-to="2"><a href="#" style="font-weight: bold;">إتمام عمليات الدفع<small>بشكل سريع وآمن</small></a></li>
+                </ul>
+
+            </div><!-- End Carousel -->
+        </div>
+    </div>
+
+    @*<tr>
+        <td>
+            <a href="#" class="btn btn-info btn-setting">Click for </a>
+        </td>
+        <td></td>
+    </tr>*@
+
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <embed width="100%" height="100%" src="http://localhost:65435/HealthRenewal/DisplayFiles/41717" type="application/pdf" style="margin:0px;padding:0px;overflow:hidden;display:block;">
+            </div>
+        </div>
+    </div>
+}
+
+

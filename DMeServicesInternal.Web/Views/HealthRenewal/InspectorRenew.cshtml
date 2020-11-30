@@ -1,0 +1,69 @@
+﻿@model DMeServices.Models.ViewModels.HealthRenewalInternalViewModel
+@{
+    ViewBag.Title = "InspectorRenew";
+    Layout = "~/Views/Shared/_SubLayout.cshtml";
+}
+
+<ul class="breadcrumb">
+    <li>
+        <a href="~/Home/">الرئيسية</a>
+    </li>
+    <li>
+        <a href="#">أوامر التفتيش</a>
+    </li>
+</ul>
+
+<div class="col-lg-9 col-sm-9">
+    <div class="body-content">
+        <div class="row">
+            <div class="box col-md-12">
+                <div class="box-inner">
+                    <div class="box-header well" data-original-title="">
+                        <h2><i class="glyphicon glyphicon-road"></i> أوامر التفتيش</h2>
+
+                    </div>
+                    <div class="box-content">
+                        <table class="table table-striped table-bordered bootstrap-datatable datatable responsive ">
+                            <thead>
+                                <tr>
+                                    <th>السجل البلدي</th>
+                                    <th>اسم الشركة</th>
+                                    <th>نوع النشاط</th>
+                                    <th>تاريخ الطلب</th>
+                                    <th>موعد التفتيش</th>
+                                    <th>حالة الطلب</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.LstPermitsInspector)
+                                {
+                                <tr>
+                                    <td>
+                                        @Html.ActionLink(
+linkText: @item.MunicipalLicenseNo.ToString(),
+actionName: "InspectorReport",
+controllerName: "HealthRenewal",
+routeValues: new
+{
+Id = @item.MunicipalLicenseNo
+},
+htmlAttributes: null
+)
+                                    </td>
+                                    <td class="center">@item.MOCI_CommercialName</td>
+                                    <td class="center">@item.PermitActivityName</td>
+                                    <td class="center">@item.RequestDate.ToString("yyyy/MM/dd", System.Globalization.CultureInfo.CreateSpecificCulture("ar-AE"))</td>
+                                    <td class="center">@item.InspectionDate.ToString("yyyy/MM/dd", System.Globalization.CultureInfo.CreateSpecificCulture("ar-AE"))</td>
+                                    <td class="center" style="color:#2f9ce5;">تحت المعاينة</td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            <!--/span-->
+        </div>
+    </div>
+</div>

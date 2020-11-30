@@ -1,0 +1,289 @@
+﻿@model DMeServices.Models.ViewModels.Revenue.RevenueViewModel
+@{
+    ViewBag.Title = "Revenue_Checkout";
+    Layout = "~/Views/Shared/_SubLayout.cshtml";
+}
+
+<style>
+    .ui-datepicker table {
+        background: #FFF !important;
+    }
+</style>
+<script src="~/Scripts/jquery-1.7.1.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+@*<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">*@
+<link rel="stylesheet" href="/resources/demos/style.css">
+@*<script src="https://code.jquery.com/jquery-1.12.4.js"></script>*@
+@*<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>*@
+<script src="~/Scripts/jquery-1.12.1.js"></script>
+<link href="~/Content/css/jquery-1.12.1-theme.css" rel="stylesheet" />
+
+<style>
+    .chosen-container-single .chosen-single {
+        height: 37px !important;
+    }
+
+        .chosen-container-single .chosen-single span {
+            margin-top: 4px !important;
+        }
+
+        .chosen-container-single .chosen-single div {
+            top: 4px !important;
+        }
+
+    #PaymentBankCode_chosen {
+        width: 100% !important;
+    }
+</style>
+<script>
+    var dateToday = new Date();
+    $(function () {
+        $("#PaymentCheqDate").datepicker({
+            //minDate: dateToday
+        });
+    });
+</script>
+<div>
+    <ul class="breadcrumb">
+        <li>
+            <a href="~/Home/">الرئيسية</a>
+        </li>
+        <li>
+            <a href="#">بيانات التحصيل</a>
+        </li>
+    </ul>
+</div>
+
+<div class="col-lg-9 col-sm-9">
+    <div class="body-content">
+
+        <div class="row">
+            <div class="box col-md-12">
+                <div class="box-inner">
+                    <div class="box-header well" data-original-title="">
+                        <h2><i class="glyphicon glyphicon-edit"></i> بيانات التحصيل</h2>
+                    </div>
+                    @using (Html.BeginForm("SaveMainPayments", "Revenue", FormMethod.Post, new { encType = "multipart/form-data", @id = "SaveMainPaymentsform" }))
+                    {
+                        <div class="box-content">
+                            <div class="form-group col-md-3">
+                                <label class="control-label">رقم الإيصال</label><label style="color:red;margin:2px;">  </label>
+                                @Html.TextBoxFor(m => m.RevMainPayment.PaymentCode, new { @class = "form-control", disabled = true, type = "text", id = "PaymentCode" })
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="control-label">تاريخ الدفع</label><label style="color:red;margin:2px;">  </label>
+                                @Html.TextBoxFor(m => m.RevMainPayment.PaymentDate, new { @class = "form-control", @style = "", type = "text", disabled = true, id = "PaymentDate", @Value = @DateTime.Now.ToString("yyyy/MM/dd") })
+
+                            </div>
+                            <div class="form-group col-md-5">
+                                <label class="control-label">محرر الإيصال</label><label style="color:red;margin:2px;">  </label>
+                                <input type="text" class="form-control" id="example1" disabled placeholder="@(((DMeServices.Models.Employee)Session["EmployeeInfo"]).NAME)">
+                                <input type="hidden" class="form-control" id="UserCode" value="@(((DMeServices.Models.Employee)Session["EmployeeInfo"]).EMP_NO)">
+
+                            </div>
+                            @*<div class="form-group col-md-4">
+                                    <label class="control-label">رمز الدائرة</label><label style="color:red;margin:2px;"> * </label>
+                                    <input type="text" class="form-control" id="example1" placeholder="01">
+                                </div>*@
+                            <div class="form-group col-md-6">
+                                <label class="control-label">الدائرة</label><label style="color:red;margin:2px;"> * @Html.ValidationMessageFor(m => m.RevMainPayment.DeptCode, "", new { @style = "color:red;" })</label>
+                                @Html.DropDownListFor(m => m.RevMainPayment.DeptCode, (List<SelectListItem>)ViewBag.DDDepartmentByEmployeeSiteCd, new { @class = "form-control", @data_rel = "chosen", @id = "DeptCode" })
+
+                            </div>
+                            @*<div class="form-group col-md-4">
+                                    <label class="control-label">رمز الولاية</label><label style="color:red;margin:2px;"> * </label>
+                                    <input type="text" class="form-control" id="example1" placeholder="01">
+                                </div>*@
+                            <div class="form-group col-md-6">
+                                <label class="control-label">الولاية</label><label style="color:red;margin:2px;"> * @Html.ValidationMessageFor(m => m.RevMainPayment.WelyatCode, "", new { @style = "color:red;" })</label>
+                                @Html.DropDownListFor(m => m.RevMainPayment.WelyatCode, (List<SelectListItem>)ViewBag.DDWelayatByDepartmentID, new { @class = "form-control", @data_rel = "chosen", @id = "WelyatCode" })
+
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="control-label">إستلمت من</label><label style="color:red;margin:2px;"> * @Html.ValidationMessageFor(m => m.RevMainPayment.PayerName, "", new { @style = "color:red;" })</label>
+                                @Html.TextAreaFor(m => m.RevMainPayment.PayerName, new { @class = "form-control", @rows = 2, type = "text", id = "PayerName", @placeholder = "إسم العميل" })
+
+                            </div>
+                            @*<div class="form-group col-md-4">
+                                    <label class="control-label">رمز الإيراد</label><label style="color:red;margin:2px;"> * </label>
+                                    <input type="text" class="form-control" id="example1" placeholder="01">
+                                </div>*@
+                            <div class="form-group col-md-6">
+                                <label class="control-label">رمز الإيراد</label><label style="color:red;margin:2px;"> * @Html.ValidationMessageFor(m => m.RevMainPayment.FinancialItemId, "", new { @style = "color:red;" })</label>
+                                @Html.DropDownListFor(m => m.RevMainPayment.FinancialItemId, (List<SelectListItem>)ViewBag.DDFinancialItems, "إختر رمز الإيراد ", new { @class = "form-control", @data_rel = "chosen", @id = "FinancialItemId" })
+
+                            </div>
+                            @*<div class="form-group col-md-4">
+                                    <label class="control-label">الرمز الفرعى للإيراد</label><label style="color:red;margin:2px;"> * </label>
+                                    <input type="text" class="form-control" id="example1" placeholder="02">
+                                </div>*@
+                            <div class="form-group col-md-6">
+                                <label class="control-label">الرمز الفرعي للإيراد</label><label style="color:red;margin:2px;"> * @Html.ValidationMessageFor(m => m.RevMainPayment.FinancialSubItemId, "", new { @style = "color:red;" })</label>
+                                @*@Html.DropDownListFor(m => m.RevMainPayment.FinancialSubItemId, (List<SelectListItem>)ViewBag.DDSalalahWelayat, new { @class = "form-control", @data_rel = "chosen", @id = "FinancialSubItemId" })
+                                *@
+                                @*<select id="FinancialSubItemId" name="FinancialSubItemId" class="form-control" data-rel="chosen">
+                                        <option selected="selected" value="8">اختر الرمز الفرعي للإيراد</option>
+                                    </select>*@
+                                @Html.DropDownListFor(m => m.RevMainPayment.FinancialSubItemId, (List<SelectListItem>)ViewBag.DDSubFinancialItems, "اختر الرمز الفرعي للإيراد ", new { @class = "form-control", @data_rel = "chosen", @id = "FinancialSubItemId" })
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="control-label">المبلغ</label><label style="color:red;margin:2px;"> * @Html.ValidationMessageFor(m => m.RevMainPayment.PaymentAmount, "", new { @style = "color:red;" })</label>
+                                @Html.TextBoxFor(m => m.RevMainPayment.PaymentAmount, new { @class = "form-control", type = "text", id = "PaymentAmount", @placeholder = "المبلغ" })
+
+                            </div>
+                            <div class="form-group col-md-8">
+                                <label class="control-label">المبلغ بالحروف</label><label style="color:red;margin:2px;"> * @Html.ValidationMessageFor(m => m.RevMainPayment.PaymentAmountInWords, "", new { @style = "color:red;" })</label>
+                                @Html.TextBoxFor(m => m.RevMainPayment.PaymentAmountInWords, new { @class = "form-control", @readonly = true, type = "text", id = "PaymentAmountInWords" })
+
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="control-label">الوصف</label><label style="color:red;margin:2px;"> * @Html.ValidationMessageFor(m => m.RevMainPayment.CreditCardNo, "", new { @style = "color:red;" })</label>
+                                @Html.TextAreaFor(m => m.RevMainPayment.CreditCardNo, new { @class = "form-control", @rows = 2, type = "text", id = "CreditCardNo", @placeholder = "الوصف" })
+
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label class="control-label">نوع الدفع</label><label style="color:red;margin:2px;"> * @Html.ValidationMessageFor(m => m.RevMainPayment.PaymentType, "", new { @style = "color:red;" })</label>
+                                @Html.DropDownListFor(m => m.RevMainPayment.PaymentType, (List<SelectListItem>)ViewBag.DDPaymentTypes, new { @class = "form-control", @data_rel = "chosen", @id = "PaymentType" })
+
+                            </div>
+                            <div id="Cheque_Data">
+                                <div class="form-group col-md-5">
+                                    <label class="control-label"> البنك</label><label style="color:red;margin:2px;"> * @Html.ValidationMessageFor(m => m.RevMainPayment.PaymentBankCode, "", new { @style = "color:red;" })</label>
+                                    @Html.DropDownListFor(m => m.RevMainPayment.PaymentBankCode, (List<SelectListItem>)ViewBag.DDBanks, "إختر البنك ", new { @class = "form-control", @style = "width:100% !important", @data_rel = "chosen", @id = "PaymentBankCode" })
+
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label class="control-label">تاريخ الشيك</label><label style="color:red;margin:2px;"> * @Html.ValidationMessageFor(m => m.RevMainPayment.PaymentCheqDate, "", new { @style = "color:red;" })</label>
+                                    @Html.TextBoxFor(m => m.RevMainPayment.PaymentCheqDate, new { @class = "form-control", type = "text", id = "PaymentCheqDate", @placeholder = "تاريخ الشيك" })
+
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label class="control-label">رقم الشيك</label><label style="color:red;margin:2px;"> * @Html.ValidationMessageFor(m => m.RevMainPayment.PaymentCheqNo, "", new { @style = "color:red;" })</label>
+                                    @Html.TextBoxFor(m => m.RevMainPayment.PaymentCheqNo, new { @class = "form-control", type = "text", id = "PaymentCheqNo", @placeholder = "رقم الشيك" })
+
+                                </div>
+                                <div class="form-group col-md-8">
+                                    <label class="control-label">إسم محرر الشيك</label><label style="color:red;margin:2px;"> * @Html.ValidationMessageFor(m => m.RevMainPayment.PaymentCheqName, "", new { @style = "color:red;" })</label>
+                                    @Html.TextBoxFor(m => m.RevMainPayment.PaymentCheqName, new { @class = "form-control", type = "text", id = "PaymentCheqName", @placeholder = "إسم محرر الشيك" })
+
+                                </div>
+                            </div>
+
+                            <div class="input-group col-md-12">
+                            </div>
+                            <button class="btn btn-success noty" id="Save" style="margin-top:20px;">
+                                <i class="glyphicon glyphicon-ok"></i> حفظ بيانات التحصيل
+                            </button>
+                            <a href="~/Revenue/Index" class="btn btn-warning pull-right" style="margin-top:20px;"><i class="glyphicon glyphicon-share-alt"></i>إلغاء</a>
+
+                        </div>
+                    }
+                </div>
+            </div>
+            <!--/span-->
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $("#Save").click(function () {
+        $('#SaveMainPaymentsform').submit();
+    });
+</script>
+<script>
+    function DisableButton(b) {
+        b.disabled = true;
+        b.value = 'Submitting';
+        b.form.submit();
+    }
+</script>
+<script>
+    $(function () {
+        $('#FinancialItemId').change(function () {
+            var FinancialID = $(this).val();
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                url: "DDSubFinancial_Items",
+                data: "{FinancialID:'" + FinancialID + "'}",
+                success: function (data) {
+                    $('#FinancialSubItemId').empty();
+                    $('#FinancialSubItemId').append('<option selected="selected" value="">اختر الرمز الفرعي للإيراد</option>')
+                    $.each(data, function (i, d) {
+                        $('#FinancialSubItemId').append('<option value=' + d.Id + '>' + d.Code + ' - ' + d.Name + '</option>');
+                    });
+                    $("[data-rel='chosen']").trigger("chosen:updated");
+                },
+                failure: function (data) {
+                    alert('error occured');
+                }
+
+            });
+        });
+    });
+</script>
+<script>
+    $(function () {
+        $('#PaymentAmount').change(function () {
+            var TotalPayment = $(this).val();
+            //alert(TotalPayment);
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                url: "GetArabicPayment",
+                data: "{TotalPayment:'" + TotalPayment + "'}",
+                success: function (data) {
+                    $('#PaymentAmountInWords').empty();
+                    $('#PaymentAmountInWords').val(data);
+                    var Correct = "";
+                    if (TotalPayment.includes(".")) {
+                        var Index = TotalPayment.indexOf(".");
+                        var Count = TotalPayment.substring(Index + 1).length;
+                        if (Count == 1) {
+                            Correct = TotalPayment + "00";
+                            $('#PaymentAmount').val(Correct);
+                        }
+                        else if (Count == 2) {
+                            Correct = TotalPayment + "0";
+                            $('#PaymentAmount').val(Correct);
+                        }
+                    }
+                    else {
+                        Correct = TotalPayment + ".000";
+                        $('#PaymentAmount').val(Correct);
+                    }
+                    //alert(data);
+                },
+                failure: function (data) {
+                    alert('error occured');
+                }
+
+            });
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $("#Cheque_Data").hide();
+
+        $("#PaymentType").on('change', function () {
+
+            var type = $(this).val();
+            if (type == "22") {
+                $("#Cheque_Data").hide();
+                $("#PaymentCheqDate").val("");
+                $("#PaymentCheqNo").val("");
+                $("#PaymentCheqName").val("");
+                $("#PaymentBankCode").val("");
+            } else if (type == "23") {
+                $("#Cheque_Data").show();
+            }
+        });
+    });
+</script>
+

@@ -1,0 +1,48 @@
+﻿.info-card {
+    float: right;
+    margin: 15px;
+    -webkit-perspective: 600px;
+    box-shadow: 10px 10px 10px;
+}
+
+front, .back {
+    background: #FFF;
+    border-radius: 1px;
+    transition: -webkit-transform 1s;
+    -webkit-transform-style: preserve-3d;
+    -webkit-backface-visibility: hidden;
+    border: 5px white;
+}
+
+.front {
+    overflow: hidden;
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    z-index: 1;
+}
+
+.back {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 200px;
+    height: 200px;
+    -webkit-transform: rotateY(-180deg);
+    overflow: auto;
+    background-color: #349ED9;
+}
+
+.info-card:hover .back {
+    -webkit-transform: rotateY(0);
+}
+
+.info-card:hover .front {
+    -webkit-transform: rotateY(180deg);
+}
+
+.card-image {
+    width: 100%;
+    height: 100%;
+}

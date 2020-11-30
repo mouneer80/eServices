@@ -1,0 +1,112 @@
+﻿@model IEnumerable<DMeServices.Models.BuildingServices.LandSurvey>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_SubLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.WelyahID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RegionID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SquareLetterID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LandNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LandUseTypeID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BuildingTypeID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BuildingsCount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FlatsCount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ShopsCount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RoomsCount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Notes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TransactNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BldRegions)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BldWelyat)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.WelyahID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RegionID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SquareLetterID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LandNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LandUseTypeID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BuildingTypeID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BuildingsCount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FlatsCount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShopsCount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RoomsCount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Notes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TransactNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BldRegions)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BldWelyat)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.SurveyID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.SurveyID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.SurveyID })
+        </td>
+    </tr>
+}
+
+</table>

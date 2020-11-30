@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EC9E175C-9696-4AB9-A428-58EA1F7C6706}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DMeServices.Models</RootNamespace>
+    <AssemblyName>DMeServices.Models</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=106.2.1.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.106.2.1\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\Account\Account.cs" />
+    <Compile Include="Common\BuildingServices\LandSurveyCom.cs" />
+    <Compile Include="Common\BuildingServices\RegionsCom.cs" />
+    <Compile Include="Common\BuildingServices\LandUseTypesCom.cs" />
+    <Compile Include="Common\BuildingServices\BuildingTypesCom.cs" />
+    <Compile Include="Common\BuildingServices\SquareLettersCom.cs" />
+    <Compile Include="Common\BuildingServices\WelayatCom.cs" />
+    <Compile Include="Common\BuildingServices\AttachmentTypesCom.cs" />
+    <Compile Include="Common\BuildingServices\PermitsAttachmentsCom.cs" />
+    <Compile Include="Common\BuildingServices\PermitsCom.cs" />
+    <Compile Include="Common\EmployeeCom.cs" />
+    <Compile Include="Common\HealthServices\PermitAdvertisementCom.cs" />
+    <Compile Include="Common\HealthServices\PermitDataCom.cs" />
+    <Compile Include="Common\HealthServices\MociDataCom.cs" />
+    <Compile Include="Common\LookupsTypeCom.cs" />
+    <Compile Include="Common\PaymentCom.cs" />
+    <Compile Include="MetaData\BuildingServices\Meta_AreaSurveys.cs" />
+    <Compile Include="MetaData\BuildingServices\Meta_WorkersHousingDetails.cs" />
+    <Compile Include="MetaData\BuildingServices\Meta_Surveys.cs" />
+    <Compile Include="Models\BuildingServices\AreaSurvey.cs" />
+    <Compile Include="Models\BuildingServices\LandSurvey.cs" />
+    <Compile Include="Models\BuildingServices\LandUseTypes.cs" />
+    <Compile Include="Models\BuildingServices\BuildingTypes.cs" />
+    <Compile Include="Models\BuildingServices\SquareLetters.cs" />
+    <Compile Include="Models\BuildingServices\Regions.cs" />
+    <Compile Include="Models\BuildingServices\WorkersHousingDetails.cs" />
+    <Compile Include="Models\BuildingServices\Welyat.cs" />
+    <Compile Include="Models\Revenue\RevDepartment.cs" />
+    <Compile Include="Common\Revenue\RevenueCom.cs" />
+    <Compile Include="Common\SmsCom.cs" />
+    <Compile Include="Common\UserCom.cs" />
+    <Compile Include="MetaData\Meta_Employee.cs" />
+    <Compile Include="MetaData\BuildingServices\Meta_Permits.cs" />
+    <Compile Include="MetaData\BuildingServices\Meta_PermitsAttachments.cs" />
+    <Compile Include="MetaData\Meta_User.cs" />
+    <Compile Include="Models\BuildingServices\AttachmentTypes.cs" />
+    <Compile Include="Models\BuildingServices\BuildingPermits.cs" />
+    <Compile Include="Models\BuildingServices\Department.cs" />
+    <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\BuildingServices\PermitsAttachmentDetails.cs" />
+    <Compile Include="Models\EmployeeGroup.cs" />
+    <Compile Include="Models\Group.cs" />
+    <Compile Include="Models\HealthServices\Inspectors.cs" />
+    <Compile Include="Models\HealthServices\ContractAttachments.cs" />
+    <Compile Include="Models\HealthServices\HMociData.cs" />
+    <Compile Include="Models\HealthServices\MOCI_Permits_BY_CIVILID.cs" />
+    <Compile Include="Models\HealthServices\MOCI_Permits_Renew_Finish.cs" />
+    <Compile Include="Models\HealthServices\MOCI_Permits_Revenue.cs" />
+    <Compile Include="Models\HealthServices\MOCI_Permits_BY_MunicipalNo_Revenue.cs" />
+    <Compile Include="Models\HealthServices\MOCI_Permit_Inspector.cs" />
+    <Compile Include="Models\HealthServices\MOCI_Permit_BY_MunicipalNo_HeadSection.cs" />
+    <Compile Include="Models\HealthServices\MOCI_Permits_BY_MunicipalNo.cs" />
+    <Compile Include="Models\HealthServices\MOCI_Permits_HeadSection.cs" />
+    <Compile Include="Models\HealthServices\PermitsInspection.cs" />
+    <Compile Include="Models\Job.cs" />
+    <Compile Include="Models\LookupType.cs" />
+    <Compile Include="Models\BuildingServices\PermitsAttachments.cs" />
+    <Compile Include="Models\FilesUploader.cs" />
+    <Compile Include="Models\HealthServices\HPermits.cs" />
+    <Compile Include="Models\HealthServices\PermitActivity.cs" />
+    <Compile Include="Models\HealthServices\PermitAdvertisement.cs" />
+    <Compile Include="Models\HealthServices\PermitDuration.cs" />
+    <Compile Include="Models\HealthServices\PermitSubActivity.cs" />
+    <Compile Include="Models\HealthServices\PermitType.cs" />
+    <Compile Include="Models\Revenue\RevBank.cs" />
+    <Compile Include="Models\Revenue\RevFinancialItem.cs" />
+    <Compile Include="Models\Revenue\RevFinancialSubItem.cs" />
+    <Compile Include="Models\Revenue\RevLeaseContract.cs" />
+    <Compile Include="Models\Revenue\RevLeaseContractLog.cs" />
+    <Compile Include="Models\Revenue\RevMainPayment.cs" />
+    <Compile Include="Models\Revenue\RevMainPaymentLog.cs" />
+    <Compile Include="Models\Revenue\RevWelyats.cs" />
+    <Compile Include="Models\HealthServices\ISIC4_LEVEL_5s.cs" />
+    <Compile Include="Models\Revenue\State.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Configrations\LocalizedDisplayNameAttribute.cs" />
+    <Compile Include="Configrations\MappingConfig.cs" />
+    <Compile Include="Resources\DisplayName_Ar.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DisplayName_Ar.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\DisplayName_En.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DisplayName_En.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Validation_Ar.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Validation_Ar.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Validation_En.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Validation_En.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\HealthRenewalInternalViewModel.cs" />
+    <Compile Include="ViewModels\HealthRenewalViewModel.cs" />
+    <Compile Include="ViewModels\Internal\Permits\AreaSurveysViewModel.cs" />
+    <Compile Include="ViewModels\Internal\Permits\SurveysViewModel.cs" />
+    <Compile Include="ViewModels\Internal\Permits\PermitsViewModel.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\Permits\AreaSurveysViewModel.cs" />
+    <Compile Include="ViewModels\Permits\SurveysViewModel.cs" />
+    <Compile Include="ViewModels\Permits\PermitsViewModel.cs" />
+    <Compile Include="ViewModels\Permits\UserViewModel.cs" />
+    <Compile Include="ViewModels\Revenue\RevenueViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="MetaData\HealthServices\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\DisplayName_Ar.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>DisplayName_Ar.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DisplayName_En.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DisplayName_En.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Validation_Ar.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Validation_Ar.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Validation_En.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Validation_En.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DMeServices.DAL\DMeServices.DAL.csproj">
+      <Project>{1dce92a1-3064-4e61-b096-c3efe3159792}</Project>
+      <Name>DMeServices.DAL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

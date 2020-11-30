@@ -1,0 +1,101 @@
+﻿@model DMeServices.Models.ViewModels.HealthRenewalViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_SubLayout.cshtml";
+}
+
+<div class="col-lg-9 col-sm-9">
+    <div class=" row">
+        <div class="col-md-6 col-sm-3 col-xs-6">
+            <a data-toggle="tooltip" class="well top-block" href="#">
+                <i class="glyphicon glyphicon-user blue"></i>
+                <div>أهلا</div>
+                <div> @*سالم بن أحمد بن علي*@ @ViewBag.Name</div>
+            </a>
+        </div>
+        @*<div class="col-md-3 col-sm-3 col-xs-6">
+                <a data-toggle="tooltip" class="well top-block" href="#">
+                    <i class="glyphicon glyphicon-folder-open red"></i>
+                    <div>إجمالي الطلبات </div>
+                    <div>28</div>
+                </a>
+            </div>*@
+        <div class="col-md-3 col-sm-3 col-xs-6">
+            <a data-toggle="tooltip" class="well top-block" href="#">
+                <i class="glyphicon glyphicon-envelope yellow"></i>
+                <div>طلبات التجديد</div>
+                <div>@ViewBag.Count_New</div>
+            </a>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6">
+            <a data-toggle="tooltip" class="well top-block" href="#">
+                <i class="glyphicon glyphicon-ok green"></i>
+                <div>الطلبات السارية</div>
+                <div>@ViewBag.Count_Completed</div>
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="box col-md-12">
+            <div class="box-inner">
+                <div class="box-header well" data-original-title="">
+                    <h2><i class="glyphicon glyphicon-road"></i> تجديد السجل البلدي</h2>
+
+                </div>
+                <div class="box-content">
+                    <table class="table table-striped table-bordered bootstrap-datatable datatable responsive ">
+                        <thead>
+                            <tr>
+                                <th>السجل التجاري</th>
+                                <th>السجل البلدي</th>
+                                <th>اسم الشركة</th>
+                                <th>نوع النشاط</th>
+                                <th>الموقع</th>
+                                @*<th>حالة السجل</th>*@
+                                <th>تاريخ الإصدار</th>
+                                <th>تاريخ الإنتهاء</th>
+                                <th>حالة الطلب</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.LstMociData)
+                            {
+                                <tr>
+                                    @*@item.MunicipalLicenseNo  @Html.ActionLink("102015", "AssignRenew", "HealthRenewal", null, new { @class = "link" })*@
+                                    <td style="font-weight:bold">@item.CommercialNo</td>
+                                    <td>
+                                        @Html.ActionLink(
+                                   linkText: @item.MunicipalLicenseNo.ToString(),
+                                   actionName: "UserRenew",
+                                   controllerName: "HealthRenewal",
+                                   routeValues: new
+                                   {
+                                       Id = @item.MunicipalLicenseNo
+                                   },
+                                   htmlAttributes: new
+                                   {
+                                       //@class = "btn btn-primary modal-link"
+                                   }
+                                   )
+                                    </td>
+                                    @*<td style="font-weight:bold">@item.MunicipalLicenseNo</td>*@
+                                    <td class="center">@item.MOCI_CommercialName</td>
+                                    <td class="center">@item.PermitActivityName</td>
+                                    <td class="center">@item.Permit_Location</td>
+                                    @*<td class="center" style="color:#2f9ce5;">نشط</td>*@
+                                    <td class="center">@item.PermitDurationStartDate.ToString("yyyy/MM/dd")</td>
+                                    <td class="center">@item.PermitDurationEndtDate.ToString("yyyy/MM/dd")</td>
+                                    <td class="center bold" style="color:#2f9ce5;">طلب تجديد</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+        <!--/span-->
+    </div>
+
+</div>

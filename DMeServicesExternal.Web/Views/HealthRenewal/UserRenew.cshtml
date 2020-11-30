@@ -1,0 +1,364 @@
+﻿@model DMeServices.Models.ViewModels.HealthRenewalViewModel
+@{
+    ViewBag.Title = "UserRenew";
+    Layout = "~/Views/Shared/_SubLayout.cshtml";
+}
+
+<script src="~/Scripts/jquery-1.7.1.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+@*<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">*@
+<link rel="stylesheet" href="/resources/demos/style.css">
+@*<script src="https://code.jquery.com/jquery-1.12.4.js"></script>*@
+@*<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>*@
+<script src="~/Scripts/jquery-1.12.1.js"></script>
+<link href="~/Content/css/jquery-1.12.1-theme.css" rel="stylesheet" />
+<script>
+    var dateToday = new Date();
+    $(function () {
+        $("#ContractStartDate").datepicker();
+        $("#ContractEndDate").datepicker({
+            minDate: dateToday
+        });
+    });
+</script>
+
+<div>
+    <ul class="breadcrumb">
+        <li>
+            <a href="~/Home/">الرئيسية</a>
+        </li>
+        <li>
+            <a href="~/HealthRenewal/">بيانات السجلات</a>
+        </li>
+        <li>
+            <a href="#">تجديد السجل البلدي</a>
+        </li>
+    </ul>
+</div>
+<div class="col-lg-9 col-sm-9">
+    <div class="row">
+        <div class="box col-md-12">
+            <div class="box-inner">
+                <div class="box-header well" data-original-title="">
+                    <h2><i class="glyphicon glyphicon-edit"></i> تفاصيل السجل البلدي</h2>
+                    <div class="box-icon">
+                        <a href="#" class="btn btn-minimize btn-round btn-default">
+                            <i class="glyphicon glyphicon-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="box-content">
+                    @foreach (var item in Model.LstPermitData)
+                    {
+                        <div class="form-group col-md-6">
+                            <label class="control-label"> إسم المؤجر</label>
+                            <input type="text" readonly class="form-control" placeholder="إسم المؤجر" value="@item.landlordName">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label"> السجل التجاري</label>
+                            <input type="text" readonly class="form-control" placeholder="السجل التجاري" value="@item.CommercialNo">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label"> السجل البلدي</label>
+                            <input type="email" readonly class="form-control" placeholder="السجل البلدي" value="@item.MunicipalLicenseNo">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label"> اسم الشركة</label>
+                            <input type="email" readonly class="form-control" placeholder="اسم الشركة" value="@item.MOCI_CommercialName">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label">نوع الترخيص</label>
+                            <input type="text" readonly class="form-control" placeholder="نوع الترخيص" value="@item.PermitTypeName">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label"> الحالة</label>
+                            <input type="text" readonly class="form-control" placeholder="الحالة" value="@item.Case">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label">الولاية</label>
+                            <input type="text" readonly class="form-control" placeholder="الولاية" value="@item.StateName">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label"> الموقع</label>
+                            <input type="text" readonly class="form-control" placeholder="الموقع" value="@item.Permit_Location">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label"> الشارع</label>
+                            <input type="text" readonly class="form-control" placeholder="الشارع" value="@item.StreetName">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label"> نوع النشاط</label>
+                            <input type="text" readonly class="form-control" placeholder="نوع النشاط" value="@item.PermitActivityName">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label"> بداية التصريح</label>
+                            <input type="text" readonly class="form-control" placeholder="بداية التصريح" value="@item.PermitDurationStartDate.ToString("yyyy/MM/dd")">
+                        </div>
+                        <div class="control-group col-md-3">
+                            <label class="control-label"> انتهاء التصريح</label>
+                            <input type="text" readonly class="form-control" placeholder="انتهاء التصريح" value="@item.PermitDurationEndtDate.ToString("yyyy/MM/dd")">
+                        </div>
+                    }
+                    <div class="input-group col-md-12">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/span-->
+    </div>
+    @if (Model.LstPermitAdvertisement.Count > 0)
+    {
+        <div class="row">
+            <div class="box col-md-12">
+                <div class="box-inner">
+                    <div class="box-header well" data-original-title="">
+                        <h2>اللوحات الإعلانية</h2>
+                        <div class="box-icon">
+                            <a href="#" class="btn btn-minimize btn-round btn-default">
+                                <i class="glyphicon glyphicon-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="box-content">
+                        <table class="table table-striped table-bordered responsive">
+                            <thead>
+                                <tr>
+                                    <th>م</th>
+                                    <th>نوع اللوحة</th>
+                                    <th>موقع اللوحة</th>
+                                    <th>تاريخ الإصدار</th>
+                                    <th>تاريخ الإنتهاء</th>
+                                    <th>الحالة</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.LstPermitAdvertisement)
+                                {
+                                    <tr>
+                                        <td>1</td>
+                                        <td>@item.PermitTypeName</td>
+                                        <td class="center">@item.ADV_Location</td>
+                                        <td class="center">@item.PermitDurationStartDate.ToString("yyyy/MM/dd")</td>
+                                        <td class="center">@item.PermitDurationEndtDate.ToString("yyyy/MM/dd")</td>
+                                        <td class="center">@item.Case</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <div class="row">
+        <div class="box col-md-12">
+            <div class="box-inner">
+                <div class="box-header well" data-original-title="">
+                    <h2>إذن التوريد</h2>
+                    <div class="box-icon">
+                        <a href="#" class="btn btn-minimize btn-round btn-default">
+                            <i class="glyphicon glyphicon-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="box-content">
+                    <table class="table table-striped table-bordered responsive">
+                        <thead>
+                            <tr>
+                                <th>م</th>
+                                <th>النوع</th>
+                                <th>تاريخ الإصدار</th>
+                                <th>تاريخ الإنتهاء</th>
+                                <th>المبلغ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.LstPermitData)
+                            {
+                                <tr>
+                                    <td>1</td>
+                                    <td>@item.PermitTypeName</td>
+                                    <td class="center">@item.PermitDurationStartDate.ToString("yyyy/MM/dd")</td>
+                                    <td class="center">@item.PermitDurationEndtDate.ToString("yyyy/MM/dd")</td>
+                                    <td class="center">@item.Price</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="box col-md-12">
+            <div class="box-inner">
+                <div class="box-header well" data-original-title="">
+                    <h2><i class="glyphicon glyphicon-edit"></i> بيانات العقد</h2>
+                </div>
+                @using (Html.BeginForm("SaveNewPermitsDuration", "HealthRenewal", FormMethod.Post, new { encType = "multipart/form-data", @id = "PermitsDurationform" }))
+                {
+                    <div class="box-content">
+                        <div class="form-group col-md-3">
+                            <label class="control-label">رقم عقد الإيجار  </label><label style="color:red;margin:2px;"> * </label>
+                            @foreach (var item in Model.LstPermitData)
+                            {
+                                @Html.TextBoxFor(m => m.PermitDuration.HsPermitId, new { @Value = item.Permit_Id, @type = "hidden", @class = "form-control", id = "HsPermitId", @placeholder = "رقم عقد الإيجار" })
+                            }
+                            @Html.TextBoxFor(m => m.PermitDuration.ContractNo, new { @class = "form-control", id = "ContractNo", @placeholder = "رقم عقد الإيجار" })
+                            @Html.ValidationMessageFor(m => m.PermitDuration.ContractNo, "", new { @style = "color:red;" })
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label">تاريخ بدايةالعقد  </label><label style="color:red;margin:2px;"> * </label>
+                            @*<input type="date" class="form-control" id="example1" placeholder="تاريخ بداية العقد">*@
+                            @Html.TextBoxFor(m => m.PermitDuration.ContractStartDate, new { @class = "form-control", @DateFormat = "dd-mm-yy", type = "text", id = "ContractStartDate", @placeholder = "yyyy/mm/dd" })
+                            @Html.ValidationMessageFor(m => m.PermitDuration.ContractStartDate, "", new { @style = "color:red;" })
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label">تاريخ نهايةالعقد  </label><label style="color:red;margin:2px;"> * </label>
+                            @*<input type="date" class="form-control" id="example4" placeholder="تاريخ نهايةالعقد">*@
+                            @Html.TextBoxFor(m => m.PermitDuration.ContractEndDate, new { @class = "form-control", type = "text", id = "ContractEndDate", @placeholder = "yyyy/mm/dd" })
+                            @Html.ValidationMessageFor(m => m.PermitDuration.ContractEndDate, "", new { @style = "color:red;" })
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label">قيمةالعقد الشهري  </label><label style="color:red;margin:2px;"> * </label>
+                            @*<input type="text" class="form-control" id="example3" placeholder="قيمةالعقد">*@
+                            @Html.TextBoxFor(m => m.PermitDuration.ContractMonthlyFees, new { @class = "form-control", type = "text", id = "ContractMonthlyFees", @placeholder = "قيمةالعقد" })
+                            @Html.ValidationMessageFor(m => m.PermitDuration.ContractMonthlyFees, "", new { @style = "color:red;" })
+                        </div>
+                        @*<div class="form-group col-md-3">
+                                <label class="control-label">  عقد الإيجار  </label><label style="color:red;margin:2px;"> * </label>
+                                @Html.TextBoxFor(m => m.PermitDuration.File, new { @type = "file", id = "File", @name = "File" })
+                                @Html.ValidationMessageFor(m => m.PermitDuration.File, "", new { @style = "color:red;" })
+                            </div>*@
+                        <div class="form-group col-md-3">
+                            <label class="control-label">  عقد الإيجار  </label><label style="color:red;margin:2px;"> * </label>
+                            @Html.TextBoxFor(m => m.ContractFile.File, new { @type = "file", id = "ContractFile", @name = "ContractFile" })
+                            @Html.ValidationMessageFor(m => m.ContractFile.File, "", new { @style = "color:red;" })
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label">  البطاقة الشخصية  </label><label style="color:red;margin:2px;"> * </label>
+                            @Html.TextBoxFor(m => m.PersonalCard.File, new { @type = "file", id = "PersonalCard", @name = "PersonalCard" })
+                            @Html.ValidationMessageFor(m => m.PersonalCard.File, "", new { @style = "color:red;" })
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="control-label">  عقدالملكية  </label><label style="color:red;margin:2px;"> * </label>
+                            @Html.TextBoxFor(m => m.OwnerContract.File, new { @type = "file", id = "OwnerContract", @name = "OwnerContract" })
+                            @Html.ValidationMessageFor(m => m.OwnerContract.File, "", new { @style = "color:red;" })
+                        </div>
+                        <div class="form-group col-md-3" style="font-size: 35px">
+                            <span>
+                                <i style="top:10px; display:none;" class="glyphicon glyphicon-ok green"></i>
+                                <i style="top:10px; display:none;" class="glyphicon glyphicon-remove yellow"></i>
+                            </span>
+                        </div>
+                        <div class="input-group col-md-12">
+                        </div>
+                    </div>
+                }
+                <button type="submit" id="Save" class="btn btn-success noty" style="margin-top:20px;">
+                    <i class="glyphicon glyphicon-ok"></i> تجديد السجل
+                </button>
+                <a href="~/HealthRenewal/Index" class="btn btn-warning pull-right" style="margin-top:20px;"><i class="glyphicon glyphicon-share-alt"></i>إلغاء</a>
+
+            </div>
+        </div>
+        <!--/span-->
+    </div>
+</div>
+
+<script>
+    $("#Save").click(function () {
+        $('#PermitsDurationform').submit();
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //$("#File").change(function () {
+
+        //    var fileName = $("#File").val();
+
+        //    if (fileName) {
+        //        var fileize = (this.files[0].size);
+        //        var valid_extensions = /(\.jpg|\.jpeg|\.gif|\.pdf|\.png)$/i;
+        //        if (valid_extensions.test(fileName) && fileize < 100000) {
+        //            $('.glyphicon-ok').css({ 'display': 'inline' });
+        //            $('.glyphicon-remove').css({ 'display': 'none' });
+        //        }
+        //        else {
+        //            $('.glyphicon-ok').css({ 'display': 'none' });
+        //            $('.glyphicon-remove').css({ 'display': 'inline' });
+        //        }
+        //    } else {
+        //        $('.glyphicon-ok').css({ 'display': 'none' });
+        //        $('.glyphicon-remove').css({ 'display': 'inline' });
+        //    }
+        //});
+
+        $("#ContractFile").change(function () {
+            //alert("1");
+            var fileName = $("#ContractFile").val();
+
+            if (fileName) {
+                var fileize = (this.files[0].size);
+                var valid_extensions = /(\.jpg|\.jpeg|\.gif|\.pdf|\.png)$/i;
+                if (valid_extensions.test(fileName) && fileize < 100000) {
+                    $('.glyphicon-ok').css({ 'display': 'inline' });
+                    $('.glyphicon-remove').css({ 'display': 'none' });
+                }
+                else {
+                    $('.glyphicon-ok').css({ 'display': 'none' });
+                    $('.glyphicon-remove').css({ 'display': 'inline' });
+                }
+            } else {
+                $('.glyphicon-ok').css({ 'display': 'none' });
+                $('.glyphicon-remove').css({ 'display': 'inline' });
+            }
+        });
+
+        $("#OwnerContract").change(function () {
+            //alert("2");
+            var fileName = $("#OwnerContract").val();
+
+            if (fileName) {
+                var fileize = (this.files[0].size);
+                var valid_extensions = /(\.jpg|\.jpeg|\.gif|\.pdf|\.png)$/i;
+                if (valid_extensions.test(fileName) && fileize < 100000) {
+                    $('.glyphicon-ok').css({ 'display': 'inline' });
+                    $('.glyphicon-remove').css({ 'display': 'none' });
+                }
+                else {
+                    $('.glyphicon-ok').css({ 'display': 'none' });
+                    $('.glyphicon-remove').css({ 'display': 'inline' });
+                }
+            } else {
+                $('.glyphicon-ok').css({ 'display': 'none' });
+                $('.glyphicon-remove').css({ 'display': 'inline' });
+            }
+        });
+
+        $("#PersonalCard").change(function () {
+            //alert("3");
+            var fileName = $("#PersonalCard").val();
+
+            if (fileName) {
+                var fileize = (this.files[0].size);
+                var valid_extensions = /(\.jpg|\.jpeg|\.gif|\.pdf|\.png)$/i;
+                if (valid_extensions.test(fileName) && fileize < 100000) {
+                    $('.glyphicon-ok').css({ 'display': 'inline' });
+                    $('.glyphicon-remove').css({ 'display': 'none' });
+                }
+                else {
+                    $('.glyphicon-ok').css({ 'display': 'none' });
+                    $('.glyphicon-remove').css({ 'display': 'inline' });
+                }
+            } else {
+                $('.glyphicon-ok').css({ 'display': 'none' });
+                $('.glyphicon-remove').css({ 'display': 'inline' });
+            }
+        });
+    });
+</script>

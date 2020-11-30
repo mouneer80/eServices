@@ -1,0 +1,116 @@
+﻿@model DMeServices.Models.ViewModels.LoginViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>خدمات بلدية ظفار</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <!-- The styles -->
+    <link href="~/Content/css/bootstrap-cerulean_ar.min.css" rel="stylesheet">
+    <link href="~/Content/css/charisma-app_ar.css" rel="stylesheet">
+    <link href='~/Content/bower_components/fullcalendar/dist/fullcalendar.css' rel='stylesheet'>
+    <link href='~/Content/bower_components/fullcalendar/dist/fullcalendar.print.css' rel='stylesheet' media='print'>
+    <link href='~/Content/bower_components/chosen/chosen.min.css' rel='stylesheet'>
+    <link href='~/Content/bower_components/colorbox/example3/colorbox.css' rel='stylesheet'>
+    <link href='~/Content/bower_components/responsive-tables/responsive-tables_ar.css' rel='stylesheet'>
+    <link href='~/Content/bower_components/bootstrap-tour/build/css/bootstrap-tour.min.css' rel='stylesheet'>
+    <link href='~/Content/css/jquery.noty.css' rel='stylesheet'>
+    <link href='~/Content/css/noty_theme_default.css' rel='stylesheet'>
+    <link href='~/Content/css/elfinder.min.css' rel='stylesheet'>
+    <link href='~/Content/css/elfinder.theme.css' rel='stylesheet'>
+    <link href='~/Content/css/jquery.iphone.toggle.css' rel='stylesheet'>
+    <link href='~/Content/css/uploadify.css' rel='stylesheet'>
+    <link href='~/Content/css/animate.min.css' rel='stylesheet'>
+    <link href="~/Content/css/font.css" rel="stylesheet" />
+    @*<link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/droid-arabic-kufi" type="text/css" />*@
+    <!-- jQuery -->
+    <script src="~/Content/bower_components/jquery/jquery.min.js"></script>
+    <!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!-- The fav icon -->
+    <link rel="shortcut icon" href="img/favicon.ico">
+    <style>
+        .row {
+            margin-left: 0px !important;
+            margin-right: 0px !important;
+        }
+
+        .Background {
+            background-image: url(@Url.Content("~/img/E-Payment.jpg"));
+            background-size: contain;
+        }
+    </style>
+</head>
+<body class="Background">
+
+    <div class="ch-container">
+        <div class="row">
+
+            <div class="row">
+                <div class="col-md-12 center login-header">
+                </div>
+            </div>
+            <div class="row">
+                <div class="well col-md-5 center login-box">
+                    <div class="alert alert-info">
+                        الرجاء إدخال إسم المستخدم و كلمة المرور
+                    </div>
+                    <div class="form-horizontal" action="index.html" method="post">
+                        @using (Html.BeginForm("Login", "UsersLogin", new { returnUrl = ViewBag.returnUrl }, FormMethod.Post, new { @class = "sky-form boxed", role = "form" }))
+                        {
+                        <fieldset>
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user red"></i></span>
+                                @*<input type="text" class="form-control" placeholder="إسم المستخدم">*@
+                                @Html.TextBoxFor(m => m.userName, new { @class = "form-control", placeholder = "إسم المستخدم", @required = "required" })
+                            </div>
+                            <div class="clearfix"></div><br>
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock red"></i></span>
+                                @*<input type="password" class="form-control" placeholder="كلمة المرور">*@
+                                @Html.TextBoxFor(m => m.Password, new { @class = "form-control", type = "password", placeholder = "كلمة المرور", @required = "required" })
+                            </div>
+                            <div class="input-group input-group-lg">
+                                <span style="color:red">@ViewBag.LoginErrorMessage</span>
+                            </div>
+                            <div class="clearfix"></div><br />
+                            @*<a href="#">إسترجاع كلمة المرور</a>*@
+                            @Html.ActionLink("الصفحة الرئيسية", "Index", "Home") / 
+                            @Html.ActionLink("تسجيل مستخدم جديد", "Index", "Register") /
+                            @Html.ActionLink("إسترجاع كلمة المرور", "Login", "UsersLogin")
+                            <div class="clearfix"></div>
+                            <p class="center col-md-5">
+                                @*<a href="sindex.html" class="btn btn-primary">دخـــول</a>*@
+                                @*@Html.ActionLink("دخـــول", "Login", "UsersLogin", null, new { @class = "btn btn-primary" })*@
+                                <button type="submit" class="btn btn-primary btn-block">دخـــول</button>
+                            </p>
+                        </fieldset>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Content/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- notification plugin -->
+    <script src="~/Scripts/js/jquery.noty.js"></script>
+    <!-- tour plugin -->
+    <script src="~/Content/bower_components/bootstrap-tour/build/js/bootstrap-tour.min.js"></script>
+    <!-- for iOS style toggle switch -->
+    <script src="~/Scripts/js/jquery.iphone.toggle.js"></script>
+    <!-- history.js for cross-browser state change on ajax -->
+    <script src="~/Scripts/js/jquery.history.js"></script>
+    <!-- application script for charisma demo -->
+    <script src="~/Scripts/js/charisma.js"></script>
+
+</body>
+</html>

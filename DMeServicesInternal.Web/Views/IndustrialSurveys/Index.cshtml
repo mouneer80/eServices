@@ -1,0 +1,172 @@
+﻿@model DMeServices.Models.ViewModels.Permits.SurveysViewModel
+    
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+
+<ul class="breadcrumb">
+    <li>
+        <a href="@Url.Action("Index","Home")">الرئيسية</a>
+    </li>
+    <li>
+        <a href="#">مسح المناطق </a>
+    </li>
+</ul>
+
+<div class="col-lg-12 col-sm-12">
+    <a href="@Url.Action("NewLandSurvey", new {@controller = "IndustrialSurveys"})" class="btn btn-primary ">
+        <i class="glyphicon glyphicon-plus icon-white"></i> إضافة مسح جديد
+    </a>
+    <span></span>
+    <a href="@Url.Action("AreaSurveysList", new {@controller = "IndustrialSurveys"})" class="btn btn-primary ">
+        <i class="glyphicon glyphicon-plus icon-white"></i> المناطق الصناعية / التجارية
+    </a>
+    <div class="row">
+        <div class="box col-md-12">
+            <div class="box-inner">
+                <div class="box-header well" data-original-title="">
+                    <h2><i class="glyphicon glyphicon-road"></i> مسح الأراضي</h2>
+
+                </div>
+                <div class="box-content">
+                    <table class="table table-striped table-bordered bootstrap-datatable datatable responsive ">
+                        <thead>
+                            <tr>
+                                <th>
+                                    رقم المسح
+                                </th>
+                                <th>
+                                    اسم الولاية
+                                </th>
+                                <th>
+                                    اسم المنطقة
+                                </th>
+                                <th>
+                                    رقم المربع
+                                </th>
+                                <th>
+                                    رقم قطعة الأرض
+                                </th>
+                                <th>
+                                    نوع استعمال قطعة الأرض
+                                </th>
+                                @*<th>
+                                        @Html.DisplayNameFor(model => model.BuildingTypeID)
+                                    </th>*@
+                                <th>
+                                    عدد المباني
+                                </th>
+                                <th>
+                                    عدد الشقق
+                                </th>
+                                <th>
+                                    عدد المحلات
+                                </th>
+                                <th>
+                                    عدد الغرف
+                                </th>
+                                <th>
+                                    ملاحظات
+                                </th>
+                                <th>
+                                    تاريخ التعديل
+                                </th>
+                                @*<th>
+                                        @Html.DisplayNameFor(model => model.TransactNo)
+                                    </th>*@
+                                @*<th>
+                                        @Html.DisplayNameFor(model => model.BldRegions)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.BldWelyat)
+                                    </th>*@
+                                @*<th></th>*@
+                            </tr>
+                            <tr>
+                                <td>@Model.ListLandSurveys.Select(m => m.TransactNo).Count()</td>
+                                <td>@Model.ListLandSurveys.Select(m => m.WelyahID).Distinct().Count()</td>
+                                <td>@Model.ListLandSurveys.Select(m => m.RegionID).Distinct().Count()</td>
+                                <td>@Model.ListLandSurveys.Select(m => m.SquareLetterID).Distinct().Count()</td>
+                                <td>@Model.ListLandSurveys.Select(m => m.LandNo).Count()</td>
+                                <td>@Model.ListLandSurveys.Select(m => m.LandUseTypeID).Distinct().Count()</td>
+                                <td>@Model.ListLandSurveys.Sum(m => m.BuildingsCount)</td>
+                                <td>@Model.ListLandSurveys.Sum(m => m.FlatsCount)</td>
+                                <td>@Model.ListLandSurveys.Sum(m => m.ShopsCount)</td>
+                                <td>@Model.ListLandSurveys.Sum(m => m.RoomsCount)</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.ListLandSurveys)
+                            {
+                                <tr>
+                                    <td class="center"> <a class="btn btn-primary modal-link" href="@Url.Action("SurveyDetails", "IndustrialSurveys", new { @Id = item.SurveyID })"> @item.TransactNo  </a> </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.BldWelyat.WelyahArName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.BldRegions.RegionArName)
+                                    </td>
+                                    <td></td>
+                                    @*<td>
+                                        @Html.DisplayFor(modelItem => item.BldSquareLetters.ArLetter)
+                                    </td>*@
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.LandNo)
+                                    </td>
+                                    <td></td>
+                                    @*<td>
+                                        @Html.DisplayFor(modelItem => item.BldLandUseTypes.UseType)
+                                    </td>*@
+                                    @*<td>
+                                            @Html.DisplayFor(modelItem => item.BuildingTypeID)
+                                        </td>*@
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.BuildingsCount)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FlatsCount)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ShopsCount)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.RoomsCount)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Notes)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UpdatedON)
+                                    </td>
+                                    @*<td>
+                                            @Html.DisplayFor(modelItem => item.TransactNo)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.BldRegions)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.BldWelyat)
+                                        </td>*@
+                                    @*<td>
+                                            @Html.ActionLink("تعديل", "Edit", new { id = item.SurveyID }) |
+                                            @Html.ActionLink("تفاصيل", "Details", new { id = item.SurveyID }) |
+                                            @Html.ActionLink("حذف", "Delete", new { id = item.SurveyID })
+                                        </td>*@
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                    <div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

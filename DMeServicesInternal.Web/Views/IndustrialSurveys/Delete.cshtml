@@ -1,0 +1,137 @@
+﻿@model DMeServices.Models.BuildingServices.LandSurvey
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_SubLayout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>LandSurvey</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.WelyahID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WelyahID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RegionID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RegionID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SquareLetterID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SquareLetterID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LandNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LandNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LandUseTypeID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LandUseTypeID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BuildingTypeID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BuildingTypeID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BuildingsCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BuildingsCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FlatsCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FlatsCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ShopsCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShopsCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RoomsCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RoomsCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Notes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Notes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TransactNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TransactNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BldRegions)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BldRegions)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BldWelyat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BldWelyat)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

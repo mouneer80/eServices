@@ -1,0 +1,43 @@
+﻿
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    <h4 class="modal-title" style="text-align:center" id="myModalLabel">
+        عرض الملف
+    </h4>
+</div>
+
+<style>
+    .modal-open {
+        direction: unset;
+    }
+
+    .modal-dialog {
+        width: 90%;
+        margin-top: 10px auto;
+    }
+</style>
+<script type="text/javascript">
+    function unloadModal() {
+        $('#MainModal').modal('hide');
+    }
+</script>
+
+
+@*<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <embed width="100%" height="100%" src="@Url.Action("DisplayFiles", new { @controller = "HealthRenewal", @Id = ViewBag.ID,@Desc= ViewBag.Type})" style="margin:0px;padding:0px;overflow:hidden;display:block;">
+        </div>
+    </div>
+</div>*@
+
+<div class="modal-body" style="padding:0px">
+    <div class="form-group">
+        <div>
+            <div style="text-align:center">
+                <iframe style="width:90%; height:540px" src="@Url.Action("DisplayFiles", new { @controller = "HealthRenewal", @Id = ViewBag.ID,@Desc= ViewBag.Type})"></iframe>
+            </div>
+        </div>
+    </div>
+</div>

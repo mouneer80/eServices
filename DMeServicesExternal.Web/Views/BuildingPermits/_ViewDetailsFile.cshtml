@@ -1,0 +1,38 @@
+﻿
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    <h4 class="modal-title" style="text-align:center" id="myModalLabel">
+        عرض الملف
+    </h4>
+</div>
+
+<style>
+    .modal-open {
+        direction: unset;
+    }
+
+    .modal-dialog {
+        width: 90%;
+        margin-top: 10px auto;
+    }
+</style>
+<script type="text/javascript">
+                function unloadModal() {
+                    $('#MainModal').modal('hide');
+                }
+</script>
+
+
+<div class="modal-body" style="padding:0px">
+    <div class="form-group">
+        <div>
+            <div style="text-align:center">
+                <embed style="width:100%; height:550px" src="@Url.Action("DisplayDetailsFiles", new { @controller = "BuildingPermits", @Id = ViewBag.ID })">
+                @*<p>Your browser does not support iframes.</p>*@
+
+            </div>
+        </div>
+    </div>
+</div>
+

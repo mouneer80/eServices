@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        #gridContainer {
+            height: 440px;
+        }
+
+            #gridContainer .dx-datagrid-content tr.dx-data-row {
+                cursor: pointer;
+            }
+
+        .employeeInfo .employeePhoto {
+            height: 140px;
+            float: left;
+            padding: 20px 20px 20px 0;
+        }
+
+        .employeeInfo .employeeNotes {
+            padding-top: 20px;
+            text-align: justify;
+            white-space: normal;
+        }
+
+        .dark .employeeInfo .employeeNotes {
+            color: rgb(181, 181, 181);
+        }
+    </style>
+</head>
+<body>
+    <h2>Index2</h2>
+    Below list fetched by jquery from asp.net web API
+    <table id="tbPerson">
+        <tr style="background-color: #808080; color: white;">
+            <td>Name</td>
+            <td>Address</td>
+            <td>DOB</td>
+            <td>Operation</td>
+        </tr>
+    </table>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: "http://10.21.4.4:8087/dm/rest/services/companydata?crNumber=1000132",
+                type: "Get",
+                success: function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        alert(i);
+                        //$("<tr><td>" + data[i].nameAr + "</td><td>" + data[i].Address + "</td><td>" + data[i].DOB + "</td></tr>").appendTo("#tbPerson");
+                    }
+                },
+                error: function (msg) { alert(msg); }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
