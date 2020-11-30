@@ -1634,6 +1634,7 @@
     <Content Include="Views\IndustrialSurveys\EditCollectiveResidence.cshtml" />
     <Content Include="Views\IndustrialSurveys\Index.cshtml" />
     <Content Include="Views\IndustrialSurveys\NewCollectiveResidence.cshtml" />
+    <Content Include="Views\BuildingPermits\CompanyList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1656,6 +1657,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DMeServices.DAL\DMeServices.DAL.csproj">
+      <Project>{1DCE92A1-3064-4E61-B096-C3EFE3159792}</Project>
+      <Name>DMeServices.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DMeServices.Models\DMeServices.Models.csproj">
       <Project>{ec9e175c-9696-4ab9-a428-58ea1f7c6706}</Project>
       <Name>DMeServices.Models</Name>

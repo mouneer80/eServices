@@ -1,0 +1,64 @@
+﻿@model DMeServices.Models.ViewModels.CompanyViewModel
+@{
+    ViewBag.Title = "Companies List";
+    Layout = "~/Views/Shared/_SubLayout.cshtml";
+}
+
+<ul class="breadcrumb">
+    <li>
+        <a href="@Url.Action("Index","Home")">الرئيسية</a>
+    </li>
+    <li>
+        <a href="#">الشركات المسجلة</a>
+    </li>
+</ul>
+
+<div class="col-lg-9 col-sm-9">
+    <a href="@Url.Action("NewCompany", new {@controller = "Register"})" class="btn btn-primary ">
+        <i class="glyphicon glyphicon-plus icon-white"></i> إضافة شركة جديدة
+    </a>
+    <div class="row">
+        <div class="box col-md-12">
+            <div class="box-inner">
+                <div class="box-header well" data-original-title="">
+                    <h2><i class="glyphicon glyphicon-road"></i> الشركات المسجلة </h2>
+
+                </div>
+                <div class="box-content">
+                    <table class="table table-striped table-bordered bootstrap-datatable datatable responsive ">
+                        <thead>
+                            <tr>
+
+                                <th>رقم السجل التجاري </th>
+                                <th>اسم الشركة</th>
+                                <th>العنوان</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.CompaniesList)
+                            {
+                                <tr>
+                                    @*<td class="center">@item.TransactNo</td>*@
+                                    <td class="center">@item.COMMERCIAL_NO</td>
+                                    <td class="center">@item.COMMERCIAL_NAME</td>
+                                    <td class="center">@item.GOVERNORATE</td>
+                                    <td class="center">
+                                        <a class="btn btn-primary modal-link" 
+                                           href="@Url.Action("PermitDetails", "BuildingPermits", new {@Id = item.Id})">ادارة الشركة </a>
+                                    </td>
+                                    <td class="center">
+                                        <a class="btn btn-primary modal-link" 
+                                           href="@Url.Action("PermitDetails", "BuildingPermits", new {@Id = item.Id})">متابعة أعمال الشركة </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--/span-->
+    </div>
+</div>
+
+

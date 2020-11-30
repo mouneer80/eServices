@@ -167,6 +167,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Validation_En.resx</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\CompanyViewModel.cs" />
     <Compile Include="ViewModels\HealthRenewalInternalViewModel.cs" />
     <Compile Include="ViewModels\HealthRenewalViewModel.cs" />
     <Compile Include="ViewModels\Internal\Permits\AreaSurveysViewModel.cs" />
