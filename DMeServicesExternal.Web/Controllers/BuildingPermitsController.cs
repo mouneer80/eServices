@@ -14,18 +14,32 @@ using System.Data;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using DMeServices.Models.ViewModels;
 
 namespace DMeServicesExternal.Web.Controllers
 {
     public class BuildingPermitsController : BaseController
     {
-        
         // GET: BuildingPermits
         public ActionResult Index()
         {
             PermitsViewModel oModel = new PermitsViewModel();
             oModel.ListBuildingPermits = PermitsCom.PermitsByConsultantCivilId(oModel.oUserInfo.CivilId);
+            oModel.ShowAdd = true;
             return View(oModel);
+        }
+
+        public ActionResult LandProjects()
+        {
+            PermitsViewModel oModel = new PermitsViewModel();
+            oModel.ListBuildingPermits = PermitsCom.PermitsByLandOwnerCivilId(oModel.oUserInfo.CivilId);
+            oModel.ShowAdd = false;
+            return View("Index",oModel);
+        }
+
+        public ActionResult CompanyList(CompanyViewModel companyViewModel)
+        {
+            return View(companyViewModel);
         }
 
         public static async Task<DataTable> GetPaymentToken()
@@ -137,7 +151,6 @@ namespace DMeServicesExternal.Web.Controllers
             return View(oModel);
         }
 
-
         #region Method :: Display Files 
 
 
@@ -209,7 +222,6 @@ namespace DMeServicesExternal.Web.Controllers
 
 
         #endregion
-
 
         #region Method :: Display Details File
 
@@ -364,7 +376,6 @@ namespace DMeServicesExternal.Web.Controllers
         }
         #endregion
 
-
         #region Method :: Delete Attachment
 
         public ActionResult DeleteAttachment(int Id)
@@ -379,10 +390,6 @@ namespace DMeServicesExternal.Web.Controllers
         }
         #endregion
 
-
-
-
-
         #region Method :: Delete Consultant Attachment
 
         public ActionResult DeleteConsultantAttachment(int Id)
@@ -396,7 +403,6 @@ namespace DMeServicesExternal.Web.Controllers
 
         }
         #endregion
-
 
         #region Method :: DD Attachment Types
 
@@ -494,7 +500,6 @@ namespace DMeServicesExternal.Web.Controllers
         }
 
         #endregion
-
 
         #region Method :: Save Files
 
@@ -729,8 +734,6 @@ namespace DMeServicesExternal.Web.Controllers
         }
 
         #endregion
-
-
 
     }
 }

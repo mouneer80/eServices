@@ -1634,8 +1634,7 @@
     <Content Include="Views\IndustrialSurveys\EditCollectiveResidence.cshtml" />
     <Content Include="Views\IndustrialSurveys\Index.cshtml" />
     <Content Include="Views\IndustrialSurveys\NewCollectiveResidence.cshtml" />
-    <Content Include="Views\Home\CompanyList.cshtml" />
-    <Content Include="Views\Home\ConsultancyEngineerService.cshtml" />
+    <Content Include="Views\BuildingPermits\CompanyList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

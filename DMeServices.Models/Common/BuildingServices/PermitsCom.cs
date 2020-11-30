@@ -79,6 +79,18 @@ namespace DMeServices.Models.Common.BuildingServices
         }
         #endregion
 
+        #region Method :: Permit By LandOwner CivilID
+        public static List<BuildingPermits> PermitsByLandOwnerCivilId(long landOwnerCivilId)
+        {
+            using (eServicesEntities db = new eServicesEntities())
+            {
+                List<BldPermits> bldPermits = db.BldPermits.Where(x => x.OwnerCivilId == landOwnerCivilId).ToList();
+                List<BuildingPermits> buildingPermits = Mapper.Map<List<BldPermits>, List<BuildingPermits>>(bldPermits);
+                return buildingPermits;
+            }
+        }
+        #endregion
+
         #region Method :: Permit By CivilId
         public static List<BuildingPermits> PermitsByConsultantCivilId(long CivilId)
         {

@@ -46,7 +46,7 @@ namespace DMeServices.Models.ViewModels.Permits
         public BuildingTypes ListOfBuildingTypes { get; set; }
         public LandUseTypes ListOfLandUseTypes { get; set; }
         public SquareLetters ListOfSquareLetters { get; set; }
-
+        public bool ShowAdd { get; set; }
 
     }
 }

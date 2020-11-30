@@ -15,12 +15,12 @@ namespace DMeServicesExternal.Web.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            User user = GetUserDataFromOracleDbTestUser();
+            return View(user);
             //if (HttpContext.Request.Cookies["SSO"] != null)
             //{
             //    HttpCookie cookie = HttpContext.Request.Cookies.Get("SSO");
-            //    var civilID = GetUserDataFromOracleDB(cookie.Value);
-            //    User user = GetUserByCivilId(civilID);
+            //    var user = GetUserDataFromOracleDB(cookie.Value);
             //    if (user != null)
             //    {
             //        Session["UserInfo"] = user;
@@ -30,7 +30,12 @@ namespace DMeServicesExternal.Web.Controllers
             //return Redirect("https://www.dhofar.gov.om/");
         }
 
-        private User GetUserDataFromOracleDb()
+        private User GetUserDataFromOracleDB(string value)
+        {
+            throw new NotImplementedException();
+        }
+
+        private User GetUserDataFromOracleDbTestUser()
         {
             User oUser = Account.UserLogin("test", "abc@123");
             if (oUser != null && oUser.Id > 0)
@@ -42,30 +47,23 @@ namespace DMeServicesExternal.Web.Controllers
 
         public ActionResult ConsultancyOwnerService()
         {
-            User user = GetUserDataFromOracleDb();
+            User user = GetUserDataFromOracleDbTestUser();
             CompanyViewModel companyViewModel = new CompanyViewModel
             {
                 CompaniesList = MociCompaniesData.CompaniesByOwnerCivilId(user.CivilId)
             };
-            return View("CompanyList", companyViewModel);
+            
+            return RedirectToAction("CompanyList", "BuildingPermits", companyViewModel);
         }
-
-        private List<MociData> GetCompaniesOwnedByPerson(long civilId)
-        {
-            throw new NotImplementedException();
-        }
-
         public ActionResult ConsultancyEngineerService()
         {
-            User oUser = GetUserDataFromOracleDb();
+            User user = GetUserDataFromOracleDbTestUser();
             return RedirectToAction("index", "BuildingPermits");
         }
         public ActionResult LandOwnerService()
         {
-            //TODO: IS he already registered as a land owner
-            //TODO: If registered display all services links ( Request several kinds of Permits + ??) 
-            //TODO: If Not registered Nothing he can do(??)
-            return HttpNotFound();
+            User user = GetUserDataFromOracleDbTestUser();
+            return RedirectToAction("LandProjects", "BuildingPermits");
         }
         public ActionResult ContractorService()
         {

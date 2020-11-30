@@ -14,7 +14,9 @@
 </ul>
 
 <div class="col-lg-12 col-sm-12">
-    <a href="@Url.Action("NewPermits", new {@controller = "BuildingPermits"})" class="btn btn-primary ">
+    <a 
+        style="@(Model.ShowAdd ? "display:inline" : "display:none")"
+        href="@Url.Action("NewPermits", new {@controller = "BuildingPermits"})" class="btn btn-primary ">
         <i class="glyphicon glyphicon-plus icon-white"></i> إضافة ترخيص جديد
     </a>
     <div class="row">
