@@ -68,6 +68,12 @@ namespace DMeServicesExternal.Web.Controllers
             return View();
         }
 
+        public ActionResult PayWithPost()
+        {
+            var result = DMeServices.Models.Common.PaymentCom.PayAmount();
+            return Redirect(result);
+        }
+
         public ActionResult NewPermits()
         {
             PermitsViewModel oModel = new PermitsViewModel();

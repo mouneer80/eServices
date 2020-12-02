@@ -1,4 +1,5 @@
 ﻿using RestSharp;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,10 +7,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
 using Newtonsoft.Json;
-using RestSharp.Deserializers;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using JsonSerializer = System.Text.Json.JsonSerializer;
+using RestSharp.Serialization.Json;
 
 namespace DMeServices.Models.Common
 {
@@ -151,7 +152,7 @@ namespace DMeServices.Models.Common
             //var SuccessUrl = "eeee";
             //var FailureUrl = "ssss";
             var client = new RestClient("https://www.dhofar.gov.om/ePaymentAPI/API/Paymentrequest/OpenPaymentRequest");
-            var request = new RestRequest(Method.GET);
+            var request = new RestRequest(Method.POST);
             request.AddHeader("content-type", "application/json");
 
             //request.AddJsonBody("application/json", "{\r\n\"UserName\": \"" + UserName + "\",\r\n\"SourceTypeId\": \"" + SourceTypeId + "\",\r\n\"Amount\": \"" + Amount + "\",\r\n\"Language\": \"64\",\r\n\"ScheddateTime\": \"01/22/2017 00:00:00\",\r\n\"MobileNo\" : [\"" + mobileNum + "\"]\r\n}", ParameterType.RequestBody);
@@ -165,12 +166,12 @@ namespace DMeServices.Models.Common
                 FailureUrl = "ssss"
             });
             IRestResponse restResponse = client.Execute(request);
-            string response = restResponse.Content;
-            return response;
-            //RestSharp.Deserializers.JsonDeserializer deserial = new JsonDeserializer();
-            //var x = deserial.Deserialize<Token>(response)
+            //string response = restResponse.Content;
+            //return response;
+            JsonDeserializer deserial = new JsonDeserializer();
+            var x = deserial.Deserialize<Token>(restResponse);
 
-            //return (IRestResponse)JsonConvert.DeserializeObject<Token>(response.Content);
+            return (x.url.ToString());
         }
 
         private class Token
