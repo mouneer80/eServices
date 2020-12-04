@@ -15,20 +15,30 @@ namespace DMeServicesExternal.Web.Controllers
     {
         public ActionResult Index()
         {
-            GetUserDataFromOracleDbTestUser();
-            return View(((User)Session["UserInfo"]));
-            //if (HttpContext.Request.Cookies["SSO"] != null)
-            //{
-            //    HttpCookie cookie = HttpContext.Request.Cookies.Get("SSO");
-            //    var user = GetUserDataFromOracleDB(cookie.Value);
-            //    if (user != null)
-            //    {
-            //        Session["UserInfo"] = user;
-            //        return View(user);
-            //    }
-            //}
-            //return Redirect("https://www.dhofar.gov.om/");
+            //GetUserDataFromOracleDbTestUser();
+            //return View(((User)Session["UserInfo"]));
+
+            var guid = ReadPKISession();
+            if(string.IsNullOrWhiteSpace(guid)) return Redirect("https://www.dhofar.gov.om/");
+            var user = GetUserDataFromOracleDB(guid);
+            if (user != null)
+            {
+                Session["UserInfo"] = user;
+                return View(user);
+            }
+            return Redirect("https://www.dhofar.gov.om/");
         }
+
+        private string ReadPKISession()
+        {
+            if (HttpContext.Request.Cookies["SSO"] != null)
+            {
+                HttpCookie cookie = HttpContext.Request.Cookies.Get("SSO");
+                if (cookie != null) return cookie.Value;
+            }
+            return null;
+        }
+
         public ActionResult ConsultancyOwnerService()
         {
             GetUserDataFromOracleDbTestUser();
