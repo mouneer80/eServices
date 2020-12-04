@@ -15,8 +15,8 @@ namespace DMeServicesExternal.Web.Controllers
     {
         public ActionResult Index()
         {
-            User user = GetUserDataFromOracleDbTestUser();
-            return View(user);
+            GetUserDataFromOracleDbTestUser();
+            return View(((User)Session["UserInfo"]));
             //if (HttpContext.Request.Cookies["SSO"] != null)
             //{
             //    HttpCookie cookie = HttpContext.Request.Cookies.Get("SSO");
@@ -29,40 +29,19 @@ namespace DMeServicesExternal.Web.Controllers
             //}
             //return Redirect("https://www.dhofar.gov.om/");
         }
-
-        private User GetUserDataFromOracleDB(string value)
-        {
-            throw new NotImplementedException();
-        }
-
-        private User GetUserDataFromOracleDbTestUser()
-        {
-            User oUser = Account.UserLogin("test", "abc@123");
-            if (oUser != null && oUser.Id > 0)
-            {
-                Session["UserInfo"] = oUser;
-            }
-            return oUser;
-        }
-
         public ActionResult ConsultancyOwnerService()
         {
-            User user = GetUserDataFromOracleDbTestUser();
-            CompanyViewModel companyViewModel = new CompanyViewModel
-            {
-                CompaniesList = MociCompaniesData.CompaniesByOwnerCivilId(user.CivilId)
-            };
-            
-            return RedirectToAction("CompanyList", "BuildingPermits", companyViewModel);
+            GetUserDataFromOracleDbTestUser();
+            return RedirectToAction("CompanyList", "BuildingPermits");
         }
         public ActionResult ConsultancyEngineerService()
         {
-            User user = GetUserDataFromOracleDbTestUser();
+            GetUserDataFromOracleDbTestUser();
             return RedirectToAction("index", "BuildingPermits");
         }
         public ActionResult LandOwnerService()
         {
-            User user = GetUserDataFromOracleDbTestUser();
+            GetUserDataFromOracleDbTestUser();
             return RedirectToAction("LandProjects", "BuildingPermits");
         }
         public ActionResult ContractorService()
@@ -70,9 +49,24 @@ namespace DMeServicesExternal.Web.Controllers
             return HttpNotFound();
         }
 
+        private User GetUserDataFromOracleDB(string value)
+        {
+            throw new NotImplementedException();
+        }
+
         private User GetUserByCivilId(string civilId)
         {
             throw new NotImplementedException();
+        }
+
+        private void GetUserDataFromOracleDbTestUser()
+        {
+            if (Session["UserInfo"] != null) return;
+            User oUser = Account.UserLogin("test", "abc@123");
+            if (oUser != null && oUser.Id > 0)
+            {
+                Session["UserInfo"] = oUser;
+            }
         }
 
         //Old Index Controller before IDP

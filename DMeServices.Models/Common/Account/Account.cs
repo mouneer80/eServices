@@ -18,7 +18,6 @@ namespace DMeServices.Models.Common.Account
         {
             using (eServicesEntities db = new eServicesEntities())
             {
-
                 string sPassword = GetMd5Hash(password);
                 Users oUsers = db.Users.Where(u => u.Username == userName && u.Password == sPassword).SingleOrDefault();
                 User oLoggedUser = Mapper.Map<Users, User>(oUsers);

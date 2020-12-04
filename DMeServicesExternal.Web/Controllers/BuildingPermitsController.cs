@@ -23,7 +23,7 @@ namespace DMeServicesExternal.Web.Controllers
         // GET: BuildingPermits
         public ActionResult Index()
         {
-            PermitsViewModel oModel = new PermitsViewModel();
+            var oModel = new PermitsViewModel();
             oModel.ListBuildingPermits = PermitsCom.PermitsByConsultantCivilId(oModel.oUserInfo.CivilId);
             oModel.ShowAdd = true;
             return View(oModel);
@@ -37,9 +37,10 @@ namespace DMeServicesExternal.Web.Controllers
             return View("Index",oModel);
         }
 
-        public ActionResult CompanyList(CompanyViewModel companyViewModel)
+        public ActionResult CompanyList()
         {
-            return View(companyViewModel);
+            var oModel = new CompanyViewModel();
+            return View(oModel);
         }
 
         public static async Task<DataTable> GetPaymentToken()
@@ -124,18 +125,18 @@ namespace DMeServicesExternal.Web.Controllers
             oModel.ListOfAttachments = (List<PermitsAttachments>)TempData["Attachments"];
             TempData["Attachments"] = null;
             oModel.ListOfAttachments = SaveConsultantFiles(oModel);
-            string Result = PermitsCom.SaveConsultatPermits(oModel);
+            _ = PermitsCom.SaveConsultatPermits(oModel);
 
-            //var Engineer = DMeServices.Models.Common.EmployeeCom.EmployeeByID(oModel.BuildingPermits.DmEngineerNo.ToString());
-            //DMeServices.Models.Common.SmsCom.SendSms("968" + Engineer.MOBILE_NO, ":  تم تعديل الخرائط من قبل الاستشاري رقم المعاملة " + oModel.BuildingPermits.TransactNo);
             ViewBag.TranseID = oModel.BuildingPermits.TransactNo;
             return View("SaveConsultatPermitsPage");
         }
 
-        public ActionResult PermitDetails(int Id = -99)
+        public ActionResult PermitDetails(int id = -99)
         {
-            PermitsViewModel oModel = new PermitsViewModel();
-            oModel.BuildingPermits = PermitsCom.PermitsByID(Id);
+            PermitsViewModel oModel = new PermitsViewModel
+            {
+                BuildingPermits = PermitsCom.PermitsByID(id)
+            };
             TempData["Attachments"] = new List<PermitsAttachments>();
             ViewBag.DDAttachmentsType = DDAttachmentTypes();
 
@@ -145,7 +146,7 @@ namespace DMeServicesExternal.Web.Controllers
             ViewBag.DDBuildingTypes = DDBuildingTypes();
             ViewBag.DDLandUseTypes = DDLandUseTypes();
             ViewBag.DDSquareLetters = DDSquareLetters();
-            oModel.ListOfAttachments = PermitsAttachmentsCom.AttachmentsByPermitsID(Id);
+            oModel.ListOfAttachments = PermitsAttachmentsCom.AttachmentsByPermitsID(id);
 
 
             return View(oModel);
