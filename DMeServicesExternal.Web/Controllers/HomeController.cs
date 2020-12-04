@@ -33,14 +33,6 @@ namespace DMeServicesExternal.Web.Controllers
             }
             return Redirect("https://www.dhofar.gov.om/sso/default.aspx");
         }
-
-        private HttpCookie CreateStudentCookie()
-        {
-            HttpCookie studentCookies = new HttpCookie("SSO");
-            studentCookies.Value = "23e4d55d-1049-4445-979d-6cdf79bfa25d";
-            studentCookies.Expires = DateTime.Now.AddHours(1);
-            return studentCookies;
-        }
         private string ReadPkiSession()
         {
             if (HttpContext.Request.Cookies["SSO"] != null)
@@ -104,6 +96,7 @@ namespace DMeServicesExternal.Web.Controllers
         {
             return fullName.Split(new char[] {' '});
         }
+        // For Testing To be removed
         private void GetUserDataFromOracleDbTestUser()
         {
             if (Session["UserInfo"] != null) return;
@@ -112,6 +105,13 @@ namespace DMeServicesExternal.Web.Controllers
             {
                 Session["UserInfo"] = oUser;
             }
+        }
+        private HttpCookie CreateStudentCookie()
+        {
+            HttpCookie studentCookies = new HttpCookie("SSO");
+            studentCookies.Value = "23e4d55d-1049-4445-979d-6cdf79bfa25d";
+            studentCookies.Expires = DateTime.Now.AddHours(1);
+            return studentCookies;
         }
         //Old Index Controller before IDP
         //public ActionResult Index()
