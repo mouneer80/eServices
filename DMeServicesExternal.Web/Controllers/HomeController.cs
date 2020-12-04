@@ -47,7 +47,13 @@ namespace DMeServicesExternal.Web.Controllers
 
         public ActionResult ConsultancyOwnerService()
         {
-            return RedirectToAction("CompanyList", "BuildingPermits");
+            User user = GetUserDataFromOracleDbTestUser();
+            CompanyViewModel companyViewModel = new CompanyViewModel
+            {
+                CompaniesList = MociCompaniesData.CompaniesByOwnerCivilId(user.CivilId)
+            };
+            
+            return RedirectToAction("CompanyList", "BuildingPermits", companyViewModel);
         }
         public ActionResult ConsultancyEngineerService()
         {

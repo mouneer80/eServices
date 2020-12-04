@@ -103,18 +103,6 @@ namespace DMeServices.Models.Common.BuildingServices
         }
         #endregion
 
-        #region Method :: Permit By Commercial Number
-        public static List<BuildingPermits> PermitsByConsultantCrNo(long commercialNumber)
-        {
-            using (eServicesEntities db = new eServicesEntities())
-            {
-                List<BldPermits> bldPermits = db.BldPermits.Where(x => x.ConsultantCrNo == commercialNumber).ToList();
-                List<BuildingPermits> buildingPermits = Mapper.Map<List<BldPermits>, List<BuildingPermits>>(bldPermits);
-                return buildingPermits;
-            }
-        }
-        #endregion
-
         #region Method :: Get All New Permits By CivilId
 
 
@@ -418,6 +406,5 @@ namespace DMeServices.Models.Common.BuildingServices
 
         #endregion
 
-        
     }
 }

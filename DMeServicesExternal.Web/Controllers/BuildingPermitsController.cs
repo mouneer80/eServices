@@ -14,7 +14,6 @@ using System.Data;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using DMeServices.Models;
 using DMeServices.Models.ViewModels;
 
 namespace DMeServicesExternal.Web.Controllers
@@ -30,14 +29,6 @@ namespace DMeServicesExternal.Web.Controllers
             return View(oModel);
         }
 
-        public ActionResult CompanyOwner(long commercialNumber=-99)
-        {
-            PermitsViewModel oModel = new PermitsViewModel();
-            oModel.ListBuildingPermits = PermitsCom.PermitsByConsultantCrNo(commercialNumber);
-            oModel.ShowAdd = false;
-            return View("Index", oModel);
-        }
-
         public ActionResult LandProjects()
         {
             PermitsViewModel oModel = new PermitsViewModel();
@@ -46,20 +37,9 @@ namespace DMeServicesExternal.Web.Controllers
             return View("Index",oModel);
         }
 
-        public ActionResult CompanyList()
+        public ActionResult CompanyList(CompanyViewModel companyViewModel)
         {
-            User user = new User();
-            if (Session["UserInfo"] != null)
-            {
-                oUserInfo = (User) Session["UserInfo"];
-                CompanyViewModel companyViewModel = new CompanyViewModel
-                {
-                    CompaniesList = MociCompaniesData.CompaniesByOwnerCivilId(user.CivilId)
-                };
-                return View(companyViewModel);
-            }
-
-            return Redirect("https://www.dhofar.gov.om/");
+            return View(companyViewModel);
         }
 
         public static async Task<DataTable> GetPaymentToken()
@@ -755,6 +735,5 @@ namespace DMeServicesExternal.Web.Controllers
 
         #endregion
 
-        
     }
 }
