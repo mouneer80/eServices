@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.OracleClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -17,19 +20,28 @@ namespace DMeServicesExternal.Web.Controllers
         {
             //GetUserDataFromOracleDbTestUser();
             //return View(((User)Session["UserInfo"]));
-
-            var guid = ReadPKISession();
-            if(string.IsNullOrWhiteSpace(guid)) return Redirect("https://www.dhofar.gov.om/");
-            var user = GetUserDataFromOracleDB(guid);
-            if (user != null)
+            //Response.Cookies.Add(CreateStudentCookie());
+            var guid = ReadPkiSession();
+            if (!string.IsNullOrWhiteSpace(guid))
             {
-                Session["UserInfo"] = user;
-                return View(user);
+                var user = GetUserDataFromOracleDb(guid);
+                if (user != null)
+                {
+                    Session["UserInfo"] = user;
+                    return View(user);
+                }
             }
-            return Redirect("https://www.dhofar.gov.om/");
+            return Redirect("https://www.dhofar.gov.om/sso/default.aspx");
         }
 
-        private string ReadPKISession()
+        private HttpCookie CreateStudentCookie()
+        {
+            HttpCookie studentCookies = new HttpCookie("SSO");
+            studentCookies.Value = "23e4d55d-1049-4445-979d-6cdf79bfa25d";
+            studentCookies.Expires = DateTime.Now.AddHours(1);
+            return studentCookies;
+        }
+        private string ReadPkiSession()
         {
             if (HttpContext.Request.Cookies["SSO"] != null)
             {
@@ -38,7 +50,6 @@ namespace DMeServicesExternal.Web.Controllers
             }
             return null;
         }
-
         public ActionResult ConsultancyOwnerService()
         {
             GetUserDataFromOracleDbTestUser();
@@ -58,17 +69,41 @@ namespace DMeServicesExternal.Web.Controllers
         {
             return HttpNotFound();
         }
-
-        private User GetUserDataFromOracleDB(string value)
+        private User GetUserDataFromOracleDb(string value)
         {
-            throw new NotImplementedException();
+            DataSet dataSet = new DataSet();
+            using (var connection = new OracleConnection(ConfigurationManager.ConnectionStrings["oracleDB"].ConnectionString))
+            {
+                connection.Open();
+                OracleCommand command = connection.CreateCommand();
+                using (OracleDataAdapter dataAdapter = new OracleDataAdapter())
+                {
+                    command.CommandText = string.Format("select * from [SSODM] where GUID = '{0}'", value);
+                    dataAdapter.SelectCommand = command;
+                    dataAdapter.Fill(dataSet);
+                }
+            }
+            User user = BuildUserObject(dataSet.Tables[0]);
+            return user;
         }
-
-        private User GetUserByCivilId(string civilId)
+        private User BuildUserObject(DataTable dt)
         {
-            throw new NotImplementedException();
+            string[] names = SplitName(dt.Rows[0]["omancardTitleFullNameAr"].ToString());
+            User user = new User()
+            {
+                FirstName = names[0],
+                SecondName = names[1],
+                ThirdName = names[2],
+                LastName = String.Join(" ", names, 3,names.Length -4),
+                CivilId = long.Parse(dt.Rows[0]["omanIDCivilNumber"].ToString()),
+                CompanyName = dt.Rows[0]["omancardSponsorNameAr"].ToString()
+            };
+            return user;
         }
-
+        private string[] SplitName(string fullName)
+        {
+            return fullName.Split(new char[] {' '});
+        }
         private void GetUserDataFromOracleDbTestUser()
         {
             if (Session["UserInfo"] != null) return;
@@ -78,7 +113,6 @@ namespace DMeServicesExternal.Web.Controllers
                 Session["UserInfo"] = oUser;
             }
         }
-
         //Old Index Controller before IDP
         //public ActionResult Index()
         //{
