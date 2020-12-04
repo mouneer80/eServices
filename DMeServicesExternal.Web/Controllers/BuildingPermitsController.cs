@@ -28,7 +28,6 @@ namespace DMeServicesExternal.Web.Controllers
             oModel.ShowAdd = true;
             return View(oModel);
         }
-
         public ActionResult LandProjects()
         {
             PermitsViewModel oModel = new PermitsViewModel();
@@ -36,13 +35,11 @@ namespace DMeServicesExternal.Web.Controllers
             oModel.ShowAdd = false;
             return View("Index",oModel);
         }
-
         public ActionResult CompanyList()
         {
             var oModel = new CompanyViewModel();
             return View(oModel);
         }
-
         public static async Task<DataTable> GetPaymentToken()
         {
             // Initialization.  
@@ -90,8 +87,8 @@ namespace DMeServicesExternal.Web.Controllers
             ViewBag.DDAttachmentsType = DDAttachmentTypes();
             ViewBag.DDWelayat = DDWelayat();
             ViewBag.DDBuildingTypes = DDBuildingTypes();
-            ViewBag.DDLandUseTypes = DDLandUseTypes();
-            ViewBag.DDSquareLetters = DDSquareLetters();
+            ViewBag.DDLandUseTypes = DdLandUseTypes();
+            ViewBag.DDSquareLetters = DdSquareLetters();
             return View(oModel);
         }
 
@@ -111,10 +108,10 @@ namespace DMeServicesExternal.Web.Controllers
             //oModel.BuildingPermits.LicenseNo = "ح / 5665";
 
             oModel.ListOfAttachments = SaveFiles(oModel);
-            string Result = PermitsCom.SavePermits(oModel);
+            string result = PermitsCom.SavePermits(oModel);
 
-            ViewBag.TranseID = Result;
-            DMeServices.Models.Common.SmsCom.SendSms("968" + oModel.oUserInfo.MobileNo, ": تم تسليم طلبك بنجاح  لاستكمال طلب ترخيص البناء يجب دفع رسوم 20 ريال في بلدية صلالة  قسم التحصيل برقم المعاملة  " + Result);
+            ViewBag.TranseID = result;
+            DMeServices.Models.Common.SmsCom.SendSms("968" + oModel.oUserInfo.MobileNo, ": تم تسليم طلبك بنجاح  لاستكمال طلب ترخيص البناء يجب دفع رسوم 20 ريال في بلدية صلالة  قسم التحصيل برقم المعاملة  " + result);
             return View("SaveNewPermitsSuccessPage");
         }
 
@@ -144,8 +141,8 @@ namespace DMeServicesExternal.Web.Controllers
             ViewBag.DDRegion = DDRegionSaved(oModel.BuildingPermits.WelayahID);
             //ViewBag.DDArea = DDAreaSaved(oModel.BuildingPermits.RegionID);
             ViewBag.DDBuildingTypes = DDBuildingTypes();
-            ViewBag.DDLandUseTypes = DDLandUseTypes();
-            ViewBag.DDSquareLetters = DDSquareLetters();
+            ViewBag.DDLandUseTypes = DdLandUseTypes();
+            ViewBag.DDSquareLetters = DdSquareLetters();
             oModel.ListOfAttachments = PermitsAttachmentsCom.AttachmentsByPermitsID(id);
 
 
@@ -507,12 +504,7 @@ namespace DMeServicesExternal.Web.Controllers
 
         public static List<PermitsAttachments> SaveConsultantFiles(PermitsViewModel oModel)
         {
-            List<PermitsAttachments> ListAttachments = new List<PermitsAttachments>();
-
-            string sFilename = string.Empty;
-            string PerPath;
-            string StrPath;
-            string sPath;
+            List<PermitsAttachments> listAttachments = new List<PermitsAttachments>();
 
             if (oModel.ListOfAttachments == null)
             {
@@ -528,9 +520,9 @@ namespace DMeServicesExternal.Web.Controllers
 
                     if (oFile != null && oFile.ContentLength > 0)
                     {
-                        sFilename = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + oFileInfo.Extension;
-                        StrPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/StructuralFiles"));
-                        sPath = System.IO.Path.Combine(StrPath.ToString());
+                        var sFilename = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + oFileInfo.Extension;
+                        var StrPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/StructuralFiles"));
+                        var sPath = System.IO.Path.Combine(StrPath.ToString());
                         string StrUploadPath = string.Format("{0}\\{1}", sPath, sFilename);
                         // oFile.SaveAs(StrUploadPath);
                         Attachment.AttachmentPath = StrUploadPath;
@@ -546,15 +538,15 @@ namespace DMeServicesExternal.Web.Controllers
                         Attachment.InsertDate = DateTime.Now;
                         Attachment.CreatedBy = oModel.oUserInfo.FirstName;
                         Attachment.CreatedOn = DateTime.Now;
-                        ListAttachments.Add(Attachment);
+                        listAttachments.Add(Attachment);
                     }
                 }
                 else
                 {
-                    ListAttachments.Add(Attachment);
+                    listAttachments.Add(Attachment);
                 }
             }
-            return ListAttachments;
+            return listAttachments;
 
         }
 
@@ -678,27 +670,27 @@ namespace DMeServicesExternal.Web.Controllers
 
         #region Method :: DD SquareLetters
 
-        public static List<SelectListItem> DDSquareLetters()
+        public static List<SelectListItem> DdSquareLetters()
         {
-            List<SelectListItem> LstSquareLetters = new List<SelectListItem>();
-            List<SquareLetters> AllSquareLetters = SquareLettersCom.AllSquareLetters();
-            if (AllSquareLetters.Count > 0)
+            List<SelectListItem> lstSquareLetters = new List<SelectListItem>();
+            List<SquareLetters> allSquareLetters = SquareLettersCom.AllSquareLetters();
+            if (allSquareLetters.Count > 0)
             {
-                LstSquareLetters.Add(new SelectListItem() { Text = "أختر رقم رمز المربع", Value = "0" });
-                foreach (var item in AllSquareLetters)
+                lstSquareLetters.Add(new SelectListItem() { Text = "أختر رقم رمز المربع", Value = "0" });
+                foreach (var item in allSquareLetters)
                 {
-                    LstSquareLetters.Add(new SelectListItem() { Text = item.ArLetter, Value = item.ID.ToString() });
+                    lstSquareLetters.Add(new SelectListItem() { Text = item.ArLetter, Value = item.ID.ToString() });
                 }
 
             }
-            return LstSquareLetters;
+            return lstSquareLetters;
         }
 
         #endregion
 
         #region Method :: DD LandUseTypes
 
-        public static List<SelectListItem> DDLandUseTypes()
+        public static List<SelectListItem> DdLandUseTypes()
         {
             List<SelectListItem> LstLandUseTypes = new List<SelectListItem>();
             List<LandUseTypes> AllLandUseTypes = LandUseTypesCom.AllLandUseTypes();
