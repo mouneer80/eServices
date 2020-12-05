@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using RestSharp;
+using RestSharp.Deserializers;
 
 namespace DMeServicesExternal.Web.Controllers
 {
@@ -25,12 +27,8 @@ namespace DMeServicesExternal.Web.Controllers
          };
 
              ViewData["RegisterType"] = list;
-         
-
-            return View(oModel);
+             return View(oModel);
         }
-
-
         public ActionResult SaveUser(UserViewModel oModel)
         {
 
@@ -87,7 +85,22 @@ namespace DMeServicesExternal.Web.Controllers
 
         }
 
+        public ActionResult AddCompany()
+        {
+            object result = GetCompanyDataByCr();
 
+            return View();
+        }
+        public static object GetCompanyDataByCr(string cr= "1000132")
+        {
+            var client = new RestClient("http://10.21.4.4:8087/dm/rest/services/companydata?crNumber="+ cr);
+            var request = new RestRequest(Method.GET);
+            request.AddHeader("content-type", "application/json");
+            IRestResponse restResponse = client.Execute(request);
+            JsonDeserializer deserial = new JsonDeserializer();
+            var x = deserial.Deserialize<CompanyOverviewResult>(restResponse);
 
+            return (x.CompanyOverview);
+        }
     }
 }

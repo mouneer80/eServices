@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.Data.OracleClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -11,6 +10,7 @@ using DMeServices.Models;
 using DMeServices.Models.Common.Account;
 using DMeServices.Models.Common.BuildingServices;
 using DMeServices.Models.ViewModels;
+using Oracle.ManagedDataAccess.Client;
 
 namespace DMeServicesExternal.Web.Controllers
 {
@@ -20,7 +20,7 @@ namespace DMeServicesExternal.Web.Controllers
         {
             //GetUserDataFromOracleDbTestUser();
             //return View(((User)Session["UserInfo"]));
-            //Response.Cookies.Add(CreateStudentCookie());
+            Response.Cookies.Add(CreateStudentCookie());
             var guid = ReadPkiSession();
             if (!string.IsNullOrWhiteSpace(guid))
             {
@@ -70,7 +70,7 @@ namespace DMeServicesExternal.Web.Controllers
                 OracleCommand command = connection.CreateCommand();
                 using (OracleDataAdapter dataAdapter = new OracleDataAdapter())
                 {
-                    command.CommandText = string.Format("select * from [SSODM] where GUID = '{0}'", value);
+                    command.CommandText = string.Format("select * from SSODM.SSO where GUID = '{0}'", value);
                     dataAdapter.SelectCommand = command;
                     dataAdapter.Fill(dataSet);
                 }
