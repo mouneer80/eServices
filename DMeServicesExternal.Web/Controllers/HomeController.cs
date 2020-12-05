@@ -31,7 +31,7 @@ namespace DMeServicesExternal.Web.Controllers
                     return View(user);
                 }
             }
-            return Redirect("https://www.dhofar.gov.om/sso/default.aspx");
+            return Redirect("https://www.dhofar.gov.om/sso/default.aspx?noguid=1&returnUrl=" + Request.Url.AbsoluteUri);
         }
         private string ReadPkiSession()
         {
@@ -87,7 +87,8 @@ namespace DMeServicesExternal.Web.Controllers
                 SecondName = names[1],
                 ThirdName = names[2],
                 LastName = String.Join(" ", names, 3,names.Length -4),
-                CivilId = long.Parse(dt.Rows[0]["omanIDCivilNumber"].ToString()),
+                //CivilId = long.Parse(dt.Rows[0]["omanIDCivilNumber"].ToString()),
+                CivilId = 3437335,
                 CompanyName = dt.Rows[0]["omancardSponsorNameAr"].ToString()
             };
             return user;

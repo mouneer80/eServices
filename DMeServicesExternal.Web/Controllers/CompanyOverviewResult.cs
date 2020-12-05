@@ -1,7 +1,9 @@
-﻿namespace DMeServicesExternal.Web.Controllers
+﻿using System.Collections.Generic;
+
+namespace DMeServicesExternal.Web.Controllers
 {
     public class CompanyOverviewResult
     {
-        public object CompanyOverview { get; set; }
+        public Dictionary<string,object> CompanyOverview { get; set; }
     }
 }

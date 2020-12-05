@@ -23,5 +23,22 @@ namespace DMeServices.Models.Common.BuildingServices
             }
         }
         #endregion
+        
+        #region Method :: Register Comapnies 
+        public static string SaveCompany(MociData compData)
+        {
+            using (eServicesEntities db = new eServicesEntities())
+            {
+                MociData isCompanyExist = db.MociData.SingleOrDefault(x => x.COMMERCIAL_NO == compData.COMMERCIAL_NO);
+                if (isCompanyExist != null)
+                {
+                    return "الشركة مسجلة من قبل";
+                }
+                db.MociData.Add(compData);
+                db.SaveChanges();
+                return "تم التسحيل بنجاح";
+            }
+        }
+        #endregion
     }
 }

@@ -22,7 +22,7 @@
     </li>
 </ul>
 
-@using (Html.BeginForm("SaveUser", "Register", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("SaveCompany", "Register", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -33,206 +33,80 @@
                 <div class="box-inner">
                     <div class="box-header well" data-original-title="">
                         <h2><i class="glyphicon glyphicon-edit"></i> تسجيل البيانات</h2>
-
                     </div>
+
                     <div class="box-content">
-                        <div class="form-group col-md-12">
+                        <div class="form-group col-md-5">
                             <label class="control-label">السجل التجاري</label>
-                            @*<input type="text" class="form-control" id="example3" placeholder="السجل التجاري">*@
-                            @Html.TextBoxFor(n => n.oUser.ConsultantCrNo, null, new {@class = "form-control", placeholder = "السجل التجاري"})
+                            @*<input type="text" class="form-control" id="CommercialNo" placeholder="السجل التجاري" value="1326956">*@
+                            @Html.TextBoxFor(n => n.CompanyData.COMMERCIAL_NO, null, new { @class = "form-control", placeholder = "السجل التجاري", @id = "CommercialNo" })
+                            <a class="btn btn-primary" onclick="javascript: callRestApi();" > البحث</a>
                         </div>
-                        
 
-                        
-                        <div id="User_Reg" class="User_Reg box">
-                            <div class="form-group col-md-6">
-                                <label class="control-label">الإسم الأول</label>
-                                @*<input type="email" class="form-control" id="example1" placeholder="الإسم">*@
-                                @*@Html.TextBox("Name", null, new { @class = "form-control", placeholder = "الإسم" })*@
-                                @Html.TextBoxFor(n => n.oUser.FirstName, new {@class = "form-control", placeholder = "الإسم الأول"})
-                                @Html.ValidationMessageFor(n => n.oUser.FirstName, "", new {@class = "text-danger"})
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="control-label">الإسم الثاني</label>
-                                @*<input type="email" class="form-control" id="example1" placeholder="الإسم">*@
-                                @*@Html.TextBox("Name", null, new { @class = "form-control", placeholder = "الإسم" })*@
-                                @Html.TextBoxFor(n => n.oUser.SecondName, new {@class = "form-control", placeholder = "الإسم الثاني"})
-                                @Html.ValidationMessageFor(n => n.oUser.SecondName, "", new {@class = "text-danger"})
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="control-label"> الإسم الثالث</label>
-                                @*<input type="email" class="form-control" id="example1" placeholder="الإسم">*@
-                                @*@Html.TextBox("Name", null, new { @class = "form-control", placeholder = "الإسم" })*@
-                                @Html.TextBoxFor(n => n.oUser.ThirdName, new {@class = "form-control", placeholder = "الإسم الثالث"})
-                                @Html.ValidationMessageFor(n => n.oUser.ThirdName, "", new {@class = "text-danger"})
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="control-label">القبيلة</label>
-                                @*<input type="email" class="form-control" id="example1" placeholder="الإسم">*@
-                                @*@Html.TextBox("Name", null, new { @class = "form-control", placeholder = "الإسم" })*@
-                                @Html.TextBoxFor(n => n.oUser.LastName, new {@class = "form-control", placeholder = "القبيلة "})
-                                @Html.ValidationMessageFor(n => n.oUser.LastName, "", new {@class = "text-danger"})
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="control-label">الرقم المدني</label>
-                                @*<input type="text" class="form-control" id="example2" placeholder="رقم البطاقة الشخصية">*@
-                                @*@Html.TextBox("CardID", null, new { @class = "form-control", placeholder = "رقم البطاقة الشخصية" })*@
-                                @Html.TextBoxFor(n => n.oUser.CivilId, new {@class = "form-control", placeholder = "الرقم المدني "})
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="control-label">إسم المستخدم</label>
-                                @*<input type="text" class="form-control" id="example3" placeholder="إسم المستخدم">*@
-                                @*@Html.TextBox("UserName", null, new { @class = "form-control", placeholder = "إسم المستخدم" })*@
-                                @Html.TextBoxFor(n => n.oUser.Username, new {@class = "form-control", placeholder = "إسم المستخدم"})
-                                @Html.ValidationMessageFor(n => n.oUser.Username, "", new {@class = "text-danger"})
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="control-label">كلمة المرور</label>
-                                @*<input type="password" class="form-control" id="example4" placeholder="كلمة المرور">*@
-                                @*@Html.TextBox("Pass", null, new { @class = "form-control", placeholder = "كلمة المرور", type = "password" })*@
-                                @Html.TextBoxFor(n => n.oUser.Password, new {@class = "form-control", placeholder = "كلمة المرور", type = "password"})
-                                @Html.ValidationMessageFor(n => n.oUser.Password, "", new {@class = "text-danger"})
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="control-label">تأكيد كلمة المرور</label>
-                                @*<input type="password" class="form-control" id="example4" placeholder="تأكيد كلمة المرور">*@
-                                @*@Html.TextBox("RePass", null, new { @class = "form-control", placeholder = "تأكيد كلمة المرور", type = "password" })*@
-                                @Html.TextBoxFor(n => n.oUser.Password, new {@class = "form-control", placeholder = "تأكيد كلمة المرور", type = "password"})
-                                @Html.ValidationMessageFor(n => n.oUser.Password, "", new {@class = "text-danger"})
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="control-label">رقم الهاتف</label>
-                                @*<input type="text" class="form-control" id="example4" placeholder="رقم الهاتف">*@
-                                @*@Html.TextBox("Tele", null, new { @class = "form-control", placeholder = "رقم الهاتف" })*@
-                                @Html.TextBoxFor(n => n.oUser.MobileNo, new {@class = "form-control", placeholder = "رقم الهاتف"})
-                                @Html.ValidationMessageFor(n => n.oUser.MobileNo, "", new {@class = "text-danger"})
-                            </div>
-                            <div class="form-group col-md-12">
-                                <label class="control-label">البريد الإلكتروني</label>
-                                @*<input type="text" class="form-control" id="example4" placeholder="البريد الإلكتروني">*@
-                                @*@Html.TextBox("Mail", null, new { @class = "form-control half", placeholder = "البريد الإلكتروني" })*@
-                                @Html.TextBoxFor(n => n.oUser.Email, new {@class = "form-control half", placeholder = "البريد الإلكتروني"})
-                                @Html.ValidationMessageFor(n => n.oUser.Email, "", new {@class = "text-danger"})
-                            </div>
-                        </div>
-                        <div id="Comp_Reg" class="Comp_Reg box">
-                            <div class="form-group col-md-6">
-                                <label class="control-label">إسم الاستشاري</label>
-                                @*<input type="email" class="form-control" id="example1" placeholder="إسم الاستشاري">*@
-                                @Html.TextBoxFor(n => n.oUser.CompanyName, new {@class = "form-control", placeholder = "إسم الاستشاري"})
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="control-label">إسم المستخدم</label>
-                                @*<input type="text" class="form-control" id="example3" placeholder="إسم المستخدم">*@
-                                @*@Html.TextBox("UserName", null, new {@class = "form-control", placeholder = "إسم المستخدم"})*@
-                                @Html.TextBoxFor(n => n.oUser.Username, null, new {@class = "form-control", placeholder = "إسم المستخدم"})
-                                @Html.ValidationMessageFor(n => n.oUser.Username, "", new {@class = "text-danger"})
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="control-label">كلمة المرور</label>
-                                @*<input type="password" class="form-control" id="example4" placeholder="كلمة المرور">*@
-                                @Html.TextBoxFor(n => n.oUser.Password, null, new {@class = "form-control", placeholder = "كلمة المرور", type = "password"})
-                                @Html.ValidationMessageFor(n => n.oUser.Password, "", new {@class = "text-danger"})
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="control-label">تأكيد كلمة المرور</label>
-                                @*<input type="password" class="form-control" id="example4" placeholder="تأكيد كلمة المرور">*@
-                                @Html.TextBoxFor(n => n.oUser.Password, null, new {@class = "form-control", placeholder = "تأكيد كلمة المرور", type = "password"})
-                                @Html.ValidationMessageFor(n => n.oUser.Password, "", new {@class = "text-danger"})
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="control-label">البريد الإلكتروني</label>
-                                @*<input type="text" class="form-control" id="example4" placeholder="البريد الإلكتروني">*@
-                                @Html.TextBoxFor(n => n.oUser.Email, null, new {@class = "form-control", placeholder = "البريد الإلكتروني"})
-                                @Html.ValidationMessageFor(n => n.oUser.Email, "", new {@class = "text-danger"})
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="control-label">رقم الهاتف</label>
-                                @*<input type="text" class="form-control" id="example4" placeholder="رقم الهاتف">*@
-                                @Html.TextBoxFor(n => n.oUser.PhoneNo, null, new {@class = "form-control", placeholder = "رقم الهاتف"})
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="control-label">العنوان</label>
-                                @*<input type="text" class="form-control" id="example2" placeholder="العنوان">*@
-                                @Html.TextBoxFor(n => n.oUser.Address, null, new {@class = "form-control", placeholder = "العنوان"})
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="control-label">السجل التجاري</label>
-                                @*<input type="text" class="form-control" id="example3" placeholder="السجل التجاري">*@
-                                @Html.TextBoxFor(n => n.oUser.ConsultantCrNo, null, new {@class = "form-control", placeholder = "السجل التجاري"})
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="control-label">صندوق البريد</label>
-                                @*<input type="text" class="form-control" id="example4" placeholder="صندوق البريد">*@
-                                @Html.TextBox("MailBox", null, new {@class = "form-control", placeholder = "صندوق البريد"})
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="control-label">الرمز البريدي</label>
-                                @*<input type="text" class="form-control" id="example4" placeholder="الرمز البريدي">*@
-                                @Html.TextBox("SID", null, new {@class = "form-control", placeholder = "الرمز البريدي"})
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="control-label">المهندس المتابع</label>
-                                @*<input type="text" class="form-control" id="example2" placeholder="المهندس المتابع">*@
-                                @Html.TextBoxFor(n => n.oUser.FirstName, null, new {@class = "form-control", placeholder = "المهندس المتابع"})
-                                @Html.ValidationMessageFor(n => n.oUser.FirstName, "", new {@class = "text-danger"})
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="control-label">رقم هاتف المهندس</label>
-                                @*<input type="text" class="form-control" id="example2" placeholder="رقم هاتف المهندس">*@
-                                @Html.TextBoxFor(n => n.oUser.MobileNo, null, new {@class = "form-control", placeholder = "رقم هاتف المهندس"})
-                                @Html.ValidationMessageFor(n => n.oUser.MobileNo, "", new {@class = "text-danger"})
-                            </div>
 
+                        <div class="form-group col-md-5">
+                            <label class="control-label"> اسم الشركة</label>
+                            @*<input type="text" readonly class="form-control" id="CompanyName">*@
+                            @Html.TextBoxFor(n => n.CompanyData.COMMERCIAL_NAME, null, new { @readonly = "readonly", @class = "form-control", placeholder = "اسم الشركة", @id = "CompanyName" })
                         </div>
+
+                        <div class="form-group col-md-5">
+                            <label class="control-label"> الشكل القانوني</label>
+                            @*<input type="text" readonly class="form-control" id="CompanyName">*@
+                            @Html.TextBoxFor(n => n.CompanyData.LEGAL_FORM, null, new { @readonly = "readonly", @class = "form-control", placeholder ="الشكل القانوني", @id = "LegalForm" })
+                        </div>
+
+                        <div class="form-group col-md-5">
+                            <label class="control-label"> رقم الهاتف</label>
+                            @*<input type="text" readonly class="form-control" id="CompanyName">*@
+                            @Html.TextBoxFor(n => n.CompanyData.PHONE_NO, null, new { @class = "form-control", placeholder = "رقم الهاتف", @id = "PhoneNumber" })
+                            @Html.ValidationMessageFor(n => n.CompanyData.PHONE_NO, "", new { @class = "text-danger" })
+                        </div>
+
+                        @Html.HiddenFor(a => a.oUserInfo.CivilId, new { @id = "hiddenCivil_id" })
+
 
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" class="btn btn-default" value="تسجيل"/>
+                                <input type="submit" class="btn btn-default" value="تسجيل" />
                             </div>
                         </div>
-                        @*<button type="submit"  class="form-group btn btn-success noty" style="margin-top: 20px;">
-                                <i class="glyphicon glyphicon-ok"></i> إرسال البيانات
-                            </button>*@
 
-                        @*<button type="submit"  class="btn btn-success noty" style="margin-top: 20px;"
-                                    data-noty-options="{&quot;text&quot;:&quot;تم حفظ البيانات بنجاح&quot;,&quot;layout&quot;:&quot;top&quot;,&quot;type&quot;:&quot;information&quot;}">
-                                <i class="glyphicon glyphicon-ok"></i> إرسال البيانات
-                            </button>*@
                     </div>
+
                 </div>
             </div>
             <!--/span-->
         </div>
     </div>
-    @Html.HiddenFor(a => a.oUser.UserType, 1)
-
-
 }
+
+
 <script>
-            $(document).ready(function () {
-                $(".Comp_Reg").hide();
-                //$(".User_Reg").hide();
-                $(".noty").hide();
-                $("select").change(function () {
-                    var type = $(this).val();
-                    if (type == "1") {
-                        //$(".box").not(".User_Reg").hide();
-                        $(".Comp_Reg").hide();
-                        $(".User_Reg").show();
-                        $(".noty").show();
-                    } else if (type == "2") {
-                        //$(".box").not(".Comp_Reg").hide();
-                        $(".Comp_Reg").show();
-                        $(".User_Reg").hide();
-                        $(".noty").show();
-                    } else if (type == "0") {
-                        $(".Comp_Reg").hide();
-                        $(".User_Reg").hide();
-                        $(".noty").hide();
+    function callRestApi() {
+        var Comm_Val = $('#CommercialNo').val();
+        var userCivilID = $('#hiddenCivil_id').val();
+        $.ajax({
+            url: "http://10.21.4.4:8087/dm/rest/services/companydata?crNumber=" + Comm_Val,
+            type: "Get",
+            dataType: "json",
+            success: function (data) {
+                if (data) {
+                    var arr = data.companyOverview.investors.investor;
+                    var isOwner = false;
+                    arr.forEach(i => {
+                        if (i.person.idNumber === userCivilID) isOwner =  true;
+                    });
+                    if (isOwner) {
+                        $('#CompanyName').val(data.companyOverview.companyNameArabic);
+                        $('#LegalForm').val(data.companyOverview.legalStatus.nameAr);
+                        $('#PhoneNumber').val(data.companyOverview.contact.phone);
+                    } else {
+                        alert("You're not owner");
                     }
-                });
-
-
-            });
+                }
+            },
+            error: function (msg) { alert(msg); }
+        });
+    };
 </script>

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DMeServices.Models.Common.BuildingServices;
 using RestSharp;
 using RestSharp.Deserializers;
 
@@ -85,11 +86,20 @@ namespace DMeServicesExternal.Web.Controllers
 
         }
 
+        public ActionResult SaveCompany(UserViewModel oModel)
+        {
+            oModel.CompanyData.CIVIL_ID = oModel.oUserInfo.CivilId.ToString();
+            if (oModel.CompanyData.COMMERCIAL_NO != null)
+                oModel.CompanyData.ID = oModel.CompanyData.COMMERCIAL_NO.Value;
+            ViewBag.Result = MociCompaniesData.SaveCompany(oModel.CompanyData);
+            return RedirectToAction("CompanyList", "BuildingPermits");
+        }
+
         public ActionResult AddCompany()
         {
-            object result = GetCompanyDataByCr();
-
-            return View();
+            //object result = GetCompanyDataByCr();
+            UserViewModel oModel = new UserViewModel();
+            return View(oModel);
         }
         public static object GetCompanyDataByCr(string cr= "1000132")
         {

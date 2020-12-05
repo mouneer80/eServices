@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using DMeServices.DAL;
 
 namespace DMeServices.Models.ViewModels.Permits
 {
@@ -12,17 +13,15 @@ namespace DMeServices.Models.ViewModels.Permits
 
       public UserViewModel()
         {
-
             oUserInfo = new User();
             if (HttpContext.Current.Session["UserInfo"] != null)
             {
                 oUserInfo = (User)HttpContext.Current.Session["UserInfo"];
             }
-
         }
 
         public User oUserInfo { get; set; }
         public User oUser { get; set; }
-
-    }
+        public MociData CompanyData { get; set; }
+        }
 }
