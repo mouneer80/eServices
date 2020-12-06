@@ -17,6 +17,7 @@ namespace DMeServicesExternal.Web.Controllers
 
         public ActionResult Login()
         {
+            LoginViewModel oUser = new LoginViewModel();
             ViewBag.returnUrl = Request.QueryString["returnUrl"];
             LoginViewModel login = new LoginViewModel();
             return View(login);
