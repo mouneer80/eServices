@@ -305,9 +305,6 @@ namespace DMeServicesExternal.Web.Controllers
         public ActionResult SaveWorker()
         {
             SurveysViewModel oModel = new SurveysViewModel();
-            
-                
-                
             var WorkerID = System.Web.HttpContext.Current.Request.Form["WorkerID"];
             var WorkerName = System.Web.HttpContext.Current.Request.Form["WorkerName"];
             var WorkerPhone = System.Web.HttpContext.Current.Request.Form["WorkerPhone"];
@@ -317,13 +314,7 @@ namespace DMeServicesExternal.Web.Controllers
             oModel.Workers.WorkerName = WorkerName;
             oModel.Workers.WorkerPhone = int.Parse(WorkerPhone);
             //oModel.Workers.SurveyID = int.Parse(SurveyID);
-
-
-
             oModel.ListOfWorkers = (List<WorkersHousingDetails>)TempData["Workers"];
-            
-
-            
             if (oModel.ListOfWorkers == null)
             {
                 oModel.ListOfWorkers = new List<WorkersHousingDetails>();
@@ -335,14 +326,9 @@ namespace DMeServicesExternal.Web.Controllers
                     oModel.ListOfWorkers = LandSurveyCom.WorkersBySurveyID(int.Parse(SurveyID));
                 }
             }
-
             oModel.ListOfWorkers.Add(oModel.Workers);
             TempData["Workers"] = oModel.ListOfWorkers;
-   
-
-
             return PartialView("_ListWorkers", oModel);
-
         }
         #endregion
 

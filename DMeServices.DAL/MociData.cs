@@ -14,7 +14,7 @@ namespace DMeServices.DAL
     
     public partial class MociData
     {
-        public Nullable<long> COMMERCIAL_NO { get; set; }
+        public long COMMERCIAL_NO { get; set; }
         public string COMMERCIAL_NAME { get; set; }
         public string COMMERCIAL_DATE { get; set; }
         public string LEGAL_FORM { get; set; }

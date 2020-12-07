@@ -1622,6 +1622,8 @@
     <Content Include="Views\IndustrialSurveys\NewCollectiveResidence.cshtml" />
     <Content Include="Views\BuildingPermits\CompanyList.cshtml" />
     <Content Include="Views\Register\AddCompany.cshtml" />
+    <Content Include="Views\Register\CompanyDetails.cshtml" />
+    <Content Include="Views\Register\_ListConsultants.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

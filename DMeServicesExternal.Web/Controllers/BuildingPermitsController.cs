@@ -37,7 +37,7 @@ namespace DMeServicesExternal.Web.Controllers
         }
         public ActionResult CompanyList()
         {
-            var oModel = new CompanyViewModel();
+            var oModel = new CompaniesListViewModel();
             return View(oModel);
         }
         public static async Task<DataTable> GetPaymentToken()

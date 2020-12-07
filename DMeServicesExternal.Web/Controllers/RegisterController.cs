@@ -3,9 +3,11 @@ using DMeServices.Models.ViewModels.Permits;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Web;
 using System.Web.Mvc;
 using DMeServices.Models.Common.BuildingServices;
+using DMeServices.Models.ViewModels;
 using RestSharp;
 using RestSharp.Deserializers;
 
@@ -88,11 +90,14 @@ namespace DMeServicesExternal.Web.Controllers
 
         public ActionResult SaveCompany(UserViewModel oModel)
         {
-            oModel.CompanyData.CIVIL_ID = oModel.oUserInfo.CivilId.ToString();
-            if (oModel.CompanyData.COMMERCIAL_NO != null)
-                oModel.CompanyData.ID = oModel.CompanyData.COMMERCIAL_NO.Value;
-            ViewBag.Result = MociCompaniesData.SaveCompany(oModel.CompanyData);
-            return RedirectToAction("CompanyList", "BuildingPermits");
+            if (!string.IsNullOrWhiteSpace(oModel.CompanyData.COMMERCIAL_NAME))
+            {
+                oModel.CompanyData.CIVIL_ID = oModel.oUserInfo.CivilId.ToString();
+                oModel.CompanyData.ID = oModel.CompanyData.COMMERCIAL_NO;
+                ViewBag.Result = MociCompaniesData.SaveCompany(oModel.CompanyData);
+                return RedirectToAction("CompanyList", "BuildingPermits");
+            }
+            return View("AddCompany");
         }
 
         public ActionResult AddCompany()
@@ -112,5 +117,16 @@ namespace DMeServicesExternal.Web.Controllers
 
             return (x.CompanyOverview);
         }
+
+        public ActionResult CompanyDetails(long id)
+        {
+            var companyViewModel = new CompanyViewModel()
+            {
+                CompanyData = MociCompaniesData.GetCompanyByCr(id),
+                ConsultantsList = UserCom.GetUsersListByCr(id)
+            };
+            return View(companyViewModel);
+        }
+        
     }
 }

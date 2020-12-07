@@ -1,0 +1,220 @@
+﻿@model DMeServices.Models.ViewModels.CompanyViewModel
+@{
+    ViewBag.Title = "CompanyDetails";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+
+
+<style>
+    .form-group {
+        margin-bottom: 2px;
+    }
+
+    .table > tbody > tr > td, .table > thead > tr > td {
+        padding: 4px;
+    }
+
+    .dropdown-toggle {
+        background-color: transparent;
+        border-color: #000000;
+        border-style: solid;
+    }
+</style>
+
+<div>
+    <ul class="breadcrumb">
+        <li>
+            <a href="@Url.Action("Index","Home")">الرئيسية</a>
+        </li>
+        <li>
+            <a href="#">الشركات</a>
+        </li>
+        <li>
+            <a href="#"> تفاصيل الشركة</a>
+        </li>
+    </ul>
+</div>
+
+<div class="col-lg-9 col-sm-9">
+    <div class="row">
+        @using (Html.BeginForm("SaveCompany", "Register", FormMethod.Post, new { encType = "multipart/form-data", @id = "Companyform" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="box col-md-12">
+                <div class="form-group col-md-6">
+                    <label class="control-label">محافظة</label>
+                    @Html.TextBoxFor(m => m.CompanyData.GOVERNORATE, new { @id = "GOVERNORATE", @readonly = "readonly", style = "padding:0px", @class = "form-control" })
+
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="control-label">الولاية</label>
+                    @Html.TextBoxFor(m => m.CompanyData.STATE, new { @id = "Welayah", @readonly = "readonly", style = "padding:0px", @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="box col-md-12">
+                <div class="form-group col-md-6">
+                    <label class="control-label">السجل التجاري</label>
+                    @*<input type="text" class="form-control" id="CommercialNo" placeholder="السجل التجاري" value="1326956">*@
+                    @Html.TextBoxFor(n => n.CompanyData.COMMERCIAL_NO, null, new { @class = "form-control", placeholder = "السجل التجاري", @id = "CommercialNo" })
+                    <a class="btn btn-primary" onclick="javascript: callRestApi();"> البحث</a>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label class="control-label"> اسم الشركة</label>
+                    @*<input type="text" readonly class="form-control" id="CompanyName">*@
+                    @Html.TextBoxFor(n => n.CompanyData.COMMERCIAL_NAME, null, new { @readonly = "readonly", @class = "form-control", placeholder = "اسم الشركة", @id = "CompanyName" })
+                </div>
+            </div>
+
+            <div class="box col-md-12">
+                <div class="form-group col-md-6">
+                    <label class="control-label"> الرقم المدني</label>
+                    @*<input type="text" readonly class="form-control" id="CompanyName">*@
+                    @Html.TextBoxFor(n => n.CompanyData.CIVIL_ID, null, new { @class = "form-control", placeholder = "الرقم المدني", @id = "CivilID" })
+                    @Html.ValidationMessageFor(n => n.CompanyData.CIVIL_ID, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label class="control-label"> الاسم بالكامل</label>
+                    @*<input type="text" readonly class="form-control" id="CompanyName">*@
+                    @Html.TextBoxFor(n => n.CompanyData.FULL_NAME, null, new { @class = "form-control", placeholder = "الاسم بالكامل", @id = "FullName" })
+                    @Html.ValidationMessageFor(n => n.CompanyData.FULL_NAME, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="box col-md-12">
+                <div class="form-group col-md-6">
+                    <label class="control-label"> البريد الالكتروني</label>
+                    @*<input type="text" readonly class="form-control" id="CompanyName">*@
+                    @Html.TextBoxFor(n => n.CompanyData.EMAIL, null, new { @class = "form-control", placeholder = "البريد الالكتروني", @id = "Email" })
+                    @Html.ValidationMessageFor(n => n.CompanyData.EMAIL, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="control-label"> رقم الهاتف</label>
+                    @*<input type="text" readonly class="form-control" id="CompanyName">*@
+                    @Html.TextBoxFor(n => n.CompanyData.PHONE_NO, null, new { @class = "form-control", placeholder = "رقم الهاتف", @id = "PhoneNumber" })
+                    @Html.ValidationMessageFor(n => n.CompanyData.PHONE_NO, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="box col-md-12">
+                <div class="form-group col-md-6">
+                    <label class="control-label"> الشكل القانوني</label>
+                    @*<input type="text" readonly class="form-control" id="CompanyName">*@
+                    @Html.TextBoxFor(n => n.CompanyData.LEGAL_FORM, null, new { @id = "LegalForm", @readonly = "readonly", @class = "form-control", placeholder = "الشكل القانوني" })
+                </div>
+            </div>
+
+        }
+        <br />
+        <h5> أضافة بيانات الاستشاريين</h5>
+        <br />
+        <div class="form-group col-md-12" style="direction: rtl">
+            <div class="col-sm-5" style="width: 35%;">
+                @Html.TextBoxFor(m => m.Consultant.CivilId, new { id = "ConsultantCivilId", @class = "form-control", @placeholder = "الرقم المدني", @onchange = "callRestApi();" })
+            </div>
+
+            <div class="col-sm-5" style="width: 25%;">
+                @Html.TextBoxFor(m => m.Consultant.FullName, new { id = "ConsultantFullName", @readonly = "readonly", @class = "form-control", @placeholder = "الاسم" })
+            </div>
+
+            <div class="col-sm-5" style="width: 25%;">
+                @Html.TextBoxFor(m => m.Consultant.JobName, new { id = "ConsultantJobName", @readonly = "readonly", @class = "form-control", @placeholder = "الوظيفة" })
+            </div>
+            <div class="col-sm-1" style="width: 15%;">
+                <input type="submit" id="SaveWorker" name="SaveWorker" class="btn " value="إضافة بيان" />
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+    <div id="divWorkers" class="row">
+        @if (Model.ConsultantsList != null && Model.ConsultantsList.Count < 0)
+        {
+            Html.RenderPartial("_ListConsultants", Model);
+        }
+    </div>
+    <br />
+    <br />
+    <div class="col-sm-6">
+        <button class="btn btn-primary" id="Save" @*onclick="return confirm('هل انت متاكد من حفظ التعديلات !');"*@>
+            <i class="glyphicon glyphicon-ok"></i> حفظ
+        </button>
+        <a style="float:left" href="@Url.Action( "Index","IndustrialSurveys")" class="btn btn-primary" role="button">رجوع</a>
+    </div>
+</div>
+
+<script>
+    var Notify = (msg) => alert(msg);
+    function EmptyTextBoxes() {
+        $('#CompanyName').val('');
+        $('#LegalForm').val('');
+        $('#PhoneNumber').val('');
+        $('#FullName').val('');
+        $('#State').val('');
+        $('#Governorate').val('');
+        $('#Email').val('');
+        $('#CivilID').val('');
+    }
+
+    function callRestApi() {
+        var Comm_Val = $('#CommercialNo').val();
+        var userCivilID = $('#ConsultantCivilId').val();
+        var url = "http://10.21.4.4:8085/api/momp/GetWorkerDetails/" + Comm_Val + "/" + userCivilID;
+        console.log(url);
+        $.ajax({
+            url: url,
+            type: "Get",
+            dataType: "json",
+            success: function (data) {
+                if (data) {
+                    console.log(data.Result);
+                    if (data.Result === true) {
+                        $('#ConsultantFullName').val(data.EmployeeData.EmployeeData[0].EmployeeNameArabic);
+                        $('#ConsultantJobName').val(data.EmployeeData.EmployeeData[0].OccupationDescArabic);
+                    } else {
+                        Notify("not found");
+                    }
+                }
+            },
+            error: function (msg) { alert(msg); }
+        });
+    };
+
+
+    $(document).ready(function () {
+        $("#SaveWorker").click(function () {
+            var data = new FormData();
+            data.append("WorkerName", $("#WorkerName").val());
+            data.append("WorkerID", $("#WorkerID").val());
+            data.append("WorkerPhone", $("#WorkerPhone").val());
+
+            var url = "@Url.Action("SaveWorker", "IndustrialSurveys")";
+            $.ajax({
+                url: url,
+                type: "POST",
+                processData: false,
+                contentType: false,
+                data: data,
+                success: function (response) {
+                    $('#WorkerName').val('');
+                    $('#WorkerID').val('');
+                    $('#WorkerPhone').val('');
+                    $('#SaveWorker').attr('disabled', false);
+
+                    $('#divWorkers').html(response)
+                },
+                error: function (er) {
+                    alert(er);
+                    $('#SaveWorker').attr('disabled', false);
+                }
+
+            });
+        });
+    });
+</script>
+
+
+

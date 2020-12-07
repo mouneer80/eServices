@@ -18,11 +18,8 @@ namespace DMeServices.Models.ViewModels.Permits
             if (HttpContext.Current.Session["UserInfo"] != null)
             {
                 oUserInfo = (User)HttpContext.Current.Session["UserInfo"];
-
                 LandSurvey = new LandSurvey { ConsultantCivilId = oUserInfo.CivilId };
-
             }
-
         }
 
         public User oUserInfo { get; set; }
@@ -30,8 +27,6 @@ namespace DMeServices.Models.ViewModels.Permits
         public LandSurvey LandSurvey { get; set; }
 
         public List<LandSurvey> ListLandSurveys { get; set; }
-
-        
 
         public List<WorkersHousingDetails> ListOfWorkers { get; set; }
 

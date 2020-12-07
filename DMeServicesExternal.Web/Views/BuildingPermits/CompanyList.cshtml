@@ -1,5 +1,5 @@
 ﻿@using DMeServices.Models.BuildingServices
-@model DMeServices.Models.ViewModels.CompanyViewModel
+@model DMeServices.Models.ViewModels.CompaniesListViewModel
 @{
     ViewBag.Title = "Companies List";
     Layout = "~/Views/Shared/_SubLayout.cshtml";
@@ -45,7 +45,7 @@
                                     <td class="center">@item.GOVERNORATE</td>
                                     <td class="center">
                                         <a class="btn btn-primary modal-link" 
-                                           href="@Url.Action("AddCompany", new {@controller = "Register"})">ادارة الشركة </a>
+                                           href="@Url.Action("CompanyDetails", "Register", new {@id = item.COMMERCIAL_NO})">ادارة الشركة </a>
                                     </td>
                                     <td class="center">
                                         <a class="btn btn-primary modal-link" 
