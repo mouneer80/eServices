@@ -14,7 +14,9 @@ namespace DMeServicesInternal.Web.Controllers
         // GET: Account
         public ActionResult Login()
         {
-            return View();
+            LoginViewModel oUser = new LoginViewModel();
+
+            return View(oUser);
         }
 
 

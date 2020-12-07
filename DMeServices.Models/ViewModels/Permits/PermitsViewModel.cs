@@ -20,6 +20,7 @@ namespace DMeServices.Models.ViewModels.Permits
                 oUserInfo = (User)HttpContext.Current.Session["UserInfo"];
                 BuildingPermits = new BuildingPermits { ConsultantCivilId = oUserInfo.CivilId };
             }
+
         }
 
         public User oUserInfo { get; set; }
