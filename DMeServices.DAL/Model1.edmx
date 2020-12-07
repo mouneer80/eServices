@@ -476,10 +476,10 @@ warning 6002: The table/view 'eServices.dbo.ISIC4_LEVEL_3' does not have a prima
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="COMMERCIAL_NO" Type="bigint" Nullable="false" />
-          <Property Name="COMMERCIAL_NAME" Type="nvarchar" MaxLength="400" Nullable="false" />
+          <Property Name="COMMERCIAL_NO" Type="bigint" />
+          <Property Name="COMMERCIAL_NAME" Type="nvarchar" MaxLength="400" />
           <Property Name="COMMERCIAL_DATE" Type="nvarchar" MaxLength="150" />
-          <Property Name="LEGAL_FORM" Type="nvarchar" MaxLength="400" Nullable="false" />
+          <Property Name="LEGAL_FORM" Type="nvarchar" MaxLength="400" />
           <Property Name="PHONE_NO" Type="int" />
           <Property Name="EMAIL" Type="nvarchar" MaxLength="250" />
           <Property Name="GOVERNORATE" Type="nvarchar" MaxLength="250" />
@@ -1601,10 +1601,10 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="COMMERCIAL_NO" Type="Int64" Nullable="false" />
-          <Property Name="COMMERCIAL_NAME" Type="String" MaxLength="400" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="COMMERCIAL_NO" Type="Int64" />
+          <Property Name="COMMERCIAL_NAME" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
           <Property Name="COMMERCIAL_DATE" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="LEGAL_FORM" Type="String" MaxLength="400" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LEGAL_FORM" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
           <Property Name="PHONE_NO" Type="Int32" />
           <Property Name="EMAIL" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="GOVERNORATE" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />

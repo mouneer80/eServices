@@ -93,7 +93,8 @@ namespace DMeServicesExternal.Web.Controllers
             if (!string.IsNullOrWhiteSpace(oModel.CompanyData.COMMERCIAL_NAME))
             {
                 oModel.CompanyData.CIVIL_ID = oModel.oUserInfo.CivilId.ToString();
-                oModel.CompanyData.ID = oModel.CompanyData.COMMERCIAL_NO;
+                if (oModel.CompanyData.COMMERCIAL_NO != null)
+                    oModel.CompanyData.ID =  oModel.CompanyData.COMMERCIAL_NO.Value;
                 ViewBag.Result = MociCompaniesData.SaveCompany(oModel.CompanyData);
                 return RedirectToAction("CompanyList", "BuildingPermits");
             }
