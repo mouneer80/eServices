@@ -13,22 +13,16 @@ namespace DMeServices.Models.Common
 {
    public class UserCom
     {
-
-
         #region Method :: User By Civil Id
 
         public static User UserByCivilID(long CivilId)
         {
             using (eServicesEntities db = new eServicesEntities())
             {
-          
-
                 Users oUsers = db.Users.Where(x => x.CivilId == CivilId).SingleOrDefault();
                 User oUser = Mapper.Map<Users, User>(oUsers);
-
                 return oUser;
             }
-
         }
         #endregion
 
@@ -135,5 +129,19 @@ namespace DMeServices.Models.Common
             return hash.ToString();
         }
         #endregion
+        
+        #region Method :: Get All Users By CR Number
+
+        public static List<User> GetUsersListByCr(long cr)
+        {
+            using (eServicesEntities db = new eServicesEntities())
+            {
+                List<Users> oUsers = db.Users.Where(x => x.ConsultantCrNo == cr).ToList();
+                List<User> oUser = Mapper.Map<List<Users>, List<User>>(oUsers);
+                return oUser;
+            }
+        }
+        #endregion
+        
     }
 }

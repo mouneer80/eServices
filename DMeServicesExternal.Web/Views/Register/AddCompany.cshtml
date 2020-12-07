@@ -37,13 +37,12 @@
                     <div class="box-header well" data-original-title="">
                         <h2><i class="glyphicon glyphicon-edit"></i> تسجيل البيانات</h2>
                     </div>
-
                     <div class="box-content">
 
                         <div class="form-group col-md-6">
                             <label class="control-label">السجل التجاري</label>
                             @*<input type="text" class="form-control" id="CommercialNo" placeholder="السجل التجاري" value="1326956">*@
-                            @Html.TextBoxFor(n => n.CompanyData.COMMERCIAL_NO, null, new { @class = "form-control", placeholder = "السجل التجاري", @id = "CommercialNo" })
+                            @Html.TextBoxFor(n => n.CompanyData.COMMERCIAL_NO, null, new { @class = "form-control", placeholder = "السجل التجاري", @id = "CommercialNo", @onchange= "EmptyTextBoxes();" })
                             <a class="btn btn-primary" onclick="javascript: callRestApi();"> البحث</a>
                         </div>
 
@@ -121,31 +120,64 @@
 
 
 <script>
+    var Notify = (msg) => alert(msg);
+    function EmptyTextBoxes() {
+        $('#CompanyName').val('');
+        $('#LegalForm').val('');
+        $('#PhoneNumber').val('');
+        $('#FullName').val('');
+        $('#State').val('');
+        $('#Governorate').val('');
+        $('#Email').val('');
+        $('#CivilID').val('');
+    }
+
     function callRestApi() {
         var Comm_Val = $('#CommercialNo').val();
         var userCivilID = $('#hiddenCivil_id').val();
+        EmptyTextBoxes();
         $.ajax({
             url: "http://10.21.4.4:8087/dm/rest/services/companydata?crNumber=" + Comm_Val,
             type: "Get",
             dataType: "json",
             success: function (data) {
                 if (data) {
-                    var arr = data.companyOverview.investors.investor;
+                    var investorsArray = data.companyOverview.investors.investor;
                     var isOwner = false;
-                    arr.forEach(i => {
-                        if (i.person.idNumber === userCivilID) isOwner =  true;
+                    var personIndex = -1;
+                    investorsArray.forEach((item,index) => {
+                        if (item.person.idNumber === userCivilID) {
+                            isOwner =  true;
+                            personIndex = index;
+                            return;
+                        }
                     });
                     if (isOwner) {
-                        $('#CompanyName').val(data.companyOverview.companyNameArabic);
-                        $('#LegalForm').val(data.companyOverview.legalStatus.nameAr);
-                        $('#PhoneNumber').val(data.companyOverview.contact.mobile);
-                        $('#FullName').val(data.companyOverview.investors.investor[0].person.nameAr);
-                        $('#State').val(data.companyOverview.address.state.nameAr);
-                        $('#Governorate').val(data.companyOverview.address.governorate.nameAr);
-                        $('#Email').val(data.companyOverview.contact.email);
-                        $('#CivilID').val(data.companyOverview.investors.investor[0].person.idNumber);
+
+                        var activitiesArray = data.companyOverview.declaredActivities.activity;
+                        var isValidActivity = false;
+                        activitiesArray.forEach((activity) => {
+                            if (activity.isicCode.startsWith("7110")) {
+                                isValidActivity = true;
+                                return;
+                            }
+                        });
+                        if (isValidActivity) {
+                            $('#CompanyName').val(data.companyOverview.companyNameArabic);
+                            $('#LegalForm').val(data.companyOverview.legalStatus.nameAr);
+                            $('#PhoneNumber').val(data.companyOverview.contact.mobile);
+                            $('#FullName').val(data.companyOverview.investors.investor[personIndex].person.nameAr);
+                            $('#State').val(data.companyOverview.address.state.nameAr);
+                            $('#Governorate').val(data.companyOverview.address.governorate.nameAr);
+                            $('#Email').val(data.companyOverview.contact.email);
+                            $('#CivilID').val(data.companyOverview.investors.investor[personIndex].person.idNumber);
+                        } else {
+                            EmptyTextBoxes();
+                            Notify("Not valid Actitvy");
+                        }
                     } else {
-                        alert("You're not owner");
+                        EmptyTextBoxes();
+                        Notify("You're not owner");
                     }
                 }
             },

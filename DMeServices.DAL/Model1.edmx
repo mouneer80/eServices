@@ -188,6 +188,14 @@
           <Property Name="WorkerID" Type="int" Nullable="false" />
           <Property Name="WorkerPhone" Type="int" />
         </EntityType>
+        <EntityType Name="ConsultantOccupations">
+          <Key>
+            <PropertyRef Name="OccupationID" />
+          </Key>
+          <Property Name="OccupationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OccupationDescArabic" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="OccupationDescEnglish" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="Departments">
           <Key>
             <PropertyRef Name="ID" />
@@ -468,10 +476,10 @@ warning 6002: The table/view 'eServices.dbo.ISIC4_LEVEL_3' does not have a prima
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="COMMERCIAL_NO" Type="bigint" />
-          <Property Name="COMMERCIAL_NAME" Type="nvarchar" MaxLength="400" />
+          <Property Name="COMMERCIAL_NO" Type="bigint" Nullable="false" />
+          <Property Name="COMMERCIAL_NAME" Type="nvarchar" MaxLength="400" Nullable="false" />
           <Property Name="COMMERCIAL_DATE" Type="nvarchar" MaxLength="150" />
-          <Property Name="LEGAL_FORM" Type="nvarchar" MaxLength="400" />
+          <Property Name="LEGAL_FORM" Type="nvarchar" MaxLength="400" Nullable="false" />
           <Property Name="PHONE_NO" Type="int" />
           <Property Name="EMAIL" Type="nvarchar" MaxLength="250" />
           <Property Name="GOVERNORATE" Type="nvarchar" MaxLength="250" />
@@ -1177,6 +1185,7 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           <EntitySet Name="BldSquareLetters" EntityType="Self.BldSquareLetters" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BldWelyat" EntityType="Self.BldWelyat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BldWorkersHousingDetails" EntityType="Self.BldWorkersHousingDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ConsultantOccupations" EntityType="Self.ConsultantOccupations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Departments" EntityType="Self.Departments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="docs" EntityType="Self.docs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeGroups" EntityType="Self.EmployeeGroups" Schema="dbo" store:Type="Tables" />
@@ -1592,10 +1601,10 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="COMMERCIAL_NO" Type="Int64" />
-          <Property Name="COMMERCIAL_NAME" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
+          <Property Name="COMMERCIAL_NO" Type="Int64" Nullable="false" />
+          <Property Name="COMMERCIAL_NAME" Type="String" MaxLength="400" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="COMMERCIAL_DATE" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="LEGAL_FORM" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
+          <Property Name="LEGAL_FORM" Type="String" MaxLength="400" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PHONE_NO" Type="Int32" />
           <Property Name="EMAIL" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="GOVERNORATE" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
@@ -1905,6 +1914,7 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
             <End Role="BldWelyat" EntitySet="BldWelyat" />
             <End Role="BldPermits" EntitySet="BldPermits" />
           </AssociationSet>
+          <EntitySet Name="ConsultantOccupations" EntityType="eServicesModel.ConsultantOccupations" />
           </EntityContainer>
         <ComplexType Name="MOCI_Permit_BY_MunicipalNo_HeadSection_Result">
           <Property Type="Int64" Name="CommercialNo" Nullable="true" />
@@ -2955,6 +2965,14 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ConsultantOccupations">
+          <Key>
+            <PropertyRef Name="OccupationID" />
+          </Key>
+          <Property Name="OccupationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OccupationDescArabic" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OccupationDescEnglish" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4044,6 +4062,15 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
                 <ScalarProperty Name="WorkerName" ColumnName="WorkerName" />
                 <ScalarProperty Name="SurveyID" ColumnName="SurveyID" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ConsultantOccupations">
+            <EntityTypeMapping TypeName="eServicesModel.ConsultantOccupations">
+              <MappingFragment StoreEntitySet="ConsultantOccupations">
+                <ScalarProperty Name="OccupationDescEnglish" ColumnName="OccupationDescEnglish" />
+                <ScalarProperty Name="OccupationDescArabic" ColumnName="OccupationDescArabic" />
+                <ScalarProperty Name="OccupationID" ColumnName="OccupationID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

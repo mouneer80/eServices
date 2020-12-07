@@ -95,6 +95,9 @@
     <Compile Include="BldWorkersHousingDetails.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="ConsultantOccupations.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Departments.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

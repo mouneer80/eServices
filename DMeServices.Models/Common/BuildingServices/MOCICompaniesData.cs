@@ -40,5 +40,16 @@ namespace DMeServices.Models.Common.BuildingServices
             }
         }
         #endregion
+        
+        #region Method :: Get Company By CR Number
+        public static MociData GetCompanyByCr(long cr)
+        {
+            using (eServicesEntities db = new eServicesEntities())
+            {
+                MociData mcData =  db.MociData.SingleOrDefault(x => x.COMMERCIAL_NO == cr);
+                return mcData;
+            }
+        }
+        #endregion
     }
 }

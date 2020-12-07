@@ -1,8 +1,8 @@
-﻿@model DMeServices.Models.ViewModels.Permits.SurveysViewModel
+﻿@model DMeServices.Models.ViewModels.CompanyViewModel
 
 <div class="box-inner">
     <div class="box-header well" data-original-title="">
-        <h2><i class="glyphicon glyphicon-edit"></i> اسماء العمال</h2>
+        <h2><i class="glyphicon glyphicon-edit"></i> اسماء الاسنشاريين</h2>
     </div>
     <div class="box-content">
         <!--item details-->
@@ -10,30 +10,27 @@
             <table id="myTable" class=" table order-list">
                 <thead>
                     <tr>
-                        <td>اسم العامل</td>
+                        <td>اسم الاسنشاري</td>
                         <td>الرقم المدني</td>
                         <td>رقم الهاتف</td>
                     </tr>
                 </thead>
                 <tbody>
-                    @if (Model.ListOfWorkers != null)
+                    @if (Model.ConsultantsList != null)
                     {
                         int i = 0;
-                        foreach (var item in Model.ListOfWorkers)
+                        foreach (var item in Model.ConsultantsList)
                         {
                             <tr>
                                 <td class="col-sm-1" style="width:10%;">
-                                    @item.WorkerName
-
+                                    @item.FullName
                                 </td>
                                 <td class="col-sm-1" style="width:25%;">
-                                    @item.WorkerID
+                                    @item.CivilId
                                 </td>
                                 <td class="col-sm-1" style="width:5%;">
-                                    @item.WorkerPhone
+                                    @item.PhoneNo
                                 </td>
-
-
                                 <td class="col-sm-1" style="width:20%;">
                                     @using (Ajax.BeginForm("DeleteWorker", new { @controller = "IndustrialSurveys", @Id = i }, new AjaxOptions { UpdateTargetId = "divWorkers" }, new { @style = "display: inline-block;" }))
                                     {
@@ -65,14 +62,10 @@
 <div class="modal fade" id="MainModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-
-
-
-
-
         </div>
     </div>
 </div>
+
 
 
 

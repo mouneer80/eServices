@@ -88,119 +88,117 @@
 
 <div class="col-lg-9 col-sm-9">
     <div class="row">
-
-
         @using (Html.BeginForm("SaveDetails", "IndustrialSurveys", FormMethod.Post, new { encType = "multipart/form-data", @id = "LandSurveysform" }))
         {
             @Html.AntiForgeryToken()
-        <div class="box col-md-12">
-            <div class="form-group col-md-6">
-
-                <label class="control-label">محافظة</label>
-                <input class="form-control" placeholder="ظفار" readonly="readonly" />
-
-            </div>
-            <div class="form-group col-md-6">
-
-                <label class="control-label">الولاية</label>
-                @Html.DropDownListFor(m => m.LandSurvey.WelyahID, (List<SelectListItem>)ViewBag.DDWelayat, new { style = "padding:0px", @class = "form-control", id = "Welayah" })
-
-            </div>
-
-            <div class="form-group col-md-6">
-
-                <label class="control-label">اسم القرية</label>
-                @Html.DropDownListFor(m => m.LandSurvey.RegionID, new SelectList(string.Empty, "Value", "Text"), "-- اختر القرية --", new { style = "padding:0px", @class = "form-control", id = "Region" })
-
-            </div>
-
-            <div class="form-group col-md-6">
-
-                <label class="control-label">نوع السكن الجماعي</label>
-                @Html.DropDownListFor(m => m.LandSurvey.CollectiveResidenceType, new List<SelectListItem> {
-                   new SelectListItem { Value = "0" , Text = "اختر نوع السكن الجماعي" },
-                   new SelectListItem { Value = "1" , Text = "مؤقت" },
-                   new SelectListItem { Value = "2" , Text = "دائم" }
-                }, new { style = "padding:0px", @class = "form-control", id = "ResidenceType" })
-
-            </div>
-
-            <div class="form-group col-md-6">
-
-                <label class="control-label">رقم المربع</label>
-                @Html.DropDownListFor(m => m.LandSurvey.SquareLetterID, (List<SelectListItem>)ViewBag.DDSquareLetters, new { style = "padding:0px", @class = "form-control", id = "SquareLetter" })
-
-            </div>
-            <div class="form-group col-md-6">
-
-                <label class="control-label">رقم قطعة الأرض</label>
-                @Html.TextBoxFor(m => m.LandSurvey.LandNo, new { @class = "form-control", id = "LandNo", @placeholder = "رقم قطعة الأرض" })
-
-            </div>
-
-            <div class="form-group col-md-6">
-
-                <label class="control-label">احداثيات قطعة الأرض</label>
-                @Html.TextBoxFor(m => m.LandSurvey.LandCoordinates, new { @class = "form-control", id = "LandCoordinates", @placeholder = "احداثيات قطعة الأرض" })
-
-            </div>
-
-            @*<div class="form-group col-md-6">
-
-                <label class="control-label">نوع استعمال قطعة الأرض</label>
-                @Html.DropDownListFor(m => m.LandSurvey.LandUseTypeID, (List<SelectListItem>)ViewBag.DDLandUseTypes, new { style = "padding:0px", @class = "form-control", id = "LandUseType" })
-
-            </div>*@
-            @*<div class="form-group col-md-6">
-
-                <label class="control-label">نوع المبنى</label>
-                @Html.DropDownListFor(m => m.LandSurvey.BuildingTypeID, (List<SelectListItem>)ViewBag.DDBuildingTypes, new { style = "padding:0px", @class = "form-control", id = "BuildingType" })
-
-            </div>*@
-            @*<div class="form-group col-md-6">
-
-                <label class="control-label">اسم المنطقة الصناعية / التجارية</label>
-                @Html.DropDownListFor(m => m.LandSurvey.IndustrialSurveyID, new SelectList(string.Empty, "Value", "Text"), "-- اختر المنطقة التجارية / الصناعية --", new { style = "padding:0px", @class = "form-control", id = "Area" })
-
-            </div>*@
-
-            <div id="details">
+            <div class="box col-md-12">
                 <div class="form-group col-md-6">
 
-                    <label class="control-label">رقم حساب الكهرباء</label>
-                    @Html.TextBoxFor(m => m.LandSurvey.ElectricityAccountNo, new { @class = "form-control", id = "ElectricityAccountNo", @placeholder = "رقم حساب الكهرباء" })
+                    <label class="control-label">محافظة</label>
+                    <input class="form-control" placeholder="ظفار" readonly="readonly" />
+
+                </div>
+                <div class="form-group col-md-6">
+
+                    <label class="control-label">الولاية</label>
+                    @Html.DropDownListFor(m => m.LandSurvey.WelyahID, (List<SelectListItem>)ViewBag.DDWelayat, new { style = "padding:0px", @class = "form-control", id = "Welayah" })
 
                 </div>
 
                 <div class="form-group col-md-6">
 
-                    <label class="control-label">اجمالي عدد الغرف</label>
-                    @Html.TextBoxFor(m => m.LandSurvey.RoomsCount, new { @class = "form-control", id = "RoomsCount", @placeholder = "اجمالي عدد الغرف" })
+                    <label class="control-label">اسم القرية</label>
+                    @Html.DropDownListFor(m => m.LandSurvey.RegionID, new SelectList(string.Empty, "Value", "Text"), "-- اختر القرية --", new { style = "padding:0px", @class = "form-control", id = "Region" })
 
                 </div>
+
+                <div class="form-group col-md-6">
+
+                    <label class="control-label">نوع السكن الجماعي</label>
+                    @Html.DropDownListFor(m => m.LandSurvey.CollectiveResidenceType, new List<SelectListItem> {
+                       new SelectListItem { Value = "0" , Text = "اختر نوع السكن الجماعي" },
+                       new SelectListItem { Value = "1" , Text = "مؤقت" },
+                       new SelectListItem { Value = "2" , Text = "دائم" }
+                    }, new { style = "padding:0px", @class = "form-control", id = "ResidenceType" })
+
+                </div>
+
+                <div class="form-group col-md-6">
+
+                    <label class="control-label">رقم المربع</label>
+                    @Html.DropDownListFor(m => m.LandSurvey.SquareLetterID, (List<SelectListItem>)ViewBag.DDSquareLetters, new { style = "padding:0px", @class = "form-control", id = "SquareLetter" })
+
+                </div>
+                <div class="form-group col-md-6">
+
+                    <label class="control-label">رقم قطعة الأرض</label>
+                    @Html.TextBoxFor(m => m.LandSurvey.LandNo, new { @class = "form-control", id = "LandNo", @placeholder = "رقم قطعة الأرض" })
+
+                </div>
+
+                <div class="form-group col-md-6">
+
+                    <label class="control-label">احداثيات قطعة الأرض</label>
+                    @Html.TextBoxFor(m => m.LandSurvey.LandCoordinates, new { @class = "form-control", id = "LandCoordinates", @placeholder = "احداثيات قطعة الأرض" })
+
+                </div>
+
+                @*<div class="form-group col-md-6">
+
+                        <label class="control-label">نوع استعمال قطعة الأرض</label>
+                        @Html.DropDownListFor(m => m.LandSurvey.LandUseTypeID, (List<SelectListItem>)ViewBag.DDLandUseTypes, new { style = "padding:0px", @class = "form-control", id = "LandUseType" })
+
+                    </div>*@
+                @*<div class="form-group col-md-6">
+
+                        <label class="control-label">نوع المبنى</label>
+                        @Html.DropDownListFor(m => m.LandSurvey.BuildingTypeID, (List<SelectListItem>)ViewBag.DDBuildingTypes, new { style = "padding:0px", @class = "form-control", id = "BuildingType" })
+
+                    </div>*@
+                @*<div class="form-group col-md-6">
+
+                        <label class="control-label">اسم المنطقة الصناعية / التجارية</label>
+                        @Html.DropDownListFor(m => m.LandSurvey.IndustrialSurveyID, new SelectList(string.Empty, "Value", "Text"), "-- اختر المنطقة التجارية / الصناعية --", new { style = "padding:0px", @class = "form-control", id = "Area" })
+
+                    </div>*@
+
+                <div id="details">
+                    <div class="form-group col-md-6">
+
+                        <label class="control-label">رقم حساب الكهرباء</label>
+                        @Html.TextBoxFor(m => m.LandSurvey.ElectricityAccountNo, new { @class = "form-control", id = "ElectricityAccountNo", @placeholder = "رقم حساب الكهرباء" })
+
+                    </div>
+
+                    <div class="form-group col-md-6">
+
+                        <label class="control-label">اجمالي عدد الغرف</label>
+                        @Html.TextBoxFor(m => m.LandSurvey.RoomsCount, new { @class = "form-control", id = "RoomsCount", @placeholder = "اجمالي عدد الغرف" })
+
+                    </div>
+                </div>
+                @*<div class="form-group col-md-6">
+
+                    <label class="control-label">اجمالي عدد المباني</label>
+                    @Html.TextBoxFor(m => m.LandSurvey.BuildingsCount, new { @class = "form-control", id = "BuildingsCount", @placeholder = "اجمالي عدد المباني" })
+
+                    </div>*@
+                @*<div class="form-group col-md-6">
+
+                    <label class="control-label">اجمالي عدد الشقق</label>
+                    @Html.TextBoxFor(m => m.LandSurvey.FlatsCount, new { @class = "form-control", id = "FlatsCount", @placeholder = "اجمالي عدد الغرف" })
+
+                    </div>*@
+
+
+                @*<div class="form-group col-md-6">
+
+                    <label class="control-label">اجمالي عدد المحلات</label>
+                    @Html.TextBoxFor(m => m.LandSurvey.ShopsCount, new { @class = "form-control", id = "ShopsCount", @placeholder = "اجمالي عدد المحلات" })
+
+
+                    </div>*@
             </div>
-            @*<div class="form-group col-md-6">
-
-        <label class="control-label">اجمالي عدد المباني</label>
-        @Html.TextBoxFor(m => m.LandSurvey.BuildingsCount, new { @class = "form-control", id = "BuildingsCount", @placeholder = "اجمالي عدد المباني" })
-
-        </div>*@
-            @*<div class="form-group col-md-6">
-
-        <label class="control-label">اجمالي عدد الشقق</label>
-        @Html.TextBoxFor(m => m.LandSurvey.FlatsCount, new { @class = "form-control", id = "FlatsCount", @placeholder = "اجمالي عدد الغرف" })
-
-        </div>*@
-
-
-            @*<div class="form-group col-md-6">
-
-        <label class="control-label">اجمالي عدد المحلات</label>
-        @Html.TextBoxFor(m => m.LandSurvey.ShopsCount, new { @class = "form-control", id = "ShopsCount", @placeholder = "اجمالي عدد المحلات" })
-
-
-        </div>*@
-        </div>
             <div class="box col-md-12">
                 <div class="form-group col-sm-6">
 
@@ -215,35 +213,33 @@
                 </div>
             </div>
         }
-            <br />
-            <h5> أضافة بيانات العمال</h5>
-            <br />
+        <br />
+        <h5> أضافة بيانات العمال</h5>
+        <br />
+        <div class="form-group col-md-12">
 
-            <div class="form-group col-md-12">
-
-                <div class="col-sm-1" style="width:15%;">
-                    <input type="submit" id="SaveWorker" name="SaveWorker" class="btn " value="إضافة بيان" />
-                </div>
+            <div class="col-sm-1" style="width:15%;">
+                <input type="submit" id="SaveWorker" name="SaveWorker" class="btn " value="إضافة بيان" />
+            </div>
 
 
-                <div class="col-sm-5" style="width:25%;">
-                    @Html.TextBoxFor(m => m.Workers.WorkerPhone, new { @class = "form-control", id = "WorkerPhone", @placeholder = "رقم التليفون" })
-                    @Html.ValidationMessageFor(m => m.Workers.WorkerPhone, "", new { @style = "color:orange;" })
-                </div>
-                <div class="col-sm-5" style="width:35%;">
-                    @Html.TextBoxFor(m => m.Workers.WorkerID, new { @class = "form-control", id = "WorkerID", @placeholder = "الرقم المدني" })
-                    @Html.ValidationMessageFor(m => m.Workers.WorkerID, "", new { @style = "color:orange;" })
-
-                </div>
-                <div class="col-sm-5" style="width:25%;">
-                    @Html.TextBoxFor(m => m.Workers.WorkerName, new { @class = "form-control", id = "WorkerName", @placeholder = "الاسم" })
-                    @Html.ValidationMessageFor(m => m.Workers.WorkerName, "", new { @style = "color:orange;" })
-
-                </div>
-
+            <div class="col-sm-5" style="width:25%;">
+                @Html.TextBoxFor(m => m.Workers.WorkerPhone, new { @class = "form-control", id = "WorkerPhone", @placeholder = "رقم التليفون" })
+                @Html.ValidationMessageFor(m => m.Workers.WorkerPhone, "", new { @style = "color:orange;" })
+            </div>
+            <div class="col-sm-5" style="width:35%;">
+                @Html.TextBoxFor(m => m.Workers.WorkerID, new { @class = "form-control", id = "WorkerID", @placeholder = "الرقم المدني" })
+                @Html.ValidationMessageFor(m => m.Workers.WorkerID, "", new { @style = "color:orange;" })
 
             </div>
-        
+            <div class="col-sm-5" style="width:25%;">
+                @Html.TextBoxFor(m => m.Workers.WorkerName, new { @class = "form-control", id = "WorkerName", @placeholder = "الاسم" })
+                @Html.ValidationMessageFor(m => m.Workers.WorkerName, "", new { @style = "color:orange;" })
+
+            </div>
+
+
+        </div>
     </div>
     <br />
     <br />
@@ -253,23 +249,15 @@
             Html.RenderPartial("_ListWorkers", Model);
         }
     </div>
-
     <br />
-
     <br />
-
     <div class="col-sm-6">
         <button class="btn btn-primary" id="Save" @*onclick="return confirm('هل انت متاكد من حفظ التعديلات !');"*@>
             <i class="glyphicon glyphicon-ok"></i> حفظ
         </button>
         <a style="float:left" href="@Url.Action( "Index","IndustrialSurveys")" class="btn btn-primary" role="button">رجوع</a>
     </div>
-    
-
-    
 </div>
-
-
 
 <div class="modal fade" id="MainModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -278,9 +266,6 @@
         </div>
     </div>
 </div>
-
-
-
 
 <script>
     $(document).ready(function () {
@@ -301,9 +286,9 @@
     $(document).ready(function () {
         //Country Dropdown Selectedchange event
         $("#Welayah").change(function () {
-            
+
             $("#Region").empty();
-            
+
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("GetRegions")', // Calling json method
@@ -315,7 +300,7 @@
                         $("#Region").append('<option value="' + region.Value + '">' +
                              region.Text + '</option>');
                     });
-                        $("#Area").empty();            
+                        $("#Area").empty();
                     $.ajax({
                     type: 'POST',
                     url: '@Url.Action("GetAreas")', // Calling json method
@@ -323,12 +308,12 @@
                     data: { id: $("#Region").val() },
                     // Get Selected Region ID.
                         success: function (areas) {
-                            
+
                         $.each(areas, function (i, area) {
                             $("#Area").append('<option value="' + area.Value + '">' +
                                  area.Text + '</option>');
                         });
-                       
+
                     },
                     error: function (ex) {
                         alert('Failed to retrieve areas.' + ex);
@@ -409,8 +394,8 @@
 </script>
 <script>
     $(document).ready(function () {
-        
-        
+
+
             $("#SaveWorker").click(function () {
 
 
@@ -418,7 +403,7 @@
                 data.append("WorkerName", $("#WorkerName").val());
                 data.append("WorkerID", $("#WorkerID").val());
                 data.append("WorkerPhone", $("#WorkerPhone").val());
-                
+
              var url = "@Url.Action("SaveWorker", "IndustrialSurveys")";
             $.ajax({
                 url: url,

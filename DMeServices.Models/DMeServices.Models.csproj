@@ -83,6 +83,7 @@
     <Compile Include="Common\BuildingServices\AttachmentTypesCom.cs" />
     <Compile Include="Common\BuildingServices\PermitsAttachmentsCom.cs" />
     <Compile Include="Common\BuildingServices\PermitsCom.cs" />
+    <Compile Include="Common\ConsultantOccupationCom.cs" />
     <Compile Include="Common\EmployeeCom.cs" />
     <Compile Include="Common\HealthServices\PermitAdvertisementCom.cs" />
     <Compile Include="Common\HealthServices\PermitDataCom.cs" />
@@ -171,6 +172,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Validation_En.resx</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\CompaniesListViewModel.cs" />
     <Compile Include="ViewModels\CompanyViewModel.cs" />
     <Compile Include="ViewModels\HealthRenewalInternalViewModel.cs" />
     <Compile Include="ViewModels\HealthRenewalViewModel.cs" />
