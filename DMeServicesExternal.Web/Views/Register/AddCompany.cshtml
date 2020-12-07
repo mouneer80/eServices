@@ -8,8 +8,11 @@
     .box-content {
         min-height: 100px;
     }
-
-    .half {
+    .form-horizontal .form-group {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+        .half {
         width: 49%;
     }
 </style>
@@ -36,36 +39,71 @@
                     </div>
 
                     <div class="box-content">
-                        <div class="form-group col-md-5">
+
+                        <div class="form-group col-md-6">
                             <label class="control-label">السجل التجاري</label>
                             @*<input type="text" class="form-control" id="CommercialNo" placeholder="السجل التجاري" value="1326956">*@
                             @Html.TextBoxFor(n => n.CompanyData.COMMERCIAL_NO, null, new { @class = "form-control", placeholder = "السجل التجاري", @id = "CommercialNo" })
-                            <a class="btn btn-primary" onclick="javascript: callRestApi();" > البحث</a>
+                            <a class="btn btn-primary" onclick="javascript: callRestApi();"> البحث</a>
                         </div>
 
-
-                        <div class="form-group col-md-5">
+                        <div class="form-group col-md-6">
                             <label class="control-label"> اسم الشركة</label>
                             @*<input type="text" readonly class="form-control" id="CompanyName">*@
                             @Html.TextBoxFor(n => n.CompanyData.COMMERCIAL_NAME, null, new { @readonly = "readonly", @class = "form-control", placeholder = "اسم الشركة", @id = "CompanyName" })
                         </div>
 
-                        <div class="form-group col-md-5">
+                        <div class="form-group col-md-6">
                             <label class="control-label"> الشكل القانوني</label>
                             @*<input type="text" readonly class="form-control" id="CompanyName">*@
-                            @Html.TextBoxFor(n => n.CompanyData.LEGAL_FORM, null, new { @readonly = "readonly", @class = "form-control", placeholder ="الشكل القانوني", @id = "LegalForm" })
+                            @Html.TextBoxFor(n => n.CompanyData.LEGAL_FORM, null, new { @readonly = "readonly", @class = "form-control", placeholder = "الشكل القانوني", @id = "LegalForm" })
                         </div>
 
-                        <div class="form-group col-md-5">
+                        <div class="form-group col-md-6">
+                            <label class="control-label"> الاسم بالكامل</label>
+                            @*<input type="text" readonly class="form-control" id="CompanyName">*@
+                            @Html.TextBoxFor(n => n.CompanyData.FULL_NAME, null, new { @class = "form-control", placeholder = "الاسم بالكامل", @id = "FullName" })
+                            @Html.ValidationMessageFor(n => n.CompanyData.FULL_NAME, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label class="control-label"> الرقم المدني</label>
+                            @*<input type="text" readonly class="form-control" id="CompanyName">*@
+                            @Html.TextBoxFor(n => n.CompanyData.CIVIL_ID, null, new { @class = "form-control", placeholder = "الرقم المدني", @id = "CivilID" })
+                            @Html.ValidationMessageFor(n => n.CompanyData.CIVIL_ID, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group col-md-6">
                             <label class="control-label"> رقم الهاتف</label>
                             @*<input type="text" readonly class="form-control" id="CompanyName">*@
                             @Html.TextBoxFor(n => n.CompanyData.PHONE_NO, null, new { @class = "form-control", placeholder = "رقم الهاتف", @id = "PhoneNumber" })
                             @Html.ValidationMessageFor(n => n.CompanyData.PHONE_NO, "", new { @class = "text-danger" })
                         </div>
 
+                        <div class="form-group col-md-6">
+                            <label class="control-label"> البريد الالكتروني</label>
+                            @*<input type="text" readonly class="form-control" id="CompanyName">*@
+                            @Html.TextBoxFor(n => n.CompanyData.EMAIL, null, new { @class = "form-control", placeholder = "البريد الالكتروني", @id = "Email" })
+                            @Html.ValidationMessageFor(n => n.CompanyData.EMAIL, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label class="control-label"> محافظة</label>
+                            @*<input type="text" readonly class="form-control" id="CompanyName">*@
+                            @Html.TextBoxFor(n => n.CompanyData.GOVERNORATE, null, new { @class = "form-control", placeholder = "المحافظة", @id = "Governorate" })
+                            @Html.ValidationMessageFor(n => n.CompanyData.GOVERNORATE, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label class="control-label"> ولاية</label>
+                            @*<input type="text" readonly class="form-control" id="CompanyName">*@
+                            @Html.TextBoxFor(n => n.CompanyData.STATE, null, new { @class = "form-control", placeholder = "الولاية", @id = "State" })
+                            @Html.ValidationMessageFor(n => n.CompanyData.STATE, "", new { @class = "text-danger" })
+                        </div>
+
                         @Html.HiddenFor(a => a.oUserInfo.CivilId, new { @id = "hiddenCivil_id" })
 
-
+                        
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
                                 <input type="submit" class="btn btn-default" value="تسجيل" />
@@ -100,7 +138,12 @@
                     if (isOwner) {
                         $('#CompanyName').val(data.companyOverview.companyNameArabic);
                         $('#LegalForm').val(data.companyOverview.legalStatus.nameAr);
-                        $('#PhoneNumber').val(data.companyOverview.contact.phone);
+                        $('#PhoneNumber').val(data.companyOverview.contact.mobile);
+                        $('#FullName').val(data.companyOverview.investors.investor[0].person.nameAr);
+                        $('#State').val(data.companyOverview.address.state.nameAr);
+                        $('#Governorate').val(data.companyOverview.address.governorate.nameAr);
+                        $('#Email').val(data.companyOverview.contact.email);
+                        $('#CivilID').val(data.companyOverview.investors.investor[0].person.idNumber);
                     } else {
                         alert("You're not owner");
                     }
