@@ -1818,6 +1818,7 @@
     <Content Include="Views\Register\CompanyDetails.cshtml" />
     <Content Include="Views\Register\_ListConsultants.cshtml" />
     <Content Include="Views\Shared\_MasterLayout - old theme.cshtml" />
+    <Content Include="Views\Home\Index - Copy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

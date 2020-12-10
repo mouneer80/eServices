@@ -24,30 +24,36 @@
             margin-bottom: 0px;
         }
     </style>
-    <!-- The styles -->
-    @*<link href="~/Content/css/bootstrap-cerulean_ar.min.css" rel="stylesheet">
-    <link href="~/Content/css/charisma-app_ar.css" rel="stylesheet">
-    <link href='~/Content/bower_components/fullcalendar/dist/fullcalendar.css' rel='stylesheet'>
-    <link href='~/Content/bower_components/fullcalendar/dist/fullcalendar.print.css' rel='stylesheet' media='print'>
-    <link href='~/Content/bower_components/chosen/chosen_ar.min.css' rel='stylesheet'>
-    <link href='~/Content/bower_components/colorbox/example3/colorbox.css' rel='stylesheet'>
-    <link href='~/Content/bower_components/responsive-tables/responsive-tables_ar.css' rel='stylesheet'>
-    <link href='~/Content/bower_components/bootstrap-tour/build/css/bootstrap-tour.min.css' rel='stylesheet'>
-    <link href='~/Content/css/jquery.noty.css' rel='stylesheet'>
-    <link href='~/Content/css/noty_theme_default.css' rel='stylesheet'>
-    <link href='~/Content/css/elfinder.min.css' rel='stylesheet'>
-    <link href='~/Content/css/elfinder.theme.css' rel='stylesheet'>
-    <link href='~/Content/css/jquery.iphone.toggle.css' rel='stylesheet'>
+    <!-- The Engineering App Styles -->
     <link href='~/Content/css/uploadify.css' rel='stylesheet'>
-    <link href='~/Content/css/animate.min.css' rel='stylesheet'>
-    <link href="~/Content/css/navbar-menu.css" rel="stylesheet" />
+    @*<link href='~/Content/css/animate.min.css' rel='stylesheet'>*@
+    @*<link href="~/Content/css/navbar-menu.css" rel="stylesheet" />*@
     <link href="~/Content/css/sm-core-css.css" rel="stylesheet" />
     <link href="~/Content/css/sm-blue.css" rel="stylesheet" />
-    <link href="~/Content/css/font.css" rel="stylesheet" />*@
+    <link href="~/Content/css/font.css" rel="stylesheet" />
+    @*<link href="~/Content/css/bootstrap-cerulean_ar.min.css" rel="stylesheet">
+        <link href="~/Content/css/charisma-app_ar.css" rel="stylesheet">
+        <link href='~/Content/bower_components/fullcalendar/dist/fullcalendar.css' rel='stylesheet'>
+        <link href='~/Content/bower_components/fullcalendar/dist/fullcalendar.print.css' rel='stylesheet' media='print'>
+        <link href='~/Content/bower_components/chosen/chosen_ar.min.css' rel='stylesheet'>
+        <link href='~/Content/bower_components/colorbox/example3/colorbox.css' rel='stylesheet'>
+        <link href='~/Content/bower_components/responsive-tables/responsive-tables_ar.css' rel='stylesheet'>
+        <link href='~/Content/bower_components/bootstrap-tour/build/css/bootstrap-tour.min.css' rel='stylesheet'>
+        <link href='~/Content/css/jquery.noty.css' rel='stylesheet'>
+        <link href='~/Content/css/noty_theme_default.css' rel='stylesheet'>
+        <link href='~/Content/css/elfinder.min.css' rel='stylesheet'>
+        <link href='~/Content/css/elfinder.theme.css' rel='stylesheet'>
+        <link href='~/Content/css/jquery.iphone.toggle.css' rel='stylesheet'>
+        <link href='~/Content/css/uploadify.css' rel='stylesheet'>
+        <link href='~/Content/css/animate.min.css' rel='stylesheet'>
+        <link href="~/Content/css/navbar-menu.css" rel="stylesheet" />
+        <link href="~/Content/css/sm-core-css.css" rel="stylesheet" />
+        <link href="~/Content/css/sm-blue.css" rel="stylesheet" />
+        <link href="~/Content/css/font.css" rel="stylesheet" />*@
     @*<link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/droid-arabic-kufi" type="text/css" />*@
     <!-- jQuery -->
-    @*<script src="~/Content/bower_components/jquery/jquery.min.js"></script>*@
-    @*<style>
+    <script src="~/Content/bower_components/jquery/jquery.min.js"></script>
+    <style>
         .RemoveBorder {
             border: 0px solid rgba(221, 221, 221, 0.46) !important;
         }
@@ -185,11 +191,11 @@
                 });
             }
         });
-    </script>*@
+    </script>
 </head>
 <body style="background: rgb(238, 238, 238);" class="">
     <!-- topbar starts -->
-    <!--header next 384 line [32-188]-->
+    <!--header for edm next 384 line [32-188]-->
     <div class="fixed-top navbar navbar-light bg-light navbar-expand-md dm-header" style="">
         <div class="container" style=" ">
             <a class="navbar-brand" href="/"><img src="~/assets/icon/dmlogo.png" style=" height: 38px;"><font style="vertical-align: inherit;"> | </font><img src="~/assets/icon/as7logo.png" style=" height: 35px; width: 38px; "></a>
@@ -347,32 +353,23 @@
         </div>
 
     </div>
-        <div class="dm-header-bg1">
+    <div class="dm-header-bg1">
 
-            <div class="dm-header-bg2">
-            </div>
-
-            <div style="position: absolute; background:linear-gradient(9deg, #000000b0, #000000fa); margin: auto; bottom: auto; top: 0px; right: 0px; ">
-            </div>
+        <div class="dm-header-bg2">
         </div>
-    <div class="container">
-        <span id="hijri_goergian_date" class="hijri_goergian_date" style="font-size:12pt;font-weight:bold;  float:left;color:#2F9BD5;margin-top:60px;margin-left:5px">
-            <script>
-                var now = new Date();
-                var dayNames = new Array("الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس", "يوم الجمعة", "يوم السبت");
-                var monNames = new Array(" يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "اكتوبر", "نوفمبر", "ديسمبر");
-                document.write(writeIslamicDate() + " | " + "" + now.getDate() + " " + monNames[now.getMonth()] + " " + now.getFullYear() + " م");
-            </script>
-        </span>
+        <div style="position: absolute; background: linear-gradient(9deg, #000000b0, #000000fa); width: 100%; height: 100%; margin: auto; bottom: auto; top: 0px; right: 0px;">
+        </div>
+
     </div>
-    <nav class="main-nav" role="navigation">
+
+    <div class="main-nav" role="navigation">
         <!-- Sample menu definition -->
         <ul id="main-menu" class="sm sm-blue">
             <li><a href="~/Home"> الرئيسية</a></li>
             @*<li><a href="~/Home"> عن بلدية ظفار</a></li>*@
             <li>
                 <a href="#">خدمات الشؤون الهندسية</a>
-                <ul>
+                <ul class="sm sm-blue">
 
                     <li><a href="~/BuildingPermits">تصاريح البناء</a></li>
                     <li class="divider"></li>
@@ -384,10 +381,10 @@
             </li>
             <li>
                 <a href="#">الخدمات</a>
-                <ul>
+                <ul class="sm sm-blue">
                     <li>
                         <a href="#">المكتب الاستشاري</a>
-                        <ul>
+                        <ul class="sm sm-blue">
                             <li><a href="@Url.Action("ConsultancyOwnerService","Home")">مالك المكتب</a></li>
                             <li><a href="@Url.Action("ConsultancyEngineerService","Home")"> المهندس الاستشاري </a></li>
                         </ul>
@@ -404,125 +401,198 @@
                 <li class="out_position"><a href=" @Url.Action("Logout", "UsersLogin")"> تسجيل الخروج</a></li>
             }
         </ul>
-    </nav>
+        <span id="hijri_goergian_date" class="hijri_goergian_date" style="font-size:12pt;font-weight:bold;  float:left;color:#2F9BD5;margin-top:60px;margin-left:5px">
+            <script>
+                var now = new Date();
+                var dayNames = new Array("الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس", "يوم الجمعة", "يوم السبت");
+                var monNames = new Array(" يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "اكتوبر", "نوفمبر", "ديسمبر");
+                document.write(writeIslamicDate() + " | " + "" + now.getDate() + " " + monNames[now.getMonth()] + " " + now.getFullYear() + " م");
+            </script>
+        </span>
+    </div>
 
     <!-- topbar ends -->
-    @RenderSection("Slider", required: false)
-    <div class="container">
-        <div class="row">
-            @*<div class="col-lg-9 col-sm-9">
-                <div class="body-content">*@
-            @RenderBody()
-            @*<hr />
-                        </div>
-                </div>*@
-            @RenderSection("Note", required: false)
+    @*@RenderSection("Slider", required: false)*@
+    <div class="mainb-temp" width="100%">
+
+        <div class="body-content">
+
+            <div class="mainb portal">
+
+
+                <!------------ content here------------>
+                @RenderBody()
+                @RenderSection("Note", required: false)
+            </div>
+
         </div>
     </div>
-    <footer style="margin-top:20px;">
-        <div class="navbar" style="margin-bottom:0px;">
-            <div style="color:#ffffff">
-                <div class="col-sm-3">
-                    <div class="contact_block">
-                        <div style="margin: 10px;"></div>
-                        <span style="color: #fff;font-weight: bold;font-size: 15px;">
-                            تابعونا <br>
-                        </span>
-                        <div style="margin: 10px;"></div>
-                        <div class="row">
+    <!--<div class="container">
+        <div class="row">
+            <div class="col-lg-9 col-sm-9">
+                <div class="body-content">
 
-                            <a href="http://www.instagram.com/Dhofar_Municipality" target="_blank">
-                                <img src="~/img/Social_Media/insta.png">
-                            </a>
-                            <a href="http://www.instagram.com/Dhofar_Municipality" target="_blank">
-                                <img src="~/img/Social_Media/facbook.png">
-                            </a>
-                            <a href="http://www.instagram.com/Dhofar_Municipality" target="_blank">
-                                <img src="~/img/Social_Media/twiter.png">
-                            </a>
-                            <a href="http://www.instagram.com/Dhofar_Municipality" target="_blank">
-                                <img src="~/img/Social_Media/youtube.png">
-                            </a>
+            <hr />
                         </div>
-                    </div>
                 </div>
-                @*<div class="col-sm-3">
-                        <div class="contact_block">
-                            <div style="margin: 10px;"></div>
-                            <span style="color: #fff;font-weight: bold;font-size: 15px;">
-                                مواقع فرعية
-                                <br>
-                            </span>
-                            <div style="margin: 10px;"></div>
-                            <span style="line-height:1.9">
-                                مهرجان صلالة<br>
-                            </span>
-                            <span style="line-height:1.9">
-                                الهيئة العامة لحماية المستهلك <br>
-                            </span>
-                            <span style="line-height:1.9">
-                                المركز الوطني للاحصاء والمعلومات<br><br />
-                            </span>
-                        </div>
-                    </div>*@
-                @*<div class="col-sm-3">
-                        <div class="contact_block">
-                            <div style="margin: 10px;"></div>
-                            <span style="color: #fff;font-weight: bold;font-size: 15px;">
-                                روابط خارجية <br>
-                            </span>
-                            <div style="margin: 10px;"></div>
-                            <span>
-                                خدمات الحكومة الالكترونية<br>
-                            </span>
-                            <span style="line-height:1.9">
-                                المواقع الحكومية <br>
-                            </span>
-                            <span style="line-height:1.9">
-                                شرطة عمان السلطانية<br>
-                            </span>
 
-                        </div>
-                    </div>*@
+        </div>
+    </div>-->
 
-                <div class="col-sm-3">
-                    <div class="contact_block">
-                        <span style="color: #fff;font-weight: bold;font-size: 15px;">
-                            مركز الاتصال
-                        </span>
-                        <div style="margin: 10px;"></div>
-                        <span>
-                            بلدية ظفار ص ب 50 رب 211, محافظة ظفار ,<br />مدينة صلالة سلطنة عمان
-                        </span>
-                    </div>
-                    <div class="contact_block">
-                        @*<hr />*@
-
-                        <div style="margin: 10px;"></div>
-                        <span>
-                            (1450) - (80071450)
-                        </span>
-
-                        <span>
-                            admin@dm.gov.om
-                        </span>
-                    </div>
-
+    <div class="footer-content">
+        <div width="100%" hieght="40%" class="dm-footer" style="text-align: center">
+            <div width="100%" hieght="40%" class="spons">
+            </div>
+            <div class="infor" style=" display: inline-block; position: relative; top: -25px; ">
+                <div width="100%" hieght="40%" data-toggle="modal" data-target="#myModal" class="hvr-grow r-btn">
+                    مركز الاتصالات
+                </div>
+                <div width="100%" hieght="40%" data-toggle="modal" data-target="#links" class="hvr-grow c-btn">
+                    روابط خارجية
+                </div>
+                <div width="100%" hieght="40%" style="m-btn" data-target="#location" data-toggle="modal" class="hvr-grow l-btn">
+                    موقعنا
+                </div>
+            </div>
+            <div class="social" style=" display: inline-block; position: relative; top: -18px; ">
+                <div data-href="https://ar-ar.facebook.com/DhofarMunicipality/" width="100%" hieght="40%" class=" fa fa-facebook external-link fb">
+                </div>
+                <div data-href="https://www.instagram.com/dhofar_municipality/" width="100%" hieght="40%" class="fa fa-instagram external-link ig">
+                </div>
+                <div data-href="https://twitter.com/DhofarMun" width="100%" hieght="40%" style="" class="fa fa-twitter external-link tw">
+                </div>
+                <div data-href="https://www.youtube.com/user/DhofarMunicipality" width="100%" hieght="40%" class=" fa fa-youtube external-link yt">
                 </div>
             </div>
         </div>
-        <div style="background-color: #09323e;">
-            <img src="~/img/department-vision---sky-line.png" style="width:100% ; height:100%" />
+    </div>
+
+    <!--location model-->
+    <div class="modal fade" id="location" style="display: none; direction: rtl;" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style=" font-family: &quot;dmfont&quot;; ">
+                <!-- Modal Header -->
+                <div class="modal-header" style=" display: -webkit-inline-box; ">
+                    <h4 class="modal-title" style=" font-family: &quot;dmfont&quot;; color: #7694a7; font-weight: bold; margin-left: 350px; ">موقعنا</h4>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-bodyab location1">
+                    <br>
+                    <h5 class="dlink"> العنوان : </h5>
+                    <h5 class="dlink"> شارع المطار </h5>
+                </div>
+                <div class="modal-bodyab location2">
+                    <br>
+                    <h5 class="dlink">بالقرب من: </h5>
+                    <h5 class="dlink"> ضريح النبي عمران, برج النهضة ,مركز اللولو للتسوق </h5>
+                </div>
+                <div class="modal-bodyab location1">
+                    <br>
+                    <h5 class="dlink"> خرائط جوجل:</h5>
+                    <a href="https://goo.gl/maps/NgR8tCjuvMZtHDpG9" class="dlink"> اضغط هنا </a>
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">اغلاق</button>
+                </div>
+            </div>
         </div>
-        <div style="background-color:#08323E;">
-            <p style="font-weight:bold;color:#ffffff; text-align:center; margin:0px;">
-                جميع الحقوق محفوظة بلدية ظفار ©
-                <script type="text/javascript">document.write((new Date()).getFullYear())</script> م -
-                <script type="text/javascript">var y = (new Date()).getFullYear(); var h = Math.round((y - 623) * (33 / 32)); document.write(h)</script> هـ
-                .
-            </p>
+    </div>
+
+    <!--contacts model-->
+    <div class="modal fade" id="myModal" style="display: none; direction: rtl;" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header" style=" display: -webkit-inline-box; ">
+                    <i class="fa fa-phone" style=" font-size: 30px; margin-left: 8px; color: #006d80; "></i>
+                    <h4 class="modal-title" style=" font-family: &quot;dmfont&quot;; font-weight: bold; color: #006d80; margin-left: 239px; ">مركز الاتصالات</h4>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-bodya info-email">
+                    <h6 class="em">البريد الالكتروني</h6>
+                    <br>
+                    <h4 class="emf">info@dm.gov.om</h4>
+                </div>
+                <!-- Modal footer -->
+                <div id="mright" class="modal-bodya info-phone">
+                    <h6 class="ph">رقم الهاتف</h6>
+                    <br>
+                    <h1 class="phf">1771</h1>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" style=" font-family: &quot;dmfont&quot; ">اغلاق</button>
+                </div>
+            </div>
         </div>
-    </footer>
+    </div>
+
+    <!--external links model-->
+    <div class="modal fade" id="links" style="display: none; direction: rtl;" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style=" font-family: &quot;dmfont&quot;; width: 99%; ">
+                <!-- Modal Header -->
+                <div class="modal-header" style=" display: -webkit-inline-box; ">
+                    <div class="n" style=" width: 40px; height: 40px; font-family: &quot;dmfont&quot;; font-weight: bold; color: #4f6a7b; margin-left: 7px; background: url(links.jpg); background-size: cover; ">
+                    </div>
+                    <h4 class="modal-title" style=" font-family: &quot;dmfont&quot;; font-weight: bold; color: #4f6a7b; margin-left: 239px; ">روابط خارجية</h4>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body link1">
+                    <br>
+                    <h5 data-href="https://www.rop.gov.om/arabic/index.html" class="external-link dlink">شرطة عمان السلطانية</h5>
+                </div>
+                <div class="modal-body link2">
+                    <br>
+                    <h5 data-href="https://pamr.gov.om/ar-om/Pages/default.aspx" class="external-link  dlink">وزارة العمل</h5>
+                </div>
+                <div class="modal-body link1">
+                    <br>
+                    <h5 data-href="https://www.omsgd.gov.om/" class="external-link dlink">مكتب وزير الدولة و محافظ ظفار</h5>
+                </div>
+                <div class="modal-body link2">
+                    <br>
+                    <h5 data-href="https://www.mm.gov.om/ar/Default.aspx" class="external-link  dlink">بلدية مسقط</h5>
+                </div>
+                <div class="modal-body link1">
+                    <br>
+                    <h5 data-href="https://omantourism.gov.om/" class="external-link  dlink">وزارة السياحة</h5>
+                </div>
+                <div class="modal-body link2">
+                    <br>
+                    <h5 data-href="https://home.moe.gov.om/" class="external-link  dlink">وزارة التربية والتعليم</h5>
+                </div>
+                <div class="modal-body link1">
+                    <br>
+                    <h5 data-href="https://www.omaninfo.om/" class="external-link dlink" style=" font-size: 17px; line-height: 1.5">وزارة الاعلام</h5>
+                </div>
+                <div class="modal-body link2">
+                    <br>
+                    <h5 data-href="https://meca.gov.om/ar" class="external-link  dlink">وزارة البيئة و الشؤون المناخية</h5>
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">اغلاق</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).on('click', 'div.external-link', function () {
+            var t = $(this),
+                URL = t.attr('data-href');
+            $('<a href="' + URL + '" target="_blank">External Link</a>')[0].click();
+        });
+        $(document).on('click', 'h5.external-link', function () {
+            var t = $(this),
+                URL = t.attr('data-href');
+            $('<a href="' + URL + '" target="_blank">External Link</a>')[0].click();
+        });
+    </script>
     <!-- hijri date -->
     <script src="~/Scripts/js/hijricalendar-oman.js"></script>
     <script src="~/Content/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>

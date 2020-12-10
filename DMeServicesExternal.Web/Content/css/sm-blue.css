@@ -10,7 +10,7 @@
         padding-right: 58px;
         background: #3092c0;
         background-image: linear-gradient(to bottom, #3298c8, #2e8cb8);
-        color: #fff;
+        /*color: #fff;*/
         font-family: DroidKufiBold;
         font-size: 18px;
         font-weight: bold;
@@ -21,7 +21,7 @@
 .sm-blue a.current {
   background: #006892;
   background-image: linear-gradient(to bottom, #006188, #006f9c);
-  color: #fff;
+  /*color: #fff;*/
 }
 .sm-blue a.disabled {
   color: #a1d1e8;
@@ -56,12 +56,12 @@
 .sm-blue > li:last-child > a.highlighted, .sm-blue > li:last-child > *:not(ul) a.highlighted, .sm-blue > li:last-child > ul > li:last-child > a.highlighted, .sm-blue > li:last-child > ul > li:last-child > *:not(ul) a.highlighted, .sm-blue > li:last-child > ul > li:last-child > ul > li:last-child > a.highlighted, .sm-blue > li:last-child > ul > li:last-child > ul > li:last-child > *:not(ul) a.highlighted, .sm-blue > li:last-child > ul > li:last-child > ul > li:last-child > ul > li:last-child > a.highlighted, .sm-blue > li:last-child > ul > li:last-child > ul > li:last-child > ul > li:last-child > *:not(ul) a.highlighted, .sm-blue > li:last-child > ul > li:last-child > ul > li:last-child > ul > li:last-child > ul > li:last-child > a.highlighted, .sm-blue > li:last-child > ul > li:last-child > ul > li:last-child > ul > li:last-child > ul > li:last-child > *:not(ul) a.highlighted {
   border-radius: 0;
 }
-.sm-blue ul {
+/*.sm-blue ul {
   background: #fff;
 }
 .sm-blue ul ul {
   background: rgba(102, 102, 102, 0.1);
-}
+}*/
 .sm-blue ul a, .sm-blue ul a:hover, .sm-blue ul a:focus, .sm-blue ul a:active {
   background: transparent;
   color: #2b82ac;
@@ -72,7 +72,7 @@
 .sm-blue ul a.current {
   background: #006892;
   background-image: linear-gradient(to bottom, #006188, #006f9c);
-  color: #fff;
+  /*color: #fff;*/
 }
 .sm-blue ul a.disabled {
   color: #b3b3b3;
@@ -155,7 +155,7 @@
     padding: 13px 24px;
     background: #3092c0;
     background-image: linear-gradient(to bottom, #3298c8, #2e8cb8);
-    color: #fff;
+    /*color: #fff;*/
   }
   .sm-blue a:hover, .sm-blue a:focus, .sm-blue a:active, .sm-blue a.highlighted {
     background: #2b82ac;
@@ -164,7 +164,7 @@
   .sm-blue a.current {
     background: #006892;
     background-image: linear-gradient(to bottom, #006188, #006f9c);
-    color: #fff;
+    /*color: #fff;*/
   }
   .sm-blue a.disabled {
     background: #3092c0;
@@ -204,13 +204,13 @@
   .sm-blue ul {
     border: 1px solid #a8a8a8;
     padding: 7px 0;
-    background: #fff;
+    /*background: #fff;*/
     border-radius: 0 0 4px 4px !important;
     box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
   }
   .sm-blue ul ul {
     border-radius: 4px !important;
-    background: #fff;
+    /*background: #fff;*/
   }
   .sm-blue ul a, .sm-blue ul a:hover, .sm-blue ul a:focus, .sm-blue ul a:active, .sm-blue ul a.highlighted {
     border: 0 !important;
@@ -222,15 +222,15 @@
   .sm-blue ul a:hover, .sm-blue ul a:focus, .sm-blue ul a:active, .sm-blue ul a.highlighted {
     background: #3092c0;
     background-image: linear-gradient(to bottom, #3298c8, #2e8cb8);
-    color: #fff;
+    /*color: #fff;*/
   }
   .sm-blue ul a.current {
     background: #006892;
     background-image: linear-gradient(to bottom, #006188, #006f9c);
-    color: #fff;
+    /*color: #fff;*/
   }
   .sm-blue ul a.disabled {
-    background: #fff;
+    /*background: #fff;*/
     color: #b3b3b3;
   }
   .sm-blue ul a .sub-arrow {
@@ -252,7 +252,7 @@
     display: none;
     visibility: hidden;
     overflow: hidden;
-    background: #fff;
+    /*background: #fff;*/
     height: 20px;
   }
   .sm-blue .scroll-up-arrow,
