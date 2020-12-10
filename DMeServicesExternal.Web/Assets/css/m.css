@@ -1,0 +1,202 @@
+.carousel-item.text-center {
+    color: white!important;
+    font-weight: bold!important;
+}
+
+.modal-open .modal{
+    background:#000000e6!important;
+}
+
+
+
+@media screen and (min-width:300px){
+    html{
+        zoom:87% !important;
+    }
+    #tweet{
+        display:none;
+    }
+	
+	.portal {
+    top: 30!important;
+}
+
+    div#WAButton {
+    top: 66%!important;
+}   
+    
+	.cardone{
+       height: 101.5px !important;
+       width: 171px !important;
+   }  
+   .newsbar{
+    width: 363px !important;
+}
+.floating-wpp{
+    top:60%!mportant;
+}
+
+
+}
+
+@media screen and (max-width:600px){
+
+#mright{
+	right:275px!important;
+	
+}
+#tab{
+	font-size:16px!important;
+	
+}
+.mainb{
+	
+	width: 100%!important;
+}
+
+.portal {
+    top: 30!important;
+}
+
+}
+
+
+@media screen and (min-width:525px){
+    html{
+        zoom:100% !important;
+    }
+     #tweet{
+        display:none;
+    }
+.portal {
+    top: 30!important;
+}
+  
+}
+
+
+
+@media screen and (min-width:768px){
+    html{
+        zoom:90% !important;
+    }
+	.portal {
+    top: -100!important;
+}
+	
+		
+     #tweet{
+        display:none;
+    }  
+     .cardone{
+       height: 101.5px !important;
+       width: 171px !important;
+   }  
+   .newsbar{
+    width: 363px !important;
+}
+
+
+@media screen and (min-width:992px){
+    html{
+        zoom:90% !important;
+    }
+    
+    #tweet{
+        display:none;
+    }
+
+   .cardone{
+       height: 101.5px !important;
+       width: 171px !important;
+   }  
+   .newsbar{
+    width: 363px !important;
+}
+
+
+}
+
+
+
+@media screen and (min-width:1025px){
+    html{
+        zoom:80% !important;
+    }
+    #tweet{
+        display:block;
+    }
+   .newsbar{
+       width: 412px !important;
+   }
+   .cardone{
+       width:203px !important;
+       height:116px !important;
+   }
+
+
+}
+
+
+@media screen and (min-width:1200px){
+    html{
+        zoom:85% !important;
+    }
+   
+}
+
+
+@media screen and (min-width:1244px){
+    html{
+        zoom:90% !important;
+    }
+   
+}
+
+@media screen and (min-width:1400px){
+    html{
+        zoom:100% !important;
+    }
+   
+}
+
+
+@media screen and (min-width:1545px){
+    html{
+        zoom:110% !important;
+    }
+   
+}
+
+
+@media screen and (min-width:1699px){
+    html{
+        zoom:117% !important;
+    }
+   
+}
+
+@media screen and (min-width:1793px){
+    html{
+        zoom:120% !important;
+    }
+   
+}
+
+
+@media screen and (min-width:1873px){
+    html{
+        zoom:125% !important;
+    }
+   
+}
+
+
+@media screen and (min-width:1920px){
+    html{
+        zoom:125% !important;
+    }
+   
+}
+
+

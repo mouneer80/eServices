@@ -1,13 +1,31 @@
-﻿<!DOCTYPE html>
+﻿@*<!DOCTYPE html>*@
 
-<html>
+<html lang="ar" dir="rtl" class="translated-rtl">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>خدمات بلدية ظفار</title>
+    <link rel="stylesheet" href="~/assets/css/hover-min.css">
+    <link rel="stylesheet" href="~/assets/css/custom-style.css">
+    <link href="~/Assets/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Assets/css/bootstrap.min.css" rel="stylesheet" />
 
+    <script src="~/Assets/js/jquery-3.4.1.min.js"></script>
+    <script src="~/Assets/js/bootstrap.min.js.js"></script>
+
+    <style>
+        .footer-content {
+            position: fixed;
+            height: 50px;
+            background-color: red;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+            margin-bottom: 0px;
+        }
+    </style>
     <!-- The styles -->
-    <link href="~/Content/css/bootstrap-cerulean_ar.min.css" rel="stylesheet">
+    @*<link href="~/Content/css/bootstrap-cerulean_ar.min.css" rel="stylesheet">
     <link href="~/Content/css/charisma-app_ar.css" rel="stylesheet">
     <link href='~/Content/bower_components/fullcalendar/dist/fullcalendar.css' rel='stylesheet'>
     <link href='~/Content/bower_components/fullcalendar/dist/fullcalendar.print.css' rel='stylesheet' media='print'>
@@ -25,11 +43,11 @@
     <link href="~/Content/css/navbar-menu.css" rel="stylesheet" />
     <link href="~/Content/css/sm-core-css.css" rel="stylesheet" />
     <link href="~/Content/css/sm-blue.css" rel="stylesheet" />
-    <link href="~/Content/css/font.css" rel="stylesheet" />
+    <link href="~/Content/css/font.css" rel="stylesheet" />*@
     @*<link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/droid-arabic-kufi" type="text/css" />*@
     <!-- jQuery -->
-    <script src="~/Content/bower_components/jquery/jquery.min.js"></script>
-    <style>
+    @*<script src="~/Content/bower_components/jquery/jquery.min.js"></script>*@
+    @*<style>
         .RemoveBorder {
             border: 0px solid rgba(221, 221, 221, 0.46) !important;
         }
@@ -138,44 +156,7 @@
             return outputIslamicDate;
         }
 
-        //$(document).ready(function () {
-        //    $(window).resize(function () {
-        //        windowWidth = $(window).width();
-        //        if (windowWidth > 767) {
 
-
-        //            $("#tower_logo").css("display", "inline-block");
-        //            $("#easy_logo").css("display", "inline");
-        //            $("#hijri_goergian_date").css("display", "inline-block");
-        //            $("#main-navbar-menu").css("display", "block");
-
-
-        //            $("#myTopnav").css("display", "none");
-
-        //        }
-        //        else {
-
-        //            $("#tower_logo").css("display", "none");
-        //            $("#easy_logo").css("display", "none");
-        //            $("#hijri_goergian_date").css("display", "none");
-        //            $("#main-navbar-menu").css("display", "none");
-        //            $("#myTopnav").css("display", "block");
-
-        //        }
-        //    });
-
-        //})
-        //function myFunction() {
-        //    var x = document.getElementById("myTopnav");
-        //    if (x.className === "topnav") {
-        //        x.className += " responsive";
-        //    } else {
-        //        x.className = "topnav";
-        //    }
-        //}
-
-
-        // SmartMenus init
         $(function () {
             $('#main-menu').smartmenus({
                 subMenusSubOffsetX: 1,
@@ -204,14 +185,177 @@
                 });
             }
         });
-    </script>
+    </script>*@
 </head>
-<body>
+<body style="background: rgb(238, 238, 238);" class="">
     <!-- topbar starts -->
+    <!--header next 384 line [32-188]-->
+    <div class="fixed-top navbar navbar-light bg-light navbar-expand-md dm-header" style="">
+        <div class="container" style=" ">
+            <a class="navbar-brand" href="/"><img src="~/assets/icon/dmlogo.png" style=" height: 38px;"><font style="vertical-align: inherit;"> | </font><img src="~/assets/icon/as7logo.png" style=" height: 35px; width: 38px; "></a>
+            <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;color: white;">☰</font></font></button>
+            <a class="navbar-brand" href="/"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">معنا اسهل |</font></font></a>
+            <div class="navbar-collapse collapse" style="">
+                <ul class="nav navbar-nav">
+                    <li class="nav-item" style=" color: white; ">
+                        <a href="#" class="nav-link" style=" color: white; "><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">الصفحة الرئيسية</font></font></a>
+                    </li>
+                    <li class="dropdown menu-large nav-item dropdown-hover">
+                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" style=" color: white; font-family: 'dmfont'; "><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> عن بلدية ظفار</font></font></a>
+                        <ul class="dropdown-menu megamenu" style="background: #204a5a; padding-top: 0px; padding-bottom: 0px; ">
+                            <div class="row" style="height: 100%!important;">
+                                <li class="col-md-3 item" style=" background: #0002; ">
+                                    <ul>
+                                        <li class="dropdown-header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">الرؤية</font></font></li>
+                                        <li>
+                                            <a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">رؤيتنــــا : نخطط جميعا لإحداث نقلة نوعية متميزة في كافة مجالات العمل البلدي مراعيـــن الإهتمام بالكادر العماني تدريبا وتاهيلاً.</font></font></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="col-md-3 item" style=" background: #0002; ">
+                                    <ul>
+                                        <li class="dropdown-header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">الرسالة</font></font></li>
+                                        <li>
+                                            <a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">الإخلاص في العمل والاستغلال الأمثل للموارد المتاحة للوصول للريـــــادة بإذن الله</font></font></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="col-md-6 item logos" style="background: #0002; margin-bottom:5%;">
+                                    <img src="assets/icon/as7logo.png" style=" width: 40%; margin-right: 25%; margin-top: 10%; ">
+                                </li>
+                            </div>
+                        </ul>
+                    </li>
+                    <li class="dropdown menu-large nav-item dropdown-hover">
+                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" style=" color: white; font-family: 'dmfont'; "><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">المركز الاعلامي</font></font></a>
+                        <ul class="dropdown-menu megamenu" style="top: 56px; background: #204a5a; margin-top: 2px; padding-top: 0px; padding-bottom: 0px; ">
+                            <div class="row" style="height: 100%!important;">
+                                <li class="col-md-3 item" style=" background: #0002; ">
+
+                                    <ul>
+                                        <li class="dropdown-header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">الاخبار</font></font></li>
+                                        <li>
+                                            <a href="#" style=" background: #0002; 2 FONT-VARIANT: JIS04; "><font style="vertical-align: inherit;"><font style="vertical-align: inherit;font-size: small;">بلدية ظفار تنفذ أعمال الصيانة لبعض الطرق بمدينة صلالة</font></font></a>
+                                        </li>
+                                        <li class="dropdown-header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">اهم الاخبار</font></font></li>
+                                        <li>
+                                            <a href="#" style=" background: #0002; margin: 2 0 2; "><font style="vertical-align: inherit;"><font style="font-size: small;vertical-align: inherit;">بلدية ظفار تنفذ أعمال الصيانة لبعض الطرق بمدينة صلالة</font></font></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="col-md-6 item logos" style="margin: auto;">
+                                    <div id="carouselExampleCaptions" class="carousel slide pointer-event" data-ride="carousel" style=" background: yellowgreen; ">
+                                        <ol class="carousel-indicators" style=" top: 272px; ">
+                                            <li data-target="#carouselExampleCaptions" data-slide-to="0" class=""></li>
+                                        </ol>
+                                        <div class="carousel-inner active">
+                                            <div class="carousel-item active">
+                                                <img src="assets/img/slide4.jpg" class="d-block w-100" alt="..." style=" ">
+                                                <div class="carousel-caption d-none d-md-block">
+                                                    <h5>اجتماع المركز البلدي </h5>
+                                                    <p>
+                                                        افتتح #المجلس_البلدي لمحافظة #ظفار صباح اليوم اجتماعاته الدورية للعام الرابع من دورة اجتماعات الفترة الثانية
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                        <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </div>
+                                    <ul>
+                                        <li style=" font-size: 25px; margin-top: 60px; margin-right: 5%; margin-left: 0px; ">
+                                            <a href="https://ar-ar.facebook.com/DhofarMunicipality/" class="fa fa-facebook" style="display: inline;"></a>
+                                            <a href="https://twitter.com/DhofarMun" class="fa fa-twitter" style=" display: inline; "></a>
+                                            <a href="https://www.youtube.com/user/DhofarMunicipality" class="fa fa-youtube" style=" display: inline; "></a>
+                                            <a href="https://www.instagram.com/dhofar_municipality/" class="fa fa-instagram" style=" display: inline; "></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="col-md-3 item" style=" background: #0002; ">
+                                    <script type="text/javascript">
+                                        $('.datepicker').datepicker({
+                                            weekStart: 1,
+                                            color: 'teal'
+                                        });
+                                    </script>
+                                    <ul>
+                                        <li class="dropdown-header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">الاحداث القادمة</font></font></li>
+                                        <li>
+                                            <a href="#" style=" background: #0002; 2 FONT-VARIANT: JIS04; "><font style="vertical-align: inherit;"><font style="vertical-align: inherit;font-size: small;">٢‎٤‎ ينايـــر : يوم بلديات دول مجلس التعاون الخليجي</font></font></a>
+                                        </li>
+                                        <li class="dropdown-header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">اهم الاحداث</font></font></li>
+                                        <li>
+                                            <a href="#" style=" background: #0002; margin: 2 0 2; "><font style="vertical-align: inherit;"><font style="font-size: small;vertical-align: inherit;">٨‎ ينايـــر : يوم البيئة العُماني</font></font></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </div>
+                        </ul>
+                    </li>
+                    <li class="dropdown menu-large nav-item dropdown-hover">
+                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" style=" color: white; font-family: 'dmfont'; "><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">خدماتنا</font></font></a>
+                        <ul class="dropdown-menu megamenu" style="background: #204a5a; top: 58px; margin-top: 2px; padding-top: 0px; padding-right: 20px; height:auto; padding-left: 20px; padding-bottom: 0px; overscroll-behavior-y: auto; ">
+                            <div class="row" style="height: 100%!important;">
+                                <li class="col-md-3 item" style=" background: #0002; ">
+                                    <ul>
+                                        <li class="dropdown-header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">الشؤون الهندسية</font></font></li>
+                                        <li>
+                                            <a href="#" style=" background: #0002; 2 FONT-VARIANT: JIS04; "><font style="vertical-align: inherit;"><font style="vertical-align: inherit;font-size: small;">رخصة اباحة بناء</font></font></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" style=" background: #0002; margin: 2 0 2; "><font style="vertical-align: inherit;"><font style="vertical-align: inherit;font-size: small;">طلب توصيل تيار كهربائي</font></font></a>
+                                        </li>
+                                        <li class="dropdown-header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">الشؤون الصحية</font></font></li>
+                                        <li>
+                                            <a href="#" style=" background: #0002; margin: 2 0 2; "><font style="vertical-align: inherit;"><font style="font-size: small;vertical-align: inherit;"> أصدار الترخيص البلدي</font></font></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" style=" background: #0002; margin: 2 0 2; "><font style="vertical-align: inherit;"><font style="vertical-align: inherit;font-size: small;">تجديد/الغاء الترخيص البلدي</font></font></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" style=" background: #0002; margin: 2 0 2; "><font style="vertical-align: inherit;"><font style="vertical-align: inherit;font-size: small;">أصدار بطاقة العمال</font></font></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" style=" background: #0002; margin: 2 0 2; "><font style="vertical-align: inherit;"><font style="vertical-align: inherit;font-size: small;">تجديد/الغاء بطاقة العمال</font></font></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" style=" background: #0002; margin-top: 2px; margin-bottom: 2px; "><font style="vertical-align: inherit;"><font style="vertical-align: inherit;font-size: small;">اصدار تراخيص السيارات</font></font></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" style=" background: #0002; margin-top: 2px; margin-bottom: 2px; "><font style="vertical-align: inherit;"><font style="vertical-align: inherit;font-size: small;">تجديد/ الغاء تراخيص السيارات</font></font></a>
+                                        </li>
+                                        <li class="dropdown-header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">العقد الالكتروني</font></font></li>
+                                        <li>
+                                            <a href="#" style=" background: #0002; 2 0 FONT-WEIGHT: 200; margin-top: 2px; margin-right: 0px; margin-bottom: 2px; "><font style="vertical-align: inherit;"><font style="vertical-align: inherit;font-size: small;">أصدار العقد الالكتروني</font></font></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" style=" background: #0002; 2 0 FONT-WEIGHT: 200; margin-top: 2px; margin-bottom: 2px; "><font style="vertical-align: inherit;"><font style="vertical-align: inherit;font-size: small;">تجديد العقد الالكتروني</font></font></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </div>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+        <div class="dm-header-bg1">
+
+            <div class="dm-header-bg2">
+            </div>
+
+            <div style="position: absolute; background:linear-gradient(9deg, #000000b0, #000000fa); margin: auto; bottom: auto; top: 0px; right: 0px; ">
+            </div>
+        </div>
     <div class="container">
-        <span id="tower_logo"> <a href="#"><img src="~/img/header/logo.png" class="towerlogo" style="height:80px;" /></a></span>
-        <span id="main_text_logo"> <a href="#"><img src="~/img/header/Header_1.png" class="maintextlogo" style="height:80px;" /></a></span>
-        <span id="easy_logo" class="easylogo"> <img src="~/img/header/Easy.png" style="height:80px; float:left; margin-left:5px;" /></span>
         <span id="hijri_goergian_date" class="hijri_goergian_date" style="font-size:12pt;font-weight:bold;  float:left;color:#2F9BD5;margin-top:60px;margin-left:5px">
             <script>
                 var now = new Date();
