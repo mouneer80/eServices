@@ -326,10 +326,7 @@ namespace DMeServicesExternal.Web.Controllers
                 oModel.ListOfAttachments.Add(oModel.Attachments);
                 TempData["Attachments"] = oModel.ListOfAttachments;
             }
-
-
             return PartialView("_ListAttachments", oModel);
-
         }
         #endregion
 
