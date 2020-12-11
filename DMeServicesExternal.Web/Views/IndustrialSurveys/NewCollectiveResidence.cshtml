@@ -285,7 +285,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         //Country Dropdown Selectedchange event
-        $("#Welayah").change(function () {
+        $("#Welayah").change(function() {
 
             $("#Region").empty();
 
@@ -295,38 +295,46 @@
                 dataType: 'json',
                 data: { id: $("#Welayah").val() },
                 // Get Selected Welayah ID.
-                success: function (regions) {
-                    $.each(regions, function (i, region) {
-                        $("#Region").append('<option value="' + region.Value + '">' +
-                             region.Text + '</option>');
-                    });
-                        $("#Area").empty();
-                    $.ajax({
-                    type: 'POST',
-                    url: '@Url.Action("GetAreas")', // Calling json method
-                    dataType: 'json',
-                    data: { id: $("#Region").val() },
-                    // Get Selected Region ID.
-                        success: function (areas) {
-
-                        $.each(areas, function (i, area) {
-                            $("#Area").append('<option value="' + area.Value + '">' +
-                                 area.Text + '</option>');
+                success: function(regions) {
+                    $.each(regions,
+                        function(i, region) {
+                            $("#Region").append('<option value="' +
+                                region.Value +
+                                '">' +
+                                region.Text +
+                                '</option>');
                         });
+                    $("#Area").empty();
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("GetAreas")', // Calling json method
+                        dataType: 'json',
+                        data: { id: $("#Region").val() },
+                        // Get Selected Region ID.
+                        success: function(areas) {
 
-                    },
-                    error: function (ex) {
-                        alert('Failed to retrieve areas.' + ex);
+                            $.each(areas,
+                                function(i, area) {
+                                    $("#Area").append('<option value="' +
+                                        area.Value +
+                                        '">' +
+                                        area.Text +
+                                        '</option>');
+                                });
+
+                        },
+                        error: function(ex) {
+                            alert('Failed to retrieve areas.' + ex);
                         }
                     });
                     return false;
                 },
-                error: function (ex) {
+                error: function(ex) {
                     alert('Failed to retrieve Regions.' + ex);
                 }
             });
             return false;
-        })
+        });
     });
 </script>
 <script type="text/javascript">

@@ -157,7 +157,7 @@
                         var activitiesArray = data.companyOverview.declaredActivities.activity;
                         var isValidActivity = false;
                         activitiesArray.forEach((activity) => {
-                            if (activity.isicCode.startsWith("7110")) {
+                            if (["711001", "711002", "711003", "711004", "711005", "711009", "711099"].includes(activity.isicCode)) {
                                 isValidActivity = true;
                                 return;
                             }

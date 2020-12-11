@@ -37,7 +37,7 @@
 
 <div class="col-lg-9 col-sm-9">
     <div class="row">
-        @using (Html.BeginForm("SaveCompany", "Register", FormMethod.Post, new { encType = "multipart/form-data", @id = "Companyform" }))
+        @using (Html.BeginForm("EditCompany", "Register", FormMethod.Post, new { encType = "multipart/form-data", @id = "Companyform" }))
         {
             @Html.AntiForgeryToken()
 
@@ -124,7 +124,7 @@
                 @Html.TextBoxFor(m => m.Consultant.JobName, new { id = "ConsultantJobName", @readonly = "readonly", @class = "form-control", @placeholder = "الوظيفة" })
             </div>
             <div class="col-sm-1" style="width: 15%;">
-                <input type="submit" id="SaveWorker" name="SaveWorker" class="btn " value="إضافة بيان" />
+                <input id="SaveWorker" name="SaveWorker" class="btn " value="إضافة بيان" />
             </div>
         </div>
     </div>
@@ -139,7 +139,7 @@
     <br />
     <br />
     <div class="col-sm-6">
-        <button class="btn btn-primary" id="Save" @*onclick="return confirm('هل انت متاكد من حفظ التعديلات !');"*@>
+        <button class="btn btn-primary" id="Save" type="submit" @*onclick="return confirm('هل انت متاكد من حفظ التعديلات !');"*@>
             <i class="glyphicon glyphicon-ok"></i> حفظ
         </button>
         <a style="float:left" href="@Url.Action( "Index","IndustrialSurveys")" class="btn btn-primary" role="button">رجوع</a>
@@ -183,15 +183,22 @@
         });
     };
 
-
     $(document).ready(function () {
+
+        $("#Save").click(function () {
+            $("#Companyform").submit();
+        });
+
+
+
         $("#SaveWorker").click(function () {
             var data = new FormData();
-            data.append("WorkerName", $("#WorkerName").val());
-            data.append("WorkerID", $("#WorkerID").val());
-            data.append("WorkerPhone", $("#WorkerPhone").val());
+            data.append("ConsultantCivilId", $("#ConsultantCivilId").val());
+            data.append("ConsultantFullName", $("#ConsultantFullName").val());
+            data.append("ConsultantJobName", $("#ConsultantJobName").val());
+            data.append("CommercialNo", $("#CommercialNo").val());
 
-            var url = "@Url.Action("SaveWorker", "IndustrialSurveys")";
+            var url = "@Url.Action("SaveConsultant", "Register")";
             $.ajax({
                 url: url,
                 type: "POST",
@@ -199,18 +206,17 @@
                 contentType: false,
                 data: data,
                 success: function (response) {
-                    $('#WorkerName').val('');
-                    $('#WorkerID').val('');
-                    $('#WorkerPhone').val('');
+                    $('#ConsultantCivilId').val('');
+                    $('#ConsultantFullName').val('');
+                    $('#ConsultantJobName').val('');
                     $('#SaveWorker').attr('disabled', false);
 
-                    $('#divWorkers').html(response)
+                    $('#divWorkers').html(response);
                 },
                 error: function (er) {
                     alert(er);
                     $('#SaveWorker').attr('disabled', false);
                 }
-
             });
         });
     });

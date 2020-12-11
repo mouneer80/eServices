@@ -6,6 +6,8 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Web;
 using System.Web.Mvc;
+using DMeServices.Models;
+using DMeServices.Models.BuildingServices;
 using DMeServices.Models.Common.BuildingServices;
 using DMeServices.Models.ViewModels;
 using RestSharp;
@@ -113,9 +115,8 @@ namespace DMeServicesExternal.Web.Controllers
             var request = new RestRequest(Method.GET);
             request.AddHeader("content-type", "application/json");
             IRestResponse restResponse = client.Execute(request);
-            JsonDeserializer deserial = new JsonDeserializer();
-            var x = deserial.Deserialize<CompanyOverviewResult>(restResponse);
-
+            JsonDeserializer deserialize = new JsonDeserializer();
+            var x = deserialize.Deserialize<CompanyOverviewResult>(restResponse);
             return (x.CompanyOverview);
         }
 
@@ -129,5 +130,68 @@ namespace DMeServicesExternal.Web.Controllers
             return View(companyViewModel);
         }
         
+        #region Method :: Save Consultant
+        [HttpPost]
+        public ActionResult SaveConsultant()
+        {
+            var consultantCivilId = System.Web.HttpContext.Current.Request.Form["ConsultantCivilId"];
+            var consultantFullName = System.Web.HttpContext.Current.Request.Form["ConsultantFullName"];
+            var consultantJobName = System.Web.HttpContext.Current.Request.Form["ConsultantJobName"];
+            var commercialNo = System.Web.HttpContext.Current.Request.Form["CommercialNo"];
+
+            var oModel = new CompanyViewModel
+            {
+                Consultant = new User
+                {
+                    CivilId = int.Parse(consultantCivilId),
+                    FullName = consultantFullName,
+                    JobName = consultantJobName,
+                    ConsultantCrNo = int.Parse(commercialNo)
+                },
+                ConsultantsList = (List<User>)TempData["Consultants"] ?? new List<User>()
+            };
+            if (oModel.ConsultantsList.Count == 0)
+            {
+                oModel.ConsultantsList = UserCom.GetUsersListByCr(int.Parse(commercialNo));
+            }
+            if (ConsultantOccupationCom.IsOccupassionValid(consultantJobName))
+            {
+                oModel.ConsultantsList.Add(oModel.Consultant);
+                TempData["Consultants"] = oModel.ConsultantsList;
+                ViewBag.Message = null;
+            }
+            else
+            {
+                ViewBag.Message = "لا يمكن اضافة هذه المهنة";
+            }
+            return PartialView("_ListConsultants", oModel);
+        }
+        #endregion
+        
+        #region Method :: Delete Consultant
+
+        public ActionResult DeleteConsultant(int id)
+        {
+            var oModel = new CompanyViewModel {ConsultantsList = (List<User>) TempData["Consultants"]};
+            oModel.Consultant = oModel.ConsultantsList[id];
+            oModel.ConsultantsList.Remove(oModel.Consultant);
+            TempData["Consultants"] = oModel.ConsultantsList;
+            return PartialView("_ListConsultants", oModel);
+        }
+        #endregion
+
+        public ActionResult EditCompany(CompanyViewModel oModel)
+        {
+            oModel.ConsultantsList = (List<User>) TempData["Consultants"];
+            string result = MociCompaniesData.SaveCompany(oModel);
+            if (!string.IsNullOrWhiteSpace(result))
+            {
+                ViewBag.Message = result;
+                TempData["Consultants"] = null;
+                return RedirectToAction("CompanyList", "BuildingPermits");
+            }
+
+            return View("CompanyDetails");
+        }
     }
 }

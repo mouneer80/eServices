@@ -14,5 +14,8 @@ namespace DMeServices.Models.ViewModels
         public MociData CompanyData { get; set; }
         public List<User> ConsultantsList { get; set; }
         public User Consultant { get; set; }
+
+        public bool ShowMessage { get; set; }
+        public string ReturnedMessage { get; set; }
     }
 }

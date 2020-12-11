@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
 using DMeServices.DAL;
-using DMeServices.Models.BuildingServices;
+using DMeServices.Models.ViewModels;
 
 namespace DMeServices.Models.Common.BuildingServices
 {
@@ -24,7 +20,7 @@ namespace DMeServices.Models.Common.BuildingServices
         }
         #endregion
         
-        #region Method :: Register Comapnies 
+        #region Method :: Register New Comapny 
         public static string SaveCompany(MociData compData)
         {
             using (eServicesEntities db = new eServicesEntities())
@@ -36,6 +32,32 @@ namespace DMeServices.Models.Common.BuildingServices
                 }
                 db.MociData.Add(compData);
                 db.SaveChanges();
+                return "تم التسحيل بنجاح";
+            }
+        }
+        #endregion
+        
+        #region Method :: Edit Company Details
+        public static string SaveCompany(CompanyViewModel compData)
+        {
+            using (eServicesEntities db = new eServicesEntities())
+            {
+                var isCompanyExist = db.MociData.SingleOrDefault(x => x.COMMERCIAL_NO == compData.CompanyData.COMMERCIAL_NO);
+                if (isCompanyExist == null)
+                {
+                    return null;
+                }
+                db.MociData.Add(compData.CompanyData);
+                db.SaveChanges();
+                if (compData.ConsultantsList != null)
+                {
+                    var lstConsultantsList = Mapper.Map<List<User>, List<Users>>(compData.ConsultantsList);
+                    foreach (var consultant in lstConsultantsList)
+                    {
+                        db.Users.Add(consultant);
+                        db.SaveChanges();
+                    }
+                }
                 return "تم التسحيل بنجاح";
             }
         }

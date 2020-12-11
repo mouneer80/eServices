@@ -195,6 +195,7 @@
           <Property Name="OccupationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="OccupationDescArabic" Type="nvarchar(max)" Nullable="false" />
           <Property Name="OccupationDescEnglish" Type="nvarchar(max)" />
+          <Property Name="OccupationCode" Type="int" />
         </EntityType>
         <EntityType Name="Departments">
           <Key>
@@ -2972,6 +2973,7 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           <Property Name="OccupationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="OccupationDescArabic" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="OccupationDescEnglish" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OccupationCode" Type="Int32" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -4068,6 +4070,7 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           <EntitySetMapping Name="ConsultantOccupations">
             <EntityTypeMapping TypeName="eServicesModel.ConsultantOccupations">
               <MappingFragment StoreEntitySet="ConsultantOccupations">
+                <ScalarProperty Name="OccupationCode" ColumnName="OccupationCode" />
                 <ScalarProperty Name="OccupationDescEnglish" ColumnName="OccupationDescEnglish" />
                 <ScalarProperty Name="OccupationDescArabic" ColumnName="OccupationDescArabic" />
                 <ScalarProperty Name="OccupationID" ColumnName="OccupationID" />

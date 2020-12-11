@@ -17,5 +17,6 @@ namespace DMeServices.DAL
         public int OccupationID { get; set; }
         public string OccupationDescArabic { get; set; }
         public string OccupationDescEnglish { get; set; }
+        public Nullable<int> OccupationCode { get; set; }
     }
 }
