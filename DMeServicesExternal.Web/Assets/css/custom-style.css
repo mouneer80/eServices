@@ -157,17 +157,19 @@ a:hover{
   color: #FFFFFF;
   text-decoration: none;            
         }
-        li{
-            text-align: right;
-        }
-        .logos>ul>li{
-            text-align:center!important;
-        }
-        .dropdown-header{
-            color: aqua!important;
-        } .modal-body {
+li{
+    text-align: right;
+}
+.logos>ul>li{
+    text-align:center!important;
+}
+.dropdown-header{
+    color: aqua!important;
+} 
+.modal-body {
     height: 52px!important;
-    padding: 12!important;} .modal-bodyab {
+    padding: 12px!important;} 
+.modal-bodyab {
     height: 40px!important;
 }
 
@@ -181,7 +183,7 @@ a:hover{
 .dm-header-bg1 {
     /*background: url("h.svg");*/
     height: 60%;
-    /* background: linear-gradient(-344deg, #20dede , #336699 100%); */
+    /*background: linear-gradient(-344deg, #20dede , #336699 100%); */
     background: url(../img/header.jpg);
     margin-top: 0px;
     position: relative;
@@ -191,7 +193,7 @@ a:hover{
     padding-right: 10px;
     text-align: center;
     bottom: 0;
-    top: 40px;
+    top: 0;
 }
 
 .dm-header-bg2 {

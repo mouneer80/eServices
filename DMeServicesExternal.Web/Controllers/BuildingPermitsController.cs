@@ -93,26 +93,51 @@ namespace DMeServicesExternal.Web.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult SaveNewPermits(PermitsViewModel oModel)
         {
-            oModel.ListOfAttachments = (List<PermitsAttachments>)TempData["Attachments"];
-            TempData["Attachments"] = null;
+            if (ModelState.IsValid)
+            {
 
-            oModel.PersonalCard.AttachmentTypeId = 1;
-            oModel.KrokeFile.AttachmentTypeId = 2;
-            oModel.OwnerFile.AttachmentTypeId = 3;
-            oModel.ListOfAttachments.Add(oModel.PersonalCard);
-            oModel.ListOfAttachments.Add(oModel.KrokeFile);
-            oModel.ListOfAttachments.Add(oModel.OwnerFile);
-            //oModel.BuildingPermits.LicenseNo = "ح / 5665";
+                oModel.ListOfAttachments = (List<PermitsAttachments>)TempData["Attachments"];
+                TempData["Attachments"] = null;
+                if (isListOfAttachment(oModel.ListOfAttachments))
+                {
+                    oModel.PersonalCard.AttachmentTypeId = 1;
+                    oModel.KrokeFile.AttachmentTypeId = 2;
+                    oModel.OwnerFile.AttachmentTypeId = 3;
+                    oModel.ListOfAttachments.Add(oModel.PersonalCard);
+                    oModel.ListOfAttachments.Add(oModel.KrokeFile);
+                    oModel.ListOfAttachments.Add(oModel.OwnerFile);
+                    //oModel.BuildingPermits.LicenseNo = "ح / 5665";
 
-            oModel.ListOfAttachments = SaveFiles(oModel);
-            string result = PermitsCom.SavePermits(oModel);
+                    oModel.ListOfAttachments = SaveFiles(oModel);
+                    string result = PermitsCom.SavePermits(oModel);
 
-            ViewBag.TranseID = result;
-            DMeServices.Models.Common.SmsCom.SendSms("968" + oModel.oUserInfo.MobileNo, ": تم تسليم طلبك بنجاح  لاستكمال طلب ترخيص البناء يجب دفع رسوم 20 ريال في بلدية صلالة  قسم التحصيل برقم المعاملة  " + result);
-            return View("SaveNewPermitsSuccessPage");
+                    ViewBag.TranseID = result;
+                    DMeServices.Models.Common.SmsCom.SendSms("968" + oModel.oUserInfo.MobileNo, ": تم تسليم طلبك بنجاح  لاستكمال طلب ترخيص البناء يجب دفع رسوم 20 ريال في بلدية صلالة  قسم التحصيل برقم المعاملة  " + result);
+                }
+                return View("SaveNewPermitsSuccessPage");
+            }
+            else
+            {
+                return View("SaveNewPermitsFailPage");
+            }
+        }
+
+        private bool isListOfAttachment(List<PermitsAttachments> listOfAttachments)
+        {
+            if (listOfAttachments.Count == 0 || listOfAttachments.Count > 5) return false;
+
+            foreach (var Attachment in listOfAttachments)
+            {
+                HttpPostedFileBase oFile = Attachment.File;
+                FileInfo oFileInfo = new FileInfo(oFile.FileName);
+
+                if (oFile == null || oFile.ContentLength <= 0 || !new string[] { ".jpg", ".jpeg", ".pdf", ".png" }.Contains(oFileInfo.Extension)) return false;
+            }
+            return true;
         }
 
         [HttpPost]
@@ -301,6 +326,8 @@ namespace DMeServicesExternal.Web.Controllers
         public ActionResult SaveAttachment()
         {
             PermitsViewModel oModel = new PermitsViewModel();
+            var listofattachment = (List<PermitsAttachments>)TempData["Attachments"];
+            if (listofattachment != null && listofattachment.Count == 5) return PartialView("_ListAttachments", oModel);
             if (System.Web.HttpContext.Current.Request.Files.AllKeys.Any())
             {
                 HttpPostedFileBase File = new HttpPostedFileWrapper(System.Web.HttpContext.Current.Request.Files["MyAttached"]);
@@ -311,6 +338,10 @@ namespace DMeServicesExternal.Web.Controllers
                 oModel.Attachments.File = File;
                 oModel.Attachments.InsertDate = DateTime.Now;
                 oModel.Attachments.AttachmentContentType = oFileInfo.Extension;
+                if (!new string[] { ".jpg", ".jpeg", ".pdf", ".png" }.Contains(oFileInfo.Extension))
+                {
+                    return PartialView("_ListAttachments", oModel);
+                }
                 if (string.IsNullOrEmpty(FileDescription))
                 {
                     FileDescription = "لايوجد";
@@ -323,8 +354,15 @@ namespace DMeServicesExternal.Web.Controllers
                 {
                     oModel.ListOfAttachments = new List<PermitsAttachments>();
                 }
-                oModel.ListOfAttachments.Add(oModel.Attachments);
+                if (oModel.ListOfAttachments.Count < 5)
+                    oModel.ListOfAttachments.Add(oModel.Attachments);
+
+
                 TempData["Attachments"] = oModel.ListOfAttachments;
+            }
+            else
+            {
+                ViewBag.message = " لا يمكن اضافة اكثر من 5 ملفات كحد اقصى";
             }
             return PartialView("_ListAttachments", oModel);
         }
