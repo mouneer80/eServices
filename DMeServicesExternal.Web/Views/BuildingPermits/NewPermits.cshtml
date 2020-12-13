@@ -187,8 +187,15 @@
                             <label class="control-label">
                                 @Html.DisplayNameFor(m => m.BuildingPermits.KrokiNO)
                             </label>
-                            @Html.TextBoxFor(m => m.BuildingPermits.KrokiNO, new { @class = "form-control", id = "KrokiNO", @placeholder = "رقم الكروكي" })
-                            @Html.ValidationMessageFor(m => m.BuildingPermits.KrokiNO, "", new { @style = "color:orange;" })
+                            <div style="direction:ltr">
+                                @Html.TextBoxFor(m => m.BuildingPermits.KrokiNO, new { style = "width: 40px; display: inline", onkeyup = "moveCursor(this, KrokiNO2);", @maxlength = "2", @class = "form-control", id = "KrokiNO1", })
+                                @Html.TextBoxFor(m => m.BuildingPermits.KrokiNO, new { style = "width: 40px; display: inline", onkeyup = "moveCursor(this, KrokiNO3);", @maxlength = "2", @class = "form-control", id = "KrokiNO2", })
+                                @Html.TextBoxFor(m => m.BuildingPermits.KrokiNO, new { style = "width: 50px; display: inline", onkeyup = "moveCursor(this, KrokiNO4);", @maxlength = "3", @class = "form-control", id = "KrokiNO3", })
+                                @Html.TextBoxFor(m => m.BuildingPermits.KrokiNO, new { style = "width: 40px; display: inline", onkeyup = "moveCursor(this, KrokiNO5);", @maxlength = "2", @class = "form-control", id = "KrokiNO4", })
+                                @Html.TextBoxFor(m => m.BuildingPermits.KrokiNO, new { style = "width: 55px; display: inline", onkeyup = "moveCursor(this, KrokiNO);", @maxlength = "4", @class = "form-control", id = "KrokiNO5", })
+                                @Html.TextBoxFor(m => m.BuildingPermits.KrokiNO, new { @class = "form-control", @readonly = "readonly", id = "KrokiNO", @placeholder = "رقم الكروكي" })
+                                @Html.ValidationMessageFor(m => m.BuildingPermits.KrokiNO, "", new { @style = "color:orange;" })
+                            </div>
                         </div>
                         <div class="form-group col-md-6">
                             <label class="control-label">
@@ -350,6 +357,57 @@
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
 <script type="text/javascript">
+    function moveCursor(fromText, toText) {
+        $("#KrokiNO").mask("99-99-999-99-9999");
+        
+        var currentval = $('#' + fromText.id).val();
+        var length = fromText.value.length;
+        var maxLength = fromText.maxLength;
+
+        //alert(currentval);
+        if (length == maxLength) {
+            document.getElementById(toText.id).focus();
+            var krokivalue = $("#KrokiNO").val();
+            //var kroki5 = $("#KrokiNO5").val();
+            
+            if (krokivalue === '') {
+               
+                $("#KrokiNO").val(currentval);
+            } else {
+                
+                $("#KrokiNO").val(krokivalue +'-'+ currentval);
+                //$("#KrokiNO").on("blur", function () {
+
+                //    var last = $(this).val().substr($(this).val().indexOf("-") + 1);
+                //    if (last.length == 2) {
+                //        var move = $(this).val().substr($(this).val().indexOf("-") - 1, 1);
+                //        var lastfour = move + last;
+                //        var first = $(this).val().substr(0, 2);
+                //        $(this).val(first + '-' + lastfour);
+                //    }
+
+                //});
+                
+            }
+            
+
+        }
+    }
+    $("#KrokiNO").mask("99-99-999-99-9999");
+    $("#KrokiNO").on("blur", function () {
+
+        var last = $(this).val().substr($(this).val().indexOf("-") + 1);
+        if (last.length == 2) {
+            var move = $(this).val().substr($(this).val().indexOf("-") - 1, 1);
+            var lastfour = move + last;
+            var first = $(this).val().substr(0, 2);
+            $(this).val(first + '-' + lastfour);
+        }
+
+    });
+   
+</script>
+<script type="text/javascript">
     //$(document).ready(function () {
     //    $('#KrokiNO').keyup(function (event) {
     //        addHyphen(this);
@@ -410,19 +468,19 @@
     //    document.getElementById(element.id).value = finalVal;
     //}
     $(function () {
-        $("#KrokiNO").mask("99-99-999-99-9999");
+        //$("#KrokiNO").mask("99-99-999-99-9999");
 
-        $("#KrokiNO").on("blur", function () {
+        //$("#KrokiNO").on("blur", function () {
 
-            var last = $(this).val().substr($(this).val().indexOf("-") + 1);
-            if (last.length == 2) {
-                var move = $(this).val().substr($(this).val().indexOf("-") - 1, 1);
-                var lastfour = move + last;
-                var first = $(this).val().substr(0, 2);
-                $(this).val(first + '-' + lastfour);
-            }
+        //    var last = $(this).val().substr($(this).val().indexOf("-") + 1);
+        //    if (last.length == 2) {
+        //        var move = $(this).val().substr($(this).val().indexOf("-") - 1, 1);
+        //        var lastfour = move + last;
+        //        var first = $(this).val().substr(0, 2);
+        //        $(this).val(first + '-' + lastfour);
+        //    }
 
-        });
+        //});
 
         //Country Dropdown Selectedchange event
         $("#Welayah").change(function () {
