@@ -13,7 +13,7 @@
                     <tr>
                         <td>نوع المرفق</td>
                         <td>الملاحظات</td>
-                        <td>نوع الملف</td>
+                        @*<td>نوع الملف</td>*@
                         <td>تاريخ الاضافة</td>
                         <td>وقت الاضافة</td>
                     </tr>
@@ -48,11 +48,11 @@
                         </td>
                         <td class="col-sm-1" style="width:20%;">
                             @using (Ajax.BeginForm("DeleteAttachment", new { @controller = "BuildingPermits", @Id = i }, new AjaxOptions { UpdateTargetId = "divAttachments" }, new { @style = "display: inline-block;" }))
-        {
-                    <button type="submit" class="btn btn-danger" onclick="return confirm('هل انت متأكد من الحذف؟')">
-                        <i class="fa fa-close"></i>&nbsp; حذف
-                    </button>
-}
+                            {
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('هل انت متأكد من الحذف؟')">
+                                <i class="fa fa-close"></i>&nbsp; حذف
+                            </button>
+                            }
                         </td>
                     </tr>
                             i++;

@@ -20,7 +20,19 @@ namespace DMeServicesExternal.Web
             //Register Map
             MappingConfig.RegisterMaps();
 
-
+            MvcHandler.DisableMvcResponseHeader = true; //this line is to hide mvc header
         }
+
+        protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+            var app = sender as HttpApplication;
+            if (app != null && app.Context != null)
+            {
+                app.Context.Response.Headers.Remove("Server");
+                HttpContext.Current.Response.AddHeader("X-Frame-Options", "DENY");
+            }
+        }
+
+        
     }
 }

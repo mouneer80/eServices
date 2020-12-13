@@ -30,7 +30,8 @@
     <link href="~/Content/css/font.css" rel="stylesheet" />
     @*<link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/droid-arabic-kufi" type="text/css" />*@
     <!-- jQuery -->
-    <script src="~/Content/bower_components/jquery/jquery.min.js"></script>
+    <script src="Assets/js/jquery-3.4.1.min.js"></script>
+    @*<script src="~/Content/bower_components/jquery/jquery.min.js"></script>*@
     <!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -66,33 +67,36 @@
                     <div class="form-horizontal" action="index.html" method="post">
                         @using (Html.BeginForm("Login", "UsersLogin", new { returnUrl = ViewBag.returnUrl }, FormMethod.Post, new { @class = "sky-form boxed", role = "form" }))
                         {
-                        <fieldset>
-                            <div class="input-group input-group-lg">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-user red"></i></span>
-                                @*<input type="text" class="form-control" placeholder="إسم المستخدم">*@
-                                @Html.TextBoxFor(m => m.userName, new { @class = "form-control", placeholder = "إسم المستخدم", @required = "required" })
-                            </div>
-                            <div class="clearfix"></div><br>
-                            <div class="input-group input-group-lg">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock red"></i></span>
-                                @*<input type="password" class="form-control" placeholder="كلمة المرور">*@
-                                @Html.TextBoxFor(m => m.Password, new { @class = "form-control", type = "password", placeholder = "كلمة المرور", @required = "required" })
-                            </div>
-                            <div class="input-group input-group-lg">
-                                <span style="color:red">@ViewBag.LoginErrorMessage</span>
-                            </div>
-                            <div class="clearfix"></div><br />
-                            @*<a href="#">إسترجاع كلمة المرور</a>*@
-                            @Html.ActionLink("الصفحة الرئيسية", "Index", "Home") / 
-                            @Html.ActionLink("تسجيل مستخدم جديد", "Index", "Register") /
-                            @Html.ActionLink("إسترجاع كلمة المرور", "Login", "UsersLogin")
-                            <div class="clearfix"></div>
-                            <p class="center col-md-5">
-                                @*<a href="sindex.html" class="btn btn-primary">دخـــول</a>*@
-                                @*@Html.ActionLink("دخـــول", "Login", "UsersLogin", null, new { @class = "btn btn-primary" })*@
-                                <button type="submit" class="btn btn-primary btn-block">دخـــول</button>
-                            </p>
-                        </fieldset>
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            <fieldset>
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user red"></i></span>
+                                    @*<input type="text" class="form-control" placeholder="إسم المستخدم">*@
+                                    @Html.TextBoxFor(m => m.userName, new { @class = "form-control", placeholder = "إسم المستخدم", @required = "required" })
+                                </div>
+                                <div class="clearfix"></div><br>
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock red"></i></span>
+                                    @*<input type="password" class="form-control" placeholder="كلمة المرور">*@
+                                    @Html.TextBoxFor(m => m.Password, new { @class = "form-control", type = "password", placeholder = "كلمة المرور", @required = "required" })
+                                </div>
+                                <div class="input-group input-group-lg">
+                                    <span style="color:red">@ViewBag.LoginErrorMessage</span>
+                                </div>
+                                <div class="clearfix"></div><br />
+                                @*<a href="#">إسترجاع كلمة المرور</a>*@
+                                @Html.ActionLink("الصفحة الرئيسية", "Index", "Home") /
+                                @Html.ActionLink("تسجيل مستخدم جديد", "Index", "Register") /
+                                @Html.ActionLink("إسترجاع كلمة المرور", "Login", "UsersLogin")
+                                <div class="clearfix"></div>
+                                <p class="center col-md-5">
+                                    @*<a href="sindex.html" class="btn btn-primary">دخـــول</a>*@
+                                    @*@Html.ActionLink("دخـــول", "Login", "UsersLogin", null, new { @class = "btn btn-primary" })*@
+                                    <button type="submit" class="btn btn-primary btn-block">دخـــول</button>
+                                </p>
+                            </fieldset>
                         }
                     </div>
                 </div>

@@ -27,13 +27,13 @@ namespace DMeServicesInternal.Web.Controllers
                 System.Threading.Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(sLanguage);
                 System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(sLanguage);
             }
-            //else
-            //{
-            //    string sLanguage = "en-US";
-            //    Session["SystemLanguage"] = sLanguage;
-            //    System.Threading.Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(sLanguage);
-            //    System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(sLanguage);
-            //}
+            else
+            {
+                string sLanguage = "en-US";
+                Session["SystemLanguage"] = sLanguage;
+                System.Threading.Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(sLanguage);
+                System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(sLanguage);
+            }
 
             if (Session["EmployeeInfo"] != null)
             {
@@ -41,20 +41,20 @@ namespace DMeServicesInternal.Web.Controllers
             }
             else
             {
-                //string FullName = WindowsIdentity.GetCurrent().Name.ToString();
-              
-                //string Emoplyee_No = FullName.Substring(6);
-                //var isNumeric = int.TryParse(Emoplyee_No, out int n);
-                //if (!isNumeric)
-                //{
+                string FullName = WindowsIdentity.GetCurrent().Name.ToString();
+
+                string Emoplyee_No = FullName.Substring(6);
+                var isNumeric = int.TryParse(Emoplyee_No, out int n);
+                if (!isNumeric)
+                {
                     Response.Redirect("~/Account/Login");
-                //}
-                //else
-                //{
-                //    Employee oEmployee = DMeServices.Models.Common.EmployeeCom.EmployeeByID(Emoplyee_No);
-                //    Session["EmployeeInfo"] = oEmployee;
-                //}
-  
+                }
+                else
+                {
+                    Employee oEmployee = DMeServices.Models.Common.EmployeeCom.EmployeeByID(Emoplyee_No);
+                    Session["EmployeeInfo"] = oEmployee;
+                }
+
 
             }
 

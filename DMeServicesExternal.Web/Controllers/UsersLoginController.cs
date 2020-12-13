@@ -16,6 +16,8 @@ namespace DMeServicesExternal.Web.Controllers
             return View();
         }
         [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel login, string returnUrl)
         { 
             User oUser = Account.UserLogin(login.userName, login.Password);
@@ -43,7 +45,8 @@ namespace DMeServicesExternal.Web.Controllers
             Session["UserInfo"] = null;
             Session.Clear();
             Session.Abandon();
-            return RedirectToAction("Index", "Home");
+            return Redirect("https://www.dhofar.gov.om");
+            //return RedirectToAction("Index", "Home");
         }
     }
 }

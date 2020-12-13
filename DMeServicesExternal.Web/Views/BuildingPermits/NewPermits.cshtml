@@ -324,7 +324,7 @@
     <br />
     <br />
     <div id="divAttachments" class="row">
-        @if (Model.ListOfAttachments != null && Model.ListOfAttachments.Count < 0)
+        @if (Model.ListOfAttachments != null && Model.ListOfAttachments.Count > 0)
         {
             Html.RenderPartial("_ListAttachments", Model);
         }
@@ -524,7 +524,7 @@
             if (fileName) { // returns true if the string is not empty
              //   var fileize = (this.files[0].size);
                 //alert(fileize);
-                var valid_extensions = /(\.jpg|\.jpeg|\.gif|\.pdf|\.png)$/i;
+                var valid_extensions = /(\.jpg|\.jpeg|\.pdf|\.png)$/i;
                 if (valid_extensions.test(fileName) ) {
 
                     $('#PersonalCardSpan').css("display", "block");
@@ -546,7 +546,7 @@
             if (fileName) { // returns true if the string is not empty
             //    var fileize = (this.files[0].size);
                 //alert(fileize);
-                var valid_extensions = /(\.jpg|\.jpeg|\.gif|\.pdf|\.png)$/i;
+                var valid_extensions = /(\.jpg|\.jpeg|\.pdf|\.png)$/i;
                 if (valid_extensions.test(fileName) ) {
 
                     $('#KrokeSpan').css("display", "block");
@@ -561,9 +561,6 @@
             }
         });
 
-
-
-
         $("#OwnerFile").change(function () {
 
             var fileName = $("#OwnerFile").val();
@@ -571,7 +568,7 @@
             if (fileName) { // returns true if the string is not empty
                // var fileize = (this.files[0].size);
                 //alert(fileize);
-                var valid_extensions = /(\.jpg|\.jpeg|\.gif|\.pdf|\.png)$/i;
+                var valid_extensions = /(\.jpg|\.jpeg|\.pdf|\.png)$/i;
                 if (valid_extensions.test(fileName) ) {
 
                     $('#ownerSpan').css("display", "block");
@@ -586,12 +583,6 @@
             }
         });
 
-
-
-
-
-
-
         $("#MapFile").change(function () {
 
             var fileName = $("#MapFile").val();
@@ -599,7 +590,7 @@
             if (fileName) { // returns true if the string is not empty
               //  var fileize = (this.files[0].size);
                 //alert(fileize);
-                var valid_extensions = /(\.jpg|\.jpeg|\.gif|\.pdf|\.png)$/i;
+                var valid_extensions = /(\.jpg|\.jpeg|\.pdf|\.png)$/i;
                 if (valid_extensions.test(fileName) && $("#AttTypeId").val() != "") {
 
                     $('#SaveAttachment').attr('disabled', false);
@@ -613,11 +604,6 @@
                 // alert("no file selected");
             }
         });
-
-
-
-
-
 
         $("#AttTypeId").change(function () {
 
@@ -641,45 +627,39 @@
             }
         });
 
+        $("#SaveAttachment").click(function () {
 
+        var data = new FormData();
 
+        var files = $("#MapFile").get(0).files;
+        if (files.length > 0) {
+            data.append("MyAttached", files[0]);
+            data.append("AttTypeId", $("#AttTypeId").val());
+            data.append("FileDescription", $("#FileDescription").val());
+        }
+        var url = "@Url.Action("SaveAttachment", "BuildingPermits")";
+        $.ajax({
+            url: url,
+            type: "POST",
+            processData: false,
+            contentType: false,
+            data: data,
+            success: function (response) {
+                $('#FileDescription').val('');
+                $('#AttTypeId').val('0');
+                $('#MapFile').val('');
+                $('#SaveAttachment').attr('disabled', true);
 
+                $('#divAttachments').html(response)
+            },
+            error: function (er) {
+                swal(er);
+                $('#SaveAttachment').attr('disabled', true);
+            }
 
-
-            $("#SaveAttachment").click(function () {
-
-
-                var data = new FormData();
-
-                var files = $("#MapFile").get(0).files;
-                if (files.length > 0) {
-                    data.append("MyAttached", files[0]);
-                    data.append("AttTypeId", $("#AttTypeId").val());
-                    data.append("FileDescription", $("#FileDescription").val());
-                }
-             var url = "@Url.Action("SaveAttachment", "BuildingPermits")";
-            $.ajax({
-                url: url,
-                type: "POST",
-                processData: false,
-                contentType: false,
-                data: data,
-                success: function (response) {
-                    $('#FileDescription').val('');
-                    $('#AttTypeId').val('0');
-                    $('#MapFile').val('');
-                    $('#SaveAttachment').attr('disabled', true);
-
-                    $('#divAttachments').html(response)
-                },
-                error: function (er) {
-                    swal(er);
-                    $('#SaveAttachment').attr('disabled', true);
-                }
-
-            });
         });
-        });
+    });
+    });
 </script>
 
 
