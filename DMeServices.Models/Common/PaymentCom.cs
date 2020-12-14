@@ -20,7 +20,7 @@ namespace DMeServices.Models.Common
         #region Method ::Pay By Payment getway 
 
         //public static void PayAmount(string UserName, string SourceTypeId, string Amount, string Password, string SuccessUrl, string FailureUrl)
-
+        
         public async Task GetListAsync()
         {
             try

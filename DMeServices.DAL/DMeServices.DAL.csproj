@@ -96,6 +96,12 @@
     <Compile Include="BldBuildingTypes.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="BldControlServices.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BldControlServicesTypes.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="BldIndustrialAreasSurvey.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

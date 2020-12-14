@@ -28,8 +28,24 @@ namespace DMeServices.DAL
         }
     
         public virtual DbSet<BldAttachmentTypes> BldAttachmentTypes { get; set; }
+        public virtual DbSet<BldBuildingTypes> BldBuildingTypes { get; set; }
+        public virtual DbSet<BldControlServices> BldControlServices { get; set; }
+        public virtual DbSet<BldControlServicesTypes> BldControlServicesTypes { get; set; }
+        public virtual DbSet<BldIndustrialAreasSurvey> BldIndustrialAreasSurvey { get; set; }
+        public virtual DbSet<BldLandSurvey> BldLandSurvey { get; set; }
+        public virtual DbSet<BldLandUseTypes> BldLandUseTypes { get; set; }
         public virtual DbSet<BldPermits> BldPermits { get; set; }
         public virtual DbSet<BldPermitsAttachmentDetails> BldPermitsAttachmentDetails { get; set; }
+        public virtual DbSet<BldPermitsAttachments> BldPermitsAttachments { get; set; }
+        public virtual DbSet<BldRegions> BldRegions { get; set; }
+        public virtual DbSet<BldSquareLetters> BldSquareLetters { get; set; }
+        public virtual DbSet<BldWelyat> BldWelyat { get; set; }
+        public virtual DbSet<BldWorkersHousingDetails> BldWorkersHousingDetails { get; set; }
+        public virtual DbSet<ConsultantOccupations> ConsultantOccupations { get; set; }
+        public virtual DbSet<Departments> Departments { get; set; }
+        public virtual DbSet<docs> docs { get; set; }
+        public virtual DbSet<EmployeeGroups> EmployeeGroups { get; set; }
+        public virtual DbSet<Employees> Employees { get; set; }
         public virtual DbSet<Groups> Groups { get; set; }
         public virtual DbSet<HsContractAttachments> HsContractAttachments { get; set; }
         public virtual DbSet<HsInspectors> HsInspectors { get; set; }
@@ -40,10 +56,16 @@ namespace DMeServices.DAL
         public virtual DbSet<HsPermitsInspection> HsPermitsInspection { get; set; }
         public virtual DbSet<HsPermitSubActivity> HsPermitSubActivity { get; set; }
         public virtual DbSet<HsPermitType> HsPermitType { get; set; }
+        public virtual DbSet<ISIC4_LEVEL_1> ISIC4_LEVEL_1 { get; set; }
+        public virtual DbSet<ISIC4_LEVEL_4> ISIC4_LEVEL_4 { get; set; }
+        public virtual DbSet<ISIC4_LEVEL_5> ISIC4_LEVEL_5 { get; set; }
+        public virtual DbSet<ISIC4_LEVEL_6> ISIC4_LEVEL_6 { get; set; }
+        public virtual DbSet<Jobs> Jobs { get; set; }
+        public virtual DbSet<keys> keys { get; set; }
         public virtual DbSet<LookupTypes> LookupTypes { get; set; }
         public virtual DbSet<MociData> MociData { get; set; }
-        public virtual DbSet<Users> Users { get; set; }
-        public virtual DbSet<BldPermitsAttachments> BldPermitsAttachments { get; set; }
+        public virtual DbSet<objs> objs { get; set; }
+        public virtual DbSet<pdfs> pdfs { get; set; }
         public virtual DbSet<RevBanks> RevBanks { get; set; }
         public virtual DbSet<RevDepartments> RevDepartments { get; set; }
         public virtual DbSet<RevFinancialItems> RevFinancialItems { get; set; }
@@ -54,32 +76,12 @@ namespace DMeServices.DAL
         public virtual DbSet<RevMainPaymentsLog> RevMainPaymentsLog { get; set; }
         public virtual DbSet<RevWelyat> RevWelyat { get; set; }
         public virtual DbSet<States> States { get; set; }
-        public virtual DbSet<ISIC4_LEVEL_1> ISIC4_LEVEL_1 { get; set; }
-        public virtual DbSet<ISIC4_LEVEL_4> ISIC4_LEVEL_4 { get; set; }
-        public virtual DbSet<ISIC4_LEVEL_5> ISIC4_LEVEL_5 { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<FinancialItems> FinancialItems { get; set; }
         public virtual DbSet<ISIC4_LEVEL_2> ISIC4_LEVEL_2 { get; set; }
         public virtual DbSet<ISIC4_LEVEL_3> ISIC4_LEVEL_3 { get; set; }
-        public virtual DbSet<ISIC4_LEVEL_6> ISIC4_LEVEL_6 { get; set; }
-        public virtual DbSet<BldRegions> BldRegions { get; set; }
-        public virtual DbSet<BldWelyat> BldWelyat { get; set; }
-        public virtual DbSet<BldBuildingTypes> BldBuildingTypes { get; set; }
-        public virtual DbSet<BldLandUseTypes> BldLandUseTypes { get; set; }
-        public virtual DbSet<BldSquareLetters> BldSquareLetters { get; set; }
-        public virtual DbSet<BldLandSurvey> BldLandSurvey { get; set; }
-        public virtual DbSet<docs> docs { get; set; }
-        public virtual DbSet<Jobs> Jobs { get; set; }
-        public virtual DbSet<keys> keys { get; set; }
-        public virtual DbSet<objs> objs { get; set; }
-        public virtual DbSet<pdfs> pdfs { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
-        public virtual DbSet<FinancialItems> FinancialItems { get; set; }
         public virtual DbSet<pges> pges { get; set; }
-        public virtual DbSet<BldIndustrialAreasSurvey> BldIndustrialAreasSurvey { get; set; }
-        public virtual DbSet<Departments> Departments { get; set; }
-        public virtual DbSet<EmployeeGroups> EmployeeGroups { get; set; }
-        public virtual DbSet<Employees> Employees { get; set; }
-        public virtual DbSet<BldWorkersHousingDetails> BldWorkersHousingDetails { get; set; }
-        public virtual DbSet<ConsultantOccupations> ConsultantOccupations { get; set; }
     
         [DbFunction("eServicesEntities", "GetPermitsDuration")]
         public virtual IQueryable<GetPermitsDuration_Result> GetPermitsDuration(Nullable<int> permitId)

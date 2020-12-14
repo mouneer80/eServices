@@ -95,9 +95,11 @@
     <Compile Include="Common\LookupsTypeCom.cs" />
     <Compile Include="Common\PaymentCom.cs" />
     <Compile Include="MetaData\BuildingServices\Meta_AreaSurveys.cs" />
+    <Compile Include="MetaData\BuildingServices\Meta_Controls.cs" />
     <Compile Include="MetaData\BuildingServices\Meta_WorkersHousingDetails.cs" />
     <Compile Include="MetaData\BuildingServices\Meta_Surveys.cs" />
     <Compile Include="Models\BuildingServices\AreaSurvey.cs" />
+    <Compile Include="Models\BuildingServices\BuildingControls.cs" />
     <Compile Include="Models\BuildingServices\LandSurvey.cs" />
     <Compile Include="Models\BuildingServices\LandUseTypes.cs" />
     <Compile Include="Models\BuildingServices\BuildingTypes.cs" />
@@ -181,10 +183,12 @@
     <Compile Include="ViewModels\HealthRenewalInternalViewModel.cs" />
     <Compile Include="ViewModels\HealthRenewalViewModel.cs" />
     <Compile Include="ViewModels\Internal\Permits\AreaSurveysViewModel.cs" />
+    <Compile Include="ViewModels\Internal\Permits\ControlsViewModel.cs" />
     <Compile Include="ViewModels\Internal\Permits\SurveysViewModel.cs" />
     <Compile Include="ViewModels\Internal\Permits\PermitsViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\Permits\AreaSurveysViewModel.cs" />
+    <Compile Include="ViewModels\Permits\ControlsViewModel.cs" />
     <Compile Include="ViewModels\Permits\SurveysViewModel.cs" />
     <Compile Include="ViewModels\Permits\PermitsViewModel.cs" />
     <Compile Include="ViewModels\Permits\UserViewModel.cs" />
