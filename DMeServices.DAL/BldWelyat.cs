@@ -17,10 +17,10 @@ namespace DMeServices.DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public BldWelyat()
         {
-            this.BldRegions = new HashSet<BldRegions>();
-            this.BldLandSurvey = new HashSet<BldLandSurvey>();
             this.BldIndustrialAreasSurvey = new HashSet<BldIndustrialAreasSurvey>();
+            this.BldLandSurvey = new HashSet<BldLandSurvey>();
             this.BldPermits = new HashSet<BldPermits>();
+            this.BldRegions = new HashSet<BldRegions>();
         }
     
         public int WelyahID { get; set; }
@@ -29,12 +29,12 @@ namespace DMeServices.DAL
         public string WelyahArName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BldRegions> BldRegions { get; set; }
+        public virtual ICollection<BldIndustrialAreasSurvey> BldIndustrialAreasSurvey { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BldLandSurvey> BldLandSurvey { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BldIndustrialAreasSurvey> BldIndustrialAreasSurvey { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BldPermits> BldPermits { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BldRegions> BldRegions { get; set; }
     }
 }
