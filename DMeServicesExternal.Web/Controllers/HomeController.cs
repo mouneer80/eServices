@@ -20,7 +20,7 @@ namespace DMeServicesExternal.Web.Controllers
         {
             //GetUserDataFromOracleDbTestUser();
             //return View(((User)Session["UserInfo"]));
-            //Response.Cookies.Add(CreateStudentCookie());
+            Response.Cookies.Add(CreateStudentCookie());
             var guid = ReadPkiSession();
             if (!string.IsNullOrWhiteSpace(guid))
             {
@@ -87,8 +87,8 @@ namespace DMeServicesExternal.Web.Controllers
                 SecondName = names[1],
                 ThirdName = names[2],
                 LastName = String.Join(" ", names, 3,names.Length -4),
-                CivilId = long.Parse(dt.Rows[0]["omanIDCivilNumber"].ToString()),
-                //CivilId = 3437335,
+                //CivilId = long.Parse(dt.Rows[0]["omanIDCivilNumber"].ToString()),
+                CivilId = 10518988, //3437335,
                 CompanyName = dt.Rows[0]["omancardSponsorNameAr"].ToString()
             };
             return user;
