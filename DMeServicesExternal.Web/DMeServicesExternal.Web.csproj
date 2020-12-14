@@ -177,6 +177,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Comman\Helper.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\BuildingControlsController.cs" />
     <Compile Include="Controllers\BuildingPermitsController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HealthRenewalController.cs" />
@@ -1831,6 +1832,21 @@
     <Content Include="Views\Shared\_MasterLayout.cshtml" />
     <Content Include="Views\Home\Index - Copy.cshtml" />
     <Content Include="Views\Shared\SaveFailPage.cshtml" />
+    <Content Include="Views\BuildingControls\_ConsultantAttachments.cshtml" />
+    <Content Include="Views\BuildingControls\_EngineerAttachments.cshtml" />
+    <Content Include="Views\BuildingControls\_ListAttachments.cshtml" />
+    <Content Include="Views\BuildingControls\_ListDetailsAttachments.cshtml" />
+    <Content Include="Views\BuildingControls\_ListWorkers.cshtml" />
+    <Content Include="Views\BuildingControls\_NewAttachment.cshtml" />
+    <Content Include="Views\BuildingControls\_ViewDetailsFile.cshtml" />
+    <Content Include="Views\BuildingControls\_ViewFile.cshtml" />
+    <Content Include="Views\BuildingControls\CompanyList.cshtml" />
+    <Content Include="Views\BuildingControls\Index - Copy.cshtml" />
+    <Content Include="Views\BuildingControls\Index.cshtml" />
+    <Content Include="Views\BuildingControls\NewPermits.cshtml" />
+    <Content Include="Views\BuildingControls\PermitDetails.cshtml" />
+    <Content Include="Views\BuildingControls\SaveConsultatPermitsPage.cshtml" />
+    <Content Include="Views\BuildingControls\SaveNewPermitsSuccessPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

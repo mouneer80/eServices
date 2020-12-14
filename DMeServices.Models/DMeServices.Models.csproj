@@ -79,6 +79,7 @@
     <Compile Include="Common\Account\Account.cs" />
     <Compile Include="Common\BuildingServices\LandSurveyCom.cs" />
     <Compile Include="Common\BuildingServices\MociCompaniesData.cs" />
+    <Compile Include="Common\BuildingServices\ControlsCom.cs" />
     <Compile Include="Common\BuildingServices\RegionsCom.cs" />
     <Compile Include="Common\BuildingServices\LandUseTypesCom.cs" />
     <Compile Include="Common\BuildingServices\BuildingTypesCom.cs" />

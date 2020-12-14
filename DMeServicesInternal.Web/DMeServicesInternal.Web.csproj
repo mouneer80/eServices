@@ -180,6 +180,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\BuildingControlsController.cs" />
     <Compile Include="Controllers\BuildingPermitsController.cs" />
     <Compile Include="Controllers\HealthRenewalController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -1620,6 +1621,20 @@
     <Content Include="Views\IndustrialSurveys\_ListWorkers.cshtml" />
     <Content Include="Views\BuildingPermits\PermitPaymentDetails.cshtml" />
     <Content Include="Views\BuildingPermits\PermitFees.cshtml" />
+    <Content Include="Views\BuildingControls\_ListAttachments.cshtml" />
+    <Content Include="Views\BuildingControls\_ListAttachmentsDetails.cshtml" />
+    <Content Include="Views\BuildingControls\_PermitsList.cshtml" />
+    <Content Include="Views\BuildingControls\_ViewDetailsFile.cshtml" />
+    <Content Include="Views\BuildingControls\_ViewFile.cshtml" />
+    <Content Include="Views\BuildingControls\AssignPermitsSuccessPage.cshtml" />
+    <Content Include="Views\BuildingControls\EditPDFFile.cshtml" />
+    <Content Include="Views\BuildingControls\EngineerPermitDetails.cshtml" />
+    <Content Include="Views\BuildingControls\HeadPermitDetails.cshtml" />
+    <Content Include="Views\BuildingControls\Index.cshtml" />
+    <Content Include="Views\BuildingControls\LandSurvey.cshtml" />
+    <Content Include="Views\BuildingControls\PermitFees.cshtml" />
+    <Content Include="Views\BuildingControls\PermitPaymentDetails.cshtml" />
+    <Content Include="Views\BuildingControls\Permits.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

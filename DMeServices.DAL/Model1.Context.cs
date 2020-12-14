@@ -80,6 +80,8 @@ namespace DMeServices.DAL
         public virtual DbSet<Employees> Employees { get; set; }
         public virtual DbSet<BldWorkersHousingDetails> BldWorkersHousingDetails { get; set; }
         public virtual DbSet<ConsultantOccupations> ConsultantOccupations { get; set; }
+        public virtual DbSet<BldControlServices> BldControlServices { get; set; }
+        public virtual DbSet<BldControlServicesTypes> BldControlServicesTypes { get; set; }
     
         [DbFunction("eServicesEntities", "GetPermitsDuration")]
         public virtual IQueryable<GetPermitsDuration_Result> GetPermitsDuration(Nullable<int> permitId)

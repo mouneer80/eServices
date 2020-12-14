@@ -1,0 +1,381 @@
+﻿@model DMeServices.Models.ViewModels.Permits.PermitsViewModel
+<div class="box col-md-12">
+
+
+
+
+    <div id="divAttachments" class="row">
+
+
+        <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+                <h2><i class="glyphicon glyphicon-edit"></i> المرفقات الاساسية</h2>
+            </div>
+            <div class="box-content">
+                <!--item details-->
+                <div class="">
+                    <table id="myTable" class=" table order-list">
+                        <thead>
+                            <tr>
+                                <td>نوع المرفق</td>
+                                <td>تاريخ الاضافة</td>
+                                <td>وقت الاضافة</td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.ListOfAttachments != null)
+                            {
+
+                                foreach (var item in Model.ListOfAttachments)
+                                {
+
+
+                                    if (item.AttachmentTypeId <= 3)
+                                    {
+                            <tr>
+                                <td class="col-sm-1" style="width:10%;">
+                                    @DMeServices.Models.Common.BuildingServices.AttachmentTypesCom.TypeByID((int)item.AttachmentTypeId).Name
+
+                                </td>
+
+                                <td class="col-sm-1" unprintable>
+
+                                    @item.InsertDate.ToShortDateString()
+
+                                </td>
+
+                                <td class="col-sm-1" unprintable>
+
+                                    @item.InsertDate.ToShortTimeString()
+
+                                </td>
+                                <td class="col-sm-1" unprintable>
+
+                                    <a class="modal-link" href="@Url.Action("GetFile", new { @controller = "BuildingPermits", @Id = item.Id })">عرض الملف<i class="fa fa-eye-slash modal-link"></i></a>
+
+                                </td>
+
+
+
+                            </tr>
+                                    }
+
+
+                                }
+
+                            }
+
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="10" style="text-align:center;"></td>
+                            </tr>
+                            <tr></tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <!--end of item details-->
+            </div>
+        </div>
+        <br />
+
+
+        @if (Model.BuildingPermits != null && Model.BuildingPermits.WorkflowStatus == 20)
+        {
+
+            <h5> أضافة الخرائط</h5>
+            <br />
+
+            <div class="form-group col-md-12">
+
+                <div class="col-sm-1" style="width:15%;">
+                    <input type="submit" id="SaveAttachment" class="btn " value="إضافة مرفق" />
+                </div>
+                <div class="col-sm-5" style="width:35%;">
+                    @Html.TextBoxFor(m => m.Attachments.Description, new { @class = "form-control", id = "FileDescription", @placeholder = "ملاحظات" })
+                    @Html.ValidationMessageFor(m => m.Attachments.Description, "", new { @style = "color:orange;" })
+
+                </div>
+
+                <div class="col-sm-5" style="width:30%;">
+                    @Html.TextBoxFor(m => m.Attachments.File, new { @type = "file", id = "MapFile", @name = "Files", @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Attachments.File, "", new { @style = "color:orange;" })
+                </div>
+
+                <div class="col-sm-5" style="width:20%;">
+                    @Html.DropDownListFor(m => m.Attachments.AttachmentTypeId, (List<SelectListItem>)ViewBag.DDAttachmentsType, new { @class = "dropdown-toggle", @id = "AttTypeId" })
+                    @Html.ValidationMessageFor(m => m.Attachments.AttachmentTypeId, "", new { @style = "color:orange;" })
+                </div>
+
+
+            </div>
+
+            <br />
+            <br />
+            <br />
+        }
+
+        <div id="divConsultatAttachments" class="row">
+
+            @{ Html.RenderPartial("_ConsultantAttachments", Model);}
+            <br />
+        </div>
+
+        <div id="divEngineerAttachments">
+            @{ Html.RenderPartial("_EngineerAttachments", Model);}
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+
+<div class="modal fade" id="MainModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+
+
+
+
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    function unloadModal() {
+        $('#MainModal').modal('hide');
+    }
+</script>
+
+<script>
+    function ClearInputs() {
+
+        $('#FileNotes').val('');
+        $('#FileUpload').val('');
+
+    }
+
+    function OnFailure() {
+        $('#txtMessageText').text('');
+
+    }
+
+</script>
+
+
+
+
+<script>
+
+
+    $(document).ready(function () {
+
+        $("#AttTypeId option[value='0']").attr("disabled", "disabled");
+
+
+        $('#SaveAttachment').attr('disabled', true);
+
+
+        $("#MapFile").change(function () {
+
+            var fileName = $("#MapFile").val();
+
+            if (fileName) { // returns true if the string is not empty
+                //  var fileize = (this.files[0].size);
+                //alert(fileize);
+                var valid_extensions = /(\.jpg|\.jpeg|\.gif|\.pdf|\.png)$/i;
+                if (valid_extensions.test(fileName) && $("#AttTypeId").val() != "") {
+
+                    $('#SaveAttachment').attr('disabled', false);
+                }
+                else {
+                    $('#SaveAttachment').attr('disabled', true);
+                }
+                // alert(fileName + " was selected");
+            } else { // no file was selected
+                $('#SaveAttachment').attr('disabled', true);
+                // alert("no file selected");
+            }
+        });
+
+
+
+
+
+
+
+
+
+        $("#divEngineerAttachments").css("display", "none");
+
+
+        $(".GetDetails").click(function (e) {
+
+            if ($('#divEngineerAttachments').css('display') == 'block') {
+                $("#divEngineerAttachments").css("display", "none");
+            } else {
+
+                var attID = $(this).attr("fileID");
+                var primID = $(this).attr("PrimID");
+
+           var url = "@Url.Action("SelectEngineerAttachments", "BuildingPermits")";
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: { Id: attID, PirmID: primID },
+                    success: function (response) {
+                        $("#divEngineerAttachments").css("display", "block");
+                        $('#divEngineerAttachments').html(response);
+                    },
+                    error: function (er) {
+                        swal(er);
+                    }
+
+                });
+            }
+        });
+
+
+        $("#SaveAttachment").click(function (e) {
+
+                var data = new FormData();
+
+            var files = $("#MapFile").get(0).files;
+            var id =  $("#AttTypeId").val();
+                if (files.length > 0) {
+                    data.append("MyAttached", files[0]);
+                    data.append("AttTypeId", $("#AttTypeId").val());
+                    data.append("FileDescription", $("#FileDescription").val());
+                    data.append("PrimID", @Model.BuildingPermits.Id);
+                }
+             var url = "@Url.Action("SaveConsultantAttachment", "BuildingPermits")";
+            $.ajax({
+                url: url,
+                type: "POST",
+                processData: false,
+                contentType: false,
+                data: data,
+                success: function (response) {
+                    $('#FileDescription').val('');
+                    $('#AttTypeId').val('0');
+                    $('#MapFile').val('');
+
+                    $('#SaveAttachment').attr('disabled', true);
+                    $('#divConsultatAttachments').html(response)
+                },
+                error: function (er) {
+                    swal(er);
+                    $('#SaveAttachment').attr('disabled', true);
+                }
+
+            });
+        });
+
+
+
+    });
+
+
+
+
+
+
+    $("#AttTypeId").change(function () {
+
+            var fileName = $("#MapFile").val();
+
+            if (fileName) { // returns true if the string is not empty
+
+                //alert(fileize);
+                var valid_extensions = /(\.pdf|)$/i;
+                if (valid_extensions.test(fileName) && $("#AttTypeId").val() != "") {
+
+                    $('#SaveAttachment').attr('disabled', false);
+                }
+                else {
+                    $('#SaveAttachment').attr('disabled', true);
+                }
+                // alert(fileName + " was selected");
+            } else { // no file was selected
+                $('#SaveAttachment').attr('disabled', true);
+                // alert("no file selected");
+            }
+        });
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+    $(function () {
+        // Initialize numeric spinner input boxes
+        //$(".numeric-spinner").spinedit();
+
+        // Initalize modal dialog
+        // attach modal-container bootstrap attributes to links with .modal-link class.
+        // when a link is clicked with these attributes, bootstrap will display the href content in a modal dialog.
+
+        $('body').on('click', '.modal-link', function (e) {
+
+            $(this).attr('data-target', '#MainModal');
+            e.preventDefault();
+            $("iframe").attr("src", $(this).attr('href'));
+            $(this).attr('data-toggle', 'modal');
+        });
+
+
+        // Attach listener to .modal-close-btn's so that when the button is pressed the modal dialog disappears
+        $('body').on('click', '.modal-close-btn', function () {
+
+            $('#MainModal').modal('hide');
+
+        });
+
+        //clear modal cache, so that new content can be loaded
+        $('#MainModal').on('hidden.bs.modal', function () {
+
+            $(this).removeData('bs.modal');
+        });
+
+
+
+
+
+
+
+
+
+        $(document).on("hidden.bs.modal", function (e) {
+            $(e.target).removeData("bs.modal").find(".modal-content").empty();
+        });
+
+        $('#CancelModal').on('click', function () {
+            return false;
+        });
+    });
+</script>
+
+
+
+
+
+
+

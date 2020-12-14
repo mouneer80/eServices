@@ -19,6 +19,24 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BuildingType" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="BldControlServices">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BldPermitID" Type="bigint" Nullable="false" />
+          <Property Name="ServiceTypeID" Type="int" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BldControlServicesTypes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ServiceNameAR" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ServiceNameEn" Type="nvarchar" MaxLength="100" />
+          <Property Name="ServiceStatus" Type="int" />
+        </EntityType>
         <EntityType Name="BldIndustrialAreasSurvey">
           <Key>
             <PropertyRef Name="IndustrialSurveyID" />
@@ -788,6 +806,30 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           <Property Name="CreatedOn" Type="datetime" />
           <Property Name="UpdatedOn" Type="datetime" />
         </EntityType>
+        <Association Name="FK_BldControlServices_BldControlServicesTypes">
+          <End Role="BldControlServicesTypes" Type="Self.BldControlServicesTypes" Multiplicity="1" />
+          <End Role="BldControlServices" Type="Self.BldControlServices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BldControlServicesTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BldControlServices">
+              <PropertyRef Name="ServiceTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BldControlServices_BldPermits">
+          <End Role="BldPermits" Type="Self.BldPermits" Multiplicity="1" />
+          <End Role="BldControlServices" Type="Self.BldControlServices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BldPermits">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BldControlServices">
+              <PropertyRef Name="BldPermitID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_BldIndustrialAreasSurvey_BldBuildingTypes">
           <End Role="BldBuildingTypes" Type="Self.BldBuildingTypes" Multiplicity="0..1" />
           <End Role="BldIndustrialAreasSurvey" Type="Self.BldIndustrialAreasSurvey" Multiplicity="*" />
@@ -1176,6 +1218,8 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
         <EntityContainer Name="eServicesModelStoreContainer">
           <EntitySet Name="BldAttachmentTypes" EntityType="Self.BldAttachmentTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BldBuildingTypes" EntityType="Self.BldBuildingTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BldControlServices" EntityType="Self.BldControlServices" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BldControlServicesTypes" EntityType="Self.BldControlServicesTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BldIndustrialAreasSurvey" EntityType="Self.BldIndustrialAreasSurvey" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BldLandSurvey" EntityType="Self.BldLandSurvey" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BldLandUseTypes" EntityType="Self.BldLandUseTypes" Schema="dbo" store:Type="Tables" />
@@ -1255,6 +1299,14 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
     [pges].[pgeImageData] AS [pgeImageData]
     FROM [dbo].[pges] AS [pges]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK_BldControlServices_BldControlServicesTypes" Association="Self.FK_BldControlServices_BldControlServicesTypes">
+            <End Role="BldControlServicesTypes" EntitySet="BldControlServicesTypes" />
+            <End Role="BldControlServices" EntitySet="BldControlServices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BldControlServices_BldPermits" Association="Self.FK_BldControlServices_BldPermits">
+            <End Role="BldPermits" EntitySet="BldPermits" />
+            <End Role="BldControlServices" EntitySet="BldControlServices" />
+          </AssociationSet>
           <AssociationSet Name="FK_BldIndustrialAreasSurvey_BldBuildingTypes" Association="Self.FK_BldIndustrialAreasSurvey_BldBuildingTypes">
             <End Role="BldBuildingTypes" EntitySet="BldBuildingTypes" />
             <End Role="BldIndustrialAreasSurvey" EntitySet="BldIndustrialAreasSurvey" />
@@ -1427,6 +1479,7 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           <NavigationProperty Name="BldRegions" Relationship="eServicesModel.FK_BldPermits_BldRegions" FromRole="BldPermits" ToRole="BldRegions" />
           <NavigationProperty Name="BldSquareLetters" Relationship="eServicesModel.FK_BldPermits_BldSquareLetters" FromRole="BldPermits" ToRole="BldSquareLetters" />
           <NavigationProperty Name="BldWelyat" Relationship="eServicesModel.FK_BldPermits_BldWelyat" FromRole="BldPermits" ToRole="BldWelyat" />
+          <NavigationProperty Name="BldControlServices" Relationship="eServicesModel.FK_BldControlServices_BldPermits" FromRole="BldPermits" ToRole="BldControlServices" />
         </EntityType>
         <EntityType Name="BldPermitsAttachmentDetails">
           <Key>
@@ -1916,6 +1969,16 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
             <End Role="BldPermits" EntitySet="BldPermits" />
           </AssociationSet>
           <EntitySet Name="ConsultantOccupations" EntityType="eServicesModel.ConsultantOccupations" />
+          <EntitySet Name="BldControlServices" EntityType="eServicesModel.BldControlServices" />
+          <EntitySet Name="BldControlServicesTypes" EntityType="eServicesModel.BldControlServicesTypes" />
+          <AssociationSet Name="FK_BldControlServices_BldControlServicesTypes" Association="eServicesModel.FK_BldControlServices_BldControlServicesTypes">
+            <End Role="BldControlServicesTypes" EntitySet="BldControlServicesTypes" />
+            <End Role="BldControlServices" EntitySet="BldControlServices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BldControlServices_BldPermits" Association="eServicesModel.FK_BldControlServices_BldPermits">
+            <End Role="BldPermits" EntitySet="BldPermits" />
+            <End Role="BldControlServices" EntitySet="BldControlServices" />
+          </AssociationSet>
           </EntityContainer>
         <ComplexType Name="MOCI_Permit_BY_MunicipalNo_HeadSection_Result">
           <Property Type="Int64" Name="CommercialNo" Nullable="true" />
@@ -2975,6 +3038,51 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           <Property Name="OccupationDescEnglish" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="OccupationCode" Type="Int32" />
         </EntityType>
+        <EntityType Name="BldControlServices">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BldPermitID" Type="Int64" Nullable="false" />
+          <Property Name="ServiceTypeID" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="BldControlServicesTypes" Relationship="eServicesModel.FK_BldControlServices_BldControlServicesTypes" FromRole="BldControlServices" ToRole="BldControlServicesTypes" />
+          <NavigationProperty Name="BldPermits" Relationship="eServicesModel.FK_BldControlServices_BldPermits" FromRole="BldControlServices" ToRole="BldPermits" />
+        </EntityType>
+        <EntityType Name="BldControlServicesTypes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ServiceNameAR" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ServiceNameEn" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ServiceStatus" Type="Int32" />
+          <NavigationProperty Name="BldControlServices" Relationship="eServicesModel.FK_BldControlServices_BldControlServicesTypes" FromRole="BldControlServicesTypes" ToRole="BldControlServices" />
+        </EntityType>
+        <Association Name="FK_BldControlServices_BldControlServicesTypes">
+          <End Type="eServicesModel.BldControlServicesTypes" Role="BldControlServicesTypes" Multiplicity="1" />
+          <End Type="eServicesModel.BldControlServices" Role="BldControlServices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BldControlServicesTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BldControlServices">
+              <PropertyRef Name="ServiceTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BldControlServices_BldPermits">
+          <End Type="eServicesModel.BldPermits" Role="BldPermits" Multiplicity="1" />
+          <End Type="eServicesModel.BldControlServices" Role="BldControlServices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BldPermits">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BldControlServices">
+              <PropertyRef Name="BldPermitID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4074,6 +4182,26 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
                 <ScalarProperty Name="OccupationDescEnglish" ColumnName="OccupationDescEnglish" />
                 <ScalarProperty Name="OccupationDescArabic" ColumnName="OccupationDescArabic" />
                 <ScalarProperty Name="OccupationID" ColumnName="OccupationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BldControlServices">
+            <EntityTypeMapping TypeName="eServicesModel.BldControlServices">
+              <MappingFragment StoreEntitySet="BldControlServices">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ServiceTypeID" ColumnName="ServiceTypeID" />
+                <ScalarProperty Name="BldPermitID" ColumnName="BldPermitID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BldControlServicesTypes">
+            <EntityTypeMapping TypeName="eServicesModel.BldControlServicesTypes">
+              <MappingFragment StoreEntitySet="BldControlServicesTypes">
+                <ScalarProperty Name="ServiceStatus" ColumnName="ServiceStatus" />
+                <ScalarProperty Name="ServiceNameEn" ColumnName="ServiceNameEn" />
+                <ScalarProperty Name="ServiceNameAR" ColumnName="ServiceNameAR" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
