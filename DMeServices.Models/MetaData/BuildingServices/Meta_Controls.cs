@@ -116,10 +116,6 @@ namespace DMeServices.Models.MetaData.BuildingServices
         public Nullable<int> UseTypeID { get; set; }
         public Nullable<int> BuildingTypeID { get; set; }
 
-        [Display(Name = "KrokiNO", ResourceType = typeof(Resources.DisplayName_Ar))]
-        [Required(ErrorMessageResourceType = typeof(Resources.Validation_Ar), ErrorMessageResourceName = "RequirdField", AllowEmptyStrings = false)]
-        [StringLength(maximumLength: 50, MinimumLength = 1, ErrorMessageResourceName = "OutOfRange", ErrorMessageResourceType = typeof(Resources.Validation_Ar))]
-        public string KrokiNO { get; set; }
 
     }
 }

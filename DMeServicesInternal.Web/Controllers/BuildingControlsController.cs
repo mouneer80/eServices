@@ -17,7 +17,7 @@ namespace DMeServicesInternal.Web.Controllers
         // GET: BuildingPermits
         public ActionResult Index()
         {
-            PermitsViewModel oModel = new PermitsViewModel();
+            ControlsViewModel oModel = new ControlsViewModel();
 
             return View(oModel);
         }
@@ -25,44 +25,44 @@ namespace DMeServicesInternal.Web.Controllers
 
 
 
-        public ActionResult PermitsList(string Type)
+        public ActionResult ControlsList(string Type)
         {
-            PermitsViewModel oModel = new PermitsViewModel();
+            ControlsViewModel oModel = new ControlsViewModel();
             switch (Type)
             {
                 case "NewPermits":
-                    oModel.ListBuildingPermits = PermitsCom.GetAllPermitsByflowStatus(8);
+                    oModel.ListBuildingControls = ControlsCom.GetAllControlsByFlowStatus(8);
                     break;
 
                 case "CanceledPermits":
-                    oModel.ListBuildingPermits = PermitsCom.GetAllPermitsByflowStatus(18);
+                    oModel.ListBuildingControls = ControlsCom.GetAllControlsByFlowStatus(18);
                     break;
 
                 case "AcceptedPermits":
-                    oModel.ListBuildingPermits = PermitsCom.GetAllPermitsByflowStatus(19);
+                    oModel.ListBuildingControls = ControlsCom.GetAllControlsByFlowStatus(19);
                     break;
 
                 case "NotCompletePermits":
-                    oModel.ListBuildingPermits = PermitsCom.GetAllPermitsByflowStatus(10);
+                    oModel.ListBuildingControls = ControlsCom.GetAllControlsByFlowStatus(10);
                     break;
 
                 case "AllPermits":
-                    oModel.ListBuildingPermits = PermitsCom.AllPermits();
+                    oModel.ListBuildingControls = ControlsCom.AllControls();
                     break;
             }
 
 
 
-            return PartialView("_PermitsList", oModel);
+            return PartialView("_ControlsList", oModel);
         }
 
 
 
 
-        public ActionResult PermitDetails(int Id = -99)
+        public ActionResult ControlDetails(int Id = -99)
         {
-            PermitsViewModel oModel = new PermitsViewModel();
-            oModel.BuildingPermits = PermitsCom.PermitsByID(Id);
+            ControlsViewModel oModel = new ControlsViewModel();
+            oModel.BuildingControls = ControlsCom.ControlsById(Id);
             ViewBag.DDWelayat = DDWelayat();
             ViewBag.DDRegion = DDRegionSaved(oModel.BuildingPermits.WelayahID);
             //ViewBag.DDArea = DDAreaSaved(oModel.BuildingPermits.RegionID);
@@ -71,36 +71,20 @@ namespace DMeServicesInternal.Web.Controllers
             ViewBag.DDSquareLetters = DDSquareLetters();
             oModel.ListOfAttachments = PermitsAttachmentsCom.AttachmentsByPermitsID(Id);
 
-            if (oModel.oEmployeeInfo.IsEngineerHead)
+            if (oModel.oEmployeeInfo.IsControlHead)
             {
                 ViewBag.DDEngineersList = DDEngineers();
-                return View("HeadPermitDetails", oModel);
+                return View("HeadControlDetails", oModel);
             }
 
-            ViewBag.DDPermitsStatus = DDPermitsStatus();
-            return View("EngineerPermitDetails", oModel);
+            ViewBag.DDControlsStatus = DDControlsStatus();
+            return View("EngineerControlDetails", oModel);
         }
 
-        public ActionResult LandSurvey()
+        public ActionResult AssignControls(ControlsViewModel oModel)
         {
-            PermitsViewModel oModel = new PermitsViewModel();
-            oModel.BuildingPermits = PermitsCom.PermitsByID(81);
-            oModel.ListOfAttachments = PermitsAttachmentsCom.AttachmentsByPermitsID(81);
-
-
-            ViewBag.DDWelayat = DDWelayat();
-            ViewBag.DDBuildingTypes = DDBuildingTypes();
-            ViewBag.DDLandUseTypes = DDLandUseTypes();
-            ViewBag.DDSquareLetters = DDSquareLetters();
-            //ViewBag.DDRegions = DDRegions();
-            ViewBag.DDPermitsStatus = DDPermitsStatus();
-            return View("LandSurvey");
-        }
-
-        public ActionResult AssignPermits(PermitsViewModel oModel)
-        {
-            BuildingPermits permits = PermitsCom.AssignPermits(oModel.BuildingPermits);
-            oModel.BuildingPermits = permits;
+            BuildingControls controls = ControlsCom.AssignControls(oModel.BuildingControls);
+            oModel.BuildingControls = controls;
             return RedirectToAction("Index");
         }
 
@@ -134,14 +118,7 @@ namespace DMeServicesInternal.Web.Controllers
             {
                 Stream stream = new MemoryStream(Attachment.AttachmentStream);
                 stream.Position = 0;
-                //    if (filepath.EndsWith(".xls"))
-                //    {
-                //        reader = ExcelReaderFactory.CreateBinaryReader(stream);
-                //    }
-                //    else if (filepath.EndsWith(".xlsx"))
-                //    {
-                //        reader = ExcelReaderFactory.CreateOpenXmlReader(stream);
-                //    }
+                
                 if (Attachment.AttachmentName.EndsWith(".pdf"))
                 {
                     return new FileStreamResult(stream, contentType);
@@ -154,10 +131,6 @@ namespace DMeServicesInternal.Web.Controllers
                 {
                     return new FileStreamResult(stream, contentType);
                 }
-                else if (Attachment.AttachmentName.EndsWith(".txt"))
-                {
-                    return new FileStreamResult(stream, contentType);
-                }
             }
             return new EmptyResult();
         }
@@ -166,80 +139,7 @@ namespace DMeServicesInternal.Web.Controllers
 
         #endregion
 
-        #region Method :: Display Details File
-
-
-
-        public ActionResult GetDetailsFile(int ID)
-        {
-            ViewBag.ID = ID;
-
-            return PartialView("_ViewDetailsFile");
-        }
-
-
-
-
-
-
-        public ActionResult DisplayDetailsFiles(int Id = -99)
-        {
-
-
-            //IExcelDataReader reader = null;
-            PermitsAttachmentDetails Attachment = DMeServices.Models.Common.BuildingServices.PermitsAttachmentsCom.AttachmentDetailsByID(Id);
-
-            string contentType = MimeMapping.GetMimeMapping(Attachment.AttachmentPath);
-
-
-
-            if (Attachment != null)
-            {
-
-                Stream stream = new MemoryStream(Attachment.AttachmentStream);
-                stream.Position = 0;
-                //    if (filepath.EndsWith(".xls"))
-                //    {
-                //        reader = ExcelReaderFactory.CreateBinaryReader(stream);
-                //    }
-                //    else if (filepath.EndsWith(".xlsx"))
-                //    {
-                //        reader = ExcelReaderFactory.CreateOpenXmlReader(stream);
-                //    }
-                if (Attachment.AttachmentName.EndsWith(".pdf"))
-                {
-                    return new FileStreamResult(stream, contentType);
-                }
-                else if (Attachment.AttachmentName.EndsWith(".jpg"))
-                {
-                    return new FileStreamResult(stream, contentType);
-                }
-                else if (Attachment.AttachmentName.EndsWith(".png"))
-                {
-
-                    return new FileStreamResult(stream, contentType);
-
-                }
-                else if (Attachment.AttachmentName.EndsWith(".txt"))
-                {
-
-                    return new FileStreamResult(stream, contentType);
-
-                }
-
-
-
-            }
-
-
-
-            return new EmptyResult();
-
-        }
-
-
-
-        #endregion
+      
 
 
         #region Method :: DD Engineers
@@ -247,7 +147,7 @@ namespace DMeServicesInternal.Web.Controllers
         public static List<SelectListItem> DDEngineers()
         {
             List<SelectListItem> LstEngineers = new List<SelectListItem>();
-            List<Employee> AllEngineers = DMeServices.Models.Common.EmployeeCom.EmployeeByJobID(1);
+            List<Employee> AllEngineers = DMeServices.Models.Common.EmployeeCom.EmployeeByJobID(7);
             if (AllEngineers.Count > 0)
             {
                 LstEngineers.Add(new SelectListItem() { Text = "أختر المهندس ", Value = "0" });
@@ -389,29 +289,29 @@ namespace DMeServicesInternal.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SaveEngineerPermits(PermitsViewModel oModel)
+        public ActionResult SaveEngineerControls(ControlsViewModel oModel)
         {
 
-            string Result = PermitsCom.SaveEngineerPermits(oModel);
+            string Result = ControlsCom.SaveEngineerControls(oModel);
 
             if (Result == "ok")
             {
-                var User = DMeServices.Models.Common.UserCom.UserByCivilID((long)oModel.BuildingPermits.ConsultantCivilId);
+                var User = DMeServices.Models.Common.UserCom.UserByCivilID((long)oModel.BuildingControls.ConsultantCivilId);
 
-                switch (oModel.BuildingPermits.WorkflowStatus)
+                switch (oModel.BuildingControls.Status)
                 {
                     case 18:
-                        DMeServices.Models.Common.SmsCom.SendSms("968" + User.MobileNo, " : تم   الغاء المعاملة رقم المعاملة " + oModel.BuildingPermits.TransactNo);
-                        DMeServices.Models.Common.SmsCom.SendSms("968" + oModel.BuildingPermits.OwnerPhoneNo, " : تم   الغاء المعاملة رقم المعاملة " + oModel.BuildingPermits.TransactNo);
+                        DMeServices.Models.Common.SmsCom.SendSms("968" + User.MobileNo, " : تم   الغاء المعاملة رقم المعاملة " + oModel.BuildingControls.TransactNo);
+                        DMeServices.Models.Common.SmsCom.SendSms("968" + oModel.BuildingControls.OwnerPhoneNo, " : تم   الغاء المعاملة رقم المعاملة " + oModel.BuildingControls.TransactNo);
                         break;
 
                     case 19:
-                        DMeServices.Models.Common.SmsCom.SendSms("968" + User.MobileNo, " : تم قبول المعاملة رقم المعاملة " + oModel.BuildingPermits.TransactNo);
-                        DMeServices.Models.Common.SmsCom.SendSms("968" + oModel.BuildingPermits.OwnerPhoneNo, " : تم قبول المعاملة  رقم المعاملة " + oModel.BuildingPermits.TransactNo);
+                        DMeServices.Models.Common.SmsCom.SendSms("968" + User.MobileNo, " : تم قبول المعاملة رقم المعاملة " + oModel.BuildingControls.TransactNo);
+                        DMeServices.Models.Common.SmsCom.SendSms("968" + oModel.BuildingControls.OwnerPhoneNo, " : تم قبول المعاملة  رقم المعاملة " + oModel.BuildingControls.TransactNo);
                         break;
                     case 20:
-                        DMeServices.Models.Common.SmsCom.SendSms("968" + User.MobileNo, " : يوجد بعض التعديلات علي الخرائط رقم المعاملة " + oModel.BuildingPermits.TransactNo);
-                        DMeServices.Models.Common.SmsCom.SendSms("968" + oModel.BuildingPermits.OwnerPhoneNo, " : يوجد بعض التعديلات علي الخرائط رقم المعاملة " + oModel.BuildingPermits.TransactNo);
+                        DMeServices.Models.Common.SmsCom.SendSms("968" + User.MobileNo, " : يوجد بعض التعديلات علي الخرائط رقم المعاملة " + oModel.BuildingControls.TransactNo);
+                        DMeServices.Models.Common.SmsCom.SendSms("968" + oModel.BuildingControls.OwnerPhoneNo, " : يوجد بعض التعديلات علي الخرائط رقم المعاملة " + oModel.BuildingControls.TransactNo);
                         break;
                 }
 
@@ -424,129 +324,41 @@ namespace DMeServicesInternal.Web.Controllers
         #endregion
 
 
-        #region Method ::Edit PDF Files 
-        public ActionResult EditPDFFile(int Id, int PirmID)
-        {
-
-
-            //IExcelDataReader reader = null;
-            PermitsAttachments Attachment = DMeServices.Models.Common.BuildingServices.PermitsAttachmentsCom.AttachmentsByID(Id);
-
-            string contentType = MimeMapping.GetMimeMapping(Attachment.AttachmentPath);
-
-
-
-            if (Attachment != null)
-            {
-
-                Stream stream = new MemoryStream(Attachment.AttachmentStream);
-                stream.Position = 0;
-                //    if (filepath.EndsWith(".xls"))
-                //    {
-                //        reader = ExcelReaderFactory.CreateBinaryReader(stream);
-                //    }
-                //    else if (filepath.EndsWith(".xlsx"))
-                //    {
-                //        reader = ExcelReaderFactory.CreateOpenXmlReader(stream);
-                //    }
-                if (Attachment.AttachmentName.EndsWith(".pdf"))
-                {
-
-
-                    // Create RAD PDF control
-                    PdfWebControl pdfWebControl1 = new PdfWebControl();
-
-                    // Setup pdfWebControl1 with any properties which must be called before CreateDocument (optional)
-                    // e.g. pdfWebControl1.RenderDpi = 144;
-
-                    // Create document from PDF data
-                    pdfWebControl1.CreateDocument(Attachment.Id.ToString(), stream);
-                    // Put control in ViewBag
-                    ViewBag.PdfWebControl1 = pdfWebControl1;
-                    ViewBag.DocID = Attachment.Id;
-                    ViewBag.PirmID = PirmID;
-
-
-                    return PartialView("EditPDFFile");
-
-                    //   return new FileStreamResult(stream, contentType);
-
-
-                }
-                else if (Attachment.AttachmentName.EndsWith(".jpg"))
-                {
-                    return new FileStreamResult(stream, contentType);
-                }
-                else if (Attachment.AttachmentName.EndsWith(".png"))
-                {
-
-                    return new FileStreamResult(stream, contentType);
-
-                }
-                else if (Attachment.AttachmentName.EndsWith(".txt"))
-                {
-
-                    return new FileStreamResult(stream, contentType);
-
-                }
-
-
-
-            }
-
-
-
-            return new EmptyResult();
-
-        }
-
-
-        #endregion
+       
 
 
         #region Method :: List Attachment Details
 
-        public ActionResult SelectAttachmentDetails(int Id = -99)
+        public ActionResult SelectAttachment(int Id = -99)
         {
-            PermitsViewModel oModel = new PermitsViewModel();
-            oModel.ListOfAttachmentDetails = DMeServices.Models.Common.BuildingServices.PermitsAttachmentsCom.AttachmentsDetailsByAttachmentsID(Id);
-            return PartialView("_ListAttachmentsDetails", oModel);
+            ControlsViewModel oModel = new ControlsViewModel();
+            oModel.ListOfAttachments = DMeServices.Models.Common.BuildingServices.PermitsAttachmentsCom.AttachmentsByPermitsID(Id);
+            return PartialView("_ListAttachments", oModel);
         }
 
 
         #endregion
 
 
-        #region Method :: List Attachment Details
-        [HttpPost]
-        public ActionResult SelectAttachmentDetails(PermitsViewModel oModel, int Id = -99)
+        
+
+
+        #region Method :: DD Controls Status
+
+        public static List<SelectListItem> DDControlsStatus()
         {
-
-
-            oModel.ListOfAttachmentDetails = DMeServices.Models.Common.BuildingServices.PermitsAttachmentsCom.AttachmentsDetailsByAttachmentsID(Id);
-            return PartialView("_ListAttachmentsDetails", oModel);
-
-        }
-
-        #endregion
-
-
-        #region Method :: DD Permits Status
-
-        public static List<SelectListItem> DDPermitsStatus()
-        {
-            List<SelectListItem> LstPermitsStatus = new List<SelectListItem>();
-            List<LookupType> PermitsStatus = DMeServices.Models.Common.LookupsTypeCom.LookupByDesc("PermitsStatus");
-            if (PermitsStatus.Count > 0)
+            List<SelectListItem> LstControlsStatus = new List<SelectListItem>();
+            List<LookupType> ControlsStatus = DMeServices.Models.Common.LookupsTypeCom.LookupByDesc("ControlsStatus");
+            if (ControlsStatus.Count > 0)
             {
-                LstPermitsStatus.Add(new SelectListItem() { Text = "أختر حالة الطلب ", Value = "0" });
-                foreach (var item in PermitsStatus)
+                LstControlsStatus.Add(new SelectListItem() { Text = "أختر حالة الطلب ", Value = "0" });
+                foreach (var item in ControlsStatus)
                 {
-                    LstPermitsStatus.Add(new SelectListItem() { Text = item.LookupNameAr, Value = item.LookupId.ToString() });
+                    LstControlsStatus.Add(new SelectListItem() { Text = item.LookupNameAr, Value = item.LookupId.ToString() });
                 }
 
             }
-            return LstPermitsStatus;
+            return LstControlsStatus;
         }
 
         #endregion

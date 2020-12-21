@@ -96,11 +96,14 @@
 <div class="col-lg-9 col-sm-9">
     <div class="row">
 
-
+        @{Html.EnableClientValidation();}
+        @{Html.EnableUnobtrusiveJavaScript();}
         @using (Html.BeginForm("SaveNewPermits", "BuildingPermits", FormMethod.Post, new { encType = "multipart/form-data", @id = "Permitsform" }))
         {
+            @Html.ValidationSummary(true)
             @Html.AntiForgeryToken()
             @Html.HiddenFor(m => m.BuildingPermits.ConsultantCivilId);
+            @Html.HiddenFor(m => m.BuildingPermits.ConsultantCrNo);
             <div class="row">
                 <div class="box col-md-12">
                     <div class="form-group col-md-12">
@@ -149,12 +152,12 @@
                             @Html.ValidationMessageFor(m => m.BuildingPermits.OwnerPhoneNo, "", new { @style = "color:orange;" })
                         </div>
                         @*<div class="form-group col-md-6">
-                                <label class="control-label">
-                                    @Html.DisplayNameFor(m => m.BuildingPermits.DistrictName)
-                                </label>
-                                @Html.TextBoxFor(m => m.BuildingPermits.DistrictName, new { @class = "form-control", id = "DistrictName", @placeholder = "المنطقة" })
-                                @Html.ValidationMessageFor(m => m.BuildingPermits.DistrictName, "", new { @style = "color:orange;" })
-                            </div>*@
+                            <label class="control-label">
+                                @Html.DisplayNameFor(m => m.BuildingPermits.DistrictName)
+                            </label>
+                            @Html.TextBoxFor(m => m.BuildingPermits.DistrictName, new { @class = "form-control", id = "DistrictName", @placeholder = "المنطقة" })
+                            @Html.ValidationMessageFor(m => m.BuildingPermits.DistrictName, "", new { @style = "color:orange;" })
+                        </div>*@
                     </div>
                     <div class="form-group col-md-12">
                         <h5>بيانات قطعة الأرض</h5>
@@ -188,11 +191,12 @@
                                 @Html.DisplayNameFor(m => m.BuildingPermits.KrokiNO)
                             </label>
                             <div style="direction:ltr">
-                                @Html.TextBoxFor(m => m.BuildingPermits.KrokiNO, new { style = "width: 40px; display: inline", onkeyup = "moveCursor(this, KrokiNO2);", @maxlength = "2", @class = "form-control", id = "KrokiNO1", })
-                                @Html.TextBoxFor(m => m.BuildingPermits.KrokiNO, new { style = "width: 40px; display: inline", onkeyup = "moveCursor(this, KrokiNO3);", @maxlength = "2", @class = "form-control", id = "KrokiNO2", })
-                                @Html.TextBoxFor(m => m.BuildingPermits.KrokiNO, new { style = "width: 50px; display: inline", onkeyup = "moveCursor(this, KrokiNO4);", @maxlength = "3", @class = "form-control", id = "KrokiNO3", })
-                                @Html.TextBoxFor(m => m.BuildingPermits.KrokiNO, new { style = "width: 40px; display: inline", onkeyup = "moveCursor(this, KrokiNO5);", @maxlength = "2", @class = "form-control", id = "KrokiNO4", })
-                                @Html.TextBoxFor(m => m.BuildingPermits.KrokiNO, new { style = "width: 55px; display: inline", onkeyup = "moveCursor(this, KrokiNO);", @maxlength = "4", @class = "form-control", id = "KrokiNO5", })
+                                <input type="text" style="width: 40px; display: inline" onkeyup="moveCursor(this, KrokiNO2);" maxlength="2" class="form-control" id="KrokiNO1" />
+                                <input type="text" style="width: 40px; display: inline" onkeyup="moveCursor(this, KrokiNO3);" maxlength="2" class="form-control" id="KrokiNO2" />
+                                <input type="text" style="width: 50px; display: inline" onkeyup="moveCursor(this, KrokiNO4);" maxlength="3" class="form-control" id="KrokiNO3" />
+                                <input type="text" style="width: 40px; display: inline" onkeyup="moveCursor(this, KrokiNO5);" maxlength="2" class="form-control" id="KrokiNO4" />
+                                <input type="text" style="width: 55px; display: inline" onkeyup="moveCursor(this, KrokiNO);" maxlength="4" class="form-control" id="KrokiNO5" />
+
                                 @Html.TextBoxFor(m => m.BuildingPermits.KrokiNO, new { @class = "form-control", @readonly = "readonly", id = "KrokiNO", @placeholder = "رقم الكروكي" })
                                 @Html.ValidationMessageFor(m => m.BuildingPermits.KrokiNO, "", new { @style = "color:orange;" })
                             </div>
@@ -212,7 +216,7 @@
                             </label>
                             @Html.DropDownList("DDLandUseTypes", (List<SelectListItem>)ViewBag.DDLandUseTypes, new { style = "padding:0px", @class = "form-control", @data_rel = "chosen", id = "LandUseTypes" })
                             @*@Html.TextBoxFor(m => m.BuildingPermits.ConstructionType, new { @class = "form-control", id = "ConstructionType", @placeholder = "نوع البناء" })
-                                @Html.ValidationMessageFor(m => m.BuildingPermits.ConstructionType, "", new { @style = "color:orange;" })*@
+                            @Html.ValidationMessageFor(m => m.BuildingPermits.ConstructionType, "", new { @style = "color:orange;" })*@
                         </div>
                         <div class="form-group col-md-6">
                             <label class="control-label">نوع المبنى</label>
@@ -244,7 +248,7 @@
                 </div>
                 <div class="col-sm-5" style="width:30%;">
                     @*@Html.TextBoxFor(m => m.PersonalCard.Description, new { @class = "form-control", @placeholder = "ملاحظات" })
-                        @Html.ValidationMessageFor(m => m.PersonalCard.Description, "", new { @style = "color:orange;" })*@
+                    @Html.ValidationMessageFor(m => m.PersonalCard.Description, "", new { @style = "color:orange;" })*@
                 </div>
                 <div class="col-sm-5" style="width:30%;">
                     @Html.TextBoxFor(m => m.PersonalCard.File, new { @id = "PersonalFile", @type = "file", @class = "form-control" })
@@ -263,7 +267,7 @@
                 </div>
                 <div class="col-sm-5" style="width:30%;">
                     @*@Html.TextBoxFor(m => m.KrokeFile.Description, new { @class = "form-control", @placeholder = "ملاحظات" })
-                        @Html.ValidationMessageFor(m => m.KrokeFile.Description, "", new { @style = "color:orange;" })*@
+                    @Html.ValidationMessageFor(m => m.KrokeFile.Description, "", new { @style = "color:orange;" })*@
                 </div>
                 <div class="col-sm-5" style="width:30%;">
                     @Html.TextBoxFor(m => m.KrokeFile.File, new { @type = "file", @id = "KrokeFile", @class = "form-control" })
@@ -282,7 +286,7 @@
                 </div>
                 <div class="col-sm-5" style="width:30%;">
                     @*@Html.TextBoxFor(m => m.OwnerFile.Description, new { @class = "form-control", @placeholder = "ملاحظات" })
-                        @Html.ValidationMessageFor(m => m.OwnerFile.Description, "", new { @style = "color:orange;" })*@
+                    @Html.ValidationMessageFor(m => m.OwnerFile.Description, "", new { @style = "color:orange;" })*@
                 </div>
                 <div class="col-sm-5" style="width:30%;">
                     @Html.TextBoxFor(m => m.OwnerFile.File, new { @type = "file", @id = "OwnerFile", @class = "form-control" })
@@ -341,7 +345,7 @@
 
     <br />
 
-    <button class="btn btn-primary" id="Save" onclick="return confirm('هل انت متاكد !');">
+    <button class="btn btn-primary" id="Save">
         <i class="glyphicon glyphicon-ok"></i> أرسال البيانات
     </button>
 
@@ -670,7 +674,7 @@
             if (fileName) { // returns true if the string is not empty
 
                 //alert(fileize);
-                var valid_extensions = /(\.jpg|\.jpeg|\.gif|\.pdf|\.png)$/i;
+                var valid_extensions = /(\.jpg|\.jpeg|\.pdf|\.png)$/i;
                 if (valid_extensions.test(fileName) && $("#AttTypeId").val() != "") {
 
                     $('#SaveAttachment').attr('disabled', false);

@@ -61,15 +61,15 @@
                         <div class="form-group col-md-6">
                             <label class="control-label"> الاسم بالكامل</label>
                             @*<input type="text" readonly class="form-control" id="CompanyName">*@
-                            @Html.TextBoxFor(n => n.CompanyData.FULL_NAME, null, new { @class = "form-control", placeholder = "الاسم بالكامل", @id = "FullName" })
-                            @Html.ValidationMessageFor(n => n.CompanyData.FULL_NAME, "", new { @class = "text-danger" })
+                            @Html.TextBoxFor(n => n.oUserInfo.FullName, null, new { @readonly = "readonly", @class = "form-control", placeholder = "الاسم بالكامل", @id = "FullName" })
+                            @Html.ValidationMessageFor(n => n.oUserInfo.FullName, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="form-group col-md-6">
                             <label class="control-label"> الرقم المدني</label>
                             @*<input type="text" readonly class="form-control" id="CompanyName">*@
-                            @Html.TextBoxFor(n => n.CompanyData.CIVIL_ID, null, new { @class = "form-control", placeholder = "الرقم المدني", @id = "CivilID" })
-                            @Html.ValidationMessageFor(n => n.CompanyData.CIVIL_ID, "", new { @class = "text-danger" })
+                            @Html.TextBoxFor(n => n.oUserInfo.CivilId, null, new {@readonly= "readonly", @class = "form-control", placeholder = "الرقم المدني", @id = "CivilID" })
+                            @Html.ValidationMessageFor(n => n.oUserInfo.CivilId, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="form-group col-md-6">
@@ -125,26 +125,36 @@
         $('#CompanyName').val('');
         $('#LegalForm').val('');
         $('#PhoneNumber').val('');
-        $('#FullName').val('');
+        //$('#FullName').val('');
         $('#State').val('');
         $('#Governorate').val('');
         $('#Email').val('');
-        $('#CivilID').val('');
+        //$('#CivilID').val('');
     }
-
+    //--For Pubilsh please add this in start of url string-- /EngineeringService/External
     function callRestApi() {
         var Comm_Val = $('#CommercialNo').val();
         var userCivilID = $('#hiddenCivil_id').val();
         EmptyTextBoxes();
         $.ajax({
-            url: "http://10.21.4.4:8087/dm/rest/services/companydata?crNumber=" + Comm_Val,
+            url: "/EngineeringService/External/Register/GetCompanyDataByCr/" + Comm_Val,
             type: "Get",
             dataType: "json",
             success: function (data) {
+                
                 if (data) {
+                    
                     var investorsArray = data.companyOverview.investors.investor;
+                    var signatoriesArray = data.companyOverview.signatories.signatory;
                     var isOwner = false;
                     var personIndex = -1;
+                    signatoriesArray.forEach((item, index) => {
+                        if (item.idNumber === userCivilID) {
+                            isOwner = true;
+                            personIndex = index;
+                            return;
+                        }
+                    });
                     investorsArray.forEach((item,index) => {
                         if (item.person.idNumber === userCivilID) {
                             isOwner =  true;
@@ -166,11 +176,11 @@
                             $('#CompanyName').val(data.companyOverview.companyNameArabic);
                             $('#LegalForm').val(data.companyOverview.legalStatus.nameAr);
                             $('#PhoneNumber').val(data.companyOverview.contact.mobile);
-                            $('#FullName').val(data.companyOverview.investors.investor[personIndex].person.nameAr);
+                            //$('#FullName').val(data.companyOverview.investors.investor[0].person.nameAr);
                             $('#State').val(data.companyOverview.address.state.nameAr);
                             $('#Governorate').val(data.companyOverview.address.governorate.nameAr);
                             $('#Email').val(data.companyOverview.contact.email);
-                            $('#CivilID').val(data.companyOverview.investors.investor[personIndex].person.idNumber);
+                            //$('#CivilID').val(data.companyOverview.investors.investor[0].person.idNumber);
                         } else {
                             EmptyTextBoxes();
                             Notify("Not valid Actitvy");
@@ -181,7 +191,9 @@
                     }
                 }
             },
-            error: function (msg) { alert(msg); }
+            error: function (msg) {
+                alert("يمكن فقط للمفوضين تسجيل الشركات");
+            }
         });
     };
 </script>

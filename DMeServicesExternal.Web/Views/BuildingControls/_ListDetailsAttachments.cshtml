@@ -1,4 +1,4 @@
-﻿@model DMeServices.Models.ViewModels.Permits.PermitsViewModel
+﻿@model DMeServices.Models.ViewModels.Permits.ControlsViewModel
 <div class="box col-md-12">
 
 
@@ -80,53 +80,13 @@
         </div>
         <br />
 
-
-        @if (Model.BuildingPermits != null && Model.BuildingPermits.WorkflowStatus == 20)
-        {
-
-            <h5> أضافة الخرائط</h5>
-            <br />
-
-            <div class="form-group col-md-12">
-
-                <div class="col-sm-1" style="width:15%;">
-                    <input type="submit" id="SaveAttachment" class="btn " value="إضافة مرفق" />
-                </div>
-                <div class="col-sm-5" style="width:35%;">
-                    @Html.TextBoxFor(m => m.Attachments.Description, new { @class = "form-control", id = "FileDescription", @placeholder = "ملاحظات" })
-                    @Html.ValidationMessageFor(m => m.Attachments.Description, "", new { @style = "color:orange;" })
-
-                </div>
-
-                <div class="col-sm-5" style="width:30%;">
-                    @Html.TextBoxFor(m => m.Attachments.File, new { @type = "file", id = "MapFile", @name = "Files", @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.Attachments.File, "", new { @style = "color:orange;" })
-                </div>
-
-                <div class="col-sm-5" style="width:20%;">
-                    @Html.DropDownListFor(m => m.Attachments.AttachmentTypeId, (List<SelectListItem>)ViewBag.DDAttachmentsType, new { @class = "dropdown-toggle", @id = "AttTypeId" })
-                    @Html.ValidationMessageFor(m => m.Attachments.AttachmentTypeId, "", new { @style = "color:orange;" })
-                </div>
-
-
-            </div>
-
-            <br />
-            <br />
-            <br />
-        }
-
         <div id="divConsultatAttachments" class="row">
 
             @{ Html.RenderPartial("_ConsultantAttachments", Model);}
             <br />
         </div>
 
-        <div id="divEngineerAttachments">
-            @{ Html.RenderPartial("_EngineerAttachments", Model);}
-        </div>
-
-
+      
     </div>
 
 </div>

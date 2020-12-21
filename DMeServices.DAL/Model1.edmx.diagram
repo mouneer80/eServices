@@ -4,82 +4,88 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="01ccf2db8005481e83d1ddd373ee0b33" Name="Diagram1" ZoomLevel="47">
-        <EntityTypeShape EntityType="eServicesModel.BldAttachmentTypes" Width="1.5" PointX="11.25" PointY="18.75" />
-        <EntityTypeShape EntityType="eServicesModel.BldBuildingTypes" Width="1.5" PointX="3" PointY="22" />
-        <EntityTypeShape EntityType="eServicesModel.BldControlServices" Width="1.5" PointX="16.5" PointY="24.375" />
-        <EntityTypeShape EntityType="eServicesModel.BldControlServicesTypes" Width="1.5" PointX="14.25" PointY="20.5" />
-        <EntityTypeShape EntityType="eServicesModel.BldIndustrialAreasSurvey" Width="1.5" PointX="5.25" PointY="22.75" />
-        <EntityTypeShape EntityType="eServicesModel.BldLandSurvey" Width="1.5" PointX="8.25" PointY="22.5" />
-        <EntityTypeShape EntityType="eServicesModel.BldLandUseTypes" Width="1.5" PointX="3" PointY="27.25" />
-        <EntityTypeShape EntityType="eServicesModel.BldPermits" Width="1.5" PointX="11.25" PointY="21.375" />
-        <EntityTypeShape EntityType="eServicesModel.BldPermitsAttachmentDetails" Width="1.5" PointX="15.75" PointY="27.5" />
-        <EntityTypeShape EntityType="eServicesModel.BldPermitsAttachments" Width="1.5" PointX="13.5" PointY="23.5" />
-        <EntityTypeShape EntityType="eServicesModel.BldRegions" Width="1.5" PointX="3" PointY="35.125" />
-        <EntityTypeShape EntityType="eServicesModel.BldSquareLetters" Width="1.5" PointX="3" PointY="24.5" />
-        <EntityTypeShape EntityType="eServicesModel.BldWelyat" Width="1.5" PointX="0.75" PointY="13.125" />
-        <EntityTypeShape EntityType="eServicesModel.BldWorkersHousingDetails" Width="1.5" PointX="10.5" PointY="30.375" />
-        <EntityTypeShape EntityType="eServicesModel.ConsultantOccupations" Width="1.5" PointX="10.75" PointY="10.75" />
-        <EntityTypeShape EntityType="eServicesModel.Departments" Width="1.5" PointX="7.75" PointY="2.875" />
-        <EntityTypeShape EntityType="eServicesModel.docs" Width="1.5" PointX="2.75" PointY="12.75" />
-        <EntityTypeShape EntityType="eServicesModel.EmployeeGroups" Width="1.5" PointX="12.25" PointY="2.75" />
-        <EntityTypeShape EntityType="eServicesModel.Employees" Width="1.5" PointX="10" PointY="1.125" />
-        <EntityTypeShape EntityType="eServicesModel.Groups" Width="1.5" PointX="10" PointY="7.875" />
-        <EntityTypeShape EntityType="eServicesModel.HsContractAttachments" Width="1.5" PointX="5.25" PointY="4.75" />
-        <EntityTypeShape EntityType="eServicesModel.HsInspectors" Width="1.5" PointX="5.75" PointY="8.75" />
-        <EntityTypeShape EntityType="eServicesModel.HsPermitActivity" Width="1.5" PointX="12.75" PointY="5.75" />
-        <EntityTypeShape EntityType="eServicesModel.HsPermitAdvertisement" Width="1.5" PointX="3" PointY="8.25" />
-        <EntityTypeShape EntityType="eServicesModel.HsPermitDuration" Width="1.5" PointX="3" PointY="1.375" />
-        <EntityTypeShape EntityType="eServicesModel.HsPermits" Width="1.5" PointX="0.75" PointY="4.5" />
-        <EntityTypeShape EntityType="eServicesModel.HsPermitsInspection" Width="1.5" PointX="5.25" PointY="1.375" />
-        <EntityTypeShape EntityType="eServicesModel.HsPermitSubActivity" Width="1.5" PointX="8" PointY="11" />
-        <EntityTypeShape EntityType="eServicesModel.HsPermitType" Width="1.5" PointX="5.75" PointY="11.375" />
-        <EntityTypeShape EntityType="eServicesModel.ISIC4_LEVEL_1" Width="1.5" PointX="12.75" PointY="8.75" />
-        <EntityTypeShape EntityType="eServicesModel.ISIC4_LEVEL_4" Width="1.5" PointX="12.75" PointY="11.75" />
-        <EntityTypeShape EntityType="eServicesModel.ISIC4_LEVEL_5" Width="1.5" PointX="4.75" PointY="13.75" />
-        <EntityTypeShape EntityType="eServicesModel.ISIC4_LEVEL_6" Width="1.5" PointX="14.75" PointY="0.75" />
-        <EntityTypeShape EntityType="eServicesModel.Jobs" Width="1.5" PointX="14.75" PointY="3.75" />
-        <EntityTypeShape EntityType="eServicesModel.keys" Width="1.5" PointX="14.75" PointY="6.75" />
-        <EntityTypeShape EntityType="eServicesModel.LookupTypes" Width="1.5" PointX="6.75" PointY="14.75" />
-        <EntityTypeShape EntityType="eServicesModel.MociData" Width="1.5" PointX="8.75" PointY="14.75" />
-        <EntityTypeShape EntityType="eServicesModel.objs" Width="1.5" PointX="14.75" PointY="9.75" />
-        <EntityTypeShape EntityType="eServicesModel.pdfs" Width="1.5" PointX="14.75" PointY="12.75" />
-        <EntityTypeShape EntityType="eServicesModel.RevBanks" Width="1.5" PointX="10.75" PointY="14.75" />
-        <EntityTypeShape EntityType="eServicesModel.RevDepartments" Width="1.5" PointX="16.75" PointY="0.75" />
-        <EntityTypeShape EntityType="eServicesModel.RevFinancialItems" Width="1.5" PointX="0.75" PointY="16.75" />
-        <EntityTypeShape EntityType="eServicesModel.RevFinancialSubItems" Width="1.5" PointX="2.75" PointY="16.75" />
-        <EntityTypeShape EntityType="eServicesModel.RevLeaseContracts" Width="1.5" PointX="16.75" PointY="3.75" />
-        <EntityTypeShape EntityType="eServicesModel.RevLeaseContractsLog" Width="1.5" PointX="16.75" PointY="12.75" />
-        <EntityTypeShape EntityType="eServicesModel.RevMainPayments" Width="1.5" PointX="18.75" PointY="0.75" />
-        <EntityTypeShape EntityType="eServicesModel.RevMainPaymentsLog" Width="1.5" PointX="18.75" PointY="8.75" />
-        <EntityTypeShape EntityType="eServicesModel.RevWelyat" Width="1.5" PointX="4.75" PointY="17.75" />
-        <EntityTypeShape EntityType="eServicesModel.States" Width="1.5" PointX="13.75" PointY="17.75" />
-        <EntityTypeShape EntityType="eServicesModel.sysdiagrams" Width="1.5" PointX="6.75" PointY="18.75" />
-        <EntityTypeShape EntityType="eServicesModel.Users" Width="1.5" PointX="18.75" PointY="16.75" />
-        <EntityTypeShape EntityType="eServicesModel.FinancialItems" Width="1.5" PointX="20.75" PointY="0.75" />
-        <EntityTypeShape EntityType="eServicesModel.ISIC4_LEVEL_2" Width="1.5" PointX="20.75" PointY="3.75" />
-        <EntityTypeShape EntityType="eServicesModel.ISIC4_LEVEL_3" Width="1.5" PointX="20.75" PointY="6.75" />
-        <EntityTypeShape EntityType="eServicesModel.pges" Width="1.5" PointX="20.75" PointY="9.75" />
+      <Diagram DiagramId="01ccf2db8005481e83d1ddd373ee0b33" Name="Diagram1" ZoomLevel="75">
+        <EntityTypeShape EntityType="eServicesModel.BldAttachmentTypes" Width="1.5" PointX="7.75" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="eServicesModel.BldPermits" Width="1.5" PointX="7.75" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="eServicesModel.BldPermitsAttachmentDetails" Width="1.5" PointX="12.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="eServicesModel.Groups" Width="1.5" PointX="31" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="eServicesModel.HsContractAttachments" Width="1.5" PointX="5.25" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="eServicesModel.HsInspectors" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="eServicesModel.HsPermitActivity" Width="1.5" PointX="14.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="eServicesModel.HsPermitAdvertisement" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="eServicesModel.HsPermitDuration" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="eServicesModel.HsPermits" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="eServicesModel.HsPermitsInspection" Width="1.5" PointX="5.25" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="eServicesModel.HsPermitSubActivity" Width="1.5" PointX="3" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="eServicesModel.HsPermitType" Width="1.5" PointX="0.75" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="eServicesModel.LookupTypes" Width="1.5" PointX="14.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="eServicesModel.MociData" Width="1.5" PointX="14.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="eServicesModel.Users" Width="1.5" PointX="16.75" PointY="0.5" IsExpanded="true" />
+        <AssociationConnector Association="eServicesModel.FK_HsContractAttachments_HsPermitDuration" ManuallyRouted="false" />
+        <AssociationConnector Association="eServicesModel.FK_HsPermitAdvertisement_HsPermits" ManuallyRouted="false" />
+        <AssociationConnector Association="eServicesModel.FK_HsPermitDuration_HsPermits" ManuallyRouted="false" />
+        <AssociationConnector Association="eServicesModel.FK_HsPermitsInspection_HsPermitDuration" ManuallyRouted="false" />
+        <AssociationConnector Association="eServicesModel.FK_HsPermitSubActivity_HsPermitType" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="eServicesModel.BldPermitsAttachments" Width="1.5" PointX="10" PointY="2" />
         <AssociationConnector Association="eServicesModel.FK_BldPermitsAttachments_BldAttachmentTypes" />
+        <AssociationConnector Association="eServicesModel.FK_BldPermit" />
+        <AssociationConnector Association="eServicesModel.FK_BldPermitAttachment" />
+        <EntityTypeShape EntityType="eServicesModel.RevBanks" Width="1.5" PointX="0.75" PointY="16.75" />
+        <EntityTypeShape EntityType="eServicesModel.RevDepartments" Width="1.5" PointX="2.75" PointY="16.75" />
+        <EntityTypeShape EntityType="eServicesModel.RevFinancialItems" Width="1.5" PointX="4.75" PointY="16.75" />
+        <EntityTypeShape EntityType="eServicesModel.RevFinancialSubItems" Width="1.5" PointX="16.75" PointY="6.75" />
+        <EntityTypeShape EntityType="eServicesModel.RevLeaseContracts" Width="1.5" PointX="6.75" PointY="16.75" />
+        <EntityTypeShape EntityType="eServicesModel.RevLeaseContractsLog" Width="1.5" PointX="8.75" PointY="16.75" />
+        <EntityTypeShape EntityType="eServicesModel.RevMainPayments" Width="1.5" PointX="10.75" PointY="16.75" />
+        <EntityTypeShape EntityType="eServicesModel.RevMainPaymentsLog" Width="1.5" PointX="17.75" PointY="10.75" />
+        <EntityTypeShape EntityType="eServicesModel.RevWelyat" Width="1.5" PointX="18.75" PointY="6.75" />
+        <EntityTypeShape EntityType="eServicesModel.States" Width="1.5" PointX="12.75" PointY="18.75" />
+        <EntityTypeShape EntityType="eServicesModel.ISIC4_LEVEL_1" Width="1.5" PointX="15.75" PointY="18.75" />
+        <EntityTypeShape EntityType="eServicesModel.ISIC4_LEVEL_4" Width="1.5" PointX="17.75" PointY="18.75" />
+        <EntityTypeShape EntityType="eServicesModel.ISIC4_LEVEL_5" Width="1.5" PointX="19.75" PointY="0.75" />
+        <EntityTypeShape EntityType="eServicesModel.ISIC4_LEVEL_2" Width="1.5" PointX="0.75" PointY="19.75" />
+        <EntityTypeShape EntityType="eServicesModel.ISIC4_LEVEL_3" Width="1.5" PointX="2.75" PointY="19.75" />
+        <EntityTypeShape EntityType="eServicesModel.ISIC4_LEVEL_6" Width="1.5" PointX="19.375" PointY="3.75" />
+        <EntityTypeShape EntityType="eServicesModel.BldRegions" Width="1.5" PointX="21.875" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="eServicesModel.BldWelyat" Width="1.5" PointX="20.375" PointY="12.75" />
+        <EntityTypeShape EntityType="eServicesModel.BldBuildingTypes" Width="1.5" PointX="20.375" PointY="15.75" />
+        <EntityTypeShape EntityType="eServicesModel.BldLandUseTypes" Width="1.5" PointX="20.375" PointY="18.75" />
+        <EntityTypeShape EntityType="eServicesModel.BldSquareLetters" Width="1.5" PointX="21.375" PointY="3.75" />
+        <AssociationConnector Association="eServicesModel.FK_BldRegions_BldWelyat" />
+        <EntityTypeShape EntityType="eServicesModel.BldLandSurvey" Width="1.5" PointX="25.75" PointY="8.75" />
+        <AssociationConnector Association="eServicesModel.FK_BldLandSurvey_BldRegions" />
+        <AssociationConnector Association="eServicesModel.FK_BldLandSurvey_BldWelyat" />
+        <EntityTypeShape EntityType="eServicesModel.docs" Width="1.5" PointX="13.75" PointY="21.75" />
+        <EntityTypeShape EntityType="eServicesModel.Jobs" Width="1.5" PointX="21.75" PointY="6.75" />
+        <EntityTypeShape EntityType="eServicesModel.keys" Width="1.5" PointX="15.75" PointY="21.75" />
+        <EntityTypeShape EntityType="eServicesModel.objs" Width="1.5" PointX="17.75" PointY="21.75" />
+        <EntityTypeShape EntityType="eServicesModel.pdfs" Width="1.5" PointX="19.75" PointY="21.75" />
+        <EntityTypeShape EntityType="eServicesModel.sysdiagrams" Width="1.5" PointX="21.75" PointY="21.75" />
+        <EntityTypeShape EntityType="eServicesModel.FinancialItems" Width="1.5" PointX="22.75" PointY="0.75" />
+        <EntityTypeShape EntityType="eServicesModel.pges" Width="1.5" PointX="0.75" PointY="22.75" />
+        <EntityTypeShape EntityType="eServicesModel.BldIndustrialAreasSurvey" Width="1.5" PointX="30.875" PointY="10.5" />
         <AssociationConnector Association="eServicesModel.FK_BldIndustrialAreasSurvey_BldBuildingTypes" />
-        <AssociationConnector Association="eServicesModel.FK_BldPermits_BldBuildingTypes" />
-        <AssociationConnector Association="eServicesModel.FK_BldControlServices_BldControlServicesTypes" />
-        <AssociationConnector Association="eServicesModel.FK_BldControlServices_BldPermits" />
-        <AssociationConnector Association="eServicesModel.FK_BldIndustrialAreasSurvey_BldLandUseTypes" />
+        <AssociationConnector Association="eServicesModel.FK_BldIndustrialAreasSurvey_BldLandUseTypes" ManuallyRouted="false" >
+        </AssociationConnector>
         <AssociationConnector Association="eServicesModel.FK_BldIndustrialAreasSurvey_BldRegions" />
         <AssociationConnector Association="eServicesModel.FK_BldIndustrialAreasSurvey_BldSquareLetters" />
         <AssociationConnector Association="eServicesModel.FK_BldIndustrialAreasSurvey_BldWelyat" />
-        <AssociationConnector Association="eServicesModel.FK_BldLandSurvey_BldRegions" />
-        <AssociationConnector Association="eServicesModel.FK_BldLandSurvey_BldWelyat" />
+        <EntityTypeShape EntityType="eServicesModel.Departments" Width="1.5" PointX="24.375" PointY="18.875" />
+        <EntityTypeShape EntityType="eServicesModel.EmployeeGroups" Width="1.5" PointX="28.875" PointY="17" />
+        <EntityTypeShape EntityType="eServicesModel.Employees" Width="1.5" PointX="26.625" PointY="17.125" />
+        <AssociationConnector Association="eServicesModel.FK_Employees_Departments" />
+        <AssociationConnector Association="eServicesModel.FK_EmployeeGroups_Employees" />
+        <AssociationConnector Association="eServicesModel.FK_EmployeeGroups_Groups" />
+        <EntityTypeShape EntityType="eServicesModel.BldWorkersHousingDetails" Width="1.5" PointX="28.625" PointY="7.875" />
         <AssociationConnector Association="eServicesModel.FK_BldWorkersHousingDetails_BldLandSurvey" />
+        <AssociationConnector Association="eServicesModel.FK_BldPermits_BldBuildingTypes" />
         <AssociationConnector Association="eServicesModel.FK_BldPermits_BldLandUseTypes" />
-        <AssociationConnector Association="eServicesModel.FK_BldPermit" />
         <AssociationConnector Association="eServicesModel.FK_BldPermits_BldRegions" />
         <AssociationConnector Association="eServicesModel.FK_BldPermits_BldSquareLetters" />
         <AssociationConnector Association="eServicesModel.FK_BldPermits_BldWelyat" />
-        <EntityTypeShape EntityType="eServicesModel.ConsultantOccupations" Width="1.5" PointX="12.375" PointY="14.75" />
-        <EntityTypeShape EntityType="eServicesModel.BldControlServices" Width="1.5" PointX="7.5" PointY="0.75" />
-        <EntityTypeShape EntityType="eServicesModel.BldControlServicesTypes" Width="1.5" PointX="5.25" PointY="20.25" />
+        <EntityTypeShape EntityType="eServicesModel.BldControlServices" Width="1.5" PointX="10" PointY="7.75" />
+        <EntityTypeShape EntityType="eServicesModel.BldControlServicesTypes" Width="1.5" PointX="7.75" PointY="7" />
+        <EntityTypeShape EntityType="eServicesModel.ConsultantOccupations" Width="1.5" PointX="12.375" PointY="6.75" />
         <AssociationConnector Association="eServicesModel.FK_BldControlServices_BldControlServicesTypes" />
         <AssociationConnector Association="eServicesModel.FK_BldControlServices_BldPermits" />
         </Diagram>

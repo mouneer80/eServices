@@ -18,7 +18,7 @@ namespace DMeServices.Models.ViewModels.Permits
             if (HttpContext.Current.Session["UserInfo"] != null)
             {
                 oUserInfo = (User)HttpContext.Current.Session["UserInfo"];
-                BuildingPermits = new BuildingPermits { ConsultantCivilId = oUserInfo.CivilId };
+                BuildingPermits = new BuildingPermits { ConsultantCivilId = oUserInfo.CivilId, ConsultantCrNo = oUserInfo.ConsultantCrNo };
             }
 
         }

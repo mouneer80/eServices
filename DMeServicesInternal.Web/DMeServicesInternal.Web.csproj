@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.3.8.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.3.8.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -50,10 +51,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="itextsharp, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>..\packages\iTextSharp.5.5.13\lib\itextsharp.dll</HintPath>
@@ -194,12 +195,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RadPdf\CustomPdfIntegrationProvider.cs" />
     <Compile Include="RadPdf\PdfIntegrationProvider.cs" />
-    <Compile Include="Reports\ReportViewer.aspx.cs">
-      <DependentUpon>ReportViewer.aspx</DependentUpon>
+    <Compile Include="Reports\InternalEngineeringDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InternalEngineeringDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Report.aspx.cs">
+      <DependentUpon>Report.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Reports\ReportViewer.aspx.designer.cs">
-      <DependentUpon>ReportViewer.aspx</DependentUpon>
+    <Compile Include="Reports\Report.aspx.designer.cs">
+      <DependentUpon>Report.aspx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\IndustrialSurveysController.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
@@ -1328,7 +1334,7 @@
     <Content Include="img\بدون-عنوان--3.png" />
     <Content Include="img\معنا اسهل.png" />
     <Content Include="Content\css\font.css" />
-    <Content Include="Reports\ReportViewer.aspx" />
+    <Content Include="Reports\Report.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -1512,6 +1518,17 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <Content Include="Reports\InternalEngineeringDataSet.xsc">
+      <DependentUpon>InternalEngineeringDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="Reports\InternalEngineeringDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>InternalEngineeringDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Reports\InternalEngineeringDataSet.xss">
+      <DependentUpon>InternalEngineeringDataSet.xsd</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.12.1.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -1585,21 +1602,20 @@
     <Content Include="Views\Shared\_MasterLayout.cshtml" />
     <Content Include="Views\Shared\_SubLayout.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\BuildingPermits\HeadPermitDetails.cshtml" />
+    <Content Include="Views\BuildingControls\HeadControlDetails.cshtml" />
     <Content Include="Views\BuildingPermits\_ListAttachments.cshtml" />
     <Content Include="Views\HealthRenewal\SaveNewPermitsSuccessPage.cshtml" />
     <Content Include="Views\HealthRenewal\Test.cshtml" />
     <Content Include="Views\HealthRenewal\RevenueData.cshtml" />
     <Content Include="Views\HealthRenewal\RevenueReport.cshtml" />
-    <Content Include="Views\BuildingPermits\AssignPermitsSuccessPage.cshtml" />
+    <Content Include="Views\BuildingControls\AssignControlsSuccessPage.cshtml" />
     <Content Include="Views\HealthRenewal\PermitFinish.cshtml" />
     <Content Include="Views\HealthRenewal\PermitFinishReport.cshtml" />
     <Content Include="Views\BuildingPermits\EditPDFFile.cshtml" />
-    <Content Include="Views\BuildingPermits\_ListAttachmentsDetails.cshtml" />
     <Content Include="Views\BuildingPermits\_ViewFile.cshtml" />
     <Content Include="Views\BuildingPermits\_PermitsList.cshtml" />
     <Content Include="Views\BuildingPermits\_ViewDetailsFile.cshtml" />
-    <Content Include="Views\BuildingPermits\EngineerPermitDetails.cshtml" />
+    <Content Include="Views\BuildingControls\EngineerControlDetails.cshtml" />
     <Content Include="Views\HealthRenewal\_ViewHealthFiles.cshtml" />
     <Content Include="Views\Revenue\Revenue_Checkout.cshtml" />
     <Content Include="Views\Revenue\SaveRevenueSuccessPage.cshtml" />
@@ -1622,19 +1638,19 @@
     <Content Include="Views\BuildingPermits\PermitPaymentDetails.cshtml" />
     <Content Include="Views\BuildingPermits\PermitFees.cshtml" />
     <Content Include="Views\BuildingControls\_ListAttachments.cshtml" />
-    <Content Include="Views\BuildingControls\_ListAttachmentsDetails.cshtml" />
-    <Content Include="Views\BuildingControls\_PermitsList.cshtml" />
-    <Content Include="Views\BuildingControls\_ViewDetailsFile.cshtml" />
+    <Content Include="Views\BuildingPermits\_ListAttachmentsDetails.cshtml" />
+    <Content Include="Views\BuildingControls\_ControlsList.cshtml" />
     <Content Include="Views\BuildingControls\_ViewFile.cshtml" />
-    <Content Include="Views\BuildingControls\AssignPermitsSuccessPage.cshtml" />
+    <Content Include="Views\BuildingPermits\AssignPermitsSuccessPage.cshtml" />
     <Content Include="Views\BuildingControls\EditPDFFile.cshtml" />
-    <Content Include="Views\BuildingControls\EngineerPermitDetails.cshtml" />
-    <Content Include="Views\BuildingControls\HeadPermitDetails.cshtml" />
+    <Content Include="Views\BuildingPermits\EngineerPermitDetails.cshtml" />
+    <Content Include="Views\BuildingPermits\HeadPermitDetails.cshtml" />
     <Content Include="Views\BuildingControls\Index.cshtml" />
-    <Content Include="Views\BuildingControls\LandSurvey.cshtml" />
     <Content Include="Views\BuildingControls\PermitFees.cshtml" />
     <Content Include="Views\BuildingControls\PermitPaymentDetails.cshtml" />
-    <Content Include="Views\BuildingControls\Permits.cshtml" />
+    <Content Include="Views\BuildingControls\Controls.cshtml" />
+    <Content Include="Views\Shared\ErrorPage.cshtml" />
+    <Content Include="Views\Home\ErrorPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1657,6 +1673,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DMeServices.DAL\DMeServices.DAL.csproj">
+      <Project>{1dce92a1-3064-4e61-b096-c3efe3159792}</Project>
+      <Name>DMeServices.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DMeServices.Models\DMeServices.Models.csproj">
       <Project>{ec9e175c-9696-4ab9-a428-58ea1f7c6706}</Project>
       <Name>DMeServices.Models</Name>
@@ -1675,6 +1695,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Reports\rpt\PrintPermit.rdlc" />
     <EmbeddedResource Include="Reports\rpt\CalculateFees.rdlc" />
   </ItemGroup>
   <ItemGroup>
@@ -1714,8 +1735,11 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.3.8.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.3.8.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
   </Target>
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" />
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

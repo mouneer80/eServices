@@ -155,38 +155,47 @@
 
             <!-- theme selector ends -->
             <ul class="collapse navbar-collapse nav navbar-nav top-menu" style="font-size:15px; font-weight:bold;">
-                <li><a href="~/Home"> الرئيسية</a></li>
+                @*<li><a href="~/Home"> الرئيسية</a></li>*@
                 @*<li><a href="~/Home"> عن بلدية ظفار</a></li>*@
                 <li class="dropdown">
                     <a href="#" data-toggle="dropdown">
                         خدمات الشؤون الهندسية <span class="caret"></span>
                     </a>
-                    <ul class="dropdown-menu" role="menu">
-                        @*<li><a href="@Url.Action("Index","HealthRenewal")">تصاريح البلدية</a></li>
-                        <li class="divider"></li>*@
-                        <li><a href="@Url.Action("Index","BuildingPermits")">تصاريح البناء</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">تصاريح المساكن الجماعية</a></li>
-                        <li class="divider"></li>
-                        <li><a href="@Url.Action("Index","IndustrialSurveys")">المسح الجغرافي للمناطق</a></li>
-                        @*<li class="divider"></li>
-                        <li><a href="#">البطاقات الصحية</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">فحص المركبات </a></li>*@
+                    @if (Session["EmployeeInfo"] != null)
+                            { 
 
+                <ul class="dropdown-menu" role="menu">
+                    @*<li><a href="@Url.Action("Index","HealthRenewal")">تصاريح البلدية</a></li>
+        <li class="divider"></li>*@
+                    @if (Session["Show"] == null)
+                    {
+                        <li><a href="@Url.Action("Index","BuildingPermits")">تصاريح البناء</a></li>
+                    }
+                    @*<li class="divider"></li>
+        <li><a href="#">تصاريح المساكن الجماعية</a></li>*@
+                    <li class="divider"></li>
+                    @if (Session["Show"] != null)
+                    {
+                        <li><a href="@Url.Action("Index", "BuildingControls")">رقابة البناء</a></li>
+                    }
+                        @*<li class="divider"></li>
+            <li><a href="#">البطاقات الصحية</a></li>
+            <li class="divider"></li>
+            <li><a href="#">فحص المركبات </a></li>*@
                     </ul>
+                    }
                 </li>
                 @*<li><a href="#"> المركز الإعلامي</a></li>
                 <li><a href="#" style="font-size:15px; font-weight:bold;"> تواصل معنا</a></li>*@
-                <li class="dropdown">
-                    <a href="#" data-toggle="dropdown">
-                        الدخول <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu" role="menu">
-                        @if (Session["EmployeeInfo"] == null)
-            {
-                <li><a href="@Url.Content("~/Account/Login")"> تسجيل الدخول </a></li>
-                <li class="divider"></li>
+            
+
+
+                @if (Session["EmployeeInfo"] == null)
+                {
+            <li>
+                <a href="@Url.Content("~/Account/Login")"> تسجيل الدخول </a>
+            </li>
+                
 
 }
 else
@@ -197,8 +206,8 @@ else
 
 }
 
-                    </ul>
-                </li>
+                    
+                
 
             </ul>
 

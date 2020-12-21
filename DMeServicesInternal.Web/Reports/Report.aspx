@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ReportViewer.aspx.cs" Inherits="DMeServicesInternal.Web.Reports.WebForm1" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Report.aspx.cs" Inherits="DMeServicesInternal.Web.Reports.Report" %>
 
 <%@ register assembly="Microsoft.ReportViewer.WebForms" namespace="Microsoft.Reporting.WebForms" tagprefix="rsweb" %>
 
@@ -12,7 +12,7 @@
     <form id="form1" runat="server">
         <div>
             <asp:ScriptManager id="scriptManager1" runat="server"></asp:ScriptManager>
-            <rsweb:reportviewer id="ReportWiewer1" runat="server"></rsweb:reportviewer>
+            <rsweb:reportviewer id="ReportViewer1" runat="server" AsyncRendering="false" ProcessingMode="Remote" SizeToReportContent="true"></rsweb:reportviewer>
         </div>
     </form>
 </body>

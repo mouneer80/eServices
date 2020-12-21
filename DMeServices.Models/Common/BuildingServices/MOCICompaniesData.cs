@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using DMeServices.DAL;
@@ -47,8 +48,14 @@ namespace DMeServices.Models.Common.BuildingServices
                 {
                     return null;
                 }
-                db.MociData.Add(compData.CompanyData);
+                isCompanyExist.EMAIL = compData.CompanyData.EMAIL;
+                isCompanyExist.PHONE_NO = compData.CompanyData.PHONE_NO;
+                
+                //db.MociData.Add(isCompanyExist);
+                try { 
                 db.SaveChanges();
+                }
+                catch(Exception e) { }
                 if (compData.ConsultantsList != null)
                 {
                     var lstConsultantsList = Mapper.Map<List<User>, List<Users>>(compData.ConsultantsList);

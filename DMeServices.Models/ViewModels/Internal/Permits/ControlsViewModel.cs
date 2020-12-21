@@ -10,53 +10,42 @@ using System.Web;
 
 namespace DMeServices.Models.ViewModels.Internal.Permits
 {
-    public class PermitsViewModel
+    public class ControlsViewModel
     {
-        public PermitsViewModel()
+        public ControlsViewModel()
         {
             oEmployeeInfo = new Employee();
             if (HttpContext.Current.Session["EmployeeInfo"] != null)
             {
                 oEmployeeInfo = (Employee)HttpContext.Current.Session["EmployeeInfo"];
 
-
-                if (oEmployeeInfo.IsEngineerHead)
+                if (oEmployeeInfo.IsControlHead)
                 {
-                    ListBuildingPermits = PermitsCom.GetAllPermitsByflowStatus(8);
+                    ListBuildingControls = ControlsCom.GetAllControlsByFlowStatus(8);
                 }
                 else
                 {
-                    ListBuildingPermits = PermitsCom.PermitsByEngineerID(oEmployeeInfo.EMP_NO);
+                    ListBuildingControls = ControlsCom.ControlsByEngineerId(oEmployeeInfo.EMP_NO);
                 }
             }
         }
 
         public Employee oEmployeeInfo { get; set; }
 
+        public BuildingControls BuildingControls { get; set; }
+
+        public List<BuildingControls> ListBuildingControls { get; set; }
+
+        public ControlServicesTypes ServiceType { get; set; }
+
+        public List<ControlServicesTypes> ServiceTypesList { get; set; }
+
         public BuildingPermits BuildingPermits { get; set; }
 
-        public List<BuildingPermits> ListBuildingPermits { get; set; }
-
-        public List<PermitsAttachmentDetails> ListOfAttachmentDetails { get; set; }
-
-        public PermitsAttachmentDetails AttachmentDetails { get; set; }
+        public List<BuildingPermits> BuildingPermitsList { get; set; }
 
         public List<PermitsAttachments> ListOfAttachments { get; set; }
 
         public PermitsAttachments Attachments { get; set; }
-
-        public PermitsAttachments PersonalCard { get; set; }
-
-        public PermitsAttachments KrokeFile { get; set; }
-
-        public PermitsAttachments OwnerFile { get; set; }
-
-        public Welyat ListOfWelayat { get; set; }
-        public Regions ListOfRegions { get; set; }
-        public BuildingTypes ListOfBuildingTypes { get; set; }
-        public LandUseTypes ListOfLandUseTypes { get; set; }
-        public SquareLetters ListOfSquareLetters { get; set; }
-
-
     }
 }

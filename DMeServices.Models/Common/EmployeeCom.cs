@@ -56,6 +56,14 @@ namespace DMeServices.Models.Common
                             oEmployee.IsManager = true;
                             break;
 
+                        case 7:
+                            oEmployee.IsController = true;
+                            break;
+
+                        case 8:
+                            oEmployee.IsControlHead = true;
+                            break;
+
                     }
                 }
                 //       oEmployee.Roles = LstEmployeeGroup;

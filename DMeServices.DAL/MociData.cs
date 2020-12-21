@@ -18,7 +18,7 @@ namespace DMeServices.DAL
         public string COMMERCIAL_NAME { get; set; }
         public string COMMERCIAL_DATE { get; set; }
         public string LEGAL_FORM { get; set; }
-        public Nullable<int> PHONE_NO { get; set; }
+        public Nullable<long> PHONE_NO { get; set; }
         public string EMAIL { get; set; }
         public string GOVERNORATE { get; set; }
         public string STATE { get; set; }
