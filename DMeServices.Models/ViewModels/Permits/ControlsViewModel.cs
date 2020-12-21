@@ -18,17 +18,25 @@ namespace DMeServices.Models.ViewModels.Permits
             if (HttpContext.Current.Session["UserInfo"] != null)
             {
                 oUserInfo = (User)HttpContext.Current.Session["UserInfo"];
-                BuildingPermits = new BuildingPermits { ConsultantCivilId = oUserInfo.CivilId };
+                BuildingControls = new BuildingControls { OwnerCivilId  = oUserInfo.CivilId };
             }
 
         }
 
         public User oUserInfo { get; set; }
 
+        public BuildingControls BuildingControls { get; set; }
+
+        public List<BuildingControls> ListBuildingControls { get; set; }
+
+        public ControlServicesTypes ServiceType { get; set; }
+
+        public List<ControlServicesTypes> ServiceTypesList { get; set; }
+
         public BuildingPermits BuildingPermits { get; set; }
 
-        public List<BuildingPermits> ListBuildingPermits { get; set; }
-
+        public List<BuildingPermits> BuildingPermitsList { get; set; }
+        
         public List<PermitsAttachments> ListOfAttachments { get; set; }
 
         public PermitsAttachments Attachments { get; set; }
@@ -38,16 +46,6 @@ namespace DMeServices.Models.ViewModels.Permits
         public PermitsAttachments KrokeFile { get; set; }
 
         public PermitsAttachments OwnerFile { get; set; }
-
-        public PermitsAttachmentDetails AttachmentDetails { get; set; }
-
-        public List<PermitsAttachmentDetails> ListOfAttachmentDetails { get; set; }
-        public Welyat ListOfWelayat { get; set; }
-        public Regions ListOfRegions { get; set; }
-        public BuildingTypes ListOfBuildingTypes { get; set; }
-        public LandUseTypes ListOfLandUseTypes { get; set; }
-        public SquareLetters ListOfSquareLetters { get; set; }
         public bool ShowAdd { get; set; }
-
     }
 }

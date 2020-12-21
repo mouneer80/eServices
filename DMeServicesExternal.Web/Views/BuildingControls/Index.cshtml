@@ -1,4 +1,4 @@
-﻿@model DMeServices.Models.ViewModels.Permits.PermitsViewModel
+﻿@model DMeServices.Models.ViewModels.Permits.ControlsViewModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_SubLayout.cshtml";
@@ -9,21 +9,21 @@
         <a href="@Url.Action("Index","Home")">الرئيسية</a>
     </li>
     <li>
-        <a href="#">تراخيص البناء</a>
+        <a href="#">خدمات رقابة البناء</a>
     </li>
 </ul>
 
 <div class="col-lg-12 col-sm-12">
     <a 
         style="@(Model.ShowAdd ? "display:inline" : "display:none")"
-        href="@Url.Action("NewPermits", new {@controller = "BuildingPermits"})" class="btn btn-primary ">
-        <i class="glyphicon glyphicon-plus icon-white"></i> إضافة ترخيص جديد
+        href="@Url.Action("NewControls", new {@controller = "BuildingControls"})" class="btn btn-primary ">
+        <i class="glyphicon glyphicon-plus icon-white"></i> إضافة طلب جديد
     </a>
     <div class="row">
         <div class="box col-md-12">
             <div class="box-inner">
                 <div class="box-header well" data-original-title="">
-                    <h2><i class="glyphicon glyphicon-road"></i> تراخيص البناء</h2>
+                    <h2><i class="glyphicon glyphicon-road"></i> طلبات رقابة البناء</h2>
 
                 </div>
                 <div class="box-content">
@@ -32,21 +32,21 @@
                             <tr>
                                 <th>رقم المعاملة</th>
                                 <th>اسم المالك</th>
-                                <th>الموقع</th>
+                                <th>نوع الطلب</th>
                                 <th>تاريخ الطلب</th>
                                 <th>حالة الطلب</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model.ListBuildingPermits)
+                            @foreach (var item in Model.ListBuildingControls)
                             {
                                 <tr>
-                                    <td class="center"> <a class="btn btn-primary modal-link" href="@Url.Action("PermitDetails", "BuildingPermits", new { @Id = item.Id })"> @item.TransactNo  </a> </td>
+                                    <td class="center"> <a class="btn btn-primary modal-link" href="@Url.Action("ControlsDetails", "BuildingControls", new { @Id = item.ID })"> @item.TransactNo  </a> </td>
                                     @*<td class="center">@item.TransactNo</td>*@
                                     <td class="center">@item.OwnerName</td>
-                                    <td class="center">@item.ConstructedArea</td>
+                                    <td class="center">@item.ServicesTypes.ServiceNameAR</td>
                                     <td class="center">@item.RequestDate.ToShortDateString()</td>
-                                    <td class="center" style="color:#2f9ce5;">@DMeServices.Models.Common.LookupsTypeCom.LookupByID((int)item.WorkflowStatus).LookupNameAr</td>
+                                    <td class="center" style="color:#2f9ce5;">@DMeServices.Models.Common.LookupsTypeCom.LookupByID((int)item.Status).LookupNameAr</td>
                                 </tr>
                             }
                         </tbody>

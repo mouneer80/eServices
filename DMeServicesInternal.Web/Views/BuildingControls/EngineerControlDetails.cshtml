@@ -1,11 +1,8 @@
 ﻿
-@{
-    ViewBag.Title = "PermitDetails";
-}
 
-@model DMeServices.Models.ViewModels.Internal.Permits.PermitsViewModel
+@model DMeServices.Models.ViewModels.Internal.Permits.ControlsViewModel
 @{
-    ViewBag.Title = "NewPermits";
+    ViewBag.Title = "ControlDetails";
     Layout = "~/Views/Shared/_SubLayout.cshtml";
 
 }
@@ -130,10 +127,10 @@
             <a href="@Url.Action("Index","Home")">الرئيسية</a>
         </li>
         <li>
-            <a href="@Url.Action("Index","BuildingPermits")">تصاريح البناء</a>
+            <a href="@Url.Action("Index","BuildingControls")">رقابة البناء</a>
         </li>
         <li>
-            <a href="#"> تفاصيل تصريح البناء</a>
+            <a href="#"> تفاصيل الطلب</a>
         </li>
     </ul>
 </div>
@@ -142,12 +139,12 @@
 
     <div class="row">
 
-        @using (Html.BeginForm("SaveEngineerPermits", "BuildingPermits", FormMethod.Post, new { encType = "multipart/form-data", @id = "Permitsform" }))
+        @using (Html.BeginForm("SaveEngineerControls", "BuildingControls", FormMethod.Post, new { encType = "multipart/form-data", @id = "Permitsform" }))
         {
             @Html.AntiForgeryToken()
-            @Html.HiddenFor(x => x.BuildingPermits.Id)
+            @Html.HiddenFor(x => x.BuildingControls.ID)
             @Html.HiddenFor(x => x.BuildingPermits.ConsultantCivilId)
-            @Html.HiddenFor(x => x.BuildingPermits.TransactNo)
+            @Html.HiddenFor(x => x.BuildingControls.TransactNo)
 
 
             <div class="row">
@@ -288,7 +285,8 @@
 
 
                 <div class="col-sm-6">
-
+                    <label class="control-label">رقم الملف في البلدية</label>
+                    @Html.TextAreaFor(m => m.BuildingControls.DmFileNumber, new { @class = "form-control", id = "FileNumber", @placeholder = "رقم الملف" })
                 </div>
             </div>
             <div class="row">
@@ -315,10 +313,10 @@
                     <button class="btn btn-primary" id="Save" @*onclick="return confirm('هل انت متاكد من حفظ التعديلات !');"*@>
                         <i class="glyphicon glyphicon-ok"></i> حفظ
                     </button>
-                    <a class="btn btn-primary" id="btnFees" href="@Url.Action( "PermitFees","BuildingPermits")" role="button">
+                    <a class="btn btn-primary" id="btnFees" href="@Url.Action( "ControlFees","BuildingControls")" role="button">
                         <i class="glyphicon glyphicon-ok"></i> تحديد الرسوم
                     </a>
-                    <a style="float:left" href="@Url.Action( "Index","BuildingPermits")" class="btn btn-primary" role="button">رجوع</a>
+                    <a style="float:left" href="@Url.Action( "Index","BuildingControls")" class="btn btn-primary" role="button">رجوع</a>
              
             </div>
                 }
@@ -331,7 +329,7 @@
     <div class="modal fade" id="MainModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-
+                
             </div>
         </div>
     </div>

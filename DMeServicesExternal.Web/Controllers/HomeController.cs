@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using DMeServices.DAL;
 using DMeServices.Models;
+using DMeServices.Models.Common;
 using DMeServices.Models.Common.Account;
 using DMeServices.Models.Common.BuildingServices;
 using DMeServices.Models.ViewModels;
@@ -21,7 +22,7 @@ namespace DMeServicesExternal.Web.Controllers
         {
             //GetUserDataFromOracleDbTestUser();
             //return View(((User)Session["UserInfo"]));
-            Response.Cookies.Add(CreateStudentCookie());
+            //Response.Cookies.Add(CreateStudentCookie());
             var guid = ReadPkiSession();
             if (!string.IsNullOrWhiteSpace(guid))
             {
@@ -45,17 +46,29 @@ namespace DMeServicesExternal.Web.Controllers
         }
         public ActionResult ConsultancyOwnerService()
         {
-            GetUserDataFromOracleDbTestUser();
+            //GetUserDataFromOracleDbTestUser();
             return RedirectToAction("CompanyList", "BuildingPermits");
         }
         public ActionResult ConsultancyEngineerService()
         {
-            GetUserDataFromOracleDbTestUser();
-            return RedirectToAction("index", "BuildingPermits");
+            if (Session["UserInfo"] != null)
+            {
+                User user = (User)Session["UserInfo"];
+                if(UserCom.UserByCivilID(user.CivilId) != null)
+                {
+                    return RedirectToAction("Index", "BuildingPermits");
+                }
+            }
+            //GetUserDataFromOracleDbTestUser();
+            return View("ErrorPage");
+        }
+        public ActionResult ErrorPage()
+        {
+            return View("ErrorPage");
         }
         public ActionResult LandOwnerService()
         {
-            GetUserDataFromOracleDbTestUser();
+            //GetUserDataFromOracleDbTestUser();
             return RedirectToAction("LandProjects", "BuildingPermits");
         }
         public ActionResult ContractorService()
@@ -82,16 +95,16 @@ namespace DMeServicesExternal.Web.Controllers
         private User BuildUserObject(DataTable dt)
         {
             string[] names = SplitName(dt.Rows[0]["omancardTitleFullNameAr"].ToString());
-            User user = new User()
-            {
-                FirstName = names[0],
-                SecondName = names[1],
-                ThirdName = names[2],
-                LastName = String.Join(" ", names, 3,names.Length -4),
-                //CivilId = long.Parse(dt.Rows[0]["omanIDCivilNumber"].ToString()),
-                CivilId = 10518988, //3437335,
-                CompanyName = dt.Rows[0]["omancardSponsorNameAr"].ToString()
-            };
+            User user = new User();
+            var lenghth = names.Length - 4 > 0 ? names.Length - 4 : 1;
+            user.FirstName = names[0];
+            user.SecondName = names[1];
+            user.ThirdName = names[2];
+            user.LastName = String.Join(" ", names, names.Length - 1, lenghth);
+            user.CivilId = int.Parse(dt.Rows[0]["omanIDCivilNumber"].ToString());
+            //CivilId = 97081271, //1583659,//6310372,
+            user.CompanyName = dt.Rows[0]["omancardSponsorNameAr"].ToString();
+            
             return user;
         }
         private string[] SplitName(string fullName)
@@ -111,7 +124,7 @@ namespace DMeServicesExternal.Web.Controllers
         private HttpCookie CreateStudentCookie()
         {
             HttpCookie studentCookies = new HttpCookie("SSO");
-            studentCookies.Value = "23e4d55d-1049-4445-979d-6cdf79bfa25d";
+            studentCookies.Value = "19f2f09a-f574-4c1d-a1bd-615d7a166bdc";
             studentCookies.Expires = DateTime.Now.AddHours(1);
             return studentCookies;
         }

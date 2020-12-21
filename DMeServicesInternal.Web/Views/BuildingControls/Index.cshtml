@@ -1,4 +1,4 @@
-﻿@model DMeServices.Models.ViewModels.Internal.Permits.PermitsViewModel
+﻿@model DMeServices.Models.ViewModels.Internal.Permits.ControlsViewModel
 @{
     ViewBag.Title = "Permits";
     Layout = "~/Views/Shared/_SubLayout.cshtml";
@@ -22,8 +22,8 @@
         <div class="box col-md-12">
             <div class="box-inner">
                 <div class="box-header well" data-original-title="">
-                    <h2><i class="glyphicon glyphicon-road"></i> طلبات تراخيص البناء</h2>
-                    @if (Model.oEmployeeInfo.IsEngineerHead)
+                    <h2><i class="glyphicon glyphicon-road"></i> طلبات رقابة البناء</h2>
+                    @if (Model.oEmployeeInfo.IsControlHead)
                     {
                         <div style="font-size:12px ;">
 
@@ -65,22 +65,23 @@
                         <thead>
                             <tr>
                                 <th>رقم المعاملة</th>
+                                <th>نوع الطلب</th>
                                 <th>اسم الاستشاري</th>
                                 <th>اسم المالك</th>
-                                <th>الموقع</th>
+                                <th>المنطقة</th>
                                 <th>تاريخ الطلب</th>
                                 <th>حالة الطلب</th>
                                 <th>رقم البطاقة الشخصية</th>
-                                @if (Model.oEmployeeInfo.IsEngineerHead)
+                                @if (Model.oEmployeeInfo.IsControlHead)
                                 {
-                                    <th>المهندس المختص</th>
+                                    <th>المفتش المختص</th>
 
                                 }
 
                             </tr>
                         </thead>
                         <tbody id="PermitsList">
-                            @{ Html.RenderPartial("_PermitsList", Model);}
+                            @{ Html.RenderPartial("_ControlsList", Model);}
                         </tbody>
 
                     </table>

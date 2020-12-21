@@ -12,7 +12,19 @@ namespace DMeServicesInternal.Web.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            if (Session["EmployeeInfo"] == null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToRoute(new
+                {
+                    controller = "Account",
+                    action = "Login"
+                });
+                
+            }
         }
 
         //public ActionResult About()

@@ -42,6 +42,7 @@ namespace DMeServices.Models.BuildingServices
         public Nullable<int> UseTypeID { get; set; }
         public Nullable<int> BuildingTypeID { get; set; }
         public string KrokiNO { get; set; }
+        public string DmFileNumber { get; set; }
         public BuildingTypes BldBuildingTypes { get; set; }
         public LandUseTypes BldLandUseTypes { get; set; }
         public Regions BldRegions { get; set; }

@@ -237,7 +237,8 @@
 
 
             <div class="col-sm-6">
-
+                <label class="control-label">رقم الملف في البلدية</label>
+                @Html.TextAreaFor(m => m.BuildingPermits.DmFileNumber, new { @class = "form-control", id = "FileNumber", @placeholder = "رقم الملف" })
             </div>
 
             <div class="col-sm-6" style="margin-bottom:20px ; padding:0px">

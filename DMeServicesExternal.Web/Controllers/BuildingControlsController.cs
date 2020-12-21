@@ -20,11 +20,11 @@ namespace DMeServicesExternal.Web.Controllers
 {
     public class BuildingControlsController : BaseController
     {
-        // GET: BuildingPermits
+        // GET: BuildingControls
         public ActionResult Index()
         {
-            var oModel = new PermitsViewModel();
-            oModel.ListBuildingPermits = PermitsCom.PermitsByConsultantCivilId(oModel.oUserInfo.CivilId);
+            var oModel = new ControlsViewModel();
+            oModel.ListBuildingControls = ControlsCom.ControlsByConsultantCivilId(oModel.oUserInfo.CivilId);
             oModel.ShowAdd = true;
             return View(oModel);
         }
@@ -71,7 +71,6 @@ namespace DMeServicesExternal.Web.Controllers
 
             return responseObj;
         }
-
         public async Task<ActionResult> Pay()
         {
             var payment = new DMeServices.Models.Common.PaymentCom();
@@ -79,31 +78,65 @@ namespace DMeServicesExternal.Web.Controllers
 
             return View();
         }
-
         public ActionResult PayWithPost()
         {
             var result = DMeServices.Models.Common.PaymentCom.PayAmount();
             return Redirect(result);
         }
-
-        public ActionResult NewPermits()
+        public ActionResult NewControls(bool showadd)
         {
-            PermitsViewModel oModel = new PermitsViewModel();
+            ControlsViewModel oModel = new ControlsViewModel();
 
             // to save the attachments on the memory
             TempData["Attachments"] = new List<PermitsAttachments>();
             ViewBag.DDAttachmentsType = DDAttachmentTypes();
             ViewBag.DDWelayat = DDWelayat();
+            ViewBag.DDServiceType = DDServiceType(showadd);
             ViewBag.DDBuildingTypes = DDBuildingTypes();
             ViewBag.DDLandUseTypes = DdLandUseTypes();
             ViewBag.DDSquareLetters = DdSquareLetters();
             return View(oModel);
         }
+        private dynamic DDServiceType(bool showadd)
+        {
+            var userType = showadd ? 1 : 2;
+            
+            List<SelectListItem> LstServices = new List<SelectListItem>();
+            List<ControlServicesTypes> AllServices = ControlsCom.AllServices(userType);
+            if (AllServices.Count > 0)
+            {
+                LstServices.Add(new SelectListItem() { Text = "أختر نوع الخدمة ", Value = "0" });
+                foreach (var item in AllServices)
+                {
+                    LstServices.Add(new SelectListItem() { Text = item.ServiceNameAR, Value = item.ID.ToString() });
+                }
+
+            }
+            return LstServices;
+        }
+
+        private dynamic DDServiceType()
+        {
+            
+
+            List<SelectListItem> LstServices = new List<SelectListItem>();
+            List<ControlServicesTypes> AllServices = ControlsCom.AllServices();
+            if (AllServices.Count > 0)
+            {
+                LstServices.Add(new SelectListItem() { Text = "أختر نوع الخدمة ", Value = "0" });
+                foreach (var item in AllServices)
+                {
+                    LstServices.Add(new SelectListItem() { Text = item.ServiceNameAR, Value = item.ID.ToString() });
+                }
+
+            }
+            return LstServices;
+        }
 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult SaveNewPermits(PermitsViewModel oModel)
+        public ActionResult SaveNewControls(ControlsViewModel oModel)
         {
             if (ModelState.IsValid)
             {
@@ -121,19 +154,18 @@ namespace DMeServicesExternal.Web.Controllers
                     //oModel.BuildingPermits.LicenseNo = "ح / 5665";
 
                     oModel.ListOfAttachments = SaveFiles(oModel);
-                    string result = PermitsCom.SavePermits(oModel);
+                    string result = ControlsCom.SaveControls(oModel);
 
                     ViewBag.TranseID = result;
                     DMeServices.Models.Common.SmsCom.SendSms("968" + oModel.oUserInfo.MobileNo, ": تم تسليم طلبك بنجاح  لاستكمال طلب ترخيص البناء يجب دفع رسوم 20 ريال في بلدية صلالة  قسم التحصيل برقم المعاملة  " + result);
                 }
-                return View("SaveNewPermitsSuccessPage");
+                return View("SaveControlsSuccessPage");
             }
             else
             {
-                return View("SaveNewPermitsFailPage");
+                return View("SaveControlsFailPage");
             }
         }
-
         private bool isListOfAttachment(List<PermitsAttachments> listOfAttachments)
         {
             if (listOfAttachments.Count == 0 || listOfAttachments.Count > 5) return false;
@@ -147,23 +179,21 @@ namespace DMeServicesExternal.Web.Controllers
             }
             return true;
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SaveConsultantPermits(PermitsViewModel oModel)
+        public ActionResult SaveConsultantControls(ControlsViewModel oModel)
         {
             oModel.ListOfAttachments = (List<PermitsAttachments>)TempData["Attachments"];
             TempData["Attachments"] = null;
             oModel.ListOfAttachments = SaveConsultantFiles(oModel);
-            _ = PermitsCom.SaveConsultatPermits(oModel);
+            string Result = ControlsCom.SaveConsultantcontrols(oModel);
 
-            ViewBag.TranseID = oModel.BuildingPermits.TransactNo;
-            return View("SaveConsultatPermitsPage");
+            ViewBag.TranseID = oModel.BuildingControls.TransactNo;
+            return View("Index");
         }
-
-        public ActionResult PermitDetails(int id = -99)
+        public ActionResult ControlDetails(int id = -99)
         {
-            PermitsViewModel oModel = new PermitsViewModel
+            ControlsViewModel oModel = new ControlsViewModel
             {
                 BuildingPermits = PermitsCom.PermitsByID(id)
             };
@@ -172,6 +202,7 @@ namespace DMeServicesExternal.Web.Controllers
 
             ViewBag.DDWelayat = DDWelayat();
             ViewBag.DDRegion = DDRegionSaved(oModel.BuildingPermits.WelayahID);
+            ViewBag.DDServiceType = DDServiceType();
             //ViewBag.DDArea = DDAreaSaved(oModel.BuildingPermits.RegionID);
             ViewBag.DDBuildingTypes = DDBuildingTypes();
             ViewBag.DDLandUseTypes = DdLandUseTypes();
@@ -181,7 +212,6 @@ namespace DMeServicesExternal.Web.Controllers
 
             return View(oModel);
         }
-
         #region Method :: Display Files 
 
 
@@ -233,12 +263,7 @@ namespace DMeServicesExternal.Web.Controllers
                     return new FileStreamResult(stream, contentType);
 
                 }
-                else if (Attachment.AttachmentName.EndsWith(".txt"))
-                {
-
-                    return new FileStreamResult(stream, contentType);
-
-                }
+               
 
 
 
@@ -468,7 +493,7 @@ namespace DMeServicesExternal.Web.Controllers
         #region Method :: Save Files
 
 
-        public static List<PermitsAttachments> SaveFiles(PermitsViewModel oModel)
+        public static List<PermitsAttachments> SaveFiles(ControlsViewModel oModel)
         {
             List<PermitsAttachments> ListAttachments = new List<PermitsAttachments>();
 
@@ -545,7 +570,7 @@ namespace DMeServicesExternal.Web.Controllers
         #region Method :: Save Files
 
 
-        public static List<PermitsAttachments> SaveConsultantFiles(PermitsViewModel oModel)
+        public static List<PermitsAttachments> SaveConsultantFiles(ControlsViewModel oModel)
         {
             List<PermitsAttachments> listAttachments = new List<PermitsAttachments>();
 

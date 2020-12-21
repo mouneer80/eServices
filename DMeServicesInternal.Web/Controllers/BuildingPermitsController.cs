@@ -382,7 +382,12 @@ namespace DMeServicesInternal.Web.Controllers
         #endregion
 
        
-
+        public ActionResult PermitFees(int Id = -99)
+        {
+            PermitsViewModel oModel = new PermitsViewModel();
+            oModel.BuildingPermits = PermitsCom.PermitsByID(Id);
+            return Redirect("~/Reports/Report.aspx");
+        }
 
 
         #region Method :: Save Engineer Permits

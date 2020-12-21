@@ -105,8 +105,6 @@ namespace DMeServicesExternal.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult SaveNewPermits(PermitsViewModel oModel)
         {
-            if (ModelState.IsValid)
-            {
 
                 oModel.ListOfAttachments = (List<PermitsAttachments>)TempData["Attachments"];
                 TempData["Attachments"] = null;
@@ -124,14 +122,10 @@ namespace DMeServicesExternal.Web.Controllers
                     string result = PermitsCom.SavePermits(oModel);
 
                     ViewBag.TranseID = result;
-                    DMeServices.Models.Common.SmsCom.SendSms("968" + oModel.oUserInfo.MobileNo, ": تم تسليم طلبك بنجاح  لاستكمال طلب ترخيص البناء يجب دفع رسوم 20 ريال في بلدية صلالة  قسم التحصيل برقم المعاملة  " + result);
+                    DMeServices.Models.Common.SmsCom.SendSms("968" + oModel.oUserInfo.MobileNo, ":تم تسليم طلبك بنجاح رقم المعاملة" + result);
                 }
                 return View("SaveNewPermitsSuccessPage");
-            }
-            else
-            {
-                return View("SaveNewPermitsFailPage");
-            }
+           
         }
 
         private bool isListOfAttachment(List<PermitsAttachments> listOfAttachments)
@@ -155,7 +149,7 @@ namespace DMeServicesExternal.Web.Controllers
             oModel.ListOfAttachments = (List<PermitsAttachments>)TempData["Attachments"];
             TempData["Attachments"] = null;
             oModel.ListOfAttachments = SaveConsultantFiles(oModel);
-            _ = PermitsCom.SaveConsultatPermits(oModel);
+            string Result = PermitsCom.SaveConsultatPermits(oModel);
 
             ViewBag.TranseID = oModel.BuildingPermits.TransactNo;
             return View("SaveConsultatPermitsPage");

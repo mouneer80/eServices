@@ -11,7 +11,7 @@ namespace DMeServicesInternal.Web.Reports
 {
 
 
-    public partial class WebForm1
+    public partial class Report
     {
 
         /// <summary>
@@ -33,12 +33,12 @@ namespace DMeServicesInternal.Web.Reports
         protected global::System.Web.UI.ScriptManager scriptManager1;
 
         /// <summary>
-        /// ReportWiewer1 control.
+        /// ReportViewer1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Microsoft.Reporting.WebForms.ReportViewer ReportWiewer1;
+        protected global::Microsoft.Reporting.WebForms.ReportViewer ReportViewer1;
     }
 }

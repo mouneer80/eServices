@@ -29,31 +29,31 @@
                             if (item.AttachmentTypeId <= 3)
                             {
 
-                    <tr>
-                        <td class="col-sm-1" style="width:10%;">
-                            @DMeServices.Models.Common.BuildingServices.AttachmentTypesCom.TypeByID((int)@item.AttachmentTypeId).Name
+                                <tr>
+                                    <td class="col-sm-1" style="width:10%;">
+                                        @DMeServices.Models.Common.BuildingServices.AttachmentTypesCom.TypeByID((int)@item.AttachmentTypeId).Name
 
-                        </td>
+                                    </td>
 
-                        <td class="col-sm-1" unprintable>
+                                    <td class="col-sm-1" unprintable>
 
-                            @item.InsertDate.ToShortDateString()
+                                        @item.InsertDate.ToShortDateString()
 
-                        </td>
+                                    </td>
 
-                        <td class="col-sm-1" unprintable>
+                                    <td class="col-sm-1" unprintable>
 
-                            @item.InsertDate.ToShortTimeString()
+                                        @item.InsertDate.ToShortTimeString()
 
-                        </td>
-                        <td class="col-sm-1" unprintable>
+                                    </td>
+                                    <td class="col-sm-1" unprintable>
 
 
 
-                            <a class="modal-link" href="@Url.Action("GetFile", new { @controller = "BuildingPermits", @Id = item.Id })">عرض الملف<i class="fa fa-eye-slash modal-link"></i></a>
+                                        <a class="modal-link" href="@Url.Action("GetFile", new { @controller = "BuildingPermits", @Id = item.Id })">عرض الملف<i class="fa fa-eye-slash modal-link"></i></a>
 
-                        </td>
-                    </tr>
+                                    </td>
+                                </tr>
                             }
 
                         }
@@ -101,79 +101,79 @@
                             {
                                 if (item.AttachmentTypeId > 3)
                                 {
-                        <tr>
-                            <td class="col-sm-1" style="width:10%;">
-                                @DMeServices.Models.Common.BuildingServices.AttachmentTypesCom.TypeByID((int)@item.AttachmentTypeId).Name
+                                    <tr>
+                                        <td class="col-sm-1" style="width:10%;">
+                                            @DMeServices.Models.Common.BuildingServices.AttachmentTypesCom.TypeByID((int)@item.AttachmentTypeId).Name
 
-                            </td>
-                            <td class="col-sm-1" style="width:5%;">
-                                @item.Description
-                            </td>
-                            <td class="col-sm-1" unprintable>
+                                        </td>
+                                        <td class="col-sm-1" style="width:5%;">
+                                            @item.Description
+                                        </td>
+                                        <td class="col-sm-1" unprintable>
 
-                                @item.InsertDate.ToShortDateString()
+                                            @item.InsertDate.ToShortDateString()
 
-                            </td>
+                                        </td>
 
-                            <td class="col-sm-1" unprintable>
+                                        <td class="col-sm-1" unprintable>
 
-                                @item.InsertDate.ToShortTimeString()
+                                            @item.InsertDate.ToShortTimeString()
 
-                            </td>
+                                        </td>
 
-                            @if (item.UpdatedOn != null)
-    {
-                        <td class="col-sm-1" unprintable>   <p><font color="red">ملف سابق</font></p> </td>
-}
-else
-{
-                        <td class="col-sm-1" unprintable>    <p><font color="green">ملف جديد</font></p> </td>
-
-
-}
+                                        @if (item.UpdatedOn != null)
+                                        {
+                                            <td class="col-sm-1" unprintable>   <p><font color="red">ملف سابق</font></p> </td>
+                                        }
+                                        else
+                                        {
+                                            <td class="col-sm-1" unprintable>    <p><font color="green">ملف جديد</font></p> </td>
 
 
-                            <td class="col-sm-1" unprintable>
-                                <a class="modal-link" href="@Url.Action("GetFile", new { @controller = "BuildingPermits", @Id = item.Id })">عرض الملف<i class="fa fa-eye-slash modal-link"></i></a>
-
-                            </td>
-                            @if (Model.oEmployeeInfo.IsEngineer == true)
-    {
-                        <td class="col-sm-1" unprintable>
-                            @{
-
-        int ListDetails = DMeServices.Models.Common.BuildingServices.PermitsAttachmentsCom.AttachmentsDetailsByAttachmentsID((int)item.Id).Count();
-
-        if (item.UpdatedOn != null)
-        {
-            if (ListDetails > 0)
-            {
-                        <a href="#" style="color:darkgreen" fileID="@item.Id" class="GetDetails">عرض تفاصيل الخريطة<i class="fa fa-eye-slash glyphicon glyphicon-collapse-down"></i></a>
-}
-}
-else
-{
-                        <a class="modal-link" href="@Url.Action("EditPDFFile", new { @controller = "BuildingPermits", @Id = item.Id, @PirmID = Model.BuildingPermits.Id })">تعديل الملف<i class="fa fa-eye-slash"></i></a>
-}
-                            }
-
-                        </td>
-                        <td class="col-sm-1" unprintable>
-                            @if (item.UpdatedOn == null)
-    {
-        if (ListDetails > 0)
-        {
-                        <a href="#" fileID="@item.Id" class="GetDetails">عرض تفاصيل الخريطة<i class="fa fa-eye-slash glyphicon glyphicon-collapse-down"></i></a>
-}
-}
-                        </td>
+                                        }
 
 
+                                        <td class="col-sm-1" unprintable>
+                                            <a class="modal-link" href="@Url.Action("GetFile", new { @controller = "BuildingPermits", @Id = item.Id })">عرض الملف<i class="fa fa-eye-slash modal-link"></i></a>
+
+                                        </td>
+                                        @if (Model.oEmployeeInfo.IsEngineer == true)
+                                        {
+                                            <td class="col-sm-1" unprintable>
+                                                @{
+
+                                                    int ListDetails = DMeServices.Models.Common.BuildingServices.PermitsAttachmentsCom.AttachmentsDetailsByAttachmentsID((int)item.Id).Count();
+
+                                                    if (item.UpdatedOn != null)
+                                                    {
+                                                        if (ListDetails > 0)
+                                                        {
+                                                            <a href="#" style="color:darkgreen" fileID="@item.Id" class="GetDetails">عرض تفاصيل الخريطة<i class="fa fa-eye-slash glyphicon glyphicon-collapse-down"></i></a>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <a class="modal-link" href="@Url.Action("EditPDFFile", new { @controller = "BuildingPermits", @Id = item.Id, @PirmID = Model.BuildingPermits.Id })">تعديل الملف<i class="fa fa-eye-slash"></i></a>
+                                                    }
+                                                }
+
+                                            </td>
+                                            <td class="col-sm-1" unprintable>
+                                                @if (item.UpdatedOn == null)
+                                                {
+                                                    if (ListDetails > 0)
+                                                    {
+                                                        <a href="#" fileID="@item.Id" class="GetDetails">عرض تفاصيل الخريطة<i class="fa fa-eye-slash glyphicon glyphicon-collapse-down"></i></a>
+                                                    }
+                                                }
+                                            </td>
 
 
-}
 
-                        </tr>
+
+                                        }
+
+                                    </tr>
 
                                 }
                                 //i++;
@@ -192,24 +192,24 @@ else
         </div>
     </div>
 </div>
-    <br />
-    <div id="divAttachmentsDetails">
-        @{ Html.RenderPartial("_ListAttachmentsDetails", Model);}
-    </div>
+<br />
+<div id="divAttachmentsDetails">
+    @{ Html.RenderPartial("_ListAttachmentsDetails", Model);}
+</div>
 
 
 
-    <div class="modal fade" id="MainModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
+<div class="modal fade" id="MainModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
 
 
 
 
 
-            </div>
         </div>
     </div>
+</div>
 
 
 
@@ -219,13 +219,13 @@ else
 
 
 
-    <script type="text/javascript">
-        function unloadModal() {
-            $('#MainModal').modal('hide');
-        }
-    </script>
+<script type="text/javascript">
+    function unloadModal() {
+        $('#MainModal').modal('hide');
+    }
+</script>
 
-    <script>
+<script>
 
 
     $(document).ready(function () {
@@ -260,55 +260,55 @@ else
 
 
     });
-    </script>
-    <script type="text/javascript">
-        $(function () {
-            // Initialize numeric spinner input boxes
-            //$(".numeric-spinner").spinedit();
+</script>
+<script type="text/javascript">
+    $(function () {
+        // Initialize numeric spinner input boxes
+        //$(".numeric-spinner").spinedit();
 
-            // Initalize modal dialog
-            // attach modal-container bootstrap attributes to links with .modal-link class.
-            // when a link is clicked with these attributes, bootstrap will display the href content in a modal dialog.
+        // Initalize modal dialog
+        // attach modal-container bootstrap attributes to links with .modal-link class.
+        // when a link is clicked with these attributes, bootstrap will display the href content in a modal dialog.
 
-            $('body').on('click', '.modal-link', function (e) {
+        $('body').on('click', '.modal-link', function (e) {
 
-                $(this).attr('data-target', '#MainModal');
-                e.preventDefault();
-                $("iframe").attr("src", $(this).attr('href'));
-                $(this).attr('data-toggle', 'modal');
-            });
-
-
-            // Attach listener to .modal-close-btn's so that when the button is pressed the modal dialog disappears
-            $('body').on('click', '.modal-close-btn', function () {
-
-                $('#MainModal').modal('hide');
-
-            });
-
-            //clear modal cache, so that new content can be loaded
-            $('#MainModal').on('hidden.bs.modal', function () {
-
-                $(this).removeData('bs.modal');
-            });
-
-
-
-
-
-
-
-
-
-            $(document).on("hidden.bs.modal", function (e) {
-                $(e.target).removeData("bs.modal").find(".modal-content").empty();
-            });
-
-            $('#CancelModal').on('click', function () {
-                return false;
-            });
+            $(this).attr('data-target', '#MainModal');
+            e.preventDefault();
+            $("iframe").attr("src", $(this).attr('href'));
+            $(this).attr('data-toggle', 'modal');
         });
-    </script>
+
+
+        // Attach listener to .modal-close-btn's so that when the button is pressed the modal dialog disappears
+        $('body').on('click', '.modal-close-btn', function () {
+
+            $('#MainModal').modal('hide');
+
+        });
+
+        //clear modal cache, so that new content can be loaded
+        $('#MainModal').on('hidden.bs.modal', function () {
+
+            $(this).removeData('bs.modal');
+        });
+
+
+
+
+
+
+
+
+
+        $(document).on("hidden.bs.modal", function (e) {
+            $(e.target).removeData("bs.modal").find(".modal-content").empty();
+        });
+
+        $('#CancelModal').on('click', function () {
+            return false;
+        });
+    });
+</script>
 
 
 

@@ -33,7 +33,14 @@ namespace DMeServicesInternal.Web.Controllers
 
                 if (oEmployee.IsEngineer || oEmployee.IsEngineerHead)
                 {
+                    Session["Show"] = null;
                     return RedirectToAction("Index", "BuildingPermits");
+                }
+
+                if (oEmployee.IsController || oEmployee.IsControlHead)
+                {
+                    Session["Show"] = 1;
+                    return RedirectToAction("Index", "BuildingControls");
                 }
 
 

@@ -95,8 +95,10 @@ namespace DMeServicesExternal.Web.Controllers
             if (!string.IsNullOrWhiteSpace(oModel.CompanyData.COMMERCIAL_NAME))
             {
                 oModel.CompanyData.CIVIL_ID = oModel.oUserInfo.CivilId.ToString();
+                oModel.CompanyData.FULL_NAME = oModel.oUserInfo.FullName;
                 if (oModel.CompanyData.COMMERCIAL_NO != null)
-                    oModel.CompanyData.ID =  oModel.CompanyData.COMMERCIAL_NO.Value;
+                    oModel.CompanyData.ID =  long.Parse((oModel.CompanyData.COMMERCIAL_NO.Value).ToString() + (oModel.oUserInfo.CivilId).ToString());
+
                 ViewBag.Result = MociCompaniesData.SaveCompany(oModel.CompanyData);
                 return RedirectToAction("CompanyList", "BuildingPermits");
             }
@@ -109,15 +111,17 @@ namespace DMeServicesExternal.Web.Controllers
             UserViewModel oModel = new UserViewModel();
             return View(oModel);
         }
-        public static object GetCompanyDataByCr(string cr= "1000132")
+
+        [HttpGet]
+        public string GetCompanyDataByCr(string id)
         {
-            var client = new RestClient("http://10.21.4.4:8087/dm/rest/services/companydata?crNumber="+ cr);
+            var client = new RestClient("http://10.21.4.4:8087/dm/rest/services/companydata?crNumber="+ id);
             var request = new RestRequest(Method.GET);
             request.AddHeader("content-type", "application/json");
             IRestResponse restResponse = client.Execute(request);
-            JsonDeserializer deserialize = new JsonDeserializer();
-            var x = deserialize.Deserialize<CompanyOverviewResult>(restResponse);
-            return (x.CompanyOverview);
+            //JsonDeserializer deserialize = new JsonDeserializer();
+            //var x = deserialize.Deserialize<CompanyOverviewResult>(restResponse);
+            return restResponse.Content;
         }
 
         public ActionResult CompanyDetails(long id)
@@ -137,19 +141,28 @@ namespace DMeServicesExternal.Web.Controllers
             var consultantCivilId = System.Web.HttpContext.Current.Request.Form["ConsultantCivilId"];
             var consultantFullName = System.Web.HttpContext.Current.Request.Form["ConsultantFullName"];
             var consultantJobName = System.Web.HttpContext.Current.Request.Form["ConsultantJobName"];
+            var consultantPhoneNumber = System.Web.HttpContext.Current.Request.Form["ConsultantPhoneNumber"];
+            var consultantEmail = System.Web.HttpContext.Current.Request.Form["ConsultantEmail"];
             var commercialNo = System.Web.HttpContext.Current.Request.Form["CommercialNo"];
 
-            var oModel = new CompanyViewModel
-            {
-                Consultant = new User
-                {
-                    CivilId = int.Parse(consultantCivilId),
-                    FullName = consultantFullName,
-                    JobName = consultantJobName,
-                    ConsultantCrNo = int.Parse(commercialNo)
-                },
-                ConsultantsList = (List<User>)TempData["Consultants"] ?? new List<User>()
-            };
+            var CivilId = int.Parse(consultantCivilId);
+            var MobileNo = int.Parse(consultantPhoneNumber);
+            var ConsultantCrNo = int.Parse(commercialNo);
+
+            var oModel = new CompanyViewModel();
+
+            oModel.Consultant = new User();
+
+
+            oModel.Consultant.CivilId = CivilId;
+            oModel.Consultant.FullName = consultantFullName;
+            oModel.Consultant.JobName = consultantJobName;
+            oModel.Consultant.MobileNo = MobileNo;
+            oModel.Consultant.Email = consultantEmail;
+            oModel.Consultant.ConsultantCrNo = ConsultantCrNo;
+
+            oModel.ConsultantsList = (List<User>)TempData["Consultants"] ?? new List<User>();
+
             if (oModel.ConsultantsList.Count == 0)
             {
                 oModel.ConsultantsList = UserCom.GetUsersListByCr(int.Parse(commercialNo));
@@ -192,6 +205,18 @@ namespace DMeServicesExternal.Web.Controllers
             }
 
             return View("CompanyDetails");
+        }
+
+        [HttpGet]
+        public string GetEmployeeDataByCivilID(string id, string cr)
+        {
+            var client = new RestClient("http://10.21.4.4:8085/api/momp/GetWorkerDetails/" + cr + "/" + id);
+            var request = new RestRequest(Method.GET);
+            request.AddHeader("content-type", "application/json");
+            IRestResponse restResponse = client.Execute(request);
+            //JsonDeserializer deserialize = new JsonDeserializer();
+            //var x = deserialize.Deserialize<CompanyOverviewResult>(restResponse);
+            return restResponse.Content;
         }
     }
 }

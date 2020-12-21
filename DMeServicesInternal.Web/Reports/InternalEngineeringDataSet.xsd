@@ -1,0 +1,604 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="InternalEngineeringDataSet" targetNamespace="http://tempuri.org/InternalEngineeringDataSet.xsd" xmlns:mstns="http://tempuri.org/InternalEngineeringDataSet.xsd" xmlns="http://tempuri.org/InternalEngineeringDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="eServicesConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="eServicesConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.eServicesConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="BldPermitsTableAdapter" GeneratorDataComponentClassName="BldPermitsTableAdapter" Name="BldPermits" UserDataComponentName="BldPermitsTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="eServicesConnectionString (Web.config)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT        BldPermits.Id, BldPermits.TransactNo, BldPermits.OwnerName, BldPermits.OwnerCivilId, BldPermits.OwnerPhoneNo, BldPermits.DistrictName, BldPermits.DistrictNo, BldPermits.ConstructedArea, BldPermits.NumberOfFloors, 
+                         BldPermits.ConsultantCrNo, BldPermits.ConstructionType, BldPermits.RequestDate, BldPermits.CreatedBy, BldPermits.CreatedOn, BldPermits.UpdatedBy, BldPermits.UpdatedOn, BldPermits.SquareArea, 
+                         BldPermits.LicenseNo, BldPermits.PaymentReceiptNo, BldPermits.PaymentAmount, BldPermits.PaymentDate, BldPermits.WorkflowStatus, BldPermits.DmEngineerNo, BldPermits.DmEngineerComments, 
+                         BldPermits.ConsultantCivilId, BldPermits.WelayahID, BldPermits.RegionID, BldPermits.SquareLetterID, BldPermits.UseTypeID, BldPermits.BuildingTypeID, BldPermits.KrokiNO, BldPermits.DmFileNumber, 
+                         BldBuildingTypes.BuildingType, BldLandUseTypes.UseType, BldSquareLetters.ArLetter, BldRegions.RegionArName, BldWelyat.WelyahArName
+FROM            BldPermits INNER JOIN
+                         BldBuildingTypes ON BldPermits.BuildingTypeID = BldBuildingTypes.ID INNER JOIN
+                         BldLandUseTypes ON BldPermits.UseTypeID = BldLandUseTypes.ID INNER JOIN
+                         BldRegions ON BldPermits.RegionID = BldRegions.RegionID INNER JOIN
+                         BldSquareLetters ON BldPermits.SquareLetterID = BldSquareLetters.ID INNER JOIN
+                         BldWelyat ON BldPermits.WelayahID = BldWelyat.WelyahID AND BldRegions.WelyahID = BldWelyat.WelyahID</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="TransactNo" DataSetColumn="TransactNo" />
+              <Mapping SourceColumn="OwnerName" DataSetColumn="OwnerName" />
+              <Mapping SourceColumn="OwnerCivilId" DataSetColumn="OwnerCivilId" />
+              <Mapping SourceColumn="OwnerPhoneNo" DataSetColumn="OwnerPhoneNo" />
+              <Mapping SourceColumn="DistrictName" DataSetColumn="DistrictName" />
+              <Mapping SourceColumn="DistrictNo" DataSetColumn="DistrictNo" />
+              <Mapping SourceColumn="ConstructedArea" DataSetColumn="ConstructedArea" />
+              <Mapping SourceColumn="NumberOfFloors" DataSetColumn="NumberOfFloors" />
+              <Mapping SourceColumn="ConsultantCrNo" DataSetColumn="ConsultantCrNo" />
+              <Mapping SourceColumn="ConstructionType" DataSetColumn="ConstructionType" />
+              <Mapping SourceColumn="RequestDate" DataSetColumn="RequestDate" />
+              <Mapping SourceColumn="CreatedBy" DataSetColumn="CreatedBy" />
+              <Mapping SourceColumn="CreatedOn" DataSetColumn="CreatedOn" />
+              <Mapping SourceColumn="UpdatedBy" DataSetColumn="UpdatedBy" />
+              <Mapping SourceColumn="UpdatedOn" DataSetColumn="UpdatedOn" />
+              <Mapping SourceColumn="SquareArea" DataSetColumn="SquareArea" />
+              <Mapping SourceColumn="LicenseNo" DataSetColumn="LicenseNo" />
+              <Mapping SourceColumn="PaymentReceiptNo" DataSetColumn="PaymentReceiptNo" />
+              <Mapping SourceColumn="PaymentAmount" DataSetColumn="PaymentAmount" />
+              <Mapping SourceColumn="PaymentDate" DataSetColumn="PaymentDate" />
+              <Mapping SourceColumn="WorkflowStatus" DataSetColumn="WorkflowStatus" />
+              <Mapping SourceColumn="DmEngineerNo" DataSetColumn="DmEngineerNo" />
+              <Mapping SourceColumn="DmEngineerComments" DataSetColumn="DmEngineerComments" />
+              <Mapping SourceColumn="ConsultantCivilId" DataSetColumn="ConsultantCivilId" />
+              <Mapping SourceColumn="WelayahID" DataSetColumn="WelayahID" />
+              <Mapping SourceColumn="SquareLetterID" DataSetColumn="SquareLetterID" />
+              <Mapping SourceColumn="UseTypeID" DataSetColumn="UseTypeID" />
+              <Mapping SourceColumn="BuildingTypeID" DataSetColumn="BuildingTypeID" />
+              <Mapping SourceColumn="KrokiNO" DataSetColumn="KrokiNO" />
+              <Mapping SourceColumn="DmFileNumber" DataSetColumn="DmFileNumber" />
+              <Mapping SourceColumn="RegionArName" DataSetColumn="RegionArName" />
+              <Mapping SourceColumn="UseType" DataSetColumn="UseType" />
+              <Mapping SourceColumn="BuildingType" DataSetColumn="BuildingType" />
+              <Mapping SourceColumn="ArLetter" DataSetColumn="ArLetter" />
+              <Mapping SourceColumn="WelyahArName" DataSetColumn="WelyahArName" />
+              <Mapping SourceColumn="Id" DataSetColumn="Id" />
+              <Mapping SourceColumn="RegionID" DataSetColumn="RegionID" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="BldSquareLettersTableAdapter" GeneratorDataComponentClassName="BldSquareLettersTableAdapter" Name="BldSquareLetters" UserDataComponentName="BldSquareLettersTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="eServicesConnectionString (Web.config)" DbObjectName="eServices.dbo.BldSquareLetters" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <DeleteCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>DELETE FROM [dbo].[BldSquareLetters] WHERE (([ID] = @Original_ID))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_ID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </DeleteCommand>
+                <InsertCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>INSERT INTO [dbo].[BldSquareLetters] ([ArLetter], [EnLetter]) VALUES (@ArLetter, @EnLetter)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@ArLetter" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="ArLetter" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@EnLetter" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="EnLetter" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </InsertCommand>
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT ID, ArLetter, EnLetter FROM dbo.BldSquareLetters</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+                <UpdateCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>UPDATE [dbo].[BldSquareLetters] SET [ArLetter] = @ArLetter, [EnLetter] = @EnLetter WHERE (([ID] = @Original_ID))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@ArLetter" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="ArLetter" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@EnLetter" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="EnLetter" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_ID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </UpdateCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="ID" DataSetColumn="ID" />
+              <Mapping SourceColumn="ArLetter" DataSetColumn="ArLetter" />
+              <Mapping SourceColumn="EnLetter" DataSetColumn="EnLetter" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="BldBuildingTypesTableAdapter" GeneratorDataComponentClassName="BldBuildingTypesTableAdapter" Name="BldBuildingTypes" UserDataComponentName="BldBuildingTypesTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="eServicesConnectionString (Web.config)" DbObjectName="eServices.dbo.BldBuildingTypes" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <DeleteCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>DELETE FROM [dbo].[BldBuildingTypes] WHERE (([ID] = @Original_ID))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_ID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </DeleteCommand>
+                <InsertCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>INSERT INTO [dbo].[BldBuildingTypes] ([BuildingType]) VALUES (@BuildingType)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@BuildingType" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="BuildingType" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </InsertCommand>
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT ID, BuildingType FROM dbo.BldBuildingTypes</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+                <UpdateCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>UPDATE [dbo].[BldBuildingTypes] SET [BuildingType] = @BuildingType WHERE (([ID] = @Original_ID))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@BuildingType" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="BuildingType" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_ID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </UpdateCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="ID" DataSetColumn="ID" />
+              <Mapping SourceColumn="BuildingType" DataSetColumn="BuildingType" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="BldLandUseTypesTableAdapter" GeneratorDataComponentClassName="BldLandUseTypesTableAdapter" Name="BldLandUseTypes" UserDataComponentName="BldLandUseTypesTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="eServicesConnectionString (Web.config)" DbObjectName="eServices.dbo.BldLandUseTypes" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <DeleteCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>DELETE FROM [dbo].[BldLandUseTypes] WHERE (([ID] = @Original_ID))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_ID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </DeleteCommand>
+                <InsertCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>INSERT INTO [dbo].[BldLandUseTypes] ([UseType]) VALUES (@UseType)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@UseType" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="UseType" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </InsertCommand>
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT ID, UseType FROM dbo.BldLandUseTypes</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+                <UpdateCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>UPDATE [dbo].[BldLandUseTypes] SET [UseType] = @UseType WHERE (([ID] = @Original_ID))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@UseType" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="UseType" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_ID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </UpdateCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="ID" DataSetColumn="ID" />
+              <Mapping SourceColumn="UseType" DataSetColumn="UseType" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="BldRegionsTableAdapter" GeneratorDataComponentClassName="BldRegionsTableAdapter" Name="BldRegions" UserDataComponentName="BldRegionsTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="eServicesConnectionString (Web.config)" DbObjectName="eServices.dbo.BldRegions" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <DeleteCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>DELETE FROM [dbo].[BldRegions] WHERE (([RegionID] = @Original_RegionID))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_RegionID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="RegionID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </DeleteCommand>
+                <InsertCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>INSERT INTO [dbo].[BldRegions] ([RegionCode], [RegionEnName], [RegionArName], [WelyahID]) VALUES (@RegionCode, @RegionEnName, @RegionArName, @WelyahID)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@RegionCode" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="RegionCode" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@RegionEnName" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="RegionEnName" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@RegionArName" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="RegionArName" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@WelyahID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="WelyahID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </InsertCommand>
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT RegionID, RegionCode, RegionEnName, RegionArName, WelyahID FROM dbo.BldRegions</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+                <UpdateCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>UPDATE [dbo].[BldRegions] SET [RegionCode] = @RegionCode, [RegionEnName] = @RegionEnName, [RegionArName] = @RegionArName, [WelyahID] = @WelyahID WHERE (([RegionID] = @Original_RegionID))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@RegionCode" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="RegionCode" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@RegionEnName" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="RegionEnName" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@RegionArName" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="RegionArName" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@WelyahID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="WelyahID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_RegionID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="RegionID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </UpdateCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="RegionID" DataSetColumn="RegionID" />
+              <Mapping SourceColumn="RegionCode" DataSetColumn="RegionCode" />
+              <Mapping SourceColumn="RegionEnName" DataSetColumn="RegionEnName" />
+              <Mapping SourceColumn="RegionArName" DataSetColumn="RegionArName" />
+              <Mapping SourceColumn="WelyahID" DataSetColumn="WelyahID" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="BldWelyatTableAdapter" GeneratorDataComponentClassName="BldWelyatTableAdapter" Name="BldWelyat" UserDataComponentName="BldWelyatTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="eServicesConnectionString (Web.config)" DbObjectName="eServices.dbo.BldWelyat" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <DeleteCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>DELETE FROM [dbo].[BldWelyat] WHERE (([WelyahID] = @Original_WelyahID))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_WelyahID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="WelyahID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </DeleteCommand>
+                <InsertCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>INSERT INTO [dbo].[BldWelyat] ([WelyahCode], [WelyahEnName], [WelyahArName]) VALUES (@WelyahCode, @WelyahEnName, @WelyahArName)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@WelyahCode" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="WelyahCode" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@WelyahEnName" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="WelyahEnName" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@WelyahArName" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="WelyahArName" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </InsertCommand>
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT WelyahID, WelyahCode, WelyahEnName, WelyahArName FROM dbo.BldWelyat</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+                <UpdateCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>UPDATE [dbo].[BldWelyat] SET [WelyahCode] = @WelyahCode, [WelyahEnName] = @WelyahEnName, [WelyahArName] = @WelyahArName WHERE (([WelyahID] = @Original_WelyahID))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@WelyahCode" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="WelyahCode" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@WelyahEnName" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="WelyahEnName" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@WelyahArName" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="WelyahArName" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_WelyahID" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="WelyahID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </UpdateCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="WelyahID" DataSetColumn="WelyahID" />
+              <Mapping SourceColumn="WelyahCode" DataSetColumn="WelyahCode" />
+              <Mapping SourceColumn="WelyahEnName" DataSetColumn="WelyahEnName" />
+              <Mapping SourceColumn="WelyahArName" DataSetColumn="WelyahArName" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="InternalEngineeringDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="InternalEngineeringDataSet" msprop:Generator_UserDSName="InternalEngineeringDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="BldPermits" msprop:Generator_TableClassName="BldPermitsDataTable" msprop:Generator_TableVarName="tableBldPermits" msprop:Generator_TablePropName="BldPermits" msprop:Generator_RowDeletingName="BldPermitsRowDeleting" msprop:Generator_RowChangingName="BldPermitsRowChanging" msprop:Generator_RowEvHandlerName="BldPermitsRowChangeEventHandler" msprop:Generator_RowDeletedName="BldPermitsRowDeleted" msprop:Generator_UserTableName="BldPermits" msprop:Generator_RowChangedName="BldPermitsRowChanged" msprop:Generator_RowEvArgName="BldPermitsRowChangeEvent" msprop:Generator_RowClassName="BldPermitsRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="TransactNo" msprop:Generator_ColumnVarNameInTable="columnTransactNo" msprop:Generator_ColumnPropNameInRow="TransactNo" msprop:Generator_ColumnPropNameInTable="TransactNoColumn" msprop:Generator_UserColumnName="TransactNo">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="400" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="OwnerName" msprop:Generator_ColumnVarNameInTable="columnOwnerName" msprop:Generator_ColumnPropNameInRow="OwnerName" msprop:Generator_ColumnPropNameInTable="OwnerNameColumn" msprop:Generator_UserColumnName="OwnerName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="OwnerCivilId" msprop:Generator_ColumnVarNameInTable="columnOwnerCivilId" msprop:Generator_ColumnPropNameInRow="OwnerCivilId" msprop:Generator_ColumnPropNameInTable="OwnerCivilIdColumn" msprop:Generator_UserColumnName="OwnerCivilId" type="xs:long" minOccurs="0" />
+              <xs:element name="OwnerPhoneNo" msprop:Generator_ColumnVarNameInTable="columnOwnerPhoneNo" msprop:Generator_ColumnPropNameInRow="OwnerPhoneNo" msprop:Generator_ColumnPropNameInTable="OwnerPhoneNoColumn" msprop:Generator_UserColumnName="OwnerPhoneNo">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DistrictName" msprop:Generator_ColumnVarNameInTable="columnDistrictName" msprop:Generator_ColumnPropNameInRow="DistrictName" msprop:Generator_ColumnPropNameInTable="DistrictNameColumn" msprop:Generator_UserColumnName="DistrictName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DistrictNo" msprop:Generator_ColumnVarNameInTable="columnDistrictNo" msprop:Generator_ColumnPropNameInRow="DistrictNo" msprop:Generator_ColumnPropNameInTable="DistrictNoColumn" msprop:Generator_UserColumnName="DistrictNo" type="xs:int" minOccurs="0" />
+              <xs:element name="ConstructedArea" msprop:Generator_ColumnVarNameInTable="columnConstructedArea" msprop:Generator_ColumnPropNameInRow="ConstructedArea" msprop:Generator_ColumnPropNameInTable="ConstructedAreaColumn" msprop:Generator_UserColumnName="ConstructedArea" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="NumberOfFloors" msprop:Generator_ColumnVarNameInTable="columnNumberOfFloors" msprop:Generator_ColumnPropNameInRow="NumberOfFloors" msprop:Generator_ColumnPropNameInTable="NumberOfFloorsColumn" msprop:Generator_UserColumnName="NumberOfFloors" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ConsultantCrNo" msprop:Generator_ColumnVarNameInTable="columnConsultantCrNo" msprop:Generator_ColumnPropNameInRow="ConsultantCrNo" msprop:Generator_ColumnPropNameInTable="ConsultantCrNoColumn" msprop:Generator_UserColumnName="ConsultantCrNo" type="xs:long" />
+              <xs:element name="ConstructionType" msprop:Generator_ColumnVarNameInTable="columnConstructionType" msprop:Generator_ColumnPropNameInRow="ConstructionType" msprop:Generator_ColumnPropNameInTable="ConstructionTypeColumn" msprop:Generator_UserColumnName="ConstructionType" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="RequestDate" msprop:Generator_ColumnVarNameInTable="columnRequestDate" msprop:Generator_ColumnPropNameInRow="RequestDate" msprop:Generator_ColumnPropNameInTable="RequestDateColumn" msprop:Generator_UserColumnName="RequestDate" type="xs:dateTime" />
+              <xs:element name="CreatedBy" msprop:Generator_ColumnVarNameInTable="columnCreatedBy" msprop:Generator_ColumnPropNameInRow="CreatedBy" msprop:Generator_ColumnPropNameInTable="CreatedByColumn" msprop:Generator_UserColumnName="CreatedBy" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="150" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CreatedOn" msprop:Generator_ColumnVarNameInTable="columnCreatedOn" msprop:Generator_ColumnPropNameInRow="CreatedOn" msprop:Generator_ColumnPropNameInTable="CreatedOnColumn" msprop:Generator_UserColumnName="CreatedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="UpdatedBy" msprop:Generator_ColumnVarNameInTable="columnUpdatedBy" msprop:Generator_ColumnPropNameInRow="UpdatedBy" msprop:Generator_ColumnPropNameInTable="UpdatedByColumn" msprop:Generator_UserColumnName="UpdatedBy" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="150" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="UpdatedOn" msprop:Generator_ColumnVarNameInTable="columnUpdatedOn" msprop:Generator_ColumnPropNameInRow="UpdatedOn" msprop:Generator_ColumnPropNameInTable="UpdatedOnColumn" msprop:Generator_UserColumnName="UpdatedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="SquareArea" msprop:Generator_ColumnVarNameInTable="columnSquareArea" msprop:Generator_ColumnPropNameInRow="SquareArea" msprop:Generator_ColumnPropNameInTable="SquareAreaColumn" msprop:Generator_UserColumnName="SquareArea" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="LicenseNo" msprop:Generator_ColumnVarNameInTable="columnLicenseNo" msprop:Generator_ColumnPropNameInRow="LicenseNo" msprop:Generator_ColumnPropNameInTable="LicenseNoColumn" msprop:Generator_UserColumnName="LicenseNo" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PaymentReceiptNo" msprop:Generator_ColumnVarNameInTable="columnPaymentReceiptNo" msprop:Generator_ColumnPropNameInRow="PaymentReceiptNo" msprop:Generator_ColumnPropNameInTable="PaymentReceiptNoColumn" msprop:Generator_UserColumnName="PaymentReceiptNo" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PaymentAmount" msprop:Generator_ColumnVarNameInTable="columnPaymentAmount" msprop:Generator_ColumnPropNameInRow="PaymentAmount" msprop:Generator_ColumnPropNameInTable="PaymentAmountColumn" msprop:Generator_UserColumnName="PaymentAmount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="PaymentDate" msprop:Generator_ColumnVarNameInTable="columnPaymentDate" msprop:Generator_ColumnPropNameInRow="PaymentDate" msprop:Generator_ColumnPropNameInTable="PaymentDateColumn" msprop:Generator_UserColumnName="PaymentDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="WorkflowStatus" msprop:Generator_ColumnVarNameInTable="columnWorkflowStatus" msprop:Generator_ColumnPropNameInRow="WorkflowStatus" msprop:Generator_ColumnPropNameInTable="WorkflowStatusColumn" msprop:Generator_UserColumnName="WorkflowStatus" type="xs:int" minOccurs="0" />
+              <xs:element name="DmEngineerNo" msprop:Generator_ColumnVarNameInTable="columnDmEngineerNo" msprop:Generator_ColumnPropNameInRow="DmEngineerNo" msprop:Generator_ColumnPropNameInTable="DmEngineerNoColumn" msprop:Generator_UserColumnName="DmEngineerNo" type="xs:int" minOccurs="0" />
+              <xs:element name="DmEngineerComments" msprop:Generator_ColumnVarNameInTable="columnDmEngineerComments" msprop:Generator_ColumnPropNameInRow="DmEngineerComments" msprop:Generator_ColumnPropNameInTable="DmEngineerCommentsColumn" msprop:Generator_UserColumnName="DmEngineerComments" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="500" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ConsultantCivilId" msprop:Generator_ColumnVarNameInTable="columnConsultantCivilId" msprop:Generator_ColumnPropNameInRow="ConsultantCivilId" msprop:Generator_ColumnPropNameInTable="ConsultantCivilIdColumn" msprop:Generator_UserColumnName="ConsultantCivilId" type="xs:long" minOccurs="0" />
+              <xs:element name="WelayahID" msprop:Generator_ColumnVarNameInTable="columnWelayahID" msprop:Generator_ColumnPropNameInRow="WelayahID" msprop:Generator_ColumnPropNameInTable="WelayahIDColumn" msprop:Generator_UserColumnName="WelayahID" type="xs:int" minOccurs="0" />
+              <xs:element name="SquareLetterID" msprop:Generator_ColumnVarNameInTable="columnSquareLetterID" msprop:Generator_ColumnPropNameInRow="SquareLetterID" msprop:Generator_ColumnPropNameInTable="SquareLetterIDColumn" msprop:Generator_UserColumnName="SquareLetterID" type="xs:int" minOccurs="0" />
+              <xs:element name="UseTypeID" msprop:Generator_ColumnVarNameInTable="columnUseTypeID" msprop:Generator_ColumnPropNameInRow="UseTypeID" msprop:Generator_ColumnPropNameInTable="UseTypeIDColumn" msprop:Generator_UserColumnName="UseTypeID" type="xs:int" minOccurs="0" />
+              <xs:element name="BuildingTypeID" msprop:Generator_ColumnVarNameInTable="columnBuildingTypeID" msprop:Generator_ColumnPropNameInRow="BuildingTypeID" msprop:Generator_ColumnPropNameInTable="BuildingTypeIDColumn" msprop:Generator_UserColumnName="BuildingTypeID" type="xs:int" minOccurs="0" />
+              <xs:element name="KrokiNO" msprop:Generator_ColumnVarNameInTable="columnKrokiNO" msprop:Generator_ColumnPropNameInRow="KrokiNO" msprop:Generator_ColumnPropNameInTable="KrokiNOColumn" msprop:Generator_UserColumnName="KrokiNO" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DmFileNumber" msprop:Generator_ColumnVarNameInTable="columnDmFileNumber" msprop:Generator_ColumnPropNameInRow="DmFileNumber" msprop:Generator_ColumnPropNameInTable="DmFileNumberColumn" msprop:Generator_UserColumnName="DmFileNumber" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="RegionArName" msprop:Generator_ColumnVarNameInTable="columnRegionArName" msprop:Generator_ColumnPropNameInRow="RegionArName" msprop:Generator_ColumnPropNameInTable="RegionArNameColumn" msprop:Generator_UserColumnName="RegionArName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="UseType" msprop:Generator_ColumnVarNameInTable="columnUseType" msprop:Generator_ColumnPropNameInRow="UseType" msprop:Generator_ColumnPropNameInTable="UseTypeColumn" msprop:Generator_UserColumnName="UseType" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="BuildingType" msprop:Generator_ColumnVarNameInTable="columnBuildingType" msprop:Generator_ColumnPropNameInRow="BuildingType" msprop:Generator_ColumnPropNameInTable="BuildingTypeColumn" msprop:Generator_UserColumnName="BuildingType" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ArLetter" msprop:Generator_ColumnVarNameInTable="columnArLetter" msprop:Generator_ColumnPropNameInRow="ArLetter" msprop:Generator_ColumnPropNameInTable="ArLetterColumn" msprop:Generator_UserColumnName="ArLetter" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="WelyahArName" msprop:Generator_ColumnVarNameInTable="columnWelyahArName" msprop:Generator_ColumnPropNameInRow="WelyahArName" msprop:Generator_ColumnPropNameInTable="WelyahArNameColumn" msprop:Generator_UserColumnName="WelyahArName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:long" />
+              <xs:element name="RegionID" msprop:Generator_ColumnVarNameInTable="columnRegionID" msprop:Generator_ColumnPropNameInRow="RegionID" msprop:Generator_ColumnPropNameInTable="RegionIDColumn" msprop:Generator_UserColumnName="RegionID" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="BldSquareLetters" msprop:Generator_TableClassName="BldSquareLettersDataTable" msprop:Generator_TableVarName="tableBldSquareLetters" msprop:Generator_TablePropName="BldSquareLetters" msprop:Generator_RowDeletingName="BldSquareLettersRowDeleting" msprop:Generator_RowChangingName="BldSquareLettersRowChanging" msprop:Generator_RowEvHandlerName="BldSquareLettersRowChangeEventHandler" msprop:Generator_RowDeletedName="BldSquareLettersRowDeleted" msprop:Generator_UserTableName="BldSquareLetters" msprop:Generator_RowChangedName="BldSquareLettersRowChanged" msprop:Generator_RowEvArgName="BldSquareLettersRowChangeEvent" msprop:Generator_RowClassName="BldSquareLettersRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:int" />
+              <xs:element name="ArLetter" msprop:Generator_ColumnVarNameInTable="columnArLetter" msprop:Generator_ColumnPropNameInRow="ArLetter" msprop:Generator_ColumnPropNameInTable="ArLetterColumn" msprop:Generator_UserColumnName="ArLetter" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="EnLetter" msprop:Generator_ColumnVarNameInTable="columnEnLetter" msprop:Generator_ColumnPropNameInRow="EnLetter" msprop:Generator_ColumnPropNameInTable="EnLetterColumn" msprop:Generator_UserColumnName="EnLetter" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="BldBuildingTypes" msprop:Generator_TableClassName="BldBuildingTypesDataTable" msprop:Generator_TableVarName="tableBldBuildingTypes" msprop:Generator_TablePropName="BldBuildingTypes" msprop:Generator_RowDeletingName="BldBuildingTypesRowDeleting" msprop:Generator_RowChangingName="BldBuildingTypesRowChanging" msprop:Generator_RowEvHandlerName="BldBuildingTypesRowChangeEventHandler" msprop:Generator_RowDeletedName="BldBuildingTypesRowDeleted" msprop:Generator_UserTableName="BldBuildingTypes" msprop:Generator_RowChangedName="BldBuildingTypesRowChanged" msprop:Generator_RowEvArgName="BldBuildingTypesRowChangeEvent" msprop:Generator_RowClassName="BldBuildingTypesRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:int" />
+              <xs:element name="BuildingType" msprop:Generator_ColumnVarNameInTable="columnBuildingType" msprop:Generator_ColumnPropNameInRow="BuildingType" msprop:Generator_ColumnPropNameInTable="BuildingTypeColumn" msprop:Generator_UserColumnName="BuildingType" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="BldLandUseTypes" msprop:Generator_TableClassName="BldLandUseTypesDataTable" msprop:Generator_TableVarName="tableBldLandUseTypes" msprop:Generator_TablePropName="BldLandUseTypes" msprop:Generator_RowDeletingName="BldLandUseTypesRowDeleting" msprop:Generator_RowChangingName="BldLandUseTypesRowChanging" msprop:Generator_RowEvHandlerName="BldLandUseTypesRowChangeEventHandler" msprop:Generator_RowDeletedName="BldLandUseTypesRowDeleted" msprop:Generator_UserTableName="BldLandUseTypes" msprop:Generator_RowChangedName="BldLandUseTypesRowChanged" msprop:Generator_RowEvArgName="BldLandUseTypesRowChangeEvent" msprop:Generator_RowClassName="BldLandUseTypesRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:int" />
+              <xs:element name="UseType" msprop:Generator_ColumnVarNameInTable="columnUseType" msprop:Generator_ColumnPropNameInRow="UseType" msprop:Generator_ColumnPropNameInTable="UseTypeColumn" msprop:Generator_UserColumnName="UseType" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="BldRegions" msprop:Generator_TableClassName="BldRegionsDataTable" msprop:Generator_TableVarName="tableBldRegions" msprop:Generator_TablePropName="BldRegions" msprop:Generator_RowDeletingName="BldRegionsRowDeleting" msprop:Generator_RowChangingName="BldRegionsRowChanging" msprop:Generator_RowEvHandlerName="BldRegionsRowChangeEventHandler" msprop:Generator_RowDeletedName="BldRegionsRowDeleted" msprop:Generator_UserTableName="BldRegions" msprop:Generator_RowChangedName="BldRegionsRowChanged" msprop:Generator_RowEvArgName="BldRegionsRowChangeEvent" msprop:Generator_RowClassName="BldRegionsRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="RegionID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnRegionID" msprop:Generator_ColumnPropNameInRow="RegionID" msprop:Generator_ColumnPropNameInTable="RegionIDColumn" msprop:Generator_UserColumnName="RegionID" type="xs:int" />
+              <xs:element name="RegionCode" msprop:Generator_ColumnVarNameInTable="columnRegionCode" msprop:Generator_ColumnPropNameInRow="RegionCode" msprop:Generator_ColumnPropNameInTable="RegionCodeColumn" msprop:Generator_UserColumnName="RegionCode" type="xs:int" />
+              <xs:element name="RegionEnName" msprop:Generator_ColumnVarNameInTable="columnRegionEnName" msprop:Generator_ColumnPropNameInRow="RegionEnName" msprop:Generator_ColumnPropNameInTable="RegionEnNameColumn" msprop:Generator_UserColumnName="RegionEnName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="RegionArName" msprop:Generator_ColumnVarNameInTable="columnRegionArName" msprop:Generator_ColumnPropNameInRow="RegionArName" msprop:Generator_ColumnPropNameInTable="RegionArNameColumn" msprop:Generator_UserColumnName="RegionArName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="WelyahID" msprop:Generator_ColumnVarNameInTable="columnWelyahID" msprop:Generator_ColumnPropNameInRow="WelyahID" msprop:Generator_ColumnPropNameInTable="WelyahIDColumn" msprop:Generator_UserColumnName="WelyahID" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="BldWelyat" msprop:Generator_TableClassName="BldWelyatDataTable" msprop:Generator_TableVarName="tableBldWelyat" msprop:Generator_TablePropName="BldWelyat" msprop:Generator_RowDeletingName="BldWelyatRowDeleting" msprop:Generator_RowChangingName="BldWelyatRowChanging" msprop:Generator_RowEvHandlerName="BldWelyatRowChangeEventHandler" msprop:Generator_RowDeletedName="BldWelyatRowDeleted" msprop:Generator_UserTableName="BldWelyat" msprop:Generator_RowChangedName="BldWelyatRowChanged" msprop:Generator_RowEvArgName="BldWelyatRowChangeEvent" msprop:Generator_RowClassName="BldWelyatRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="WelyahID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnWelyahID" msprop:Generator_ColumnPropNameInRow="WelyahID" msprop:Generator_ColumnPropNameInTable="WelyahIDColumn" msprop:Generator_UserColumnName="WelyahID" type="xs:int" />
+              <xs:element name="WelyahCode" msprop:Generator_ColumnVarNameInTable="columnWelyahCode" msprop:Generator_ColumnPropNameInRow="WelyahCode" msprop:Generator_ColumnPropNameInTable="WelyahCodeColumn" msprop:Generator_UserColumnName="WelyahCode" type="xs:int" />
+              <xs:element name="WelyahEnName" msprop:Generator_ColumnVarNameInTable="columnWelyahEnName" msprop:Generator_ColumnPropNameInRow="WelyahEnName" msprop:Generator_ColumnPropNameInTable="WelyahEnNameColumn" msprop:Generator_UserColumnName="WelyahEnName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="WelyahArName" msprop:Generator_ColumnVarNameInTable="columnWelyahArName" msprop:Generator_ColumnPropNameInRow="WelyahArName" msprop:Generator_ColumnPropNameInTable="WelyahArNameColumn" msprop:Generator_UserColumnName="WelyahArName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:BldPermits" />
+      <xs:field xpath="mstns:Id" />
+    </xs:unique>
+    <xs:unique name="BldSquareLetters_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:BldSquareLetters" />
+      <xs:field xpath="mstns:ID" />
+    </xs:unique>
+    <xs:unique name="BldBuildingTypes_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:BldBuildingTypes" />
+      <xs:field xpath="mstns:ID" />
+    </xs:unique>
+    <xs:unique name="BldLandUseTypes_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:BldLandUseTypes" />
+      <xs:field xpath="mstns:ID" />
+    </xs:unique>
+    <xs:unique name="BldRegions_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:BldRegions" />
+      <xs:field xpath="mstns:RegionID" />
+    </xs:unique>
+    <xs:unique name="BldWelyat_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:BldWelyat" />
+      <xs:field xpath="mstns:WelyahID" />
+    </xs:unique>
+    <xs:keyref name="FK_BldPermits_BldLandUseTypes" refer="BldLandUseTypes_Constraint1" msprop:rel_Generator_UserChildTable="BldPermits" msprop:rel_Generator_ChildPropName="GetBldPermitsRows" msprop:rel_Generator_UserRelationName="FK_BldPermits_BldLandUseTypes" msprop:rel_Generator_RelationVarName="relationFK_BldPermits_BldLandUseTypes" msprop:rel_Generator_UserParentTable="BldLandUseTypes" msprop:rel_Generator_ParentPropName="BldLandUseTypesRow" msdata:UpdateRule="None" msdata:DeleteRule="None">
+      <xs:selector xpath=".//mstns:BldPermits" />
+      <xs:field xpath="mstns:UseTypeID" />
+    </xs:keyref>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="FK_BldRegions_BldWelyat" msdata:parent="BldWelyat" msdata:child="BldRegions" msdata:parentkey="WelyahID" msdata:childkey="WelyahID" msprop:Generator_UserChildTable="BldRegions" msprop:Generator_ChildPropName="GetBldRegionsRows" msprop:Generator_UserRelationName="FK_BldRegions_BldWelyat" msprop:Generator_RelationVarName="relationFK_BldRegions_BldWelyat" msprop:Generator_UserParentTable="BldWelyat" msprop:Generator_ParentPropName="BldWelyatRow" />
+      <msdata:Relationship name="FK_BldPermits_BldSquareLetters" msdata:parent="BldSquareLetters" msdata:child="BldPermits" msdata:parentkey="ID" msdata:childkey="SquareLetterID" msprop:Generator_UserChildTable="BldPermits" msprop:Generator_ChildPropName="GetBldPermitsRows" msprop:Generator_UserRelationName="FK_BldPermits_BldSquareLetters" msprop:Generator_RelationVarName="relationFK_BldPermits_BldSquareLetters" msprop:Generator_UserParentTable="BldSquareLetters" msprop:Generator_ParentPropName="BldSquareLettersRow" />
+      <msdata:Relationship name="FK_BldPermits_BldBuildingTypes" msdata:parent="BldBuildingTypes" msdata:child="BldPermits" msdata:parentkey="ID" msdata:childkey="BuildingTypeID" msprop:Generator_UserChildTable="BldPermits" msprop:Generator_ChildPropName="GetBldPermitsRows" msprop:Generator_UserRelationName="FK_BldPermits_BldBuildingTypes" msprop:Generator_RelationVarName="relationFK_BldPermits_BldBuildingTypes" msprop:Generator_UserParentTable="BldBuildingTypes" msprop:Generator_ParentPropName="BldBuildingTypesRow" />
+      <msdata:Relationship name="FK_BldPermits_BldWelyat" msdata:parent="BldWelyat" msdata:child="BldPermits" msdata:parentkey="WelyahID" msdata:childkey="WelayahID" msprop:Generator_UserChildTable="BldPermits" msprop:Generator_ChildPropName="GetBldPermitsRows" msprop:Generator_UserRelationName="FK_BldPermits_BldWelyat" msprop:Generator_RelationVarName="relationFK_BldPermits_BldWelyat" msprop:Generator_UserParentTable="BldWelyat" msprop:Generator_ParentPropName="BldWelyatRow" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

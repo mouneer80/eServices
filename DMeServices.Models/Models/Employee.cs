@@ -57,5 +57,10 @@ namespace DMeServices.Models
 
         public int SiteCd { get; set; }
 
+        public bool IsControlHead { get; set; }
+
+        public bool IsController { get; set; }
+
+
     }
 }

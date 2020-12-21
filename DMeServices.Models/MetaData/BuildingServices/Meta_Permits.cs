@@ -23,9 +23,9 @@ namespace DMeServices.Models.MetaData.BuildingServices
         public string OwnerName { get; set; }
 
         [Display(Name = "OwnerCivilId", ResourceType = typeof(Resources.DisplayName_Ar))]
-        [Required(ErrorMessageResourceType = typeof(Resources.Validation_Ar), ErrorMessageResourceName = "RequirdField", AllowEmptyStrings = true)]
+        [Required(ErrorMessageResourceType = typeof(Resources.Validation_Ar), ErrorMessageResourceName = "RequirdField", AllowEmptyStrings = false)]
         [RegularExpression("^[0-9]*$", ErrorMessageResourceType = typeof(Resources.Validation_Ar), ErrorMessageResourceName = "NumberOnly")]
-        [StringLength(maximumLength: 50, MinimumLength = 1, ErrorMessageResourceName = "OutOfRange", ErrorMessageResourceType = typeof(Resources.Validation_Ar))]
+        //[StringLength(maximumLength: 50, MinimumLength = 1, ErrorMessageResourceName = "OutOfRange", ErrorMessageResourceType = typeof(Resources.Validation_Ar))]
 
 
 
@@ -58,7 +58,7 @@ namespace DMeServices.Models.MetaData.BuildingServices
         [Display(Name = "DistrictNo", ResourceType = typeof(Resources.DisplayName_Ar))]
         [Required(ErrorMessageResourceType = typeof(Resources.Validation_Ar), ErrorMessageResourceName = "RequirdField", AllowEmptyStrings = false)]
         [RegularExpression("^[0-9]*$", ErrorMessageResourceType = typeof(Resources.Validation_Ar), ErrorMessageResourceName = "NumberOnly")]
-        [StringLength(maximumLength: 50, MinimumLength = 1, ErrorMessageResourceName = "OutOfRange", ErrorMessageResourceType = typeof(Resources.Validation_Ar))]
+        //[StringLength(maximumLength: 50, MinimumLength = 1, ErrorMessageResourceName = "OutOfRange", ErrorMessageResourceType = typeof(Resources.Validation_Ar))]
 
         public Nullable<int> DistrictNo { get; set; }
 
@@ -77,7 +77,7 @@ namespace DMeServices.Models.MetaData.BuildingServices
 
         public string NumberOfFloors { get; set; }
 
-        public int ConsultantCrNo { get; set; }
+        public long ConsultantCrNo { get; set; }
 
 
         [Display(Name = "ConstructionType", ResourceType = typeof(Resources.DisplayName_Ar))]

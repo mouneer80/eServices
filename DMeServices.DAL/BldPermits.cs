@@ -17,7 +17,6 @@ namespace DMeServices.DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public BldPermits()
         {
-            this.BldControlServices = new HashSet<BldControlServices>();
             this.BldPermitsAttachments = new HashSet<BldPermitsAttachments>();
             this.BldControlServices = new HashSet<BldControlServices>();
         }
@@ -53,13 +52,12 @@ namespace DMeServices.DAL
         public Nullable<int> UseTypeID { get; set; }
         public Nullable<int> BuildingTypeID { get; set; }
         public string KrokiNO { get; set; }
+        public string DmFileNumber { get; set; }
     
-        public virtual BldBuildingTypes BldBuildingTypes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BldControlServices> BldControlServices { get; set; }
-        public virtual BldLandUseTypes BldLandUseTypes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BldPermitsAttachments> BldPermitsAttachments { get; set; }
+        public virtual BldBuildingTypes BldBuildingTypes { get; set; }
+        public virtual BldLandUseTypes BldLandUseTypes { get; set; }
         public virtual BldRegions BldRegions { get; set; }
         public virtual BldSquareLetters BldSquareLetters { get; set; }
         public virtual BldWelyat BldWelyat { get; set; }

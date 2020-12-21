@@ -9,16 +9,23 @@
         <a href="@Url.Action("Index","Home")">الرئيسية</a>
     </li>
     <li>
-        <a href="#">تراخيص البناء</a>
+        <a href="#">تراخيص ورقابة البناء</a>
     </li>
 </ul>
 
 <div class="col-lg-12 col-sm-12">
-    <a 
-        style="@(Model.ShowAdd ? "display:inline" : "display:none")"
-        href="@Url.Action("NewPermits", new {@controller = "BuildingPermits"})" class="btn btn-primary ">
-        <i class="glyphicon glyphicon-plus icon-white"></i> إضافة ترخيص جديد
-    </a>
+    <div class="row">
+        <div class="col-lg-6 col-sm-6">
+            <a style="@(Model.ShowAdd ? "display:inline" : "display:none")" href="@Url.Action("NewPermits", "BuildingPermits")" class="btn btn-primary ">
+                <i class="glyphicon glyphicon-plus icon-white"></i> إضافة ترخيص بناء جديد
+            </a>
+        </div>
+        <div class="col-lg-6 col-sm-6">
+            <a href="@Url.Action("NewControls","BuildingControls", new {@showadd = Model.ShowAdd})" class="btn btn-primary ">
+                <i class="glyphicon glyphicon-plus icon-white"></i> إضافة طلب رقابة البناء
+            </a>
+        </div>
+    </div>
     <div class="row">
         <div class="box col-md-12">
             <div class="box-inner">

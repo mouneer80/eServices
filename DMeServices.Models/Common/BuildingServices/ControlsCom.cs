@@ -13,49 +13,65 @@ namespace DMeServices.Models.Common.BuildingServices
     public class ControlsCom
     {
 
-        #region Method :: AllBuildingPermits
+        #region Method :: AllBuildingControls
 
-        public static List<BuildingPermits> AllPermits()
+        public static List<BuildingControls> AllControls()
         {
-            using (eServicesEntities db = new eServicesEntities())
+            using (var db = new eServicesEntities())
             {
-                List<BldPermits> _BldPermits = db.BldPermits.Include(y => y.BldPermitsAttachments).OrderByDescending(x => x.Id).ToList();
-                List<BuildingPermits> _BuildingPermits = Mapper.Map<List<BldPermits>, List<BuildingPermits>>(_BldPermits);
-                return _BuildingPermits;
+                var bldControlServices = db.BldControlServices.Include(y => y.BldPermits.BldPermitsAttachments).OrderByDescending(x => x.BldPermits.Id).ToList();
+                var buildingControls = Mapper.Map<List<BldControlServices>, List<BuildingControls>>(bldControlServices);
+                return buildingControls;
             }
 
         }
 
         #endregion
 
-        #region Method :: Permit By ID
+        #region Method :: Control By ID
 
-        public static BuildingPermits PermitsByID(int Id)
+        public static BuildingControls ControlsById(int id)
         {
-            using (eServicesEntities db = new eServicesEntities())
+            using (var db = new eServicesEntities())
             {
 
-                BldPermits _BldPermits = db.BldPermits.Where(x => x.Id == Id).Include(y => y.BldPermitsAttachments).SingleOrDefault();
-                BuildingPermits _BuildingPermits = Mapper.Map<BldPermits, BuildingPermits>(_BldPermits);
+                var bldControlServices = db.BldControlServices.Where(x => x.ID == id).Include(y => y.BldPermits.BldPermitsAttachments).SingleOrDefault();
+                var buildingControls = Mapper.Map<BldControlServices, BuildingControls>(bldControlServices);
 
-                return _BuildingPermits;
+                return buildingControls;
             }
 
         }
         #endregion
 
-        #region Method :: Permit By TransNo
+        #region Method :: Control By Permit ID
 
-
-        public static BuildingPermits PermitsByTransNo(string TransNo)
+        public static BuildingControls ControlsByPermitId(int id)
         {
-            using (eServicesEntities db = new eServicesEntities())
+            using (var db = new eServicesEntities())
             {
 
-                BldPermits _BldPermits = db.BldPermits.Where(x => x.TransactNo == TransNo).Include(y => y.BldPermitsAttachments).SingleOrDefault();
-                BuildingPermits _BuildingPermits = Mapper.Map<BldPermits, BuildingPermits>(_BldPermits);
+                var bldControlServices = db.BldControlServices.Where(x => x.BldPermits.Id == id).Include(y => y.BldPermits.BldPermitsAttachments).SingleOrDefault();
+                var buildingControls = Mapper.Map<BldControlServices, BuildingControls>(bldControlServices);
 
-                return _BuildingPermits;
+                return buildingControls;
+            }
+
+        }
+        #endregion
+
+        #region Method :: Control By TransNo
+
+
+        public static BuildingControls ControlsByTransNo(string transNo)
+        {
+            using (var db = new eServicesEntities())
+            {
+
+                var bldControlServices = db.BldControlServices.Where(x => x.BldPermits.TransactNo == transNo).Include(y => y.BldPermits.BldPermitsAttachments).SingleOrDefault();
+                var buildingControls = Mapper.Map<BldControlServices, BuildingControls>(bldControlServices);
+
+                return buildingControls;
             }
 
         }
@@ -64,106 +80,130 @@ namespace DMeServices.Models.Common.BuildingServices
 
         #endregion
 
-        #region Method :: Permit By ConsultantNo
+        #region Method :: Control By ConsultantNo
 
 
-        public static List<BuildingPermits> PermitsByConsultantNo(long ConsultantNo)
+        public static List<BuildingControls> ControlsByConsultantNo(long consultantNo)
         {
-            using (eServicesEntities db = new eServicesEntities())
+            using (var db = new eServicesEntities())
             {
-                List<BldPermits> _BldPermits = db.BldPermits.Where(x => x.ConsultantCrNo == ConsultantNo).OrderByDescending(x => x.Id).Include(y => y.BldPermitsAttachments).OrderByDescending(x => x.Id).ToList();
-                List<BuildingPermits> _BuildingPermits = Mapper.Map<List<BldPermits>, List<BuildingPermits>>(_BldPermits);
-                return _BuildingPermits;
+                var bldControlServices = db.BldControlServices.Where(x => x.BldPermits.ConsultantCrNo == consultantNo).OrderByDescending(x => x.BldPermits.Id).Include(y => y.BldPermits.BldPermitsAttachments).OrderByDescending(x => x.BldPermits.Id).ToList();
+                var buildingControls = Mapper.Map<List<BldControlServices>, List<BuildingControls>>(bldControlServices);
+                return buildingControls;
             }
 
         }
         #endregion
 
-        #region Method :: Permit By LandOwner CivilID
-        public static List<BuildingPermits> PermitsByLandOwnerCivilId(long landOwnerCivilId)
+        #region Method :: Control By LandOwner CivilID
+        public static List<BuildingControls> ControlsByLandOwnerCivilId(long landOwnerCivilId)
+        {
+            using (var db = new eServicesEntities())
+            {
+                List<BldControlServices> bldControlServices = db.BldControlServices.Where(x => x.BldPermits.OwnerCivilId == landOwnerCivilId).ToList();
+                var buildingControls = Mapper.Map<List<BldControlServices>, List<BuildingControls>>(bldControlServices);
+                return buildingControls;
+            }
+        }
+
+        public static List<ControlServicesTypes> AllServices(int isConsaltant)
         {
             using (eServicesEntities db = new eServicesEntities())
             {
-                List<BldPermits> bldPermits = db.BldPermits.Where(x => x.OwnerCivilId == landOwnerCivilId).ToList();
-                List<BuildingPermits> buildingPermits = Mapper.Map<List<BldPermits>, List<BuildingPermits>>(bldPermits);
-                return buildingPermits;
+
+                List<BldControlServicesTypes> _BldServicesTypes = db.BldControlServicesTypes.Where(x => x.ServiceStatus == isConsaltant).ToList();
+                List<ControlServicesTypes> _ServicesTypes = Mapper.Map<List<BldControlServicesTypes>, List<ControlServicesTypes>>(_BldServicesTypes);
+
+                return _ServicesTypes;
+            }
+        }
+
+        public static List<ControlServicesTypes> AllServices()
+        {
+            using (eServicesEntities db = new eServicesEntities())
+            {
+
+                List<BldControlServicesTypes> _BldServicesTypes = db.BldControlServicesTypes.OrderBy(x => x.ID).ToList();
+                List<ControlServicesTypes> _ServicesTypes = Mapper.Map<List<BldControlServicesTypes>, List<ControlServicesTypes>>(_BldServicesTypes);
+
+                return _ServicesTypes;
             }
         }
         #endregion
 
-        #region Method :: Permit By CivilId
-        public static List<BuildingPermits> PermitsByConsultantCivilId(long CivilId)
+        #region Method :: Control By CivilId
+        public static List<BuildingControls> ControlsByConsultantCivilId(long civilId)
         {
-            using (eServicesEntities db = new eServicesEntities())
+            using (var db = new eServicesEntities())
             {
-                List<BldPermits> _BldPermits = db.BldPermits.Where(x => x.ConsultantCivilId == CivilId).OrderByDescending(x => x.Id).Include(y => y.BldPermitsAttachments).OrderByDescending(x => x.Id).ToList();
-                List<BuildingPermits> _BuildingPermits = Mapper.Map<List<BldPermits>, List<BuildingPermits>>(_BldPermits);
-                return _BuildingPermits;
+                List<BldControlServices> bldControlServices = db.BldControlServices.Where(x => x.BldPermits.ConsultantCivilId == civilId).OrderByDescending(x => x.BldPermits.Id).Include(y => y.BldPermits.BldPermitsAttachments).OrderByDescending(x => x.BldPermits.Id).ToList();
+                var buildingControls = Mapper.Map<List<BldControlServices>, List<BuildingControls>>(bldControlServices);
+                return buildingControls;
             }
         }
         #endregion
 
-        #region Method :: Get All New Permits By CivilId
+        #region Method :: Get All New Controls By CivilId
 
 
-        public static List<BuildingPermits> GetAllNewPermitsByConsultantCivilId(long CivilId)
+        public static List<BuildingControls> GetAllNewControlsByConsultantCivilId(long civilId)
         {
-            using (eServicesEntities db = new eServicesEntities())
+            using (var db = new eServicesEntities())
             {
-                List<BldPermits> _BldPermits = db.BldPermits.Where(x => x.ConsultantCivilId == CivilId && x.WorkflowStatus == 8).OrderByDescending(x => x.Id).Include(y => y.BldPermitsAttachments).OrderByDescending(x => x.Id).ToList();
-                List<BuildingPermits> _BuildingPermits = Mapper.Map<List<BldPermits>, List<BuildingPermits>>(_BldPermits);
-                return _BuildingPermits;
-            }
-
-        }
-        #endregion
-
-        #region Method :: Get All New Permits 
-
-
-        public static List<BuildingPermits> GetAllPermitsByflowStatus(int FlowID)
-        {
-            using (eServicesEntities db = new eServicesEntities())
-            {
-                List<BldPermits> _BldPermits = db.BldPermits.Where(x => x.WorkflowStatus == FlowID).OrderByDescending(x => x.Id).Include(y => y.BldPermitsAttachments).OrderByDescending(x => x.Id).ToList();
-                List<BuildingPermits> _BuildingPermits = Mapper.Map<List<BldPermits>, List<BuildingPermits>>(_BldPermits);
-                return _BuildingPermits;
-            }
-
-        }
-        #endregion
-
-        #region Method :: Permit By Engineer Number
-
-
-        public static List<BuildingPermits> PermitsByEngineerID(int? EngNum)
-        {
-            using (eServicesEntities db = new eServicesEntities())
-            {
-
-
-                List<BldPermits> _BldPermits = db.BldPermits.Where(x => x.DmEngineerNo == EngNum).OrderByDescending(x => x.Id).Include(y => y.BldPermitsAttachments).OrderByDescending(x => x.Id).ToList();
-                List<BuildingPermits> _BuildingPermits = Mapper.Map<List<BldPermits>, List<BuildingPermits>>(_BldPermits);
-                return _BuildingPermits;
+                List<BldControlServices> bldControlServices = db.BldControlServices.Where(x => x.BldPermits.ConsultantCivilId == civilId && x.BldPermits.WorkflowStatus == 8).OrderByDescending(x => x.BldPermits.Id).Include(y => y.BldPermits.BldPermitsAttachments).OrderByDescending(x => x.BldPermits.Id).ToList();
+                var buildingControls = Mapper.Map<List<BldControlServices>, List<BuildingControls>>(bldControlServices);
+                return buildingControls;
             }
 
         }
         #endregion
 
-        #region Method :: Save Permits 
+        #region Method :: Get All New Controls 
 
 
-        public static string SavePermits(PermitsViewModel oModel)
+        public static List<BuildingControls> GetAllControlsByFlowStatus(int flowId)
         {
-            using (eServicesEntities db = new eServicesEntities())
+            using (var db = new eServicesEntities())
             {
-                BldPermits _BldPermits = new BldPermits();
+                List<BldControlServices> bldControlServices = db.BldControlServices.Where(x => x.BldPermits.WorkflowStatus == flowId).OrderByDescending(x => x.BldPermits.Id).Include(y => y.BldPermits.BldPermitsAttachments).OrderByDescending(x => x.BldPermits.Id).ToList();
+                var buildingControls = Mapper.Map<List<BldControlServices>, List<BuildingControls>>(bldControlServices);
+                return buildingControls;
+            }
+
+        }
+        #endregion
+
+        #region Method :: Controls By Engineer Number
+
+
+        public static List<BuildingControls> ControlsByEngineerId(int? engNum)
+        {
+            using (var db = new eServicesEntities())
+            {
+
+
+                List<BldControlServices> bldControlServices = db.BldControlServices.Where(x => x.BldPermits.DmEngineerNo == engNum).OrderByDescending(x => x.BldPermits.Id).Include(y => y.BldPermits.BldPermitsAttachments).OrderByDescending(x => x.BldPermits.Id).ToList();
+                var buildingControls = Mapper.Map<List<BldControlServices>, List<BuildingControls>>(bldControlServices);
+                return buildingControls;
+            }
+
+        }
+        #endregion
+
+        #region Method :: Save Controls 
+
+
+        public static string SaveControls(ControlsViewModel oModel)
+        {
+            using (var db = new eServicesEntities())
+            {
+                var bldControlServices = new BldControlServices();
                 try
                 {
 
-                    _BldPermits = db.BldPermits.Where(x => x.Id == oModel.BuildingPermits.Id || x.TransactNo == oModel.BuildingPermits.TransactNo).SingleOrDefault();
+                    bldControlServices = db.BldControlServices.SingleOrDefault(x => x.ID == oModel.BuildingControls.ID || x.TransactNo == oModel.BuildingControls.TransactNo);
 
-                    if (_BldPermits != null)
+                    if (bldControlServices != null)
                     {
                         return null;
                     }
@@ -174,28 +214,29 @@ namespace DMeServices.Models.Common.BuildingServices
 
 
 
-                    _BldPermits = Mapper.Map<BuildingPermits, BldPermits>(oModel.BuildingPermits);
-                    _BldPermits.TransactNo = GenTransactNo();
-                    _BldPermits.ConsultantCrNo = (int)oModel.oUserInfo.ConsultantCrNo;
-                    _BldPermits.CreatedBy = oModel.oUserInfo.FirstName;
-                    _BldPermits.CreatedOn = DateTime.Now.Date;
-                    _BldPermits.RequestDate = DateTime.Now.Date;
-                    _BldPermits.WorkflowStatus = 8;
-                    db.BldPermits.Add(_BldPermits);
+                    bldControlServices = Mapper.Map<BuildingControls, BldControlServices>(oModel.BuildingControls);
+                    bldControlServices.TransactNo = GenTransactNo();
+                    bldControlServices.BldPermits.ConsultantCrNo = (int)oModel.oUserInfo.ConsultantCrNo;
+                    bldControlServices.CreatedBy = oModel.oUserInfo.FirstName;
+                    bldControlServices.CreatedOn = DateTime.Now.Date;
+                    bldControlServices.RequestDate = DateTime.Now.Date;
+                    bldControlServices.Status = 8;
+                    db.BldControlServices.Add(bldControlServices);
                     db.SaveChanges();
                     if (oModel.ListOfAttachments != null)
                     {
-                        List<BldPermitsAttachments> LstAttachments = Mapper.Map<List<PermitsAttachments>, List<BldPermitsAttachments>>(oModel.ListOfAttachments);
-                        foreach (var File in LstAttachments)
+                        var lstAttachments = Mapper.Map<List<PermitsAttachments>, List<BldPermitsAttachments>>(oModel.ListOfAttachments);
+                        foreach (var file in lstAttachments)
                         {
-                            File.BldPermitId = _BldPermits.Id;
-                            db.BldPermitsAttachments.Add(File);
+                            file.BldPermitId = bldControlServices.BldPermits.Id;
+                            file.Description = bldControlServices.TransactNo;
+                            db.BldPermitsAttachments.Add(file);
                             db.SaveChanges();
                         }
 
                     }
 
-                    return _BldPermits.TransactNo;
+                    return bldControlServices.TransactNo;
 
                 }
 
@@ -213,28 +254,27 @@ namespace DMeServices.Models.Common.BuildingServices
 
         #endregion
 
-        #region Method :: Save Engineer Permits 
+        #region Method :: Save Engineer Controls 
 
 
-        public static string SaveEngineerPermits(ViewModels.Internal.Permits.PermitsViewModel oModel)
+        public static string SaveEngineerControls(ViewModels.Internal.Permits.ControlsViewModel oModel)
         {
-            using (eServicesEntities db = new eServicesEntities())
+            using (var db = new eServicesEntities())
             {
-                BldPermits _BldPermits = new BldPermits();
                 try
                 {
 
-                    _BldPermits = db.BldPermits.Where(x => x.Id == oModel.BuildingPermits.Id).SingleOrDefault();
+                    var bldControlServices = db.BldControlServices.SingleOrDefault(x => x.DmEngineerNo == oModel.BuildingControls.DmEngineerNo);
 
-                    if (_BldPermits == null)
+                    if (bldControlServices == null)
                     {
                         return null;
                     }
 
-                    //  _BldPermits = Mapper.Map<BuildingPermits, BldPermits>(oModel.BuildingPermits);
-                    _BldPermits.WorkflowStatus = oModel.BuildingPermits.WorkflowStatus;
-                    _BldPermits.UpdatedBy = oModel.oEmployeeInfo.NAME;
-                    _BldPermits.UpdatedOn = DateTime.Now.Date;
+                    //  _BldControlServices = Mapper.Map<BuildingControls, BldControlServices>(oModel.BuildingControls);
+                    bldControlServices.Status = oModel.BuildingControls.Status;
+                    bldControlServices.UpdatedBy = oModel.oEmployeeInfo.NAME;
+                    bldControlServices.UpdatedOn = DateTime.Now.Date;
                     db.SaveChanges();
                     return "ok";
                 }
@@ -253,39 +293,39 @@ namespace DMeServices.Models.Common.BuildingServices
 
         #endregion
 
-        #region Method :: Save Consultat Permits 
+        #region Method :: Save Consultat Controls 
 
 
-        public static string SaveConsultatPermits(PermitsViewModel oModel)
+        public static string SaveConsultantcontrols(ControlsViewModel oModel)
         {
-            using (eServicesEntities db = new eServicesEntities())
+            using (var db = new eServicesEntities())
             {
-                BldPermits _BldPermits = new BldPermits();
                 try
                 {
 
-                    _BldPermits = db.BldPermits.Where(x => x.Id == oModel.BuildingPermits.Id).SingleOrDefault();
+                    var bldControlServices = db.BldControlServices.SingleOrDefault(x => x.ConsultantCivilId == oModel.BuildingControls.ConsultantCivilId);
 
-                    if (_BldPermits == null)
+                    if (bldControlServices == null)
                     {
                         return null;
                     }
                     if (oModel.ListOfAttachments != null)
                     {
-                        List<BldPermitsAttachments> LstAttachments = Mapper.Map<List<PermitsAttachments>, List<BldPermitsAttachments>>(oModel.ListOfAttachments);
-                        foreach (var File in LstAttachments)
+                        var lstAttachments = Mapper.Map<List<PermitsAttachments>, List<BldPermitsAttachments>>(oModel.ListOfAttachments);
+                        foreach (var file in lstAttachments)
                         {
-                            var Attachment = db.BldPermitsAttachments.Where(x => x.Id == File.Id).SingleOrDefault();
-                            if (Attachment != null)
+                            var attachment = db.BldPermitsAttachments.Where(x => x.Id == file.Id).SingleOrDefault();
+                            if (attachment != null)
                             {
-                                Attachment.UpdatedBy = oModel.oUserInfo.FirstName;
-                                Attachment.UpdatedOn = DateTime.Now.Date;
+                                attachment.Description = oModel.Attachments.Description + "BLD-ControlService";
+                                attachment.UpdatedBy = oModel.oUserInfo.FirstName;
+                                attachment.UpdatedOn = DateTime.Now.Date;
                                 db.SaveChanges();
                             }
                             else
                             {
-                                File.BldPermitId = _BldPermits.Id;
-                                db.BldPermitsAttachments.Add(File);
+                                file.BldPermitId = bldControlServices.ID;
+                                db.BldPermitsAttachments.Add(file);
                                 db.SaveChanges();
                             }
 
@@ -294,10 +334,10 @@ namespace DMeServices.Models.Common.BuildingServices
 
                     }
 
-                    //  _BldPermits = Mapper.Map<BuildingPermits, BldPermits>(oModel.BuildingPermits);
-                    _BldPermits.WorkflowStatus = 10;
-                    _BldPermits.UpdatedBy = oModel.oUserInfo.FirstName;
-                    _BldPermits.UpdatedOn = DateTime.Now.Date;
+                    //  _BldControlServices = Mapper.Map<BuildingControls, BldControlServices>(oModel.BuildingControls);
+                    bldControlServices.Status = 10;
+                    bldControlServices.UpdatedBy = oModel.oUserInfo.FirstName;
+                    bldControlServices.UpdatedOn = DateTime.Now.Date;
                     db.SaveChanges();
                     return "ok";
                 }
@@ -316,29 +356,29 @@ namespace DMeServices.Models.Common.BuildingServices
 
         #endregion
 
-        #region Method :: Assign Permit 
+        #region Method :: Assign Controls 
 
-        public static BuildingPermits AssignPermits(BuildingPermits Permits)
+        public static BuildingControls AssignControls(BuildingControls controls)
         {
-            using (eServicesEntities db = new eServicesEntities())
+            using (var db = new eServicesEntities())
             {
-                BldPermits _BldPermits = new BldPermits();
-                BuildingPermits _BuildingPermits = new BuildingPermits();
+                var bldControlServices = new BldControlServices();
+                var buildingControls = new BuildingControls();
                 try
                 {
 
-                    _BldPermits = db.BldPermits.Where(x => x.Id == Permits.Id).SingleOrDefault();
+                    bldControlServices = db.BldControlServices.Where(x => x.ID == controls.ID).SingleOrDefault();
 
-                    if (_BldPermits == null)
+                    if (bldControlServices == null)
                     {
                         return null;
                     }
 
-                    _BldPermits.DmEngineerNo = Permits.DmEngineerNo;
-                    _BldPermits.WorkflowStatus = 12;
+                    bldControlServices.DmEngineerNo = controls.DmEngineerNo;
+                    bldControlServices.Status = 12;
                     db.SaveChanges();
-                    _BuildingPermits = Mapper.Map<BldPermits, BuildingPermits>(_BldPermits);
-                    return _BuildingPermits;
+                    buildingControls = Mapper.Map<BldControlServices, BuildingControls>(bldControlServices);
+                    return buildingControls;
 
                 }
                 catch (Exception ex)
@@ -361,46 +401,46 @@ namespace DMeServices.Models.Common.BuildingServices
 
         public static string GenTransactNo()
         {
-            string TransactNo = null;
-            using (eServicesEntities db = new eServicesEntities())
+            string transactNo = null;
+            using (var db = new eServicesEntities())
             {
 
-                string CurrentYear = DateTime.Now.Year.ToString();
-                int LastTID;
+                var currentYear = DateTime.Now.Year.ToString();
+                int lastTid;
 
                 string lastTransactNo;
 
-                BldPermits Bld = db.BldPermits.OrderByDescending(x => x.Id).FirstOrDefault();
+                BldControlServices Service = db.BldControlServices.OrderByDescending(x => x.ID).FirstOrDefault();
 
 
-                if (Bld == null)
+                if (Service == null)
                 {
-                    lastTransactNo = "BLD-0/" + CurrentYear + "";
+                    lastTransactNo = "Service-0/" + currentYear + "";
                 }
                 else
                 {
-                    lastTransactNo = Bld.TransactNo;
+                    lastTransactNo = Service.ID.ToString();
                 }
 
 
-                string SrvName = lastTransactNo.Substring(0, 4);
+                var srvName = lastTransactNo.Substring(0, 4);
                 lastTransactNo = lastTransactNo.Substring(4);
-                string[] Result = lastTransactNo.Split(new[] { '/' }, 2);
-                string ResultTID = Result[0];
-                string ResultYear = Result[1];
-                if (ResultYear == CurrentYear)
+                var result = lastTransactNo.Split(new[] { '/' }, 2);
+                var resultTid = result[0];
+                var resultYear = result[1];
+                if (resultYear == currentYear)
                 {
-                    LastTID = int.Parse(ResultTID);
-                    LastTID = LastTID + 1;
-                    TransactNo = "" + SrvName + "" + LastTID + "/" + CurrentYear + "";
+                    lastTid = int.Parse(resultTid);
+                    lastTid = lastTid + 1;
+                    transactNo = "" + srvName + "" + lastTid + "/" + currentYear + "";
                 }
                 else
                 {
-                    LastTID = 1;
-                    TransactNo = "" + SrvName + "" + LastTID + "/" + CurrentYear + "";
+                    lastTid = 1;
+                    transactNo = "" + srvName + "" + lastTid + "/" + currentYear + "";
                 }
 
-                return TransactNo;
+                return transactNo;
             }
         }
 
