@@ -63,7 +63,6 @@ namespace DMeServices.DAL
         public virtual BldRegions BldRegions { get; set; }
         public virtual BldSquareLetters BldSquareLetters { get; set; }
         public virtual BldWelyat BldWelyat { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BldControlServices> BldControlServices { get; set; }
+        
     }
 }
