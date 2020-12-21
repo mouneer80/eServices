@@ -8,7 +8,7 @@
 
 
         @{
-            var User = DMeServices.Models.Common.UserCom.UserByCivilID((long)item.ConsultantCivilId);
+            var User = DMeServices.Models.Common.UserCom.UserByCivilID(item.ConsultantCivilId);
 
             if (User != null)
             {

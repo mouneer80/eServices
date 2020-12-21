@@ -296,7 +296,7 @@ namespace DMeServicesInternal.Web.Controllers
 
             if (Result == "ok")
             {
-                var User = DMeServices.Models.Common.UserCom.UserByCivilID((long)oModel.BuildingControls.ConsultantCivilId);
+                var User = DMeServices.Models.Common.UserCom.UserByCivilID((int)oModel.BuildingControls.ConsultantCivilId);
 
                 switch (oModel.BuildingControls.Status)
                 {
