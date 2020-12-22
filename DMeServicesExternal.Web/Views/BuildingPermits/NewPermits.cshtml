@@ -4,6 +4,29 @@
     Layout = "~/Views/Shared/_SubLayout.cshtml";
 }
 
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
+
+
+<style>
+    .ui-widget-header {
+        background: #cedc98;
+        border: 1px solid #DDDDDD;
+        color: #333333;
+        font-weight: bold;
+    }
+
+    .progress-label {
+        position: absolute;
+        left: 50%;
+        top: 13px;
+        font-weight: bold;
+        text-shadow: 1px 1px 0 #fff;
+    }
+
+    .red {
+        color: red;
+    }
+</style>
 
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
@@ -14,7 +37,7 @@
 
 <script>
     $(document).ready(function () {
-            
+
         var counter = 0;
 
         $("#addrow").on("click", function () {
@@ -117,14 +140,14 @@
                         <div class="form-group col-md-6">
 
                             <label class="control-label">اسم الولاية</label>
-                            @Html.DropDownListFor(m => m.BuildingPermits.WelayahID, (List<SelectListItem>)ViewBag.DDWelayat, new { style = "padding:0px", @class = "form-control", @data_rel = "chosen", id = "Welayah" })
+                            @Html.DropDownListFor(m => m.WID, (List<SelectListItem>)ViewBag.DDWelayat, new { style = "padding:0px", @class = "form-control", @data_rel = "chosen", id = "Welayah" })
 
                         </div>
 
                         <div class="form-group col-md-6">
 
                             <label class="control-label">اسم القرية / المنطقة</label>
-                            @Html.DropDownListFor(m => m.BuildingPermits.RegionID, new SelectList(string.Empty, "Value", "Text"), "-- اختر القرية / المنطقة --", new { style = "padding:0px", @class = "form-control", @data_rel = "chosen", id = "Region" })
+                            @Html.DropDownListFor(m => m.RID, new SelectList(string.Empty, "Value", "Text"), "-- اختر القرية / المنطقة --", new { style = "padding:0px", @class = "form-control", @data_rel = "chosen", id = "Region" })
 
                         </div>
                     </div>
@@ -152,12 +175,12 @@
                             @Html.ValidationMessageFor(m => m.BuildingPermits.OwnerPhoneNo, "", new { @style = "color:orange;" })
                         </div>
                         @*<div class="form-group col-md-6">
-                            <label class="control-label">
-                                @Html.DisplayNameFor(m => m.BuildingPermits.DistrictName)
-                            </label>
-                            @Html.TextBoxFor(m => m.BuildingPermits.DistrictName, new { @class = "form-control", id = "DistrictName", @placeholder = "المنطقة" })
-                            @Html.ValidationMessageFor(m => m.BuildingPermits.DistrictName, "", new { @style = "color:orange;" })
-                        </div>*@
+                                <label class="control-label">
+                                    @Html.DisplayNameFor(m => m.BuildingPermits.DistrictName)
+                                </label>
+                                @Html.TextBoxFor(m => m.BuildingPermits.DistrictName, new { @class = "form-control", id = "DistrictName", @placeholder = "المنطقة" })
+                                @Html.ValidationMessageFor(m => m.BuildingPermits.DistrictName, "", new { @style = "color:orange;" })
+                            </div>*@
                     </div>
                     <div class="form-group col-md-12">
                         <h5>بيانات قطعة الأرض</h5>
@@ -165,7 +188,7 @@
                             <label class="control-label">
                                 @Html.DisplayNameFor(m => m.BuildingPermits.SquareArea)
                             </label>
-                            @Html.DropDownList("SquareLetters", (List<SelectListItem>)ViewBag.DDSquareLetters, new { style = "padding:0px", @class = "form-control", @data_rel = "chosen", id = "SquareLetters" })
+                            @Html.DropDownListFor(m => m.SID, (List<SelectListItem>)ViewBag.DDSquareLetters, new { style = "padding:0px", @class = "form-control", @data_rel = "chosen", id = "SquareLetters" })
                             @*@Html.TextBoxFor(m => m.BuildingPermits.SquareArea, new { @class = "form-control", id = "SquareArea", @placeholder = "المربع" })*@
                             @*@Html.ValidationMessageFor(m => m.BuildingPermits.SquareArea, "", new { @style = "color:orange;" })*@
                         </div>
@@ -214,13 +237,13 @@
                             <label class="control-label">
                                 @Html.DisplayNameFor(m => m.BuildingPermits.ConstructionType)
                             </label>
-                            @Html.DropDownList("DDLandUseTypes", (List<SelectListItem>)ViewBag.DDLandUseTypes, new { style = "padding:0px", @class = "form-control", @data_rel = "chosen", id = "LandUseTypes" })
+                            @Html.DropDownListFor(m => m.LID, (List<SelectListItem>)ViewBag.DDLandUseTypes, new { style = "padding:0px", @class = "form-control", @data_rel = "chosen", id = "LandUseTypes" })
                             @*@Html.TextBoxFor(m => m.BuildingPermits.ConstructionType, new { @class = "form-control", id = "ConstructionType", @placeholder = "نوع البناء" })
-                            @Html.ValidationMessageFor(m => m.BuildingPermits.ConstructionType, "", new { @style = "color:orange;" })*@
+                                @Html.ValidationMessageFor(m => m.BuildingPermits.ConstructionType, "", new { @style = "color:orange;" })*@
                         </div>
                         <div class="form-group col-md-6">
                             <label class="control-label">نوع المبنى</label>
-                            @Html.DropDownList("BuildingTypes", (List<SelectListItem>)ViewBag.DDBuildingTypes, new { style = "padding:0px", @class = "form-control", @data_rel = "chosen", id = "BuildingTypes" })
+                            @Html.DropDownListFor(m => m.BID, (List<SelectListItem>)ViewBag.DDBuildingTypes, new { style = "padding:0px", @class = "form-control", @data_rel = "chosen", id = "BuildingTypes" })
                         </div>
                         <div class="form-group col-md-6">
                             <label class="control-label">
@@ -248,7 +271,7 @@
                 </div>
                 <div class="col-sm-5" style="width:30%;">
                     @*@Html.TextBoxFor(m => m.PersonalCard.Description, new { @class = "form-control", @placeholder = "ملاحظات" })
-                    @Html.ValidationMessageFor(m => m.PersonalCard.Description, "", new { @style = "color:orange;" })*@
+                        @Html.ValidationMessageFor(m => m.PersonalCard.Description, "", new { @style = "color:orange;" })*@
                 </div>
                 <div class="col-sm-5" style="width:30%;">
                     @Html.TextBoxFor(m => m.PersonalCard.File, new { @id = "PersonalFile", @type = "file", @class = "form-control" })
@@ -267,7 +290,7 @@
                 </div>
                 <div class="col-sm-5" style="width:30%;">
                     @*@Html.TextBoxFor(m => m.KrokeFile.Description, new { @class = "form-control", @placeholder = "ملاحظات" })
-                    @Html.ValidationMessageFor(m => m.KrokeFile.Description, "", new { @style = "color:orange;" })*@
+                        @Html.ValidationMessageFor(m => m.KrokeFile.Description, "", new { @style = "color:orange;" })*@
                 </div>
                 <div class="col-sm-5" style="width:30%;">
                     @Html.TextBoxFor(m => m.KrokeFile.File, new { @type = "file", @id = "KrokeFile", @class = "form-control" })
@@ -286,7 +309,7 @@
                 </div>
                 <div class="col-sm-5" style="width:30%;">
                     @*@Html.TextBoxFor(m => m.OwnerFile.Description, new { @class = "form-control", @placeholder = "ملاحظات" })
-                    @Html.ValidationMessageFor(m => m.OwnerFile.Description, "", new { @style = "color:orange;" })*@
+                        @Html.ValidationMessageFor(m => m.OwnerFile.Description, "", new { @style = "color:orange;" })*@
                 </div>
                 <div class="col-sm-5" style="width:30%;">
                     @Html.TextBoxFor(m => m.OwnerFile.File, new { @type = "file", @id = "OwnerFile", @class = "form-control" })
@@ -307,29 +330,38 @@
         <br />
         <h5> أضافة الخرائط</h5>
         <br />
+        <div class="row">
+            <div id="FileBrowse" class="form-group col-md-12">
 
-        <div class="form-group col-md-12">
+                <div class="col-sm-1" style="width:15%;">
+                    <input type="submit" id="SaveAttachment" name="SaveAttachment" class="btn " value="إضافة مرفق" />
+                </div>
+                <div class="col-sm-5" style="width:35%;">
+                    @Html.TextBoxFor(m => m.Attachments.Description, new { @class = "form-control", id = "FileDescription", @placeholder = "ملاحظات" })
+                    @Html.ValidationMessageFor(m => m.Attachments.Description, "", new { @style = "color:orange;" })
 
-            <div class="col-sm-1" style="width:15%;">
-                <input type="submit" id="SaveAttachment" name="SaveAttachment" class="btn " value="إضافة مرفق" />
+                </div>
+
+                <div class="col-sm-5" style="width:30%;">
+                    @Html.TextBoxFor(m => m.Attachments.File, new { @type = "file", id = "MapFile", @name = "Files", @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Attachments.File, "", new { @style = "color:orange;" })
+                </div>
+
+                <div class="col-sm-5" style="width:20%;">
+                    @Html.DropDownListFor(m => m.Attachments.AttachmentTypeId, (List<SelectListItem>)ViewBag.DDAttachmentsType, new { @class = "dropdown-toggle", @id = "AttTypeId" })
+                    @Html.ValidationMessageFor(m => m.Attachments.AttachmentTypeId, "", new { @style = "color:orange;" })
+                </div>
+
+
             </div>
-            <div class="col-sm-5" style="width:35%;">
-                @Html.TextBoxFor(m => m.Attachments.Description, new { @class = "form-control", id = "FileDescription", @placeholder = "ملاحظات" })
-                @Html.ValidationMessageFor(m => m.Attachments.Description, "", new { @style = "color:orange;" })
-
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div id="progressbar-5">
+                    <div class="progress-label">
+                    </div>
+                </div>
             </div>
-
-            <div class="col-sm-5" style="width:30%;">
-                @Html.TextBoxFor(m => m.Attachments.File, new { @type = "file", id = "MapFile", @name = "Files", @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.Attachments.File, "", new { @style = "color:orange;" })
-            </div>
-
-            <div class="col-sm-5" style="width:20%;">
-                @Html.DropDownListFor(m => m.Attachments.AttachmentTypeId, (List<SelectListItem>)ViewBag.DDAttachmentsType, new { @class = "dropdown-toggle", @id = "AttTypeId" })
-                @Html.ValidationMessageFor(m => m.Attachments.AttachmentTypeId, "", new { @style = "color:orange;" })
-            </div>
-
-
         </div>
     </div>
     <br />
@@ -358,12 +390,17 @@
 
 </div>
 <script src="~/Scripts/jquery-1.10.2.js"></script>
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+<script src="~/Scripts/jquery-ui.js"></script>
+
+
+@*<script src="~/Scripts/jquery-1.10.2.js"></script>*@
+@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
+<script src="~/Scripts/jquery.mask.js"></script>
+
 <script type="text/javascript">
     function moveCursor(fromText, toText) {
         $("#KrokiNO").mask("99-99-999-99-9999");
-        
+
         var currentval = $('#' + fromText.id).val();
         var length = fromText.value.length;
         var maxLength = fromText.maxLength;
@@ -373,13 +410,13 @@
             document.getElementById(toText.id).focus();
             var krokivalue = $("#KrokiNO").val();
             //var kroki5 = $("#KrokiNO5").val();
-            
+
             if (krokivalue === '') {
-               
+
                 $("#KrokiNO").val(currentval);
             } else {
-                
-                $("#KrokiNO").val(krokivalue +'-'+ currentval);
+
+                $("#KrokiNO").val(krokivalue + '-' + currentval);
                 //$("#KrokiNO").on("blur", function () {
 
                 //    var last = $(this).val().substr($(this).val().indexOf("-") + 1);
@@ -391,9 +428,9 @@
                 //    }
 
                 //});
-                
+
             }
-            
+
 
         }
     }
@@ -409,7 +446,7 @@
         }
 
     });
-   
+
 </script>
 <script type="text/javascript">
     //$(document).ready(function () {
@@ -418,11 +455,11 @@
     //    });
     //});
     //function addHyphen(element) {
-    //    let val = $(element).val().split('-').join(''); // Remove dash (-) if mistakenly entered. 
+    //    let val = $(element).val().split('-').join(''); // Remove dash (-) if mistakenly entered.
 
-    //    let finalVal = val.match(/.{1,3}/g).join('-'); // Add (-) after 3rd every char. 
+    //    let finalVal = val.match(/.{1,3}/g).join('-'); // Add (-) after 3rd every char.
 
-    //    $(element).val(finalVal);		// Update the input box. } 
+    //    $(element).val(finalVal);		// Update the input box. }
     //$(document).ready(function () {
     //    $("#KrokiNO").keyup(function (e) {
     //        if ($(this).val().length === 14) return;
@@ -443,11 +480,11 @@
         //$("#KrokiNO").mask("99-99-999-99-9999");
 
     //    $("#KrokiNO").on("blur", function () {
-            
+
     //        var last = $(this).val().substr($(this).val().indexOf("-") + 1);
     //        var value = $(this).val();
     //        if (value.length < 13) {
-                
+
     //            if (value.length + 1 == 2) {
     //                $(this).val = $(this).val + '-';
     //            }
@@ -706,13 +743,21 @@
             processData: false,
             contentType: false,
             data: data,
+            async: false,
+
             success: function (response) {
+                if (response != "") {
+                    
+                    $('#FileBrowse').find("*").prop("disabled", true);
+                    LoadProgressBar(response); //calling LoadProgressBar function to load the progress bar.
+                }
                 $('#FileDescription').val('');
                 $('#AttTypeId').val('0');
                 $('#MapFile').val('');
                 $('#SaveAttachment').attr('disabled', true);
 
                 $('#divAttachments').html(response)
+
             },
             error: function (er) {
                 swal(er);
@@ -720,7 +765,34 @@
             }
 
         });
-    });
+        });
+
+        function LoadProgressBar(response) {
+            var progressbar = $("#progressbar-5");
+            var progressLabel = $(".progress-label");
+            progressbar.show();
+            $("#progressbar-5").progressbar({
+                //value: false,
+                change: function () {
+                    progressLabel.text(
+                        progressbar.progressbar("value") + "%");  // Showing the progress increment value in progress bar
+                },
+                complete: function () {
+                    progressLabel.text("Loading Completed!");
+                    progressbar.progressbar("value", 0);  //Reinitialize the progress bar value 0
+                    progressLabel.text("");
+                    progressbar.hide(); //Hiding the progress bar
+                }
+            });
+            function progress() {
+                var val = progressbar.progressbar("value") || 0;
+                progressbar.progressbar("value", val + 1);
+                if (val < 99) {
+                    setTimeout(progress, 25);
+                }
+            }
+            setTimeout(progress, 100);
+        }
     });
 </script>
 

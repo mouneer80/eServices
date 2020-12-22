@@ -18,7 +18,8 @@ namespace DMeServices.Models.ViewModels.Permits
             if (HttpContext.Current.Session["UserInfo"] != null)
             {
                 oUserInfo = (User)HttpContext.Current.Session["UserInfo"];
-                BuildingPermits = new BuildingPermits { ConsultantCivilId = oUserInfo.CivilId, ConsultantCrNo = oUserInfo.ConsultantCrNo };
+                long userCRNO = (long)UserCom.UserByCivilID(oUserInfo.CivilId).ConsultantCrNo;
+                BuildingPermits = new BuildingPermits { ConsultantCivilId = oUserInfo.CivilId, ConsultantCrNo = userCRNO };
             }
 
         }
@@ -47,6 +48,12 @@ namespace DMeServices.Models.ViewModels.Permits
         public BuildingTypes ListOfBuildingTypes { get; set; }
         public LandUseTypes ListOfLandUseTypes { get; set; }
         public SquareLetters ListOfSquareLetters { get; set; }
+        public int WID { get; set; }
+        public int RID { get; set; }
+        public int LID { get; set; }
+        public int BID { get; set; }
+        public int SID { get; set; }
+
         public bool ShowAdd { get; set; }
 
     }

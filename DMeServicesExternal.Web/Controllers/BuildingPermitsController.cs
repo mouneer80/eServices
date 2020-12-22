@@ -28,6 +28,7 @@ namespace DMeServicesExternal.Web.Controllers
             oModel.ShowAdd = true;
             return View(oModel);
         }
+
         public ActionResult LandProjects()
         {
             PermitsViewModel oModel = new PermitsViewModel();
@@ -35,11 +36,13 @@ namespace DMeServicesExternal.Web.Controllers
             oModel.ShowAdd = false;
             return View("Index",oModel);
         }
+
         public ActionResult CompanyList()
         {
             var oModel = new CompaniesListViewModel();
             return View(oModel);
         }
+
         public static async Task<DataTable> GetPaymentToken()
         {
             // Initialization.  
@@ -89,7 +92,6 @@ namespace DMeServicesExternal.Web.Controllers
         public ActionResult NewPermits()
         {
             PermitsViewModel oModel = new PermitsViewModel();
-
             // to save the attachments on the memory
             TempData["Attachments"] = new List<PermitsAttachments>();
             ViewBag.DDAttachmentsType = DDAttachmentTypes();
@@ -105,7 +107,6 @@ namespace DMeServicesExternal.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult SaveNewPermits(PermitsViewModel oModel)
         {
-
                 oModel.ListOfAttachments = (List<PermitsAttachments>)TempData["Attachments"];
                 TempData["Attachments"] = null;
                 if (isListOfAttachment(oModel.ListOfAttachments))
@@ -125,7 +126,6 @@ namespace DMeServicesExternal.Web.Controllers
                     DMeServices.Models.Common.SmsCom.SendSms("968" + oModel.oUserInfo.MobileNo, ":تم تسليم طلبك بنجاح رقم المعاملة" + result);
                 }
                 return View("SaveNewPermitsSuccessPage");
-           
         }
 
         private bool isListOfAttachment(List<PermitsAttachments> listOfAttachments)
@@ -178,16 +178,12 @@ namespace DMeServicesExternal.Web.Controllers
 
         #region Method :: Display Files 
 
-
         public ActionResult GetFile(int ID)
         {
             ViewBag.ID = ID;
 
             return PartialView("_ViewFile");
         }
-
-
-
 
         public ActionResult DisplayFiles(int Id = -99)
         {
@@ -243,8 +239,6 @@ namespace DMeServicesExternal.Web.Controllers
             return new EmptyResult();
 
         }
-
-
 
         #endregion
 
@@ -459,8 +453,8 @@ namespace DMeServicesExternal.Web.Controllers
 
         #endregion
 
+        
         #region Method :: Save Files
-
 
         public static List<PermitsAttachments> SaveFiles(PermitsViewModel oModel)
         {
@@ -478,7 +472,6 @@ namespace DMeServicesExternal.Web.Controllers
 
             foreach (var Attachment in oModel.ListOfAttachments)
             {
-
                 HttpPostedFileBase oFile = Attachment.File;
                 FileInfo oFileInfo = new FileInfo(oFile.FileName);
 
@@ -515,8 +508,8 @@ namespace DMeServicesExternal.Web.Controllers
                             Attachment.AttachmentName = sFilename;
                             sFilename = null;
                             break;
-
                     }
+
                     MemoryStream stream = new MemoryStream();
                     oFile.InputStream.CopyTo(stream);
                     byte[] data = stream.ToArray();
@@ -531,7 +524,6 @@ namespace DMeServicesExternal.Web.Controllers
                 }
             }
             return ListAttachments;
-
         }
 
         #endregion

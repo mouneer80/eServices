@@ -176,8 +176,14 @@ namespace DMeServices.Models.Common.BuildingServices
 
                     _BldPermits = Mapper.Map<BuildingPermits, BldPermits>(oModel.BuildingPermits);
                     _BldPermits.TransactNo = GenTransactNo();
-                    _BldPermits.ConsultantCrNo = (int)oModel.oUserInfo.ConsultantCrNo;
-                    _BldPermits.CreatedBy = oModel.oUserInfo.FirstName;
+                    //_BldPermits.ConsultantCrNo = (long)oModel.oUserInfo.ConsultantCrNo;
+                    //_BldPermits.ConsultantCivilId = (long)oModel.oUserInfo.CivilId;
+                    _BldPermits.WelayahID = oModel.WID;
+                    _BldPermits.RegionID = oModel.RID;
+                    _BldPermits.SquareLetterID = oModel.SID;
+                    _BldPermits.UseTypeID = oModel.LID;
+                    _BldPermits.BuildingTypeID = oModel.BID;
+                    _BldPermits.CreatedBy = oModel.oUserInfo.FullName;
                     _BldPermits.CreatedOn = DateTime.Now.Date;
                     _BldPermits.RequestDate = DateTime.Now.Date;
                     _BldPermits.WorkflowStatus = 8;

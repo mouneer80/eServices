@@ -216,8 +216,9 @@ namespace DMeServices.Models.Common.BuildingServices
 
                     bldControlServices = Mapper.Map<BuildingControls, BldControlServices>(oModel.BuildingControls);
                     bldControlServices.TransactNo = GenTransactNo();
-                    bldControlServices.BldPermits.ConsultantCrNo = (int)oModel.oUserInfo.ConsultantCrNo;
-                    bldControlServices.CreatedBy = oModel.oUserInfo.FirstName;
+                    bldControlServices.BldPermits.ConsultantCrNo = (long)oModel.oUserInfo.ConsultantCrNo;
+                    bldControlServices.BldPermits.ConsultantCivilId = (long)oModel.oUserInfo.CivilId;
+                    bldControlServices.CreatedBy = oModel.oUserInfo.FullName;
                     bldControlServices.CreatedOn = DateTime.Now.Date;
                     bldControlServices.RequestDate = DateTime.Now.Date;
                     bldControlServices.Status = 8;

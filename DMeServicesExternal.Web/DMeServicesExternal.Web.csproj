@@ -1310,6 +1310,7 @@
     <Content Include="Content\css\uploadify.css" />
     <Content Include="Content\demo.css" />
     <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\linecons.css" />
     <Content Include="Content\responsive.css" />
     <Content Include="Content\style.css" />
@@ -1748,6 +1749,8 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui.js" />
+    <Content Include="Scripts\jquery.mask.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />

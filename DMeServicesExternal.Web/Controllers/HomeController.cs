@@ -105,6 +105,8 @@ namespace DMeServicesExternal.Web.Controllers
             //CivilId = 97081271, //1583659,//6310372,
             user.CompanyName = dt.Rows[0]["omancardSponsorNameAr"].ToString();
             
+            user.PhoneNo = int.Parse(dt.Rows[0]["OMANCARDSPONSORFIXEDPHONE"].ToString());
+
             return user;
         }
         private string[] SplitName(string fullName)
