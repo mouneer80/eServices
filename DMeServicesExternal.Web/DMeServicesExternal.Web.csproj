@@ -1310,6 +1310,7 @@
     <Content Include="Content\css\uploadify.css" />
     <Content Include="Content\demo.css" />
     <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\linecons.css" />
     <Content Include="Content\responsive.css" />
