@@ -168,7 +168,7 @@ namespace DMeServicesExternal.Web.Controllers
         }
         private bool isListOfAttachment(List<PermitsAttachments> listOfAttachments)
         {
-            if (listOfAttachments.Count == 0 || listOfAttachments.Count > 5) return false;
+            if (listOfAttachments.Count == 0 || listOfAttachments.Count > 20) return false;
 
             foreach (var Attachment in listOfAttachments)
             {

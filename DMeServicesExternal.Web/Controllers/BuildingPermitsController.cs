@@ -130,7 +130,7 @@ namespace DMeServicesExternal.Web.Controllers
 
         private bool isListOfAttachment(List<PermitsAttachments> listOfAttachments)
         {
-            if (listOfAttachments.Count == 0 || listOfAttachments.Count > 5) return false;
+            if (listOfAttachments.Count == 0 || listOfAttachments.Count > 20) return false;
 
             foreach (var Attachment in listOfAttachments)
             {
@@ -323,7 +323,7 @@ namespace DMeServicesExternal.Web.Controllers
         {
             PermitsViewModel oModel = new PermitsViewModel();
             var listofattachment = (List<PermitsAttachments>)TempData["Attachments"];
-            if (listofattachment != null && listofattachment.Count == 5) return PartialView("_ListAttachments", oModel);
+            if (listofattachment != null && listofattachment.Count == 20) return PartialView("_ListAttachments", oModel);
             if (System.Web.HttpContext.Current.Request.Files.AllKeys.Any())
             {
                 HttpPostedFileBase File = new HttpPostedFileWrapper(System.Web.HttpContext.Current.Request.Files["MyAttached"]);
