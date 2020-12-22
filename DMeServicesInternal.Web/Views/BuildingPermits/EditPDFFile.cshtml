@@ -20,18 +20,22 @@
 
 	function showViewInformation(view)
 	{
+		var x = document.getElementById("pageInformation");
+		console.log(x);
+        if (x) x.innerHTML = "Page " + view.page + " of " + api.getPageCount();
 		// Show page information
-		document.getElementById("pageInformation").innerHTML = "Page " + view.page + " of " + api.getPageCount();
+		//document.getElementById("pageInformation").innerHTML = "Page " + view.page + " of " + api.getPageCount();
 	}
 
 	function initRadPdf()
 	{
+		
 		// Get id
 		var id = "@Html.Encode(PdfWebControlID)";
-
+        
 		// Get api instance
 		api = new PdfWebControlApi(id);
-
+        
 		// Attach listeners
 		api.addEventListener(
 			"viewChanged",
@@ -60,6 +64,7 @@
 				}
 			}
         );
+        
 
         function unloadModal() {
             $('#MainModal').modal('hide');
@@ -174,7 +179,7 @@
 	{
 		if(api)
 		{
-			api.setView( { "zoom" : 75 } );
+			api.setView( { "zoom" : 50 } );
 		}
 	}
 </script>
