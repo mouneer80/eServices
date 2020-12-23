@@ -433,9 +433,8 @@ namespace DMeServicesInternal.Web.Controllers
         public ActionResult EditPDFFile(int Id, int PirmID)
         {
 
-
-            //IExcelDataReader reader = null;
-            PermitsAttachments Attachment = DMeServices.Models.Common.BuildingServices.PermitsAttachmentsCom.AttachmentsByID(Id);
+                    //IExcelDataReader reader = null;
+                    PermitsAttachments Attachment = DMeServices.Models.Common.BuildingServices.PermitsAttachmentsCom.AttachmentsByID(Id);
 
             string contentType = MimeMapping.GetMimeMapping(Attachment.AttachmentPath);
 

@@ -36,16 +36,13 @@
                             @item.AttachmentContentType
                         </td>*@
                         <td class="col-sm-1" unprintable>
-
                             @item.InsertDate.ToShortDateString()
-
                         </td>
 
                         <td class="col-sm-1" unprintable>
-
                             @item.InsertDate.ToShortTimeString()
-
                         </td>
+
                         <td class="col-sm-1" style="width:20%;">
                             @using (Ajax.BeginForm("DeleteAttachment", new { @controller = "BuildingPermits", @Id = i }, new AjaxOptions { UpdateTargetId = "divAttachments" }, new { @style = "display: inline-block;" }))
                             {
@@ -57,9 +54,7 @@
                     </tr>
                             i++;
                         }
-
                     }
-
                 </tbody>
                 <tfoot>
                     <tr>

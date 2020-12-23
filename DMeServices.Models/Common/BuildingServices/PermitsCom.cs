@@ -241,6 +241,7 @@ namespace DMeServices.Models.Common.BuildingServices
                     _BldPermits.WorkflowStatus = oModel.BuildingPermits.WorkflowStatus;
                     _BldPermits.UpdatedBy = oModel.oEmployeeInfo.NAME;
                     _BldPermits.UpdatedOn = DateTime.Now.Date;
+                    _BldPermits.DmEngineerComments = oModel.BuildingPermits.DmEngineerComments;
                     db.SaveChanges();
                     return "ok";
                 }
