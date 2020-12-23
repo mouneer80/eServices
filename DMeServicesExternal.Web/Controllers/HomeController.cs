@@ -105,7 +105,7 @@ namespace DMeServicesExternal.Web.Controllers
             //CivilId = 97081271, //1583659,//6310372,
             user.CompanyName = dt.Rows[0]["omancardSponsorNameAr"].ToString();
             
-            user.PhoneNo = int.Parse(dt.Rows[0]["OMANCARDSPONSORFIXEDPHONE"].ToString());
+            //user.PhoneNo = int.Parse(dt.Rows[0]["OMANCARDSPONSORFIXEDPHONE"].ToString());
 
             return user;
         }
@@ -126,7 +126,7 @@ namespace DMeServicesExternal.Web.Controllers
         private HttpCookie CreateStudentCookie()
         {
             HttpCookie studentCookies = new HttpCookie("SSO");
-            studentCookies.Value = "19f2f09a-f574-4c1d-a1bd-615d7a166bdc";
+            studentCookies.Value = "2753440e-c783-400e-b0a2-b54886219a59";
             studentCookies.Expires = DateTime.Now.AddHours(1);
             return studentCookies;
         }

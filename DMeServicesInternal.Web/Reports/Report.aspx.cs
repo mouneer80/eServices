@@ -15,6 +15,31 @@ namespace DMeServicesInternal.Web.Reports
 {
     public partial class Report : System.Web.UI.Page
     {
+        protected void Page_Init(object sender, EventArgs e)
+        {
+            if (!Page.IsPostBack)
+            {
+                // Set the processing mode for the ReportViewer to Remote  
+                //ReportViewer1.ProcessingMode = ProcessingMode.Remote;
+
+                //ServerReport serverReport = ReportViewer1.ServerReport;
+
+                // Set the report server URL and report path  
+                //serverReport.ReportServerUrl =
+                //    new Uri("https://<Server Name>/reportserver");
+                //serverReport.ReportPath =
+                //    "/AdventureWorks Sample Reports/Sales Order Detail";
+
+                // Create the sales order number report parameter  
+                //ReportParameter salesOrderNumber = new ReportParameter();
+                //salesOrderNumber.Name = "SalesOrderNumber";
+                //salesOrderNumber.Values.Add("SO43661");
+
+                // Set the report parameters for the report  
+                //ReportViewer1.ServerReport.SetParameters(
+                    //new ReportParameter[] { salesOrderNumber });
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
