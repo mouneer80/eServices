@@ -22,7 +22,7 @@ namespace DMeServicesExternal.Web.Controllers
         {
             //GetUserDataFromOracleDbTestUser();
             //return View(((User)Session["UserInfo"]));
-            //Response.Cookies.Add(CreateStudentCookie());
+            Response.Cookies.Add(CreateStudentCookie());
             var guid = ReadPkiSession();
             if (!string.IsNullOrWhiteSpace(guid))
             {

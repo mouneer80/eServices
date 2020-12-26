@@ -222,8 +222,8 @@
                     <h5>ملاحظات مسؤول قسم تراخيص البناء</h5>
                     <div class="form-group col-md-6">
 
-                        <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.DmEngineerComments)</label>
-                        @Html.TextBoxFor(m => m.BuildingPermits.DmEngineerComments, new { @readonly = "readonly", @class = "form-control", id = "OwnerName", @placeholder = "لا يوجد ملاحظات" })
+
+                        @Html.TextAreaFor(m => m.BuildingPermits.DmEngineerComments, new { @style = "font-size:11px; height:200px;", @readonly = "readonly", @class = "form-control", id = "OwnerName", @placeholder = "لا يوجد ملاحظات" })
 
                     </div>
                 </div>

@@ -363,6 +363,7 @@
     <Content Include="Assets\js\wow.js" />
     <Content Include="Assets\js\wow.min.js" />
     <Content Include="Assets\js\wwp.js" />
+    <Content Include="Content\ajax-loader.gif" />
     <Content Include="Content\animate.css" />
     <Content Include="Content\animation.css" />
     <Content Include="Content\bootstrap.css" />
@@ -1309,6 +1310,7 @@
     <Content Include="Content\css\vertical.news.slider.css" />
     <Content Include="Content\css\uploadify.css" />
     <Content Include="Content\demo.css" />
+    <Content Include="Content\ezgif.com-resize.gif" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
     <Content Include="Content\jquery-ui.css" />
