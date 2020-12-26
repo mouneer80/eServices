@@ -28,6 +28,8 @@ namespace DMeServices.Models.BuildingServices
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
+        //[Required(ErrorMessageResourceType = typeof(Resources.Validation_Ar), ErrorMessageResourceName = "RequirdField", AllowEmptyStrings = false)]
+        //[RegularExpression(@"([a-zA-Z0-9\s_\\.\-:])+(.PNG|.JPG|.JPEG|.PDF|.png|.jpg|.jpeg|.pdf)$", ErrorMessageResourceType = typeof(Resources.Validation_Ar), ErrorMessageResourceName = "FileType")]
         public HttpPostedFileBase File { get; set; }
         public string AttachmentUrl { get; set; }
         

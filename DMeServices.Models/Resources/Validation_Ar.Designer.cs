@@ -19,7 +19,7 @@ namespace DMeServices.Models.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Validation_Ar {
@@ -79,7 +79,7 @@ namespace DMeServices.Models.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to صيغة الملف غير صالحة ,صيغ الملفات المتاحة(pdf,JPG, JPEG &amp; PNG ).
+        ///   Looks up a localized string similar to صيغة الملف غير صالحة ,صيغ الملفات المتاحة(PDF,JPG, JPEG &amp; PNG ).
         /// </summary>
         public static string FileType {
             get {

@@ -124,11 +124,11 @@ namespace DMeServicesExternal.Web.Controllers
             return restResponse.Content;
         }
 
-        public ActionResult CompanyDetails(long id)
+        public ActionResult CompanyDetails(long id, int cid)
         {
             var companyViewModel = new CompanyViewModel()
             {
-                CompanyData = MociCompaniesData.GetCompanyByCr(id),
+                CompanyData = MociCompaniesData.GetCompanyByCrCid(id, cid),
                 ConsultantsList = UserCom.GetUsersListByCr(id)
             };
             return View(companyViewModel);

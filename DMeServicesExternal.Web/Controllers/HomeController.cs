@@ -96,19 +96,50 @@ namespace DMeServicesExternal.Web.Controllers
         {
             string[] names = SplitName(dt.Rows[0]["omancardTitleFullNameAr"].ToString());
             User user = new User();
-            var lenghth = names.Length - 4 > 0 ? names.Length - 4 : 1;
-            user.FirstName = names[0];
-            user.SecondName = names[1];
-            user.ThirdName = names[2];
-            user.LastName = String.Join(" ", names, names.Length - 1, lenghth);
+            if (names.Length == 1)
+            {
+                user.FirstName = names[0];
+                user.SecondName = "";
+                user.ThirdName = "";
+                user.LastName = "";
+            }
+            else if (names.Length == 2)
+            {
+                user.FirstName = names[0];
+                user.SecondName = "";
+                user.ThirdName = "";
+                user.LastName = names[1];
+            }
+            else if (names.Length == 3)
+            {
+                user.FirstName = names[0];
+                user.SecondName = names[1];
+                user.ThirdName = "";
+                user.LastName = names[2];
+            }
+            else if (names.Length == 4)
+            {
+                user.FirstName = names[0];
+                user.SecondName = names[1];
+                user.ThirdName = names[2];
+                user.LastName = names[3];
+            }
+            else
+            {
+                user.FirstName = names[0];
+                user.SecondName = names[1];
+                user.ThirdName = names[2];
+                user.LastName = String.Join(" ", names, 3, names.Length - 3);
+            }
             user.CivilId = int.Parse(dt.Rows[0]["omanIDCivilNumber"].ToString());
-            //CivilId = 97081271, //1583659,//6310372,
+            //user.CivilId = 6243694; //1583659,//6310372,
             user.CompanyName = dt.Rows[0]["omancardSponsorNameAr"].ToString();
             
             //user.PhoneNo = int.Parse(dt.Rows[0]["OMANCARDSPONSORFIXEDPHONE"].ToString());
 
             return user;
         }
+
         private string[] SplitName(string fullName)
         {
             return fullName.Split(new char[] {' '});
@@ -126,7 +157,7 @@ namespace DMeServicesExternal.Web.Controllers
         private HttpCookie CreateStudentCookie()
         {
             HttpCookie studentCookies = new HttpCookie("SSO");
-            studentCookies.Value = "2753440e-c783-400e-b0a2-b54886219a59";
+            studentCookies.Value = "d8cb7fbf-7be3-490e-a2c3-e15a933b24e1";
             studentCookies.Expires = DateTime.Now.AddHours(1);
             return studentCookies;
         }

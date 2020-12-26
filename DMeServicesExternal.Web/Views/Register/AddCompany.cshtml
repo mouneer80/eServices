@@ -137,7 +137,7 @@
         var userCivilID = $('#hiddenCivil_id').val();
         EmptyTextBoxes();
         $.ajax({
-            url: "/EngineeringService/External/Register/GetCompanyDataByCr/" + Comm_Val,
+            url: "/Register/GetCompanyDataByCr/" + Comm_Val,
             type: "Get",
             dataType: "json",
             success: function (data) {
@@ -148,6 +148,7 @@
                     var signatoriesArray = data.companyOverview.signatories.signatory;
                     var isOwner = false;
                     var personIndex = -1;
+                    
                     signatoriesArray.forEach((item, index) => {
                         if (item.idNumber === userCivilID) {
                             isOwner = true;
@@ -155,11 +156,14 @@
                             return;
                         }
                     });
-                    investorsArray.forEach((item,index) => {
+                    investorsArray.forEach((item, index) => {
+                        if (item.person != null) {
                         if (item.person.idNumber === userCivilID) {
+                            
                             isOwner =  true;
                             personIndex = index;
                             return;
+                            }
                         }
                     });
                     if (isOwner) {

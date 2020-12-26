@@ -39,11 +39,46 @@ namespace DMeServices.Models
             set
             {
                 string[] names = value.Split(new char[] {' '});
-                var lenghth = names.Length - 4 > 0 ? names.Length-4 : 1;
-                FirstName = names[0];
-                SecondName = names[1]??"";
-                ThirdName = names[2]??"";
-                LastName = String.Join(" ", names, names.Length - 1, lenghth);
+                if (names.Length == 1)
+                {
+                    FirstName = names[0];
+                    SecondName = "";
+                    ThirdName = "";
+                    LastName = "";
+                }
+                else if (names.Length == 2)
+                {
+                    FirstName = names[0];
+                    SecondName = "";
+                    ThirdName = "";
+                    LastName = names[1];
+                }
+                else if (names.Length == 3)
+                {
+                    FirstName = names[0];
+                    SecondName = names[1];
+                    ThirdName = "";
+                    LastName = names[2];
+                }
+                else if (names.Length == 4)
+                {
+                    FirstName = names[0];
+                    SecondName = names[1];
+                    ThirdName = names[2];
+                    LastName = names[3];
+                }
+                else
+                {
+                    FirstName = names[0];
+                    SecondName = names[1];
+                    ThirdName = names[2];
+                    LastName = String.Join(" ", names, 3, names.Length - 3);
+                }
+                //var lenghth = names.Length - 4 > 0 ? names.Length-4 : 1;
+                //FirstName = names[0];
+                //SecondName = names[1]??"";
+                //ThirdName = names[2]??"";
+                //LastName = String.Join(" ", names, names.Length - 1, lenghth);
             }
         }
 
