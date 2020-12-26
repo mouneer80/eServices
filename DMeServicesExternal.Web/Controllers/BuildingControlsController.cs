@@ -175,7 +175,7 @@ namespace DMeServicesExternal.Web.Controllers
                 HttpPostedFileBase oFile = Attachment.File;
                 FileInfo oFileInfo = new FileInfo(oFile.FileName);
 
-                if (oFile == null || oFile.ContentLength <= 0 || !new string[] { ".jpg", ".jpeg", ".pdf", ".png" }.Contains(oFileInfo.Extension)) return false;
+                if (oFile == null || oFile.ContentLength <= 0 || !new string[] { ".jpg", ".jpeg", ".pdf", ".png" }.Contains(oFileInfo.Extension.ToLower())) return false;
             }
             return true;
         }
@@ -371,7 +371,7 @@ namespace DMeServicesExternal.Web.Controllers
                 oModel.Attachments.File = File;
                 oModel.Attachments.InsertDate = DateTime.Now;
                 oModel.Attachments.AttachmentContentType = oFileInfo.Extension;
-                if (!new string[] { ".jpg", ".jpeg", ".pdf", ".png" }.Contains(oFileInfo.Extension))
+                if (!new string[] { ".jpg", ".jpeg", ".pdf", ".png" }.Contains(oFileInfo.Extension.ToString()))
                 {
                     return PartialView("_ListAttachments", oModel);
                 }

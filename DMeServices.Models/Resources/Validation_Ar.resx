@@ -121,7 +121,7 @@
     <value>أقصى حد للبريد الإلكتروني 200 حرف</value>
   </data>
   <data name="FileType" xml:space="preserve">
-    <value>صيغة الملف غير صالحة ,صيغ الملفات المتاحة(pdf,JPG, JPEG &amp; PNG )</value>
+    <value>صيغة الملف غير صالحة ,صيغ الملفات المتاحة(PDF,JPG, JPEG &amp; PNG )</value>
   </data>
   <data name="ImageType" xml:space="preserve">
     <value>صيغة الملف غير صالحة ,صيغ الملفات المتاحة(JPG, JPEG &amp; PNG)</value>

@@ -137,7 +137,7 @@ namespace DMeServicesExternal.Web.Controllers
                 HttpPostedFileBase oFile = Attachment.File;
                 FileInfo oFileInfo = new FileInfo(oFile.FileName);
 
-                if (oFile == null || oFile.ContentLength <= 0 || !new string[] { ".jpg", ".jpeg", ".pdf", ".png" }.Contains(oFileInfo.Extension)) return false;
+                if (oFile == null || oFile.ContentLength <= 0 || !new string[] { ".jpg", ".jpeg", ".pdf", ".png" }.Contains(oFileInfo.Extension.ToLower())) return false;
             }
             return true;
         }
@@ -333,8 +333,8 @@ namespace DMeServicesExternal.Web.Controllers
                 oModel.Attachments = new PermitsAttachments();
                 oModel.Attachments.File = File;
                 oModel.Attachments.InsertDate = DateTime.Now;
-                oModel.Attachments.AttachmentContentType = oFileInfo.Extension;
-                if (!new string[] { ".jpg", ".jpeg", ".pdf", ".png" }.Contains(oFileInfo.Extension))
+                oModel.Attachments.AttachmentContentType = oFileInfo.Extension.ToLower();
+                if (!new string[] { ".jpg", ".jpeg", ".pdf", ".png" }.Contains(oFileInfo.Extension.ToLower()))
                 {
                     return PartialView("_ListAttachments", oModel);
                 }
@@ -350,7 +350,7 @@ namespace DMeServicesExternal.Web.Controllers
                 {
                     oModel.ListOfAttachments = new List<PermitsAttachments>();
                 }
-                if (oModel.ListOfAttachments.Count < 5)
+                if (oModel.ListOfAttachments.Count < 20)
                     oModel.ListOfAttachments.Add(oModel.Attachments);
 
 
@@ -358,7 +358,7 @@ namespace DMeServicesExternal.Web.Controllers
             }
             else
             {
-                ViewBag.message = " لا يمكن اضافة اكثر من 5 ملفات كحد اقصى";
+                ViewBag.message = " لا يمكن اضافة اكثر من 20 ملفات كحد اقصى";
             }
             return PartialView("_ListAttachments", oModel);
         }

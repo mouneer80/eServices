@@ -45,7 +45,7 @@
                                     <td class="center">@item.GOVERNORATE</td>
                                     <td class="center">
                                         <a class="btn btn-primary modal-link" 
-                                           href="@Url.Action("CompanyDetails", "Register", new {@id = item.COMMERCIAL_NO})">ادارة الشركة </a>
+                                           href="@Url.Action("CompanyDetails", "Register", new {@id = item.COMMERCIAL_NO, @cid = item.CIVIL_ID})">ادارة الشركة </a>
                                     </td>
                                     <td class="center">
                                         <a class="btn btn-primary modal-link" 

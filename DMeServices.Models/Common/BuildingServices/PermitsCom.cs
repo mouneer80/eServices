@@ -305,6 +305,7 @@ namespace DMeServices.Models.Common.BuildingServices
                     _BldPermits.WorkflowStatus = 10;
                     _BldPermits.UpdatedBy = oModel.oUserInfo.FirstName;
                     _BldPermits.UpdatedOn = DateTime.Now.Date;
+                    
                     db.SaveChanges();
                     return "ok";
                 }

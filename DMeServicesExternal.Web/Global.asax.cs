@@ -29,7 +29,7 @@ namespace DMeServicesExternal.Web
             if (app != null && app.Context != null)
             {
                 app.Context.Response.Headers.Remove("Server");
-                HttpContext.Current.Response.AddHeader("X-Frame-Options", "DENY");
+                HttpContext.Current.Response.AddHeader("X-Frame-Options", "SAMEORIGIN");
             }
         }
 
