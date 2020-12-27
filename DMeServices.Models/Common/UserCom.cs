@@ -41,6 +41,16 @@ namespace DMeServices.Models.Common
             }
 
         }
+
+        public static List<User> AllUsers()
+        {
+            using (eServicesEntities db = new eServicesEntities())
+            {
+                List<Users> oUsers = db.Users.OrderBy(x => x.ConsultantCrNo).ToList();
+                List<User> oUser = Mapper.Map<List<Users>, List<User>>(oUsers);
+                return oUser;
+            }
+        }
         #endregion
 
         #region Method :: Register New User

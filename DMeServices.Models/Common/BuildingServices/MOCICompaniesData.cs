@@ -37,8 +37,19 @@ namespace DMeServices.Models.Common.BuildingServices
                 return "تم التسحيل بنجاح";
             }
         }
+
+        public static List<MociCompaniesData> AllCompanies()
+        {
+            using (eServicesEntities db = new eServicesEntities())
+            {
+                List<MociData> _BldCompanies = db.MociData.OrderBy(x => x.COMMERCIAL_NO).ToList();
+                List<MociCompaniesData> _MociCompanies = Mapper.Map<List<MociData>, List<MociCompaniesData>>(_BldCompanies);
+
+                return _MociCompanies;
+            }
+        }
         #endregion
-        
+
         #region Method :: Edit Company Details
         public static string SaveCompany(CompanyViewModel compData)
         {

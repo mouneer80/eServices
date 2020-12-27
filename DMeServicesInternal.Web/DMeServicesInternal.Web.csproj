@@ -1578,6 +1578,10 @@
     <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\bower_components\morris.css" />
+    <Content Include="Content\bower_components\morris.js" />
+    <Content Include="Content\bower_components\morris.min.js" />
+    <Content Include="Content\bower_components\raphael-min.js" />
     <Content Include="Views\Revenue\HtmlPage1.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

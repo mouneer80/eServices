@@ -70,14 +70,14 @@ namespace DMeServicesInternal.Web.Controllers
             ViewBag.DDLandUseTypes = DDLandUseTypes();
             ViewBag.DDSquareLetters = DDSquareLetters();
             oModel.ListOfAttachments = PermitsAttachmentsCom.AttachmentsByPermitsID(Id);
-
+            ViewBag.DDPermitsStatus = DDPermitsStatus();
             if (oModel.oEmployeeInfo.IsEngineerHead)
             {
                 ViewBag.DDEngineersList = DDEngineers();
                 return View("HeadPermitDetails", oModel);
             }
 
-            ViewBag.DDPermitsStatus = DDPermitsStatus();
+            
             return View("EngineerPermitDetails", oModel);
         }
 
@@ -382,8 +382,7 @@ namespace DMeServicesInternal.Web.Controllers
             PermitsViewModel oModel = new PermitsViewModel();
             oModel.BuildingPermits = PermitsCom.PermitsByID(Id);
             ViewBag.DDServicesFees = DDServiceFees();
-            oModel.ListServiceFeesDetails = ViewBag.DDServicesFees;
-            oModel.ServiceFees = ViewBag.DDServicesFees;
+            
             return View("ErrorPage");
             //return View("PermitPaymentDetails", oModel);
             //return Redirect("~/Reports/Report.aspx");
