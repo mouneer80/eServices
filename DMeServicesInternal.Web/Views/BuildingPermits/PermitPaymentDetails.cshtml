@@ -199,10 +199,9 @@
                     <div class="form-group col-md-6">
 
                         <label class="control-label">تفاصيل الخدمة</label>
-                        @Html.DropDownListFor(m => m.ServiceFees.ServiceID, (List<SelectListItem>)ViewBag.DDServiceFees, new { style = "padding:0px", @class = "form-control", @data_rel = "chosen", id = "ServiceType" })
+                        @Html.DropDownListFor(m => m.ServiceFeesID, (List<SelectListItem>)ViewBag.DDServiceFees, new { style = "padding:0px", @class = "form-control", @data_rel = "chosen", id = "ServiceType" })
 
                     </div>
-
 
                 </div>
 
