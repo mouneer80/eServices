@@ -162,52 +162,53 @@
                         خدمات الشؤون الهندسية <span class="caret"></span>
                     </a>
                     @if (Session["EmployeeInfo"] != null)
-                            { 
+                    {
 
-                <ul class="dropdown-menu" role="menu">
-                    @*<li><a href="@Url.Action("Index","HealthRenewal")">تصاريح البلدية</a></li>
-        <li class="divider"></li>*@
-                    @if (Session["Show"] == null)
-                    {
-                        <li><a href="@Url.Action("Index","BuildingPermits")">تصاريح البناء</a></li>
-                    }
-                    @*<li class="divider"></li>
-        <li><a href="#">تصاريح المساكن الجماعية</a></li>*@
+                        <ul class="dropdown-menu" role="menu">
+                            @*<li><a href="@Url.Action("Index","HealthRenewal")">تصاريح البلدية</a></li>
+                    <li class="divider"></li>*@
+                            @if (Session["Show"] == null)
+                            {
+                                <li><a href="@Url.Action("Index","BuildingPermits")">تصاريح البناء</a></li>
+                            }
+                            @*<li class="divider"></li>
+                    <li><a href="#">تصاريح المساكن الجماعية</a></li>*@
+                            <li class="divider"></li>
+                            @if (Session["Show"] != null)
+                            {
+                                <li><a href="@Url.Action("Index", "BuildingControls")">رقابة البناء</a></li>
+                            }
+                            @*<li class="divider"></li>
+                    <li><a href="#">البطاقات الصحية</a></li>
                     <li class="divider"></li>
-                    @if (Session["Show"] != null)
-                    {
-                        <li><a href="@Url.Action("Index", "BuildingControls")">رقابة البناء</a></li>
-                    }
-                        @*<li class="divider"></li>
-            <li><a href="#">البطاقات الصحية</a></li>
-            <li class="divider"></li>
-            <li><a href="#">فحص المركبات </a></li>*@
-                    </ul>
+                    <li><a href="#">فحص المركبات </a></li>*@
+                        </ul>
                     }
                 </li>
                 @*<li><a href="#"> المركز الإعلامي</a></li>
-                <li><a href="#" style="font-size:15px; font-weight:bold;"> تواصل معنا</a></li>*@
-            
+        <li><a href="#" style="font-size:15px; font-weight:bold;"> تواصل معنا</a></li>*@
+
 
 
                 @if (Session["EmployeeInfo"] == null)
                 {
-            <li>
-                <a href="@Url.Content("~/Account/Login")"> تسجيل الدخول </a>
-            </li>
-                
+                    <li>
+                        <a href="@Url.Content("~/Account/Login")"> تسجيل الدخول </a>
+                    </li>
 
-}
-else
-{
-            <li><a href="#" style="font-weight:bold;">مرحباً :  @(((DMeServices.Models.Employee)Session["EmployeeInfo"]).NAME))</a></li>
-            <li class="divider"></li>
-            <li><a href=" @Url.Action("Logout","Account")"> تسجيل الخروج</a></li>
 
-}
+                }
+                else
+                {
+                    <li><a href="#" style="font-weight:bold;">مرحباً :  @(((DMeServices.Models.Employee)Session["EmployeeInfo"]).NAME))</a></li>
+                    <li class="divider"></li>
+                    <li><a href=" @Url.Action("Logout","Account")"> تسجيل الخروج</a></li>
+                    <li><a href="@Url.Action("DashBoard", "Home")">احصاءات</a></li>
 
-                    
-                
+                }
+
+
+
 
             </ul>
 

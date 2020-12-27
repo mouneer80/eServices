@@ -70,8 +70,8 @@ namespace DMeServices.Models.ViewModels.Internal.Permits
         public int Quantity { get; set; }
 
         public int ServiceFeesID { get; set; }
-
-
-
+        public int BuildingPermits_count { get; set; }
+        public int Companies_count { get; set; }
+        public int Users_count { get; set; }
     }
 }
