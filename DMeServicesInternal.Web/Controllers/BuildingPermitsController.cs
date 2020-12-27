@@ -18,13 +18,8 @@ namespace DMeServicesInternal.Web.Controllers
         public ActionResult Index()
         {
             PermitsViewModel oModel = new PermitsViewModel();
-
             return View(oModel);
         }
-
-
-
-
         public ActionResult PermitsList(string Type)
         {
             PermitsViewModel oModel = new PermitsViewModel();
@@ -50,9 +45,6 @@ namespace DMeServicesInternal.Web.Controllers
                     oModel.ListBuildingPermits = PermitsCom.AllPermits();
                     break;
             }
-
-
-
             return PartialView("_PermitsList", oModel);
         }
 
@@ -381,17 +373,17 @@ namespace DMeServicesInternal.Web.Controllers
         {
             PermitsViewModel oModel = new PermitsViewModel();
             oModel.BuildingPermits = PermitsCom.PermitsByID(Id);
-            ViewBag.DDServicesFees = DDServiceFees();
+            ViewBag.DDServices = DDServiceFees();
             
-            return View("ErrorPage");
-            //return View("PermitPaymentDetails", oModel);
+            //return View("ErrorPage");
+            return View("PermitPaymentDetails", oModel);
             //return Redirect("~/Reports/Report.aspx");
         }
 
         public static List<SelectListItem> DDServiceFees()
         {
             List<SelectListItem> LstServicesFees = new List<SelectListItem>();
-            List<ServiceFeesDetails> AllServicesFees = ServiceFeesCom.AllServiceFees();
+            List<ServiceFee> AllServicesFees = ServiceFeesCom.AllServiceFees();
             if (AllServicesFees.Count > 0)
             {
                 LstServicesFees.Add(new SelectListItem() { Text = "أختر نوع الخدمة ", Value = "0" });
@@ -615,24 +607,19 @@ namespace DMeServicesInternal.Web.Controllers
             PermitsViewModel oModel = new PermitsViewModel();
             var listofPaymentDetails = (List<PaymentDetails>)TempData["PaymentDetails"];
             if (listofPaymentDetails != null) return PartialView("_ListPayments", oModel);
+            //oModel.PaymentDetails = new PaymentDetails();
+            //oModel.PaymentDetails.ServiceQuantity = oModel.Quantity;
+            //oModel.PaymentDetails.ServiceID = oModel.ServiceFees.ServiceID;
+            //oModel.PaymentDetailsList = (List<PaymentDetails>)TempData["PaymentDetails"];
+            //if (oModel.PaymentDetailsList == null)
+            //{
+            //    oModel.PaymentDetailsList = new List<PaymentDetails>();
+            //}
+
+            //oModel.PaymentDetailsList.Add(oModel.PaymentDetails);
 
 
-
-            oModel.PaymentDetails = new PaymentDetails();
-
-            oModel.PaymentDetails.ServiceQuantity = oModel.Quantity;
-            oModel.PaymentDetails.ServiceID = oModel.ServiceFees.ServiceID;
-
-            oModel.PaymentDetailsList = (List<PaymentDetails>)TempData["PaymentDetails"];
-            if (oModel.PaymentDetailsList == null)
-            {
-                oModel.PaymentDetailsList = new List<PaymentDetails>();
-            }
-
-            oModel.PaymentDetailsList.Add(oModel.PaymentDetails);
-
-
-            TempData["Attachments"] = oModel.PaymentDetailsList;
+            //TempData["Attachments"] = oModel.PaymentDetailsList;
 
 
             return PartialView("_ListPayments", oModel);

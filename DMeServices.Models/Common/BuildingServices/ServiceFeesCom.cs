@@ -14,13 +14,13 @@ namespace DMeServices.Models.Common.BuildingServices
 
         #region Method :: All ServiceFees
 
-        public static List<ServiceFeesDetails> AllServiceFees()
+        public static List<ServiceFee> AllServiceFees()
         {
             using (eServicesEntities db = new eServicesEntities())
             {
 
                 List<BldServiceFees> _BldServiceFees = db.BldServiceFees.OrderByDescending(x => x.ServiceID).ToList();
-                List<ServiceFeesDetails> _ServiceFees = Mapper.Map<List<BldServiceFees>, List<ServiceFeesDetails>>(_BldServiceFees);
+                List<ServiceFee> _ServiceFees = Mapper.Map<List<BldServiceFees>, List<ServiceFee>>(_BldServiceFees);
 
                 return _ServiceFees;
             }

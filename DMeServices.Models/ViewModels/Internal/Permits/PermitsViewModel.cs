@@ -58,20 +58,17 @@ namespace DMeServices.Models.ViewModels.Internal.Permits
         public LandUseTypes ListOfLandUseTypes { get; set; }
         public SquareLetters ListOfSquareLetters { get; set; }
 
-        public ServiceFeesDetails ServiceFees { get; set; }
-        public List<ServiceFeesDetails> ListServiceFeesDetails { get; set; }
-        public Payments Payments { get; set; }
-
-        public List<Payments> PaymentsList { get; set; }
-
-        public PaymentDetails PaymentDetails { get; set; }
-        public List<PaymentDetails> PaymentDetailsList { get; set; }
-
         public int Quantity { get; set; }
+        public int ServiceID { get; set; }
 
-        public int ServiceFeesID { get; set; }
+        //public PaymentDetails PaymentDetails { get; set; }
+
+
+
         public int BuildingPermits_count { get; set; }
         public int Companies_count { get; set; }
         public int Users_count { get; set; }
+
+        
     }
 }

@@ -164,6 +164,7 @@
     <Compile Include="Models\Revenue\RevWelyats.cs" />
     <Compile Include="Models\HealthServices\ISIC4_LEVEL_5s.cs" />
     <Compile Include="Models\Revenue\State.cs" />
+    <Compile Include="Models\BuildingServices\ServiceFee.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Configrations\LocalizedDisplayNameAttribute.cs" />
