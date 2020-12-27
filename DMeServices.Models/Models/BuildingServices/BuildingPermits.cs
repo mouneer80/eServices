@@ -49,5 +49,9 @@ namespace DMeServices.Models.BuildingServices
         public SquareLetters BldSquareLetters { get; set; }
         public Welyat BldWelyat { get; set; }
 
+        public Payments BldPayments { get; set; }
+        
+        public ServiceFeesDetails ServiceFees { get; set; }
+
     }
 }

@@ -53,7 +53,7 @@ namespace DMeServices.Models.Common.BuildingServices
 
         #region Method :: SquareLetters By ID
 
-        public static SquareLetters WelayahByID(int Id)
+        public static SquareLetters SquareLetterByID(int Id)
         {
             using (eServicesEntities db = new eServicesEntities())
             {

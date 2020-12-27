@@ -53,7 +53,7 @@ namespace DMeServices.Models.Common.BuildingServices
 
         #region Method :: BuildingTypes By ID
 
-        public static BuildingTypes WelayahByID(int Id)
+        public static BuildingTypes BuildingTypesByID(int Id)
         {
             using (eServicesEntities db = new eServicesEntities())
             {

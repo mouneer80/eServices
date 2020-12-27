@@ -106,15 +106,15 @@
                     <h5>بيانات الاستشاري</h5>
                     <div class="form-group col-md-4">
                         <label class="control-label">اسم المكتب الاستشاري</label>
-                        @Html.TextBox(@User.CompanyName, new { @readonly = "readonly", @class = "form-control", id = "CompanyName", @placeholder = "إسم المكتب الاستشاري" })
+                        <label class="control-label" style="font-size:11px;">@User.CompanyName</label>
                     </div>
                     <div class="form-group col-md-4">
                         <label class="control-label">اسم المهندس الاستشاري</label>
-                        @Html.TextBox(@User.FullName, new { @readonly = "readonly", @class = "form-control", id = "ConsaltantName", @placeholder = "اسم المهندس" })
+                        <label class="control-label" style="font-size:11px;">@User.FullName</label>
                     </div>
                     <div class="form-group col-md-4">
                         <label class="control-label">رقم تليفون المهندس</label>
-                        @Html.TextBox(@User.PhoneNo.ToString(), new { @readonly = "readonly", @class = "form-control", id = "ConsaltantPhoneNo", @placeholder = "الهاتف" })
+                        <label class="control-label" style="font-size:11px;">@User.MobileNo.ToString()</label>
                     </div>
                 </div>
             </div>

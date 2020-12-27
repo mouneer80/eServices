@@ -80,6 +80,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Account\Account.cs" />
+    <Compile Include="Common\BuildingServices\PaymentsCom.cs" />
+    <Compile Include="Common\BuildingServices\ServiceFeesCom.cs" />
     <Compile Include="Common\BuildingServices\LandSurveyCom.cs" />
     <Compile Include="Common\BuildingServices\MociCompaniesData.cs" />
     <Compile Include="Common\BuildingServices\ControlsCom.cs" />
@@ -108,8 +110,11 @@
     <Compile Include="Models\BuildingServices\LandSurvey.cs" />
     <Compile Include="Models\BuildingServices\LandUseTypes.cs" />
     <Compile Include="Models\BuildingServices\BuildingTypes.cs" />
+    <Compile Include="Models\BuildingServices\Payments.cs" />
+    <Compile Include="Models\BuildingServices\ServiceFeesDetails.cs" />
     <Compile Include="Models\BuildingServices\SquareLetters.cs" />
     <Compile Include="Models\BuildingServices\Regions.cs" />
+    <Compile Include="Models\BuildingServices\PaymentDetails.cs" />
     <Compile Include="Models\BuildingServices\WorkersHousingDetails.cs" />
     <Compile Include="Models\BuildingServices\Welyat.cs" />
     <Compile Include="Models\Revenue\RevDepartment.cs" />

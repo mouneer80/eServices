@@ -88,6 +88,12 @@
         <EntityTypeShape EntityType="eServicesModel.ConsultantOccupations" Width="1.5" PointX="12.375" PointY="6.75" />
         <AssociationConnector Association="eServicesModel.FK_BldControlServices_BldControlServicesTypes" />
         <AssociationConnector Association="eServicesModel.FK_BldControlServices_BldPermits" />
+        <EntityTypeShape EntityType="eServicesModel.BldPaymentDetails" Width="1.5" PointX="3.375" PointY="22.75" />
+        <EntityTypeShape EntityType="eServicesModel.BldServiceFees" Width="1.5" PointX="22.375" PointY="13.75" />
+        <AssociationConnector Association="eServicesModel.FK_BldPaymentDetails_BldServiceFees" />
+        <EntityTypeShape EntityType="eServicesModel.BldPayment" Width="1.5" PointX="10" PointY="27" />
+        <AssociationConnector Association="eServicesModel.FK_BldPayment_BldPermits" />
+        <AssociationConnector Association="eServicesModel.FK_BldPaymentDetails_BldPayment" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

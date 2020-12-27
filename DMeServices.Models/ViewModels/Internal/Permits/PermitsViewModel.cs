@@ -14,6 +14,7 @@ namespace DMeServices.Models.ViewModels.Internal.Permits
     {
         public PermitsViewModel()
         {
+            
             oEmployeeInfo = new Employee();
             if (HttpContext.Current.Session["EmployeeInfo"] != null)
             {
@@ -56,6 +57,20 @@ namespace DMeServices.Models.ViewModels.Internal.Permits
         public BuildingTypes ListOfBuildingTypes { get; set; }
         public LandUseTypes ListOfLandUseTypes { get; set; }
         public SquareLetters ListOfSquareLetters { get; set; }
+
+        public ServiceFeesDetails ServiceFees { get; set; }
+        public List<ServiceFeesDetails> ListServiceFeesDetails { get; set; }
+        public Payments Payments { get; set; }
+
+        public List<Payments> PaymentsList { get; set; }
+
+        public PaymentDetails PaymentDetails { get; set; }
+        public List<PaymentDetails> PaymentDetailsList { get; set; }
+
+        public int Quantity { get; set; }
+
+        public int ServiceFeesID { get; set; }
+
 
 
     }

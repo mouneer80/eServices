@@ -363,7 +363,7 @@
             <div class="col-sm-4">
                 <div id="progressbar-5">
                     <div class="progress-label">
-                        
+
                     </div>
                 </div>
             </div>
@@ -692,18 +692,18 @@
             var fileName = $("#MapFile").val();
 
             if (fileName) { // returns true if the string is not empty
-              //  var fileize = (this.files[0].size);
-                //alert(fileize);
+                var filesize = (this.files[0].size);
+                //alert(filesize);
                 var valid_extensions = /(\.JPG|\.JPEG|\.PDF|\.PNG|\.jpg|\.jpeg|\.pdf|\.png)$/i;
-                if (valid_extensions.test(fileName) && $("#AttTypeId").val() != "") {
-					alert("فضلا اضغط على اضافة مرفق وانتظر بدء التحميل ملاحظة: حجم الملف لا يزيد عن 3 ميجا بايت");
+                if (valid_extensions.test(fileName) && $("#AttTypeId").val() != "" && filesize <= 3000000) {
+					//alert("فضلا اضغط على اضافة مرفق وانتظر بدء التحميل ملاحظة: حجم الملف لا يزيد عن 3 ميجا بايت");
                     $('#SaveAttachment').attr('disabled', false);
-                    
+
                     $("#divLoader").show();
                     $("#divHere").show();
                 }
                 else {
-				alert("يجب ان يكون المرفق من نوع PDF");
+				alert("يجب ان يكون المرفق من نوع PDF ولا يزيد حجم الملف عن 3 ميجا بايت");
                     $('#SaveAttachment').attr('disabled', true);
                 }
                 // alert(fileName + " was selected");

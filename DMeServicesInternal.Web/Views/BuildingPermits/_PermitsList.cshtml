@@ -16,6 +16,7 @@
         var Status = DMeServices.Models.Common.LookupsTypeCom.LookupByID((int)item.WorkflowStatus).LookupNameAr;
         var StatusColor = DMeServices.Models.Common.LookupsTypeCom.LookupByID((int)item.WorkflowStatus).LookupNameEn;
 
+        
         if (User != null)
         {
             <td class="center">
@@ -27,6 +28,9 @@
         }
         else
         {
+            <td class="center">
+                لايوجد
+            </td>
             <td class="center">
                 لايوجد
             </td>

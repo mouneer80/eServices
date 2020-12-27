@@ -19,6 +19,7 @@ namespace DMeServices.DAL
         {
             this.BldPermitsAttachments = new HashSet<BldPermitsAttachments>();
             this.BldControlServices = new HashSet<BldControlServices>();
+            this.BldPayment = new HashSet<BldPayment>();
         }
     
         public long Id { get; set; }
@@ -63,5 +64,7 @@ namespace DMeServices.DAL
         public virtual BldWelyat BldWelyat { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BldControlServices> BldControlServices { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BldPayment> BldPayment { get; set; }
     }
 }

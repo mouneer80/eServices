@@ -1651,6 +1651,8 @@
     <Content Include="Views\BuildingControls\Controls.cshtml" />
     <Content Include="Views\Shared\ErrorPage.cshtml" />
     <Content Include="Views\Home\ErrorPage.cshtml" />
+    <Content Include="Views\BuildingPermits\_ListPayments.cshtml" />
+    <Content Include="Views\BuildingPermits\ErrorPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -140,11 +140,28 @@
 
         @using (Html.BeginForm("SaveEngineerPermits", "BuildingPermits", FormMethod.Post, new { encType = "multipart/form-data", @id = "Permitsform" }))
         {
+            var User = DMeServices.Models.Common.UserCom.UserByCivilID((long)Model.BuildingPermits.ConsultantCivilId);
             @Html.AntiForgeryToken()
             @Html.HiddenFor(x => x.BuildingPermits.Id)
             @Html.HiddenFor(x => x.BuildingPermits.ConsultantCivilId)
             @Html.HiddenFor(x => x.BuildingPermits.TransactNo)
-
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <h5>بيانات الاستشاري</h5>
+                    <div class="form-group col-md-4">
+                        <label class="control-label">اسم المكتب الاستشاري</label>
+                        @User.CompanyName
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label class="control-label">اسم المهندس الاستشاري</label>
+                        @User.FullName
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label class="control-label">رقم تليفون المهندس</label>
+                        @User.MobileNo.ToString()
+                    </div>
+                </div>
+            </div>
 
             <div class="row">
                 <div class="box col-md-12">
@@ -248,7 +265,7 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label class="control-label">نوع المبنى</label>
-                        @Html.DropDownList("BuildingTypes", (List<SelectListItem>)ViewBag.DDBuildingTypes, new { style = "padding:0px", @class = "form-control", @data_rel = "chosen", @id="BuildingTypes" })
+                        @Html.DropDownList("BuildingTypes", (List<SelectListItem>)ViewBag.DDBuildingTypes, new { style = "padding:0px", @class = "form-control", @data_rel = "chosen", @id = "BuildingTypes" })
                     </div>
 
                     @*<div class="form-group col-md-6">
@@ -294,7 +311,7 @@
                     <label class="control-label">ملاحظات</label>
                     @Html.TextAreaFor(m => m.BuildingPermits.DmEngineerComments, new { @class = "form-control", id = "Notes", @placeholder = "ملاحظات" })
                     @*@Html.DropDownListFor(m => m.BuildingPermits.WorkflowStatus, (List<SelectListItem>)ViewBag.DDPermitsStatus, new { @class = "dropdown-toggle", Id = "PermitsStatus" })
-            @Html.ValidationMessageFor(m => m.BuildingPermits.WorkflowStatus, "", new { @style = "color:orange;" })*@
+                    @Html.ValidationMessageFor(m => m.BuildingPermits.WorkflowStatus, "", new { @style = "color:orange;" })*@
 
 
                 </div>
@@ -308,19 +325,19 @@
             </div>
             <br />
             <div class="row">
-                
-                    <button class="btn btn-primary" id="Save" @*onclick="return confirm('هل انت متاكد من حفظ التعديلات !');"*@>
-                        <i class="glyphicon glyphicon-ok"></i> حفظ
-                    </button>
-                    <a class="btn btn-primary" id="btnFees" href="@Url.Action( "PermitFees","BuildingPermits", new {@id= Model.BuildingPermits.Id})" role="button">
-                        <i class="glyphicon glyphicon-ok"></i> تحديد الرسوم
-                    </a>
-                    <a style="float:left" href="@Url.Action( "Index","BuildingPermits")" class="btn btn-primary" role="button">رجوع</a>
-             
-            </div>
-                }
+
+                <button class="btn btn-primary" id="Save" @*onclick="return confirm('هل انت متاكد من حفظ التعديلات !');"*@>
+                    <i class="glyphicon glyphicon-ok"></i> حفظ
+                </button>
+                <a class="btn btn-primary" id="btnFees" href="@Url.Action( "PermitFees","BuildingPermits", new {@id= Model.BuildingPermits.Id})" role="button">
+                    <i class="glyphicon glyphicon-ok"></i> تحديد الرسوم
+                </a>
+                <a style="float:left" href="@Url.Action( "Index","BuildingPermits")" class="btn btn-primary" role="button">رجوع</a>
 
             </div>
+        }
+
+    </div>
         </div>
 
 

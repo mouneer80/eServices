@@ -88,12 +88,18 @@
 
     <div class="row">
 
-        @using (Html.BeginForm("SaveEngineerPermits", "BuildingPermits", FormMethod.Post, new { encType = "multipart/form-data", @id = "Permitsform" }))
+        @using (Html.BeginForm("SavePermitsFees", "BuildingPermits", FormMethod.Post, new { encType = "multipart/form-data", @id = "Permitsform" }))
         {
+            var Welayah = DMeServices.Models.Common.BuildingServices.WelayatCom.WelayahByID((int)Model.BuildingPermits.WelayahID);
+            var Region = DMeServices.Models.Common.BuildingServices.RegionsCom.RegionByID((int)Model.BuildingPermits.RegionID);
+            var SquarLetter = DMeServices.Models.Common.BuildingServices.SquareLettersCom.SquareLetterByID((int)Model.BuildingPermits.SquareLetterID);
+            var LandUse = DMeServices.Models.Common.BuildingServices.LandUseTypesCom.LandUseTypesByID((int)Model.BuildingPermits.UseTypeID);
+            var BuildingType = DMeServices.Models.Common.BuildingServices.BuildingTypesCom.BuildingTypesByID((int)Model.BuildingPermits.BuildingTypeID);
             @Html.AntiForgeryToken()
             @Html.HiddenFor(x => x.BuildingPermits.Id)
             @Html.HiddenFor(x => x.BuildingPermits.ConsultantCivilId)
             @Html.HiddenFor(x => x.BuildingPermits.TransactNo)
+            
 
 
             <div class="row">
@@ -108,54 +114,22 @@
                     <div class="form-group col-md-6">
 
                         <label class="control-label">الولاية</label>
-                        @Html.DropDownListFor(m => m.BuildingPermits.WelayahID, (List<SelectListItem>)ViewBag.DDWelayat, new { style = "padding:0px", @class = "form-control", id = "Welayah" })
-
+                        <label class="form-control">@Welayah.WelyahArName</label>
                     </div>
 
                     <div class="form-group col-md-6">
 
                         <label class="control-label">اسم المنطقة / القرية</label>
-                        @Html.DropDownListFor(m => m.BuildingPermits.RegionID, (List<SelectListItem>)ViewBag.DDRegion, new { style = "padding:0px", @class = "form-control", id = "Region" })
-
+                        <label class="form-control">@Region.RegionArName</label>
                     </div>
                 </div>
-                <div class="form-group col-md-12">
-                    <h5>بيانات مالك الارض</h5>
-                    <div class="form-group col-md-6">
 
-                        <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.OwnerName)</label>
-                        @Html.TextBoxFor(m => m.BuildingPermits.OwnerName, new { @readonly = "readonly", @class = "form-control", id = "OwnerName", @placeholder = "إسم المالك" })
-
-                    </div>
-                    <div class="form-group col-md-6">
-
-                        <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.OwnerCivilId)</label>
-                        @Html.TextBoxFor(m => m.BuildingPermits.OwnerCivilId, new { @readonly = "readonly", @class = "form-control", id = "OwnerCivilId", @placeholder = "الرقم المدني للمالك" })
-
-                    </div>
-                    <div class="form-group col-md-6">
-
-                        <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.OwnerPhoneNo)</label>
-                        @Html.TextBoxFor(m => m.BuildingPermits.OwnerPhoneNo, new { @readonly = "readonly", @class = "form-control", id = "OwnerPhoneNo", @placeholder = "الهاتف" })
-
-                    </div>
-                    @*<div class="form-group col-md-6">
-
-                        <label class="control-label"> @Html.DisplayNameFor(m => m.BuildingPermits.DistrictName)</label>
-                        @Html.TextBoxFor(m => m.BuildingPermits.DistrictName, new { @readonly = "readonly", @class = "form-control", id = "DistrictName", @placeholder = "المنطقة" })
-
-                    </div>*@
-                </div>
                 <div class="form-group col-md-12">
                     <h5>بيانات قطعة الأرض</h5>
                     <div class="form-group col-md-6">
 
                         <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.SquareArea)</label>
-                        @Html.DropDownListFor(m => m.BuildingPermits.SquareLetterID, (List<SelectListItem>)ViewBag.DDSquareLetters, new { style = "padding:0px", @class = "form-control", id = "SquareLetter" })
-
-
-                        @*@Html.TextBoxFor(m => m.BuildingPermits.SquareArea, new { @readonly = "readonly", @class = "form-control", id = "SquareArea", @placeholder = "المربع" })*@
-
+                        <label class="form-control">@SquarLetter.ArLetter</label>
                     </div>
                     <div class="form-group col-md-6">
 
@@ -166,19 +140,6 @@
                 </div>
                 <div class="form-group col-md-12">
                     <h5>بيانات ترخيص البناء</h5>
-                    <div class="form-group col-md-6">
-
-                        <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.LicenseNo)</label>
-                        @Html.TextBoxFor(m => m.BuildingPermits.LicenseNo, new { @class = "form-control", id = "LicenseNo", @placeholder = "رقم الترخيص" })
-
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label class="control-label">
-                            @Html.DisplayNameFor(m => m.BuildingPermits.KrokiNO)
-                        </label>
-                        @Html.TextBoxFor(m => m.BuildingPermits.KrokiNO, new { @class = "form-control", id = "KrokiNO", @placeholder = "رقم الكروكي" })
-                        @Html.ValidationMessageFor(m => m.BuildingPermits.KrokiNO, "", new { @style = "color:orange;" })
-                    </div>
 
                     <div class="form-group col-md-6">
 
@@ -192,22 +153,13 @@
                         <label class="control-label">
                             @Html.DisplayNameFor(m => m.BuildingPermits.ConstructionType)
                         </label>
-                        @Html.DropDownList("DDLandUseTypes", (List<SelectListItem>)ViewBag.DDLandUseTypes, new { style = "padding:0px", @class = "form-control" })
-                        @*@Html.TextBoxFor(m => m.BuildingPermits.ConstructionType, new { @class = "form-control", id = "ConstructionType", @placeholder = "نوع البناء" })
-                        @Html.ValidationMessageFor(m => m.BuildingPermits.ConstructionType, "", new { @style = "color:orange;" })*@
+                        <label class="form-control">@LandUse.UseType</label>
                     </div>
                     <div class="form-group col-md-6">
                         <label class="control-label">نوع المبنى</label>
-                        @Html.DropDownList("BuildingTypes", (List<SelectListItem>)ViewBag.DDBuildingTypes, new { style = "padding:0px", @class = "form-control" })
+                        <label class="form-control">@BuildingType.BuildingType</label>
                     </div>
 
-                    @*<div class="form-group col-md-6">
-
-                        <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.ConstructionType)</label>
-                        @Html.TextBoxFor(m => m.BuildingPermits.ConstructionType, new { @readonly = "readonly", @class = "form-control", id = "ConstructionType", @placeholder = "نوع البناء" })
-
-
-                    </div>*@
 
                     <div class="form-group col-md-6">
 
@@ -220,71 +172,80 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="box col-md-12">
-
-
-
-
-                    <div id="divAttachments" class="row">
-                        @{ Html.RenderPartial("_ListAttachments", Model);}
-                    </div>
-
-                </div>
-
-
-                <div class="col-sm-6">
-
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6">
-
-                    <label class="control-label">ملاحظات</label>
-                    @Html.TextAreaFor(m => m.BuildingPermits.DmEngineerComments, new { @class = "form-control", id = "Notes", @placeholder = "ملاحظات" })
-                    @*@Html.DropDownListFor(m => m.BuildingPermits.WorkflowStatus, (List<SelectListItem>)ViewBag.DDPermitsStatus, new { @class = "dropdown-toggle", Id = "PermitsStatus" })
-            @Html.ValidationMessageFor(m => m.BuildingPermits.WorkflowStatus, "", new { @style = "color:orange;" })*@
-
-
-                </div>
-                <div class="col-sm-6">
-                    <label class="control-label">رأي المهندس</label>
-                    @Html.DropDownListFor(m => m.BuildingPermits.WorkflowStatus, (List<SelectListItem>)ViewBag.DDPermitsStatus, new { @class = "dropdown-toggle", Id = "PermitsStatus" })
-                    @Html.ValidationMessageFor(m => m.BuildingPermits.WorkflowStatus, "", new { @style = "color:orange;" })
-
-                </div>
-
-            </div>
+            <br />
+            <h5> أضافة التفاصيل</h5>
             <br />
             <div class="row">
-                
+                <div id="FileBrowse" class="form-group col-md-12">
+
+                    <div class="col-sm-1" style="width:15%;">
+                        <div id="divHere" style="float:left;display:none;">
+                            <img src="~/Content/ezgif.com-resize.gif" style="width:25%;" />
+                        </div>
+                        <input type="submit" id="SaveAttachment" name="SaveAttachment" class="btn btn-success" value="إضافة تفاصيل" />
+                        <div id="divLoader" class="loading" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader" /> </div>
+                    </div>
+                    <div class="col-sm-5" style="width:35%;">
+                        @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control", id = "Quantity", @placeholder = "المساحة" })
+                        @*@Html.ValidationMessageFor(m => m.Attachments.Description, "", new { @style = "color:orange;" })*@
+
+                    </div>
+
+                    <div class="col-sm-5" style="width:30%;">
+                        @Html.TextBoxFor(m => m.BuildingPermits.ServiceFees.ServiceFees, new { @readonly = "readonly", id = "serviceFees", @name = "serviceFees", @class = "form-control" })
+
+                    </div>
+
+                    <div class="form-group col-md-6">
+
+                        <label class="control-label">تفاصيل الخدمة</label>
+                        @Html.DropDownListFor(m => m.ServiceFees.ServiceID, (List<SelectListItem>)ViewBag.DDServiceFees, new { style = "padding:0px", @class = "form-control", @data_rel = "chosen", id = "ServiceType" })
+
+                    </div>
+
+
+                </div>
+
+                <div class="row">
+                    <div class="box col-md-12">
+                        <div id="divAttachments" class="row">
+                            @{ Html.RenderPartial("_ListPayments", Model);}
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+
+                    </div>
+                </div>
+
+                <br />
+                <div class="row">
+
                     <button class="btn btn-primary" id="Save" @*onclick="return confirm('هل انت متاكد من حفظ التعديلات !');"*@>
                         <i class="glyphicon glyphicon-ok"></i> حفظ
                     </button>
-                    <button class="btn btn-primary" id="btnGenerateReport" @*onclick="return confirm('هل انت متاكد من حفظ التعديلات !');"*@>
-                        <i class="glyphicon glyphicon-ok"></i> طباعة
-                    </button>
+
                     <a style="float:left" href="@Url.Action( "Index","BuildingPermits")" class="btn btn-primary" role="button">رجوع</a>
-                
+
+                </div>
             </div>
-                }
-
-            </div>
-        </div>
-
-
-
-    <div class="modal fade" id="MainModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-
-            </div>
-        </div>
+        }
     </div>
 
-    <script src="~/Scripts/jquery-1.10.2.js"></script>
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript">
+</div>
+
+
+
+<div class="modal fade" id="MainModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
     $(document).ready(function () {
         //Country Dropdown Selectedchange event
         $("#Welayah").change(function () {
@@ -308,59 +269,139 @@
             return false;
         })
     });
-    </script>
+</script>
+<script>
+    $(document).ready(function () {
+        $('#SaveAttachment').attr('disabled', true);
+        $("#AttTypeId option[value='0']").attr("disabled", "disabled");
+
+        $("#SaveAttachment").click(function () {
+
+        var data = new FormData();
+
+        var files = $("#MapFile").get(0).files;
+        if (files.length > 0) {
+            data.append("MyAttached", files[0]);
+            data.append("AttTypeId", $("#AttTypeId").val());
+            data.append("FileDescription", $("#FileDescription").val());
+
+        }
+        var url = "@Url.Action("SavePayment", "BuildingPermits")";
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            processData: false,
+            contentType: false,
+            data: data,
+            async: false,
+
+            success: function (response) {
+                if (response != "") {
+                    //$('#FileBrowse').find("*").prop("disabled", true);
+                    //LoadProgressBar(response); //calling LoadProgressBar function to load the progress bar.
+                    $('#divAttachments').html(response);
+                }
+                $('#FileDescription').val('');
+                $('#AttTypeId').val('0');
+                $('#MapFile').val('');
+                $('#SaveAttachment').attr('disabled', true);
 
 
-    <script>
-        $(document).ready(function () {
 
-            $("#PermitsStatus option[value='0']").attr("disabled", "disabled");
-
-            $("#Save").click(function () {
-                $("#Permitsform").submit();
-            });
-
-
+            },
+            error: function (er) {
+                console.log(er.message);
+                $('#SaveAttachment').attr('disabled', true);
+            }
 
         });
-    </script>
-
-
-    <script type="text/javascript">
-        $(function () {
-            // Initialize numeric spinner input boxes
-            //$(".numeric-spinner").spinedit();
-
-            // Initalize modal dialog
-            // attach modal-container bootstrap attributes to links with .modal-link class.
-            // when a link is clicked with these attributes, bootstrap will display the href content in a modal dialog.
-
-            $('body').on('click', '.modal-link', function (e) {
-
-                $(this).attr('data-target', '#MainModal');
-                $(this).attr('data-toggle', 'modal');
-            });
-
-
-            // Attach listener to .modal-close-btn's so that when the button is pressed the modal dialog disappears
-            $('body').on('click', '.modal-close-btn', function () {
-
-                $('#MainModal').modal('hide');
-            });
-
-            //clear modal cache, so that new content can be loaded
-            $('#MainModal').on('hidden.bs.modal', function () {
-
-                $(this).removeData('bs.modal');
-            });
-
-            $(document).on("hidden.bs.modal", function (e) {
-                $(e.target).removeData("bs.modal").find(".modal-content").empty();
-            });
-
-            $('#CancelModal').on('click', function () {
-                return false;
-            });
         });
-    </script>
+
+        function LoadProgressBar(response) {
+            var progressbar = $("#progressbar-5");
+            var progressLabel = $(".progress-label");
+            $("#divLoader").hide();
+            $("#divHere").hide();
+            progressbar.show();
+            $("#progressbar-5").progressbar({
+                //value: false,
+                change: function () {
+                    progressLabel.text(
+                        progressbar.progressbar("value") + "%");  // Showing the progress increment value in progress bar
+                },
+                complete: function () {
+                    progressLabel.text("Loading Completed!");
+                    progressbar.progressbar("value", 0);  //Reinitialize the progress bar value 0
+                    progressLabel.text("");
+                    progressbar.hide(); //Hiding the progress bar
+					$('#divAttachments').html(response);
+                    $('#FileBrowse').find("*").prop("disabled", false);
+					$('#SaveAttachment').attr('disabled', true);
+                }
+            });
+            function progress() {
+                var val = progressbar.progressbar("value") || 0;
+                progressbar.progressbar("value", val + 1);
+                if (val < 99) {
+                    setTimeout(progress, 25);
+                }
+            }
+            setTimeout(progress, 100);
+        }
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+
+        $("#PermitsStatus option[value='0']").attr("disabled", "disabled");
+
+        $("#Save").click(function () {
+            $("#Permitsform").submit();
+        });
+
+
+
+    });
+</script>
+
+
+<script type="text/javascript">
+    $(function () {
+        // Initialize numeric spinner input boxes
+        //$(".numeric-spinner").spinedit();
+
+        // Initalize modal dialog
+        // attach modal-container bootstrap attributes to links with .modal-link class.
+        // when a link is clicked with these attributes, bootstrap will display the href content in a modal dialog.
+
+        $('body').on('click', '.modal-link', function (e) {
+
+            $(this).attr('data-target', '#MainModal');
+            $(this).attr('data-toggle', 'modal');
+        });
+
+
+        // Attach listener to .modal-close-btn's so that when the button is pressed the modal dialog disappears
+        $('body').on('click', '.modal-close-btn', function () {
+
+            $('#MainModal').modal('hide');
+        });
+
+        //clear modal cache, so that new content can be loaded
+        $('#MainModal').on('hidden.bs.modal', function () {
+
+            $(this).removeData('bs.modal');
+        });
+
+        $(document).on("hidden.bs.modal", function (e) {
+            $(e.target).removeData("bs.modal").find(".modal-content").empty();
+        });
+
+        $('#CancelModal').on('click', function () {
+            return false;
+        });
+    });
+</script>
 

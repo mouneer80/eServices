@@ -97,12 +97,7 @@ namespace DMeServicesInternal.Web.Controllers
             return View("LandSurvey");
         }
 
-        public ActionResult AssignPermits(PermitsViewModel oModel)
-        {
-            BuildingPermits permits = PermitsCom.AssignPermits(oModel.BuildingPermits);
-            oModel.BuildingPermits = permits;
-            return RedirectToAction("Index");
-        }
+
 
 
 
@@ -284,23 +279,23 @@ namespace DMeServicesInternal.Web.Controllers
 
         #region Method :: DD Regions
 
-        public JsonResult GetRegions(string id)  
-        {  
-            List<SelectListItem> states = new List<SelectListItem>();  
-            var stateList = this.DDRegions(Convert.ToInt32(id));  
-            var stateData = stateList.Select(m => new SelectListItem()  
-            {  
-                Text = m.RegionArName,  
-                Value = m.RegionID.ToString(),  
-            });  
-            return Json(stateData, JsonRequestBehavior.AllowGet);  
+        public JsonResult GetRegions(string id)
+        {
+            List<SelectListItem> states = new List<SelectListItem>();
+            var stateList = this.DDRegions(Convert.ToInt32(id));
+            var stateData = stateList.Select(m => new SelectListItem()
+            {
+                Text = m.RegionArName,
+                Value = m.RegionID.ToString(),
+            });
+            return Json(stateData, JsonRequestBehavior.AllowGet);
         }
 
         public List<Regions> DDRegions(int? WelayahID)
         {
             //List<Regions> LstRegions = new List<Regions>();
             List<Regions> AllRegions = RegionsCom.RegionByWelayahID(WelayahID);
-            
+
             return AllRegions;
         }
 
@@ -381,14 +376,74 @@ namespace DMeServicesInternal.Web.Controllers
 
         #endregion
 
-       
+
         public ActionResult PermitFees(int Id = -99)
         {
             PermitsViewModel oModel = new PermitsViewModel();
             oModel.BuildingPermits = PermitsCom.PermitsByID(Id);
-            return Redirect("~/Reports/Report.aspx");
+            ViewBag.DDServicesFees = DDServiceFees();
+            oModel.ListServiceFeesDetails = ViewBag.DDServicesFees;
+            oModel.ServiceFees = ViewBag.DDServicesFees;
+            return View("ErrorPage");
+            //return View("PermitPaymentDetails", oModel);
+            //return Redirect("~/Reports/Report.aspx");
         }
 
+        public static List<SelectListItem> DDServiceFees()
+        {
+            List<SelectListItem> LstServicesFees = new List<SelectListItem>();
+            List<ServiceFeesDetails> AllServicesFees = ServiceFeesCom.AllServiceFees();
+            if (AllServicesFees.Count > 0)
+            {
+                LstServicesFees.Add(new SelectListItem() { Text = "أختر نوع الخدمة ", Value = "0" });
+                foreach (var item in AllServicesFees)
+                {
+                    LstServicesFees.Add(new SelectListItem() { Text = item.ServiceName, Value = item.ServiceID.ToString() });
+                }
+
+            }
+            return LstServicesFees;
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AssignPermits(PermitsViewModel oModel)
+        {
+            if (oModel.BuildingPermits.WorkflowStatus != 12)
+            {
+                string Result = PermitsCom.SaveEngineerPermits(oModel);
+
+                if (Result == "ok")
+                {
+                    var User = DMeServices.Models.Common.UserCom.UserByCivilID((long)oModel.BuildingPermits.ConsultantCivilId);
+
+                    switch (oModel.BuildingPermits.WorkflowStatus)
+                    {
+                        case 18:
+                            DMeServices.Models.Common.SmsCom.SendSms("968" + User.MobileNo, " : تم   الغاء المعاملة رقم المعاملة " + oModel.BuildingPermits.TransactNo);
+                            DMeServices.Models.Common.SmsCom.SendSms("968" + oModel.BuildingPermits.OwnerPhoneNo, " : تم   الغاء المعاملة رقم المعاملة " + oModel.BuildingPermits.TransactNo);
+                            break;
+
+                        case 19:
+                            DMeServices.Models.Common.SmsCom.SendSms("968" + User.MobileNo, " : تم قبول المعاملة رقم المعاملة " + oModel.BuildingPermits.TransactNo);
+                            DMeServices.Models.Common.SmsCom.SendSms("968" + oModel.BuildingPermits.OwnerPhoneNo, " : تم قبول المعاملة  رقم المعاملة " + oModel.BuildingPermits.TransactNo);
+                            break;
+                        case 20:
+                            DMeServices.Models.Common.SmsCom.SendSms("968" + User.MobileNo, " : يوجد بعض التعديلات علي الخرائط رقم المعاملة " + oModel.BuildingPermits.TransactNo);
+                            DMeServices.Models.Common.SmsCom.SendSms("968" + oModel.BuildingPermits.OwnerPhoneNo, " : يوجد بعض التعديلات علي الخرائط رقم المعاملة " + oModel.BuildingPermits.TransactNo);
+                            break;
+                    }
+
+                }
+            }
+            else
+            {
+                BuildingPermits permits = PermitsCom.AssignPermits(oModel.BuildingPermits);
+                oModel.BuildingPermits = permits;
+            }
+
+            return RedirectToAction("Index");
+        }
 
         #region Method :: Save Engineer Permits
 
@@ -433,8 +488,8 @@ namespace DMeServicesInternal.Web.Controllers
         public ActionResult EditPDFFile(int Id, int PirmID)
         {
 
-                    //IExcelDataReader reader = null;
-                    PermitsAttachments Attachment = DMeServices.Models.Common.BuildingServices.PermitsAttachmentsCom.AttachmentsByID(Id);
+            //IExcelDataReader reader = null;
+            PermitsAttachments Attachment = DMeServices.Models.Common.BuildingServices.PermitsAttachmentsCom.AttachmentsByID(Id);
 
             string contentType = MimeMapping.GetMimeMapping(Attachment.AttachmentPath);
 
@@ -554,6 +609,35 @@ namespace DMeServicesInternal.Web.Controllers
         }
 
         #endregion
+
+
+        public ActionResult SavePayment()
+        {
+            PermitsViewModel oModel = new PermitsViewModel();
+            var listofPaymentDetails = (List<PaymentDetails>)TempData["PaymentDetails"];
+            if (listofPaymentDetails != null) return PartialView("_ListPayments", oModel);
+
+
+
+            oModel.PaymentDetails = new PaymentDetails();
+
+            oModel.PaymentDetails.ServiceQuantity = oModel.Quantity;
+            oModel.PaymentDetails.ServiceID = oModel.ServiceFees.ServiceID;
+
+            oModel.PaymentDetailsList = (List<PaymentDetails>)TempData["PaymentDetails"];
+            if (oModel.PaymentDetailsList == null)
+            {
+                oModel.PaymentDetailsList = new List<PaymentDetails>();
+            }
+
+            oModel.PaymentDetailsList.Add(oModel.PaymentDetails);
+
+
+            TempData["Attachments"] = oModel.PaymentDetailsList;
+
+
+            return PartialView("_ListPayments", oModel);
+        }
     }
 
 
