@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Drawing;
 using System.Web.Helpers;
 using DisplayPDFDemo.Comman;
 using DMeServices.Models.Common.BuildingServices;
@@ -15,6 +16,8 @@ using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using DMeServices.Models.ViewModels;
+using System.Drawing.Imaging;
+using System.Drawing.Drawing2D;
 
 namespace DMeServicesExternal.Web.Controllers
 {
@@ -88,17 +91,21 @@ namespace DMeServicesExternal.Web.Controllers
             var result = DMeServices.Models.Common.PaymentCom.PayAmount();
             return Redirect(result);
         }
-
+        [HttpGet]
         public ActionResult NewPermits()
         {
             PermitsViewModel oModel = new PermitsViewModel();
-            // to save the attachments on the memory
-            TempData["Attachments"] = new List<PermitsAttachments>();
-            ViewBag.DDAttachmentsType = DDAttachmentTypes();
-            ViewBag.DDWelayat = DDWelayat();
-            ViewBag.DDBuildingTypes = DDBuildingTypes();
-            ViewBag.DDLandUseTypes = DdLandUseTypes();
-            ViewBag.DDSquareLetters = DdSquareLetters();
+            if (ModelState.IsValid)
+            {
+                
+                // to save the attachments on the memory
+                TempData["Attachments"] = new List<PermitsAttachments>();
+                ViewBag.DDAttachmentsType = DDAttachmentTypes();
+                ViewBag.DDWelayat = DDWelayat();
+                ViewBag.DDBuildingTypes = DDBuildingTypes();
+                ViewBag.DDLandUseTypes = DdLandUseTypes();
+                ViewBag.DDSquareLetters = DdSquareLetters();
+            }
             return View(oModel);
         }
 
@@ -170,7 +177,7 @@ namespace DMeServicesExternal.Web.Controllers
             ViewBag.DDBuildingTypes = DDBuildingTypes();
             ViewBag.DDLandUseTypes = DdLandUseTypes();
             ViewBag.DDSquareLetters = DdSquareLetters();
-            oModel.ListOfAttachments = PermitsAttachmentsCom.AttachmentsByPermitsID(id);
+            oModel.ListOfAttachments = PermitsAttachmentsCom.AttachmentsByPermitsID(id, (long)oModel.BuildingPermits.OwnerCivilId);
 
 
             return View(oModel);
@@ -194,6 +201,16 @@ namespace DMeServicesExternal.Web.Controllers
 
             string contentType = MimeMapping.GetMimeMapping(Attachment.AttachmentPath);
 
+            if (Attachment.AttachmentStream == null || Attachment.AttachmentStream.Length <= 0)
+            {
+                System.IO.FileStream oFile = new FileStream(Attachment.AttachmentPath, FileMode.Open, FileAccess.Read);
+
+                MemoryStream streamToUpdate = new MemoryStream();
+                oFile.CopyTo(streamToUpdate);
+                byte[] data = streamToUpdate.ToArray();
+                Attachment.AttachmentStream = data;
+                UpdateStream(Attachment);
+            }
 
 
             if (Attachment != null)
@@ -240,6 +257,12 @@ namespace DMeServicesExternal.Web.Controllers
 
         }
 
+        public static void UpdateStream(PermitsAttachments attachment)
+        {
+
+            PermitsAttachmentsCom.UpdateAttachmentStream((int)attachment.Id, attachment.AttachmentStream);
+
+        }
         #endregion
 
         #region Method :: Display Details File
@@ -317,7 +340,7 @@ namespace DMeServicesExternal.Web.Controllers
 
         #endregion
 
-        #region Method :: Save Attachment
+        #region Method :: Save Attachment As Temp
         [HttpPost]
         public ActionResult SaveAttachment()
         {
@@ -358,7 +381,7 @@ namespace DMeServicesExternal.Web.Controllers
             }
             else
             {
-                ViewBag.message = " لا يمكن اضافة اكثر من 20 ملفات كحد اقصى";
+                ViewBag.message = " لا يمكن اضافة اكثر من 20 ملف كحد اقصى";
             }
             return PartialView("_ListAttachments", oModel);
         }
@@ -453,9 +476,9 @@ namespace DMeServicesExternal.Web.Controllers
 
         #endregion
 
-        
-        #region Method :: Save Files
 
+        #region Method :: Save Files
+        [HttpPost]
         public static List<PermitsAttachments> SaveFiles(PermitsViewModel oModel)
         {
             List<PermitsAttachments> ListAttachments = new List<PermitsAttachments>();
@@ -482,12 +505,19 @@ namespace DMeServicesExternal.Web.Controllers
                         case 1:
                         case 2:
                         case 3:
+                            //int width = Image.FromStream(oFile.InputStream).Width;
+                            //int height = Image.FromStream(oFile.InputStream).Height;
+                            //if (width > 1000)
+                            //    ResizeImage(oFile.FileName, oFile.FileName + "resized", ImageFormat.Jpeg, 1000,1000);
                             sFilename = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + oFileInfo.Extension;
-                            PerPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/Personal"));
+                            PerPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/Personal/" + oModel.BuildingPermits.OwnerCivilId.ToString()));
                             sPath = System.IO.Path.Combine(PerPath.ToString());
                             string PerUploadPath = string.Format("{0}\\{1}", sPath, sFilename);
-
-                            //oFile.SaveAs(PerUploadPath);
+                            if (!Directory.Exists(PerPath))
+                            {
+                                Directory.CreateDirectory(PerPath);
+                            }
+                            oFile.SaveAs(PerUploadPath);
                             Attachment.AttachmentName = sFilename;
                             Attachment.AttachmentPath = PerUploadPath;
                             sFilename = null;
@@ -500,37 +530,65 @@ namespace DMeServicesExternal.Web.Controllers
                         case 8:
                         case 14:
                             sFilename = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + oFileInfo.Extension;
-                            StrPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/StructuralFiles"));
+                            StrPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/StructuralFiles/" + oModel.BuildingPermits.OwnerCivilId.ToString()));
                             sPath = System.IO.Path.Combine(StrPath.ToString());
                             string StrUploadPath = string.Format("{0}\\{1}", sPath, sFilename);
-                            // oFile.SaveAs(StrUploadPath);
+                            if (!Directory.Exists(StrPath))
+                            {
+                                Directory.CreateDirectory(StrPath);
+                            }
+                            oFile.SaveAs(StrUploadPath);
                             Attachment.AttachmentPath = StrUploadPath;
                             Attachment.AttachmentName = sFilename;
                             sFilename = null;
                             break;
                     }
 
-                    MemoryStream stream = new MemoryStream();
-                    oFile.InputStream.CopyTo(stream);
-                    byte[] data = stream.ToArray();
-                    //Attachment.AttachmentName = oFile.FileName;
+                    //MemoryStream stream = new MemoryStream();
+                    //oFile.InputStream.CopyTo(stream);
+                    //byte[] data = stream.ToArray();
+                    //Attachment.AttachmentStream = data;
 
-                    Attachment.AttachmentStream = data;
+                    Attachment.AttachmentName = oFile.FileName;
                     Attachment.AttachmentContentType = oFileInfo.Extension;
                     Attachment.InsertDate = DateTime.Now;
-                    Attachment.CreatedBy = oModel.oUserInfo.FirstName;
+                    Attachment.CreatedBy = oModel.oUserInfo.FullName;
                     Attachment.CreatedOn = DateTime.Now;
                     ListAttachments.Add(Attachment);
                 }
             }
             return ListAttachments;
         }
+        public static bool ResizeImage(string orgFile, string resizedFile, ImageFormat format, int width, int height)
+        {
+            try
+            {
+                using (Image img = Image.FromFile(orgFile))
+                {
+                    Image thumbNail = new Bitmap(width, height, img.PixelFormat);
+                    Graphics g = Graphics.FromImage(thumbNail);
+                    g.CompositingQuality = CompositingQuality.HighQuality;
+                    g.SmoothingMode = SmoothingMode.HighQuality;
+                    g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                    Rectangle rect = new Rectangle(0, 0, width, height);
+                    g.DrawImage(img, rect);
+                    thumbNail.Save(resizedFile, format);
+                }
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
 
         #endregion
 
-        #region Method :: Save Files
+        #region Method :: Save Consultant Files
 
-
+        [HttpPost]
         public static List<PermitsAttachments> SaveConsultantFiles(PermitsViewModel oModel)
         {
             List<PermitsAttachments> listAttachments = new List<PermitsAttachments>();
@@ -550,19 +608,23 @@ namespace DMeServicesExternal.Web.Controllers
                     if (oFile != null && oFile.ContentLength > 0)
                     {
                         var sFilename = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + oFileInfo.Extension;
-                        var StrPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/StructuralFiles"));
+                        var StrPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/StructuralFiles/"+oModel.BuildingPermits.OwnerCivilId.ToString()));
                         var sPath = System.IO.Path.Combine(StrPath.ToString());
                         string StrUploadPath = string.Format("{0}\\{1}", sPath, sFilename);
-                        // oFile.SaveAs(StrUploadPath);
+                        if (!Directory.Exists(StrPath))
+                        {
+                            Directory.CreateDirectory(StrPath);
+                        }
+                        oFile.SaveAs(StrUploadPath);
                         Attachment.AttachmentPath = StrUploadPath;
                         Attachment.AttachmentName = sFilename;
                         sFilename = null;
-                        MemoryStream stream = new MemoryStream();
-                        oFile.InputStream.CopyTo(stream);
-                        byte[] data = stream.ToArray();
-                        //Attachment.AttachmentName = oFile.FileName;
+                        //MemoryStream stream = new MemoryStream();
+                        //oFile.InputStream.CopyTo(stream);
+                        //byte[] data = stream.ToArray();
+                        Attachment.AttachmentName = oFile.FileName;
 
-                        Attachment.AttachmentStream = data;
+                        //Attachment.AttachmentStream = data;
                         Attachment.AttachmentContentType = oFileInfo.Extension;
                         Attachment.InsertDate = DateTime.Now;
                         Attachment.CreatedBy = oModel.oUserInfo.FirstName;

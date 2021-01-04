@@ -18,7 +18,7 @@ namespace DMeServices.Models.Common.BuildingServices
 
         #region Method :: List Attachments By Permits ID
 
-        public static List<PermitsAttachments> AttachmentsByPermitsID(long BldPermitId)
+        public static List<PermitsAttachments> AttachmentsByPermitsID(long BldPermitId,long OwnerCivilId)
         {
 
             string sWebSiteURL = System.Configuration.ConfigurationManager.AppSettings["WebSiteURL"].ToString();
@@ -48,14 +48,14 @@ namespace DMeServices.Models.Common.BuildingServices
                         case 1:
                         case 2:
                         case 3:
-                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/Personal/" + item.AttachmentName;
+                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/Personal/" + OwnerCivilId.ToString() + item.AttachmentName;
                             break;
                         case 4:
                         case 5:
                         case 6:
                         case 7:
                         case 8:
-                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/StructuralFiles/" + item.AttachmentName;
+                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/StructuralFiles/" + OwnerCivilId.ToString() + item.AttachmentName;
                             break;
 
                     }
@@ -207,6 +207,28 @@ namespace DMeServices.Models.Common.BuildingServices
                 AttachmentDetails.CreatedBy = EmpName;
                 AttachmentDetails.CreatedOn = DateTime.Now;
                 db.BldPermitsAttachmentDetails.Add(AttachmentDetails);
+                db.SaveChanges();
+            }
+
+        }
+        #endregion
+
+        #region Method ::   Update Permits Attachment Stream 
+
+        public static void UpdateAttachmentStream(int Id, byte[] DocumentData)
+        {
+
+            using (eServicesEntities db = new eServicesEntities())
+            {
+
+                BldPermitsAttachments _BldPermitsAttachment = db.BldPermitsAttachments.Where(x => x.Id == Id).SingleOrDefault();
+                if (_BldPermitsAttachment == null)
+                {
+                    return;
+                }
+
+
+                _BldPermitsAttachment.AttachmentStream = DocumentData;
                 db.SaveChanges();
             }
 

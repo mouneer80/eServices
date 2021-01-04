@@ -219,6 +219,8 @@ namespace DMeServices.Models.Common.BuildingServices
 
         #endregion
 
+        
+
         #region Method :: Save Engineer Permits 
 
 
@@ -238,6 +240,7 @@ namespace DMeServices.Models.Common.BuildingServices
                     }
 
                     //  _BldPermits = Mapper.Map<BuildingPermits, BldPermits>(oModel.BuildingPermits);
+                    
                     _BldPermits.WorkflowStatus = oModel.BuildingPermits.WorkflowStatus;
                     _BldPermits.UpdatedBy = oModel.oEmployeeInfo.NAME;
                     _BldPermits.UpdatedOn = DateTime.Now.Date;

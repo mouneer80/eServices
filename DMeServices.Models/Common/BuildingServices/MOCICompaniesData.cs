@@ -96,6 +96,17 @@ namespace DMeServices.Models.Common.BuildingServices
         }
         #endregion
 
+        #region Method :: Get Frist Company By CR Number
+        public static MociData GetCompanyByCr_Frist(long cr)
+        {
+            using (eServicesEntities db = new eServicesEntities())
+            {
+                MociData mcData = db.MociData.FirstOrDefault(x => x.COMMERCIAL_NO == cr);
+                return mcData;
+            }
+        }
+        #endregion
+
         #region Method :: Get Company By CR Number and civil id
         public static MociData GetCompanyByCrCid(long cr, int cid)
         {

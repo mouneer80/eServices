@@ -60,9 +60,9 @@ namespace DMeServices.Models.ViewModels.Internal.Permits
 
         public int Quantity { get; set; }
         public int ServiceID { get; set; }
-
+        public decimal Fees { get; set; }
         //public PaymentDetails PaymentDetails { get; set; }
-
+        public decimal Total { get; set; }
 
 
         public int BuildingPermits_count { get; set; }

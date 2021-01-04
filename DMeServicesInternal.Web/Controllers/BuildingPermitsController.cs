@@ -61,7 +61,7 @@ namespace DMeServicesInternal.Web.Controllers
             ViewBag.DDBuildingTypes = DDBuildingTypes();
             ViewBag.DDLandUseTypes = DDLandUseTypes();
             ViewBag.DDSquareLetters = DDSquareLetters();
-            oModel.ListOfAttachments = PermitsAttachmentsCom.AttachmentsByPermitsID(Id);
+            oModel.ListOfAttachments = PermitsAttachmentsCom.AttachmentsByPermitsID(Id, (long)oModel.BuildingPermits.OwnerCivilId);
             ViewBag.DDPermitsStatus = DDPermitsStatus();
             if (oModel.oEmployeeInfo.IsEngineerHead)
             {
@@ -77,7 +77,7 @@ namespace DMeServicesInternal.Web.Controllers
         {
             PermitsViewModel oModel = new PermitsViewModel();
             oModel.BuildingPermits = PermitsCom.PermitsByID(81);
-            oModel.ListOfAttachments = PermitsAttachmentsCom.AttachmentsByPermitsID(81);
+            oModel.ListOfAttachments = PermitsAttachmentsCom.AttachmentsByPermitsID(81, (long)oModel.BuildingPermits.OwnerCivilId);
 
 
             ViewBag.DDWelayat = DDWelayat();
@@ -115,11 +115,26 @@ namespace DMeServicesInternal.Web.Controllers
 
             string contentType = MimeMapping.GetMimeMapping(Attachment.AttachmentPath);
 
+            if (Attachment.AttachmentStream == null || Attachment.AttachmentStream.Length <= 0)
+            {
+                System.IO.FileStream oFile = new FileStream(Attachment.AttachmentPath, FileMode.Open, FileAccess.Read);
+
+                MemoryStream streamToUpdate = new MemoryStream();
+                oFile.CopyTo(streamToUpdate);
+                byte[] data = streamToUpdate.ToArray();
+                Attachment.AttachmentStream = data;
+                UpdateStream(Attachment);
+            }
+
 
 
             if (Attachment != null)
             {
+                //FileStream file = new FileStream(Attachment.AttachmentPath, FileMode.Open, FileAccess.Read);
+                    
                 Stream stream = new MemoryStream(Attachment.AttachmentStream);
+                //Stream stream = new MemoryStream();
+                //file.CopyTo(stream);
                 stream.Position = 0;
                 //    if (filepath.EndsWith(".xls"))
                 //    {
@@ -400,7 +415,7 @@ namespace DMeServicesInternal.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AssignPermits(PermitsViewModel oModel)
         {
-            if (oModel.BuildingPermits.WorkflowStatus != 12)
+            if (oModel.BuildingPermits.WorkflowStatus != 12 && oModel.BuildingPermits.WorkflowStatus != 0)
             {
                 string Result = PermitsCom.SaveEngineerPermits(oModel);
 
@@ -483,8 +498,16 @@ namespace DMeServicesInternal.Web.Controllers
             PermitsAttachments Attachment = DMeServices.Models.Common.BuildingServices.PermitsAttachmentsCom.AttachmentsByID(Id);
 
             string contentType = MimeMapping.GetMimeMapping(Attachment.AttachmentPath);
+            if(Attachment.AttachmentStream == null || Attachment.AttachmentStream.Length <= 0)
+            { 
+                System.IO.FileStream oFile = new FileStream(Attachment.AttachmentPath, FileMode.Open, FileAccess.Read);
 
-
+                MemoryStream streamToUpdate = new MemoryStream();
+                oFile.CopyTo(streamToUpdate);
+                byte[] data = streamToUpdate.ToArray();
+                Attachment.AttachmentStream = data;
+                UpdateStream(Attachment);
+            }
 
             if (Attachment != null)
             {
@@ -550,6 +573,12 @@ namespace DMeServicesInternal.Web.Controllers
 
         }
 
+        public static void UpdateStream(PermitsAttachments attachment)
+        {
+
+            PermitsAttachmentsCom.UpdateAttachmentStream((int)attachment.Id, attachment.AttachmentStream);
+
+        }
 
         #endregion
 

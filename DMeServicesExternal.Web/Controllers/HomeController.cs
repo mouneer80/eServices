@@ -157,7 +157,7 @@ namespace DMeServicesExternal.Web.Controllers
         private HttpCookie CreateStudentCookie()
         {
             HttpCookie studentCookies = new HttpCookie("SSO");
-            studentCookies.Value = "d8cb7fbf-7be3-490e-a2c3-e15a933b24e1";
+            studentCookies.Value = "5e745a6b-cda6-4f4e-be2a-21db572b1c75";
             studentCookies.Expires = DateTime.Now.AddHours(1);
             return studentCookies;
         }

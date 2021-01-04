@@ -29,13 +29,13 @@
 
 	function initRadPdf()
 	{
-		
+
 		// Get id
 		var id = "@Html.Encode(PdfWebControlID)";
-        
+
 		// Get api instance
 		api = new PdfWebControlApi(id);
-        
+
 		// Attach listeners
 		api.addEventListener(
 			"viewChanged",
@@ -64,7 +64,7 @@
 				}
 			}
         );
-        
+
 
         function unloadModal() {
             $('#MainModal').modal('hide');
@@ -225,6 +225,8 @@
                     pdfWebControl1.HideToolsTabs = true;
                     pdfWebControl1.HideTopBar = false;
 
+
+
                     pdfWebControl1.ViewerPageLayoutDefault = ViewerPageLayout.SinglePageContinuous;
 
                     // Render web control to body
@@ -243,6 +245,10 @@
                         <button onclick="if(api){isDownload=false;api.save();}return false;" id="btnSave" class="btn btn-primary"><i class="fa fa-save"></i> حفظ التعديلات</button>
                     </div>*@
             </div>
+        </div>
+    </div>
+</div>
+
 
 
 

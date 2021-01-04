@@ -31,7 +31,7 @@
         color: olivedrab;
     }
 
-    .Paid, .Completed, .Agree, .Accepted, {
+    .Paid, .Completed, .Agree, .Accepted {
         color: darkgreen;
     }
 
@@ -81,7 +81,7 @@
 
 
                 <div class="box-content">
-                    <div id="divLoader" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader" /> </div>
+                    <div id="divLoader" style="display:block;"> <img src="~/Content/ajax-loader.gif" alt="Loader" /> </div>
                     
                     <table class="table table-striped table-bordered bootstrap-datatable datatable responsive ">
                         <thead>
@@ -140,7 +140,7 @@
                 },
                 error: function (er) {
                     $("#divLoader").hide();
-                    swal(er);
+                    
                 }
 
             });

@@ -11,16 +11,25 @@
 
 
     @{
+        if(item.ConsultantCivilId == null)
+        { item.ConsultantCivilId = 0; }
         var User = DMeServices.Models.Common.UserCom.UserByCivilID(item.ConsultantCivilId);
+        var Company = "لا يوجد";
+        if (User != null)
+        {
+            Company = DMeServices.Models.Common.BuildingServices.MociCompaniesData.GetCompanyByCr_Frist((int)User.ConsultantCrNo).COMMERCIAL_NAME; }
+        else {
+            Company = "لا يوجد";
+        }
         var Region = DMeServices.Models.Common.BuildingServices.RegionsCom.RegionByID(item.RegionID);
         var Status = DMeServices.Models.Common.LookupsTypeCom.LookupByID((int)item.WorkflowStatus).LookupNameAr;
         var StatusColor = DMeServices.Models.Common.LookupsTypeCom.LookupByID((int)item.WorkflowStatus).LookupNameEn;
 
-        
+
         if (User != null)
         {
             <td class="center">
-                @User.CompanyName
+                @Company
             </td>
             <td class="center">
                 @User.FullName

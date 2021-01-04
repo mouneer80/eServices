@@ -3,11 +3,32 @@
     ViewBag.Title = "PermitDetails";
     Layout = "~/Views/Shared/_SubLayout.cshtml";
 }
+
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
 <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
 
+<style>
+    .ui-widget-header {
+        background: #cedc98;
+        border: 1px solid #DDDDDD;
+        color: #333333;
+        font-weight: bold;
+    }
 
+    .progress-label {
+        position: absolute;
+        left: 50%;
+        top: 13px;
+        font-weight: bold;
+        text-shadow: 1px 1px 0 #fff;
+    }
+
+    .red {
+        color: red;
+    }
+</style>
 
 
 <script>
@@ -254,7 +275,7 @@
             <i class="glyphicon glyphicon-ok"></i> حفظ
         </button>
     }
-    <a style="float:left" href="@Url.Action( "Index","BuildingPermits")" class="btn btn-primary" role="button">الغاء</a>
+    <a style="float:left" href="@Url.Action( "Index","BuildingPermits")" class="btn btn-primary" role="button">الصفحة السابقة</a>
 
     <br />
     <a style="display:none;float:left" id="Pay" href="@Url.Action( "PayWithPost","BuildingPermits")" class="btn btn-primary" role="button">الدفع</a>
@@ -287,8 +308,12 @@
 
 </script>
 
+
+
+
 <script src="~/Scripts/jquery-1.10.2.js"></script>
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery-ui.js"></script>
+@*@<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
 <script type="text/javascript">
     $(function () {
         //Country Dropdown Selectedchange event
@@ -336,6 +361,8 @@
         });
     });
 </script>
+
+
 
 
 

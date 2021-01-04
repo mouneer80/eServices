@@ -181,13 +181,20 @@
                         <div id="divLoader" class="loading" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader" /> </div>
                     </div>
                     <div class="col-sm-5" style="width:35%;">
+                        @Html.TextBoxFor(m => m.Total, new { @class = "form-control", id = "Total", @placeholder = "المبلغ" })
+                        @*@Html.ValidationMessageFor(m => m.Attachments.Description, "", new { @style = "color:orange;" })*@
+                    </div>
+                    <div class="col-sm-5" style="width:35%;">
                         @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control", id = "Quantity", @placeholder = "المساحة" })
                         @*@Html.ValidationMessageFor(m => m.Attachments.Description, "", new { @style = "color:orange;" })*@
                     </div>
-
+                    <div class="col-sm-5" style="width:35%;">
+                        @Html.TextBoxFor(m => m.Fees, new { @class = "form-control", id = "Fees", @placeholder = "الرسوم" })
+                        @*@Html.ValidationMessageFor(m => m.Attachments.Description, "", new { @style = "color:orange;" })*@
+                    </div>
                     <div class="form-group col-md-6">
                         <label class="control-label">تفاصيل الخدمة</label>
-                        @Html.DropDownListFor(s => s.ServiceID , (List<SelectListItem>)ViewBag.DDServices, new { style = "padding:0px", @class = "form-control", @data_rel = "chosen", id = "ServiceID" })
+                        @Html.DropDownListFor(s => s.ServiceID, (List<SelectListItem>)ViewBag.DDServices, new { style = "padding:0px", @class = "form-control", @data_rel = "chosen", id = "ServiceID" })
 
                     </div>
 
@@ -211,7 +218,7 @@
                         <i class="glyphicon glyphicon-ok"></i> حفظ
                     </button>
 
-                    <a style="float:left" href="@Url.Action( "Index","BuildingPermits")" class="btn btn-primary" role="button">رجوع</a>
+                    <a style="float:left" href="@Url.Action( "Index","BuildingPermits")" class="btn btn-primary" role="button">الصفحة السابقة</a>
 
                 </div>
             </div>

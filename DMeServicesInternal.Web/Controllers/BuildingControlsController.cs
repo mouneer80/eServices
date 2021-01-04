@@ -69,7 +69,7 @@ namespace DMeServicesInternal.Web.Controllers
             ViewBag.DDBuildingTypes = DDBuildingTypes();
             ViewBag.DDLandUseTypes = DDLandUseTypes();
             ViewBag.DDSquareLetters = DDSquareLetters();
-            oModel.ListOfAttachments = PermitsAttachmentsCom.AttachmentsByPermitsID(Id);
+            oModel.ListOfAttachments = PermitsAttachmentsCom.AttachmentsByPermitsID(Id, (long)oModel.BuildingPermits.OwnerCivilId);
 
             if (oModel.oEmployeeInfo.IsControlHead)
             {
@@ -332,7 +332,7 @@ namespace DMeServicesInternal.Web.Controllers
         public ActionResult SelectAttachment(int Id = -99)
         {
             ControlsViewModel oModel = new ControlsViewModel();
-            oModel.ListOfAttachments = DMeServices.Models.Common.BuildingServices.PermitsAttachmentsCom.AttachmentsByPermitsID(Id);
+            oModel.ListOfAttachments = DMeServices.Models.Common.BuildingServices.PermitsAttachmentsCom.AttachmentsByPermitsID(Id, (long)oModel.BuildingPermits.OwnerCivilId);
             return PartialView("_ListAttachments", oModel);
         }
 
