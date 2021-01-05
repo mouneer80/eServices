@@ -51,12 +51,26 @@ namespace DMeServices.Models.Common.BuildingServices
                             item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/Personal/" + OwnerCivilId.ToString() + item.AttachmentName;
                             break;
                         case 4:
+                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/Consultant/" + OwnerCivilId.ToString() + item.AttachmentName;
+                            break;
                         case 5:
                         case 6:
                         case 7:
                         case 8:
+                        case 14:
                             item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/StructuralFiles/" + OwnerCivilId.ToString() + item.AttachmentName;
                             break;
+                        case 15:
+                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/LandFiles/" + OwnerCivilId.ToString() + item.AttachmentName;
+                            break;
+                        case 16:
+                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/Consultant/" + OwnerCivilId.ToString() + item.AttachmentName;
+                            break;
+                        case 20:
+                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/Others/" + OwnerCivilId.ToString() + item.AttachmentName;
+                            break;
+
+
 
                     }
 
@@ -81,7 +95,7 @@ namespace DMeServices.Models.Common.BuildingServices
             using (eServicesEntities db = new eServicesEntities())
             {
 
-                List<BldPermitsAttachments> _BldPermitsAttachments = db.BldPermitsAttachments.Where(x => x.BldPermitId == BldPermitId && x.AttachmentTypeId > 3).OrderByDescending(x => x.Id).ToList();
+                List<BldPermitsAttachments> _BldPermitsAttachments = db.BldPermitsAttachments.Where(x => x.BldPermitId == BldPermitId && x.AttachmentTypeId > 4 && x.AttachmentTypeId < 15).OrderByDescending(x => x.Id).ToList();
                 List<PermitsAttachments> _PermitsAttachments = Mapper.Map<List<BldPermitsAttachments>, List<PermitsAttachments>>(_BldPermitsAttachments);
 
                 return _PermitsAttachments;

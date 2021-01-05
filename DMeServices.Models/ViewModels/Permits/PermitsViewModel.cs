@@ -40,6 +40,14 @@ namespace DMeServices.Models.ViewModels.Permits
 
         public PermitsAttachments OwnerFile { get; set; }
 
+        public PermitsAttachments ConsLetter { get; set; }
+
+        public PermitsAttachments ConsAgreementFile { get; set; }
+
+        public PermitsAttachments LandPic { get; set; }
+
+        public PermitsAttachments Others { get; set; }
+
         public PermitsAttachmentDetails AttachmentDetails { get; set; }
 
         public List<PermitsAttachmentDetails> ListOfAttachmentDetails { get; set; }

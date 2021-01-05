@@ -1,71 +1,60 @@
-﻿
-
-
-@foreach (var item in Model.ListBuildingPermits)
+﻿@foreach (var item in Model.ListBuildingPermits)
 {
-    
-<tr>
-
-    @*<td class="center"> <a class="btn btn-primary modal-link" href="@Url.Action("LandSurvey", "BuildingPermits")"> تفاصيل قطعة الأرض  </a> </td>*@
-    <td class="center"> <a class="btn btn-primary modal-link" href="@Url.Action("PermitDetails", "BuildingPermits", new { @Id = item.Id })"> @item.TransactNo  </a> </td>
-
-
-    @{
-        if(item.ConsultantCivilId == null)
-        { item.ConsultantCivilId = 0; }
-        var User = DMeServices.Models.Common.UserCom.UserByCivilID(item.ConsultantCivilId);
-        var Company = "لا يوجد";
-        if (User != null)
-        {
-            Company = DMeServices.Models.Common.BuildingServices.MociCompaniesData.GetCompanyByCr_Frist((int)User.ConsultantCrNo).COMMERCIAL_NAME; }
-        else {
-            Company = "لا يوجد";
+    <tr>
+        @*<td class="center"> <a class="btn btn-primary modal-link" href="@Url.Action("LandSurvey", "BuildingPermits")"> تفاصيل قطعة الأرض  </a> </td>*@
+        <td class="center"> <a class="btn btn-primary modal-link" href="@Url.Action("PermitDetails", "BuildingPermits", new { @Id = item.Id })"> @item.TransactNo  </a> </td>
+        @{
+            if (item.ConsultantCivilId == null)
+            { item.ConsultantCivilId = 0; }
+            var User = DMeServices.Models.Common.UserCom.UserByCivilID(item.ConsultantCivilId);
+            var Company = "لا يوجد";
+            if (User != null)
+            {
+                Company = DMeServices.Models.Common.BuildingServices.MociCompaniesData.GetCompanyByCr_Frist((int)User.ConsultantCrNo).COMMERCIAL_NAME;
+            }
+            else
+            {
+                Company = "لا يوجد";
+            }
+            var Region = DMeServices.Models.Common.BuildingServices.RegionsCom.RegionByID(item.RegionID);
+            var Status = DMeServices.Models.Common.LookupsTypeCom.LookupByID((int)item.WorkflowStatus).LookupNameAr;
+            var StatusColor = DMeServices.Models.Common.LookupsTypeCom.LookupByID((int)item.WorkflowStatus).LookupNameEn;
+            if (User != null)
+            {
+                <td class="center">
+                    @Company
+                </td>
+                <td class="center">
+                    @User.FullName
+                </td>
+            }
+            else
+            {
+                <td class="center">
+                    لايوجد
+                </td>
+                <td class="center">
+                    لايوجد
+                </td>
+            }
         }
-        var Region = DMeServices.Models.Common.BuildingServices.RegionsCom.RegionByID(item.RegionID);
-        var Status = DMeServices.Models.Common.LookupsTypeCom.LookupByID((int)item.WorkflowStatus).LookupNameAr;
-        var StatusColor = DMeServices.Models.Common.LookupsTypeCom.LookupByID((int)item.WorkflowStatus).LookupNameEn;
-
-
-        if (User != null)
+        <td class="center">@item.OwnerName</td>
+        <td class="center">@Region.RegionArName</td>
+        <td class="center">@item.RequestDate.ToShortDateString()</td>
+        <td class="center @StatusColor">@Status</td>
+        <td class="center"> @item.OwnerCivilId</td>
+        @if (Model.oEmployeeInfo.IsEngineerHead)
         {
-            <td class="center">
-                @Company
-            </td>
-            <td class="center">
-                @User.FullName
-            </td>
+            if (item.DmEngineerNo == null)
+            {
+                <td class="center"> @Html.DisplayName(DMeServices.Models.Resources.DisplayName_Ar.NotFound)</td>
+            }
+            else
+            {
+                <td class="center">@DMeServices.Models.Common.EmployeeCom.EmployeeByID(item.DmEngineerNo.ToString()).NAME </td>
+            }
         }
-        else
-        {
-            <td class="center">
-                لايوجد
-            </td>
-            <td class="center">
-                لايوجد
-            </td>
-        }
-
-    }
-    <td class="center">@item.OwnerName</td>
-    <td class="center">@Region.RegionArName</td>
-    <td class="center">@item.RequestDate.ToShortDateString()</td>
-    <td class="center @StatusColor">@Status</td>
-    <td class="center"> @item.OwnerCivilId</td>
-    @if (Model.oEmployeeInfo.IsEngineerHead)
-    {
-
-
-        if (item.DmEngineerNo == null)
-        {
-            <td class="center"> @Html.DisplayName(DMeServices.Models.Resources.DisplayName_Ar.NotFound)</td>
-        }
-        else
-        {
-            <td class="center">@DMeServices.Models.Common.EmployeeCom.EmployeeByID(item.DmEngineerNo.ToString()).NAME </td>
-        }
-
-    }
-</tr>
+    </tr>
 }
 
 

@@ -41,7 +41,7 @@ namespace DMeServices.Models.Common.BuildingServices
             using (eServicesEntities db = new eServicesEntities())
             {
 
-                List<BldAttachmentTypes> _BldAttachmentTypes = db.BldAttachmentTypes.Where(x => x.Id > 3).AsEnumerable().ToList();
+                List<BldAttachmentTypes> _BldAttachmentTypes = db.BldAttachmentTypes.Where(x => x.Id > 4 && x.Id <15).AsEnumerable().ToList();
                 List<AttachmentTypes> _AttachmentTypes = Mapper.Map<List<BldAttachmentTypes>, List<AttachmentTypes>>(_BldAttachmentTypes);
 
                 return _AttachmentTypes;

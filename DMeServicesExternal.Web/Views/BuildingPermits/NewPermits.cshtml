@@ -175,12 +175,12 @@
                             @Html.ValidationMessageFor(m => m.BuildingPermits.OwnerPhoneNo, "", new { @style = "color:orange;" })
                         </div>
                         @*<div class="form-group col-md-6">
-                                <label class="control-label">
-                                    @Html.DisplayNameFor(m => m.BuildingPermits.DistrictName)
-                                </label>
-                                @Html.TextBoxFor(m => m.BuildingPermits.DistrictName, new { @class = "form-control", id = "DistrictName", @placeholder = "المنطقة" })
-                                @Html.ValidationMessageFor(m => m.BuildingPermits.DistrictName, "", new { @style = "color:orange;" })
-                            </div>*@
+                            <label class="control-label">
+                                @Html.DisplayNameFor(m => m.BuildingPermits.DistrictName)
+                            </label>
+                            @Html.TextBoxFor(m => m.BuildingPermits.DistrictName, new { @class = "form-control", id = "DistrictName", @placeholder = "المنطقة" })
+                            @Html.ValidationMessageFor(m => m.BuildingPermits.DistrictName, "", new { @style = "color:orange;" })
+                        </div>*@
                     </div>
                     <div class="form-group col-md-12">
                         <h5>بيانات قطعة الأرض</h5>
@@ -207,36 +207,36 @@
                                 @Html.DisplayNameFor(m => m.BuildingPermits.LicenseNo)
                             </label>
                             <div style="direction:ltr">
-                                <input type="text" style="width: 75px; display: inline" onkeyup="moveCursorLicenseNo(this, LicenseNo2);" maxlength="4" class="form-control" id="LicenseNo1" placeholder="السنة"/>
-                                <input type="text" style="width: 75px; display: inline" onkeyup="moveCursorLicenseNo(this, LicenseNo);" maxlength="5" class="form-control" id="LicenseNo2" placeholder="الرقم"/>
+                                <input type="text" style="width: 75px; display: inline" onkeyup="moveCursorLicenseNo(this, LicenseNo2);" maxlength="4" class="form-control" id="LicenseNo1" placeholder="السنة" />
+                                <input type="text" style="width: 75px; display: inline" onkeyup="moveCursorLicenseNo(this, LicenseNo);" maxlength="5" class="form-control" id="LicenseNo2" placeholder="الرقم" />
 
                                 @Html.TextBoxFor(m => m.BuildingPermits.LicenseNo, new { @class = "form-control", id = "LicenseNo", @placeholder = "رقم الترخيص" })
                                 @Html.ValidationMessageFor(m => m.BuildingPermits.LicenseNo, "", new { @style = "color:orange;" })
                             </div>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="control-label">
-                                    @Html.DisplayNameFor(m => m.BuildingPermits.KrokiNO)
-                                </label>
-                                <div style="direction:ltr">
-                                    <input type="text" style="width: 40px; display: inline" onkeyup="moveCursor(this, KrokiNO2);" maxlength="2" class="form-control" id="KrokiNO1" />
-                                    <input type="text" style="width: 40px; display: inline" onkeyup="moveCursor(this, KrokiNO3);" maxlength="2" class="form-control" id="KrokiNO2" />
-                                    <input type="text" style="width: 50px; display: inline" onkeyup="moveCursor(this, KrokiNO4);" maxlength="3" class="form-control" id="KrokiNO3" />
-                                    <input type="text" style="width: 40px; display: inline" onkeyup="moveCursor(this, KrokiNO5);" maxlength="2" class="form-control" id="KrokiNO4" />
-                                    <input type="text" style="width: 55px; display: inline" onkeyup="moveCursor(this, KrokiNO);" maxlength="4" class="form-control" id="KrokiNO5" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label">
+                                @Html.DisplayNameFor(m => m.BuildingPermits.KrokiNO)
+                            </label>
+                            <div style="direction:ltr">
+                                <input type="text" style="width: 40px; display: inline" onkeyup="moveCursor(this, KrokiNO2);" maxlength="2" class="form-control" id="KrokiNO1" />
+                                <input type="text" style="width: 40px; display: inline" onkeyup="moveCursor(this, KrokiNO3);" maxlength="2" class="form-control" id="KrokiNO2" />
+                                <input type="text" style="width: 50px; display: inline" onkeyup="moveCursor(this, KrokiNO4);" maxlength="3" class="form-control" id="KrokiNO3" />
+                                <input type="text" style="width: 40px; display: inline" onkeyup="moveCursor(this, KrokiNO5);" maxlength="2" class="form-control" id="KrokiNO4" />
+                                <input type="text" style="width: 55px; display: inline" onkeyup="moveCursor(this, KrokiNO);" maxlength="4" class="form-control" id="KrokiNO5" />
 
-                                    @Html.TextBoxFor(m => m.BuildingPermits.KrokiNO, new { @class = "form-control", @readonly = "readonly", id = "KrokiNO", @placeholder = "رقم الكروكي" })
-                                    @Html.ValidationMessageFor(m => m.BuildingPermits.KrokiNO, "", new { @style = "color:orange;" })
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="control-label">
-                                    @Html.DisplayNameFor(m => m.BuildingPermits.ConstructedArea)
-                                </label>
-                                @Html.TextBoxFor(m => m.BuildingPermits.ConstructedArea, new { @class = "form-control", id = "ConstructedArea", @placeholder = "المساحة المراد بنائها" })
-                                @Html.ValidationMessageFor(m => m.BuildingPermits.ConstructedArea, "", new { @style = "color:orange;" })
+                                @Html.TextBoxFor(m => m.BuildingPermits.KrokiNO, new { @class = "form-control", @readonly = "readonly", id = "KrokiNO", @placeholder = "رقم الكروكي" })
+                                @Html.ValidationMessageFor(m => m.BuildingPermits.KrokiNO, "", new { @style = "color:orange;" })
                             </div>
                         </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label">
+                                @Html.DisplayNameFor(m => m.BuildingPermits.ConstructedArea)
+                            </label>
+                            @Html.TextBoxFor(m => m.BuildingPermits.ConstructedArea, new { @class = "form-control", id = "ConstructedArea", @placeholder = "المساحة المراد بنائها" })
+                            @Html.ValidationMessageFor(m => m.BuildingPermits.ConstructedArea, "", new { @style = "color:orange;" })
+                        </div>
+                    </div>
                     <div class="form-group col-md-12">
                         <div class="form-group col-md-6">
                             <label class="control-label">
@@ -244,7 +244,7 @@
                             </label>
                             @Html.DropDownListFor(m => m.LID, (List<SelectListItem>)ViewBag.DDLandUseTypes, new { style = "padding:0px", @class = "form-control", @data_rel = "chosen", id = "LandUseTypes" })
                             @*@Html.TextBoxFor(m => m.BuildingPermits.ConstructionType, new { @class = "form-control", id = "ConstructionType", @placeholder = "نوع البناء" })
-                                @Html.ValidationMessageFor(m => m.BuildingPermits.ConstructionType, "", new { @style = "color:orange;" })*@
+                            @Html.ValidationMessageFor(m => m.BuildingPermits.ConstructionType, "", new { @style = "color:orange;" })*@
                         </div>
                         <div class="form-group col-md-6">
                             <label class="control-label">نوع المبنى</label>
@@ -266,70 +266,138 @@
             <h5> المرفقات الاساسية</h5>
             <br />
 
-
-
-
-
-            <div class="form-group col-md-12">
-                <div class="col-sm-5" style="width:20%;">
-                    <span id="PersonalCardSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
+            <div class="form-group col-md-6">
+                <div class="col-sm-2">
+                    <span id="PersonalFileSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
                 </div>
-                <div class="col-sm-5" style="width:30%;">
-                    @*@Html.TextBoxFor(m => m.PersonalCard.Description, new { @class = "form-control", @placeholder = "ملاحظات" })
-                        @Html.ValidationMessageFor(m => m.PersonalCard.Description, "", new { @style = "color:orange;" })*@
-                </div>
-                <div class="col-sm-5" style="width:30%;">
-                    @Html.TextBoxFor(m => m.PersonalCard.File, new { @id = "PersonalFile", @type = "file", @class = "form-control" })
+                <!--<div class="col-sm-5" style="width:30%;">-->
+                @*@Html.TextBoxFor(m => m.PersonalCard.Description, new { @class = "form-control", @placeholder = "ملاحظات" })
+                @Html.ValidationMessageFor(m => m.PersonalCard.Description, "", new { @style = "color:orange;" })*@
+                <!--</div>-->
+                <div class="col-sm-6">
+                    @Html.TextBoxFor(m => m.PersonalCard.File, new { @id = "PersonalFile", @type = "file", @class = "form-control", @onchange = "onchangeevent(this);" })
                     @Html.ValidationMessageFor(m => m.PersonalCard.File, "", new { @style = "color:orange;" })
                 </div>
-                <div class="col-sm-5" style="width:20%;">
+                <div class="col-sm-4">
                     <label class="control-label">
                         @Html.DisplayName("البطاقة الشخصية")
                     </label>
                 </div>
 
             </div>
-            <div class="form-group col-md-12">
-                <div class="col-sm-5" style="width:20%;">
-                    <span id="KrokeSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
+            <div class="form-group col-md-6">
+                <div class="col-sm-2">
+                    <span id="KrokeFileSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
                 </div>
-                <div class="col-sm-5" style="width:30%;">
-                    @*@Html.TextBoxFor(m => m.KrokeFile.Description, new { @class = "form-control", @placeholder = "ملاحظات" })
-                        @Html.ValidationMessageFor(m => m.KrokeFile.Description, "", new { @style = "color:orange;" })*@
-                </div>
-                <div class="col-sm-5" style="width:30%;">
-                    @Html.TextBoxFor(m => m.KrokeFile.File, new { @type = "file", @id = "KrokeFile", @class = "form-control" })
+                <!--<div class="col-sm-5" style="width:30%;">-->
+                @*@Html.TextBoxFor(m => m.KrokeFile.Description, new { @class = "form-control", @placeholder = "ملاحظات" })
+                @Html.ValidationMessageFor(m => m.KrokeFile.Description, "", new { @style = "color:orange;" })*@
+                <!--</div>-->
+                <div class="col-sm-6">
+                    @Html.TextBoxFor(m => m.KrokeFile.File, new { @type = "file", @id = "KrokeFile", @class = "form-control", @onchange = "onchangeevent(this);" })
                     @Html.ValidationMessageFor(m => m.KrokeFile.File, "", new { @style = "color:orange;" })
                 </div>
-                <div class="col-sm-5" style="width:20%;">
+                <div class="col-sm-4">
                     <label class="control-label">
                         @Html.DisplayName("الكروكي")
                     </label>
                 </div>
 
             </div>
-            <div class="form-group col-md-12">
-                <div class="col-sm-5" style="width:20%;">
-                    <span id="ownerSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
+            <div class="form-group col-md-6">
+                <div class="col-sm-2">
+                    <span id="OwnerFileSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
                 </div>
-                <div class="col-sm-5" style="width:30%;">
-                    @*@Html.TextBoxFor(m => m.OwnerFile.Description, new { @class = "form-control", @placeholder = "ملاحظات" })
-                        @Html.ValidationMessageFor(m => m.OwnerFile.Description, "", new { @style = "color:orange;" })*@
-                </div>
-                <div class="col-sm-5" style="width:30%;">
-                    @Html.TextBoxFor(m => m.OwnerFile.File, new { @type = "file", @id = "OwnerFile", @class = "form-control" })
+                <!--<div class="col-sm-5" style="width:30%;">-->
+                @*@Html.TextBoxFor(m => m.OwnerFile.Description, new { @class = "form-control", @placeholder = "ملاحظات" })
+                @Html.ValidationMessageFor(m => m.OwnerFile.Description, "", new { @style = "color:orange;" })*@
+                <!--</div>-->
+                <div class="col-sm-6">
+                    @Html.TextBoxFor(m => m.OwnerFile.File, new { @type = "file", @id = "OwnerFile", @class = "form-control", @onchange = "onchangeevent(this);" })
                     @Html.ValidationMessageFor(m => m.OwnerFile.File, "", new { @style = "color:orange;" })
 
                 </div>
-                <div class="col-sm-5" style="width:20%;">
+                <div class="col-sm-4">
                     <label class="control-label">
                         @Html.DisplayName("الملكية")
                     </label>
                 </div>
-
+            </div>
+            <div class="form-group col-md-6">
+                <div class="col-sm-2">
+                    <span id="ConsLetterFileSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
+                </div>
+                <!--<div class="col-sm-5" style="width:30%;">-->
+                @*@Html.TextBoxFor(m => m.PersonalCard.Description, new { @class = "form-control", @placeholder = "ملاحظات" })
+                @Html.ValidationMessageFor(m => m.PersonalCard.Description, "", new { @style = "color:orange;" })*@
+                <!--</div>-->
+                <div class="col-sm-6">
+                    @Html.TextBoxFor(m => m.ConsLetter.File, new { @id = "ConsLetterFile", @type = "file", @class = "form-control", @onchange = "onchangeevent(this);" })
+                    @Html.ValidationMessageFor(m => m.ConsLetter.File, "", new { @style = "color:orange;" })
+                </div>
+                <div class="col-sm-4">
+                    <label class="control-label">
+                        @Html.DisplayName("رسالة الاستشاري")
+                    </label>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <div class="col-sm-2">
+                    <span id="ConsAgreementFileSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
+                </div>
+                <!--<div class="col-sm-5" style="width:30%;">-->
+                @*@Html.TextBoxFor(m => m.PersonalCard.Description, new { @class = "form-control", @placeholder = "ملاحظات" })
+                @Html.ValidationMessageFor(m => m.PersonalCard.Description, "", new { @style = "color:orange;" })*@
+                <!--</div>-->
+                <div class="col-sm-6">
+                    @Html.TextBoxFor(m => m.ConsAgreementFile.File, new { @id = "ConsAgreementFile", @type = "file", @class = "form-control", @onchange = "onchangeevent(this);" })
+                    @Html.ValidationMessageFor(m => m.ConsAgreementFile.File, "", new { @style = "color:orange;" })
+                </div>
+                <div class="col-sm-4">
+                    <label class="control-label">
+                        @Html.DisplayName("تعهد المكتب الاستشاري")
+                    </label>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <div class="col-sm-2">
+                    <span id="LandPicFileSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
+                </div>
+                <!--<div class="col-sm-5" style="width:30%;">-->
+                @*@Html.TextBoxFor(m => m.PersonalCard.Description, new { @class = "form-control", @placeholder = "ملاحظات" })
+                @Html.ValidationMessageFor(m => m.PersonalCard.Description, "", new { @style = "color:orange;" })*@
+                <!--</div>-->
+                <div class="col-sm-6">
+                    @Html.TextBoxFor(m => m.LandPic.File, new { @id = "LandPicFile", @type = "file", @class = "form-control", @onchange = "onchangeevent(this);" })
+                    @Html.ValidationMessageFor(m => m.LandPic.File, "", new { @style = "color:orange;" })
+                </div>
+                <div class="col-sm-4">
+                    <label class="control-label">
+                        @Html.DisplayName("صورة لموقع الارض")
+                    </label>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <div class="col-sm-2">
+                    <span id="OthersFileSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
+                </div>
+                <!--<div class="col-sm-5" style="width:30%;">-->
+                @*@Html.TextBoxFor(m => m.PersonalCard.Description, new { @class = "form-control", @placeholder = "ملاحظات" })
+                @Html.ValidationMessageFor(m => m.PersonalCard.Description, "", new { @style = "color:orange;" })*@
+                <!--</div>-->
+                <div class="col-sm-6">
+                    @Html.TextBoxFor(m => m.Others.File, new { @id = "OthersFile", @type = "file", @class = "form-control", @onchange = "onchangeevent(this);" })
+                    @Html.ValidationMessageFor(m => m.Others.File, "", new { @style = "color:orange;" })
+                </div>
+                <div class="col-sm-4">
+                    <label class="control-label">
+                        @Html.DisplayName("مرفقات أخرى")
+                    </label>
+                </div>
             </div>
         }
         <br />
+        <div class="row"></div>
         <h5> أضافة الخرائط</h5>
         <br />
         <div class="row">
@@ -572,6 +640,27 @@
     });
 </script>
 <script>
+    function onchangeevent(textBox) {
+
+        var fileName = $('#' + textBox.id).val();
+
+        if (fileName) { // returns true if the string is not empty
+            //   var fileize = (this.files[0].size);
+            //alert(fileize);
+            var valid_extensions = /(\.JPG|\.JPEG|\.PDF|\.PNG|\.jpg|\.jpeg|\.pdf|\.png)$/i;
+            if (valid_extensions.test(fileName)) {
+
+                $('#' + textBox.id + 'Span').css("display", "block");
+            }
+            else {
+                $('#' + textBox.id + 'Span').css("display", "none");
+            }
+            // alert(fileName + " was selected");
+        } else { // no file was selected
+            $('#' + textBox.id + 'Span').css("display", "none");
+            // alert("no file selected");
+        }
+    }
     function ClearInputs() {
         $('#FileNotes').val('');
         $('#FileUpload').val('');
@@ -589,71 +678,71 @@
     $(document).ready(function () {
         $('#SaveAttachment').attr('disabled', true);
         $("#AttTypeId option[value='0']").attr("disabled", "disabled");
-        $("#PersonalFile").change(function () {
+        //$("#PersonalFile").change(function () {
 
-            var fileName = $("#PersonalFile").val();
+        //    var fileName = $("#PersonalFile").val();
 
-            if (fileName) { // returns true if the string is not empty
-             //   var fileize = (this.files[0].size);
-                //alert(fileize);
-                var valid_extensions = /(\.JPG|\.JPEG|\.PDF|\.PNG|\.jpg|\.jpeg|\.pdf|\.png)$/i;
-                if (valid_extensions.test(fileName) ) {
+        //    if (fileName) { // returns true if the string is not empty
+        //     //   var fileize = (this.files[0].size);
+        //        //alert(fileize);
+        //        var valid_extensions = /(\.JPG|\.JPEG|\.PDF|\.PNG|\.jpg|\.jpeg|\.pdf|\.png)$/i;
+        //        if (valid_extensions.test(fileName) ) {
 
-                    $('#PersonalCardSpan').css("display", "block");
-                }
-                else {
-                    $('#PersonalCardSpan').css("display", "none");
-                }
-                // alert(fileName + " was selected");
-            } else { // no file was selected
-                $('#PersonalCardSpan').css("display", "none");
-                // alert("no file selected");
-            }
-        });
+        //            $('#PersonalCardSpan').css("display", "block");
+        //        }
+        //        else {
+        //            $('#PersonalCardSpan').css("display", "none");
+        //        }
+        //        // alert(fileName + " was selected");
+        //    } else { // no file was selected
+        //        $('#PersonalCardSpan').css("display", "none");
+        //        // alert("no file selected");
+        //    }
+        //});
 
-        $("#KrokeFile").change(function () {
+        //$("#KrokeFile").change(function () {
 
-            var fileName = $("#KrokeFile").val();
+        //    var fileName = $("#KrokeFile").val();
 
-            if (fileName) { // returns true if the string is not empty
-            //    var fileize = (this.files[0].size);
-                //alert(fileize);
-                var valid_extensions = /(\.JPG|\.JPEG|\.PDF|\.PNG|\.jpg|\.jpeg|\.pdf|\.png)$/i;
-                if (valid_extensions.test(fileName) ) {
+        //    if (fileName) { // returns true if the string is not empty
+        //    //    var fileize = (this.files[0].size);
+        //        //alert(fileize);
+        //        var valid_extensions = /(\.JPG|\.JPEG|\.PDF|\.PNG|\.jpg|\.jpeg|\.pdf|\.png)$/i;
+        //        if (valid_extensions.test(fileName) ) {
 
-                    $('#KrokeSpan').css("display", "block");
-                }
-                else {
-                    $('#KrokeSpan').css("display", "none");
-                }
-                // alert(fileName + " was selected");
-            } else { // no file was selected
-                $('#KrokeSpan').css("display", "none");
-                // alert("no file selected");
-            }
-        });
+        //            $('#KrokeSpan').css("display", "block");
+        //        }
+        //        else {
+        //            $('#KrokeSpan').css("display", "none");
+        //        }
+        //        // alert(fileName + " was selected");
+        //    } else { // no file was selected
+        //        $('#KrokeSpan').css("display", "none");
+        //        // alert("no file selected");
+        //    }
+        //});
 
-        $("#OwnerFile").change(function () {
+        //$("#OwnerFile").change(function () {
 
-            var fileName = $("#OwnerFile").val();
+        //    var fileName = $("#OwnerFile").val();
 
-            if (fileName) { // returns true if the string is not empty
-               // var fileize = (this.files[0].size);
-                //alert(fileize);
-                var valid_extensions = /(\.JPG|\.JPEG|\.PDF|\.PNG|\.jpg|\.jpeg|\.pdf|\.png)$/i;
-                if (valid_extensions.test(fileName) ) {
+        //    if (fileName) { // returns true if the string is not empty
+        //       // var fileize = (this.files[0].size);
+        //        //alert(fileize);
+        //        var valid_extensions = /(\.JPG|\.JPEG|\.PDF|\.PNG|\.jpg|\.jpeg|\.pdf|\.png)$/i;
+        //        if (valid_extensions.test(fileName) ) {
 
-                    $('#ownerSpan').css("display", "block");
-                }
-                else {
-                    $('#ownerSpan').css("display", "none");
-                }
-                // alert(fileName + " was selected");
-            } else { // no file was selected
-                $('#ownerSpan').css("display", "none");
-                // alert("no file selected");
-            }
-        });
+        //            $('#ownerSpan').css("display", "block");
+        //        }
+        //        else {
+        //            $('#ownerSpan').css("display", "none");
+        //        }
+        //        // alert(fileName + " was selected");
+        //    } else { // no file was selected
+        //        $('#ownerSpan').css("display", "none");
+        //        // alert("no file selected");
+        //    }
+        //});
 
         $("#MapFile").change(function () {
 
@@ -718,10 +807,8 @@
             data.append("MyAttached", files[0]);
             data.append("AttTypeId", $("#AttTypeId").val());
             data.append("FileDescription", $("#FileDescription").val());
-
         }
         var url = "@Url.Action("SaveAttachment", "BuildingPermits")";
-
         $.ajax({
             url: url,
             type: "POST",
@@ -729,7 +816,6 @@
             contentType: false,
             data: data,
             async: false,
-
             success: function (response) {
                 if (response != "") {
                     $('#FileBrowse').find("*").prop("disabled", true);

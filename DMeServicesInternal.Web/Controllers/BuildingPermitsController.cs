@@ -78,8 +78,6 @@ namespace DMeServicesInternal.Web.Controllers
             PermitsViewModel oModel = new PermitsViewModel();
             oModel.BuildingPermits = PermitsCom.PermitsByID(81);
             oModel.ListOfAttachments = PermitsAttachmentsCom.AttachmentsByPermitsID(81, (long)oModel.BuildingPermits.OwnerCivilId);
-
-
             ViewBag.DDWelayat = DDWelayat();
             ViewBag.DDBuildingTypes = DDBuildingTypes();
             ViewBag.DDLandUseTypes = DDLandUseTypes();
@@ -277,7 +275,6 @@ namespace DMeServicesInternal.Web.Controllers
                 {
                     LstWelayat.Add(new SelectListItem() { Text = item.WelyahArName, Value = item.WelyahID.ToString() });
                 }
-
             }
             return LstWelayat;
         }
@@ -320,6 +317,19 @@ namespace DMeServicesInternal.Web.Controllers
 
             }
             return LstRegions;
+        }
+        #endregion
+        #region Method :: Get Fees
+
+        public JsonResult GetFees(string id)
+        {
+            var stateList = this.DDRegions(Convert.ToInt32(id));
+            var stateData = stateList.Select(m => new SelectListItem()
+            {
+                Text = m.RegionArName,
+                Value = m.RegionID.ToString(),
+            });
+            return Json(stateData, JsonRequestBehavior.AllowGet);
         }
         #endregion
 

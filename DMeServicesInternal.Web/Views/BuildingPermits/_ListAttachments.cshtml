@@ -26,7 +26,7 @@
                         //int i = 0;
                         foreach (var item in Model.ListOfAttachments)
                         {
-                            if (item.AttachmentTypeId <= 3)
+                            if (item.AttachmentTypeId <= 4 || item.AttachmentTypeId > 14)
                             {
 
                                 <tr>
@@ -99,7 +99,7 @@
 
                             foreach (var item in Model.ListOfAttachments)
                             {
-                                if (item.AttachmentTypeId > 3)
+                                if (item.AttachmentTypeId > 4 && item.AttachmentTypeId < 15)
                                 {
                                     <tr>
                                         <td class="col-sm-1" style="width:10%;">

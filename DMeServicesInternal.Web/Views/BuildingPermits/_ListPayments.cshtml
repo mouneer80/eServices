@@ -75,152 +75,15 @@
     </div>
 </div>
 
-<br />
-<div id="divMapAttachments">
-    <div class="box-inner">
-        <div class="box-header well" data-original-title="">
-            <h2><i class="glyphicon glyphicon-edit"></i> الخرائط</h2>
-        </div>
-        <div class="box-content">
-            <!--item details-->
-            <div class="">
-                <table id="myTable" class=" table order-list">
-                    <thead>
-                        <tr>
-                            <td>نوع المرفق</td>
-                            <td>الملاحظات</td>
-                            <td>تاريخ الاضافة</td>
-                            <td>وقت الاضافة</td>
-                            <td>حالة الملف</td>
-                            <td></td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (Model.ListOfAttachments != null)
-                        {
-
-                            foreach (var item in Model.ListOfAttachments)
-                            {
-                                if (item.AttachmentTypeId > 3)
-                                {
-                                    <tr>
-                                        <td class="col-sm-1" style="width:10%;">
-                                            @DMeServices.Models.Common.BuildingServices.AttachmentTypesCom.TypeByID((int)@item.AttachmentTypeId).Name
-
-                                        </td>
-                                        <td class="col-sm-1" style="width:5%;">
-                                            @item.Description
-                                        </td>
-                                        <td class="col-sm-1" unprintable>
-
-                                            @item.InsertDate.ToShortDateString()
-
-                                        </td>
-
-                                        <td class="col-sm-1" unprintable>
-
-                                            @item.InsertDate.ToShortTimeString()
-
-                                        </td>
-
-                                        @if (item.UpdatedOn != null)
-                                        {
-                                            <td class="col-sm-1" unprintable>   <p><font color="red">ملف سابق</font></p> </td>
-                                        }
-                                        else
-                                        {
-                                            <td class="col-sm-1" unprintable>    <p><font color="green">ملف جديد</font></p> </td>
-
-
-                                        }
-
-
-                                        <td class="col-sm-1" unprintable>
-                                            <a class="modal-link" href="@Url.Action("GetFile", new { @controller = "BuildingPermits", @Id = item.Id })">عرض الملف<i class="fa fa-eye-slash modal-link"></i></a>
-
-                                        </td>
-                                        @if (Model.oEmployeeInfo.IsEngineer == true)
-                                        {
-                                            <td class="col-sm-1" unprintable>
-                                                @{
-
-                                                    int ListDetails = DMeServices.Models.Common.BuildingServices.PermitsAttachmentsCom.AttachmentsDetailsByAttachmentsID((int)item.Id).Count();
-
-                                                    if (item.UpdatedOn != null)
-                                                    {
-                                                        if (ListDetails > 0)
-                                                        {
-                                                            <a href="#" style="color:darkgreen" fileID="@item.Id" class="GetDetails">عرض تفاصيل الخريطة<i class="fa fa-eye-slash glyphicon glyphicon-collapse-down"></i></a>
-                                                        }
-                                                    }
-                                                    else
-                                                    {
-                                                        <a class="modal-link" href="@Url.Action("EditPDFFile", new { @controller = "BuildingPermits", @Id = item.Id, @PirmID = Model.BuildingPermits.Id })">تعديل الملف<i class="fa fa-eye-slash"></i></a>
-                                                        @*<a class="modal-link" href="@Url.Action("EditPDFFile", new { @controller = "BuildingPermits" })">تعديل الملف<i class="fa fa-eye-slash"></i></a>*@
-                                                        }
-                                                }
-
-                                            </td>
-                                            <td class="col-sm-1" unprintable>
-                                                @if (item.UpdatedOn == null)
-                                                {
-                                                    if (ListDetails > 0)
-                                                    {
-                                                        <a href="#" fileID="@item.Id" class="GetDetails">عرض تفاصيل الخريطة<i class="fa fa-eye-slash glyphicon glyphicon-collapse-down"></i></a>
-                                                    }
-                                                }
-                                            </td>
-
-
-
-
-                                        }
-
-                                    </tr>
-
-                                }
-                                //i++;
-                            }
-                        }
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="10" style="text-align:center;"></td>
-                        </tr>
-                        <tr></tr>
-                    </tfoot>
-                </table>
-            </div>
-            <!--end of item details-->
-        </div>
-    </div>
-</div>
-<br />
-<div id="divAttachmentsDetails">
-    @{ Html.RenderPartial("_ListAttachmentsDetails", Model);}
-</div>
-
 
 
 <div class="modal fade" id="MainModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
 
-
-
-
-
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
 
 <script type="text/javascript">
     function unloadModal() {

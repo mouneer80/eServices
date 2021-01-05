@@ -5,11 +5,6 @@
 
 }
 
-
-
-
-
-
 <script>
     $(document).ready(function () {
         $("#btnGenerateReport").click(function () {
@@ -94,8 +89,6 @@
             @Html.HiddenFor(x => x.BuildingPermits.Id)
             @Html.HiddenFor(x => x.BuildingPermits.ConsultantCivilId)
             @Html.HiddenFor(x => x.BuildingPermits.TransactNo)
-            
-
 
             <div class="row">
                 <div class="box col-md-12">
@@ -109,13 +102,13 @@
                     <div class="form-group col-md-6">
 
                         <label class="control-label">الولاية</label>
-                        <label class="form-control">@Welayah.WelyahArName</label>
+                        <label class="form-control" readonly="readonly">@Welayah.WelyahArName</label>
                     </div>
 
                     <div class="form-group col-md-6">
 
                         <label class="control-label">اسم المنطقة / القرية</label>
-                        <label class="form-control">@Region.RegionArName</label>
+                        <label class="form-control" readonly="readonly">@Region.RegionArName</label>
                     </div>
                 </div>
 
@@ -124,7 +117,7 @@
                     <div class="form-group col-md-6">
 
                         <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.SquareArea)</label>
-                        <label class="form-control">@SquarLetter.ArLetter</label>
+                        <label class="form-control" readonly="readonly">@SquarLetter.ArLetter</label>
                     </div>
                     <div class="form-group col-md-6">
 
@@ -148,18 +141,18 @@
                         <label class="control-label">
                             @Html.DisplayNameFor(m => m.BuildingPermits.ConstructionType)
                         </label>
-                        <label class="form-control">@LandUse.UseType</label>
+                        <label class="form-control" readonly="readonly">@LandUse.UseType</label>
                     </div>
                     <div class="form-group col-md-6">
                         <label class="control-label">نوع المبنى</label>
-                        <label class="form-control">@BuildingType.BuildingType</label>
+                        <label class="form-control" readonly="readonly">@BuildingType.BuildingType</label>
                     </div>
 
 
                     <div class="form-group col-md-6">
 
                         <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.NumberOfFloors)</label>
-                        @Html.TextBoxFor(m => m.BuildingPermits.NumberOfFloors, new { @class = "form-control", id = "NumberOfFloors", @placeholder = "عدد الطوابق المراد بنائها" })
+                        @Html.TextBoxFor(m => m.BuildingPermits.NumberOfFloors, new { @class = "form-control", @readonly = "readonly", id = "NumberOfFloors", @placeholder = "عدد الطوابق المراد بنائها" })
 
 
                     </div>
@@ -170,34 +163,28 @@
             <br />
             <h5> أضافة التفاصيل</h5>
             <br />
+            <label class="control-label">تفاصيل الخدمة</label>
             <div class="row">
                 <div id="FileBrowse" class="form-group col-md-12">
-
-                    <div class="col-sm-1" style="width:15%;">
-                        <div id="divHere" style="float:left;display:none;">
-                            <img src="~/Content/ezgif.com-resize.gif" style="width:25%;" />
-                        </div>
+                    <div class="col-sm-3">
                         <input type="submit" id="SaveAttachment" name="SaveAttachment" class="btn btn-success" value="إضافة تفاصيل" />
-                        <div id="divLoader" class="loading" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader" /> </div>
                     </div>
-                    <div class="col-sm-5" style="width:35%;">
-                        @Html.TextBoxFor(m => m.Total, new { @class = "form-control", id = "Total", @placeholder = "المبلغ" })
+                    <div class="col-sm-2">
+                        @Html.TextBoxFor(m => m.Total, new { @class = "form-control", @id = "Total", @placeholder = "المبلغ" })
                         @*@Html.ValidationMessageFor(m => m.Attachments.Description, "", new { @style = "color:orange;" })*@
                     </div>
-                    <div class="col-sm-5" style="width:35%;">
-                        @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control", id = "Quantity", @placeholder = "المساحة" })
+                    <div class="col-sm-2">
+                        @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control", @id = "Quantity", @placeholder = "المساحة" })
                         @*@Html.ValidationMessageFor(m => m.Attachments.Description, "", new { @style = "color:orange;" })*@
                     </div>
-                    <div class="col-sm-5" style="width:35%;">
-                        @Html.TextBoxFor(m => m.Fees, new { @class = "form-control", id = "Fees", @placeholder = "الرسوم" })
+                    <div class="col-sm-2">
+                        @Html.TextBoxFor(m => m.Fees, new { @class = "form-control", @id = "Fees", @placeholder = "الرسوم" })
                         @*@Html.ValidationMessageFor(m => m.Attachments.Description, "", new { @style = "color:orange;" })*@
                     </div>
-                    <div class="form-group col-md-6">
-                        <label class="control-label">تفاصيل الخدمة</label>
+                    <div class="form-group col-md-3">
+
                         @Html.DropDownListFor(s => s.ServiceID, (List<SelectListItem>)ViewBag.DDServices, new { style = "padding:0px", @class = "form-control", @data_rel = "chosen", id = "ServiceID" })
-
                     </div>
-
                 </div>
 
                 <div class="row">
