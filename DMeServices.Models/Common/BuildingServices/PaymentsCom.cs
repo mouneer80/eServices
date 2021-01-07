@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DMeServices.DAL;
 using DMeServices.Models.BuildingServices;
+using DMeServices.Models.ViewModels.Internal.Permits;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -81,6 +82,64 @@ namespace DMeServices.Models.Common.BuildingServices
                 BldPaymentDetails _BldPaymentDetails = db.BldPaymentDetails.Where(x => x.PaymentDetailID == Id).SingleOrDefault();
                 PaymentDetails _PaymentDetails = Mapper.Map<BldPaymentDetails, PaymentDetails>(_BldPaymentDetails);
                 return _PaymentDetails;
+            }
+        }
+
+        public static string SavePaymentDetails(PermitsViewModel oModel)
+        {
+
+            using (eServicesEntities db = new eServicesEntities())
+            {
+
+                BldPayment _BldPayment = new BldPayment();
+                try
+                {
+                    
+                    
+                    _BldPayment = db.BldPayment.Where(x => x.PaymentID == oModel.Payment.PaymentID).SingleOrDefault();
+
+                    if (_BldPayment != null)
+                    {
+                        return null;
+                    }
+                    //if (oModel.oUserInfo.ConsultantCrNo == null)
+                    //{
+                    //    return null;
+                    //}
+
+                    
+
+                    _BldPayment = Mapper.Map<Payments, BldPayment>(oModel.Payment);
+                    _BldPayment.BldPermitId = oModel.BuildingPermits.Id;
+                    _BldPayment.PaymentTotalAmount = oModel.TempGrandTotal;
+                    db.BldPayment.Add(_BldPayment);
+
+                    db.SaveChanges();
+
+                    if (oModel.PaymentDetailsList != null)
+                    {
+                        List<BldPaymentDetails> LstPaymentDetails = Mapper.Map<List<PaymentDetails>, List<BldPaymentDetails>>(oModel.PaymentDetailsList);
+                        foreach (var PaymentDetail in LstPaymentDetails)
+                        {
+                            PaymentDetail.PaymentID = _BldPayment.PaymentID;
+                            db.BldPaymentDetails.Add(PaymentDetail);
+                            db.SaveChanges();
+                        }
+
+                    }
+
+
+
+
+                    return _BldPayment.PaymentID.ToString();
+
+                }
+
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+
             }
         }
         #endregion

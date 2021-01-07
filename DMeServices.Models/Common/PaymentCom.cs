@@ -11,6 +11,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 using RestSharp.Deserializers;
+using RestSharp.Serialization.Json;
 //using RestSharp;
 
 namespace DMeServices.Models.Common

@@ -167,7 +167,7 @@
             <div class="row">
                 <div id="FileBrowse" class="form-group col-md-12">
                     <div class="col-sm-3">
-                        <input type="submit" id="SaveAttachment" name="SaveAttachment" class="btn btn-success" value="إضافة تفاصيل" />
+                        <input type="submit" id="SaveFees" name="SaveFees" class="btn btn-success" value="إضافة تفاصيل" />
                     </div>
                     <div class="col-sm-2">
                         @Html.TextBoxFor(m => m.Total, new { @class = "form-control", @id = "Total", @placeholder = "المبلغ" })
@@ -189,7 +189,7 @@
 
                 <div class="row">
                     <div class="box col-md-12">
-                        <div id="divAttachments" class="row">
+                        <div id="divPayments" class="row">
                             @{ Html.RenderPartial("_ListPayments", Model);}
                         </div>
                     </div>
@@ -201,7 +201,7 @@
                 <br />
                 <div class="row">
 
-                    <button class="btn btn-primary" id="Save" @*onclick="return confirm('هل انت متاكد من حفظ التعديلات !');"*@>
+                    <button class="btn btn-primary" id="Save">
                         <i class="glyphicon glyphicon-ok"></i> حفظ
                     </button>
 
@@ -227,109 +227,98 @@
 <script src="~/Scripts/jquery-1.10.2.js"></script>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script type="text/javascript">
+    $(function () {
+
+        $("#Quantity,#Fees").keyup(function (e) {
+
+            var q = $("#Quantity").val();
+            var p = $("#Fees").val();
+            var result = "";
+
+            if (q !== "" && p !== "" && $.isNumeric(q) && $.isNumeric(p)) {
+                result = parseFloat(q) * parseFloat(p);
+            }
+            $("#Total").val(result);
+
+        });
+
+    });
+    $("#Save").click(function () {
+        $('#Permitsform').submit();
+    });
+    
+</script>
+<script>
+
     $(document).ready(function () {
-        //Country Dropdown Selectedchange event
-        $("#Welayah").change(function () {
-            $("#Region").empty();
+
+        $("#ServiceID").change(function () {
+            $("#Fees").empty();
             $.ajax({
                 type: 'POST',
-                url: '@Url.Action("GetRegions")', // Calling json method
+                url: '@Url.Action("GetFees")', // Calling json method
                 dataType: 'json',
-                data: { id: $("#Welayah").val() },
+                data: { id: $("#ServiceID").val() },
                 // Get Selected Country ID.
-                success: function (states) {
-                    $.each(states, function (i, state) {
-                        $("#Region").append('<option value="' + state.Value + '">' +
-                             state.Text + '</option>');
-                    });
+                success: function (response) {
+
+                    $("#Fees").val(response);
+
                 },
                 error: function (ex) {
+                    console.log(ex.message)
                     alert('Failed to retrieve states.' + ex);
                 }
             });
             return false;
         })
-    });
-</script>
-<script>
-    $(document).ready(function () {
-        $('#SaveAttachment').attr('disabled', true);
-        $("#AttTypeId option[value='0']").attr("disabled", "disabled");
 
-        $("#SaveAttachment").click(function () {
+        $('#SaveFees').attr('disabled', true);
+        $("#ServiceID option[value='0']").attr("disabled", "disabled");
+        $("#Quantity").change(function () {
 
-        var data = new FormData();
+            var total = $("#Total").val();
+            if (total > 0) {
 
-        var files = $("#MapFile").get(0).files;
-        if (files.length > 0) {
-            data.append("MyAttached", files[0]);
-            data.append("AttTypeId", $("#AttTypeId").val());
-            data.append("FileDescription", $("#FileDescription").val());
-
-        }
-        var url = "@Url.Action("SavePayment", "BuildingPermits")";
-
-        $.ajax({
-            url: url,
-            type: "POST",
-            processData: false,
-            contentType: false,
-            data: data,
-            async: false,
-
-            success: function (response) {
-                if (response != "") {
-                    //$('#FileBrowse').find("*").prop("disabled", true);
-                    //LoadProgressBar(response); //calling LoadProgressBar function to load the progress bar.
-                    $('#divAttachments').html(response);
-                }
-                $('#FileDescription').val('');
-                $('#AttTypeId').val('0');
-                $('#MapFile').val('');
-                $('#SaveAttachment').attr('disabled', true);
-
-
-
-            },
-            error: function (er) {
-                console.log(er.message);
-                $('#SaveAttachment').attr('disabled', true);
+                $('#SaveFees').attr('disabled', false);
             }
+        })
 
-        });
-        });
+        $("#SaveFees").click(function () {
+            
+            var data = new FormData();
+            var total = $("#Total").val();
+            if (total > 0) {
+                data.append("ServiceID", $("#ServiceID").val());
+                data.append("Fees", $("#Fees").val());
+                data.append("Quantity", $("#Quantity").val());
+                data.append("Total", $("#Total").val());
 
-        function LoadProgressBar(response) {
-            var progressbar = $("#progressbar-5");
-            var progressLabel = $(".progress-label");
-            $("#divLoader").hide();
-            $("#divHere").hide();
-            progressbar.show();
-            $("#progressbar-5").progressbar({
-                //value: false,
-                change: function () {
-                    progressLabel.text(
-                        progressbar.progressbar("value") + "%");  // Showing the progress increment value in progress bar
+            }
+            var url = "@Url.Action("SavePayment", "BuildingPermits")";
+            $.ajax({
+                url: url,
+                type: "POST",
+                processData: false,
+                contentType: false,
+                data: data,
+                async: false,
+                success: function (response) {
+                    if (response != "") {
+                        $('#divPayments').html(response);
+                    }
+                    $('#Fees').val('');
+                    $('#ServiceID').val('0');
+                    $('#Quantity').val('');
+                    $('#Total').val('');
+                    $('#SaveFees').attr('disabled', true);
                 },
-                complete: function () {
-                    progressLabel.text("Loading Completed!");
-                    progressbar.progressbar("value", 0);  //Reinitialize the progress bar value 0
-                    progressLabel.text("");
-                    progressbar.hide(); //Hiding the progress bar
-					$('#divAttachments').html(response);
-                    $('#FileBrowse').find("*").prop("disabled", false);
-					$('#SaveAttachment').attr('disabled', true);
+                error: function (er) {
+                    console.log(er.message);
+                    $('#SaveFees').attr('disabled', true);
                 }
             });
-            function progress() {
-                var val = progressbar.progressbar("value") || 0;
-                progressbar.progressbar("value", val + 1);
-                if (val < 99) {
-                    setTimeout(progress, 25);
-                }
-            }
-            setTimeout(progress, 100);
-        }
+        });
     });
 </script>
 

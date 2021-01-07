@@ -51,7 +51,7 @@ namespace DMeServicesInternal.Web.Controllers
 
 
 
-        public ActionResult PermitDetails(int Id = -99)
+        public ActionResult PermitDetails(int Id)
         {
             PermitsViewModel oModel = new PermitsViewModel();
             oModel.BuildingPermits = PermitsCom.PermitsByID(Id);
@@ -63,13 +63,15 @@ namespace DMeServicesInternal.Web.Controllers
             ViewBag.DDSquareLetters = DDSquareLetters();
             oModel.ListOfAttachments = PermitsAttachmentsCom.AttachmentsByPermitsID(Id, (long)oModel.BuildingPermits.OwnerCivilId);
             ViewBag.DDPermitsStatus = DDPermitsStatus();
+            oModel.Payments = PaymentsCom.PaymentsByPermitsID(Id);
+            oModel.PaymentDetailsList = PaymentsCom.MapsPaymentDetailsByPermitsID(Id);
             if (oModel.oEmployeeInfo.IsEngineerHead)
             {
                 ViewBag.DDEngineersList = DDEngineers();
                 return View("HeadPermitDetails", oModel);
             }
 
-            
+
             return View("EngineerPermitDetails", oModel);
         }
 
@@ -129,7 +131,7 @@ namespace DMeServicesInternal.Web.Controllers
             if (Attachment != null)
             {
                 //FileStream file = new FileStream(Attachment.AttachmentPath, FileMode.Open, FileAccess.Read);
-                    
+
                 Stream stream = new MemoryStream(Attachment.AttachmentStream);
                 //Stream stream = new MemoryStream();
                 //file.CopyTo(stream);
@@ -319,19 +321,7 @@ namespace DMeServicesInternal.Web.Controllers
             return LstRegions;
         }
         #endregion
-        #region Method :: Get Fees
 
-        public JsonResult GetFees(string id)
-        {
-            var stateList = this.DDRegions(Convert.ToInt32(id));
-            var stateData = stateList.Select(m => new SelectListItem()
-            {
-                Text = m.RegionArName,
-                Value = m.RegionID.ToString(),
-            });
-            return Json(stateData, JsonRequestBehavior.AllowGet);
-        }
-        #endregion
 
         #region Method :: DD SquareLetters
 
@@ -398,8 +388,9 @@ namespace DMeServicesInternal.Web.Controllers
         {
             PermitsViewModel oModel = new PermitsViewModel();
             oModel.BuildingPermits = PermitsCom.PermitsByID(Id);
+            TempData["PaymentDetails"] = new List<PaymentDetails>();
             ViewBag.DDServices = DDServiceFees();
-            
+            //oModel.BuildingPermits.WorkflowStatus = 28;
             //return View("ErrorPage");
             return View("PermitPaymentDetails", oModel);
             //return Redirect("~/Reports/Report.aspx");
@@ -420,6 +411,36 @@ namespace DMeServicesInternal.Web.Controllers
             }
             return LstServicesFees;
         }
+
+        #region Method :: Get Fees
+
+        public JsonResult GetFees(string id)
+        {
+            var fee = ServiceFeesCom.TypeByID(int.Parse(id));
+
+            return Json(fee.ServiceFees.ToString(), JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SavePermitsFees(PermitsViewModel oModel)
+        {
+            oModel.Payment = new Payments();
+            oModel.PaymentDetailsList = (List<PaymentDetails>)TempData["PaymentDetails"];
+            TempData["PaymentDetails"] = null;
+
+           
+            string Result = PaymentsCom.SavePaymentDetails(oModel);
+            oModel.BuildingPermits.WorkflowStatus = 28;
+            PermitsCom.SaveEngineerPermits(oModel);
+            ViewBag.PaymentID = Result;
+
+            return RedirectToAction("PermitDetails", "BuildingPermits", new { Id = oModel.BuildingPermits.Id });
+        }
+
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -477,13 +498,13 @@ namespace DMeServicesInternal.Web.Controllers
                 switch (oModel.BuildingPermits.WorkflowStatus)
                 {
                     case 18:
-                        DMeServices.Models.Common.SmsCom.SendSms("968" + User.MobileNo, " : تم   الغاء المعاملة رقم المعاملة " + oModel.BuildingPermits.TransactNo);
-                        DMeServices.Models.Common.SmsCom.SendSms("968" + oModel.BuildingPermits.OwnerPhoneNo, " : تم   الغاء المعاملة رقم المعاملة " + oModel.BuildingPermits.TransactNo);
+                        DMeServices.Models.Common.SmsCom.SendSms("968" + User.MobileNo, " : تم تعليق معاملتكم لحين استيفاء البيانات رقم المعاملة " + oModel.BuildingPermits.TransactNo);
+                        DMeServices.Models.Common.SmsCom.SendSms("968" + oModel.BuildingPermits.OwnerPhoneNo, " : تم تعليق معاملتكم لحين استيفاء البيانات  رقم المعاملة " + oModel.BuildingPermits.TransactNo);
                         break;
 
                     case 19:
-                        DMeServices.Models.Common.SmsCom.SendSms("968" + User.MobileNo, " : تم قبول المعاملة رقم المعاملة " + oModel.BuildingPermits.TransactNo);
-                        DMeServices.Models.Common.SmsCom.SendSms("968" + oModel.BuildingPermits.OwnerPhoneNo, " : تم قبول المعاملة  رقم المعاملة " + oModel.BuildingPermits.TransactNo);
+                        DMeServices.Models.Common.SmsCom.SendSms("968" + User.MobileNo, " : تم قبول معاملتكم وفي انتظار الدفع رقم المعاملة " + oModel.BuildingPermits.TransactNo);
+                        DMeServices.Models.Common.SmsCom.SendSms("968" + oModel.BuildingPermits.OwnerPhoneNo, " : تم قبول معاملتكم وفي انتظار الدفع رقم المعاملة " + oModel.BuildingPermits.TransactNo);
                         break;
                     case 20:
                         DMeServices.Models.Common.SmsCom.SendSms("968" + User.MobileNo, " : يوجد بعض التعديلات علي الخرائط رقم المعاملة " + oModel.BuildingPermits.TransactNo);
@@ -508,8 +529,8 @@ namespace DMeServicesInternal.Web.Controllers
             PermitsAttachments Attachment = DMeServices.Models.Common.BuildingServices.PermitsAttachmentsCom.AttachmentsByID(Id);
 
             string contentType = MimeMapping.GetMimeMapping(Attachment.AttachmentPath);
-            if(Attachment.AttachmentStream == null || Attachment.AttachmentStream.Length <= 0)
-            { 
+            if (Attachment.AttachmentStream == null || Attachment.AttachmentStream.Length <= 0)
+            {
                 System.IO.FileStream oFile = new FileStream(Attachment.AttachmentPath, FileMode.Open, FileAccess.Read);
 
                 MemoryStream streamToUpdate = new MemoryStream();
@@ -640,26 +661,32 @@ namespace DMeServicesInternal.Web.Controllers
 
         #endregion
 
-
+        [HttpPost]
         public ActionResult SavePayment()
         {
             PermitsViewModel oModel = new PermitsViewModel();
             var listofPaymentDetails = (List<PaymentDetails>)TempData["PaymentDetails"];
-            if (listofPaymentDetails != null) return PartialView("_ListPayments", oModel);
-            //oModel.PaymentDetails = new PaymentDetails();
-            //oModel.PaymentDetails.ServiceQuantity = oModel.Quantity;
-            //oModel.PaymentDetails.ServiceID = oModel.ServiceFees.ServiceID;
-            //oModel.PaymentDetailsList = (List<PaymentDetails>)TempData["PaymentDetails"];
-            //if (oModel.PaymentDetailsList == null)
-            //{
-            //    oModel.PaymentDetailsList = new List<PaymentDetails>();
-            //}
-
-            //oModel.PaymentDetailsList.Add(oModel.PaymentDetails);
+            //if (listofPaymentDetails != null) return PartialView("_ListPayments", oModel);
 
 
-            //TempData["Attachments"] = oModel.PaymentDetailsList;
+            var serviceID = System.Web.HttpContext.Current.Request.Form["ServiceID"];
+            var fees = System.Web.HttpContext.Current.Request.Form["Fees"];
+            var quantity = System.Web.HttpContext.Current.Request.Form["Quantity"];
+            var total = System.Web.HttpContext.Current.Request.Form["Total"];
+            oModel.PaymentDetails = new PaymentDetails();
+            oModel.PaymentDetails.ServiceQuantity = int.Parse(quantity);
+            oModel.PaymentDetails.ServiceID = int.Parse(serviceID);
+            oModel.PaymentDetails.ServiceFees = decimal.Parse(fees);
+            oModel.PaymentDetails.TotalAmount = decimal.Parse(total);
+            oModel.PaymentDetailsList = (List<PaymentDetails>)TempData["PaymentDetails"];
+            if (oModel.PaymentDetailsList == null)
+            {
+                oModel.PaymentDetailsList = new List<PaymentDetails>();
+            }
 
+            oModel.PaymentDetailsList.Add(oModel.PaymentDetails);
+
+            TempData["PaymentDetails"] = oModel.PaymentDetailsList;
 
             return PartialView("_ListPayments", oModel);
         }

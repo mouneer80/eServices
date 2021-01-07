@@ -14,7 +14,6 @@
 
 
 
-
 <script>
     $(document).ready(function () {
         var counter = 0;
@@ -206,6 +205,14 @@
                         @{ Html.RenderPartial("_ListAttachments", Model);}
                     </div>
                 </div>
+                <div class="box col-md-12">
+                    @if (Model.PaymentDetailsList.Count > 0 && Model.PaymentDetailsList.Count > 0)
+                    {
+                        <div class="row">
+                            @{ Html.RenderPartial("_ListPayments", Model); }
+                        </div>
+                    }
+                </div>
             </div>
             <div class="row">
                 <div class="col-sm-6">
@@ -214,7 +221,7 @@
                 </div>
                 <div class="col-sm-6">
                     <label class="control-label">رأي المهندس</label>
-                    @Html.DropDownListFor(m => m.BuildingPermits.WorkflowStatus, (List<SelectListItem>)ViewBag.DDPermitsStatus, new { @class = "dropdown-toggle", Id = "PermitsStatus" })
+                    @Html.DropDownListFor(m => m.BuildingPermits.WorkflowStatus, (List<SelectListItem>)ViewBag.DDPermitsStatus, new { @class = "form-control dropdown-toggle", @style = "font-size:11px;", Id = "PermitsStatus" })
                     @Html.ValidationMessageFor(m => m.BuildingPermits.WorkflowStatus, "", new { @style = "color:orange;" })
                 </div>
             </div>
@@ -227,7 +234,7 @@
 
                 <div class="col-sm-6" style="margin-bottom:20px ; padding:0px">
                     <label class="control-label">تحويل الطلب</label>
-                    @Html.DropDownListFor(m => m.BuildingPermits.DmEngineerNo, (List<SelectListItem>)ViewBag.DDEngineersList, new { style = "padding:0px", @class = "form-control", @id = "EngineerID" })
+                    @Html.DropDownListFor(m => m.BuildingPermits.DmEngineerNo, (List<SelectListItem>)ViewBag.DDEngineersList, new { @class = "form-control dropdown-toggle", @style = "font-size:11px;", @id = "EngineerID" })
                     @Html.ValidationMessageFor(m => m.BuildingPermits.DmEngineerNo, "", new { @style = "color:orange;" })
                 </div>
             </div>
@@ -289,13 +296,28 @@
     $(document).ready(function () {
         $("#EngineerID option[value='0']").attr("disabled", "disabled");
 
+        var array1 = ["0", "18", "31"];
+        var array2 = ["19", "20", "28", "29", "30"];
+
+        $("#PermitsStatus option[value='0']").attr("disabled", "disabled");
+
+        function hideOptions(array) {
+            for (var i = 0; i < array.length; i++) {
+                $('#PermitsStatus option[value="' + array[i] + '"]').hide();
+            }
+        }
+
+        function showOptions(array) {
+            for (var i = 0; i < array.length; i++) {
+                $('#PermitsStatus option[value="' + array[i] + '"]').show();
+            }
+        }
+        showOptions(array1);
+        hideOptions(array2);
 
         $("#Save").click(function () {
             $("#Permitsform").submit();
         });
-
-
-
     });
 </script>
 

@@ -19,7 +19,7 @@ namespace DMeServices.Models.Common.BuildingServices
             using (eServicesEntities db = new eServicesEntities())
             {
 
-                List<BldServiceFees> _BldServiceFees = db.BldServiceFees.OrderByDescending(x => x.ServiceID).ToList();
+                List<BldServiceFees> _BldServiceFees = db.BldServiceFees.OrderBy(x => x.ServiceID).ToList();
                 List<ServiceFee> _ServiceFees = Mapper.Map<List<BldServiceFees>, List<ServiceFee>>(_BldServiceFees);
 
                 return _ServiceFees;

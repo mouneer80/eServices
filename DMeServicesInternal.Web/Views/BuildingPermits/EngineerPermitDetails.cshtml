@@ -31,7 +31,7 @@
         $("#btnFees").hide();
 
         $("#PermitsStatus").on("change", function () {
-            if (this.value == 19)
+            if (this.value == 28)
                 $("#btnFees").show();
             else
                 $("#btnFees").hide();
@@ -297,6 +297,14 @@
                         @{ Html.RenderPartial("_ListAttachments", Model);}
                     </div>
 
+                    @if(Model.PaymentDetailsList!=null && Model.PaymentDetailsList.Count > 0)
+                    {
+                        <div class="row">
+                            @{ Html.RenderPartial("_ListPayments", Model);}
+                        </div>
+                    }
+
+
                 </div>
 
 
@@ -307,19 +315,13 @@
             </div>
             <div class="row">
                 <div class="col-sm-6">
-
                     <label class="control-label">ملاحظات</label>
                     @Html.TextAreaFor(m => m.BuildingPermits.DmEngineerComments, new { @class = "form-control", id = "Notes", @placeholder = "ملاحظات" })
-                    @*@Html.DropDownListFor(m => m.BuildingPermits.WorkflowStatus, (List<SelectListItem>)ViewBag.DDPermitsStatus, new { @class = "dropdown-toggle", Id = "PermitsStatus" })
-                    @Html.ValidationMessageFor(m => m.BuildingPermits.WorkflowStatus, "", new { @style = "color:orange;" })*@
-
-
                 </div>
                 <div class="col-sm-6">
                     <label class="control-label">رأي المهندس</label>
-                    @Html.DropDownListFor(m => m.BuildingPermits.WorkflowStatus, (List<SelectListItem>)ViewBag.DDPermitsStatus, new { @class = "dropdown-toggle", Id = "PermitsStatus" })
+                    @Html.DropDownListFor(m => m.BuildingPermits.WorkflowStatus, (List<SelectListItem>)ViewBag.DDPermitsStatus, new { @class = "form-control dropdown-toggle", @style = "font-size:11px;", Id = "PermitsStatus" })
                     @Html.ValidationMessageFor(m => m.BuildingPermits.WorkflowStatus, "", new { @style = "color:orange;" })
-
                 </div>
 
             </div>
@@ -378,6 +380,7 @@
                 return false;
             });
         });
+        
     </script>
     
 

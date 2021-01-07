@@ -207,8 +207,6 @@
                     <div style="margin-bottom:20px;">
                         <label class="control-label">ملاحظات</label>
                         @Html.TextAreaFor(m => m.LandSurvey.Notes, new { @class = "form-control", id = "Notes", @placeholder = "ملاحظات" })
-                        @*@Html.DropDownListFor(m => m.BuildingPermits.WorkflowStatus, (List<SelectListItem>)ViewBag.DDPermitsStatus, new { @class = "dropdown-toggle", Id = "PermitsStatus" })
-                            @Html.ValidationMessageFor(m => m.BuildingPermits.WorkflowStatus, "", new { @style = "color:orange;" })*@
                     </div>
                 </div>
             </div>

@@ -20,12 +20,18 @@ namespace DMeServicesInternal.Web
 
 
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
+routes.MapRoute(
+                "PermitDetails",
+                "BuildingPermits/PermitDetails/{Id}",
+                new { controller = "BuildingPermits", action = "PermitDetails" }
+            );
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            
         }
     }
 }

@@ -228,9 +228,6 @@
                     <div style="margin-bottom:20px;">
                         <label class="control-label">ملاحظات</label>
                         @Html.TextAreaFor(m => m.LandSurvey.Notes, new { @class = "form-control", id = "Notes", @placeholder = "ملاحظات" })
-                        @*@Html.DropDownListFor(m => m.BuildingPermits.WorkflowStatus, (List<SelectListItem>)ViewBag.DDPermitsStatus, new { @class = "dropdown-toggle", Id = "PermitsStatus" })
-                        @Html.ValidationMessageFor(m => m.BuildingPermits.WorkflowStatus, "", new { @style = "color:orange;" })*@
-
                     </div>
                 </div>
             </div>
@@ -275,24 +272,11 @@
             <br />
 
             <div class="col-sm-6">
-
-
-
-
-                @*<div class="col-sm-6" style="margin-bottom:20px;">
-                    <label class="control-label">رأي المهندس</label>
-                    @Html.DropDownListFor(m => m.BuildingPermits.WorkflowStatus, (List<SelectListItem>)ViewBag.DDPermitsStatus, new { @class = "dropdown-toggle", Id = "PermitsStatus" })
-                    @Html.ValidationMessageFor(m => m.BuildingPermits.WorkflowStatus, "", new { @style = "color:orange;" })
-
-                </div>*@
                 <button class="btn btn-primary" id="Save" onclick="return confirm('هل انت متاكد من حفظ التعديلات !');">
                     <i class="glyphicon glyphicon-ok"></i> حفظ
                 </button>
                 <a style="float:left" href="@Url.Action( "Index","IndustrialSurveys")" class="btn btn-primary" role="button">الصفحة السابقة</a>
             </div>
-
-
-        
 </div>
 
 

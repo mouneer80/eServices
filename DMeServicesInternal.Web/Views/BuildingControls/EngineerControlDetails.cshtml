@@ -294,16 +294,11 @@
 
                     <label class="control-label">ملاحظات</label>
                     @Html.TextAreaFor(m => m.BuildingPermits.DmEngineerComments, new { @class = "form-control", id = "Notes", @placeholder = "ملاحظات" })
-                    @*@Html.DropDownListFor(m => m.BuildingPermits.WorkflowStatus, (List<SelectListItem>)ViewBag.DDPermitsStatus, new { @class = "dropdown-toggle", Id = "PermitsStatus" })
-            @Html.ValidationMessageFor(m => m.BuildingPermits.WorkflowStatus, "", new { @style = "color:orange;" })*@
-
-
                 </div>
                 <div class="col-sm-6">
                     <label class="control-label">رأي المهندس</label>
                     @Html.DropDownListFor(m => m.BuildingPermits.WorkflowStatus, (List<SelectListItem>)ViewBag.DDPermitsStatus, new { @class = "dropdown-toggle", Id = "PermitsStatus" })
                     @Html.ValidationMessageFor(m => m.BuildingPermits.WorkflowStatus, "", new { @style = "color:orange;" })
-
                 </div>
 
             </div>
