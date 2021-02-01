@@ -2,6 +2,7 @@
 
 <%@ register assembly="Microsoft.ReportViewer.WebForms" namespace="Microsoft.Reporting.WebForms" tagprefix="rsweb" %>
 
+
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -10,7 +11,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <div>
+        <div style="width:58%; text-align:center;">
             <asp:ScriptManager id="scriptManager1" runat="server"></asp:ScriptManager>
             <rsweb:reportviewer id="ReportViewer1" runat="server" AsyncRendering="false" ProcessingMode="Remote" SizeToReportContent="true"></rsweb:reportviewer>
         </div>

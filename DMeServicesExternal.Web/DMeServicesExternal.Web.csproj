@@ -190,7 +190,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Comman\Helper.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\BuildingControlsController.cs" />
+    <Compile Include="Controllers\BuildingSupervisionController.cs" />
     <Compile Include="Controllers\BuildingPermitsController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HealthRenewalController.cs" />
@@ -1324,7 +1324,20 @@
     <Content Include="Content\demo.css" />
     <Content Include="Content\ezgif.com-resize.gif" />
     <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
+    <Content Include="Content\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
+    <Content Include="Content\images\ui-bg_flat_10_000000_40x100.png" />
+    <Content Include="Content\images\ui-bg_glass_100_f6f6f6_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_100_fdf5ce_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\images\ui-bg_gloss-wave_35_f6a828_500x100.png" />
     <Content Include="Content\images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+    <Content Include="Content\images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
+    <Content Include="Content\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\images\ui-icons_228ef1_256x240.png" />
+    <Content Include="Content\images\ui-icons_ef8c08_256x240.png" />
+    <Content Include="Content\images\ui-icons_ffd27a_256x240.png" />
+    <Content Include="Content\images\ui-icons_ffffff_256x240.png" />
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\linecons.css" />
     <Content Include="Content\responsive.css" />
@@ -1762,6 +1775,7 @@
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.1.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\jquery.mask.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
@@ -1849,16 +1863,19 @@
     <Content Include="Views\Shared\_MasterLayout.cshtml" />
     <Content Include="Views\Home\Index - Copy.cshtml" />
     <Content Include="Views\Shared\SaveFailPage.cshtml" />
-    <Content Include="Views\BuildingControls\_ListAttachments.cshtml" />
-    <Content Include="Views\BuildingControls\_NewAttachment.cshtml" />
-    <Content Include="Views\BuildingControls\_ViewFile.cshtml" />
-    <Content Include="Views\BuildingControls\Index.cshtml" />
-    <Content Include="Views\BuildingControls\NewControls.cshtml" />
-    <Content Include="Views\BuildingControls\ControlsDetails.cshtml" />
-    <Content Include="Views\BuildingControls\SaveControlsFailPage.cshtml" />
-    <Content Include="Views\BuildingControls\_ListDetailsAttachments.cshtml" />
-    <Content Include="Views\BuildingControls\SaveControlsSuccessPage.cshtml" />
+    <Content Include="Views\BuildingSupervision\_ListAttachments.cshtml" />
+    <Content Include="Views\BuildingSupervision\_NewAttachment.cshtml" />
+    <Content Include="Views\BuildingSupervision\_ViewFile.cshtml" />
+    <Content Include="Views\BuildingSupervision\Index.cshtml" />
+    <Content Include="Views\BuildingSupervision\NewSupervision.cshtml" />
+    <Content Include="Views\BuildingSupervision\SupervisionDetails.cshtml" />
+    <Content Include="Views\BuildingSupervision\SaveSupervisionFailPage.cshtml" />
+    <Content Include="Views\BuildingSupervision\_ListDetailsAttachments.cshtml" />
+    <Content Include="Views\BuildingSupervision\SaveSupervisionSuccessPage.cshtml" />
     <Content Include="Views\Home\ErrorPage.cshtml" />
+    <Content Include="Views\BuildingPermits\_ListDues.cshtml" />
+    <Content Include="Views\BuildingPermits\_ListPayments.cshtml" />
+    <Content Include="Views\BuildingPermits\_ListPrints.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -8,11 +8,13 @@
     .box-content {
         min-height: 100px;
     }
+
     .form-horizontal .form-group {
         margin-left: 0px;
         margin-right: 0px;
     }
-        .half {
+
+    .half {
         width: 49%;
     }
 </style>
@@ -40,10 +42,16 @@
                     <div class="box-content">
 
                         <div class="form-group col-md-6">
-                            <label class="control-label">السجل التجاري</label>
+                            <div class="col-md-4">
+                                <label class="control-label">السجل التجاري</label>
+                            </div>
                             @*<input type="text" class="form-control" id="CommercialNo" placeholder="السجل التجاري" value="1326956">*@
-                            @Html.TextBoxFor(n => n.CompanyData.COMMERCIAL_NO, null, new { @class = "form-control", placeholder = "السجل التجاري", @id = "CommercialNo", @onchange= "EmptyTextBoxes();" })
-                            <a class="btn btn-primary" onclick="javascript: callRestApi();"> البحث</a>
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(n => n.CompanyData.COMMERCIAL_NO, null, new { @class = "form-control", placeholder = "السجل التجاري", @id = "CommercialNo", @onchange = "EmptyTextBoxes();" })
+                            </div>
+                            <div class="col-md-4">
+                                <a class="btn btn-primary" onclick="javascript: callRestApi();"> البحث</a>
+                            </div>
                         </div>
 
                         <div class="form-group col-md-6">
@@ -68,7 +76,7 @@
                         <div class="form-group col-md-6">
                             <label class="control-label"> الرقم المدني</label>
                             @*<input type="text" readonly class="form-control" id="CompanyName">*@
-                            @Html.TextBoxFor(n => n.oUserInfo.CivilId, null, new {@readonly= "readonly", @class = "form-control", placeholder = "الرقم المدني", @id = "CivilID" })
+                            @Html.TextBoxFor(n => n.oUserInfo.CivilId, null, new { @readonly = "readonly", @class = "form-control", placeholder = "الرقم المدني", @id = "CivilID" })
                             @Html.ValidationMessageFor(n => n.oUserInfo.CivilId, "", new { @class = "text-danger" })
                         </div>
 
@@ -102,7 +110,7 @@
 
                         @Html.HiddenFor(a => a.oUserInfo.CivilId, new { @id = "hiddenCivil_id" })
 
-                        
+
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
                                 <input type="submit" class="btn btn-default" value="تسجيل" />
@@ -141,14 +149,14 @@
             type: "Get",
             dataType: "json",
             success: function (data) {
-                
+
                 if (data) {
-                    
+
                     var investorsArray = data.companyOverview.investors.investor;
                     var signatoriesArray = data.companyOverview.signatories.signatory;
                     var isOwner = false;
                     var personIndex = -1;
-                    
+
                     signatoriesArray.forEach((item, index) => {
                         if (item.idNumber === userCivilID) {
                             isOwner = true;
@@ -158,11 +166,11 @@
                     });
                     investorsArray.forEach((item, index) => {
                         if (item.person != null) {
-                        if (item.person.idNumber === userCivilID) {
-                            
-                            isOwner =  true;
-                            personIndex = index;
-                            return;
+                            if (item.person.idNumber === userCivilID) {
+
+                                isOwner = true;
+                                personIndex = index;
+                                return;
                             }
                         }
                     });

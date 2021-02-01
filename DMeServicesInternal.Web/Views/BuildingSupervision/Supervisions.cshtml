@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "Supervisions";
+    Layout = "~/Views/Shared/_SubLayout.cshtml";
+}
+
+<ul class="breadcrumb">
+    <li>
+        <a href="#">الرئيسية</a>
+    </li>
+    <li>
+        <a href="#">طلبات رقابة البناء</a>
+    </li>
+</ul>
+
+<div class="col-lg-9 col-sm-9">
+    <div class="body-content">
+        <div id="DivManager" class="col-lg-12">
+            @{ Html.RenderPartial("_ManagerSupervisions");}
+        </div>
+
+
+        <div id="DivEngineer" class="col-lg-12">
+            @{ Html.RenderPartial("_EngineerSupervisions");}
+        </div>
+</div>
+</div>

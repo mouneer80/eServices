@@ -10,6 +10,7 @@ using System.Web.UI.WebControls;
 using DMeServices.Models.BuildingServices;
 using DMeServices.Models.ViewModels.Internal.Permits;
 using DMeServices.DAL;
+using System.IO;
 
 namespace DMeServicesInternal.Web.Reports
 {
@@ -44,24 +45,89 @@ namespace DMeServicesInternal.Web.Reports
         {
             if (!IsPostBack)
             {
-                LoadReport();
+                string id = Request.QueryString["id"];
+                string civilid = Request.QueryString["civilid"];
+                LoadReport(id, civilid);
+
             }
         }
 
-        private void LoadReport()
+        private void LoadReport(string id, string civilid)
         {
+            InternalEngineeringDataSetTableAdapters.BldPermitsTableAdapter ta = new InternalEngineeringDataSetTableAdapters.BldPermitsTableAdapter();
+            InternalEngineeringDataSet.BldPermitsDataTable dt = new InternalEngineeringDataSet.BldPermitsDataTable();
+            ta.Fill(dt, Convert.ToInt64(id));
+            ReportDataSource rds = new ReportDataSource();
+            rds.Name = "Permits";
+            rds.Value = dt;
+
             ReportViewer1.ProcessingMode = ProcessingMode.Local;
             ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/" + "Reports//rpt//PrintPermit.rdlc");
-            eServicesEntities entities = new eServicesEntities();
-            ReportDataSource datasource = new ReportDataSource("Permits", entities.BldPermits);
+            //eServicesEntities entities = new eServicesEntities();
+            //ReportDataSource datasource = new ReportDataSource("Permits", entities.BldPermits);
+            
             ReportViewer1.LocalReport.DataSources.Clear();
-            ReportViewer1.LocalReport.DataSources.Add(datasource);
-            ReportParameter parameter = new ReportParameter("ID", "10121");
+            
+            ReportParameter parameter = new ReportParameter("ID", id);
             ReportViewer1.LocalReport.SetParameters(parameter);
+            ReportViewer1.LocalReport.DataSources.Add(rds);
+            string deviceInfo = "<DeviceInfo>" +
+                    "  <OutputFormat>PDF</OutputFormat>" +
+                    "  <PageWidth>11.69in</PageWidth>" +
+                    "  <PageHeight>8.27in</PageHeight>" +
+                    "  <MarginTop>0in</MarginTop>" +
+                    "  <MarginLeft>0in</MarginLeft>" +
+                    "  <MarginRight>0in</MarginRight>" +
+                    "  <MarginBottom>0in</MarginBottom>" +
+                    "  <EmbedFonts>None</EmbedFonts>" +
+                    "</DeviceInfo>";
+            Warning[] warnings;
+            string[] streamIds;
+            string mimeType = string.Empty;
+            string encoding = string.Empty;
+            string extension = string.Empty;
+
+            byte[] bytes = ReportViewer1.LocalReport.Render(
+                "PDF",
+                deviceInfo,
+                out mimeType,
+                out encoding,
+                out extension,
+                out streamIds,
+                out warnings);
+            var tempPath = System.Web.HttpContext.Current.Server.MapPath("~/Images/PrintedFiles/" + civilid);
+            if (!Directory.Exists(tempPath))
+            {
+                Directory.CreateDirectory(tempPath);
+            }
+            //oFile.SaveAs(StrUploadPath);
+            var saveAs = string.Format("{0}.pdf", Path.Combine(tempPath, civilid + "_" + id));
+
+            var idx = 0;
+            while (File.Exists(saveAs))
+            {
+                idx++;
+                saveAs = string.Format("{0}_{1}.pdf", Path.Combine(tempPath, civilid + "_" + id), idx);
+            }
+
+            using (var stream = new FileStream(saveAs, FileMode.Create, FileAccess.Write))
+            {
+                stream.Write(bytes, 0, bytes.Length);
+                stream.Close();
+            }
+            //Response.Buffer = true;
+            //Response.Clear();
+            //Response.ContentType = mimeType;
+            //Response.AddHeader(
+            //    "content-disposition",
+            //    "attachment; filename= filename" + "." + extension);
+            //Response.OutputStream.Write(bytes, 0, bytes.Length); // create the file  
+            //Response.Flush(); // send it to the client to download  
+            //Response.End();
 
             //ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/"+"Reports//rpt//PrintPermit.rdlc");
             ReportViewer1.LocalReport.Refresh();
-            ReportViewer1.ZoomMode = ZoomMode.FullPage;
+            ReportViewer1.ZoomMode = ZoomMode.PageWidth;
         }
     }
 }

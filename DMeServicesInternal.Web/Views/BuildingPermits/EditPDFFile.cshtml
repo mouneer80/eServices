@@ -17,19 +17,65 @@
 <script type="text/javascript">
 	var api = null;
 	var isDownload = false;
+    $('#addNotes').show();
+
+    function SetCustomImageTool(key) {
+        // Get id
+		var id = "@Html.Encode(PdfWebControlID)";
+        var docid = $('#docId').text();
+		// Get api instance
+		api = new PdfWebControlApi(id);
+
+        //Set image mode
+        api.setMode(api.Mode.InsertImageShape, key +","+ docid);
+	}
+
+	@*$('#upload').on('click', function (e) {
+		var text = $('#txtnotename').val();
+		var id = $('#docId').text();
+		var data = new FormData();
+        data.append("id", id);
+        data.append("acatext", text);
+        console.log(data);
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("SaveNotes", "BuildingPermits")',
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (data) {
+				//alert(data);
+				$('#addNotes').show();
+            },
+            error: function () {
+
+            }
+
+        });
+    });*@
+
+	function AddNote(key) {
+        var text = $('#txtnotename').val();
+        // Get id
+		var id = "@Html.Encode(PdfWebControlID)";
+
+		// Get api instance
+		api = new PdfWebControlApi(id);
+
+		//Set image mode
+		api.setMode(api.Mode.InsertImageShape, key + "," + text);
+	}
 
 	function showViewInformation(view)
 	{
 		var x = document.getElementById("pageInformation");
-		console.log(x);
         if (x) x.innerHTML = "Page " + view.page + " of " + api.getPageCount();
 		// Show page information
-		//document.getElementById("pageInformation").innerHTML = "Page " + view.page + " of " + api.getPageCount();
+		document.getElementById("pageInformation").innerHTML = "Page " + view.page + " of " + api.getPageCount();
 	}
 
 	function initRadPdf()
 	{
-
 		// Get id
 		var id = "@Html.Encode(PdfWebControlID)";
 
@@ -57,10 +103,8 @@
 				// We don't want to show this prompt if we initiated a download
                 if (!isDownload) {
                     $("#divAttachmentsDetails").css("display", "none");
-               //     Window.location.href("@*@Url.Action("PermitDetails", "BuildingPermits", new { @Id = ViewBag.PirmID })*@");
                     unloadModal();
                     window.alert("تم حفظ التعديلات");
-
 				}
 			}
         );
@@ -184,10 +228,29 @@
 	}
 </script>
 <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-    <h4 class="modal-title" style="text-align:center" id="myModalLabel">
-        تعديل الملف
-    </h4>
+    <div class="row">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <h4 class="modal-title" style="text-align:center" id="myModalLabel">
+            تعديل الملف
+        </h4>
+        <br />
+    </div>
+    @*<label id="docId">@ViewBag.DocID</label>*@
+    <div class="row" dir="rtl">
+        <div class="col-md-3">
+            <button class="btn btn-toolbar" onclick="SetCustomImageTool('signature'); return false;">اضافة التوقيع</button>
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-toolbar" onclick="SetCustomImageTool('stamp'); return false;">اضافة الختم</button>
+        </div>
+        <div class="col-md-3">
+            <label>ملاحظات المهندس</label>
+            <textarea class="form-control" id="txtnotename" style="width:250px; text-align:right"></textarea>
+            @*<input type="button" value="upload" id="upload" />*@
+            <br />
+            <button id="addNotes" class="btn btn-toolbar" onclick="AddNote('dynamic'); return false;">اضافة الملاحظات</button>
+        </div>
+    </div>
 </div>
 
 <style>
@@ -233,22 +296,16 @@
                     @Html.Raw(pdfWebControl1.RenderControl())
                 }
 
-                @*<div style="text-align:center;">
-                                    <button onclick="if(api){api.setView( { 'page' : api.getView().page + 1 } );}return false;">التالي</button>
-                                    <span id="pageInformation" style="padding:0px 5px;"></span>
-                                    <button onclick="if(api){api.setView( { 'page' : api.getView().page - 1 } );}return false;">السابق</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer" style="text-align:center">
-                        <button onclick="if(api){isDownload=false;api.save();}return false;" id="btnSave" class="btn btn-primary"><i class="fa fa-save"></i> حفظ التعديلات</button>
-                    </div>*@
+                <div style="text-align:center;">
+                    <button onclick="if(api){api.setView( { 'page' : api.getView().page + 1 } );}return false;">التالي</button>
+                    <span id="pageInformation" style="padding:0px 5px;"></span>
+                    <button onclick="if(api){api.setView( { 'page' : api.getView().page - 1 } );}return false;">السابق</button>
+                </div>
             </div>
         </div>
     </div>
+    <div class="modal-footer" style="text-align:center">
+        <button onclick="if(api){isDownload=false;api.save();}return false;" id="btnSave" class="btn btn-primary"><i class="fa fa-save"></i> حفظ التعديلات</button>
+    </div>
+
 </div>
-
-
-
-

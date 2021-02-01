@@ -116,6 +116,35 @@ namespace DMeServices.Models.Common.BuildingServices
             }
 
         }
+
+        public static string UpdateStatus(int permitID, int status)
+        {
+            using (eServicesEntities db = new eServicesEntities())
+            {
+                BldPermits _BldPermits = new BldPermits();
+                try
+                {
+
+                    _BldPermits = db.BldPermits.Where(x => x.Id == permitID).SingleOrDefault();
+
+                    if (_BldPermits == null)
+                    {
+                        return null;
+                    }
+
+                    _BldPermits.WorkflowStatus = status;
+
+                    db.SaveChanges();
+                    return "paid";
+                }
+
+                catch (Exception)
+                {
+                    return null;
+                }
+
+            }
+        }
         #endregion
 
         #region Method :: Get All New Permits 
@@ -160,7 +189,6 @@ namespace DMeServices.Models.Common.BuildingServices
                 BldPermits _BldPermits = new BldPermits();
                 try
                 {
-
                     _BldPermits = db.BldPermits.Where(x => x.Id == oModel.BuildingPermits.Id || x.TransactNo == oModel.BuildingPermits.TransactNo).SingleOrDefault();
 
                     if (_BldPermits != null)
@@ -171,9 +199,6 @@ namespace DMeServices.Models.Common.BuildingServices
                     {
                         return null;
                     }
-
-
-
                     _BldPermits = Mapper.Map<BuildingPermits, BldPermits>(oModel.BuildingPermits);
                     _BldPermits.TransactNo = GenTransactNo();
                     //_BldPermits.ConsultantCrNo = (long)oModel.oUserInfo.ConsultantCrNo;
@@ -198,18 +223,13 @@ namespace DMeServices.Models.Common.BuildingServices
                             db.BldPermitsAttachments.Add(File);
                             db.SaveChanges();
                         }
-
                     }
-
                     return _BldPermits.TransactNo;
-
                 }
-
                 catch (Exception ex)
                 {
                     throw ex;
                 }
-
             }
 
         }

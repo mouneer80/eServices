@@ -157,7 +157,7 @@
                 <div class="form-group col-md-12">
                     <h5>بيانات قطعة الأرض</h5>
                     <div class="form-group col-md-4">
-                        <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.SquareArea)</label>
+                        <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.SquareLetterID)</label>
                         @Html.DropDownListFor(m => m.BuildingPermits.SquareLetterID, (List<SelectListItem>)ViewBag.DDSquareLetters, new { style = "padding:0px", @class = "form-control", @data_rel = "chosen", id = "SquareLetter" })
                     </div>
                     <div class="form-group col-md-4">
@@ -188,11 +188,11 @@
                         <label class="control-label">
                             @Html.DisplayNameFor(m => m.BuildingPermits.ConstructionType)
                         </label>
-                        @Html.DropDownList("DDLandUseTypes", (List<SelectListItem>)ViewBag.DDLandUseTypes, new { style = "padding:0px", @class = "form-control", @data_rel = "chosen", @id = "LandUseTypes" })
+                        @Html.DropDownListFor(m => m.BuildingPermits.UseTypeID, (List<SelectListItem>)ViewBag.DDLandUseTypes, new { style = "padding:0px", @class = "form-control", @data_rel = "chosen", @id = "LandUseTypes" })
                     </div>
                     <div class="form-group col-md-4">
                         <label class="control-label">نوع المبنى</label>
-                        @Html.DropDownList("BuildingTypes", (List<SelectListItem>)ViewBag.DDBuildingTypes, new { style = "padding:0px", @class = "form-control", @data_rel = "chosen", @id = "BuildingTypes" })
+                        @Html.DropDownListFor(m => m.BuildingPermits.BuildingTypeID, (List<SelectListItem>)ViewBag.DDBuildingTypes, new { style = "padding:0px", @class = "form-control", @data_rel = "chosen", @id = "BuildingTypes" })
                     </div>
                     <div class="form-group col-md-4">
                         <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.NumberOfFloors)</label>
@@ -209,7 +209,7 @@
                     @if (Model.PaymentDetailsList.Count > 0 && Model.PaymentDetailsList.Count > 0)
                     {
                         <div class="row">
-                            @{ Html.RenderPartial("_ListPayments", Model); }
+                            @{ Html.RenderPartial("_ListDues", Model); }
                         </div>
                     }
                 </div>

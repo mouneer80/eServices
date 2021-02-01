@@ -79,8 +79,8 @@ namespace DMeServices.DAL
         public virtual DbSet<EmployeeGroups> EmployeeGroups { get; set; }
         public virtual DbSet<Employees> Employees { get; set; }
         public virtual DbSet<BldWorkersHousingDetails> BldWorkersHousingDetails { get; set; }
-        public virtual DbSet<BldControlServices> BldControlServices { get; set; }
-        public virtual DbSet<BldControlServicesTypes> BldControlServicesTypes { get; set; }
+        public virtual DbSet<BldSupervisionServices> BldSupervisionServices { get; set; }
+        public virtual DbSet<BldSupervisionServicesTypes> BldSupervisionServicesTypes { get; set; }
         public virtual DbSet<ConsultantOccupations> ConsultantOccupations { get; set; }
         public virtual DbSet<BldPaymentDetails> BldPaymentDetails { get; set; }
         public virtual DbSet<BldServiceFees> BldServiceFees { get; set; }

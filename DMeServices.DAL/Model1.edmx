@@ -19,39 +19,6 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BuildingType" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="BldControlServices">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="BldPermitID" Type="bigint" Nullable="false" />
-          <Property Name="ServiceTypeID" Type="int" Nullable="false" />
-          <Property Name="Status" Type="int" Nullable="false" />
-          <Property Name="OwnerCivilId" Type="bigint" Nullable="false" />
-          <Property Name="KrokiNO" Type="nvarchar" MaxLength="50" />
-          <Property Name="OwnerName" Type="nvarchar" MaxLength="250" Nullable="false" />
-          <Property Name="OwnerPhoneNo" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="CreatedBy" Type="nvarchar" MaxLength="150" />
-          <Property Name="CreatedOn" Type="datetime" />
-          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="150" />
-          <Property Name="UpdatedOn" Type="datetime" />
-          <Property Name="LicenseNo" Type="nvarchar" MaxLength="100" />
-          <Property Name="DmEngineerNo" Type="int" />
-          <Property Name="DmEngineerComments" Type="nvarchar" MaxLength="500" />
-          <Property Name="ConsultantCivilId" Type="bigint" />
-          <Property Name="RequestDate" Type="datetime" Nullable="false" />
-          <Property Name="TransactNo" Type="nvarchar" MaxLength="400" Nullable="false" />
-          <Property Name="DmFileNumber" Type="nvarchar" MaxLength="50" />
-        </EntityType>
-        <EntityType Name="BldControlServicesTypes">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ServiceNameAR" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="ServiceNameEn" Type="nvarchar" MaxLength="100" />
-          <Property Name="ServiceStatus" Type="int" />
-        </EntityType>
         <EntityType Name="BldIndustrialAreasSurvey">
           <Key>
             <PropertyRef Name="IndustrialSurveyID" />
@@ -118,8 +85,15 @@
           <Property Name="BldPermitId" Type="bigint" />
           <Property Name="PaymentTotalAmount" Type="numeric" Precision="18" Scale="3" />
           <Property Name="TokenID" Type="nvarchar" MaxLength="150" />
-          <Property Name="BankResponse" Type="nvarchar" MaxLength="50" />
+          <Property Name="BankResponseID" Type="int" />
           <Property Name="PaymentDate" Type="datetime" />
+          <Property Name="FeesDate" Type="datetime" />
+          <Property Name="PaymentType" Type="int" />
+          <Property Name="Transactionid" Type="nvarchar" MaxLength="200" />
+          <Property Name="Paymentrequestid" Type="int" />
+          <Property Name="Referenceid" Type="nvarchar" MaxLength="200" />
+          <Property Name="Bankpaymentid" Type="nvarchar" MaxLength="200" />
+          <Property Name="PaymentStatus" Type="int" />
         </EntityType>
         <EntityType Name="BldPaymentDetails">
           <Key>
@@ -169,6 +143,13 @@
           <Property Name="BuildingTypeID" Type="int" />
           <Property Name="KrokiNO" Type="nvarchar" MaxLength="50" />
           <Property Name="DmFileNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="LandDeedReceiptNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="DMLicenseNames" Type="nvarchar" MaxLength="250" />
+          <Property Name="DMLicenseComments" Type="nvarchar" MaxLength="250" />
+          <Property Name="DMLicenseCivilIDs" Type="nvarchar" MaxLength="250" />
+          <Property Name="LandArea" Type="nvarchar" MaxLength="50" />
+          <Property Name="LandDeedReceiptDate" Type="date" />
+          <Property Name="LandDeedNo" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="BldPermitsAttachmentDetails">
           <Key>
@@ -236,6 +217,39 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ArLetter" Type="nvarchar" MaxLength="10" />
           <Property Name="EnLetter" Type="nvarchar" MaxLength="5" />
+        </EntityType>
+        <EntityType Name="BldSupervisionServices">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BldPermitID" Type="bigint" Nullable="false" />
+          <Property Name="ServiceTypeID" Type="int" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="OwnerCivilId" Type="bigint" Nullable="false" />
+          <Property Name="KrokiNO" Type="nvarchar" MaxLength="50" />
+          <Property Name="OwnerName" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="OwnerPhoneNo" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="150" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="150" />
+          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="LicenseNo" Type="nvarchar" MaxLength="100" />
+          <Property Name="DmEngineerNo" Type="int" />
+          <Property Name="DmEngineerComments" Type="nvarchar" MaxLength="500" />
+          <Property Name="ConsultantCivilId" Type="bigint" />
+          <Property Name="RequestDate" Type="datetime" Nullable="false" />
+          <Property Name="TransactNo" Type="nvarchar" MaxLength="400" Nullable="false" />
+          <Property Name="DmFileNumber" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="BldSupervisionServicesTypes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ServiceNameAR" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ServiceNameEn" Type="nvarchar" MaxLength="100" />
+          <Property Name="ServiceStatus" Type="int" />
         </EntityType>
         <EntityType Name="BldWelyat">
           <Key>
@@ -856,30 +870,6 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           <Property Name="CreatedOn" Type="datetime" />
           <Property Name="UpdatedOn" Type="datetime" />
         </EntityType>
-        <Association Name="FK_BldControlServices_BldControlServicesTypes">
-          <End Role="BldControlServicesTypes" Type="Self.BldControlServicesTypes" Multiplicity="1" />
-          <End Role="BldControlServices" Type="Self.BldControlServices" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="BldControlServicesTypes">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="BldControlServices">
-              <PropertyRef Name="ServiceTypeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_BldControlServices_BldPermits">
-          <End Role="BldPermits" Type="Self.BldPermits" Multiplicity="1" />
-          <End Role="BldControlServices" Type="Self.BldControlServices" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="BldPermits">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="BldControlServices">
-              <PropertyRef Name="BldPermitID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_BldIndustrialAreasSurvey_BldBuildingTypes">
           <End Role="BldBuildingTypes" Type="Self.BldBuildingTypes" Multiplicity="0..1" />
           <End Role="BldIndustrialAreasSurvey" Type="Self.BldIndustrialAreasSurvey" Multiplicity="*" />
@@ -1108,6 +1098,30 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_BldSupervisionServices_BldPermits">
+          <End Role="BldPermits" Type="Self.BldPermits" Multiplicity="1" />
+          <End Role="BldSupervisionServices" Type="Self.BldSupervisionServices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BldPermits">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BldSupervisionServices">
+              <PropertyRef Name="BldPermitID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BldSupervisionServices_BldSupervisionServicesTypes">
+          <End Role="BldSupervisionServicesTypes" Type="Self.BldSupervisionServicesTypes" Multiplicity="1" />
+          <End Role="BldSupervisionServices" Type="Self.BldSupervisionServices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BldSupervisionServicesTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BldSupervisionServices">
+              <PropertyRef Name="ServiceTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_BldWorkersHousingDetails_BldLandSurvey">
           <End Role="BldLandSurvey" Type="Self.BldLandSurvey" Multiplicity="1" />
           <End Role="BldWorkersHousingDetails" Type="Self.BldWorkersHousingDetails" Multiplicity="*" />
@@ -1304,8 +1318,6 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
         <EntityContainer Name="eServicesModelStoreContainer">
           <EntitySet Name="BldAttachmentTypes" EntityType="Self.BldAttachmentTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BldBuildingTypes" EntityType="Self.BldBuildingTypes" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="BldControlServices" EntityType="Self.BldControlServices" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="BldControlServicesTypes" EntityType="Self.BldControlServicesTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BldIndustrialAreasSurvey" EntityType="Self.BldIndustrialAreasSurvey" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BldLandSurvey" EntityType="Self.BldLandSurvey" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BldLandUseTypes" EntityType="Self.BldLandUseTypes" Schema="dbo" store:Type="Tables" />
@@ -1317,6 +1329,8 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           <EntitySet Name="BldRegions" EntityType="Self.BldRegions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BldServiceFees" EntityType="Self.BldServiceFees" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BldSquareLetters" EntityType="Self.BldSquareLetters" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BldSupervisionServices" EntityType="Self.BldSupervisionServices" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BldSupervisionServicesTypes" EntityType="Self.BldSupervisionServicesTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BldWelyat" EntityType="Self.BldWelyat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BldWorkersHousingDetails" EntityType="Self.BldWorkersHousingDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ConsultantOccupations" EntityType="Self.ConsultantOccupations" Schema="dbo" store:Type="Tables" />
@@ -1388,14 +1402,6 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
     [pges].[pgeImageData] AS [pgeImageData]
     FROM [dbo].[pges] AS [pges]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK_BldControlServices_BldControlServicesTypes" Association="Self.FK_BldControlServices_BldControlServicesTypes">
-            <End Role="BldControlServicesTypes" EntitySet="BldControlServicesTypes" />
-            <End Role="BldControlServices" EntitySet="BldControlServices" />
-          </AssociationSet>
-          <AssociationSet Name="FK_BldControlServices_BldPermits" Association="Self.FK_BldControlServices_BldPermits">
-            <End Role="BldPermits" EntitySet="BldPermits" />
-            <End Role="BldControlServices" EntitySet="BldControlServices" />
-          </AssociationSet>
           <AssociationSet Name="FK_BldIndustrialAreasSurvey_BldBuildingTypes" Association="Self.FK_BldIndustrialAreasSurvey_BldBuildingTypes">
             <End Role="BldBuildingTypes" EntitySet="BldBuildingTypes" />
             <End Role="BldIndustrialAreasSurvey" EntitySet="BldIndustrialAreasSurvey" />
@@ -1471,6 +1477,14 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           <AssociationSet Name="FK_BldRegions_BldWelyat" Association="Self.FK_BldRegions_BldWelyat">
             <End Role="BldWelyat" EntitySet="BldWelyat" />
             <End Role="BldRegions" EntitySet="BldRegions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BldSupervisionServices_BldPermits" Association="Self.FK_BldSupervisionServices_BldPermits">
+            <End Role="BldPermits" EntitySet="BldPermits" />
+            <End Role="BldSupervisionServices" EntitySet="BldSupervisionServices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BldSupervisionServices_BldSupervisionServicesTypes" Association="Self.FK_BldSupervisionServices_BldSupervisionServicesTypes">
+            <End Role="BldSupervisionServicesTypes" EntitySet="BldSupervisionServicesTypes" />
+            <End Role="BldSupervisionServices" EntitySet="BldSupervisionServices" />
           </AssociationSet>
           <AssociationSet Name="FK_BldWorkersHousingDetails_BldLandSurvey" Association="Self.FK_BldWorkersHousingDetails_BldLandSurvey">
             <End Role="BldLandSurvey" EntitySet="BldLandSurvey" />
@@ -1580,9 +1594,16 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           <NavigationProperty Name="BldRegions" Relationship="eServicesModel.FK_BldPermits_BldRegions" FromRole="BldPermits" ToRole="BldRegions" />
           <NavigationProperty Name="BldSquareLetters" Relationship="eServicesModel.FK_BldPermits_BldSquareLetters" FromRole="BldPermits" ToRole="BldSquareLetters" />
           <NavigationProperty Name="BldWelyat" Relationship="eServicesModel.FK_BldPermits_BldWelyat" FromRole="BldPermits" ToRole="BldWelyat" />
-          <NavigationProperty Name="BldControlServices" Relationship="eServicesModel.FK_BldControlServices_BldPermits" FromRole="BldPermits" ToRole="BldControlServices" />
+          <NavigationProperty Name="BldSupervisionServices" Relationship="eServicesModel.FK_BldSupervisionServices_BldPermits" FromRole="BldPermits" ToRole="BldSupervisionServices" />
           <Property Name="DmFileNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="BldPayment" Relationship="eServicesModel.FK_BldPayment_BldPermits" FromRole="BldPermits" ToRole="BldPayment" />
+          <Property Name="LandDeedNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DMLicenseNames" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="DMLicenseComments" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="DMLicenseCivilIDs" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="LandArea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LandDeedReceiptNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LandDeedReceiptDate" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="BldPermitsAttachmentDetails">
           <Key>
@@ -2071,16 +2092,16 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
             <End Role="BldWelyat" EntitySet="BldWelyat" />
             <End Role="BldPermits" EntitySet="BldPermits" />
           </AssociationSet>
-          <EntitySet Name="BldControlServices" EntityType="eServicesModel.BldControlServices" />
-          <EntitySet Name="BldControlServicesTypes" EntityType="eServicesModel.BldControlServicesTypes" />
+          <EntitySet Name="BldSupervisionServices" EntityType="eServicesModel.BldSupervisionServices" />
+          <EntitySet Name="BldSupervisionServicesTypes" EntityType="eServicesModel.BldSupervisionServicesTypes" />
           <EntitySet Name="ConsultantOccupations" EntityType="eServicesModel.ConsultantOccupations" />
-          <AssociationSet Name="FK_BldControlServices_BldControlServicesTypes" Association="eServicesModel.FK_BldControlServices_BldControlServicesTypes">
-            <End Role="BldControlServicesTypes" EntitySet="BldControlServicesTypes" />
-            <End Role="BldControlServices" EntitySet="BldControlServices" />
+          <AssociationSet Name="FK_BldSupervisionServices_BldSupervisionServicesTypes" Association="eServicesModel.FK_BldSupervisionServices_BldSupervisionServicesTypes">
+            <End Role="BldSupervisionServicesTypes" EntitySet="BldSupervisionServicesTypes" />
+            <End Role="BldSupervisionServices" EntitySet="BldSupervisionServices" />
           </AssociationSet>
-          <AssociationSet Name="FK_BldControlServices_BldPermits" Association="eServicesModel.FK_BldControlServices_BldPermits">
+          <AssociationSet Name="FK_BldSupervisionServices_BldPermits" Association="eServicesModel.FK_BldSupervisionServices_BldPermits">
             <End Role="BldPermits" EntitySet="BldPermits" />
-            <End Role="BldControlServices" EntitySet="BldControlServices" />
+            <End Role="BldSupervisionServices" EntitySet="BldSupervisionServices" />
           </AssociationSet>
           <EntitySet Name="BldPaymentDetails" EntityType="eServicesModel.BldPaymentDetails" />
           <EntitySet Name="BldServiceFees" EntityType="eServicesModel.BldServiceFees" />
@@ -3147,7 +3168,7 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="BldControlServices">
+        <EntityType Name="BldSupervisionServices">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -3167,13 +3188,13 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           <Property Name="DmEngineerNo" Type="Int32" />
           <Property Name="DmEngineerComments" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="ConsultantCivilId" Type="Int64" />
-          <NavigationProperty Name="BldControlServicesTypes" Relationship="eServicesModel.FK_BldControlServices_BldControlServicesTypes" FromRole="BldControlServices" ToRole="BldControlServicesTypes" />
-          <NavigationProperty Name="BldPermits" Relationship="eServicesModel.FK_BldControlServices_BldPermits" FromRole="BldControlServices" ToRole="BldPermits" />
+          <NavigationProperty Name="BldSupervisionServicesTypes" Relationship="eServicesModel.FK_BldSupervisionServices_BldSupervisionServicesTypes" FromRole="BldSupervisionServices" ToRole="BldSupervisionServicesTypes" />
+          <NavigationProperty Name="BldPermits" Relationship="eServicesModel.FK_BldSupervisionServices_BldPermits" FromRole="BldSupervisionServices" ToRole="BldPermits" />
           <Property Name="RequestDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="TransactNo" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="true" />
           <Property Name="DmFileNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="BldControlServicesTypes">
+        <EntityType Name="BldSupervisionServicesTypes">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -3181,7 +3202,7 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           <Property Name="ServiceNameAR" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="ServiceNameEn" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="ServiceStatus" Type="Int32" />
-          <NavigationProperty Name="BldControlServices" Relationship="eServicesModel.FK_BldControlServices_BldControlServicesTypes" FromRole="BldControlServicesTypes" ToRole="BldControlServices" />
+          <NavigationProperty Name="BldSupervisionServices" Relationship="eServicesModel.FK_BldSupervisionServices_BldSupervisionServicesTypes" FromRole="BldSupervisionServicesTypes" ToRole="BldSupervisionServices" />
         </EntityType>
         <EntityType Name="ConsultantOccupations">
           <Key>
@@ -3192,26 +3213,26 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           <Property Name="OccupationDescEnglish" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="OccupationCode" Type="Int32" />
         </EntityType>
-        <Association Name="FK_BldControlServices_BldControlServicesTypes">
-          <End Type="eServicesModel.BldControlServicesTypes" Role="BldControlServicesTypes" Multiplicity="1" />
-          <End Type="eServicesModel.BldControlServices" Role="BldControlServices" Multiplicity="*" />
+        <Association Name="FK_BldSupervisionServices_BldSupervisionServicesTypes">
+          <End Type="eServicesModel.BldSupervisionServicesTypes" Role="BldSupervisionServicesTypes" Multiplicity="1" />
+          <End Type="eServicesModel.BldSupervisionServices" Role="BldSupervisionServices" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="BldControlServicesTypes">
+            <Principal Role="BldSupervisionServicesTypes">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="BldControlServices">
+            <Dependent Role="BldSupervisionServices">
               <PropertyRef Name="ServiceTypeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_BldControlServices_BldPermits">
+        <Association Name="FK_BldSupervisionServices_BldPermits">
           <End Type="eServicesModel.BldPermits" Role="BldPermits" Multiplicity="1" />
-          <End Type="eServicesModel.BldControlServices" Role="BldControlServices" Multiplicity="*" />
+          <End Type="eServicesModel.BldSupervisionServices" Role="BldSupervisionServices" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="BldPermits">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="BldControlServices">
+            <Dependent Role="BldSupervisionServices">
               <PropertyRef Name="BldPermitID" />
             </Dependent>
           </ReferentialConstraint>
@@ -3262,10 +3283,17 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           <Property Name="BldPermitId" Type="Int64" />
           <Property Name="PaymentTotalAmount" Type="Decimal" Precision="18" Scale="3" />
           <Property Name="TokenID" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="BankResponse" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PaymentDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="BldPermits" Relationship="eServicesModel.FK_BldPayment_BldPermits" FromRole="BldPayment" ToRole="BldPermits" />
           <NavigationProperty Name="BldPaymentDetails" Relationship="eServicesModel.FK_BldPaymentDetails_BldPayment" FromRole="BldPayment" ToRole="BldPaymentDetails" />
+          <Property Name="FeesDate" Type="DateTime" Precision="3" />
+          <Property Name="PaymentType" Type="Int32" />
+          <Property Name="Transactionid" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Paymentrequestid" Type="Int32" />
+          <Property Name="Referenceid" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Bankpaymentid" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PaymentStatus" Type="Int32" />
+          <Property Name="BankResponseID" Type="Int32" />
         </EntityType>
         <Association Name="FK_BldPayment_BldPermits">
           <End Type="eServicesModel.BldPermits" Role="BldPermits" Multiplicity="0..1" />
@@ -3308,6 +3336,13 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           <EntitySetMapping Name="BldPermits">
             <EntityTypeMapping TypeName="eServicesModel.BldPermits">
               <MappingFragment StoreEntitySet="BldPermits">
+                <ScalarProperty Name="LandDeedNo" ColumnName="LandDeedNo" />
+                <ScalarProperty Name="LandDeedReceiptDate" ColumnName="LandDeedReceiptDate" />
+                <ScalarProperty Name="LandDeedReceiptNo" ColumnName="LandDeedReceiptNo" />
+                <ScalarProperty Name="LandArea" ColumnName="LandArea" />
+                <ScalarProperty Name="DMLicenseCivilIDs" ColumnName="DMLicenseCivilIDs" />
+                <ScalarProperty Name="DMLicenseComments" ColumnName="DMLicenseComments" />
+                <ScalarProperty Name="DMLicenseNames" ColumnName="DMLicenseNames" />
                 <ScalarProperty Name="DmFileNumber" ColumnName="DmFileNumber" />
                 <ScalarProperty Name="KrokiNO" ColumnName="KrokiNO" />
                 <ScalarProperty Name="BuildingTypeID" ColumnName="BuildingTypeID" />
@@ -4384,9 +4419,9 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="BldControlServices">
-            <EntityTypeMapping TypeName="eServicesModel.BldControlServices">
-              <MappingFragment StoreEntitySet="BldControlServices">
+          <EntitySetMapping Name="BldSupervisionServices">
+            <EntityTypeMapping TypeName="eServicesModel.BldSupervisionServices">
+              <MappingFragment StoreEntitySet="BldSupervisionServices">
                 <ScalarProperty Name="DmFileNumber" ColumnName="DmFileNumber" />
                 <ScalarProperty Name="TransactNo" ColumnName="TransactNo" />
                 <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
@@ -4409,9 +4444,9 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="BldControlServicesTypes">
-            <EntityTypeMapping TypeName="eServicesModel.BldControlServicesTypes">
-              <MappingFragment StoreEntitySet="BldControlServicesTypes">
+          <EntitySetMapping Name="BldSupervisionServicesTypes">
+            <EntityTypeMapping TypeName="eServicesModel.BldSupervisionServicesTypes">
+              <MappingFragment StoreEntitySet="BldSupervisionServicesTypes">
                 <ScalarProperty Name="ServiceStatus" ColumnName="ServiceStatus" />
                 <ScalarProperty Name="ServiceNameEn" ColumnName="ServiceNameEn" />
                 <ScalarProperty Name="ServiceNameAR" ColumnName="ServiceNameAR" />
@@ -4457,8 +4492,15 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           <EntitySetMapping Name="BldPayment">
             <EntityTypeMapping TypeName="eServicesModel.BldPayment">
               <MappingFragment StoreEntitySet="BldPayment">
+                <ScalarProperty Name="BankResponseID" ColumnName="BankResponseID" />
+                <ScalarProperty Name="PaymentStatus" ColumnName="PaymentStatus" />
+                <ScalarProperty Name="Bankpaymentid" ColumnName="Bankpaymentid" />
+                <ScalarProperty Name="Referenceid" ColumnName="Referenceid" />
+                <ScalarProperty Name="Paymentrequestid" ColumnName="Paymentrequestid" />
+                <ScalarProperty Name="Transactionid" ColumnName="Transactionid" />
+                <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
+                <ScalarProperty Name="FeesDate" ColumnName="FeesDate" />
                 <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
-                <ScalarProperty Name="BankResponse" ColumnName="BankResponse" />
                 <ScalarProperty Name="TokenID" ColumnName="TokenID" />
                 <ScalarProperty Name="PaymentTotalAmount" ColumnName="PaymentTotalAmount" />
                 <ScalarProperty Name="BldPermitId" ColumnName="BldPermitId" />

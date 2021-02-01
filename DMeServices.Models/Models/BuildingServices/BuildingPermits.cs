@@ -43,6 +43,13 @@ namespace DMeServices.Models.BuildingServices
         public Nullable<int> BuildingTypeID { get; set; }
         public string KrokiNO { get; set; }
         public string DmFileNumber { get; set; }
+        public string LandDeedNo { get; set; }
+        public string DMLicenseNames { get; set; }
+        public string DMLicenseComments { get; set; }
+        public string DMLicenseCivilIDs { get; set; }
+        public string LandArea { get; set; }
+        public string LandDeedReceiptNo { get; set; }
+        public Nullable<System.DateTime> LandDeedReceiptDate { get; set; }
         public BuildingTypes BldBuildingTypes { get; set; }
         public LandUseTypes BldLandUseTypes { get; set; }
         public Regions BldRegions { get; set; }

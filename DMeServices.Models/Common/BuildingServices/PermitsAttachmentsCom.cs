@@ -119,12 +119,6 @@ namespace DMeServices.Models.Common.BuildingServices
         }
         #endregion
 
-
-
-
-
-
-
         #region Method ::  Attachments By ID
 
         public static PermitsAttachments AttachmentsByID(int Id)
@@ -169,26 +163,14 @@ namespace DMeServices.Models.Common.BuildingServices
 
         public static PermitsAttachmentDetails AttachmentDetailsByID(int Id)
         {
-
-
-
             using (eServicesEntities db = new eServicesEntities())
             {
-
                 BldPermitsAttachmentDetails _BldPermitsAttachmentDetails = db.BldPermitsAttachmentDetails.Where(x => x.Id == Id).SingleOrDefault();
                 PermitsAttachmentDetails _PermitsAttachmentDetails = Mapper.Map<BldPermitsAttachmentDetails, PermitsAttachmentDetails>(_BldPermitsAttachmentDetails);
                 return _PermitsAttachmentDetails;
             }
-
         }
         #endregion
-
-
-
-
-
-
-
 
         #region Method ::   Update Permits Attachments 
 
@@ -227,29 +209,58 @@ namespace DMeServices.Models.Common.BuildingServices
         }
         #endregion
 
-        #region Method ::   Update Permits Attachment Stream 
+        #region Method ::   Insert Printed Permits 
 
-        public static void UpdateAttachmentStream(int Id, byte[] DocumentData)
+        public static void InsertPrintedPermits(PermitsAttachments permitAttachments)
         {
 
             using (eServicesEntities db = new eServicesEntities())
             {
 
-                BldPermitsAttachments _BldPermitsAttachment = db.BldPermitsAttachments.Where(x => x.Id == Id).SingleOrDefault();
-                if (_BldPermitsAttachment == null)
+                BldPermitsAttachments _BldPermitsAttachment = db.BldPermitsAttachments.Where(x => x.Id == permitAttachments.Id).SingleOrDefault();
+                if (_BldPermitsAttachment != null)
                 {
                     return;
                 }
 
+                //_BldPermitsAttachment.AttachmentStream = DocumentData;
+                //_BldPermitsAttachment.UpdatedBy = EmpName;
+                //_BldPermitsAttachment.UpdatedOn = DateTime.Now;
 
-                _BldPermitsAttachment.AttachmentStream = DocumentData;
+                BldPermitsAttachments PermitPrintDetails = new BldPermitsAttachments();
+
+                PermitPrintDetails.BldPermitId = permitAttachments.BldPermitId;
+                PermitPrintDetails.AttachmentContentType = permitAttachments.AttachmentContentType;
+                PermitPrintDetails.AttachmentName = permitAttachments.AttachmentName;
+                PermitPrintDetails.AttachmentPath = permitAttachments.AttachmentPath;
+                PermitPrintDetails.AttachmentTypeId = permitAttachments.AttachmentTypeId;
+                PermitPrintDetails.Description = permitAttachments.Description;
+                PermitPrintDetails.InsertDate = DateTime.Now;
+                PermitPrintDetails.CreatedBy = permitAttachments.CreatedBy;
+                PermitPrintDetails.CreatedOn = DateTime.Now;
+                db.BldPermitsAttachments.Add(PermitPrintDetails);
                 db.SaveChanges();
             }
 
         }
         #endregion
 
+        #region Method ::   Update Permits Attachment Stream 
+        public static void UpdateAttachmentStream(int Id, byte[] DocumentData)
+        {
 
+            using (eServicesEntities db = new eServicesEntities())
+            {
+                BldPermitsAttachments _BldPermitsAttachment = db.BldPermitsAttachments.Where(x => x.Id == Id).SingleOrDefault();
+                if (_BldPermitsAttachment == null)
+                {
+                    return;
+                }
+                _BldPermitsAttachment.AttachmentStream = DocumentData;
+                db.SaveChanges();
+            }
+        }
+        #endregion
 
         #region Method ::  Consultant Update Permits Attachments 
 
@@ -287,8 +298,5 @@ namespace DMeServices.Models.Common.BuildingServices
 
         }
         #endregion
-
-
-
     }
 }

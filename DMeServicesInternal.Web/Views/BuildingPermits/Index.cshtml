@@ -7,6 +7,17 @@
     <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
 
 }
+
+<script>
+    $(document).ready(function () {
+    //    $('#oTable').DataTable({
+    //        "language": {
+    //            "info": "معاملات في الصفحة",
+    //        }
+    //    });
+        
+    });
+</script>
 <style>
     .radio-inline, .checkbox-inline {
         display: inline-block;
@@ -47,7 +58,7 @@
                     <h2><i class="glyphicon glyphicon-road"></i> طلبات تراخيص البناء</h2>
                     @if (Model.oEmployeeInfo.IsEngineerHead)
                     {
-                        <div style="font-size:12px ;">
+                        <div style="font-size:12px;">
 
                             <div style="float:left ; padding-right:10px;">
                                 <label class="radio-inline">جميع الطلبات</label>
@@ -81,23 +92,24 @@
 
 
                 <div class="box-content">
-                    @*<div id="divLoader" style="display:block;"> <img src="~/Content/ajax-loader.gif" alt="Loader" /> </div>*@
+                    <div id="divLoader" style="display:block;"> <img src="~/Content/ajax-loader.gif" alt="Loader" /> </div>
                     
-                    <table class="table table-striped table-bordered bootstrap-datatable datatable responsive ">
+                    <table class="table table-striped table-bordered bootstrap-datatable datatable responsive" id="oTable">
                         <thead>
                             <tr>
                                 <th>رقم المعاملة</th>
                                 <th>اسم المكتب الاستشاري</th>
-                                <th>اسم المهندس الاستشاري</th>
                                 <th>اسم مالك المشروع</th>
+                                <th>رقم البطاقة الشخصية للمالك</th>
+                                <th>رقم قطعة الأرض</th>
+                                <th>مربع رقم</th>
                                 <th>المنطقة</th>
                                 <th>تاريخ الطلب</th>
                                 <th>حالة الطلب</th>
-                                <th>رقم البطاقة الشخصية للمالك</th>
+
                                 @if (Model.oEmployeeInfo.IsEngineerHead)
                                 {
                                     <th>المهندس المختص</th>
-
                                 }
 
                             </tr>
@@ -105,46 +117,44 @@
                         <tbody id="PermitsList">
                             @{ Html.RenderPartial("_PermitsList", Model);}
                         </tbody>
-
+                        
                     </table>
                 </div>
-
-
-
-
-
-
-
-
             </div>
         </div>
     </div>
 </div>
 
-<script>
-    $(document).ready(function () {
 
+<script>
+    $(document).ready(function () {    
+        $("#divLoader").hide();
         $('input[type="radio"]').click(function () {
             if ($(this).is(':checked')) {
+                
             }
             var type = $(this).val();
             var url = "@Url.Action("PermitsList", "BuildingPermits")";
+            
             $("#divLoader").show();
             $.ajax({
                 url: url,
                 type: 'POST',
                 data: { Type: type },
                 success: function (response) {
+                    //$('#oTable').dataTable().api().ajax.reload();
                     $("#divLoader").hide();
                     $('#PermitsList').html(response);
+                    //$('#oTable').dataTable().fnAddData(response);
+                    //$('#oTable').dataTable().fnDraw();
                 },
                 error: function (er) {
                     $("#divLoader").hide();
-                    
+                    console.log(er);
                 }
 
             });
-
+            
         });
     });
 </script>

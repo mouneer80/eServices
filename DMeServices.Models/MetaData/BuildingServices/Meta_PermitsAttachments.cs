@@ -25,9 +25,8 @@ namespace DMeServices.Models.MetaData.BuildingServices
 
         public string AttachmentPath { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(Resources.Validation_Ar), ErrorMessageResourceName = "RequirdField", AllowEmptyStrings = false)]
+        //[Required(ErrorMessageResourceType = typeof(Resources.Validation_Ar), ErrorMessageResourceName = "RequirdField", AllowEmptyStrings = false)]
         [StringLength(maximumLength: 50, MinimumLength = 1, ErrorMessageResourceName = "OutOfRange", ErrorMessageResourceType = typeof(Resources.Validation_Ar))]
-
         public string Description { get; set; }
 
         public long BldPermitId { get; set; }
@@ -41,8 +40,6 @@ namespace DMeServices.Models.MetaData.BuildingServices
 
         [Required(ErrorMessageResourceType = typeof(Resources.Validation_Ar), ErrorMessageResourceName = "RequirdField", AllowEmptyStrings = false)]
         [RegularExpression(@"([a-zA-Z0-9\s@,=%$#&_\u0600-\u06FF])+(.png|.PNG|.jpg|.JPG|.jpe?g|.JPE?G|.pdf|.PDF)$", ErrorMessageResourceType = typeof(Resources.Validation_Ar), ErrorMessageResourceName = "FileType")]
-
         public HttpPostedFile File { get; set; }
-
     }
 }

@@ -80,42 +80,7 @@
     }
 </script>
 
-<script>
 
-
-    $(document).ready(function () {
-        $("#divAttachmentsDetails").css("display", "none");
-
-        $(".GetDetails").click(function () {
-            if ($('#divAttachmentsDetails').css('display') == 'block') {
-                $("#divAttachmentsDetails").css("display", "none");
-            } else {
-
-
-                var attID = $(this).attr("fileID");
-
-                var url = "@Url.Action("SelectAttachmentDetails", "BuildingPermits")";
-                $.ajax({
-                    url: url,
-                    type: 'POST',
-                    data: { Id: attID },
-                    success: function (response) {
-                        $("#divAttachmentsDetails").css("display", "block");
-                        $('#divAttachmentsDetails').html(response);
-                    },
-                    error: function (er) {
-                        swal(er);
-                    }
-
-                });
-
-            }
-            });
-
-
-
-    });
-</script>
 <script type="text/javascript">
     $(function () {
         // Initialize numeric spinner input boxes

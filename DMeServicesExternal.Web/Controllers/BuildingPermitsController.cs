@@ -86,11 +86,56 @@ namespace DMeServicesExternal.Web.Controllers
             return View();
         }
 
-        public ActionResult PayWithPost()
-        {
-            var result = DMeServices.Models.Common.PaymentCom.PayAmount();
-            return Redirect(result);
+        public ActionResult PayWithPost(int id)
+        {  
+            string requestUrl = Request.Url.AbsoluteUri.Remove(Request.Url.AbsoluteUri.Length - Request.Url.Segments[Request.Url.Segments.Length-2].Length - Request.Url.Segments[Request.Url.Segments.Length-1].Length);
+            var _payment = DMeServices.Models.Common.BuildingServices.PaymentsCom.PaymentByID(id);
+            string totalAmountToPay = _payment.PaymentTotalAmount.ToString();
+            string amountType = _payment.PaymentType.ToString();
+            var result = DMeServices.Models.Common.PaymentCom.PayAmount(totalAmountToPay, amountType, requestUrl);
+
+            var paymentID = DMeServices.Models.Common.BuildingServices.PaymentsCom.UpdatPaymentToken(id,result.token.ToString());
+            if(paymentID != null)
+            {
+                return Redirect(result.url.ToString());
+            }
+            else
+            {
+                return HttpNotFound();
+            }
+            
         }
+
+        public ActionResult PayingSucceeded(string token)
+        {
+            token = Request.QueryString["Token"].ToString();
+            string T = token;
+            DMeServices.Models.BankResponse _bankResponse = DMeServices.Models.Common.PaymentCom.GetBankResponse(T);
+            var permitID = DMeServices.Models.Common.BuildingServices.PaymentsCom.UpdatPaymentStatus(T, _bankResponse);
+            int status = 29;
+            
+            var result = PermitsCom.UpdateStatus(Convert.ToInt32(permitID), status);
+            if(result!=null)
+            {
+                //PermitsViewModel pModel = new PermitsViewModel();
+                //pModel.BuildingPermits = PermitsCom.PermitsByID(Convert.ToInt32(permitID));
+                return RedirectToAction("PermitDetails", new { @id = Convert.ToInt32(permitID) });
+            }
+            else
+            {
+                return HttpNotFound();
+            }
+        }
+
+        public ActionResult PayingFailed()
+        {
+
+
+            return Redirect("www.google.com");
+
+
+        }
+
         [HttpGet]
         public ActionResult NewPermits()
         {
@@ -110,38 +155,48 @@ namespace DMeServicesExternal.Web.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult SaveNewPermits(PermitsViewModel oModel)
         {
-            oModel.ListOfAttachments = (List<PermitsAttachments>)TempData["Attachments"];
-            TempData["Attachments"] = null;
-            if (isListOfAttachment(oModel.ListOfAttachments))
-            {
-                oModel.PersonalCard.AttachmentTypeId = 1;
-                oModel.KrokeFile.AttachmentTypeId = 2;
-                oModel.OwnerFile.AttachmentTypeId = 3;
-                oModel.ConsLetter.AttachmentTypeId = 4;
-                oModel.LandPic.AttachmentTypeId = 15;
-                oModel.ConsAgreementFile.AttachmentTypeId = 16;
-                oModel.Others.AttachmentTypeId = 20;
-                oModel.ListOfAttachments.Add(oModel.PersonalCard);
-                oModel.ListOfAttachments.Add(oModel.KrokeFile);
-                oModel.ListOfAttachments.Add(oModel.OwnerFile);
-                oModel.ListOfAttachments.Add(oModel.ConsLetter);
-                oModel.ListOfAttachments.Add(oModel.LandPic);
-                oModel.ListOfAttachments.Add(oModel.ConsAgreementFile);
-                oModel.ListOfAttachments.Add(oModel.Others);
+            //ModelState.Remove("File");
+            //var errors = ModelState.Values.SelectMany(v => v.Errors);
+            //ModelState.Remove(oModel.BuildingPermits.Id.ToString());
+            //ModelState.Remove(oModel.AttachmentDetails.Id.ToString());
+            //if (ModelState.IsValid)
+            //{
+                oModel.ListOfAttachments = (List<PermitsAttachments>)TempData["Attachments"];
+                TempData["Attachments"] = null;
+                if (isListOfAttachment(oModel.ListOfAttachments))
+                {
+                    oModel.PersonalCard.AttachmentTypeId = 1;
+                    oModel.KrokeFile.AttachmentTypeId = 2;
+                    oModel.OwnerFile.AttachmentTypeId = 3;
+                    oModel.ConsLetter.AttachmentTypeId = 4;
+                    oModel.LandPic.AttachmentTypeId = 15;
+                    oModel.ConsAgreementFile.AttachmentTypeId = 16;
+                    oModel.Others.AttachmentTypeId = 20;
+                    oModel.ListOfAttachments.Add(oModel.PersonalCard);
+                    oModel.ListOfAttachments.Add(oModel.KrokeFile);
+                    oModel.ListOfAttachments.Add(oModel.OwnerFile);
+                    oModel.ListOfAttachments.Add(oModel.ConsLetter);
+                    oModel.ListOfAttachments.Add(oModel.LandPic);
+                    oModel.ListOfAttachments.Add(oModel.ConsAgreementFile);
+                    oModel.ListOfAttachments.Add(oModel.Others);
+                    //oModel.BuildingPermits.LicenseNo = "ح / 5665";
 
-                //oModel.BuildingPermits.LicenseNo = "ح / 5665";
+                    oModel.ListOfAttachments = SaveFiles(oModel);
+                    string result = PermitsCom.SavePermits(oModel);
 
-                oModel.ListOfAttachments = SaveFiles(oModel);
-                string result = PermitsCom.SavePermits(oModel);
-
-                ViewBag.TranseID = result;
-                DMeServices.Models.Common.SmsCom.SendSms("968" + oModel.oUserInfo.MobileNo, ":تم تسليم طلبك بنجاح رقم المعاملة" + result);
-            }
-            return View("SaveNewPermitsSuccessPage");
+                    ViewBag.TranseID = result;
+                    DMeServices.Models.Common.SmsCom.SendSms("968" + oModel.oUserInfo.MobileNo, ":تم تسليم طلبك بنجاح رقم المعاملة" + result);
+                }
+                return View("SaveNewPermitsSuccessPage");
+            //}
+            //else
+            //{
+            //    return View("~/Views/Shared/SaveFailPage");
+            //}
         }
 
         private bool isListOfAttachment(List<PermitsAttachments> listOfAttachments)
@@ -173,10 +228,12 @@ namespace DMeServicesExternal.Web.Controllers
 
         public ActionResult PermitDetails(int id = -99)
         {
-            PermitsViewModel oModel = new PermitsViewModel
-            {
-                BuildingPermits = PermitsCom.PermitsByID(id)
-            };
+            PermitsViewModel oModel = new PermitsViewModel();
+
+            if (oModel.oUserInfo == null && Session["UserInfo"] != null)
+                oModel.oUserInfo = (DMeServices.Models.User)Session["UserInfo"];
+            
+            oModel.BuildingPermits = PermitsCom.PermitsByID(id);
             TempData["Attachments"] = new List<PermitsAttachments>();
             ViewBag.DDAttachmentsType = DDAttachmentTypes();
 
@@ -188,6 +245,8 @@ namespace DMeServicesExternal.Web.Controllers
             ViewBag.DDSquareLetters = DdSquareLetters();
             oModel.ListOfAttachments = PermitsAttachmentsCom.AttachmentsByPermitsID(id, (long)oModel.BuildingPermits.OwnerCivilId);
 
+            oModel.Payments = PaymentsCom.PaymentsByPermitsID(id);
+            oModel.PaymentDetailsList = PaymentsCom.MapsPaymentDetailsByPermitsID(id);
 
             return View(oModel);
         }
@@ -235,19 +294,19 @@ namespace DMeServicesExternal.Web.Controllers
                 //    {
                 //        reader = ExcelReaderFactory.CreateOpenXmlReader(stream);
                 //    }
-                if (Attachment.AttachmentName.EndsWith(".pdf")|| Attachment.AttachmentName.EndsWith(".PDF"))
+                if (Attachment.AttachmentName.EndsWith(".pdf") || Attachment.AttachmentName.EndsWith(".PDF"))
                 {
                     return new FileStreamResult(stream, contentType);
                 }
-                else if (Attachment.AttachmentName.EndsWith(".jpg")|| Attachment.AttachmentName.EndsWith(".JPG"))
+                else if (Attachment.AttachmentName.EndsWith(".jpg") || Attachment.AttachmentName.EndsWith(".JPG"))
                 {
                     return new FileStreamResult(stream, contentType);
                 }
-                else if (Attachment.AttachmentName.EndsWith(".png")|| Attachment.AttachmentName.EndsWith(".PNG"))
+                else if (Attachment.AttachmentName.EndsWith(".png") || Attachment.AttachmentName.EndsWith(".PNG"))
                 {
                     return new FileStreamResult(stream, contentType);
                 }
-                else if (Attachment.AttachmentName.EndsWith(".jpeg")|| Attachment.AttachmentName.EndsWith(".JPEG"))
+                else if (Attachment.AttachmentName.EndsWith(".jpeg") || Attachment.AttachmentName.EndsWith(".JPEG"))
                 {
                     return new FileStreamResult(stream, contentType);
                 }
@@ -378,9 +437,9 @@ namespace DMeServicesExternal.Web.Controllers
                 {
                     oModel.ListOfAttachments = new List<PermitsAttachments>();
                 }
+
                 if (oModel.ListOfAttachments.Count < 20)
                     oModel.ListOfAttachments.Add(oModel.Attachments);
-
 
                 TempData["Attachments"] = oModel.ListOfAttachments;
             }
@@ -481,6 +540,18 @@ namespace DMeServicesExternal.Web.Controllers
 
         #endregion
 
+
+        #region Method :: List Payment Details
+
+        public ActionResult SelectPaymentDetails(int Id = -99)
+        {
+            PermitsViewModel oModel = new PermitsViewModel();
+            oModel.PaymentDetailsList = DMeServices.Models.Common.BuildingServices.PaymentsCom.PaymentDetailsByPaymentID(Id);
+            return PartialView("_ListPayments", oModel);
+        }
+
+
+        #endregion
 
         #region Method :: Save Files
         [HttpPost]
@@ -702,9 +773,7 @@ namespace DMeServicesExternal.Web.Controllers
                 }
             }
             return listAttachments;
-
         }
-
         #endregion
 
         #region Method :: List Engineer Attachment 

@@ -4,6 +4,7 @@ using DMeServices.Models.BuildingServices;
 using DMeServices.Models.ViewModels.Internal.Permits;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.IO.Pipes;
 using System.Linq;
@@ -45,7 +46,7 @@ namespace DMeServices.Models.Common.BuildingServices
                     List<BldPaymentDetails> _BldPaymentDetails = db.BldPaymentDetails.Where(x => x.PaymentID == item.PaymentID).OrderByDescending(x => x.PaymentDetailID).ToList();
                     List<PaymentDetails> _PaymentDetails = Mapper.Map<List<BldPaymentDetails>, List<PaymentDetails>>(_BldPaymentDetails);
                     return _PaymentDetailsList = _PaymentDetails;
-                    
+
                 }
             }
             return _PaymentDetailsList;
@@ -55,7 +56,7 @@ namespace DMeServices.Models.Common.BuildingServices
 
 
 
-       
+
         #region Method ::  Payment By ID
 
         public static Payments PaymentByID(int Id)
@@ -84,7 +85,23 @@ namespace DMeServices.Models.Common.BuildingServices
                 return _PaymentDetails;
             }
         }
+        #endregion
 
+
+        #region Method ::  Payment Details By Payment ID
+
+        public static List<PaymentDetails> PaymentDetailsByPaymentID(int ID)
+        {
+            using (eServicesEntities db = new eServicesEntities())
+            {
+                List<BldPaymentDetails> _BldPaymentDetails = db.BldPaymentDetails.Where(x => x.PaymentID == ID).OrderByDescending(x => x.PaymentDetailID).ToList();
+                List<PaymentDetails> _PaymentDetails = Mapper.Map<List<BldPaymentDetails>, List<PaymentDetails>>(_BldPaymentDetails);
+                return _PaymentDetails;
+            }
+
+        }
+        #endregion
+        #region Method ::  Save Payment Details
         public static string SavePaymentDetails(PermitsViewModel oModel)
         {
 
@@ -94,28 +111,35 @@ namespace DMeServices.Models.Common.BuildingServices
                 BldPayment _BldPayment = new BldPayment();
                 try
                 {
-                    
-                    
                     _BldPayment = db.BldPayment.Where(x => x.PaymentID == oModel.Payment.PaymentID).SingleOrDefault();
-
                     if (_BldPayment != null)
                     {
                         return null;
                     }
-                    //if (oModel.oUserInfo.ConsultantCrNo == null)
-                    //{
-                    //    return null;
-                    //}
+                    int paymentType = 0;
+                    if (oModel.PaymentDetailsList.Count > 0)
+                    {
+                        foreach (var item in oModel.PaymentDetailsList)
+                        {
+                            int serviceType = (int)DMeServices.Models.Common.BuildingServices.ServiceFeesCom.TypeByID((int)item.ServiceID).ServiceType;
 
-                    
-
+                            if (serviceType == 3)
+                            {
+                                paymentType = 2;
+                            }
+                            else
+                            {
+                                paymentType = 1;
+                            }
+                        }
+                    }
                     _BldPayment = Mapper.Map<Payments, BldPayment>(oModel.Payment);
                     _BldPayment.BldPermitId = oModel.BuildingPermits.Id;
-                    _BldPayment.PaymentTotalAmount = oModel.TempGrandTotal;
+                    _BldPayment.PaymentTotalAmount = oModel.Payment.PaymentTotalAmount;
+                    _BldPayment.FeesDate = DateTime.Now;
+                    _BldPayment.PaymentType = paymentType;
                     db.BldPayment.Add(_BldPayment);
-
                     db.SaveChanges();
-
                     if (oModel.PaymentDetailsList != null)
                     {
                         List<BldPaymentDetails> LstPaymentDetails = Mapper.Map<List<PaymentDetails>, List<BldPaymentDetails>>(oModel.PaymentDetailsList);
@@ -125,20 +149,58 @@ namespace DMeServices.Models.Common.BuildingServices
                             db.BldPaymentDetails.Add(PaymentDetail);
                             db.SaveChanges();
                         }
-
                     }
-
-
-
-
                     return _BldPayment.PaymentID.ToString();
-
                 }
-
                 catch (Exception ex)
                 {
                     throw ex;
                 }
+            }
+        }
+
+        public static string UpdatPaymentStatus(string t, BankResponse result)
+        {
+            using (eServicesEntities db = new eServicesEntities())
+            {
+                BldPayment _BldPayment = db.BldPayment.Where(x => x.TokenID == t).SingleOrDefault();
+
+
+                _BldPayment.BankResponseID = Convert.ToInt32(result.statusDetails.Bankresponseid);
+                _BldPayment.Bankpaymentid = result.statusDetails.Bankpaymentid;
+                _BldPayment.PaymentDate = DateTime.ParseExact(result.statusDetails.Postdate.ToString(), "yyyyMMddHHmm", CultureInfo.InvariantCulture);
+                _BldPayment.Referenceid = result.statusDetails.Referenceid;
+                _BldPayment.Paymentrequestid = (int)result.statusDetails.Paymentrequestid;
+                _BldPayment.Transactionid = result.statusDetails.Transactionid;
+                _BldPayment.PaymentType = (int)result.statusDetails.Paymenttypeid;
+                _BldPayment.PaymentStatus = (int)result.statusDetails.Paymentstatusid;
+
+
+                db.SaveChanges();
+
+                return _BldPayment.BldPermitId.ToString();
+            }
+        }
+        #endregion
+
+        #region Method ::  Update Payment Token
+        public static string UpdatPaymentToken(int id, string token)
+        {
+
+            using (eServicesEntities db = new eServicesEntities())
+            {
+
+
+
+                BldPayment _BldPayment = db.BldPayment.Where(x => x.PaymentID == id).SingleOrDefault();
+
+
+                _BldPayment.TokenID = token;
+
+
+                db.SaveChanges();
+
+                return _BldPayment.PaymentID.ToString();
 
             }
         }

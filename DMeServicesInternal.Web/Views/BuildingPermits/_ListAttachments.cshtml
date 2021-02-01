@@ -26,7 +26,7 @@
                         //int i = 0;
                         foreach (var item in Model.ListOfAttachments)
                         {
-                            if (item.AttachmentTypeId <= 4 || item.AttachmentTypeId > 14)
+                            if (item.AttachmentTypeId != 30 && (item.AttachmentTypeId <= 4 || item.AttachmentTypeId > 14))
                             {
 
                                 <tr>
@@ -155,7 +155,7 @@
                                                     {
                                                         <a class="modal-link" href="@Url.Action("EditPDFFile", new { @controller = "BuildingPermits", @Id = item.Id, @PirmID = Model.BuildingPermits.Id })">تعديل الملف<i class="fa fa-eye-slash"></i></a>
                                                         @*<a class="modal-link" href="@Url.Action("EditPDFFile", new { @controller = "BuildingPermits" })">تعديل الملف<i class="fa fa-eye-slash"></i></a>*@
-                                                        }
+                                                    }
                                                 }
 
                                             </td>
@@ -168,9 +168,6 @@
                                                     }
                                                 }
                                             </td>
-
-
-
 
                                         }
 
@@ -272,7 +269,6 @@
         // when a link is clicked with these attributes, bootstrap will display the href content in a modal dialog.
 
         $('body').on('click', '.modal-link', function (e) {
-
             $(this).attr('data-target', '#MainModal');
             e.preventDefault();
             $("iframe").attr("src", $(this).attr('href'));
@@ -292,14 +288,6 @@
 
             $(this).removeData('bs.modal');
         });
-
-
-
-
-
-
-
-
 
         $(document).on("hidden.bs.modal", function (e) {
             $(e.target).removeData("bs.modal").find(".modal-content").empty();

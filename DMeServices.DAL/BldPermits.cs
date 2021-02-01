@@ -18,7 +18,7 @@ namespace DMeServices.DAL
         public BldPermits()
         {
             this.BldPermitsAttachments = new HashSet<BldPermitsAttachments>();
-            this.BldControlServices = new HashSet<BldControlServices>();
+            this.BldSupervisionServices = new HashSet<BldSupervisionServices>();
             this.BldPayment = new HashSet<BldPayment>();
         }
     
@@ -54,6 +54,13 @@ namespace DMeServices.DAL
         public Nullable<int> BuildingTypeID { get; set; }
         public string KrokiNO { get; set; }
         public string DmFileNumber { get; set; }
+        public string LandDeedNo { get; set; }
+        public string DMLicenseNames { get; set; }
+        public string DMLicenseComments { get; set; }
+        public string DMLicenseCivilIDs { get; set; }
+        public string LandArea { get; set; }
+        public string LandDeedReceiptNo { get; set; }
+        public Nullable<System.DateTime> LandDeedReceiptDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BldPermitsAttachments> BldPermitsAttachments { get; set; }
@@ -63,7 +70,7 @@ namespace DMeServices.DAL
         public virtual BldSquareLetters BldSquareLetters { get; set; }
         public virtual BldWelyat BldWelyat { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BldControlServices> BldControlServices { get; set; }
+        public virtual ICollection<BldSupervisionServices> BldSupervisionServices { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BldPayment> BldPayment { get; set; }
     }

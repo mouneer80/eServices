@@ -16,7 +16,16 @@
             {
                 Company = "لا يوجد";
             }
-            var Region = DMeServices.Models.Common.BuildingServices.RegionsCom.RegionByID(item.RegionID);
+            var Region = "لا يوجد";
+            if (item.RegionID != null)
+            {
+                Region = DMeServices.Models.Common.BuildingServices.RegionsCom.RegionByID(item.RegionID).RegionArName;
+            }
+            var SquareLetter = "لا يوجد";
+            if(item.SquareLetterID != null)
+            {
+                SquareLetter = DMeServices.Models.Common.BuildingServices.SquareLettersCom.SquareLetterByID((int)item.SquareLetterID).ArLetter;
+            }
             var Status = DMeServices.Models.Common.LookupsTypeCom.LookupByID((int)item.WorkflowStatus).LookupNameAr;
             var StatusColor = DMeServices.Models.Common.LookupsTypeCom.LookupByID((int)item.WorkflowStatus).LookupNameEn;
             if (User != null)
@@ -24,25 +33,23 @@
                 <td class="center">
                     @Company
                 </td>
-                <td class="center">
-                    @User.FullName
-                </td>
             }
             else
             {
                 <td class="center">
                     لايوجد
                 </td>
-                <td class="center">
-                    لايوجد
-                </td>
             }
         }
         <td class="center">@item.OwnerName</td>
-        <td class="center">@Region.RegionArName</td>
+        <td class="center"> @item.OwnerCivilId</td>
+        <td class="center">@item.DistrictNo</td>
+        <td class="center">@SquareLetter</td>
+        <td class="center">@Region</td>
+
         <td class="center">@item.RequestDate.ToShortDateString()</td>
         <td class="center @StatusColor">@Status</td>
-        <td class="center"> @item.OwnerCivilId</td>
+
         @if (Model.oEmployeeInfo.IsEngineerHead)
         {
             if (item.DmEngineerNo == null)

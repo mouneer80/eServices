@@ -57,9 +57,9 @@ namespace DMeServices.Models
 
         public int SiteCd { get; set; }
 
-        public bool IsControlHead { get; set; }
+        public bool IsSupervisionHead { get; set; }
 
-        public bool IsController { get; set; }
+        public bool IsSupervisionInspector { get; set; }
 
 
     }

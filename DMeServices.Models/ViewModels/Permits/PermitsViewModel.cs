@@ -3,6 +3,7 @@ using DMeServices.Models.Common;
 using DMeServices.Models.Common.BuildingServices;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -63,6 +64,22 @@ namespace DMeServices.Models.ViewModels.Permits
         public int SID { get; set; }
 
         public bool ShowAdd { get; set; }
+
+        public int? Quantity { get; set; }
+        public int ServiceID { get; set; }
+        public decimal? Fees { get; set; }
+
+        public decimal? Total { get; set; }
+
+        public decimal? TempGrandTotal { get; set; }
+
+
+
+        public PaymentDetails PaymentDetails { get; set; }
+        public List<PaymentDetails> PaymentDetailsList { get; set; }
+        public ServiceFeesDetails ServiceFeesDetails { get; set; }
+        public Payments Payment { get; set; }
+        public List<Payments> Payments { get; set; }
 
     }
 }

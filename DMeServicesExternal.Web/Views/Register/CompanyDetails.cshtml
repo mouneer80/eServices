@@ -122,7 +122,12 @@
                 </div>
 
                 <div class="col-sm-4">
-                    @Html.TextBoxFor(m => m.Consultant.CivilId, new { id = "ConsultantCivilId", @class = "form-control", @placeholder = "الرقم المدني", @onchange = "callRestApi();" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(m => m.Consultant.CivilId, new { id = "ConsultantCivilId", @class = "form-control", @placeholder = "برجاء ادخال الرقم المدني"})
+                    </div>
+                    <div class="col-md-4">
+                        <a class="btn btn-primary" onclick="javascript: callRestApi();"> البحث</a>
+                    </div>
                 </div>
             </div>
             <br />
@@ -176,8 +181,8 @@
         var Comm_Val = $('#CommercialNo').val();
         var userCivilID = $('#ConsultantCivilId').val();
         var url = "/Register/GetEmployeeDataByCivilID/";
-        
-        
+
+
         $.ajax({
             url: url,
             type: "Get",
@@ -185,7 +190,7 @@
             data: { Id: userCivilID, cr: Comm_Val },
             success: function (data) {
                 if (data) {
-                    
+
                     if (data.Result === true) {
                         $('#ConsultantFullName').val(data.EmployeeData.EmployeeData[0].EmployeeNameArabic);
                         $('#ConsultantJobName').val(data.EmployeeData.EmployeeData[0].OccupationDescArabic);
@@ -234,8 +239,8 @@
                     $('#divWorkers').html(response);
                 },
                 error: function (er) {
-                    
-                   
+
+
                     $('#SaveWorker').attr('disabled', false);
                 }
             });

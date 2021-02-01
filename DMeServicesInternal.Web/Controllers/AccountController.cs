@@ -37,10 +37,10 @@ namespace DMeServicesInternal.Web.Controllers
                     return RedirectToAction("Index", "BuildingPermits");
                 }
 
-                if (oEmployee.IsController || oEmployee.IsControlHead)
+                if (oEmployee.IsSupervisionInspector || oEmployee.IsSupervisionHead)
                 {
                     Session["Show"] = 1;
-                    return RedirectToAction("Index", "BuildingControls");
+                    return RedirectToAction("Index", "BuildingSupervision");
                 }
 
 

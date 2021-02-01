@@ -57,11 +57,11 @@ namespace DMeServices.Models.Common
                             break;
 
                         case 7:
-                            oEmployee.IsController = true;
+                            oEmployee.IsSupervisionInspector = true;
                             break;
 
                         case 8:
-                            oEmployee.IsControlHead = true;
+                            oEmployee.IsSupervisionHead = true;
                             break;
 
                     }

@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ConstructedArea" xml:space="preserve">
-    <value>مساحة قطعة الأرض</value>
+    <value>مساحة البناء</value>
   </data>
   <data name="ConstructionType" xml:space="preserve">
     <value>استعمال قطعة الأرض</value>
@@ -171,7 +171,7 @@
   <data name="SecondName" xml:space="preserve">
     <value>الاسم الثاني</value>
   </data>
-  <data name="SquareArea" xml:space="preserve">
+  <data name="SquareLetterID" xml:space="preserve">
     <value>المربع</value>
   </data>
   <data name="ThirdName" xml:space="preserve">
@@ -203,5 +203,47 @@
   </data>
   <data name="KrokiNO" xml:space="preserve">
     <value>رقم الكروكي</value>
+  </data>
+  <data name="LandArea" xml:space="preserve">
+    <value>المساحة الكلية لقطعة الأرض</value>
+  </data>
+  <data name="LandDeedNo" xml:space="preserve">
+    <value>عقد بيع رقم</value>
+  </data>
+  <data name="LandDeedReceiptDate" xml:space="preserve">
+    <value>تاريخ ايصال سند الملكية</value>
+  </data>
+  <data name="LandDeedReceiptNo" xml:space="preserve">
+    <value>رقم ايصال سند الملكية</value>
+  </data>
+  <data name="BuildingTypeID" xml:space="preserve">
+    <value>نوع المبنى</value>
+  </data>
+  <data name="DmEngineerComments" xml:space="preserve">
+    <value>ملاحظات قسم تراخيص البناء</value>
+  </data>
+  <data name="DmFileNumber" xml:space="preserve">
+    <value>رقم الملف</value>
+  </data>
+  <data name="DMLicenseCivilIDs" xml:space="preserve">
+    <value>ارقام بطاقات المالكين ان وجدت</value>
+  </data>
+  <data name="DMLicenseComments" xml:space="preserve">
+    <value>بيان الترخيص</value>
+  </data>
+  <data name="DMLicenseNames" xml:space="preserve">
+    <value>اسماء المالكين ان وجدت</value>
+  </data>
+  <data name="RegionID" xml:space="preserve">
+    <value>اسم المنطقة / القرية</value>
+  </data>
+  <data name="UseTypeID" xml:space="preserve">
+    <value>نوع استعمال قطع الأرض</value>
+  </data>
+  <data name="WelayahID" xml:space="preserve">
+    <value>الولاية</value>
+  </data>
+  <data name="WorkflowStatus" xml:space="preserve">
+    <value>رأي المهندس</value>
   </data>
 </root>
