@@ -11,7 +11,7 @@ namespace DMeServices.Models.MetaData.BuildingServices
     {
 
         [Key]
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public string TransactNo { get; set; }
 
@@ -25,10 +25,10 @@ namespace DMeServices.Models.MetaData.BuildingServices
         [Required(ErrorMessageResourceType = typeof(Resources.Validation_Ar), ErrorMessageResourceName = "RequirdField", AllowEmptyStrings = false)]
         [RegularExpression("^[0-9]*$", ErrorMessageResourceType = typeof(Resources.Validation_Ar), ErrorMessageResourceName = "NumberOnly")]
         //[StringLength(maximumLength: 50, MinimumLength = 1, ErrorMessageResourceName = "OutOfRange", ErrorMessageResourceType = typeof(Resources.Validation_Ar))]
-        public long OwnerCivilId { get; set; }
+        public int OwnerCivilId { get; set; }
 
 
-        public long ConsultantCivilId { get; set; }
+        public int ConsultantCivilId { get; set; }
 
         
 
@@ -67,7 +67,7 @@ namespace DMeServices.Models.MetaData.BuildingServices
         [StringLength(maximumLength: 50, MinimumLength = 1, ErrorMessageResourceName = "OutOfRange", ErrorMessageResourceType = typeof(Resources.Validation_Ar))]
         public string NumberOfFloors { get; set; }
 
-        public long ConsultantCrNo { get; set; }
+        public int ConsultantCrNo { get; set; }
 
 
         [Display(Name = "ConstructionType", ResourceType = typeof(Resources.DisplayName_Ar))]

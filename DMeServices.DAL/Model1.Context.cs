@@ -85,6 +85,12 @@ namespace DMeServices.DAL
         public virtual DbSet<BldPaymentDetails> BldPaymentDetails { get; set; }
         public virtual DbSet<BldServiceFees> BldServiceFees { get; set; }
         public virtual DbSet<BldPayment> BldPayment { get; set; }
+        public virtual DbSet<BldAudits> BldAudits { get; set; }
+        public virtual DbSet<BldPermits_Log> BldPermits_Log { get; set; }
+        public virtual DbSet<BldSupervisionContractors> BldSupervisionContractors { get; set; }
+        public virtual DbSet<BldTransactions> BldTransactions { get; set; }
+        public virtual DbSet<BldTransactionTypes> BldTransactionTypes { get; set; }
+        public virtual DbSet<BldOwners> BldOwners { get; set; }
     
         [DbFunction("eServicesEntities", "GetPermitsDuration")]
         public virtual IQueryable<GetPermitsDuration_Result> GetPermitsDuration(Nullable<int> permitId)

@@ -11,7 +11,7 @@ namespace DMeServices.Models.MetaData.BuildingServices
     {
 
         [Key]
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public string TransactNo { get; set; }
 
@@ -29,10 +29,10 @@ namespace DMeServices.Models.MetaData.BuildingServices
 
 
 
-        public long OwnerCivilId { get; set; }
+        public int OwnerCivilId { get; set; }
 
 
-        public long ConsultantCivilId { get; set; }
+        public int ConsultantCivilId { get; set; }
 
         
 

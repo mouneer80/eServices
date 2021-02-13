@@ -28,64 +28,8 @@ namespace DMeServicesExternal.Web.Controllers
             oModel.ShowAdd = true;
             return View(oModel);
         }
-        public ActionResult LandProjects()
-        {
-            PermitsViewModel oModel = new PermitsViewModel();
-            oModel.ListBuildingPermits = PermitsCom.PermitsByLandOwnerCivilId(oModel.oUserInfo.CivilId);
-            oModel.ShowAdd = false;
-            return View("Index",oModel);
-        }
-        public ActionResult CompanyList()
-        {
-            var oModel = new CompaniesListViewModel();
-            return View(oModel);
-        }
-        public static async Task<DataTable> GetPaymentToken()
-        {
-            // Initialization.  
-            DataTable responseObj = new DataTable();
 
-            // HTTP GET.  
-            using (var client = new HttpClient())
-            {
-                // Setting Base address.  
-                client.BaseAddress = new Uri("https://www.dhofar.gov.om/ePaymentAPI/");
 
-                // Setting content type.  
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                // Initialization.  
-                HttpResponseMessage response = new HttpResponseMessage();
-
-                // HTTP GET  
-                response = await client.GetAsync("API/Paymentrequest/OpenPaymentRequest").ConfigureAwait(false);
-
-                // Verification  
-                if (response.IsSuccessStatusCode)
-                {
-                    // Reading Response.  
-                    string result = response.Content.ReadAsStringAsync().Result;
-                    responseObj = JsonConvert.DeserializeObject<DataTable>(result);
-                }
-            }
-            return responseObj;
-        }
-        public async Task<ActionResult> Pay()
-        {
-            var payment = new DMeServices.Models.Common.PaymentCom();
-            await payment.GetListAsync();
-
-            return View();
-        }
-        public ActionResult PayWithPost(int id)
-        {
-            string requestUrl = Request.Url.AbsoluteUri;
-            var _payment = DMeServices.Models.Common.BuildingServices.PaymentsCom.PaymentByID(id);
-            string totalAmountToPay = _payment.PaymentTotalAmount.ToString();
-            string amountType = _payment.PaymentType.ToString();
-            var result = DMeServices.Models.Common.PaymentCom.PayAmount(totalAmountToPay, amountType, requestUrl);
-            return Redirect(result.url.ToString());
-        }
         public ActionResult NewSupervision(bool showadd)
         {
             SupervisionViewModel oModel = new SupervisionViewModel();
@@ -102,17 +46,26 @@ namespace DMeServicesExternal.Web.Controllers
         private dynamic DDServiceType(bool showadd)
         {
             var userType = showadd ? 1 : 2;
-            
+
             List<SelectListItem> LstServices = new List<SelectListItem>();
             List<SupervisionServicesTypes> AllServices = SupervisionCom.AllServices(userType);
             if (AllServices.Count > 0)
             {
-                LstServices.Add(new SelectListItem() { Text = "أختر نوع الخدمة ", Value = "0" });
-                foreach (var item in AllServices)
+                if (userType == 1)
                 {
-                    LstServices.Add(new SelectListItem() { Text = item.ServiceNameAR, Value = item.ID.ToString() });
+                    foreach (var item in AllServices)
+                    {
+                        LstServices.Add(new SelectListItem() { Text = item.ServiceNameAR, Value = item.ID.ToString() });
+                    }
                 }
-
+                else
+                {
+                    LstServices.Add(new SelectListItem() { Text = "أختر نوع الخدمة ", Value = "0" });
+                    foreach (var item in AllServices)
+                    {
+                        LstServices.Add(new SelectListItem() { Text = item.ServiceNameAR, Value = item.ID.ToString() });
+                    }
+                }
             }
             return LstServices;
         }
@@ -137,36 +90,46 @@ namespace DMeServicesExternal.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult SaveNewSupervision(SupervisionViewModel oModel)
         {
-            if (ModelState.IsValid)
-            {
-                oModel.ListOfAttachments = (List<PermitsAttachments>)TempData["Attachments"];
-                TempData["Attachments"] = null;
-                if (isListOfAttachment(oModel.ListOfAttachments))
-                {
-                    oModel.PersonalCard.AttachmentTypeId = 1;
-                    oModel.KrokeFile.AttachmentTypeId = 2;
-                    oModel.OwnerFile.AttachmentTypeId = 3;
-                    oModel.ListOfAttachments.Add(oModel.PersonalCard);
-                    oModel.ListOfAttachments.Add(oModel.KrokeFile);
-                    oModel.ListOfAttachments.Add(oModel.OwnerFile);
-                    //oModel.BuildingPermits.LicenseNo = "ح / 5665";
-                    oModel.ListOfAttachments = SaveFiles(oModel);
-                    string result = SupervisionCom.SaveSupervision(oModel);
-                    ViewBag.TranseID = result;
-                    DMeServices.Models.Common.SmsCom.SendSms("968" + oModel.oUserInfo.MobileNo, ": تم تسليم طلبك بنجاح  لاستكمال طلب ترخيص البناء يجب دفع رسوم 20 ريال في بلدية صلالة  قسم التحصيل برقم المعاملة  " + result);
-                }
-                return View("SaveSupervisionSuccessPage");
-            }
-            else
-            {
-                return View("SaveSupervisionFailPage");
-            }
+            //if (ModelState.IsValid)
+            //{
+            oModel.ListOfAttachments = (List<PermitsAttachments>)TempData["Attachments"];
+            TempData["Attachments"] = null;
+            //if (isListOfAttachment(oModel.ListOfAttachments))
+            //{
+
+            oModel.ContractorCRFile.AttachmentTypeId = 41;
+            oModel.ContractorOwnerPersonalCard.AttachmentTypeId = 42;
+            oModel.ForemanPersonalCard.AttachmentTypeId = 43;
+            oModel.SupervisionLetter.AttachmentTypeId = 44;
+            oModel.SupervisionAgreement.AttachmentTypeId = 45;
+            oModel.ConstructionPermitApplication.AttachmentTypeId = 46;
+            oModel.PlotMarksForm.AttachmentTypeId = 47;
+            oModel.ProjectBoardForm.AttachmentTypeId = 48;
+            oModel.ListOfAttachments.Add(oModel.ContractorCRFile);
+            oModel.ListOfAttachments.Add(oModel.ContractorOwnerPersonalCard);
+            oModel.ListOfAttachments.Add(oModel.ForemanPersonalCard);
+            oModel.ListOfAttachments.Add(oModel.SupervisionLetter);
+            oModel.ListOfAttachments.Add(oModel.SupervisionAgreement);
+            oModel.ListOfAttachments.Add(oModel.ConstructionPermitApplication);
+            oModel.ListOfAttachments.Add(oModel.PlotMarksForm);
+            oModel.ListOfAttachments.Add(oModel.ProjectBoardForm);
+            //oModel.BuildingPermits.LicenseNo = "ح / 5665";
+            oModel.ListOfAttachments = SaveFiles(oModel);
+            string result = SupervisionCom.SaveSupervision(oModel);
+            ViewBag.TranseID = result;
+            DMeServices.Models.Common.SmsCom.SendSms("968" + oModel.oUserInfo.MobileNo, ": تم تسليم طلبك بنجاح رقم المعاملة  " + result);
+            //}
+            return View("SaveSupervisionSuccessPage");
+            //}
+            //else
+            //{
+            //    return View("SaveSupervisionFailPage");
+            //}
         }
 
         private bool isListOfAttachment(List<PermitsAttachments> listOfAttachments)
         {
             if (listOfAttachments.Count == 0 || listOfAttachments.Count > 20) return false;
-
             foreach (var Attachment in listOfAttachments)
             {
                 HttpPostedFileBase oFile = Attachment.File;
@@ -190,6 +153,27 @@ namespace DMeServicesExternal.Web.Controllers
             return View("Index");
         }
 
+        [HttpPost]
+        public ActionResult GetLicenseData(string licenseNo)
+        {
+            SupervisionViewModel oModel = new SupervisionViewModel
+            {
+                BuildingPermits = SupervisionCom.SupervisionsByLicenseNo(licenseNo)
+            };
+            TempData["Attachments"] = new List<PermitsAttachments>();
+            ViewBag.DDAttachmentsType = DDAttachmentTypes();
+
+            ViewBag.DDWelayat = DDWelayat();
+            ViewBag.DDRegion = DDRegionSaved(oModel.BuildingPermits.WelayahID);
+            ViewBag.DDServiceType = DDServiceType();
+            //ViewBag.DDArea = DDAreaSaved(oModel.BuildingPermits.RegionID);
+            ViewBag.DDBuildingTypes = DDBuildingTypes();
+            ViewBag.DDLandUseTypes = DdLandUseTypes();
+            ViewBag.DDSquareLetters = DdSquareLetters();
+            oModel.ListOfAttachments = PermitsAttachmentsCom.AttachmentsByPermitsID(oModel.BuildingPermits.Id, (int)oModel.BuildingPermits.OwnerCivilId);
+            return PartialView("_Details", oModel);
+        }
+
         public ActionResult SupervisionDetails(int id = -99)
         {
             SupervisionViewModel oModel = new SupervisionViewModel
@@ -211,42 +195,50 @@ namespace DMeServicesExternal.Web.Controllers
         }
 
         #region Method :: Display Files 
+        public ActionResult PdfPartial(int id)
+        {
+            ViewBag.Id = id;
+            return PartialView("_ViewFileToDownload");
+        }
 
+        public async Task<ActionResult> ShowModalDocument(int id)
+        {
+            string filePath;
+            if (id == 1)
+            {
+                filePath = "~/Files/1.pdf";
+            }
+            else if (id == 2)
+            {
+                filePath = "~/Files/2.pdf";
+            }
+            else 
+            { 
+                filePath = "~/Files/3.pdf"; 
+            }
 
+            var contentDisposition = new System.Net.Mime.ContentDisposition
+            {
+                FileName = "test.pdf",
+                Inline = true
+            };
+            Response.Headers.Add("Content-Disposition", contentDisposition.ToString());
+            return File(filePath, System.Net.Mime.MediaTypeNames.Application.Pdf);
+        }
         public ActionResult GetFile(int ID)
         {
             ViewBag.ID = ID;
-
             return PartialView("_ViewFile");
         }
 
-
-
-
         public ActionResult DisplayFiles(int Id = -99)
         {
-
-
-            //IExcelDataReader reader = null;
             PermitsAttachments Attachment = PermitsAttachmentsCom.AttachmentsByID(Id);
-
             string contentType = MimeMapping.GetMimeMapping(Attachment.AttachmentPath);
-
-
-
             if (Attachment != null)
             {
-
                 Stream stream = new MemoryStream(Attachment.AttachmentStream);
                 stream.Position = 0;
-                //    if (filepath.EndsWith(".xls"))
-                //    {
-                //        reader = ExcelReaderFactory.CreateBinaryReader(stream);
-                //    }
-                //    else if (filepath.EndsWith(".xlsx"))
-                //    {
-                //        reader = ExcelReaderFactory.CreateOpenXmlReader(stream);
-                //    }
                 if (Attachment.AttachmentName.EndsWith(".pdf"))
                 {
                     return new FileStreamResult(stream, contentType);
@@ -257,24 +249,11 @@ namespace DMeServicesExternal.Web.Controllers
                 }
                 else if (Attachment.AttachmentName.EndsWith(".png"))
                 {
-
                     return new FileStreamResult(stream, contentType);
-
                 }
-               
-
-
-
             }
-
-
-
             return new EmptyResult();
-
         }
-
-
-
         #endregion
 
         #region Method :: Display Details File
@@ -544,6 +523,16 @@ namespace DMeServicesExternal.Web.Controllers
                             Attachment.AttachmentName = sFilename;
                             sFilename = null;
                             break;
+                        case 41:
+                            sFilename = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + oFileInfo.Extension;
+                            StrPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/SupervisionFiles/" + oModel.BuildingPermits.OwnerCivilId.ToString()));
+                            sPath = System.IO.Path.Combine(StrPath.ToString());
+                            string SupUploadPath = string.Format("{0}\\{1}", sPath, sFilename);
+                            // oFile.SaveAs(StrUploadPath);
+                            Attachment.AttachmentPath = SupUploadPath;
+                            Attachment.AttachmentName = sFilename;
+                            sFilename = null;
+                            break;
 
                     }
                     MemoryStream stream = new MemoryStream();
@@ -556,13 +545,12 @@ namespace DMeServicesExternal.Web.Controllers
                     Attachment.InsertDate = DateTime.Now;
                     Attachment.CreatedBy = oModel.oUserInfo.FirstName;
                     Attachment.CreatedOn = DateTime.Now;
+
                     ListAttachments.Add(Attachment);
                 }
             }
             return ListAttachments;
-
         }
-
         #endregion
 
         #region Method :: Save Files
@@ -794,5 +782,66 @@ namespace DMeServicesExternal.Web.Controllers
 
         #endregion
 
+        #region Method :: Payment
+        public ActionResult LandProjects()
+        {
+            PermitsViewModel oModel = new PermitsViewModel();
+            oModel.ListBuildingPermits = PermitsCom.PermitsByLandOwnerCivilId(oModel.oUserInfo.CivilId);
+            oModel.ShowAdd = false;
+            return View("Index", oModel);
+        }
+        public ActionResult CompanyList()
+        {
+            var oModel = new CompaniesListViewModel();
+            return View(oModel);
+        }
+        public static async Task<DataTable> GetPaymentToken()
+        {
+            // Initialization.  
+            DataTable responseObj = new DataTable();
+
+            // HTTP GET.  
+            using (var client = new HttpClient())
+            {
+                // Setting Base address.  
+                client.BaseAddress = new Uri("https://www.dhofar.gov.om/ePaymentAPI/");
+
+                // Setting content type.  
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                // Initialization.  
+                HttpResponseMessage response = new HttpResponseMessage();
+
+                // HTTP GET  
+                response = await client.GetAsync("API/Paymentrequest/OpenPaymentRequest").ConfigureAwait(false);
+
+                // Verification  
+                if (response.IsSuccessStatusCode)
+                {
+                    // Reading Response.  
+                    string result = response.Content.ReadAsStringAsync().Result;
+                    responseObj = JsonConvert.DeserializeObject<DataTable>(result);
+                }
+            }
+            return responseObj;
+        }
+        public async Task<ActionResult> Pay()
+        {
+            var payment = new DMeServices.Models.Common.PaymentCom();
+            await payment.GetListAsync();
+
+            return View();
+        }
+        public ActionResult PayWithPost(int id)
+        {
+            string requestUrl = Request.Url.AbsoluteUri;
+            var _payment = DMeServices.Models.Common.BuildingServices.PaymentsCom.PaymentByID(id);
+            string totalAmountToPay = _payment.PaymentTotalAmount.ToString();
+            string amountType = _payment.PaymentType.ToString();
+            var result = DMeServices.Models.Common.PaymentCom.PayAmount(totalAmountToPay, amountType, requestUrl);
+            return Redirect(result.url.ToString());
+        }
+
+        #endregion
     }
 }

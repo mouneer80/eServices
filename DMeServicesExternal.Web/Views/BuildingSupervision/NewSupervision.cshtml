@@ -3,51 +3,40 @@
     ViewBag.Title = "NewSupervisionServiceRequest";
     Layout = "~/Views/Shared/_SubLayout.cshtml";
 }
-
-
-
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
 <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
-
-
-
 <script>
     $(document).ready(function () {
-
         var counter = 0;
-
         $("#addrow").on("click", function () {
             var newRow = $("<tr>");
             var cols = "";
             cols += '<td><select data-rel="chosen" style="width:75%;padding: 0px 12px;" class="form-control" name="AreaType' + counter + '"><option>منزل</option><option>فيلا</option><option>محل</option></select></td>';
             cols += '<td><input type="file" name="Attachment' + counter + '"/></td>';
             cols += '<td><textarea type="text" class="form-control" rows="1" name="phone' + counter + '"></textarea></td>';
-
             cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="حذف"></td>';
             newRow.append(cols);
             $("table.order-list").append(newRow);
             counter++;
         });
-
         $("table.order-list").on("click", ".ibtnDel", function (event) {
             $(this).closest("tr").remove();
             counter -= 1
         });
-
-
         function ClearInputs() {
             debugger;
             $('#FileNotes').text('');
             $('#FileUpload').text('');
-
         }
-
     });
-
 </script>
 
 <style>
+    .main-menu ul
+    {
+        z-index: 0;
+    }
     .form-group {
         margin-bottom: 2px;
     }
@@ -77,6 +66,19 @@
     #PaymentBankCode_chosen {
         width: 100% !important;
     }
+
+    .modal-dialog {
+        height: 90%; /* = 90% of the .modal-backdrop block = %90 of the screen */
+    }
+
+    .modal-content {
+        margin-top: 150px;
+        height: 70%; /* = 100% of the .modal-dialog block */
+    }
+
+    #PdfModal {
+        height: 100%;
+    }
 </style>
 
 
@@ -93,233 +95,228 @@
         </li>
     </ul>
 </div>
-<div class="col-lg-9 col-sm-9">
+
+<div class="col-lg-12 col-sm-12">
     <div class="row">
-
-
         @using (Html.BeginForm("SaveNewSupervision", "BuildingSupervision", FormMethod.Post, new { encType = "multipart/form-data", @id = "Permitsform" }))
         {
             @Html.AntiForgeryToken()
             @Html.HiddenFor(m => m.BuildingPermits.ConsultantCivilId);
             <div class="row">
-                <div class="form-group col-md-6">
-
+                <div class="form-group col-md-2">
                     <label class="control-label">نوع الطلب</label>
                     @Html.DropDownListFor(m => m.ServiceType.ServiceNameAR, (List<SelectListItem>)ViewBag.DDServiceType, new { style = "padding:0px", @class = "form-control", @data_rel = "chosen", id = "ServiceType" })
-
                 </div>
-
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-2">
                     <label class="control-label">
                         @Html.DisplayNameFor(m => m.BuildingPermits.LicenseNo)
                     </label>
                     @Html.TextBoxFor(m => m.BuildingPermits.LicenseNo, new { @class = "form-control", id = "LicenseNo", @placeholder = "رقم الترخيص" })
-                    @Html.ValidationMessageFor(m => m.BuildingPermits.LicenseNo, "", new { @style = "color:orange;" })
+                </div>
+                <div class="form-group col-md-1">
+                    <br />
+                    <input id="LicenseNoSearch" class="btn btn-primary" value="البحث" />
                 </div>
             </div>
-            <div class="row">
-                <div class="box col-md-12">
-                    <div class="form-group col-md-12">
-                        <h5>بيانات مكان قطعة الأرض</h5>
-                        <div class="form-group col-md-6">
+            <div id="divDetails">
+                @if (Model.BuildingPermits != null)
+                {
+                    Html.RenderPartial("_Details", Model);
+                }
+            </div>
 
-                            <label class="control-label">محافظة</label>
-                            <input class="form-control" placeholder="ظفار" readonly="readonly" />
-
-                        </div>
-                        <div class="form-group col-md-6">
-
-                            <label class="control-label">اسم الولاية</label>
-                            @Html.DropDownListFor(m => m.BuildingPermits.WelayahID, (List<SelectListItem>)ViewBag.DDWelayat, new { style = "padding:0px", @class = "form-control", @data_rel = "chosen", id = "Welayah" })
-
-                        </div>
-
-                        <div class="form-group col-md-6">
-
-                            <label class="control-label">اسم القرية / المنطقة</label>
-                            @Html.DropDownListFor(m => m.BuildingPermits.RegionID, new SelectList(string.Empty, "Value", "Text"), "-- اختر القرية / المنطقة --", new { style = "padding:0px", @class = "form-control", @data_rel = "chosen", id = "Region" })
-
-                        </div>
+            <div class="form-group col-lg-12">
+                <h5>المرفقات</h5>
+                <div class="form-group col-lg-4">
+                    <div class="col-lg-4">
+                        <label class="control-label">@Html.DisplayName("السجل التجاري للمقاول")</label>
                     </div>
-                    <div class="form-group col-md-12">
-                        <h5>بيانات مالك الارض</h5>
-                        <div class="form-group col-md-6">
-                            <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.OwnerName)</label>
-
-                            @Html.TextBoxFor(m => m.BuildingPermits.OwnerName, new { @class = "form-control", id = "OwnerName", @placeholder = "إسم المالك" })
-                            @Html.ValidationMessageFor(m => m.BuildingPermits.OwnerName, "", new { @style = "color:orange;" })
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label class="control-label">
-                                @Html.DisplayNameFor(m => m.BuildingPermits.OwnerCivilId)
-                            </label>
-                            @Html.TextBoxFor(m => m.BuildingPermits.OwnerCivilId, new { @class = "form-control", id = "OwnerCivilId", @placeholder = "الرقم المدني للمالك" })
-                            @Html.ValidationMessageFor(m => m.BuildingPermits.OwnerCivilId, "", new { @style = "color:orange;" })
-                        </div>
-
-                        <div class="form-group col-md-6">
-                            <label class="control-label">
-                                @Html.DisplayNameFor(m => m.BuildingPermits.OwnerPhoneNo)
-                            </label>
-                            @Html.TextBoxFor(m => m.BuildingPermits.OwnerPhoneNo, new { @class = "form-control", id = "OwnerPhoneNo", @placeholder = "الهاتف" })
-                            @Html.ValidationMessageFor(m => m.BuildingPermits.OwnerPhoneNo, "", new { @style = "color:orange;" })
-                        </div>
-                       
+                    <div class="col-lg-4">
+                        @Html.TextBoxFor(m => m.ContractorCRFile.File, new { @id = "ContractorCRFile", @type = "file", @class = "form-control", @onchange = "onchangeevent(this);" })
+                        @Html.ValidationMessageFor(m => m.ContractorCRFile.File, "", new { @style = "color:orange;" })
                     </div>
-                    <div class="form-group col-md-12">
-                        <h5>بيانات قطعة الأرض</h5>
-                        <div class="form-group col-md-6">
-                            <label class="control-label">
-                                @Html.DisplayNameFor(m => m.BuildingPermits.SquareLetterID)
-                            </label>
-                            @Html.DropDownList("SquareLetters", (List<SelectListItem>)ViewBag.DDSquareLetters, new { style = "padding:0px", @class = "form-control", @data_rel = "chosen", id = "SquareLetters" })
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label class="control-label">
-                                @Html.DisplayNameFor(m => m.BuildingPermits.DistrictNo)
-                            </label>
-                            @Html.TextBoxFor(m => m.BuildingPermits.DistrictNo, new { @class = "form-control", id = "DistrictNo", @placeholder = "رقم القطعة" })
-                            @Html.ValidationMessageFor(m => m.BuildingPermits.DistrictNo, "", new { @style = "color:orange;" })
-                        </div>
+                    <div class="col-lg-3">
+                        @*<label class="control-label">@Html.DisplayName("السجل التجاري لشركة/مؤسسة المقاولات")</label>*@
+                        @Html.TextBoxFor(m => m.ContractorCRFile.Description, new { @class = "form-control", @placeholder = "الرقم" })
+                        @Html.ValidationMessageFor(m => m.ContractorCRFile.Description, "", new { @style = "color:orange;" })
                     </div>
-                    <div class="form-group col-md-12">
-
-                        <div class="form-group col-md-6">
-                            <label class="control-label">
-                                @Html.DisplayNameFor(m => m.BuildingPermits.KrokiNO)
-                            </label>
-                            <div style="direction:ltr">
-                                @Html.TextBoxFor(m => m.BuildingPermits.KrokiNO, new { style = "width: 40px; display: inline", onkeyup = "moveCursor(this, KrokiNO2);", @maxlength = "2", @class = "form-control", id = "KrokiNO1", })
-                                @Html.TextBoxFor(m => m.BuildingPermits.KrokiNO, new { style = "width: 40px; display: inline", onkeyup = "moveCursor(this, KrokiNO3);", @maxlength = "2", @class = "form-control", id = "KrokiNO2", })
-                                @Html.TextBoxFor(m => m.BuildingPermits.KrokiNO, new { style = "width: 50px; display: inline", onkeyup = "moveCursor(this, KrokiNO4);", @maxlength = "3", @class = "form-control", id = "KrokiNO3", })
-                                @Html.TextBoxFor(m => m.BuildingPermits.KrokiNO, new { style = "width: 40px; display: inline", onkeyup = "moveCursor(this, KrokiNO5);", @maxlength = "2", @class = "form-control", id = "KrokiNO4", })
-                                @Html.TextBoxFor(m => m.BuildingPermits.KrokiNO, new { style = "width: 55px; display: inline", onkeyup = "moveCursor(this, KrokiNO);", @maxlength = "4", @class = "form-control", id = "KrokiNO5", })
-                                @Html.TextBoxFor(m => m.BuildingPermits.KrokiNO, new { @class = "form-control", @readonly = "readonly", id = "KrokiNO", @placeholder = "رقم الكروكي" })
-                                @Html.ValidationMessageFor(m => m.BuildingPermits.KrokiNO, "", new { @style = "color:orange;" })
-                            </div>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label class="control-label">
-                                @Html.DisplayNameFor(m => m.BuildingPermits.ConstructedArea)
-                            </label>
-                            @Html.TextBoxFor(m => m.BuildingPermits.ConstructedArea, new { @class = "form-control", id = "ConstructedArea", @placeholder = "المساحة المراد بنائها" })
-                            @Html.ValidationMessageFor(m => m.BuildingPermits.ConstructedArea, "", new { @style = "color:orange;" })
-                        </div>
+                    <div class="col-lg-1">
+                        <div id="ContractorCRFileLoader" class="loading" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader"></div>
+                        <span id="ContractorCRFileSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
                     </div>
-                    <div class="form-group col-md-12">
-                        <div class="form-group col-md-6">
-                            <label class="control-label">
-                                @Html.DisplayNameFor(m => m.BuildingPermits.ConstructionType)
-                            </label>
-                            @Html.DropDownList("DDLandUseTypes", (List<SelectListItem>)ViewBag.DDLandUseTypes, new { style = "padding:0px", @class = "form-control", @data_rel = "chosen", id = "LandUseTypes" })
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label class="control-label">نوع المبنى</label>
-                            @Html.DropDownList("BuildingTypes", (List<SelectListItem>)ViewBag.DDBuildingTypes, new { style = "padding:0px", @class = "form-control", @data_rel = "chosen", id = "BuildingTypes" })
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label class="control-label">
-                                @Html.DisplayNameFor(m => m.BuildingPermits.NumberOfFloors)
-                            </label>
-                            @Html.TextBoxFor(m => m.BuildingPermits.NumberOfFloors, new { @class = "form-control", id = "NumberOfFloors", @placeholder = "عدد الطوابق المراد بنائها" })
-                            @Html.ValidationMessageFor(m => m.BuildingPermits.NumberOfFloors, "", new { @style = "color:orange;" })
-                        </div>
-
-
+                </div>
+                <div class="form-group col-lg-4">
+                    <div class="col-lg-4">
+                        <label class="control-label">@Html.DisplayName("البطاقة الشخصية للمقاول")</label>
+                    </div>
+                    <div class="col-lg-4">
+                        @Html.TextBoxFor(m => m.ContractorOwnerPersonalCard.File, new { @type = "file", @id = "ContractorOwnerPersonalCard", @class = "form-control", @onchange = "onchangeevent(this);" })
+                        @Html.ValidationMessageFor(m => m.ContractorOwnerPersonalCard.File, "", new { @style = "color:orange;" })
+                    </div>
+                    <div class="col-lg-3">
+                        @*<label class="control-label">@Html.DisplayName("البطاقة الشخصية لمالك شركة المقاولات")</label>*@
+                        @Html.TextBoxFor(m => m.ContractorOwnerPersonalCard.Description, new { @class = "form-control", @placeholder = "الرقم" })
+                        @Html.ValidationMessageFor(m => m.ContractorOwnerPersonalCard.Description, "", new { @style = "color:orange;" })
+                    </div>
+                    <div class="col-lg-1">
+                        <div id="ContractorOwnerPersonalCardLoader" class="loading" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader"></div>
+                        <span id="ContractorOwnerPersonalCardSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
+                    </div>
+                </div>
+                <div class="form-group col-lg-4">
+                    <div class="col-lg-4">
+                        <label class="control-label">@Html.DisplayName("البطاقة الشخصية لمسؤول العمال")</label>
+                    </div>
+                    <div class="col-lg-4">
+                        @Html.TextBoxFor(m => m.ForemanPersonalCard.File, new { @type = "file", @id = "ForemanPersonalCard", @class = "form-control", @onchange = "onchangeevent(this);" })
+                        @Html.ValidationMessageFor(m => m.ForemanPersonalCard.File, "", new { @style = "color:orange;" })
+                    </div>
+                    <div class="col-lg-3">
+                        @*<label class="control-label">@Html.DisplayName("البطاقة الشخصية لمسؤول العمال")</label>*@
+                        @Html.TextBoxFor(m => m.ForemanPersonalCard.Description, new { @class = "form-control", @placeholder = "الرقم" })
+                        @Html.ValidationMessageFor(m => m.ForemanPersonalCard.Description, "", new { @style = "color:orange;" })
+                    </div>
+                    <div class="col-lg-1">
+                        <div id="ForemanPersonalCardLoader" class="loading" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader"></div>
+                        <span id="ForemanPersonalCardSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
                     </div>
                 </div>
             </div>
-            <br />
-            <h5> المرفقات الاساسية</h5>
-            <br />
 
-            <div class="form-group col-md-12">
-                <div class="col-sm-5" style="width:20%;">
-                    <span id="PersonalCardSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
-                </div>
-                <div class="col-sm-5" style="width:30%;">
-                </div>
-                <div class="col-sm-5" style="width:30%;">
-                    @Html.TextBoxFor(m => m.PersonalCard.File, new { @id = "PersonalFile", @type = "file", @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.PersonalCard.File, "", new { @style = "color:orange;" })
-                </div>
-                <div class="col-sm-5" style="width:20%;">
-                    <label class="control-label">
-                        @Html.DisplayName("البطاقة الشخصية")
-                    </label>
-                </div>
+            <div class="form-group col-lg-12">
+                <h5>التعهدات والاتفاقيات</h5>
+                <div class="form-group col-lg-4">
+                    <div class="col-lg-4">
+                        <label class="control-label">@Html.DisplayName("رسالة إشراف")</label>
+                    </div>
+                    <div class="col-lg-4">
+                        @Html.TextBoxFor(m => m.SupervisionLetter.File, new { @id = "SupervisionLetter", @type = "file", @class = "form-control", @onchange = "onchangeevent(this);" })
+                        @Html.ValidationMessageFor(m => m.SupervisionLetter.File, "", new { @style = "color:orange;" })
+                    </div>
 
-            </div>
-            <div class="form-group col-md-12">
-                <div class="col-sm-5" style="width:20%;">
-                    <span id="KrokeSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
+                    <div class="col-lg-1">
+                        <div id="SupervisionLetterLoader" class="loading" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader"></div>
+                        <span id="SupervisionLetterSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
+                    </div>
                 </div>
-                <div class="col-sm-5" style="width:30%;">
-                    @*@Html.TextBoxFor(m => m.KrokeFile.Description, new { @class = "form-control", @placeholder = "ملاحظات" })
-                        @Html.ValidationMessageFor(m => m.KrokeFile.Description, "", new { @style = "color:orange;" })*@
-                </div>
-                <div class="col-sm-5" style="width:30%;">
-                    @Html.TextBoxFor(m => m.KrokeFile.File, new { @type = "file", @id = "KrokeFile", @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.KrokeFile.File, "", new { @style = "color:orange;" })
-                </div>
-                <div class="col-sm-5" style="width:20%;">
-                    <label class="control-label">
-                        @Html.DisplayName("الكروكي")
-                    </label>
-                </div>
+                <div class="form-group col-lg-4">
+                    <div class="col-lg-4">
+                        <label class="control-label">@Html.DisplayName("اتفاقية الاشراف")</label>
+                    </div>
+                    <div class="col-lg-4">
+                        @Html.TextBoxFor(m => m.SupervisionAgreement.File, new { @type = "file", @id = "SupervisionAgreement", @class = "form-control", @onchange = "onchangeevent(this);" })
+                        @Html.ValidationMessageFor(m => m.SupervisionAgreement.File, "", new { @style = "color:orange;" })
+                    </div>
 
-            </div>
-            <div class="form-group col-md-12">
-                <div class="col-sm-5" style="width:20%;">
-                    <span id="ownerSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
-                </div>
-                <div class="col-sm-5" style="width:30%;">
-                    @*@Html.TextBoxFor(m => m.OwnerFile.Description, new { @class = "form-control", @placeholder = "ملاحظات" })
-                        @Html.ValidationMessageFor(m => m.OwnerFile.Description, "", new { @style = "color:orange;" })*@
-                </div>
-                <div class="col-sm-5" style="width:30%;">
-                    @Html.TextBoxFor(m => m.OwnerFile.File, new { @type = "file", @id = "OwnerFile", @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.OwnerFile.File, "", new { @style = "color:orange;" })
+                    <div class="col-lg-1">
+                        <div id="SupervisionAgreementLoader" class="loading" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader"></div>
+                        <span id="SupervisionAgreementSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
+                    </div>
 
                 </div>
-                <div class="col-sm-5" style="width:20%;">
-                    <label class="control-label">
-                        @Html.DisplayName("الملكية")
-                    </label>
-                </div>
+                <div class="form-group col-lg-4">
+                    <div class="col-lg-4">
+                        <label class="control-label">@Html.DisplayName("العلامات المساحية")</label>
+                    </div>
+                    <div class="col-lg-4">
+                        @Html.TextBoxFor(m => m.PlotMarksForm.File, new { @type = "file", @id = "PlotMarksForm", @class = "form-control", @onchange = "onchangeevent(this);" })
+                        @Html.ValidationMessageFor(m => m.PlotMarksForm.File, "", new { @style = "color:orange;" })
+                    </div>
+                    <div class="col-lg-3">
+                        @*<a class="modal-link" data-toggle="tooltip" title="Predogled"
+            data-url="@Url.Action("PdfPartial", "BuildingSupervision", new { id = 1 })"
+            onclick="showGenericModal(event);">تحميل الملف<i class="fa fa-eye-slash modal-link"></i></a>*@
+                        <a class="modal-link" href="@Url.Action("PdfPartial", new { @controller = "BuildingSupervision", @Id = 1 })">عرض الملف<i class="fa fa-eye-slash modal-link"></i></a>
+                    </div>
+                    <div class="col-lg-1">
+                        <div id="PlotMarksFormLoader" class="loading" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader"></div>
+                        <span id="PlotMarksFormSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
+                    </div>
 
+                </div>
             </div>
 
+            <div class="form-group col-lg-12">
+                <h5>الاستمارات</h5>
+                <div class="form-group col-lg-4">
+                    <div class="col-lg-4">
+                        <label class="control-label">@Html.DisplayName("طلب الشروع بالعمل")</label>
+                    </div>
+                    <div class="col-lg-4">
+                        @Html.TextBoxFor(m => m.ConstructionPermitApplication.File, new { @id = "ConstructionPermitApplication", @type = "file", @class = "form-control", @onchange = "onchangeevent(this);" })
+                        @Html.ValidationMessageFor(m => m.ConstructionPermitApplication.File, "", new { @style = "color:orange;" })
+                    </div>
+                    
+                    <div class="col-lg-3">
+                        <a class="modal-link" href="@Url.Action("PdfPartial", new { @controller = "BuildingSupervision", @Id = 2 })">عرض الملف<i class="fa fa-eye-slash modal-link"></i></a>
+                        @*<a class="modal-link" data-toggle="tooltip" title="Predogled"
+            data-url="@Url.Action("PdfPartial", "BuildingSupervision", new { id = 2 })"
+            onclick="showGenericModal(event);">تحميل الملف<i class="fa fa-eye-slash modal-link"></i></a>*@
+                    </div>
+                    <div class="col-lg-1">
+                        <div id="ConstructionPermitApplicationLoader" class="loading" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader"></div>
+                        <span id="ConstructionPermitApplicationSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
+                    </div>
+                </div>
+                <div class="form-group col-lg-4">
+                    <div class="col-lg-4">
+                        <label class="control-label">@Html.DisplayName("استمارة لوحة المشروع")</label>
+                    </div>
+                    <div class="col-lg-4">
+                        @Html.TextBoxFor(m => m.ProjectBoardForm.File, new { @type = "file", @id = "ProjectBoardForm", @class = "form-control", @onchange = "onchangeevent(this);" })
+                        @Html.ValidationMessageFor(m => m.ProjectBoardForm.File, "", new { @style = "color:orange;" })
+                    </div>
+                    <div class="col-lg-3">
+                        <a class="modal-link" href="@Url.Action("PdfPartial", new { @controller = "BuildingSupervision", @Id = 2 })">عرض الملف<i class="fa fa-eye-slash modal-link"></i></a>
+                        @*<a class="modal-link" data-toggle="tooltip" title="Predogled"
+        data-url="@Url.Action("PdfPartial", "BuildingSupervision", new { id = 2 })"
+        onclick="showGenericModal(event);">تحميل الملف<i class="fa fa-eye-slash modal-link"></i></a>*@
+                    </div>
+                    <div class="col-lg-1">
+                        <div id="ProjectBoardFormLoader" class="loading" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader"></div>
+                        <span id="ProjectBoardFormSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="form-group col-lg-12">
+            <h5> أضافة الخرائط</h5>
 
+            <div id="FileBrowse" class="form-group col-lg-8">
+                <div class="col-lg-5" style="width:20%;">-->
+            @*@Html.DropDownListFor(m => m.Attachments.AttachmentTypeId, (List<SelectListItem>)ViewBag.DDAttachmentsType, new { @class = "form-control dropdown-toggle", @style = "font-size:11px;", @id = "AttTypeId" })*@
+            @*@Html.ValidationMessageFor(m => m.Attachments.AttachmentTypeId, "", new { @style = "color:orange;" })*@
+            <!--</div>
+            <div class="col-lg-5" style="width:30%;">-->
+            @*@Html.TextBoxFor(m => m.Attachments.File, new { @type = "file", id = "MapFile", @name = "Files", @class = "form-control" })*@
+            @*@Html.ValidationMessageFor(m => m.Attachments.File, "", new { @style = "color:orange;" })*@
+            <!--</div>
+            <div class="col-lg-5" style="width:35%;">-->
+            @*@Html.TextBoxFor(m => m.Attachments.Description, new { @class = "form-control", id = "FileDescription", @placeholder = "ملاحظات" })*@
+            @*@Html.ValidationMessageFor(m => m.Attachments.Description, "", new { @style = "color:orange;" })*@
+            <!--</div>
+                    <div class="col-lg-1" style="width:15%;">
+                        <div id="divHere" style="float:left;display:none;">
+                            <img src="~/Content/ezgif.com-resize.gif" style="width:25%;" />
+                        </div>
+                        <input type="submit" id="SaveAttachment" name="SaveAttachment" class="btn btn-success" value="إضافة مرفق" />
+                        <div id="divLoader" class="loading" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader" /> </div>
+                    </div>
+                </div>
+                <div class="form-group col-lg-4">
+                    <div id="progressbar-5">
+                        <div class="progress-label">
 
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+            @*<div id="divAttachments" class="form-group col-lg-12">
+                    @if (Model.ListOfAttachments != null && Model.ListOfAttachments.Count > 0)
+                    {
+                        Html.RenderPartial("_ListAttachments", Model);
+                    }
+                </div>*@
         }
-        <br />
-        <h5> أضافة الخرائط</h5>
-        <br />
-
-        <div class="form-group col-md-12">
-
-            <div class="col-sm-1" style="width:15%;">
-                <input type="submit" id="SaveAttachment" name="SaveAttachment" class="btn " value="إضافة مرفق" />
-            </div>
-            <div class="col-sm-5" style="width:35%;">
-                @Html.TextBoxFor(m => m.Attachments.Description, new { @class = "form-control", id = "FileDescription", @placeholder = "ملاحظات" })
-                @Html.ValidationMessageFor(m => m.Attachments.Description, "", new { @style = "color:orange;" })
-
-            </div>
-
-            <div class="col-sm-5" style="width:30%;">
-                @Html.TextBoxFor(m => m.Attachments.File, new { @type = "file", id = "MapFile", @name = "Files", @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.Attachments.File, "", new { @style = "color:orange;" })
-            </div>
-
-            <div class="col-sm-5" style="width:20%;">
-                @Html.DropDownListFor(m => m.Attachments.AttachmentTypeId, (List<SelectListItem>)ViewBag.DDAttachmentsType, new { @class = "dropdown-toggle", @id = "AttTypeId" })
-                @Html.ValidationMessageFor(m => m.Attachments.AttachmentTypeId, "", new { @style = "color:orange;" })
-            </div>
-
-
-        </div>
     </div>
     <br />
     <br />
@@ -329,66 +326,107 @@
             Html.RenderPartial("_ListAttachments", Model);
         }
     </div>
-
     <br />
-
     <br />
-
     <button class="btn btn-primary" id="Save" onclick="return confirm('هل انت متاكد !');">
         <i class="glyphicon glyphicon-ok"></i> أرسال البيانات
     </button>
-
     <a style="float:left" href="@Url.Action( "Index","BuildingPermits")" class="btn btn-primary" role="button">الصفحة السابقة</a>
-
-
-    <!--<button type="submit" class="btn btn-success" style="margin-top:20px;"><i class="glyphicon glyphicon-ok"></i>حفظ البيانات</button>-->
-    @*<a href="Slaughter_Income.html" class="btn btn-warning pull-right" style="margin-top:20px;"><i class="glyphicon glyphicon-share-alt"></i>إلغاء</a>*@
-
-
 </div>
+<div class="modal fade" id="MainModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+
+
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+        $(function () {
+            $('body').on('click', '.modal-link', function (e) {
+
+                $(this).attr('data-target', '#MainModal');
+                e.preventDefault();
+                $("iframe").attr("src", $(this).attr('href'));
+                $(this).attr('data-toggle', 'modal');
+            });
+            // Attach listener to .modal-close-btn's so that when the button is pressed the modal dialog disappears
+            $('body').on('click', '.modal-close-btn', function () {
+
+                $('#MainModal').modal('hide');
+
+            });
+            //clear modal cache, so that new content can be loaded
+            $('#MainModal').on('hidden.bs.modal', function () {
+
+                $(this).removeData('bs.modal');
+            });
+
+            $(document).on("hidden.bs.modal", function (e) {
+                $(e.target).removeData("bs.modal").find(".modal-content").empty();
+            });
+
+            $('#CancelModal').on('click', function () {
+                return false;
+            });
+        });
+    </script>
 <script src="~/Scripts/jquery-1.10.2.js"></script>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+<script>
+    //function showGenericModal(event) {
+    //    var src = event.target || event.srcElement;
+
+    //    // find the parent that contains proper decorations
+    //    var url = $(src).closest("*[data-url]").data('url');
+
+    //    // trigger an HTTP GET
+    //    $.get(url, function (data) {
+    //        // fill content and show modal
+    //        $('#MainModal').html(data);
+    //        $('#MainModal').modal('show');
+    //    });
+    //}
+        @*$(function () {
+            var url ="@Url.Action("PdfPartial", "BuildingSupervision", new { id = 1 })";
+            console.log(url);
+            $('.modal-link').click(function () {
+                $.ajax({
+                    url:url,
+                    type: "GET",
+                    dataType: "html",
+                    success: function (data) {
+                        console.log(data);
+                        $('#MainModal').html(data);
+                        $('#MainModal').modal('show');
+                    }
+                })
+            });
+        });*@
+</script>
 <script type="text/javascript">
     function moveCursor(fromText, toText) {
         $("#KrokiNO").mask("99-99-999-99-9999");
-
         var currentval = $('#' + fromText.id).val();
         var length = fromText.value.length;
         var maxLength = fromText.maxLength;
-
-        //alert(currentval);
         if (length == maxLength) {
             document.getElementById(toText.id).focus();
             var krokivalue = $("#KrokiNO").val();
-            //var kroki5 = $("#KrokiNO5").val();
-
             if (krokivalue === '') {
-
                 $("#KrokiNO").val(currentval);
             } else {
-
                 $("#KrokiNO").val(krokivalue + '-' + currentval);
-                //$("#KrokiNO").on("blur", function () {
-
-                //    var last = $(this).val().substr($(this).val().indexOf("-") + 1);
-                //    if (last.length == 2) {
-                //        var move = $(this).val().substr($(this).val().indexOf("-") - 1, 1);
-                //        var lastfour = move + last;
-                //        var first = $(this).val().substr(0, 2);
-                //        $(this).val(first + '-' + lastfour);
-                //    }
-
-                //});
-
             }
-
-
         }
     }
     $("#KrokiNO").mask("99-99-999-99-9999");
     $("#KrokiNO").on("blur", function () {
-
         var last = $(this).val().substr($(this).val().indexOf("-") + 1);
         if (last.length == 2) {
             var move = $(this).val().substr($(this).val().indexOf("-") - 1, 1);
@@ -396,90 +434,12 @@
             var first = $(this).val().substr(0, 2);
             $(this).val(first + '-' + lastfour);
         }
-
     });
-
 </script>
 <script type="text/javascript">
-    //$(document).ready(function () {
-    //    $('#KrokiNO').keyup(function (event) {
-    //        addHyphen(this);
-    //    });
-    //});
-    //function addHyphen(element) {
-    //    let val = $(element).val().split('-').join(''); // Remove dash (-) if mistakenly entered.
-
-    //    let finalVal = val.match(/.{1,3}/g).join('-'); // Add (-) after 3rd every char.
-
-    //    $(element).val(finalVal);		// Update the input box. }
-    //$(document).ready(function () {
-    //    $("#KrokiNO").keyup(function (e) {
-    //        if ($(this).val().length === 14) return;
-    //        if (e.keyCode === 8 || e.keyCode === 37 || e.keyCode === 39) return;
-    //        let newStr = '';
-    //        let groups = $(this).val().split('-');
-    //        for (let i in groups) {
-    //            if (groups[i].length % 2 === 0) {
-    //                newStr += groups[i] + "-"
-    //            } else {
-    //                newStr += groups[i];
-    //            }
-    //        }
-    //        $(this).val(newStr);
-    //    });
-    //})
-    //$(function () {
-        //$("#KrokiNO").mask("99-99-999-99-9999");
-
-    //    $("#KrokiNO").on("blur", function () {
-
-    //        var last = $(this).val().substr($(this).val().indexOf("-") + 1);
-    //        var value = $(this).val();
-    //        if (value.length < 13) {
-
-    //            if (value.length + 1 == 2) {
-    //                $(this).val = $(this).val + '-';
-    //            }
-    //            //var move = $(this).val().substr($(this).val().indexOf("-") - 1, 1);
-
-    //            //var lastfour = move + last;
-    //            //var first = $(this).val().substr(0, 12);
-
-    //            //$(this).val(first + '-' + lastfour);
-    //        }
-    //    });
-    //function addHyphen(element) {
-    //    let ele = document.getElementById(element.id);
-    //    ele = ele.value.split('-').join('');    // Remove dash (-) if mistakenly entered.
-    //    var fristVal = ele.match(/.{1,2}/g).join('-');
-    //    var SecondVal = ele.match(/.{1,2}/g).join('-');
-    //    var thirdVal = ele.match(/.{1,3}/g).join('-');
-    //    var forthVal = ele.match(/.{1,2}/g).join('-');
-    //    var fifthVal = ele.match(/.{1,4}/g).join('-');
-
-    //    let finalVal = fristVal + SecondVal + thirdVal + forthVal + fifthVal;
-    //    document.getElementById(element.id).value = finalVal;
-    //}
     $(function () {
-        //$("#KrokiNO").mask("99-99-999-99-9999");
-
-        //$("#KrokiNO").on("blur", function () {
-
-        //    var last = $(this).val().substr($(this).val().indexOf("-") + 1);
-        //    if (last.length == 2) {
-        //        var move = $(this).val().substr($(this).val().indexOf("-") - 1, 1);
-        //        var lastfour = move + last;
-        //        var first = $(this).val().substr(0, 2);
-        //        $(this).val(first + '-' + lastfour);
-        //    }
-
-        //});
-
-        //Country Dropdown Selectedchange event
         $("#Welayah").change(function () {
-
             $("#Region").empty();
-
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("GetRegions")', // Calling json method
@@ -499,12 +459,10 @@
                     data: { id: $("#Region").val() },
                     // Get Selected Region ID.
                         success: function (areas) {
-
                         $.each(areas, function (i, area) {
                             $("#Area").append('<option value="' + area.Value + '">' + area.Text + '</option>');
                         });
 						$("[data-rel='chosen']").trigger("chosen:updated");
-
                     },
                     error: function (ex) {
                         alert('Failed to retrieve areas.' + ex);
@@ -534,7 +492,7 @@
                 success: function (areas) {
                     $.each(areas, function (i, area) {
                         $("#Area").append('<option value="' + area.Value + '">' +
-                             area.Text + '</option>');
+                            area.Text + '</option>');
                     });
                 },
                 error: function (ex) {
@@ -542,117 +500,93 @@
                 }
             });
             return false;
-        })
+        });
+        $("#LicenseNoSearch").click(function () {
+            var data = new FormData();
+            var url = "@Url.Action("GetLicenseData", "BuildingSupervision")";
+            data.append("LicenseNo", $("#LicenseNo").val());
+        $.ajax({
+            url: url,
+            type: "POST",
+            processData: false,
+            contentType: false,
+            data: data,
+            success: function (response) {
+                $('#divDetails').html(response)
+                //console.log(response);
+                //$('#OwnerName').val(response.companyOverview.companyNameArabic);
+            },
+            error: function (er) {
+                console.log(er);
+                $('#LicenseNoSearch').attr('disabled', true);
+            }
+        });
+    });
     });
 </script>
 <script>
     function ClearInputs() {
-
         $('#FileNotes').val('');
         $('#FileUpload').val('');
-
     }
-
     function OnFailure() {
         $('#txtMessageText').text('');
-
     }
-
     $("#Save").click(function () {
         $('#Permitsform').submit();
     });
 </script>
 
+<script>
+    function onchangeevent(textBox) {
+        var fileName = $('#' + textBox.id).val();
+        $('#' + textBox.id + 'Loader').css("display", "block");
+        if (fileName) { // returns true if the string is not empty
+            var filesize = ($('#' + textBox.id)[0].files[0].size);
+            //alert(fileize);
+            var valid_extensions = /(\.JPG|\.JPEG|\.PDF|\.PNG|\.jpg|\.jpeg|\.pdf|\.png)$/i;
+            if (valid_extensions.test(fileName) && filesize <= 3000000) {
+                console.log("Tst");
+                $('#' + textBox.id + 'Loader').css("display", "none");
+                $('#' + textBox.id + 'Span').css("display", "block");
+            }
+            else {
+                $('#' + textBox.id + 'Span').css("display", "none");
+            }
+            // alert(fileName + " was selected");
+        } else { // no file was selected
+
+            $('#' + textBox.id + 'Span').css("display", "none");
+            // alert("no file selected");
+        }
+    }
+    function ClearInputs() {
+        $('#FileNotes').val('');
+        $('#FileUpload').val('');
+    }
+    function OnFailure() {
+        $('#txtMessageText').text('');
+    }
+</script>
 
 <script>
     $(document).ready(function () {
         $('#SaveAttachment').attr('disabled', true);
         $("#AttTypeId option[value='0']").attr("disabled", "disabled");
-        $("#PersonalFile").change(function () {
-
-            var fileName = $("#PersonalFile").val();
-
-            if (fileName) { // returns true if the string is not empty
-             //   var fileize = (this.files[0].size);
-                //alert(fileize);
-                var valid_extensions = /(\.jpg|\.jpeg|\.pdf|\.png)$/i;
-                if (valid_extensions.test(fileName) ) {
-
-                    $('#PersonalCardSpan').css("display", "block");
-                }
-                else {
-                    $('#PersonalCardSpan').css("display", "none");
-                }
-                // alert(fileName + " was selected");
-            } else { // no file was selected
-                $('#PersonalCardSpan').css("display", "none");
-                // alert("no file selected");
-            }
-        });
-
-        $("#KrokeFile").change(function () {
-
-            var fileName = $("#KrokeFile").val();
-
-            if (fileName) { // returns true if the string is not empty
-            //    var fileize = (this.files[0].size);
-                //alert(fileize);
-                var valid_extensions = /(\.jpg|\.jpeg|\.pdf|\.png)$/i;
-                if (valid_extensions.test(fileName) ) {
-
-                    $('#KrokeSpan').css("display", "block");
-                }
-                else {
-                    $('#KrokeSpan').css("display", "none");
-                }
-                // alert(fileName + " was selected");
-            } else { // no file was selected
-                $('#KrokeSpan').css("display", "none");
-                // alert("no file selected");
-            }
-        });
-
-        $("#OwnerFile").change(function () {
-
-            var fileName = $("#OwnerFile").val();
-
-            if (fileName) { // returns true if the string is not empty
-               // var fileize = (this.files[0].size);
-                //alert(fileize);
-                var valid_extensions = /(\.jpg|\.jpeg|\.pdf|\.png)$/i;
-                if (valid_extensions.test(fileName) ) {
-
-                    $('#ownerSpan').css("display", "block");
-                }
-                else {
-                    $('#ownerSpan').css("display", "none");
-                }
-                // alert(fileName + " was selected");
-            } else { // no file was selected
-                $('#ownerSpan').css("display", "none");
-                // alert("no file selected");
-            }
-        });
-
         $("#MapFile").change(function () {
 
             var fileName = $("#MapFile").val();
 
-            if (fileName) { // returns true if the string is not empty
-              //  var fileize = (this.files[0].size);
-                //alert(fileize);
+            if (fileName) {
                 var valid_extensions = /(\.jpg|\.jpeg|\.pdf|\.png)$/i;
                 if (valid_extensions.test(fileName) && $("#AttTypeId").val() != "") {
-
                     $('#SaveAttachment').attr('disabled', false);
                 }
                 else {
                     $('#SaveAttachment').attr('disabled', true);
                 }
-                // alert(fileName + " was selected");
-            } else { // no file was selected
+            } else {
                 $('#SaveAttachment').attr('disabled', true);
-                // alert("no file selected");
             }
         });
 
@@ -660,9 +594,7 @@
 
             var fileName = $("#MapFile").val();
 
-            if (fileName) { // returns true if the string is not empty
-
-                //alert(fileize);
+            if (fileName) {
                 var valid_extensions = /(\.jpg|\.jpeg|\.gif|\.pdf|\.png)$/i;
                 if (valid_extensions.test(fileName) && $("#AttTypeId").val() != "") {
 
@@ -671,17 +603,13 @@
                 else {
                     $('#SaveAttachment').attr('disabled', true);
                 }
-                // alert(fileName + " was selected");
-            } else { // no file was selected
+            } else {
                 $('#SaveAttachment').attr('disabled', true);
-                // alert("no file selected");
             }
         });
 
         $("#SaveAttachment").click(function () {
-
         var data = new FormData();
-
         var files = $("#MapFile").get(0).files;
         if (files.length > 0) {
             data.append("MyAttached", files[0]);
@@ -704,10 +632,9 @@
                 $('#divAttachments').html(response)
             },
             error: function (er) {
-                swal(er);
+                console.log(er);
                 $('#SaveAttachment').attr('disabled', true);
             }
-
         });
     });
     });

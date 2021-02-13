@@ -23,7 +23,7 @@ namespace DMeServices.Models.ViewModels.Internal.Permits
 
                 if (oEmployeeInfo.IsEngineerHead)
                 {
-                    ListBuildingPermits = PermitsCom.GetAllPermitsByflowStatus(8);
+                    ListBuildingPermits = PermitsCom.AllPermits();
                 }
                 else
                 {
@@ -75,5 +75,9 @@ namespace DMeServices.Models.ViewModels.Internal.Permits
         public ServiceFeesDetails ServiceFeesDetails { get; set; }
         public Payments Payment { get; set; }
         public List<Payments> Payments { get; set; }
+
+
+        public Owners Owner { get; set; }
+        public List<Owners> ListOfOwners { get; set; }
     }
 }

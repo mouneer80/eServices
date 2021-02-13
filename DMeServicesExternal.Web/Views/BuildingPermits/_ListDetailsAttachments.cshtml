@@ -3,143 +3,142 @@
 
 
 
-<div class="box col-md-12">
-    <div id="divAttachments" class="row">
-
-
-        <div class="box-inner">
-            <div class="box-header well" data-original-title="">
-                <h2><i class="glyphicon glyphicon-edit"></i> المرفقات الاساسية</h2>
-            </div>
-            <div class="box-content">
-                <!--item details-->
-                <div class="">
-                    <table id="myTable" class=" table order-list">
-                        <thead>
-                            <tr>
-                                <td>نوع المرفق</td>
-                                <td>تاريخ الاضافة</td>
-                                <td>وقت الاضافة</td>
-                                <td></td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if (Model.ListOfAttachments != null)
-                            {
-
-                                foreach (var item in Model.ListOfAttachments)
+<div class="box col-lg-12">
+    <div id="divAttachments">
+        <div class="box col-lg-6">
+            <div class="box-inner">
+                <div class="box-header well" data-original-title="">
+                    <h2><i class="glyphicon glyphicon-edit"></i> المرفقات الاساسية</h2>
+                </div>
+                <div class="box-content">
+                    <!--item details-->
+                    <div class="">
+                        <table id="myTable" class=" table order-list">
+                            <thead>
+                                <tr>
+                                    <td>نوع المرفق</td>
+                                    <td>تاريخ الاضافة</td>
+                                    <td>وقت الاضافة</td>
+                                    <td></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.ListOfAttachments != null)
                                 {
 
-
-                                    if (item.AttachmentTypeId != 30 && (item.AttachmentTypeId <= 4 || item.AttachmentTypeId > 14))
+                                    foreach (var item in Model.ListOfAttachments)
                                     {
-                                        <tr>
-                                            <td class="col-sm-1" style="width:10%;">
-                                                @DMeServices.Models.Common.BuildingServices.AttachmentTypesCom.TypeByID((int)item.AttachmentTypeId).Name
-
-                                            </td>
-
-                                            <td class="col-sm-1" unprintable>
-
-                                                @item.InsertDate.ToShortDateString()
-
-                                            </td>
-
-                                            <td class="col-sm-1" unprintable>
-
-                                                @item.InsertDate.ToShortTimeString()
-
-                                            </td>
-                                            <td class="col-sm-1" unprintable>
-
-                                                <a class="modal-link" href="@Url.Action("GetFile", new { @controller = "BuildingPermits", @Id = item.Id })">عرض الملف<i class="fa fa-eye-slash modal-link"></i></a>
-
-                                            </td>
 
 
+                                        if (item.AttachmentTypeId != 30 && (item.AttachmentTypeId <= 4 || item.AttachmentTypeId > 14))
+                                        {
+                                            <tr>
+                                                <td class="col-lg-1" style="width:10%;">
+                                                    @DMeServices.Models.Common.BuildingServices.AttachmentTypesCom.TypeByID((int)item.AttachmentTypeId).Name
 
-                                        </tr>
+                                                </td>
+
+                                                <td class="col-lg-1" unprintable>
+
+                                                    @item.InsertDate.ToShortDateString()
+
+                                                </td>
+
+                                                <td class="col-lg-1" unprintable>
+
+                                                    @item.InsertDate.ToShortTimeString()
+
+                                                </td>
+                                                <td class="col-lg-1" unprintable>
+
+                                                    <a class="modal-link" href="@Url.Action("GetFile", new { @controller = "BuildingPermits", @Id = item.Id })">عرض الملف<i class="fa fa-eye-slash modal-link"></i></a>
+
+                                                </td>
+
+
+
+                                            </tr>
+                                        }
+
+
                                     }
-
 
                                 }
 
-                            }
-
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="10" style="text-align:center;"></td>
-                            </tr>
-                            <tr></tr>
-                        </tfoot>
-                    </table>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="10" style="text-align:center;"></td>
+                                </tr>
+                                <tr></tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <!--end of item details-->
                 </div>
-                <!--end of item details-->
             </div>
         </div>
-        <br />
+        <div class="box col-lg-6">
+            @if (Model.BuildingPermits != null && Model.BuildingPermits.WorkflowStatus == 20)
+            {
+                <div class="box">
+                    <div class="box-header well" data-original-title="">
+                        <h2><i class="glyphicon glyphicon-edit"></i>أضافة الخرائط الجديدة / المعدلة</h2>
+                    </div>
+                    <div class="box-content">
+                        <!--item details-->
+                        <div class="">
+                            <div id="FileBrowse" class="form-group col-lg-12">
 
 
-        @if (Model.BuildingPermits != null && Model.BuildingPermits.WorkflowStatus == 20)
-        {
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        @Html.DropDownListFor(m => m.Attachments.AttachmentTypeId, (List<SelectListItem>)ViewBag.DDAttachmentsType, new { @class = "form-control dropdown-toggle", @style = "font-size:11px;", @id = "AttTypeId" })
+                                        @Html.ValidationMessageFor(m => m.Attachments.AttachmentTypeId, "", new { @style = "color:orange;" })
+                                    </div>
+                                    <div class="col-lg-3">
+                                        @Html.TextBoxFor(m => m.Attachments.File, new { @type = "file", id = "MapFile", @name = "Files", @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.Attachments.File, "", new { @style = "color:orange;" })
+                                    </div>
 
-            <h5> أضافة الخرائط</h5>
-            <br />
-            <div class="row">
-                <div id="FileBrowse" class="form-group col-md-12">
 
-                    <div class="col-sm-1" style="width:15%;">
-                        <div id="divHere" style="float:left;display:none;">
-                            <img src="~/Content/ezgif.com-resize.gif" style="width:25%;" />
+                                    <div class="col-lg-3">
+                                        @Html.TextBoxFor(m => m.Attachments.Description, new { @class = "form-control", id = "FileDescription", @placeholder = "ملاحظات" })
+                                        @Html.ValidationMessageFor(m => m.Attachments.Description, "", new { @style = "color:orange;" })
+
+                                    </div>
+                                    <div class="col-lg-1">
+                                        <div id="divHere" style="float:left;display:none;">
+                                            <img src="~/Content/ezgif.com-resize.gif" style="width:25%;" />
+                                        </div>
+                                        <input type="submit" id="SaveAttachment" name="SaveAttachment" class="btn btn-success" value="إضافة مرفق" />
+                                        <div id="divLoader" class="loading" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader" /> </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div id="progressbar-5" class="row">
+                                    <div class="progress-label">
+
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
-                        <input type="submit" id="SaveAttachment" name="SaveAttachment" class="btn btn-success" value="إضافة مرفق" />
-                        <div id="divLoader" class="loading" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader" /> </div>
-                    </div>
-                    <div class="col-sm-5" style="width:35%;">
-                        @Html.TextBoxFor(m => m.Attachments.Description, new { @class = "form-control", id = "FileDescription", @placeholder = "ملاحظات" })
-                        @Html.ValidationMessageFor(m => m.Attachments.Description, "", new { @style = "color:orange;" })
-
-                    </div>
-
-                    <div class="col-sm-5" style="width:30%;">
-                        @Html.TextBoxFor(m => m.Attachments.File, new { @type = "file", id = "MapFile", @name = "Files", @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Attachments.File, "", new { @style = "color:orange;" })
-                    </div>
-
-                    <div class="col-sm-5" style="width:20%;">
-                        @Html.DropDownListFor(m => m.Attachments.AttachmentTypeId, (List<SelectListItem>)ViewBag.DDAttachmentsType, new { @class = "form-control dropdown-toggle", @style = "font-size:11px;", @id = "AttTypeId" })
-                        @Html.ValidationMessageFor(m => m.Attachments.AttachmentTypeId, "", new { @style = "color:orange;" })
-                    </div>
-
-
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-4">
-                    <div id="progressbar-5">
-                        <div class="progress-label">
-
-                        </div>
                     </div>
                 </div>
+            }
+        </div>
+
+        <div class="box col-lg-6">
+            <div id="divConsultatAttachments">
+                @{ Html.RenderPartial("_ConsultantAttachments", Model);}
             </div>
-            <br />
-            <br />
-            <br />
-        }
-
-        <div id="divConsultatAttachments" class="row">
-
-            @{ Html.RenderPartial("_ConsultantAttachments", Model);}
-            <br />
         </div>
-
-        <div id="divEngineerAttachments">
-            @{ Html.RenderPartial("_EngineerAttachments", Model);}
+        <div class="box col-lg-6">
+            <div id="divEngineerAttachments">
+                @{ Html.RenderPartial("_EngineerAttachments", Model);}
+            </div>
         </div>
-
-
     </div>
 
 </div>
@@ -158,7 +157,6 @@
         </div>
     </div>
 </div>
-
 
 
 <script type="text/javascript">
@@ -243,8 +241,14 @@ $(document).ready(function () {
         $("#SaveAttachment").click(function (e) {
 			var data = new FormData();
             var files = $("#MapFile").get(0).files;
-            var id =  $("#AttTypeId").val();
-			if (files.length > 0) {
+            var id = $("#AttTypeId").val();
+            var attType = $('#AttTypeId');
+            if (attType.val() == null || $('#AttTypeId').val() === '') {
+                console.log($('#AttTypeId').val());
+                alert("اختر اسم المرفق");
+                $('#AttTypeId').focus();
+                return false;
+            } else if (files.length > 0) {
 				data.append("MyAttached", files[0]);
 				data.append("AttTypeId", $("#AttTypeId").val());
 				data.append("FileDescription", $("#FileDescription").val());
@@ -283,7 +287,7 @@ $(document).ready(function () {
             $("#divLoader").hide();
             $("#divHere").hide();
             progressbar.show();
-            
+
             $("#progressbar-5").progressbar({
                 //value: false,
                 change: function () {

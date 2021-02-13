@@ -11,16 +11,16 @@ namespace DMeServices.Models.BuildingServices
     public  class BuildingPermits
     {
 
-        public long Id { get; set; }
+        public int Id { get; set; }
         public string TransactNo { get; set; }
         public string OwnerName { get; set; }
-        public Nullable<long> OwnerCivilId { get; set; }
+        public Nullable<int> OwnerCivilId { get; set; }
         public string OwnerPhoneNo { get; set; }
         public string DistrictName { get; set; }
         public Nullable<int> DistrictNo { get; set; }
         public string ConstructedArea { get; set; }
         public string NumberOfFloors { get; set; }
-        public long ConsultantCrNo { get; set; }
+        public int ConsultantCrNo { get; set; }
         public string ConstructionType { get; set; }
         public System.DateTime RequestDate { get; set; }
         public string CreatedBy { get; set; }
@@ -35,7 +35,7 @@ namespace DMeServices.Models.BuildingServices
         public Nullable<int> WorkflowStatus { get; set; }
         public Nullable<int> DmEngineerNo { get; set; }
         public string DmEngineerComments { get; set; }
-        public Nullable<long> ConsultantCivilId { get; set; }
+        public Nullable<int> ConsultantCivilId { get; set; }
         public Nullable<int> WelayahID { get; set; }
         public Nullable<int> RegionID { get; set; }
         public Nullable<int> SquareLetterID { get; set; }
@@ -59,6 +59,8 @@ namespace DMeServices.Models.BuildingServices
         public Payments BldPayments { get; set; }
         
         public ServiceFeesDetails ServiceFees { get; set; }
+        
+        public Owners PermitOwners { get; set; }
 
     }
 }

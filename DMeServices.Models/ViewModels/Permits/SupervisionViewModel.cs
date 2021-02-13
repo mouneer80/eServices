@@ -41,11 +41,29 @@ namespace DMeServices.Models.ViewModels.Permits
 
         public PermitsAttachments Attachments { get; set; }
 
-        public PermitsAttachments PersonalCard { get; set; }
+        public PermitsAttachments ContractorOwnerPersonalCard { get; set; }
 
-        public PermitsAttachments KrokeFile { get; set; }
+        public PermitsAttachments ContractorCRFile { get; set; }
 
-        public PermitsAttachments OwnerFile { get; set; }
+        public PermitsAttachments ConsultantCRFile { get; set; }
+
+        public PermitsAttachments ForemanPersonalCard { get; set; }
+
+        public PermitsAttachments SupervisionLetter { get; set; }
+
+        public PermitsAttachments SupervisionAgreement { get; set; }
+
+        public PermitsAttachments ContractorCommitments { get; set; }
+
+        public PermitsAttachments ConsultantCommitments { get; set; }
+
+        public PermitsAttachments PlotMarksForm { get; set; }
+
+        public PermitsAttachments ProjectBoardForm { get; set; }
+
+        public PermitsAttachments ConstructionPermitApplication { get; set; }
+
+
         public bool ShowAdd { get; set; }
     }
 }

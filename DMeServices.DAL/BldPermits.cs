@@ -20,18 +20,20 @@ namespace DMeServices.DAL
             this.BldPermitsAttachments = new HashSet<BldPermitsAttachments>();
             this.BldSupervisionServices = new HashSet<BldSupervisionServices>();
             this.BldPayment = new HashSet<BldPayment>();
+            this.BldTransactions = new HashSet<BldTransactions>();
+            this.BldOwners = new HashSet<BldOwners>();
         }
     
-        public long Id { get; set; }
+        public int Id { get; set; }
         public string TransactNo { get; set; }
         public string OwnerName { get; set; }
-        public Nullable<long> OwnerCivilId { get; set; }
+        public Nullable<int> OwnerCivilId { get; set; }
         public string OwnerPhoneNo { get; set; }
         public string DistrictName { get; set; }
         public Nullable<int> DistrictNo { get; set; }
         public string ConstructedArea { get; set; }
         public string NumberOfFloors { get; set; }
-        public long ConsultantCrNo { get; set; }
+        public int ConsultantCrNo { get; set; }
         public string ConstructionType { get; set; }
         public System.DateTime RequestDate { get; set; }
         public string CreatedBy { get; set; }
@@ -46,7 +48,7 @@ namespace DMeServices.DAL
         public Nullable<int> WorkflowStatus { get; set; }
         public Nullable<int> DmEngineerNo { get; set; }
         public string DmEngineerComments { get; set; }
-        public Nullable<long> ConsultantCivilId { get; set; }
+        public Nullable<int> ConsultantCivilId { get; set; }
         public Nullable<int> WelayahID { get; set; }
         public Nullable<int> RegionID { get; set; }
         public Nullable<int> SquareLetterID { get; set; }
@@ -73,5 +75,9 @@ namespace DMeServices.DAL
         public virtual ICollection<BldSupervisionServices> BldSupervisionServices { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BldPayment> BldPayment { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BldTransactions> BldTransactions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BldOwners> BldOwners { get; set; }
     }
 }

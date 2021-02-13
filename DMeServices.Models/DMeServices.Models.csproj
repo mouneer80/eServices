@@ -118,6 +118,7 @@
     <Compile Include="MetaData\BuildingServices\Meta_Surveys.cs" />
     <Compile Include="Models\BuildingServices\AreaSurvey.cs" />
     <Compile Include="Models\BuildingServices\BuildingSupervision.cs" />
+    <Compile Include="Models\BuildingServices\Owners.cs" />
     <Compile Include="Models\BuildingServices\SupervisionServicesTypes.cs" />
     <Compile Include="Models\BuildingServices\LandSurvey.cs" />
     <Compile Include="Models\BuildingServices\LandUseTypes.cs" />

@@ -22,140 +22,40 @@
                 <tbody>
                     @if (Model.ListOfAttachmentDetails != null)
                     {
-
                         foreach (var item in Model.ListOfAttachmentDetails)
                         {
-                    <tr>
-                        <td class="col-sm-1" style="width:10%;">
-                            @DMeServices.Models.Common.BuildingServices.AttachmentTypesCom.TypeByID((int)@item.AttachmentTypeId).Name
-
-                        </td>
-
-
-
-
-
-                        @if (item.DmEngineerNo != null)
-    {
-
-        var Engineer = DMeServices.Models.Common.EmployeeCom.EmployeeByID(item.DmEngineerNo.ToString());
-
-        if (Engineer != null)
-        {
-                    <td class="col-sm-1" style="width:5%;">
-                        @Engineer.NAME
-                    </td>
-}
-
-
-
-}
-else
-{
-                    <td class="col-sm-1" style="width:5%;">
-                        لايوجد
-                    </td>
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-                        @*@if (item.DmEngineerNo != null)
-        {
-        <td class="col-sm-1" unprintable>
-            المهندس
-        </td>
-
-
-        var Engineer = DMeServices.Models.Common.EmployeeCom.EmployeeByID(item.DmEngineerNo.ToString());
-
-        if (Engineer != null)
-        {
-        <td class="col-sm-1" style="width:5%;">
-            @Engineer.NAME
-        </td>
-        }
-        else
-        {
-        <td class="col-sm-1" style="width:5%;">
-            لايوجد
-        </td>
-        }
-
-
-
-        }
-        else if (item.ConsultantCivilId != null)
-        {
-
-
-        <td class="col-sm-1" unprintable>
-            الاستشاري
-        </td>
-
-
-        var user = DMeServices.Models.Common.UserCom.UserByCivilID((int)item.ConsultantCivilId);
-
-        if (user != null)
-        {
-        <td class="col-sm-1" style="width:5%;">
-            @user.FirstName
-        </td>
-        }
-        else
-        {
-        <td class="col-sm-1" style="width:5%;">
-            لايوجد
-        </td>
-        }
-
-
-
-
-
-        }*@
-
-                        <td class="col-sm-1" unprintable>
-
-                            @item.InsertDate.ToShortDateString()
-
-                        </td>
-
-                        <td class="col-sm-1" unprintable>
-
-                            @item.InsertDate.ToShortTimeString()
-
-                        </td>
-                        <td class="col-sm-1" unprintable>
-
-
-
-                            <a class="modal-link" href="@Url.Action("GetDetailsFile", new { @controller = "BuildingPermits", @Id = item.Id })">عرض الملف<i class="fa fa-eye-slash"></i></a>
-
-                        </td>
-
-                        @*<td class="col-sm-1" unprintable>
-
-
-
-            <a class="modal-link" href="@Url.Action("EditPDFFile", new { @controller = "BuildingPermits", @Id = item.Id })">تعديل الملف<i class="fa fa-eye-slash"></i></a>
-
-        </td>*@
-                    </tr>
-
+                            <tr>
+                                <td class="col-sm-1" style="width:10%;">
+                                    @DMeServices.Models.Common.BuildingServices.AttachmentTypesCom.TypeByID((int)@item.AttachmentTypeId).Name
+                                </td>
+                                @if (item.DmEngineerNo != null)
+                                {
+                                    var Engineer = DMeServices.Models.Common.EmployeeCom.EmployeeByID(item.DmEngineerNo.ToString());
+                                    if (Engineer != null)
+                                    {
+                                        <td class="col-sm-1" style="width:5%;">
+                                            @Engineer.NAME
+                                        </td>
+                                    }
+                                }
+                                else
+                                {
+                                    <td class="col-sm-1" style="width:5%;">
+                                        لايوجد
+                                    </td>
+                                }
+                                <td class="col-sm-1" unprintable>
+                                    @item.InsertDate.ToShortDateString()
+                                </td>
+                                <td class="col-sm-1" unprintable>
+                                    @item.InsertDate.ToShortTimeString()
+                                </td>
+                                <td class="col-sm-1" unprintable>
+                                    <a class="modal-link" href="@Url.Action("GetDetailsFile", new { @controller = "BuildingPermits", @Id = item.Id })">عرض الملف<i class="fa fa-eye-slash"></i></a>
+                                </td>
+                            </tr>
                         }
-
                     }
-
                 </tbody>
                 <tfoot>
                     <tr>
@@ -168,3 +68,4 @@ else
         <!--end of item details-->
     </div>
 </div>
+

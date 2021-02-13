@@ -132,12 +132,24 @@ namespace DMeServices.Models.Common.BuildingServices
         #endregion
 
         #region Method :: Supervision By CivilId
-        public static List<BuildingSupervision> SupervisionsByConsultantCivilId(long civilId)
+        public static List<BuildingSupervision> SupervisionsByConsultantCivilId(int civilId)
         {
             using (var db = new eServicesEntities())
             {
                 List<BldSupervisionServices> bldSupervisionServices = db.BldSupervisionServices.Where(x => x.BldPermits.ConsultantCivilId == civilId).OrderByDescending(x => x.BldPermits.Id).Include(y => y.BldPermits.BldPermitsAttachments).OrderByDescending(x => x.BldPermits.Id).ToList();
                 var BuildingSupervision = Mapper.Map<List<BldSupervisionServices>, List<BuildingSupervision>>(bldSupervisionServices);
+                return BuildingSupervision;
+            }
+        }
+
+        public static BuildingPermits SupervisionsByLicenseNo(string licenseNo)
+        {
+            using (var db = new eServicesEntities())
+            {
+                var id = db.BldPermits.Where(x => x.LicenseNo == licenseNo).SingleOrDefault().Id;
+                var bldSupervisionServices = db.BldPermits.Where(x => x.Id == id).Include(y => y.BldPermitsAttachments).SingleOrDefault();
+                var BuildingSupervision = Mapper.Map<BldPermits, BuildingPermits>(bldSupervisionServices);
+
                 return BuildingSupervision;
             }
         }
@@ -191,19 +203,16 @@ namespace DMeServices.Models.Common.BuildingServices
         #endregion
 
         #region Method :: Save Supervision 
-
-
         public static string SaveSupervision(SupervisionViewModel oModel)
         {
             using (var db = new eServicesEntities())
             {
-                var bldSupervisionServices = new BldSupervisionServices();
+                var _BldSupervisionServices = new BldSupervisionServices();
                 try
                 {
+                    _BldSupervisionServices = db.BldSupervisionServices.SingleOrDefault(x => x.ID == oModel.BuildingSupervision.ID || x.TransactNo == oModel.BuildingSupervision.TransactNo);
 
-                    bldSupervisionServices = db.BldSupervisionServices.SingleOrDefault(x => x.ID == oModel.BuildingSupervision.ID || x.TransactNo == oModel.BuildingSupervision.TransactNo);
-
-                    if (bldSupervisionServices != null)
+                    if (_BldSupervisionServices != null)
                     {
                         return null;
                     }
@@ -211,48 +220,42 @@ namespace DMeServices.Models.Common.BuildingServices
                     {
                         return null;
                     }
-
-
-
-                    bldSupervisionServices = Mapper.Map<BuildingSupervision, BldSupervisionServices>(oModel.BuildingSupervision);
-                    bldSupervisionServices.TransactNo = GenTransactNo();
-                    bldSupervisionServices.BldPermits.ConsultantCrNo = (long)oModel.oUserInfo.ConsultantCrNo;
-                    bldSupervisionServices.BldPermits.ConsultantCivilId = (long)oModel.oUserInfo.CivilId;
-                    bldSupervisionServices.CreatedBy = oModel.oUserInfo.FullName;
-                    bldSupervisionServices.CreatedOn = DateTime.Now.Date;
-                    bldSupervisionServices.RequestDate = DateTime.Now.Date;
-                    bldSupervisionServices.Status = 8;
-                    db.BldSupervisionServices.Add(bldSupervisionServices);
+                    _BldSupervisionServices = Mapper.Map<BuildingSupervision, BldSupervisionServices>(oModel.BuildingSupervision);
+                    _BldSupervisionServices.TransactNo = GenTransactNo();
+                    _BldSupervisionServices.BldPermitID = oModel.BuildingPermits.Id;
+                    _BldSupervisionServices.ServiceTypeID = oModel.ServiceType.ID;
+                    _BldSupervisionServices.KrokiNO = oModel.BuildingPermits.KrokiNO;
+                    _BldSupervisionServices.OwnerCivilId = (int)oModel.BuildingPermits.OwnerCivilId;
+                    _BldSupervisionServices.LicenseNo = oModel.BuildingPermits.LicenseNo;
+                    _BldSupervisionServices.OwnerName = oModel.BuildingPermits.OwnerName;
+                    _BldSupervisionServices.OwnerPhoneNo = oModel.BuildingPermits.OwnerPhoneNo;
+                    //_BldSupervisionServices.BldPermits.ConsultantCrNo = (int)oModel.oUserInfo.ConsultantCrNo;
+                    _BldSupervisionServices.ConsultantCivilId = oModel.oUserInfo.CivilId;
+                    _BldSupervisionServices.CreatedBy = oModel.oUserInfo.FullName;
+                    _BldSupervisionServices.CreatedOn = DateTime.Now.Date;
+                    _BldSupervisionServices.RequestDate = DateTime.Now.Date;
+                    _BldSupervisionServices.Status = 8;
+                    db.BldSupervisionServices.Add(_BldSupervisionServices);
                     db.SaveChanges();
                     if (oModel.ListOfAttachments != null)
                     {
                         var lstAttachments = Mapper.Map<List<PermitsAttachments>, List<BldPermitsAttachments>>(oModel.ListOfAttachments);
                         foreach (var file in lstAttachments)
                         {
-                            file.BldPermitId = bldSupervisionServices.BldPermits.Id;
-                            file.Description = bldSupervisionServices.TransactNo;
+                            file.BldPermitId = _BldSupervisionServices.BldPermits.Id;
+                            file.Description = _BldSupervisionServices.TransactNo;
                             db.BldPermitsAttachments.Add(file);
                             db.SaveChanges();
                         }
-
                     }
-
-                    return bldSupervisionServices.TransactNo;
-
+                    return _BldSupervisionServices.TransactNo;
                 }
-
                 catch (Exception ex)
                 {
                     throw ex;
                 }
-
             }
-
         }
-
-
-
-
         #endregion
 
         #region Method :: Save Engineer Supervisions 

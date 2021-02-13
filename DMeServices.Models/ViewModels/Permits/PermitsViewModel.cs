@@ -19,10 +19,9 @@ namespace DMeServices.Models.ViewModels.Permits
             if (HttpContext.Current.Session["UserInfo"] != null)
             {
                 oUserInfo = (User)HttpContext.Current.Session["UserInfo"];
-                long userCRNO = (long)UserCom.UserByCivilID(oUserInfo.CivilId).ConsultantCrNo;
+                int userCRNO = UserCom.UserByCivilID(oUserInfo.CivilId).ConsultantCrNo;
                 BuildingPermits = new BuildingPermits { ConsultantCivilId = oUserInfo.CivilId, ConsultantCrNo = userCRNO };
             }
-
         }
 
         public User oUserInfo { get; set; }
@@ -80,6 +79,9 @@ namespace DMeServices.Models.ViewModels.Permits
         public ServiceFeesDetails ServiceFeesDetails { get; set; }
         public Payments Payment { get; set; }
         public List<Payments> Payments { get; set; }
+
+        public Owners Owner { get; set; }
+        public List<Owners> ListOfOwners { get; set; }
 
     }
 }

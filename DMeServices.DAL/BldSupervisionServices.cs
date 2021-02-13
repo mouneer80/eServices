@@ -15,10 +15,10 @@ namespace DMeServices.DAL
     public partial class BldSupervisionServices
     {
         public int ID { get; set; }
-        public long BldPermitID { get; set; }
+        public int BldPermitID { get; set; }
         public int ServiceTypeID { get; set; }
         public int Status { get; set; }
-        public long OwnerCivilId { get; set; }
+        public int OwnerCivilId { get; set; }
         public string KrokiNO { get; set; }
         public string OwnerName { get; set; }
         public string OwnerPhoneNo { get; set; }
@@ -29,7 +29,7 @@ namespace DMeServices.DAL
         public string LicenseNo { get; set; }
         public Nullable<int> DmEngineerNo { get; set; }
         public string DmEngineerComments { get; set; }
-        public Nullable<long> ConsultantCivilId { get; set; }
+        public Nullable<int> ConsultantCivilId { get; set; }
         public System.DateTime RequestDate { get; set; }
         public string TransactNo { get; set; }
         public string DmFileNumber { get; set; }

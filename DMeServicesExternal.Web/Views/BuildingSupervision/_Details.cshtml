@@ -1,0 +1,130 @@
+﻿@model DMeServices.Models.ViewModels.Permits.SupervisionViewModel
+
+
+<div class="box-inner">
+    <div class="box-content">
+        <div class="row">
+            <div class="form-group col-lg-4">
+                <h5>بيانات مالك الارض</h5>
+                <div class="form-group col-lg-4">
+                    <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.OwnerName)</label>
+                    @Html.TextBoxFor(m => m.BuildingPermits.OwnerName, new { @readonly = "readonly", @class = "form-control", id = "OwnerName", @placeholder = "إسم المالك" })
+                </div>
+                <div class="form-group col-lg-4">
+                    <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.OwnerCivilId)</label>
+                    @Html.TextBoxFor(m => m.BuildingPermits.OwnerCivilId, new { @readonly = "readonly", @class = "form-control", id = "OwnerCivilId", @placeholder = "الرقم المدني للمالك" })
+                </div>
+                <div class="form-group col-lg-4">
+                    <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.OwnerPhoneNo)</label>
+                    @Html.TextBoxFor(m => m.BuildingPermits.OwnerPhoneNo, new { @readonly = "readonly", @class = "form-control", id = "OwnerPhoneNo", @placeholder = "الهاتف" })
+                </div>
+            </div>
+            <div class="form-group col-lg-4">
+                <h5>بيانات مكان قطعة الأرض</h5>
+                <div class="form-group col-lg-3">
+                    <label class="control-label">محافظة</label>
+                    <input class="form-control" placeholder="ظفار" readonly="readonly" />
+                </div>
+                <div class="form-group col-lg-3">
+                    <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.WelayahID)</label>
+                    @Html.DropDownListFor(m => m.BuildingPermits.WelayahID, (List<SelectListItem>)ViewBag.DDWelayat, new { @disabled = "disabled", style = "padding:0px", @class = "form-control", @data_rel = "chosen", id = "Welayah" })
+                </div>
+                <div class="form-group col-lg-3">
+                    <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.RegionID)</label>
+                    @Html.DropDownListFor(m => m.BuildingPermits.RegionID, (List<SelectListItem>)ViewBag.DDRegion, new { @disabled = "disabled", style = "padding:0px", @class = "form-control", @data_rel = "chosen", id = "Region" })
+                </div>
+                <div class="form-group col-lg-3">
+                    <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.SquareLetterID)</label>
+                    @Html.DropDownListFor(m => m.BuildingPermits.SquareLetterID, (List<SelectListItem>)ViewBag.DDSquareLetters, new { @disabled = "disabled", style = "padding:0px", @class = "form-control", @data_rel = "chosen", id = "SquareLetter" })
+                </div>
+            </div>
+            <div class="form-group col-lg-12">
+                <h5>بيانات قطعة الأرض</h5>
+
+                <div class="form-group col-lg-2">
+                    <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.DistrictNo)</label>
+                    @Html.TextBoxFor(m => m.BuildingPermits.DistrictNo, new { @readonly = "readonly", @class = "form-control", id = "DistrictNo", @placeholder = "رقم القطعة" })
+                </div>
+                <div class="form-group col-lg-2">
+                    <label class="control-label">
+                        @Html.DisplayNameFor(m => m.BuildingPermits.LandArea)
+                    </label>
+                    @Html.TextBoxFor(m => m.BuildingPermits.LandArea, new { @readonly = "readonly", @class = "form-control", id = "LandArea", @placeholder = "المساحة الكلية لقطعة الأرض" })
+                    @Html.ValidationMessageFor(m => m.BuildingPermits.LandArea, "", new { @style = "color:orange;" })
+                </div>
+
+                <div class="form-group col-lg-3">
+                    <label class="control-label">
+                        @Html.DisplayNameFor(m => m.BuildingPermits.KrokiNO)
+                    </label>
+                    @Html.TextBoxFor(m => m.BuildingPermits.KrokiNO, new { @readonly = "readonly", @class = "form-control", id = "KrokiNO", @placeholder = "رقم الكروكي" })
+                    @Html.ValidationMessageFor(m => m.BuildingPermits.KrokiNO, "", new { @style = "color:orange;" })
+                </div>
+                <div class="form-group col-lg-2">
+                    <label class="control-label">
+                        @Html.DisplayNameFor(m => m.BuildingPermits.LandDeedReceiptNo)
+                    </label>
+                    @Html.TextBoxFor(m => m.BuildingPermits.LandDeedReceiptNo, new { @readonly = "readonly", @class = "form-control", id = "LandDeedReceiptNo", @placeholder = "رقم ايصال سند الملكية" })
+                    @Html.ValidationMessageFor(m => m.BuildingPermits.LandDeedReceiptNo, "", new { @style = "color:orange;" })
+                </div>
+                <div class="form-group col-lg-3">
+                    <label class="control-label">
+                        @Html.DisplayNameFor(m => m.BuildingPermits.LandDeedReceiptDate)
+                    </label>
+                    @Html.TextBoxFor(m => m.BuildingPermits.LandDeedReceiptDate, new { @readonly = "readonly", @class = "form-control", id = "LandDeedReceiptDate", @placeholder = "تاريخ ايصال سند الملكية" })
+                    @Html.ValidationMessageFor(m => m.BuildingPermits.LandDeedReceiptDate, "", new { @style = "color:orange;" })
+                </div>
+            </div>
+            <div class="form-group col-lg-12">
+                <h5>بيانات ترخيص البناء</h5>
+                <div class="form-group col-lg-3">
+                    <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.LicenseNo)</label>
+                    @Html.TextBoxFor(m => m.BuildingPermits.LicenseNo, new { @readonly = "readonly", @class = "form-control", id = "LicenseNo", @placeholder = "رقم الترخيص" })
+                </div>
+                <div class="form-group col-lg-2">
+                    <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.ConstructedArea)</label>
+                    @Html.TextBoxFor(m => m.BuildingPermits.ConstructedArea, new { @readonly = "readonly", @class = "form-control", id = "ConstructedArea", @placeholder = "المساحة المراد بنائها" })
+                </div>
+
+                <div class="form-group col-lg-2">
+                    <label class="control-label">
+                        @Html.DisplayNameFor(m => m.BuildingPermits.ConstructionType)
+                    </label>
+                    @Html.DropDownListFor(m => m.BuildingPermits.UseTypeID, (List<SelectListItem>)ViewBag.DDLandUseTypes, new { @disabled = "disabled", style = "padding:0px", @class = "form-control", @data_rel = "chosen", @id = "LandUseTypes" })
+                </div>
+                <div class="form-group col-lg-3">
+                    <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.BuildingTypeID)</label>
+                    @Html.DropDownListFor(m => m.BuildingPermits.BuildingTypeID, (List<SelectListItem>)ViewBag.DDBuildingTypes, new { @disabled = "disabled", style = "padding:0px", @class = "form-control", @data_rel = "chosen", @id = "BuildingTypes" })
+                </div>
+                <div class="form-group col-lg-2">
+                    <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.NumberOfFloors)</label>
+                    @Html.TextBoxFor(m => m.BuildingPermits.NumberOfFloors, new { @readonly = "readonly", @class = "form-control", id = "NumberOfFloors", @placeholder = "عدد الطوابق المراد بنائها" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="box col-md-12">
+                <h5> المرفقات الاساسية</h5>
+                <br />
+                @{ Html.RenderPartial("_ListDetailsAttachments", Model);}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="MainModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+

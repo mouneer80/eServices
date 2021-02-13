@@ -12,6 +12,19 @@
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
         </EntityType>
+        <EntityType Name="BldAudits">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TableName" Type="nvarchar" MaxLength="50" />
+          <Property Name="FieldName" Type="nvarchar" MaxLength="50" />
+          <Property Name="RecordId" Type="int" />
+          <Property Name="OldValue" Type="nvarchar(max)" />
+          <Property Name="NewValue" Type="nvarchar(max)" />
+          <Property Name="AddBy" Type="int" />
+          <Property Name="AddDate" Type="date" />
+        </EntityType>
         <EntityType Name="BldBuildingTypes">
           <Key>
             <PropertyRef Name="ID" />
@@ -77,12 +90,22 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UseType" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="BldOwners">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="CivilID" Type="int" />
+          <Property Name="Phone" Type="int" />
+          <Property Name="BldPermitId" Type="int" />
+        </EntityType>
         <EntityType Name="BldPayment">
           <Key>
             <PropertyRef Name="PaymentID" />
           </Key>
           <Property Name="PaymentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="BldPermitId" Type="bigint" />
+          <Property Name="BldPermitId" Type="int" />
           <Property Name="PaymentTotalAmount" Type="numeric" Precision="18" Scale="3" />
           <Property Name="TokenID" Type="nvarchar" MaxLength="150" />
           <Property Name="BankResponseID" Type="int" />
@@ -111,16 +134,16 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TransactNo" Type="nvarchar" MaxLength="400" Nullable="false" />
           <Property Name="OwnerName" Type="nvarchar" MaxLength="250" Nullable="false" />
-          <Property Name="OwnerCivilId" Type="bigint" />
+          <Property Name="OwnerCivilId" Type="int" />
           <Property Name="OwnerPhoneNo" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="DistrictName" Type="nvarchar" MaxLength="250" />
           <Property Name="DistrictNo" Type="int" />
           <Property Name="ConstructedArea" Type="nvarchar" MaxLength="50" />
           <Property Name="NumberOfFloors" Type="nvarchar" MaxLength="50" />
-          <Property Name="ConsultantCrNo" Type="bigint" Nullable="false" />
+          <Property Name="ConsultantCrNo" Type="int" Nullable="false" />
           <Property Name="ConstructionType" Type="nvarchar" MaxLength="50" />
           <Property Name="RequestDate" Type="datetime" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="150" />
@@ -135,7 +158,7 @@
           <Property Name="WorkflowStatus" Type="int" />
           <Property Name="DmEngineerNo" Type="int" />
           <Property Name="DmEngineerComments" Type="nvarchar" MaxLength="500" />
-          <Property Name="ConsultantCivilId" Type="bigint" />
+          <Property Name="ConsultantCivilId" Type="int" />
           <Property Name="WelayahID" Type="int" />
           <Property Name="RegionID" Type="int" />
           <Property Name="SquareLetterID" Type="int" />
@@ -151,17 +174,63 @@
           <Property Name="LandDeedReceiptDate" Type="date" />
           <Property Name="LandDeedNo" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="BldPermits_Log">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TransactNo" Type="nvarchar" MaxLength="400" Nullable="false" />
+          <Property Name="OwnerName" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="OwnerCivilId" Type="int" />
+          <Property Name="OwnerPhoneNo" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="DistrictName" Type="nvarchar" MaxLength="250" />
+          <Property Name="DistrictNo" Type="int" />
+          <Property Name="ConstructedArea" Type="nvarchar" MaxLength="50" />
+          <Property Name="NumberOfFloors" Type="nvarchar" MaxLength="50" />
+          <Property Name="ConsultantCrNo" Type="int" Nullable="false" />
+          <Property Name="ConstructionType" Type="nvarchar" MaxLength="50" />
+          <Property Name="RequestDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="150" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="150" />
+          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="SquareArea" Type="nvarchar" MaxLength="50" />
+          <Property Name="LicenseNo" Type="nvarchar" MaxLength="100" />
+          <Property Name="PaymentReceiptNo" Type="nvarchar" MaxLength="250" />
+          <Property Name="PaymentAmount" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="PaymentDate" Type="datetime" />
+          <Property Name="WorkflowStatus" Type="int" />
+          <Property Name="DmEngineerNo" Type="int" />
+          <Property Name="DmEngineerComments" Type="nvarchar" MaxLength="500" />
+          <Property Name="ConsultantCivilId" Type="int" />
+          <Property Name="WelayahID" Type="int" />
+          <Property Name="RegionID" Type="int" />
+          <Property Name="SquareLetterID" Type="int" />
+          <Property Name="UseTypeID" Type="int" />
+          <Property Name="BuildingTypeID" Type="int" />
+          <Property Name="KrokiNO" Type="nvarchar" MaxLength="50" />
+          <Property Name="DmFileNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="LandDeedReceiptNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="DMLicenseNames" Type="nvarchar" MaxLength="250" />
+          <Property Name="DMLicenseComments" Type="nvarchar" MaxLength="250" />
+          <Property Name="DMLicenseCivilIDs" Type="nvarchar" MaxLength="250" />
+          <Property Name="LandArea" Type="nvarchar" MaxLength="50" />
+          <Property Name="LandDeedReceiptDate" Type="date" />
+          <Property Name="LandDeedNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="Event_Date" Type="date" />
+          <Property Name="Event_Type" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="BldPermitsAttachmentDetails">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AttachmentName" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="AttachmentContentType" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="InsertDate" Type="datetime" Nullable="false" />
           <Property Name="AttachmentPath" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="500" />
-          <Property Name="BldPermitAttId" Type="bigint" Nullable="false" />
+          <Property Name="BldPermitAttId" Type="int" Nullable="false" />
           <Property Name="AttachmentStream" Type="varbinary(max)" Nullable="false" />
           <Property Name="DmEngineerNo" Type="int" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="150" />
@@ -175,13 +244,13 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AttachmentName" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="AttachmentContentType" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="InsertDate" Type="datetime" Nullable="false" />
           <Property Name="AttachmentPath" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="500" />
-          <Property Name="BldPermitId" Type="bigint" Nullable="false" />
+          <Property Name="BldPermitId" Type="int" Nullable="false" />
           <Property Name="AttachmentStream" Type="varbinary(max)" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="150" />
           <Property Name="CreatedOn" Type="datetime" />
@@ -218,15 +287,32 @@
           <Property Name="ArLetter" Type="nvarchar" MaxLength="10" />
           <Property Name="EnLetter" Type="nvarchar" MaxLength="5" />
         </EntityType>
+        <EntityType Name="BldSupervisionContractors">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Cr_No" Type="int" />
+          <Property Name="Cr_Name" Type="nvarchar" MaxLength="200" />
+          <Property Name="Cr_Date" Type="date" />
+          <Property Name="LegalForm" Type="nvarchar" MaxLength="50" />
+          <Property Name="PhoneNo" Type="int" />
+          <Property Name="Email" Type="nvarchar" MaxLength="250" />
+          <Property Name="Governorate" Type="nvarchar" MaxLength="250" />
+          <Property Name="State" Type="nvarchar" MaxLength="250" />
+          <Property Name="Owner_Civil_ID" Type="int" />
+          <Property Name="Foreman_Name" Type="nvarchar" MaxLength="250" />
+          <Property Name="Foreman_Civil_ID" Type="int" />
+        </EntityType>
         <EntityType Name="BldSupervisionServices">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="BldPermitID" Type="bigint" Nullable="false" />
+          <Property Name="BldPermitID" Type="int" Nullable="false" />
           <Property Name="ServiceTypeID" Type="int" Nullable="false" />
           <Property Name="Status" Type="int" Nullable="false" />
-          <Property Name="OwnerCivilId" Type="bigint" Nullable="false" />
+          <Property Name="OwnerCivilId" Type="int" Nullable="false" />
           <Property Name="KrokiNO" Type="nvarchar" MaxLength="50" />
           <Property Name="OwnerName" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="OwnerPhoneNo" Type="nvarchar" MaxLength="100" Nullable="false" />
@@ -237,7 +323,7 @@
           <Property Name="LicenseNo" Type="nvarchar" MaxLength="100" />
           <Property Name="DmEngineerNo" Type="int" />
           <Property Name="DmEngineerComments" Type="nvarchar" MaxLength="500" />
-          <Property Name="ConsultantCivilId" Type="bigint" />
+          <Property Name="ConsultantCivilId" Type="int" />
           <Property Name="RequestDate" Type="datetime" Nullable="false" />
           <Property Name="TransactNo" Type="nvarchar" MaxLength="400" Nullable="false" />
           <Property Name="DmFileNumber" Type="nvarchar" MaxLength="50" />
@@ -250,6 +336,23 @@
           <Property Name="ServiceNameAR" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="ServiceNameEn" Type="nvarchar" MaxLength="100" />
           <Property Name="ServiceStatus" Type="int" />
+        </EntityType>
+        <EntityType Name="BldTransactions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypeId" Type="int" />
+          <Property Name="BldPermitId" Type="int" />
+          <Property Name="BldSupervisionId" Type="int" />
+        </EntityType>
+        <EntityType Name="BldTransactionTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TransactionNameAr" Type="nvarchar" MaxLength="50" />
+          <Property Name="TransactionNameEn" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="BldWelyat">
           <Key>
@@ -954,6 +1057,18 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_BldOwners_BldPermits">
+          <End Role="BldPermits" Type="Self.BldPermits" Multiplicity="0..1" />
+          <End Role="BldOwners" Type="Self.BldOwners" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BldPermits">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BldOwners">
+              <PropertyRef Name="BldPermitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_BldPayment_BldPermits">
           <End Role="BldPermits" Type="Self.BldPermits" Multiplicity="0..1" />
           <End Role="BldPayment" Type="Self.BldPayment" Multiplicity="*" />
@@ -1119,6 +1234,30 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
             </Principal>
             <Dependent Role="BldSupervisionServices">
               <PropertyRef Name="ServiceTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BldTransactions_BldPermits">
+          <End Role="BldPermits" Type="Self.BldPermits" Multiplicity="0..1" />
+          <End Role="BldTransactions" Type="Self.BldTransactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BldPermits">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BldTransactions">
+              <PropertyRef Name="BldPermitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BldTransactions_BldTransactionTypes">
+          <End Role="BldTransactionTypes" Type="Self.BldTransactionTypes" Multiplicity="0..1" />
+          <End Role="BldTransactions" Type="Self.BldTransactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BldTransactionTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BldTransactions">
+              <PropertyRef Name="TypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1317,20 +1456,26 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="eServicesModelStoreContainer">
           <EntitySet Name="BldAttachmentTypes" EntityType="Self.BldAttachmentTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BldAudits" EntityType="Self.BldAudits" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BldBuildingTypes" EntityType="Self.BldBuildingTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BldIndustrialAreasSurvey" EntityType="Self.BldIndustrialAreasSurvey" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BldLandSurvey" EntityType="Self.BldLandSurvey" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BldLandUseTypes" EntityType="Self.BldLandUseTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BldOwners" EntityType="Self.BldOwners" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BldPayment" EntityType="Self.BldPayment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BldPaymentDetails" EntityType="Self.BldPaymentDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BldPermits" EntityType="Self.BldPermits" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BldPermits_Log" EntityType="Self.BldPermits_Log" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BldPermitsAttachmentDetails" EntityType="Self.BldPermitsAttachmentDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BldPermitsAttachments" EntityType="Self.BldPermitsAttachments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BldRegions" EntityType="Self.BldRegions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BldServiceFees" EntityType="Self.BldServiceFees" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BldSquareLetters" EntityType="Self.BldSquareLetters" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BldSupervisionContractors" EntityType="Self.BldSupervisionContractors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BldSupervisionServices" EntityType="Self.BldSupervisionServices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BldSupervisionServicesTypes" EntityType="Self.BldSupervisionServicesTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BldTransactions" EntityType="Self.BldTransactions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BldTransactionTypes" EntityType="Self.BldTransactionTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BldWelyat" EntityType="Self.BldWelyat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BldWorkersHousingDetails" EntityType="Self.BldWorkersHousingDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ConsultantOccupations" EntityType="Self.ConsultantOccupations" Schema="dbo" store:Type="Tables" />
@@ -1430,6 +1575,10 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
             <End Role="BldWelyat" EntitySet="BldWelyat" />
             <End Role="BldLandSurvey" EntitySet="BldLandSurvey" />
           </AssociationSet>
+          <AssociationSet Name="FK_BldOwners_BldPermits" Association="Self.FK_BldOwners_BldPermits">
+            <End Role="BldPermits" EntitySet="BldPermits" />
+            <End Role="BldOwners" EntitySet="BldOwners" />
+          </AssociationSet>
           <AssociationSet Name="FK_BldPayment_BldPermits" Association="Self.FK_BldPayment_BldPermits">
             <End Role="BldPermits" EntitySet="BldPermits" />
             <End Role="BldPayment" EntitySet="BldPayment" />
@@ -1485,6 +1634,14 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           <AssociationSet Name="FK_BldSupervisionServices_BldSupervisionServicesTypes" Association="Self.FK_BldSupervisionServices_BldSupervisionServicesTypes">
             <End Role="BldSupervisionServicesTypes" EntitySet="BldSupervisionServicesTypes" />
             <End Role="BldSupervisionServices" EntitySet="BldSupervisionServices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BldTransactions_BldPermits" Association="Self.FK_BldTransactions_BldPermits">
+            <End Role="BldPermits" EntitySet="BldPermits" />
+            <End Role="BldTransactions" EntitySet="BldTransactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BldTransactions_BldTransactionTypes" Association="Self.FK_BldTransactions_BldTransactionTypes">
+            <End Role="BldTransactionTypes" EntitySet="BldTransactionTypes" />
+            <End Role="BldTransactions" EntitySet="BldTransactions" />
           </AssociationSet>
           <AssociationSet Name="FK_BldWorkersHousingDetails_BldLandSurvey" Association="Self.FK_BldWorkersHousingDetails_BldLandSurvey">
             <End Role="BldLandSurvey" EntitySet="BldLandSurvey" />
@@ -1557,16 +1714,16 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TransactNo" Type="String" MaxLength="400" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="OwnerName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="OwnerCivilId" Type="Int64" />
+          <Property Name="OwnerCivilId" Type="Int32" />
           <Property Name="OwnerPhoneNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DistrictName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="DistrictNo" Type="Int32" />
           <Property Name="ConstructedArea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="NumberOfFloors" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ConsultantCrNo" Type="Int64" Nullable="false" />
+          <Property Name="ConsultantCrNo" Type="Int32" Nullable="false" />
           <Property Name="ConstructionType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="RequestDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreatedBy" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
@@ -1581,7 +1738,7 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           <Property Name="WorkflowStatus" Type="Int32" />
           <Property Name="DmEngineerNo" Type="Int32" />
           <Property Name="DmEngineerComments" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="ConsultantCivilId" Type="Int64" />
+          <Property Name="ConsultantCivilId" Type="Int32" />
           <NavigationProperty Name="BldPermitsAttachments" Relationship="eServicesModel.FK_BldPermit" FromRole="BldPermits" ToRole="BldPermitsAttachments" />
           <Property Name="WelayahID" Type="Int32" />
           <Property Name="RegionID" Type="Int32" />
@@ -1604,18 +1761,20 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           <Property Name="LandArea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LandDeedReceiptNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LandDeedReceiptDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="BldTransactions" Relationship="eServicesModel.FK_BldTransactions_BldPermits" FromRole="BldPermits" ToRole="BldTransactions" />
+          <NavigationProperty Name="BldOwners" Relationship="eServicesModel.FK_BldOwners_BldPermits" FromRole="BldPermits" ToRole="BldOwners" />
         </EntityType>
         <EntityType Name="BldPermitsAttachmentDetails">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AttachmentName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="AttachmentContentType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="InsertDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="AttachmentPath" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="BldPermitAttId" Type="Int64" Nullable="false" />
+          <Property Name="BldPermitAttId" Type="Int32" Nullable="false" />
           <Property Name="AttachmentStream" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
           <Property Name="DmEngineerNo" Type="Int32" />
           <Property Name="CreatedBy" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
@@ -2118,6 +2277,24 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
             <End Role="BldPayment" EntitySet="BldPayment" />
             <End Role="BldPaymentDetails" EntitySet="BldPaymentDetails" />
           </AssociationSet>
+          <EntitySet Name="BldAudits" EntityType="eServicesModel.BldAudits" />
+          <EntitySet Name="BldPermits_Log" EntityType="eServicesModel.BldPermits_Log" />
+          <EntitySet Name="BldSupervisionContractors" EntityType="eServicesModel.BldSupervisionContractors" />
+          <EntitySet Name="BldTransactions" EntityType="eServicesModel.BldTransactions" />
+          <EntitySet Name="BldTransactionTypes" EntityType="eServicesModel.BldTransactionTypes" />
+          <AssociationSet Name="FK_BldTransactions_BldPermits" Association="eServicesModel.FK_BldTransactions_BldPermits">
+            <End Role="BldPermits" EntitySet="BldPermits" />
+            <End Role="BldTransactions" EntitySet="BldTransactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BldTransactions_BldTransactionTypes" Association="eServicesModel.FK_BldTransactions_BldTransactionTypes">
+            <End Role="BldTransactionTypes" EntitySet="BldTransactionTypes" />
+            <End Role="BldTransactions" EntitySet="BldTransactions" />
+          </AssociationSet>
+          <EntitySet Name="BldOwners" EntityType="eServicesModel.BldOwners" />
+          <AssociationSet Name="FK_BldOwners_BldPermits" Association="eServicesModel.FK_BldOwners_BldPermits">
+            <End Role="BldPermits" EntitySet="BldPermits" />
+            <End Role="BldOwners" EntitySet="BldOwners" />
+          </AssociationSet>
           </EntityContainer>
         <ComplexType Name="MOCI_Permit_BY_MunicipalNo_HeadSection_Result">
           <Property Type="Int64" Name="CommercialNo" Nullable="true" />
@@ -2376,13 +2553,13 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AttachmentName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="AttachmentContentType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="InsertDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="AttachmentPath" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="BldPermitId" Type="Int64" Nullable="false" />
+          <Property Name="BldPermitId" Type="Int32" Nullable="false" />
           <Property Name="AttachmentStream" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="CreatedBy" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
@@ -3173,10 +3350,10 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BldPermitID" Type="Int64" Nullable="false" />
+          <Property Name="BldPermitID" Type="Int32" Nullable="false" />
           <Property Name="ServiceTypeID" Type="Int32" Nullable="false" />
           <Property Name="Status" Type="Int32" Nullable="false" />
-          <Property Name="OwnerCivilId" Type="Int64" Nullable="false" />
+          <Property Name="OwnerCivilId" Type="Int32" Nullable="false" />
           <Property Name="KrokiNO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="OwnerName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="OwnerPhoneNo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
@@ -3187,7 +3364,7 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           <Property Name="LicenseNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="DmEngineerNo" Type="Int32" />
           <Property Name="DmEngineerComments" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="ConsultantCivilId" Type="Int64" />
+          <Property Name="ConsultantCivilId" Type="Int32" />
           <NavigationProperty Name="BldSupervisionServicesTypes" Relationship="eServicesModel.FK_BldSupervisionServices_BldSupervisionServicesTypes" FromRole="BldSupervisionServices" ToRole="BldSupervisionServicesTypes" />
           <NavigationProperty Name="BldPermits" Relationship="eServicesModel.FK_BldSupervisionServices_BldPermits" FromRole="BldSupervisionServices" ToRole="BldPermits" />
           <Property Name="RequestDate" Type="DateTime" Nullable="false" Precision="3" />
@@ -3280,7 +3457,7 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
             <PropertyRef Name="PaymentID" />
           </Key>
           <Property Name="PaymentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BldPermitId" Type="Int64" />
+          <Property Name="BldPermitId" Type="Int32" />
           <Property Name="PaymentTotalAmount" Type="Decimal" Precision="18" Scale="3" />
           <Property Name="TokenID" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="PaymentDate" Type="DateTime" Precision="3" />
@@ -3316,6 +3493,149 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
             </Principal>
             <Dependent Role="BldPaymentDetails">
               <PropertyRef Name="PaymentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="BldAudits">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TableName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FieldName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RecordId" Type="Int32" />
+          <Property Name="OldValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NewValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AddBy" Type="Int32" />
+          <Property Name="AddDate" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="BldPermits_Log">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TransactNo" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="true" />
+          <Property Name="OwnerName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="OwnerCivilId" Type="Int32" />
+          <Property Name="OwnerPhoneNo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DistrictName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="DistrictNo" Type="Int32" />
+          <Property Name="ConstructedArea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NumberOfFloors" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ConsultantCrNo" Type="Int32" Nullable="false" />
+          <Property Name="ConstructionType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RequestDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="SquareArea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LicenseNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PaymentReceiptNo" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="PaymentAmount" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="PaymentDate" Type="DateTime" Precision="3" />
+          <Property Name="WorkflowStatus" Type="Int32" />
+          <Property Name="DmEngineerNo" Type="Int32" />
+          <Property Name="DmEngineerComments" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ConsultantCivilId" Type="Int32" />
+          <Property Name="WelayahID" Type="Int32" />
+          <Property Name="RegionID" Type="Int32" />
+          <Property Name="SquareLetterID" Type="Int32" />
+          <Property Name="UseTypeID" Type="Int32" />
+          <Property Name="BuildingTypeID" Type="Int32" />
+          <Property Name="KrokiNO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DmFileNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LandDeedReceiptNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DMLicenseNames" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="DMLicenseComments" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="DMLicenseCivilIDs" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="LandArea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LandDeedReceiptDate" Type="DateTime" Precision="0" />
+          <Property Name="LandDeedNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Event_Date" Type="DateTime" Precision="0" />
+          <Property Name="Event_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="BldSupervisionContractors">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cr_No" Type="Int32" />
+          <Property Name="Cr_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Cr_Date" Type="DateTime" Precision="0" />
+          <Property Name="LegalForm" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNo" Type="Int32" />
+          <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Governorate" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Owner_Civil_ID" Type="Int32" />
+          <Property Name="Foreman_Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Foreman_Civil_ID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="BldTransactions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeId" Type="Int32" />
+          <Property Name="BldPermitId" Type="Int32" />
+          <Property Name="BldSupervisionId" Type="Int32" />
+          <NavigationProperty Name="BldPermits" Relationship="eServicesModel.FK_BldTransactions_BldPermits" FromRole="BldTransactions" ToRole="BldPermits" />
+          <NavigationProperty Name="BldTransactionTypes" Relationship="eServicesModel.FK_BldTransactions_BldTransactionTypes" FromRole="BldTransactions" ToRole="BldTransactionTypes" />
+        </EntityType>
+        <EntityType Name="BldTransactionTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TransactionNameAr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TransactionNameEn" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BldTransactions" Relationship="eServicesModel.FK_BldTransactions_BldTransactionTypes" FromRole="BldTransactionTypes" ToRole="BldTransactions" />
+        </EntityType>
+        <Association Name="FK_BldTransactions_BldPermits">
+          <End Type="eServicesModel.BldPermits" Role="BldPermits" Multiplicity="0..1" />
+          <End Type="eServicesModel.BldTransactions" Role="BldTransactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BldPermits">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BldTransactions">
+              <PropertyRef Name="BldPermitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BldTransactions_BldTransactionTypes">
+          <End Type="eServicesModel.BldTransactionTypes" Role="BldTransactionTypes" Multiplicity="0..1" />
+          <End Type="eServicesModel.BldTransactions" Role="BldTransactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BldTransactionTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BldTransactions">
+              <PropertyRef Name="TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="BldOwners">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CivilID" Type="Int32" />
+          <Property Name="Phone" Type="Int32" />
+          <Property Name="BldPermitId" Type="Int32" />
+          <NavigationProperty Name="BldPermits" Relationship="eServicesModel.FK_BldOwners_BldPermits" FromRole="BldOwners" ToRole="BldPermits" />
+        </EntityType>
+        <Association Name="FK_BldOwners_BldPermits">
+          <End Type="eServicesModel.BldPermits" Role="BldPermits" Multiplicity="0..1" />
+          <End Type="eServicesModel.BldOwners" Role="BldOwners" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BldPermits">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BldOwners">
+              <PropertyRef Name="BldPermitId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4505,6 +4825,115 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
                 <ScalarProperty Name="PaymentTotalAmount" ColumnName="PaymentTotalAmount" />
                 <ScalarProperty Name="BldPermitId" ColumnName="BldPermitId" />
                 <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BldAudits">
+            <EntityTypeMapping TypeName="eServicesModel.BldAudits">
+              <MappingFragment StoreEntitySet="BldAudits">
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="AddBy" ColumnName="AddBy" />
+                <ScalarProperty Name="NewValue" ColumnName="NewValue" />
+                <ScalarProperty Name="OldValue" ColumnName="OldValue" />
+                <ScalarProperty Name="RecordId" ColumnName="RecordId" />
+                <ScalarProperty Name="FieldName" ColumnName="FieldName" />
+                <ScalarProperty Name="TableName" ColumnName="TableName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BldPermits_Log">
+            <EntityTypeMapping TypeName="eServicesModel.BldPermits_Log">
+              <MappingFragment StoreEntitySet="BldPermits_Log">
+                <ScalarProperty Name="Event_Type" ColumnName="Event_Type" />
+                <ScalarProperty Name="Event_Date" ColumnName="Event_Date" />
+                <ScalarProperty Name="LandDeedNo" ColumnName="LandDeedNo" />
+                <ScalarProperty Name="LandDeedReceiptDate" ColumnName="LandDeedReceiptDate" />
+                <ScalarProperty Name="LandArea" ColumnName="LandArea" />
+                <ScalarProperty Name="DMLicenseCivilIDs" ColumnName="DMLicenseCivilIDs" />
+                <ScalarProperty Name="DMLicenseComments" ColumnName="DMLicenseComments" />
+                <ScalarProperty Name="DMLicenseNames" ColumnName="DMLicenseNames" />
+                <ScalarProperty Name="LandDeedReceiptNo" ColumnName="LandDeedReceiptNo" />
+                <ScalarProperty Name="DmFileNumber" ColumnName="DmFileNumber" />
+                <ScalarProperty Name="KrokiNO" ColumnName="KrokiNO" />
+                <ScalarProperty Name="BuildingTypeID" ColumnName="BuildingTypeID" />
+                <ScalarProperty Name="UseTypeID" ColumnName="UseTypeID" />
+                <ScalarProperty Name="SquareLetterID" ColumnName="SquareLetterID" />
+                <ScalarProperty Name="RegionID" ColumnName="RegionID" />
+                <ScalarProperty Name="WelayahID" ColumnName="WelayahID" />
+                <ScalarProperty Name="ConsultantCivilId" ColumnName="ConsultantCivilId" />
+                <ScalarProperty Name="DmEngineerComments" ColumnName="DmEngineerComments" />
+                <ScalarProperty Name="DmEngineerNo" ColumnName="DmEngineerNo" />
+                <ScalarProperty Name="WorkflowStatus" ColumnName="WorkflowStatus" />
+                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+                <ScalarProperty Name="PaymentAmount" ColumnName="PaymentAmount" />
+                <ScalarProperty Name="PaymentReceiptNo" ColumnName="PaymentReceiptNo" />
+                <ScalarProperty Name="LicenseNo" ColumnName="LicenseNo" />
+                <ScalarProperty Name="SquareArea" ColumnName="SquareArea" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
+                <ScalarProperty Name="ConstructionType" ColumnName="ConstructionType" />
+                <ScalarProperty Name="ConsultantCrNo" ColumnName="ConsultantCrNo" />
+                <ScalarProperty Name="NumberOfFloors" ColumnName="NumberOfFloors" />
+                <ScalarProperty Name="ConstructedArea" ColumnName="ConstructedArea" />
+                <ScalarProperty Name="DistrictNo" ColumnName="DistrictNo" />
+                <ScalarProperty Name="DistrictName" ColumnName="DistrictName" />
+                <ScalarProperty Name="OwnerPhoneNo" ColumnName="OwnerPhoneNo" />
+                <ScalarProperty Name="OwnerCivilId" ColumnName="OwnerCivilId" />
+                <ScalarProperty Name="OwnerName" ColumnName="OwnerName" />
+                <ScalarProperty Name="TransactNo" ColumnName="TransactNo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BldSupervisionContractors">
+            <EntityTypeMapping TypeName="eServicesModel.BldSupervisionContractors">
+              <MappingFragment StoreEntitySet="BldSupervisionContractors">
+                <ScalarProperty Name="Foreman_Civil_ID" ColumnName="Foreman_Civil_ID" />
+                <ScalarProperty Name="Foreman_Name" ColumnName="Foreman_Name" />
+                <ScalarProperty Name="Owner_Civil_ID" ColumnName="Owner_Civil_ID" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Governorate" ColumnName="Governorate" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="LegalForm" ColumnName="LegalForm" />
+                <ScalarProperty Name="Cr_Date" ColumnName="Cr_Date" />
+                <ScalarProperty Name="Cr_Name" ColumnName="Cr_Name" />
+                <ScalarProperty Name="Cr_No" ColumnName="Cr_No" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BldTransactions">
+            <EntityTypeMapping TypeName="eServicesModel.BldTransactions">
+              <MappingFragment StoreEntitySet="BldTransactions">
+                <ScalarProperty Name="BldSupervisionId" ColumnName="BldSupervisionId" />
+                <ScalarProperty Name="BldPermitId" ColumnName="BldPermitId" />
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BldTransactionTypes">
+            <EntityTypeMapping TypeName="eServicesModel.BldTransactionTypes">
+              <MappingFragment StoreEntitySet="BldTransactionTypes">
+                <ScalarProperty Name="TransactionNameEn" ColumnName="TransactionNameEn" />
+                <ScalarProperty Name="TransactionNameAr" ColumnName="TransactionNameAr" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BldOwners">
+            <EntityTypeMapping TypeName="eServicesModel.BldOwners">
+              <MappingFragment StoreEntitySet="BldOwners">
+                <ScalarProperty Name="BldPermitId" ColumnName="BldPermitId" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="CivilID" ColumnName="CivilID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

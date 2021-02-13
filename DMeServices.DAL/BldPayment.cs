@@ -21,7 +21,7 @@ namespace DMeServices.DAL
         }
     
         public int PaymentID { get; set; }
-        public Nullable<long> BldPermitId { get; set; }
+        public Nullable<int> BldPermitId { get; set; }
         public Nullable<decimal> PaymentTotalAmount { get; set; }
         public string TokenID { get; set; }
         public Nullable<System.DateTime> PaymentDate { get; set; }

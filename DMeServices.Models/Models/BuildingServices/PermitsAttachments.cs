@@ -14,13 +14,13 @@ namespace DMeServices.Models.BuildingServices
     [LocalizedDisplayName("PermitsAttachments"), MetadataType(typeof(Meta_PermitsAttachments))]
     public class PermitsAttachments
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
         public string AttachmentName { get; set; }
         public string AttachmentContentType { get; set; }
         public System.DateTime InsertDate { get; set; }
         public string AttachmentPath { get; set; }
         public string Description { get; set; }
-        public long BldPermitId { get; set; }
+        public int BldPermitId { get; set; }
         public Nullable<int> AttachmentTypeId { get; set; }
         public byte[] AttachmentStream { get; set; }
         public string CreatedBy { get; set; }
