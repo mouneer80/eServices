@@ -1,34 +1,89 @@
-﻿
-@model DMeServices.Models.ViewModels.Internal.Permits.SupervisionViewModel
+﻿@model DMeServices.Models.ViewModels.Internal.Permits.SupervisionViewModel
 @{
-    ViewBag.Title = "ControlDetails";
+    ViewBag.Title = "Inspector Details";
     Layout = "~/Views/Shared/_SubLayout.cshtml";
 
 }
+
 <script>
     $(document).ready(function () {
         var counter = 0;
+
         $("#addrow").on("click", function () {
             var newRow = $("<tr>");
             var cols = "";
             cols += '<td><select data-rel="chosen" style="width:75%;padding: 0px 12px;" class="form-control" name="AreaType' + counter + '"><option>منزل</option><option>فيلا</option><option>محل</option></select></td>';
             cols += '<td><input type="file" name="Attachment' + counter + '"/></td>';
             cols += '<td><textarea type="text" class="form-control" rows="1" name="phone' + counter + '"></textarea></td>';
+
             cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="حذف"></td>';
             newRow.append(cols);
             $("table.order-list").append(newRow);
             counter++;
         });
+
+        //$("#btnFees").hide();
+
+        //$("#SupervisionStatus").on("change", function () {
+        //    if (this.value == 19)
+        //        $("#btnFees").show();
+        //    else
+        //        $("#btnFees").hide();
+        //});
+
         $("table.order-list").on("click", ".ibtnDel", function (event) {
             $(this).closest("tr").remove();
             counter -= 1
         });
+
         function ClearInputs() {
             debugger;
             $('#FileNotes').text('');
             $('#FileUpload').text('');
+
         }
+
     });
+
+    $(document).ready(function () {
+        $("#btnGenerateReport").click(function () {
+
+            ReportManager.GenerateReport();
+
+        });
+    });
+
+    var ReportManager = {
+        GenerateReport: function () {
+
+            var jsonParam = "";
+            var serviceUrl = "../../Home/GetReport";
+            ReportManager.GetReport(serviceUrl, jsonParam, onFailed);
+
+            function onFailed(error) {
+                alert(error);
+            }
+        },
+
+        GetReport: function (serviceUrl, jsonParam, errorCallBack) {
+            jQuery.ajax({
+                url: serviceUrl,
+                async: false,
+                type: "POST",
+                data: "{" + jsonParam + "}",
+                contentType: "application/json; charset=utf-8",
+                success: function () {
+                    window.open('../../Reports/ReportViewer.aspx', 'newtab');
+                },
+                error: errorCallBack
+            });
+        }
+    };
+
+    var ReportHelper = {
+
+    };
+
 </script>
 
 <style>
@@ -65,7 +120,7 @@
             <a href="@Url.Action("Index","Home")">الرئيسية</a>
         </li>
         <li>
-            <a href="@Url.Action("Index","BuildingPermits")">تصاريح البناء</a>
+            <a href="@Url.Action("Index","BuildingSupervision")">رقابة البناء</a>
         </li>
         <li>
             <a href="#"> تفاصيل الطلب</a>
@@ -77,7 +132,7 @@
     <div class="row">
 
 
-        @using (Html.BeginForm("AssignSupervision", "BuildingSupervision", FormMethod.Post, new { encType = "multipart/form-data", @id = "Supervisionform" }))
+        @using (Html.BeginForm("SaveInspectorDetails", "BuildingSupervision", FormMethod.Post, new { encType = "multipart/form-data", @id = "Supervisionform" }))
         {
             var User = DMeServices.Models.Common.UserCom.UserByCivilID((int)Model.BuildingSupervision.ConsultantCivilId);
             var serviceType = DMeServices.Models.Common.BuildingServices.SupervisionCom.ServiceByID((int)Model.BuildingSupervision.ServiceTypeID).ServiceNameAR;
@@ -208,14 +263,14 @@
                     @{ Html.RenderPartial("_ListAttachments", Model);}
                 </div>
 
-                @*<div id="divDues" class="form-group">
+                <div id="divDues" class="form-group">
                     @{ Html.RenderPartial("_ListDues", Model);}
                 </div>
 
 
-                <div id="divPrints" class="form-group">
-                    @{ Html.RenderPartial("_ListPrints", Model);}
-                </div>*@
+                @*<div id="divPrints" class="form-group">
+            @{ Html.RenderPartial("_ListPrints", Model);}
+        </div>*@
 
             </div>
             <div class="row">
@@ -245,35 +300,61 @@
                     </div>
                     <div class="col-lg-3">
                         <label class="control-label">@Html.DisplayNameFor(m => m.BuildingSupervision.Status)</label>
-                        @Html.DropDownListFor(m => m.BuildingSupervision.Status, (List<SelectListItem>)ViewBag.DDSupervisionsStatus, new { @class = "form-control dropdown-toggle", Id = "PermitsStatus" })
-                        @Html.ValidationMessageFor(m => m.BuildingPermits.WorkflowStatus, "", new { @readonly = "readonly", @style = "color:orange;" })
+                        @Html.DropDownListFor(m => m.BuildingSupervision.Status, (List<SelectListItem>)ViewBag.DDSupervisionsStatus, new { @class = "form-control dropdown-toggle", Id = "SupervisionStatus" })
+                        @Html.ValidationMessageFor(m => m.BuildingPermits.WorkflowStatus, "", new { @style = "color:orange;" })
                     </div>
-                    <div class="col-lg-3" style="margin-bottom:20px ; padding:0px">
-                        <label class="control-label">تحويل الطلب</label>
-                        @Html.DropDownListFor(m => m.BuildingSupervision.DmEngineerNo, (List<SelectListItem>)ViewBag.DDEngineersList, new { @class = "form-control dropdown-toggle", @id = "EngineerID" })
-                        @Html.ValidationMessageFor(m => m.BuildingPermits.DmEngineerNo, "", new { @style = "color:orange;" })
-                    </div>
+
+                    @*<div class="col-lg-3" style="margin-bottom:20px ; padding:0px">
+                            <label class="control-label">تحويل الطلب</label>
+                            @Html.DropDownListFor(m => m.BuildingSupervision.DmEngineerNo, (List<SelectListItem>)ViewBag.DDEngineersList, new { @class = "form-control dropdown-toggle", @id = "EngineerID" })
+                            @Html.ValidationMessageFor(m => m.BuildingPermits.DmEngineerNo, "", new { @style = "color:orange;" })
+                        </div>*@
                 </div>
             </div>
             <div class="row">
                 <div class="box col-lg-12">
-                    <div class="col-lg-6">
+                    <div class="form-group col-lg-4">
                         <label class="control-label">@Html.DisplayNameFor(m => m.BuildingSupervision.DmSupervisionComments)</label>
-                        @Html.TextAreaFor(m => m.BuildingSupervision.DmSupervisionComments, new { @class = "form-control", id = "Notes", @placeholder = "ملاحظات" })
+                        @Html.TextAreaFor(m => m.BuildingSupervision.DmSupervisionComments, new { @readonly = "readonly", @class = "form-control", id = "Notes", @placeholder = "ملاحظات" })
                     </div>
-                    <div class="col-lg-6">
+                    <div class="form-group col-lg-4">
                         <label class="control-label">@Html.DisplayNameFor(m => m.BuildingSupervision.DmInspectorComments)</label>
                         @Html.TextAreaFor(m => m.BuildingSupervision.DmInspectorComments, new { @class = "form-control", id = "Notes", @placeholder = "ملاحظات" })
                     </div>
+                    <div class="form-group col-lg-3">
+                        <div class="col-lg-4">
+                            <label class="control-label">@Html.DisplayName("مرفقات التفتيش")</label>
+                        </div>
+                        <div class="col-lg-5">
+                            @Html.TextBoxFor(m => m.InspectorAttachments.File, new { @type = "file", @multiple = "multiple", @id = "InspectorAttachments", @class = "form-control", @onchange = "onchangeevent(this);" })
+                            @Html.ValidationMessageFor(m => m.InspectorAttachments.File, "", new { @style = "color:orange;" })
+                        </div>
+                        <!--<div class="col-lg-3">-->
+                        @*<a class="modal-link" href="@Url.Action("PdfPartial", new { @controller = "BuildingSupervision", @Id = 2 })">عرض الملف<i class="fa fa-eye-slash modal-link"></i></a>*@
+                        @*<a class="modal-link" data-toggle="tooltip" title="Predogled"
+                            data-url="@Url.Action("PdfPartial", "BuildingSupervision", new { id = 2 })"
+                            onclick="showGenericModal(event);">تحميل الملف<i class="fa fa-eye-slash modal-link"></i></a>*@
+                        <!--</div>-->
+                        <div class="col-lg-2">
+                            <div id="InspectorAttachmentsLoader" class="loading" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader"></div>
+                            <span id="InspectorAttachmentsSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <br />
-            <button class="btn btn-primary" id="Save" @*onclick="return confirm('هل انت متاكد من حفظ التعديلات !');"*@>
-                <i class="glyphicon glyphicon-ok"></i> أرسال
-            </button>
+            <div slass="row">
+                <button class="btn btn-primary" id="Save" @*onclick="return confirm('هل انت متاكد من حفظ التعديلات !');"*@>
+                    <i class="glyphicon glyphicon-ok"></i> حفظ
+                </button>
+                <a class="btn btn-primary" id="btnFees" href="@Url.Action( "BuildingSupervisionFees","BuildingSupervision", new {@id= Model.BuildingSupervision.ID})" role="button">
+                    <i class="glyphicon glyphicon-ok"></i> تحديد الرسوم
+                </a>
+                <a class="btn btn-primary" id="btnPrint" href="@Url.Action( "BuildingSupervisionPrint","BuildingSupervision", new {@id= Model.BuildingSupervision.ID})" role="button">
+                    <i class="glyphicon glyphicon-ok"></i> طباعة الترخيص
+                </a>
 
-            <a style="float:left" href="@Url.Action( "Index","BuildingSupervision")" class="btn btn-primary" role="button">الصفحة السابقة</a>
-
+                <a style="float:left" href="@Url.Action( "Index","BuildingSupervision")" class="btn btn-primary" role="button">الصفحة السابقة</a>
+            </div>
         }
 
     </div>
@@ -289,41 +370,107 @@
     </div>
 </div>
 
-
 <script src="~/Scripts/jquery-1.10.2.js"></script>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script type="text/javascript">
-    $(function () {
-        //Country Dropdown Selectedchange event
-        $("#Welayah").change(function () {
+        $(function () {
+            //Country Dropdown Selectedchange event
+            $("#Welayah").change(function () {
 
-            $("#Region").empty();
+                $("#Region").empty();
 
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("GetRegions")', // Calling json method
-                dataType: 'json',
-                data: { id: $("#Welayah").val() },
-                // Get Selected Welayah ID.
-                success: function (regions) {
-                    $.each(regions, function (i, region) {
-                        $("#Region").append('<option value="' + region.Value + '">' + region.Text + '</option>');
-                    });
-					$("[data-rel='chosen']").trigger("chosen:updated");
-                },
-                error: function (ex) {
-                    alert('Failed to retrieve Regions.' + ex);
-                }
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetRegions")', // Calling json method
+                    dataType: 'json',
+                    data: { id: $("#Welayah").val() },
+                    // Get Selected Welayah ID.
+                    success: function (regions) {
+                        $.each(regions, function (i, region) {
+                            $("#Region").append('<option value="' + region.Value + '">' + region.Text + '</option>');
+                        });
+					    $("[data-rel='chosen']").trigger("chosen:updated");
+                    },
+                    error: function (ex) {
+                        alert('Failed to retrieve Regions.' + ex);
+                    }
+                });
+                return false;
             });
-            return false;
         });
-    });
 </script>
+<script>
+
+    function onchangeevent(textBox) {
+        var fileArray = $('#' + textBox.id)[0];
+        $('#' + textBox.id + 'Loader').css("display", "block");
+
+        var totalSize = 0;
+        for (var i = 0; i < fileArray.files.length; i++) {
+            var fileName = fileArray.files[i].name;
+            if (fileName) { // returns true if the string is not empty
+                var filesize = (fileArray.files[i].size);
+                totalSize += filesize;
+                //alert(fileize);
+                var valid_extensions = /(\.JPG|\.JPEG|\.PDF|\.PNG|\.jpg|\.jpeg|\.pdf|\.png)$/i;
+                if (valid_extensions.test(fileName)) {
+
+
+                    $('#' + textBox.id + 'Loader').css("display", "block");
+
+                }
+                else {
+                    $('#' + textBox.id + 'Span').css("display", "none");
+                }
+                // alert(fileName + " was selected");
+            } else { // no file was selected
+
+                $('#' + textBox.id + 'Span').css("display", "none");
+                // alert("no file selected");
+            }
+
+        }
+        if (totalSize <= 3000000) {
+            $('#' + textBox.id + 'Loader').css("display", "none");
+            $('#' + textBox.id + 'Span').css("display", "block");
+        } else {
+
+            $('#' + textBox.id + 'Span').css("display", "none");
+            $('#' + textBox.id + 'Loader').css("display", "block");
+            alert('حجم الملفات تجاوز حد 3 ميجا بايت المسموح به')
+        }
+    }
+    function ClearInputs() {
+        $('#FileNotes').val('');
+        $('#FileUpload').val('');
+    }
+    function OnFailure() {
+        $('#txtMessageText').text('');
+    }
+</script>
+
 
 <script>
     $(document).ready(function () {
-        $("#EngineerID option[value='0']").attr("disabled", "disabled");
+        $("#btnFees").hide();
+        $("#btnPrint").hide();
 
+        $("#SupervisionStatus").on("change", function () {
+            if (this.value == 28) {
+                $("#btnFees").show();
+                $("#btnPrint").hide();
+            }
+            else if (this.value == 29) {
+                $("#btnFees").hide();
+                $("#btnPrint").show();
+            }
+            else {
+                $("#btnFees").hide();
+                $("#btnPrint").hide();
+            }
+        });
+
+        $("#SupervisionStatus option[value='0']").attr("disabled", "disabled");
 
         $("#Save").click(function () {
             $("#Supervisionform").submit();

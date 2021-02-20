@@ -93,7 +93,7 @@ namespace DMeServicesInternal.Web.Controllers
         }
         #endregion
 
-        #region Method :: Peremits Details
+        #region Method :: Permits Details
         public ActionResult PermitDetails(int Id)
         {
             PermitsViewModel oModel = new PermitsViewModel();
@@ -104,7 +104,7 @@ namespace DMeServicesInternal.Web.Controllers
             ViewBag.DDBuildingTypes = DDBuildingTypes();
             ViewBag.DDLandUseTypes = DDLandUseTypes();
             ViewBag.DDSquareLetters = DDSquareLetters();
-            oModel.ListOfAttachments = PermitsAttachmentsCom.AttachmentsByPermitsID(Id, (long)oModel.BuildingPermits.OwnerCivilId);
+            oModel.ListOfAttachments = PermitsAttachmentsCom.AttachmentsByPermitsID(Id, (int)oModel.BuildingPermits.OwnerCivilId);
             ViewBag.DDPermitsStatus = DDPermitsStatus();
             oModel.Payments = PaymentsCom.PaymentsByPermitsID(Id);
             oModel.PaymentDetailsList = PaymentsCom.MapsPaymentDetailsByPermitsID(Id);
@@ -358,7 +358,7 @@ namespace DMeServicesInternal.Web.Controllers
 
                 if (Result == "ok")
                 {
-                    var User = DMeServices.Models.Common.UserCom.UserByCivilID((long)oModel.BuildingPermits.ConsultantCivilId);
+                    var User = DMeServices.Models.Common.UserCom.UserByCivilID((int)oModel.BuildingPermits.ConsultantCivilId);
 
                     switch (oModel.BuildingPermits.WorkflowStatus)
                     {
@@ -399,7 +399,7 @@ namespace DMeServicesInternal.Web.Controllers
 
             if (Result == "ok")
             {
-                var User = DMeServices.Models.Common.UserCom.UserByCivilID((long)oModel.BuildingPermits.ConsultantCivilId);
+                var User = DMeServices.Models.Common.UserCom.UserByCivilID((int)oModel.BuildingPermits.ConsultantCivilId);
 
                 switch (oModel.BuildingPermits.WorkflowStatus)
                 {
@@ -692,7 +692,7 @@ namespace DMeServicesInternal.Web.Controllers
             TempData["PaymentDetails"] = null;
 
 
-            string Result = PaymentsCom.SavePaymentDetails(oModel);
+            string Result = PaymentsCom.SavePaymentDetailsForPermit(oModel);
             oModel.BuildingPermits.WorkflowStatus = 28;
             PermitsCom.SaveEngineerPermits(oModel);
             ViewBag.PaymentID = Result;
@@ -729,7 +729,7 @@ namespace DMeServicesInternal.Web.Controllers
 
             return PartialView("_ListPayments", oModel);
         }
-    }
-    #endregion
 
+        #endregion
+    }
 }

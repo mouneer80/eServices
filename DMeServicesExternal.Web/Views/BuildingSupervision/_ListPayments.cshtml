@@ -1,0 +1,147 @@
+﻿@model DMeServices.Models.ViewModels.Permits.SupervisionViewModel
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
+
+<div class="box-inner">
+    <div class="box-header well" data-original-title="">
+        <h2><i class="glyphicon glyphicon-edit"></i> اذن توريد</h2>
+    </div>
+    <div class="box-content">
+        <!--item details-->
+        <div class="">
+            <table id="myTable" class=" table order-list">
+                <thead>
+                    <tr>
+                        <td>التفاصيل</td>
+                        <td>الرسوم</td>
+                        <td>المساحة</td>
+                        <td>المبلغ الكلي</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.PaymentDetailsList != null)
+                    {
+                        Model.TempGrandTotal = 0;
+                        foreach (var item in Model.PaymentDetailsList)
+                        {
+                            Model.TempGrandTotal += item.TotalAmount;
+                            <tr>
+                                <td class="col-sm-1" style="width:10%;">
+                                    @DMeServices.Models.Common.BuildingServices.ServiceFeesCom.TypeByID((int)@item.ServiceID).ServiceName
+                                </td>
+                                <td class="col-sm-1" unprintable>
+                                    @item.ServiceFees
+                                </td>
+                                <td class="col-sm-1" unprintable>
+                                    @item.ServiceQuantity
+                                </td>
+                                <td class="col-sm-1" unprintable>
+                                    @item.TotalAmount
+                                </td>
+
+                            </tr>
+                        }
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            المجموع الكلي
+                        </td>
+                        <td>
+                            @Model.TempGrandTotal
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            @{
+                                var paymentStatus = DMeServices.Models.Common.BuildingServices.PaymentsCom.PaymentByID((int)Model.PaymentDetailsList[0].PaymentID).PaymentStatus;
+                                if (paymentStatus != 1 || paymentStatus == null)
+                                {
+                                    <a id="Pay" href="@Url.Action("PayWithPost", "BuildingSupervision", new { @Id = Model.PaymentDetailsList[0].PaymentID })" class="btn btn-primary" role="button">الدفع</a>
+                                }
+                            }
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <!--end of item details-->
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="MainModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function unloadModal() {
+        $('#MainModal').modal('hide');
+    }
+</script>
+
+
+<script type="text/javascript">
+    $(function () {
+        // Initialize numeric spinner input boxes
+        //$(".numeric-spinner").spinedit();
+
+        // Initalize modal dialog
+        // attach modal-container bootstrap attributes to links with .modal-link class.
+        // when a link is clicked with these attributes, bootstrap will display the href content in a modal dialog.
+
+        $('body').on('click', '.modal-link', function (e) {
+
+            $(this).attr('data-target', '#MainModal');
+            e.preventDefault();
+            $("iframe").attr("src", $(this).attr('href'));
+            $(this).attr('data-toggle', 'modal');
+        });
+
+
+        // Attach listener to .modal-close-btn's so that when the button is pressed the modal dialog disappears
+        $('body').on('click', '.modal-close-btn', function () {
+
+            $('#MainModal').modal('hide');
+
+        });
+
+        //clear modal cache, so that new content can be loaded
+        $('#MainModal').on('hidden.bs.modal', function () {
+
+            $(this).removeData('bs.modal');
+        });
+
+
+
+
+
+
+
+
+
+        $(document).on("hidden.bs.modal", function (e) {
+            $(e.target).removeData("bs.modal").find(".modal-content").empty();
+        });
+
+        $('#CancelModal').on('click', function () {
+            return false;
+        });
+    });
+</script>
+
+
+

@@ -1692,7 +1692,7 @@
     <Content Include="Views\BuildingPermits\_ViewFile.cshtml" />
     <Content Include="Views\BuildingPermits\_PermitsList.cshtml" />
     <Content Include="Views\BuildingPermits\_ViewDetailsFile.cshtml" />
-    <Content Include="Views\BuildingSupervision\EngineerSupervisionDetails.cshtml" />
+    <Content Include="Views\BuildingSupervision\InspectorDetails.cshtml" />
     <Content Include="Views\HealthRenewal\_ViewHealthFiles.cshtml" />
     <Content Include="Views\Revenue\Revenue_Checkout.cshtml" />
     <Content Include="Views\Revenue\SaveRevenueSuccessPage.cshtml" />
@@ -1723,8 +1723,8 @@
     <Content Include="Views\BuildingPermits\EngineerPermitDetails.cshtml" />
     <Content Include="Views\BuildingPermits\HeadPermitDetails.cshtml" />
     <Content Include="Views\BuildingSupervision\Index.cshtml" />
-    <Content Include="Views\BuildingSupervision\PermitFees.cshtml" />
-    <Content Include="Views\BuildingSupervision\PermitPaymentDetails.cshtml" />
+    <Content Include="Views\BuildingSupervision\SupervisionFees.cshtml" />
+    <Content Include="Views\BuildingSupervision\SupervisionPaymentDetails.cshtml" />
     <Content Include="Views\BuildingSupervision\Supervisions.cshtml" />
     <Content Include="Views\Shared\ErrorPage.cshtml" />
     <Content Include="Views\Home\ErrorPage.cshtml" />
@@ -1732,6 +1732,9 @@
     <Content Include="Views\BuildingPermits\ErrorPage.cshtml" />
     <Content Include="Views\BuildingPermits\_ListDues.cshtml" />
     <Content Include="Views\BuildingPermits\_ListPrints.cshtml" />
+    <Content Include="Views\BuildingSupervision\_ListPrints.cshtml" />
+    <Content Include="Views\BuildingSupervision\_ListPayments.cshtml" />
+    <Content Include="Views\BuildingSupervision\_ListDues.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -117,6 +117,7 @@
           <Property Name="Referenceid" Type="nvarchar" MaxLength="200" />
           <Property Name="Bankpaymentid" Type="nvarchar" MaxLength="200" />
           <Property Name="PaymentStatus" Type="int" />
+          <Property Name="SupervisionID" Type="int" />
         </EntityType>
         <EntityType Name="BldPaymentDetails">
           <Key>
@@ -311,7 +312,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BldPermitID" Type="int" Nullable="false" />
           <Property Name="ServiceTypeID" Type="int" Nullable="false" />
-          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Status" Type="int" />
           <Property Name="OwnerCivilId" Type="int" Nullable="false" />
           <Property Name="KrokiNO" Type="nvarchar" MaxLength="50" />
           <Property Name="OwnerName" Type="nvarchar" MaxLength="250" Nullable="false" />
@@ -322,11 +323,13 @@
           <Property Name="UpdatedOn" Type="datetime" />
           <Property Name="LicenseNo" Type="nvarchar" MaxLength="100" />
           <Property Name="DmEngineerNo" Type="int" />
-          <Property Name="DmEngineerComments" Type="nvarchar" MaxLength="500" />
+          <Property Name="DmSupervisionComments" Type="nvarchar" MaxLength="500" />
           <Property Name="ConsultantCivilId" Type="int" />
           <Property Name="RequestDate" Type="datetime" Nullable="false" />
           <Property Name="TransactNo" Type="nvarchar" MaxLength="400" Nullable="false" />
           <Property Name="DmFileNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="DmInspectorComments" Type="nvarchar" MaxLength="500" />
+          <Property Name="PaymentID" Type="int" />
         </EntityType>
         <EntityType Name="BldSupervisionServicesTypes">
           <Key>
@@ -3352,7 +3355,7 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="BldPermitID" Type="Int32" Nullable="false" />
           <Property Name="ServiceTypeID" Type="Int32" Nullable="false" />
-          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Int32" />
           <Property Name="OwnerCivilId" Type="Int32" Nullable="false" />
           <Property Name="KrokiNO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="OwnerName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
@@ -3363,13 +3366,15 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
           <Property Name="LicenseNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="DmEngineerNo" Type="Int32" />
-          <Property Name="DmEngineerComments" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="ConsultantCivilId" Type="Int32" />
           <NavigationProperty Name="BldSupervisionServicesTypes" Relationship="eServicesModel.FK_BldSupervisionServices_BldSupervisionServicesTypes" FromRole="BldSupervisionServices" ToRole="BldSupervisionServicesTypes" />
           <NavigationProperty Name="BldPermits" Relationship="eServicesModel.FK_BldSupervisionServices_BldPermits" FromRole="BldSupervisionServices" ToRole="BldPermits" />
           <Property Name="RequestDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="TransactNo" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="true" />
           <Property Name="DmFileNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DmSupervisionComments" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="DmInspectorComments" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PaymentID" Type="Int32" />
         </EntityType>
         <EntityType Name="BldSupervisionServicesTypes">
           <Key>
@@ -3471,6 +3476,7 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           <Property Name="Bankpaymentid" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="PaymentStatus" Type="Int32" />
           <Property Name="BankResponseID" Type="Int32" />
+          <Property Name="SupervisionID" Type="Int32" />
         </EntityType>
         <Association Name="FK_BldPayment_BldPermits">
           <End Type="eServicesModel.BldPermits" Role="BldPermits" Multiplicity="0..1" />
@@ -4742,11 +4748,13 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           <EntitySetMapping Name="BldSupervisionServices">
             <EntityTypeMapping TypeName="eServicesModel.BldSupervisionServices">
               <MappingFragment StoreEntitySet="BldSupervisionServices">
+                <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
+                <ScalarProperty Name="DmInspectorComments" ColumnName="DmInspectorComments" />
+                <ScalarProperty Name="DmSupervisionComments" ColumnName="DmSupervisionComments" />
                 <ScalarProperty Name="DmFileNumber" ColumnName="DmFileNumber" />
                 <ScalarProperty Name="TransactNo" ColumnName="TransactNo" />
                 <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
                 <ScalarProperty Name="ConsultantCivilId" ColumnName="ConsultantCivilId" />
-                <ScalarProperty Name="DmEngineerComments" ColumnName="DmEngineerComments" />
                 <ScalarProperty Name="DmEngineerNo" ColumnName="DmEngineerNo" />
                 <ScalarProperty Name="LicenseNo" ColumnName="LicenseNo" />
                 <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
@@ -4812,6 +4820,7 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           <EntitySetMapping Name="BldPayment">
             <EntityTypeMapping TypeName="eServicesModel.BldPayment">
               <MappingFragment StoreEntitySet="BldPayment">
+                <ScalarProperty Name="SupervisionID" ColumnName="SupervisionID" />
                 <ScalarProperty Name="BankResponseID" ColumnName="BankResponseID" />
                 <ScalarProperty Name="PaymentStatus" ColumnName="PaymentStatus" />
                 <ScalarProperty Name="Bankpaymentid" ColumnName="Bankpaymentid" />

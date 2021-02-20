@@ -1879,6 +1879,9 @@
     <Content Include="Views\BuildingPermits\_ListOwners.cshtml" />
     <Content Include="Views\BuildingSupervision\_Details.cshtml" />
     <Content Include="Views\BuildingSupervision\_ViewFileToDownload.cshtml" />
+    <Content Include="Views\BuildingSupervision\_ListDues.cshtml" />
+    <Content Include="Views\BuildingSupervision\_ListPayments.cshtml" />
+    <Content Include="Views\BuildingSupervision\_ListPrints.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

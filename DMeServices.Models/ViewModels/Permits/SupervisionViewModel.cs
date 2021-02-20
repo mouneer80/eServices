@@ -61,9 +61,27 @@ namespace DMeServices.Models.ViewModels.Permits
 
         public PermitsAttachments ProjectBoardForm { get; set; }
 
+        public PermitsAttachments Others { get; set; }
+
         public PermitsAttachments ConstructionPermitApplication { get; set; }
 
 
         public bool ShowAdd { get; set; }
+
+        public int? Quantity { get; set; }
+        public int ServiceID { get; set; }
+        public decimal? Fees { get; set; }
+
+        public decimal? Total { get; set; }
+
+        public decimal? TempGrandTotal { get; set; }
+
+
+
+        public PaymentDetails PaymentDetails { get; set; }
+        public List<PaymentDetails> PaymentDetailsList { get; set; }
+        public ServiceFeesDetails ServiceFeesDetails { get; set; }
+        public Payments Payment { get; set; }
+        public List<Payments> Payments { get; set; }
     }
 }

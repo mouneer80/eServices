@@ -31,34 +31,34 @@
                                 {
 
 
-                                    if (item.AttachmentTypeId <= 3)
+                                    if (item.AttachmentTypeId <= 3 || item.AttachmentTypeId >= 40)
                                     {
-                            <tr>
-                                <td class="col-sm-1" style="width:10%;">
-                                    @DMeServices.Models.Common.BuildingServices.AttachmentTypesCom.TypeByID((int)item.AttachmentTypeId).Name
+                                        <tr>
+                                            <td class="col-sm-1" style="width:10%;">
+                                                @DMeServices.Models.Common.BuildingServices.AttachmentTypesCom.TypeByID((int)item.AttachmentTypeId).Name
 
-                                </td>
+                                            </td>
 
-                                <td class="col-sm-1" unprintable>
+                                            <td class="col-sm-1" unprintable>
 
-                                    @item.InsertDate.ToShortDateString()
+                                                @item.InsertDate.ToShortDateString()
 
-                                </td>
+                                            </td>
 
-                                <td class="col-sm-1" unprintable>
+                                            <td class="col-sm-1" unprintable>
 
-                                    @item.InsertDate.ToShortTimeString()
+                                                @item.InsertDate.ToShortTimeString()
 
-                                </td>
-                                <td class="col-sm-1" unprintable>
+                                            </td>
+                                            <td class="col-sm-1" unprintable>
 
-                                    <a class="modal-link" href="@Url.Action("GetFile", new { @controller = "BuildingPermits", @Id = item.Id })">عرض الملف<i class="fa fa-eye-slash modal-link"></i></a>
+                                                <a class="modal-link" href="@Url.Action("GetFile", new { @controller = "BuildingPermits", @Id = item.Id })">عرض الملف<i class="fa fa-eye-slash modal-link"></i></a>
 
-                                </td>
+                                            </td>
 
 
 
-                            </tr>
+                                        </tr>
                                     }
 
 
@@ -82,11 +82,11 @@
 
         @*<div id="divConsultatAttachments" class="row">
 
-            @{ Html.RenderPartial("_ConsultantAttachments", Model);}
-            <br />
-        </div>*@
+                @{ Html.RenderPartial("_ConsultantAttachments", Model);}
+                <br />
+            </div>*@
 
-      
+
     </div>
 
 </div>

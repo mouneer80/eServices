@@ -1,10 +1,8 @@
-﻿@model DMeServices.Models.ViewModels.Permits.PermitsViewModel
-
+﻿@model DMeServices.Models.ViewModels.Internal.Permits.PermitsViewModel
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
 <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
-
 <div class="box col-lg-6">
     <div class="box-inner">
         <div class="box-header well" data-original-title="">
@@ -19,6 +17,7 @@
                             <td>نوع المرفق</td>
                             <td>تاريخ الاضافة</td>
                             <td>تم الاصدار بواسطة</td>
+                            <td></td>
                             <td></td>
                         </tr>
                     </thead>
@@ -42,6 +41,9 @@
                                         <td class="col-sm-2" unprintable>
                                             <a class="modal-link" href="@Url.Action("GetFile", new { @controller = "BuildingPermits", @Id = item.Id })">عرض الملف<i class="fa fa-eye-slash modal-link"></i></a>
                                         </td>
+                                        <td class="col-sm-2" unprintable>
+                                            <a class="modal-link" href="@Url.Action("EditPDFFile", new { @controller = "BuildingPermits", @Id = item.Id, @PirmID = Model.BuildingPermits.Id })">تعديل الملف<i class="fa fa-eye-slash"></i></a>
+                                        </td>
                                     </tr>
                                 }
                             }
@@ -59,10 +61,13 @@
         </div>
     </div>
 </div>
-
 <div class="modal fade" id="MainModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
+
+
+
+
 
         </div>
     </div>

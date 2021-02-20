@@ -1,0 +1,200 @@
+﻿@model DMeServices.Models.ViewModels.Permits.SupervisionViewModel
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
+<div class="box col-lg-6">
+    <div class="box-inner">
+        <div class="box-header well" data-original-title="">
+            <h2><i class="glyphicon glyphicon-edit"></i> اذون التوريد</h2>
+        </div>
+        <div class="box-content">
+            <!--item details-->
+            <div class="">
+                <table id="myTable" class=" table order-list">
+                    <thead>
+                        <tr>
+                            <td>نوع الدفع</td>
+                            <td>رقم اذن التوريد</td>
+                            <td>المبلغ الكلي</td>
+                            <td>تاريخ تحديد الرسوم</td>
+                            <td>تاريخ الدفع</td>
+                            <td>رقم ايصال الدفع</td>
+                            <td>التفاصيل</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Payments != null)
+                        {
+
+                            foreach (var item in Model.Payments)
+                            {
+
+                                <tr>
+                                    @if (item.PaymentType == null || item.PaymentType == 4)
+                                    {
+                                        <td class="col-sm-2" unprintable>
+                                            الرسوم
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td class="col-sm-2" unprintable>
+                                            التأمين
+                                        </td>
+                                    }
+                                    <td class="col-sm-1" unprintable>
+                                        @item.PaymentID
+                                    </td>
+                                    <td class="col-sm-1" unprintable>
+                                        @item.PaymentTotalAmount
+                                    </td>
+                                    <td class="col-sm-2" unprintable>
+                                        @item.FeesDate
+                                    </td>
+                                    <td class="col-sm-2" unprintable>
+                                        @item.PaymentDate
+                                    </td>
+                                    <td class="col-sm-2" unprintable>
+                                        @item.Referenceid
+                                    </td>
+                                    <td class="col-sm-2" unprintable>
+                                        @{
+                                            int ListDetails = DMeServices.Models.Common.BuildingServices.PaymentsCom.PaymentDetailsByPaymentID((int)item.PaymentID).Count();
+                                            if (item.Referenceid == null)
+                                            {
+                                                <a href="#" fileID="@item.PaymentID" class="GetPaymentDetails">عرض التفاصيل<i class="fa fa-eye-slash glyphicon glyphicon-collapse-down"></i></a>
+                                                <div class="btn-warning">في انتظار الدفع</div>
+                                            }
+                                            else
+                                            {
+                                                <div>
+                                                    <a href="#" fileID="@item.PaymentID" class="GetPaymentDetails">عرض التفاصيل<i class="fa fa-eye-slash glyphicon glyphicon-collapse-down"></i></a>
+                                                </div>
+                                                <div class="btn-success">تم الدفع</div>
+                                            }
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                        </tr>
+                        <tr>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <!--end of item details-->
+        </div>
+    </div>
+</div>
+<div class="box col-lg-6">
+    <div id="divPaymentsDetails">
+        @{ Html.RenderPartial("_ListPayments", Model);}
+    </div>
+</div>
+
+<div class="modal fade" id="MainModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function unloadModal() {
+        $('#MainModal').modal('hide');
+    }
+</script>
+
+<script>
+
+
+    $(document).ready(function () {
+        $("#divPaymentsDetails").css("display", "none");
+
+        $(".GetPaymentDetails").click(function () {
+            if ($('#divPaymentsDetails').css('display') == 'block') {
+                $("#divPaymentsDetails").css("display", "none");
+            } else {
+
+
+                var attID = $(this).attr("fileID");
+
+                var url = "@Url.Action("SelectPaymentDetails", "BuildingSupervision")";
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: { Id: attID },
+                    success: function (response) {
+                        $("#divPaymentsDetails").css("display", "block");
+                        $('#divPaymentsDetails').html(response);
+                    },
+                    error: function (er) {
+                        console.log(er.message);
+                    }
+
+                });
+
+            }
+            });
+
+
+
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        // Initialize numeric spinner input boxes
+        //$(".numeric-spinner").spinedit();
+
+        // Initalize modal dialog
+        // attach modal-container bootstrap attributes to links with .modal-link class.
+        // when a link is clicked with these attributes, bootstrap will display the href content in a modal dialog.
+
+        $('body').on('click', '.modal-link', function (e) {
+
+            $(this).attr('data-target', '#MainModal');
+            e.preventDefault();
+            $("iframe").attr("src", $(this).attr('href'));
+            $(this).attr('data-toggle', 'modal');
+        });
+
+
+        // Attach listener to .modal-close-btn's so that when the button is pressed the modal dialog disappears
+        $('body').on('click', '.modal-close-btn', function () {
+
+            $('#MainModal').modal('hide');
+
+        });
+
+        //clear modal cache, so that new content can be loaded
+        $('#MainModal').on('hidden.bs.modal', function () {
+
+            $(this).removeData('bs.modal');
+        });
+
+
+
+
+
+
+
+
+
+        $(document).on("hidden.bs.modal", function (e) {
+            $(e.target).removeData("bs.modal").find(".modal-content").empty();
+        });
+
+        $('#CancelModal').on('click', function () {
+            return false;
+        });
+    });
+</script>
+
+
+

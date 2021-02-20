@@ -21,6 +21,7 @@ namespace DMeServices.Models.BuildingServices
         public string Bankpaymentid { get; set; }
         public Nullable<int> PaymentStatus { get; set; }
         public Nullable<int> BankResponseID { get; set; }
+        public Nullable<int> SupervisionID { get; set; }
 
         public PaymentDetails PaymentDetails { get; set; }
         public List<PaymentDetails> PaymentDetailsList { get; set; }

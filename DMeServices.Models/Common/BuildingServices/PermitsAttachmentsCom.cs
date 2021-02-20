@@ -18,7 +18,7 @@ namespace DMeServices.Models.Common.BuildingServices
 
         #region Method :: List Attachments By Permits ID
 
-        public static List<PermitsAttachments> AttachmentsByPermitsID(long BldPermitId,long OwnerCivilId)
+        public static List<PermitsAttachments> AttachmentsByPermitsID(int BldPermitId, int OwnerCivilId)
         {
 
             string sWebSiteURL = System.Configuration.ConfigurationManager.AppSettings["WebSiteURL"].ToString();
@@ -69,9 +69,16 @@ namespace DMeServices.Models.Common.BuildingServices
                         case 20:
                             item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/Others/" + OwnerCivilId.ToString() + item.AttachmentName;
                             break;
-
-
-
+                        case 41:
+                        case 42:
+                        case 43:
+                        case 44:
+                        case 45:
+                        case 46:
+                        case 47:
+                        case 48:
+                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/SupervisionFiles/" + OwnerCivilId.ToString() + item.AttachmentName;
+                            break;
                     }
 
 

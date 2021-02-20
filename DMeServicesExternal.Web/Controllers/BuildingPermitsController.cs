@@ -246,7 +246,7 @@ namespace DMeServicesExternal.Web.Controllers
             ViewBag.DDBuildingTypes = DDBuildingTypes();
             ViewBag.DDLandUseTypes = DdLandUseTypes();
             ViewBag.DDSquareLetters = DdSquareLetters();
-            oModel.ListOfAttachments = PermitsAttachmentsCom.AttachmentsByPermitsID(id, (long)oModel.BuildingPermits.OwnerCivilId);
+            oModel.ListOfAttachments = PermitsAttachmentsCom.AttachmentsByPermitsID(id, (int)oModel.BuildingPermits.OwnerCivilId);
 
             oModel.Payments = PaymentsCom.PaymentsByPermitsID(id);
             oModel.PaymentDetailsList = PaymentsCom.MapsPaymentDetailsByPermitsID(id);

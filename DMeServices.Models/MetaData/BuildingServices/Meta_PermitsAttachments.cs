@@ -39,7 +39,7 @@ namespace DMeServices.Models.MetaData.BuildingServices
         public Nullable<System.DateTime> UpdatedOn { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Resources.Validation_Ar), ErrorMessageResourceName = "RequirdField", AllowEmptyStrings = false)]
-        [RegularExpression(@"([a-zA-Z0-9\s@,=%$#&_-\u0600-\u06FF])+(.png|.PNG|.jpg|.JPG|.jpe?g|.JPE?G|.pdf|.PDF)$", ErrorMessageResourceType = typeof(Resources.Validation_Ar), ErrorMessageResourceName = "FileType")]
+        [RegularExpression(@"([a-zA-Z0-9\s@,=%$#&_\u0600-\u06FF])+(.png|.PNG|.jpg|.JPG|.jpe?g|.JPE?G|.pdf|.PDF)$", ErrorMessageResourceType = typeof(Resources.Validation_Ar), ErrorMessageResourceName = "FileType")]
         public HttpPostedFile File { get; set; }
     }
 }

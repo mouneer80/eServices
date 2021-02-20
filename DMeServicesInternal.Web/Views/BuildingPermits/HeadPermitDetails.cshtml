@@ -87,7 +87,7 @@
 
         @using (Html.BeginForm("AssignPermits", "BuildingPermits", FormMethod.Post, new { encType = "multipart/form-data", @id = "Permitsform" }))
         {
-            var User = DMeServices.Models.Common.UserCom.UserByCivilID((long)Model.BuildingPermits.ConsultantCivilId);
+            var User = DMeServices.Models.Common.UserCom.UserByCivilID((int)Model.BuildingPermits.ConsultantCivilId);
             @Html.AntiForgeryToken()
             @Html.HiddenFor(x => x.BuildingPermits.Id)
             @Html.HiddenFor(x => x.BuildingPermits.ConsultantCivilId)

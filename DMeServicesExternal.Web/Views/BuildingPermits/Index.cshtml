@@ -1,4 +1,4 @@
-﻿@*@model DMeServices.Models.ViewModels.Permits.PermitsViewModel*@
+﻿@model DMeServices.Models.ViewModels.Permits.PermitsViewModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_SubLayout.cshtml";
@@ -21,8 +21,8 @@
             </a>
         </div>
         <div class="col-lg-6 col-sm-6">
-            <a href="@Url.Action("NewSupervision","BuildingSupervision", new {@showadd = Model.ShowAdd})" class="btn btn-primary ">
-                <i class="glyphicon glyphicon-plus icon-white"></i> إضافة طلب رقابة البناء
+            <a href="@Url.Action("Index","BuildingSupervision", new {@showadd = Model.ShowAdd})" class="btn btn-primary ">
+                <i class="glyphicon glyphicon-plus icon-white"></i>طلبات رقابة البناء
             </a>
         </div>
     </div>

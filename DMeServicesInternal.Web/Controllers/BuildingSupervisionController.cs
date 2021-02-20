@@ -14,16 +14,13 @@ namespace DMeServicesInternal.Web.Controllers
 {
     public class BuildingSupervisionController : BaseController
     {
-        // GET: BuildingPermits
+        // GET: BuildingSupervisions
         public ActionResult Index()
         {
             SupervisionViewModel oModel = new SupervisionViewModel();
 
             return View(oModel);
         }
-
-
-
 
         public ActionResult SupervisionsList(string Type)
         {
@@ -50,35 +47,31 @@ namespace DMeServicesInternal.Web.Controllers
                     oModel.ListBuildingSupervision = SupervisionCom.AllSupervisions();
                     break;
             }
-
-
-
             return PartialView("_SupervisionsList", oModel);
         }
-
-
-
 
         public ActionResult SupervisionDetails(int Id = -99)
         {
             SupervisionViewModel oModel = new SupervisionViewModel();
             oModel.BuildingSupervision = SupervisionCom.SupervisionsById(Id);
             ViewBag.DDWelayat = DDWelayat();
-            ViewBag.DDRegion = DDRegionSaved(oModel.BuildingPermits.WelayahID);
+            ViewBag.DDRegion = DDRegionSaved(oModel.BuildingSupervision.BldPermits.WelayahID);
             //ViewBag.DDArea = DDAreaSaved(oModel.BuildingPermits.RegionID);
             ViewBag.DDBuildingTypes = DDBuildingTypes();
             ViewBag.DDLandUseTypes = DDLandUseTypes();
             ViewBag.DDSquareLetters = DDSquareLetters();
-            oModel.ListOfAttachments = PermitsAttachmentsCom.AttachmentsByPermitsID(Id, (long)oModel.BuildingPermits.OwnerCivilId);
-
+            oModel.ListOfAttachments = PermitsAttachmentsCom.AttachmentsByPermitsID(oModel.BuildingSupervision.BldPermitID, (int)oModel.BuildingSupervision.BldPermits.OwnerCivilId);
+            ViewBag.DDSupervisionsStatus = DDSupervisionsStatus();
+            oModel.Payments = PaymentsCom.PaymentsBySupervisionID(oModel.BuildingSupervision.ID);
+            oModel.PaymentDetailsList = PaymentsCom.MapsPaymentDetailsBySupervisionID(oModel.BuildingSupervision.ID);
             if (oModel.oEmployeeInfo.IsSupervisionHead)
             {
                 ViewBag.DDEngineersList = DDEngineers();
                 return View("HeadSupervisionDetails", oModel);
             }
 
-            ViewBag.DDSupervisionsStatus = DDSupervisionsStatus();
-            return View("EngineerSupervisionDetails", oModel);
+
+            return View("InspectorDetails", oModel);
         }
 
         public ActionResult AssignSupervision(SupervisionViewModel oModel)
@@ -118,7 +111,7 @@ namespace DMeServicesInternal.Web.Controllers
             {
                 Stream stream = new MemoryStream(Attachment.AttachmentStream);
                 stream.Position = 0;
-                
+
                 if (Attachment.AttachmentName.EndsWith(".pdf"))
                 {
                     return new FileStreamResult(stream, contentType);
@@ -139,7 +132,7 @@ namespace DMeServicesInternal.Web.Controllers
 
         #endregion
 
-      
+
 
 
         #region Method :: DD Engineers
@@ -184,23 +177,23 @@ namespace DMeServicesInternal.Web.Controllers
 
         #region Method :: DD Regions
 
-        public JsonResult GetRegions(string id)  
-        {  
-            List<SelectListItem> states = new List<SelectListItem>();  
-            var stateList = this.DDRegions(Convert.ToInt32(id));  
-            var stateData = stateList.Select(m => new SelectListItem()  
-            {  
-                Text = m.RegionArName,  
-                Value = m.RegionID.ToString(),  
-            });  
-            return Json(stateData, JsonRequestBehavior.AllowGet);  
+        public JsonResult GetRegions(string id)
+        {
+            List<SelectListItem> states = new List<SelectListItem>();
+            var stateList = this.DDRegions(Convert.ToInt32(id));
+            var stateData = stateList.Select(m => new SelectListItem()
+            {
+                Text = m.RegionArName,
+                Value = m.RegionID.ToString(),
+            });
+            return Json(stateData, JsonRequestBehavior.AllowGet);
         }
 
         public List<Regions> DDRegions(int? WelayahID)
         {
             //List<Regions> LstRegions = new List<Regions>();
             List<Regions> AllRegions = RegionsCom.RegionByWelayahID(WelayahID);
-            
+
             return AllRegions;
         }
 
@@ -289,10 +282,10 @@ namespace DMeServicesInternal.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SaveEngineerSupervision(SupervisionViewModel oModel)
+        public ActionResult SaveInspectorDetails(SupervisionViewModel oModel)
         {
 
-            string Result = SupervisionCom.SaveEngineerSupervisions(oModel);
+            string Result = SupervisionCom.SaveInspectorDetails(oModel);
 
             if (Result == "ok")
             {
@@ -314,17 +307,14 @@ namespace DMeServicesInternal.Web.Controllers
                         DMeServices.Models.Common.SmsCom.SendSms("968" + oModel.BuildingSupervision.OwnerPhoneNo, " : يوجد بعض التعديلات علي الخرائط رقم المعاملة " + oModel.BuildingSupervision.TransactNo);
                         break;
                 }
-
             }
-
-
             return RedirectToAction("Index");
         }
 
         #endregion
 
 
-       
+
 
 
         #region Method :: List Attachment Details
@@ -332,7 +322,7 @@ namespace DMeServicesInternal.Web.Controllers
         public ActionResult SelectAttachment(int Id = -99)
         {
             SupervisionViewModel oModel = new SupervisionViewModel();
-            oModel.ListOfAttachments = DMeServices.Models.Common.BuildingServices.PermitsAttachmentsCom.AttachmentsByPermitsID(Id, (long)oModel.BuildingPermits.OwnerCivilId);
+            oModel.ListOfAttachments = DMeServices.Models.Common.BuildingServices.PermitsAttachmentsCom.AttachmentsByPermitsID(Id, (int)oModel.BuildingPermits.OwnerCivilId);
             return PartialView("_ListAttachments", oModel);
         }
 
@@ -348,7 +338,7 @@ namespace DMeServicesInternal.Web.Controllers
         public static List<SelectListItem> DDSupervisionsStatus()
         {
             List<SelectListItem> LstSupervisionsStatus = new List<SelectListItem>();
-            List<LookupType> SupervisionsStatus = DMeServices.Models.Common.LookupsTypeCom.LookupByDesc("SupervisionsStatus");
+            List<LookupType> SupervisionsStatus = DMeServices.Models.Common.LookupsTypeCom.LookupByDesc("PermitsStatus");
             if (SupervisionsStatus.Count > 0)
             {
                 LstSupervisionsStatus.Add(new SelectListItem() { Text = "أختر حالة الطلب ", Value = "0" });
@@ -361,6 +351,86 @@ namespace DMeServicesInternal.Web.Controllers
             return LstSupervisionsStatus;
         }
 
+        #endregion
+
+        #region Method :: Fees and Payments
+
+        public JsonResult GetFees(string id)
+        {
+            var fee = ServiceFeesCom.TypeByID(int.Parse(id));
+
+            return Json(fee.ServiceFees.ToString(), JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult BuildingSupervisionFees(int Id = -99)
+        {
+            SupervisionViewModel oModel = new SupervisionViewModel();
+            oModel.BuildingSupervision = SupervisionCom.SupervisionsById(Id);
+            oModel.BuildingPermits = PermitsCom.PermitsByID(oModel.BuildingSupervision.BldPermitID);
+            TempData["PaymentDetails"] = new List<PaymentDetails>();
+            ViewBag.DDServices = DDServiceFees();
+            return View("SupervisionPaymentDetails", oModel);
+        }
+
+        public static List<SelectListItem> DDServiceFees()
+        {
+            List<SelectListItem> LstServicesFees = new List<SelectListItem>();
+            List<ServiceFee> AllServicesFees = ServiceFeesCom.AllServiceFees();
+            if (AllServicesFees.Count > 0)
+            {
+                LstServicesFees.Add(new SelectListItem() { Text = "أختر نوع الخدمة ", Value = "0" });
+                foreach (var item in AllServicesFees)
+                {
+                    LstServicesFees.Add(new SelectListItem() { Text = item.ServiceName, Value = item.ServiceID.ToString() });
+                }
+            }
+            return LstServicesFees;
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SaveSupervisionsFees(SupervisionViewModel oModel)
+        {
+            oModel.Payment = new Payments();
+            oModel.PaymentDetailsList = (List<PaymentDetails>)TempData["PaymentDetails"];
+            decimal total = 0;
+            foreach (var item in oModel.PaymentDetailsList)
+            {
+                total += (decimal)item.TotalAmount;
+            }
+            oModel.Payment.PaymentTotalAmount = total;
+            TempData["PaymentDetails"] = null;
+            string Result = PaymentsCom.SavePaymentDetailsForSupervision(oModel);
+            oModel.BuildingSupervision.Status = 28;
+            //oModel.BuildingSupervision.PaymentID = int.Parse(Result);
+            SupervisionCom.SaveInspectorDetails(oModel);
+            ViewBag.PaymentID = Result;
+            return RedirectToAction("SupervisionDetails", "BuildingSupervision", new { Id = oModel.BuildingSupervision.ID });
+        }
+
+        [HttpPost]
+        public ActionResult SavePayment()
+        {
+            PermitsViewModel oModel = new PermitsViewModel();
+            var listofPaymentDetails = (List<PaymentDetails>)TempData["PaymentDetails"];
+            var serviceID = System.Web.HttpContext.Current.Request.Form["ServiceID"];
+            var fees = System.Web.HttpContext.Current.Request.Form["Fees"];
+            var quantity = System.Web.HttpContext.Current.Request.Form["Quantity"];
+            var total = System.Web.HttpContext.Current.Request.Form["Total"];
+            oModel.PaymentDetails = new PaymentDetails();
+            oModel.PaymentDetails.ServiceQuantity = int.Parse(quantity);
+            oModel.PaymentDetails.ServiceID = int.Parse(serviceID);
+            oModel.PaymentDetails.ServiceFees = decimal.Parse(fees);
+            oModel.PaymentDetails.TotalAmount = decimal.Parse(total);
+            oModel.PaymentDetailsList = (List<PaymentDetails>)TempData["PaymentDetails"];
+            if (oModel.PaymentDetailsList == null)
+            {
+                oModel.PaymentDetailsList = new List<PaymentDetails>();
+            }
+            oModel.PaymentDetailsList.Add(oModel.PaymentDetails);
+            TempData["PaymentDetails"] = oModel.PaymentDetailsList;
+            return PartialView("_ListPayments", oModel);
+        }
         #endregion
     }
 

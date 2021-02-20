@@ -11,8 +11,9 @@ namespace DMeServices.Models.MetaData.BuildingServices
     {
 
         [Key]
-        public int Id { get; set; }
-
+        public int ID { get; set; }
+        public int BldPermitID { get; set; }
+        public int ServiceTypeID { get; set; }
         public string TransactNo { get; set; }
 
 
@@ -46,54 +47,8 @@ namespace DMeServices.Models.MetaData.BuildingServices
         public string OwnerPhoneNo { get; set; }
 
 
-
-        [Display(Name = "DistrictName", ResourceType = typeof(Resources.DisplayName_Ar))]
-        [Required(ErrorMessageResourceType = typeof(Resources.Validation_Ar), ErrorMessageResourceName = "RequirdField", AllowEmptyStrings = false)]
-        [StringLength(maximumLength: 50, MinimumLength = 1, ErrorMessageResourceName = "OutOfRange", ErrorMessageResourceType = typeof(Resources.Validation_Ar))]
-
-
-        public string DistrictName { get; set; }
-
-
-        [Display(Name = "DistrictNo", ResourceType = typeof(Resources.DisplayName_Ar))]
-        [Required(ErrorMessageResourceType = typeof(Resources.Validation_Ar), ErrorMessageResourceName = "RequirdField", AllowEmptyStrings = false)]
-  //      [RegularExpression("^[0-9]*$", ErrorMessageResourceType = typeof(Resources.Validation_Ar), ErrorMessageResourceName = "NumberOnly")]
-   //     [StringLength(maximumLength: 50, MinimumLength = 1, ErrorMessageResourceName = "OutOfRange", ErrorMessageResourceType = typeof(Resources.Validation_Ar))]
-
-        public Nullable<int> DistrictNo { get; set; }
-
-
-        [Display(Name = "ConstructedArea", ResourceType = typeof(Resources.DisplayName_Ar))]
-        [Required(ErrorMessageResourceType = typeof(Resources.Validation_Ar), ErrorMessageResourceName = "RequirdField", AllowEmptyStrings = false)]
-        [StringLength(maximumLength: 50, MinimumLength = 1, ErrorMessageResourceName = "OutOfRange", ErrorMessageResourceType = typeof(Resources.Validation_Ar))]
-
-        public string ConstructedArea { get; set; }
-
-
-        [Display(Name = "NumberOfFloors", ResourceType = typeof(Resources.DisplayName_Ar))]
-        [Required(ErrorMessageResourceType = typeof(Resources.Validation_Ar), ErrorMessageResourceName = "RequirdField", AllowEmptyStrings = false)]
-        [StringLength(maximumLength: 50, MinimumLength = 1, ErrorMessageResourceName = "OutOfRange", ErrorMessageResourceType = typeof(Resources.Validation_Ar))]
-
-
-        public string NumberOfFloors { get; set; }
-
-        public int ConsultantCrNo { get; set; }
-
-
-        [Display(Name = "ConstructionType", ResourceType = typeof(Resources.DisplayName_Ar))]
-        [Required(ErrorMessageResourceType = typeof(Resources.Validation_Ar), ErrorMessageResourceName = "RequirdField", AllowEmptyStrings = false)]
-        [StringLength(maximumLength: 50, MinimumLength = 1, ErrorMessageResourceName = "OutOfRange", ErrorMessageResourceType = typeof(Resources.Validation_Ar))]
-
-        public string ConstructionType { get; set; }
-
         [DataType(DataType.Date)]
         public System.DateTime RequestDate { get; set; }
-
-
-        [Display(Name = "SquareLetterID", ResourceType = typeof(Resources.DisplayName_Ar))]
-        [Required(ErrorMessageResourceType = typeof(Resources.Validation_Ar), ErrorMessageResourceName = "RequirdField", AllowEmptyStrings = false)]
-        //[StringLength(maximumLength: 50, MinimumLength = 1, ErrorMessageResourceName = "OutOfRange", ErrorMessageResourceType = typeof(Resources.Validation_Ar))]
-        public Nullable<int> SquareLetterID { get; set; }
 
 
         [Display(Name = "LicenseNo", ResourceType = typeof(Resources.DisplayName_Ar))]
@@ -101,20 +56,11 @@ namespace DMeServices.Models.MetaData.BuildingServices
         [StringLength(maximumLength: 50, MinimumLength = 1, ErrorMessageResourceName = "OutOfRange", ErrorMessageResourceType = typeof(Resources.Validation_Ar))]
 
         public string LicenseNo { get; set; }
-
-        public string PaymentReceiptNo { get; set; }
-
-        public Nullable<decimal> PaymentAmount { get; set; }
-
-        public Nullable<System.DateTime> PaymentDate { get; set; }
-
-        public Nullable<int> WorkflowStatus { get; set; }
-
-        public Nullable<int> WelayahID { get; set; }
-        public Nullable<int> RegionID { get; set; }
-        public Nullable<int> UseTypeID { get; set; }
-        public Nullable<int> BuildingTypeID { get; set; }
-
-
+        [Display(Name = "SupervisionStatus", ResourceType = typeof(Resources.DisplayName_Ar))]
+        public Nullable<int> Status { get; set; }
+        [Display(Name = "DmInspectorComments", ResourceType = typeof(Resources.DisplayName_Ar))]
+        public string DmInspectorComments { get; set; }
+        [Display(Name = "DmSupervisionComments", ResourceType = typeof(Resources.DisplayName_Ar))]
+        public string DmSupervisionComments { get; set; }
     }
 }

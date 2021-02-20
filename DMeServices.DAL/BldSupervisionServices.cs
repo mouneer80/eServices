@@ -17,7 +17,7 @@ namespace DMeServices.DAL
         public int ID { get; set; }
         public int BldPermitID { get; set; }
         public int ServiceTypeID { get; set; }
-        public int Status { get; set; }
+        public Nullable<int> Status { get; set; }
         public int OwnerCivilId { get; set; }
         public string KrokiNO { get; set; }
         public string OwnerName { get; set; }
@@ -28,11 +28,13 @@ namespace DMeServices.DAL
         public Nullable<System.DateTime> UpdatedOn { get; set; }
         public string LicenseNo { get; set; }
         public Nullable<int> DmEngineerNo { get; set; }
-        public string DmEngineerComments { get; set; }
         public Nullable<int> ConsultantCivilId { get; set; }
         public System.DateTime RequestDate { get; set; }
         public string TransactNo { get; set; }
         public string DmFileNumber { get; set; }
+        public string DmSupervisionComments { get; set; }
+        public string DmInspectorComments { get; set; }
+        public Nullable<int> PaymentID { get; set; }
     
         public virtual BldSupervisionServicesTypes BldSupervisionServicesTypes { get; set; }
         public virtual BldPermits BldPermits { get; set; }

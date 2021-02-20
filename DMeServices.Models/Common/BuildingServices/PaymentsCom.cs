@@ -18,12 +18,27 @@ namespace DMeServices.Models.Common.BuildingServices
 
         #region Method :: List Payments By Permits ID
 
-        public static List<Payments> PaymentsByPermitsID(long BldPermitId)
+        public static List<Payments> PaymentsByPermitsID(int BldPermitId)
         {
             using (eServicesEntities db = new eServicesEntities())
             {
 
                 List<BldPayment> _BldPayment = db.BldPayment.Where(x => x.BldPermitId == BldPermitId).OrderByDescending(x => x.PaymentID).ToList();
+                List<Payments> _Payments = Mapper.Map<List<BldPayment>, List<Payments>>(_BldPayment);
+                return _Payments;
+            }
+
+        }
+        #endregion
+
+        #region Method :: List Payments By Supervision ID
+
+        public static List<Payments> PaymentsBySupervisionID(int BldSupervisionId)
+        {
+            using (eServicesEntities db = new eServicesEntities())
+            {
+
+                List<BldPayment> _BldPayment = db.BldPayment.Where(x => x.SupervisionID == BldSupervisionId).OrderByDescending(x => x.PaymentID).ToList();
                 List<Payments> _Payments = Mapper.Map<List<BldPayment>, List<Payments>>(_BldPayment);
                 return _Payments;
             }
@@ -37,6 +52,28 @@ namespace DMeServices.Models.Common.BuildingServices
         public static List<PaymentDetails> MapsPaymentDetailsByPermitsID(int BldPermitId)
         {
             List<Payments> paymentList = PaymentsByPermitsID(BldPermitId);
+            List<PaymentDetails> _PaymentDetailsList = new List<PaymentDetails>();
+            foreach (var item in paymentList)
+            {
+                using (eServicesEntities db = new eServicesEntities())
+                {
+
+                    List<BldPaymentDetails> _BldPaymentDetails = db.BldPaymentDetails.Where(x => x.PaymentID == item.PaymentID).OrderByDescending(x => x.PaymentDetailID).ToList();
+                    List<PaymentDetails> _PaymentDetails = Mapper.Map<List<BldPaymentDetails>, List<PaymentDetails>>(_BldPaymentDetails);
+                    return _PaymentDetailsList = _PaymentDetails;
+
+                }
+            }
+            return _PaymentDetailsList;
+
+        }
+        #endregion
+
+        #region Method :: List Payment Details By Supervision ID
+
+        public static List<PaymentDetails> MapsPaymentDetailsBySupervisionID(int BldSupervisionID)
+        {
+            List<Payments> paymentList = PaymentsBySupervisionID(BldSupervisionID);
             List<PaymentDetails> _PaymentDetailsList = new List<PaymentDetails>();
             foreach (var item in paymentList)
             {
@@ -72,6 +109,24 @@ namespace DMeServices.Models.Common.BuildingServices
         }
         #endregion
 
+        #region Method ::  Payment ID By Token ID
+
+        public static int PaymentIDByToken(string token)
+        {
+            using (eServicesEntities db = new eServicesEntities())
+            {
+                int _SupervisionID = 0;
+                BldPayment _BldPayment = db.BldPayment.Where(x => x.TokenID == token).SingleOrDefault();
+                if (_BldPayment.SupervisionID != null)
+                {
+                    _SupervisionID = (int)_BldPayment.SupervisionID;
+                }
+                return _SupervisionID;
+            }
+
+        }
+        #endregion
+
 
 
         #region Method ::  Payment Details By ID
@@ -102,7 +157,7 @@ namespace DMeServices.Models.Common.BuildingServices
         }
         #endregion
         #region Method ::  Save Payment Details
-        public static string SavePaymentDetails(PermitsViewModel oModel)
+        public static string SavePaymentDetailsForPermit(PermitsViewModel oModel)
         {
 
             using (eServicesEntities db = new eServicesEntities())
@@ -123,9 +178,9 @@ namespace DMeServices.Models.Common.BuildingServices
                         {
                             int serviceType = (int)DMeServices.Models.Common.BuildingServices.ServiceFeesCom.TypeByID((int)item.ServiceID).ServiceType;
 
-                            if (serviceType == 3)
+                            if (serviceType == 3) //3 is for insurance merchant (source type) only
                             {
-                                paymentType = 2;
+                                paymentType = 3;
                             }
                             else
                             {
@@ -135,6 +190,64 @@ namespace DMeServices.Models.Common.BuildingServices
                     }
                     _BldPayment = Mapper.Map<Payments, BldPayment>(oModel.Payment);
                     _BldPayment.BldPermitId = oModel.BuildingPermits.Id;
+                    _BldPayment.PaymentTotalAmount = oModel.Payment.PaymentTotalAmount;
+                    _BldPayment.FeesDate = DateTime.Now;
+                    _BldPayment.PaymentType = paymentType;
+                    db.BldPayment.Add(_BldPayment);
+                    db.SaveChanges();
+                    if (oModel.PaymentDetailsList != null)
+                    {
+                        List<BldPaymentDetails> LstPaymentDetails = Mapper.Map<List<PaymentDetails>, List<BldPaymentDetails>>(oModel.PaymentDetailsList);
+                        foreach (var PaymentDetail in LstPaymentDetails)
+                        {
+                            PaymentDetail.PaymentID = _BldPayment.PaymentID;
+                            db.BldPaymentDetails.Add(PaymentDetail);
+                            db.SaveChanges();
+                        }
+                    }
+                    return _BldPayment.PaymentID.ToString();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+        }
+
+        public static string SavePaymentDetailsForSupervision(SupervisionViewModel oModel)
+        {
+
+            using (eServicesEntities db = new eServicesEntities())
+            {
+
+                BldPayment _BldPayment = new BldPayment();
+                try
+                {
+                    _BldPayment = db.BldPayment.Where(x => x.PaymentID == oModel.Payment.PaymentID).SingleOrDefault();
+                    if (_BldPayment != null)
+                    {
+                        return null;
+                    }
+                    int paymentType = 0;
+                    if (oModel.PaymentDetailsList.Count > 0)
+                    {
+                        foreach (var item in oModel.PaymentDetailsList)
+                        {
+                            int serviceType = (int)DMeServices.Models.Common.BuildingServices.ServiceFeesCom.TypeByID((int)item.ServiceID).ServiceType;
+
+                            if (serviceType == 3) //3 is for insurance merchant (source type) only
+                            {
+                                paymentType = 3;
+                            }
+                            else
+                            {
+                                paymentType = 1;
+                            }
+                        }
+                    }
+                    _BldPayment = Mapper.Map<Payments, BldPayment>(oModel.Payment);
+                    _BldPayment.BldPermitId = oModel.BuildingSupervision.BldPermitID;
+                    _BldPayment.SupervisionID = oModel.BuildingSupervision.ID;
                     _BldPayment.PaymentTotalAmount = oModel.Payment.PaymentTotalAmount;
                     _BldPayment.FeesDate = DateTime.Now;
                     _BldPayment.PaymentType = paymentType;
@@ -172,7 +285,7 @@ namespace DMeServices.Models.Common.BuildingServices
                 _BldPayment.Referenceid = result.statusDetails.Referenceid;
                 _BldPayment.Paymentrequestid = (int)result.statusDetails.Paymentrequestid;
                 _BldPayment.Transactionid = result.statusDetails.Transactionid;
-                _BldPayment.PaymentType = (int)result.statusDetails.Paymenttypeid;
+                //_BldPayment.PaymentType = (int)result.statusDetails.Paymenttypeid;
                 _BldPayment.PaymentStatus = (int)result.statusDetails.Paymentstatusid;
 
 

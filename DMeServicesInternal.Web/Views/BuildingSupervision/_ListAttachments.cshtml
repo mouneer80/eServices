@@ -77,7 +77,7 @@
 <div id="divMapAttachments">
     <div class="box-inner">
         <div class="box-header well" data-original-title="">
-            <h2><i class="glyphicon glyphicon-edit"></i> الخرائط</h2>
+            <h2><i class="glyphicon glyphicon-edit"></i> مرفقات رقابة البناء</h2>
         </div>
         <div class="box-content">
             <!--item details-->
@@ -102,17 +102,17 @@
                                 if (item.AttachmentTypeId > 3)
                                 {
                                     <tr>
-                                        <td class="col-sm-1" style="width:10%;">
+                                        <td class="col-sm-3">
                                             @DMeServices.Models.Common.BuildingServices.AttachmentTypesCom.TypeByID((int)@item.AttachmentTypeId).Name
                                         </td>
-                                        <td class="col-sm-1" style="width:5%;">
+                                        <td class="col-sm-3">
                                             @item.Description
                                         </td>
-                                        <td class="col-sm-1" unprintable>
+                                        <td class="col-sm-3" unprintable>
                                             @item.InsertDate.ToShortDateString()
                                         </td>
 
-                                        <td class="col-sm-1" unprintable>
+                                        <td class="col-sm-2" unprintable>
                                             @item.InsertDate.ToShortTimeString()
                                         </td>
                                         <td class="col-sm-1" unprintable>

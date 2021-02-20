@@ -15,7 +15,7 @@ namespace DMeServices.Models.Common
     {
         #region Method :: User By Civil Id
 
-        public static User UserByCivilID(long CivilId)
+        public static User UserByCivilID(int CivilId)
         {
             using (eServicesEntities db = new eServicesEntities())
             {

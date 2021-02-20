@@ -21,18 +21,32 @@ namespace DMeServicesExternal.Web.Controllers
     public class BuildingSupervisionController : BaseController
     {
         // GET: BuildingSupervision
-        public ActionResult Index()
+        public ActionResult Index(bool showadd)
         {
             var oModel = new SupervisionViewModel();
-            oModel.ListBuildingSupervision = SupervisionCom.SupervisionsByConsultantCivilId(oModel.oUserInfo.CivilId);
-            oModel.ShowAdd = true;
+            if (showadd == true)
+            {
+                oModel.ListBuildingSupervision = SupervisionCom.SupervisionsByConsultantCivilId(oModel.oUserInfo.CivilId);
+            }
+            else
+            {
+                oModel.ListBuildingSupervision = SupervisionCom.SupervisionsByLandOwnerCivilId(oModel.oUserInfo.CivilId);
+            }
+            oModel.ShowAdd = showadd;
             return View(oModel);
         }
-
+        public ActionResult OwnerIndex()
+        {
+            SupervisionViewModel oModel = new SupervisionViewModel();
+            oModel.ListBuildingSupervision = SupervisionCom.SupervisionsByConsultantCivilId(oModel.oUserInfo.CivilId);
+            oModel.ShowAdd = false;
+            return View("Index", oModel);
+        }
 
         public ActionResult NewSupervision(bool showadd)
         {
             SupervisionViewModel oModel = new SupervisionViewModel();
+            oModel.ShowAdd = showadd;
             // to save the attachments on the memory
             TempData["Attachments"] = new List<PermitsAttachments>();
             ViewBag.DDAttachmentsType = DDAttachmentTypes();
@@ -92,29 +106,34 @@ namespace DMeServicesExternal.Web.Controllers
         {
             //if (ModelState.IsValid)
             //{
-            oModel.ListOfAttachments = (List<PermitsAttachments>)TempData["Attachments"];
-            TempData["Attachments"] = null;
-            //if (isListOfAttachment(oModel.ListOfAttachments))
-            //{
+            if (oModel.ShowAdd == true)
+            {
+                oModel.ListOfAttachments = (List<PermitsAttachments>)TempData["Attachments"];
+                TempData["Attachments"] = null;
+                //if (isListOfAttachment(oModel.ListOfAttachments))
+                //{
 
-            oModel.ContractorCRFile.AttachmentTypeId = 41;
-            oModel.ContractorOwnerPersonalCard.AttachmentTypeId = 42;
-            oModel.ForemanPersonalCard.AttachmentTypeId = 43;
-            oModel.SupervisionLetter.AttachmentTypeId = 44;
-            oModel.SupervisionAgreement.AttachmentTypeId = 45;
-            oModel.ConstructionPermitApplication.AttachmentTypeId = 46;
-            oModel.PlotMarksForm.AttachmentTypeId = 47;
-            oModel.ProjectBoardForm.AttachmentTypeId = 48;
-            oModel.ListOfAttachments.Add(oModel.ContractorCRFile);
-            oModel.ListOfAttachments.Add(oModel.ContractorOwnerPersonalCard);
-            oModel.ListOfAttachments.Add(oModel.ForemanPersonalCard);
-            oModel.ListOfAttachments.Add(oModel.SupervisionLetter);
-            oModel.ListOfAttachments.Add(oModel.SupervisionAgreement);
-            oModel.ListOfAttachments.Add(oModel.ConstructionPermitApplication);
-            oModel.ListOfAttachments.Add(oModel.PlotMarksForm);
-            oModel.ListOfAttachments.Add(oModel.ProjectBoardForm);
-            //oModel.BuildingPermits.LicenseNo = "ح / 5665";
-            oModel.ListOfAttachments = SaveFiles(oModel);
+                oModel.ContractorCRFile.AttachmentTypeId = 41;
+                oModel.ContractorOwnerPersonalCard.AttachmentTypeId = 42;
+                oModel.ForemanPersonalCard.AttachmentTypeId = 43;
+                oModel.SupervisionLetter.AttachmentTypeId = 44;
+                oModel.SupervisionAgreement.AttachmentTypeId = 45;
+                oModel.ConstructionPermitApplication.AttachmentTypeId = 46;
+                oModel.PlotMarksForm.AttachmentTypeId = 47;
+                oModel.ProjectBoardForm.AttachmentTypeId = 48;
+                oModel.Others.AttachmentTypeId = 49;
+                oModel.ListOfAttachments.Add(oModel.ContractorCRFile);
+                oModel.ListOfAttachments.Add(oModel.ContractorOwnerPersonalCard);
+                oModel.ListOfAttachments.Add(oModel.ForemanPersonalCard);
+                oModel.ListOfAttachments.Add(oModel.SupervisionLetter);
+                oModel.ListOfAttachments.Add(oModel.SupervisionAgreement);
+                oModel.ListOfAttachments.Add(oModel.ConstructionPermitApplication);
+                oModel.ListOfAttachments.Add(oModel.PlotMarksForm);
+                oModel.ListOfAttachments.Add(oModel.ProjectBoardForm);
+                oModel.ListOfAttachments.Add(oModel.Others);
+                //oModel.BuildingPermits.LicenseNo = "ح / 5665";
+                oModel.ListOfAttachments = SaveFiles(oModel);
+            }
             string result = SupervisionCom.SaveSupervision(oModel);
             ViewBag.TranseID = result;
             DMeServices.Models.Common.SmsCom.SendSms("968" + oModel.oUserInfo.MobileNo, ": تم تسليم طلبك بنجاح رقم المعاملة  " + result);
@@ -154,12 +173,26 @@ namespace DMeServicesExternal.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetLicenseData(string licenseNo)
+        public ActionResult GetLicenseData(string licenseNo, string showAdd)
         {
-            SupervisionViewModel oModel = new SupervisionViewModel
+            SupervisionViewModel oModel = new SupervisionViewModel();
+            if(showAdd == "true")
+            { 
+                oModel.BuildingPermits = SupervisionCom.SupervisionsByLicenseNo(licenseNo);
+            }
+            else
             {
-                BuildingPermits = SupervisionCom.SupervisionsByLicenseNo(licenseNo)
-            };
+                oModel.BuildingPermits = SupervisionCom.SupervisionsByLicenseNo(licenseNo, oModel.oUserInfo.CivilId);
+                if(oModel.BuildingPermits == null)
+                {
+                    return Json(new
+                    {
+                        msg = "عفوا .. لا يمكنك اضافة طلبات على هذا الترخيص .. حيث ان الرقم المدني المستخدم غير مطابق .. برجاء مراجعة قسم رقابة البناء"
+                    });
+                    //    ViewBag.Message = "عفوا .. لا يمكنك اضافة طلبات على هذا الترخيص .. حيث ان الرقم المدني المستخدم غير مطابق .. برجاء مراجعة قسم رقابة البناء";
+                    //    return View();
+                }
+            }
             TempData["Attachments"] = new List<PermitsAttachments>();
             ViewBag.DDAttachmentsType = DDAttachmentTypes();
 
@@ -174,12 +207,14 @@ namespace DMeServicesExternal.Web.Controllers
             return PartialView("_Details", oModel);
         }
 
-        public ActionResult SupervisionDetails(int id = -99)
+        public ActionResult SupervisionDetails(bool showadd, int id = -99)
         {
-            SupervisionViewModel oModel = new SupervisionViewModel
-            {
-                BuildingPermits = PermitsCom.PermitsByID(id)
-            };
+            SupervisionViewModel oModel = new SupervisionViewModel();
+            if (oModel.oUserInfo == null && Session["UserInfo"] != null)
+                oModel.oUserInfo = (DMeServices.Models.User)Session["UserInfo"];
+            oModel.BuildingSupervision = SupervisionCom.SupervisionsById(id);
+            oModel.ShowAdd = showadd;
+            oModel.BuildingPermits = PermitsCom.PermitsByID(oModel.BuildingSupervision.BldPermitID);
             TempData["Attachments"] = new List<PermitsAttachments>();
             ViewBag.DDAttachmentsType = DDAttachmentTypes();
 
@@ -190,7 +225,9 @@ namespace DMeServicesExternal.Web.Controllers
             ViewBag.DDBuildingTypes = DDBuildingTypes();
             ViewBag.DDLandUseTypes = DdLandUseTypes();
             ViewBag.DDSquareLetters = DdSquareLetters();
-            oModel.ListOfAttachments = PermitsAttachmentsCom.AttachmentsByPermitsID(id, (long)oModel.BuildingPermits.OwnerCivilId);
+            oModel.ListOfAttachments = PermitsAttachmentsCom.AttachmentsByPermitsID(oModel.BuildingSupervision.BldPermitID, (int)oModel.BuildingPermits.OwnerCivilId);
+            oModel.Payments = PaymentsCom.PaymentsBySupervisionID(oModel.BuildingSupervision.ID);
+            oModel.PaymentDetailsList = PaymentsCom.MapsPaymentDetailsBySupervisionID(oModel.BuildingSupervision.ID);
             return View(oModel);
         }
 
@@ -212,9 +249,9 @@ namespace DMeServicesExternal.Web.Controllers
             {
                 filePath = "~/Files/2.pdf";
             }
-            else 
-            { 
-                filePath = "~/Files/3.pdf"; 
+            else
+            {
+                filePath = "~/Files/3.pdf";
             }
 
             var contentDisposition = new System.Net.Mime.ContentDisposition
@@ -524,6 +561,13 @@ namespace DMeServicesExternal.Web.Controllers
                             sFilename = null;
                             break;
                         case 41:
+                        case 42:
+                        case 43:
+                        case 44:
+                        case 45:
+                        case 46:
+                        case 47:
+                        case 48:
                             sFilename = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + oFileInfo.Extension;
                             StrPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/SupervisionFiles/" + oModel.BuildingPermits.OwnerCivilId.ToString()));
                             sPath = System.IO.Path.Combine(StrPath.ToString());
@@ -782,19 +826,20 @@ namespace DMeServicesExternal.Web.Controllers
 
         #endregion
 
+        #region Method :: List Payment Details
+
+        public ActionResult SelectPaymentDetails(int Id = -99)
+        {
+            SupervisionViewModel oModel = new SupervisionViewModel();
+            oModel.PaymentDetailsList = DMeServices.Models.Common.BuildingServices.PaymentsCom.PaymentDetailsByPaymentID(Id);
+            return PartialView("_ListPayments", oModel);
+        }
+
+
+        #endregion
+
         #region Method :: Payment
-        public ActionResult LandProjects()
-        {
-            PermitsViewModel oModel = new PermitsViewModel();
-            oModel.ListBuildingPermits = PermitsCom.PermitsByLandOwnerCivilId(oModel.oUserInfo.CivilId);
-            oModel.ShowAdd = false;
-            return View("Index", oModel);
-        }
-        public ActionResult CompanyList()
-        {
-            var oModel = new CompaniesListViewModel();
-            return View(oModel);
-        }
+
         public static async Task<DataTable> GetPaymentToken()
         {
             // Initialization.  
@@ -823,8 +868,10 @@ namespace DMeServicesExternal.Web.Controllers
                     responseObj = JsonConvert.DeserializeObject<DataTable>(result);
                 }
             }
+
             return responseObj;
         }
+
         public async Task<ActionResult> Pay()
         {
             var payment = new DMeServices.Models.Common.PaymentCom();
@@ -832,14 +879,57 @@ namespace DMeServicesExternal.Web.Controllers
 
             return View();
         }
+
         public ActionResult PayWithPost(int id)
         {
-            string requestUrl = Request.Url.AbsoluteUri;
+            string requestUrl = Request.Url.AbsoluteUri.Remove(Request.Url.AbsoluteUri.Length - Request.Url.Segments[Request.Url.Segments.Length - 2].Length - Request.Url.Segments[Request.Url.Segments.Length - 1].Length);
             var _payment = DMeServices.Models.Common.BuildingServices.PaymentsCom.PaymentByID(id);
             string totalAmountToPay = _payment.PaymentTotalAmount.ToString();
             string amountType = _payment.PaymentType.ToString();
             var result = DMeServices.Models.Common.PaymentCom.PayAmount(totalAmountToPay, amountType, requestUrl);
-            return Redirect(result.url.ToString());
+
+            var paymentID = DMeServices.Models.Common.BuildingServices.PaymentsCom.UpdatPaymentToken(id, result.token.ToString());
+            
+            if (paymentID != null)
+            {
+                return Redirect(result.url.ToString());
+            }
+            else
+            {
+                return HttpNotFound();
+            }
+
+        }
+
+        public ActionResult PayingSucceeded(string token)
+        {
+            token = Request.QueryString["Token"].ToString();
+            string T = token;
+            DMeServices.Models.BankResponse _bankResponse = DMeServices.Models.Common.PaymentCom.GetBankResponse(T);
+            var permitID = DMeServices.Models.Common.BuildingServices.PaymentsCom.UpdatPaymentStatus(T, _bankResponse);
+            int SupervisionID = PaymentsCom.PaymentIDByToken(T);
+            int status = 29;
+
+            var result = SupervisionCom.UpdatePaymentStatus(SupervisionID, status);
+            if (result != null)
+            {
+                //PermitsViewModel pModel = new PermitsViewModel();
+                //pModel.BuildingPermits = PermitsCom.PermitsByID(Convert.ToInt32(permitID));
+                return RedirectToAction("SupervisionDetails", new { @id = Convert.ToInt32(result) });
+            }
+            else
+            {
+                return HttpNotFound();
+            }
+        }
+
+        public ActionResult PayingFailed()
+        {
+
+
+            return Redirect("www.google.com");
+
+
         }
 
         #endregion

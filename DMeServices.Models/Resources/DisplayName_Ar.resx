@@ -246,4 +246,13 @@
   <data name="WorkflowStatus" xml:space="preserve">
     <value>رأي المهندس</value>
   </data>
+  <data name="DmInspectorComments" xml:space="preserve">
+    <value>ملاحظات المفتش</value>
+  </data>
+  <data name="DmSupervisionComments" xml:space="preserve">
+    <value>ملاحظات قسم رقابة البناء</value>
+  </data>
+  <data name="SupervisionStatus" xml:space="preserve">
+    <value>رأي المفتش</value>
+  </data>
 </root>

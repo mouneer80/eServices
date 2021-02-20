@@ -33,6 +33,7 @@ namespace DMeServices.DAL
         public string Bankpaymentid { get; set; }
         public Nullable<int> PaymentStatus { get; set; }
         public Nullable<int> BankResponseID { get; set; }
+        public Nullable<int> SupervisionID { get; set; }
     
         public virtual BldPermits BldPermits { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

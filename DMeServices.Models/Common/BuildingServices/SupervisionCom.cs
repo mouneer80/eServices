@@ -96,11 +96,11 @@ namespace DMeServices.Models.Common.BuildingServices
         #endregion
 
         #region Method :: Supervision By LandOwner CivilID
-        public static List<BuildingSupervision> SupervisionsByLandOwnerCivilId(long landOwnerCivilId)
+        public static List<BuildingSupervision> SupervisionsByLandOwnerCivilId(int landOwnerCivilId)
         {
             using (var db = new eServicesEntities())
             {
-                List<BldSupervisionServices> bldSupervisionServices = db.BldSupervisionServices.Where(x => x.BldPermits.OwnerCivilId == landOwnerCivilId).ToList();
+                List<BldSupervisionServices> bldSupervisionServices = db.BldSupervisionServices.Where(x => x.OwnerCivilId == landOwnerCivilId).OrderByDescending(x => x.BldPermitID).Include(y => y.BldPermits).OrderByDescending(y => y.BldPermitID).Include(y => y.BldPermits.BldPermitsAttachments).OrderByDescending(y => y.BldPermitID).Include(y => y.BldSupervisionServicesTypes).ToList();
                 var BuildingSupervision = Mapper.Map<List<BldSupervisionServices>, List<BuildingSupervision>>(bldSupervisionServices);
                 return BuildingSupervision;
             }
@@ -129,6 +129,18 @@ namespace DMeServices.Models.Common.BuildingServices
                 return _ServicesTypes;
             }
         }
+
+        public static SupervisionServicesTypes ServiceByID(int id)
+        {
+            using (eServicesEntities db = new eServicesEntities())
+            {
+
+                BldSupervisionServicesTypes _BldServicesTypes = db.BldSupervisionServicesTypes.Where(x => x.ID == id).SingleOrDefault();
+                SupervisionServicesTypes _ServicesTypes = Mapper.Map<BldSupervisionServicesTypes, SupervisionServicesTypes>(_BldServicesTypes);
+
+                return _ServicesTypes;
+            }
+        }
         #endregion
 
         #region Method :: Supervision By CivilId
@@ -136,7 +148,7 @@ namespace DMeServices.Models.Common.BuildingServices
         {
             using (var db = new eServicesEntities())
             {
-                List<BldSupervisionServices> bldSupervisionServices = db.BldSupervisionServices.Where(x => x.BldPermits.ConsultantCivilId == civilId).OrderByDescending(x => x.BldPermits.Id).Include(y => y.BldPermits.BldPermitsAttachments).OrderByDescending(x => x.BldPermits.Id).ToList();
+                List<BldSupervisionServices> bldSupervisionServices = db.BldSupervisionServices.Where(x => x.ConsultantCivilId == civilId && x.BldSupervisionServicesTypes.ServiceStatus == 1).OrderByDescending(x => x.BldPermitID).Include(y => y.BldPermits).OrderByDescending(y => y.BldPermitID).Include(y => y.BldPermits.BldPermitsAttachments).OrderByDescending(y => y.BldPermitID).Include(y => y.BldSupervisionServicesTypes).ToList();
                 var BuildingSupervision = Mapper.Map<List<BldSupervisionServices>, List<BuildingSupervision>>(bldSupervisionServices);
                 return BuildingSupervision;
             }
@@ -157,7 +169,6 @@ namespace DMeServices.Models.Common.BuildingServices
 
         #region Method :: Get All New Supervisions By CivilId
 
-
         public static List<BuildingSupervision> GetAllNewSupervisionsByConsultantCivilId(long civilId)
         {
             using (var db = new eServicesEntities())
@@ -168,16 +179,26 @@ namespace DMeServices.Models.Common.BuildingServices
             }
 
         }
+
+        public static BuildingPermits SupervisionsByLicenseNo(string licenseNo, int civilId)
+        {
+            using (var db = new eServicesEntities())
+            {
+                var id = db.BldPermits.Where(x => x.LicenseNo == licenseNo).SingleOrDefault().Id;
+                var bldSupervisionServices = db.BldPermits.Where(x => x.Id == id && x.OwnerCivilId == civilId).Include(y => y.BldPermitsAttachments).SingleOrDefault();
+                var BuildingSupervision = Mapper.Map<BldPermits, BuildingPermits>(bldSupervisionServices);
+
+                return BuildingSupervision;
+            }
+        }
         #endregion
 
         #region Method :: Get All New Supervisions 
-
-
         public static List<BuildingSupervision> GetAllSupervisionsByFlowStatus(int flowId)
         {
             using (var db = new eServicesEntities())
             {
-                List<BldSupervisionServices> bldSupervisionServices = db.BldSupervisionServices.Where(x => x.BldPermits.WorkflowStatus == flowId).OrderByDescending(x => x.BldPermits.Id).Include(y => y.BldPermits.BldPermitsAttachments).OrderByDescending(x => x.BldPermits.Id).ToList();
+                List<BldSupervisionServices> bldSupervisionServices = db.BldSupervisionServices.Where(x => x.Status == flowId).OrderByDescending(x => x.RequestDate).Include(y => y.BldPermits).Include(y => y.BldPermits.BldPermitsAttachments).Include(y => y.BldSupervisionServicesTypes).ToList();
                 var BuildingSupervision = Mapper.Map<List<BldSupervisionServices>, List<BuildingSupervision>>(bldSupervisionServices);
                 return BuildingSupervision;
             }
@@ -186,19 +207,14 @@ namespace DMeServices.Models.Common.BuildingServices
         #endregion
 
         #region Method :: Supervisions By Engineer Number
-
-
         public static List<BuildingSupervision> SupervisionsByEngineerId(int? engNum)
         {
             using (var db = new eServicesEntities())
             {
-
-
                 List<BldSupervisionServices> bldSupervisionServices = db.BldSupervisionServices.Where(x => x.BldPermits.DmEngineerNo == engNum).OrderByDescending(x => x.BldPermits.Id).Include(y => y.BldPermits.BldPermitsAttachments).OrderByDescending(x => x.BldPermits.Id).ToList();
                 var BuildingSupervision = Mapper.Map<List<BldSupervisionServices>, List<BuildingSupervision>>(bldSupervisionServices);
                 return BuildingSupervision;
             }
-
         }
         #endregion
 
@@ -242,8 +258,8 @@ namespace DMeServices.Models.Common.BuildingServices
                         var lstAttachments = Mapper.Map<List<PermitsAttachments>, List<BldPermitsAttachments>>(oModel.ListOfAttachments);
                         foreach (var file in lstAttachments)
                         {
-                            file.BldPermitId = _BldSupervisionServices.BldPermits.Id;
-                            file.Description = _BldSupervisionServices.TransactNo;
+                            file.BldPermitId = _BldSupervisionServices.BldPermitID;
+                            //file.Description = _BldSupervisionServices.TransactNo;
                             db.BldPermitsAttachments.Add(file);
                             db.SaveChanges();
                         }
@@ -261,14 +277,14 @@ namespace DMeServices.Models.Common.BuildingServices
         #region Method :: Save Engineer Supervisions 
 
 
-        public static string SaveEngineerSupervisions(ViewModels.Internal.Permits.SupervisionViewModel oModel)
+        public static string SaveInspectorDetails(ViewModels.Internal.Permits.SupervisionViewModel oModel)
         {
             using (var db = new eServicesEntities())
             {
                 try
                 {
 
-                    var bldSupervisionServices = db.BldSupervisionServices.SingleOrDefault(x => x.DmEngineerNo == oModel.BuildingSupervision.DmEngineerNo);
+                    var bldSupervisionServices = db.BldSupervisionServices.SingleOrDefault(x => x.ID == oModel.BuildingSupervision.ID);
 
                     if (bldSupervisionServices == null)
                     {
@@ -277,8 +293,13 @@ namespace DMeServices.Models.Common.BuildingServices
 
                     //  _BldSupervisionServices = Mapper.Map<BuildingSupervision, BldSupervisionServices>(oModel.BuildingSupervision);
                     bldSupervisionServices.Status = oModel.BuildingSupervision.Status;
+                    //if(oModel.BuildingSupervision.PaymentID != null)
+                    //{
+                    //    bldSupervisionServices.PaymentID = oModel.BuildingSupervision.PaymentID;
+                    //}
                     bldSupervisionServices.UpdatedBy = oModel.oEmployeeInfo.NAME;
                     bldSupervisionServices.UpdatedOn = DateTime.Now.Date;
+                    bldSupervisionServices.DmInspectorComments = oModel.BuildingSupervision.DmInspectorComments;
                     db.SaveChanges();
                     return "ok";
                 }
@@ -357,7 +378,6 @@ namespace DMeServices.Models.Common.BuildingServices
 
 
 
-
         #endregion
 
         #region Method :: Assign Supervisions 
@@ -423,12 +443,12 @@ namespace DMeServices.Models.Common.BuildingServices
                 }
                 else
                 {
-                    lastTransactNo = Service.ID.ToString();
+                    lastTransactNo = Service.TransactNo;
                 }
 
 
-                var srvName = lastTransactNo.Substring(0, 4);
-                lastTransactNo = lastTransactNo.Substring(4);
+                var srvName = lastTransactNo.Substring(0, 8);
+                lastTransactNo = lastTransactNo.Substring(8);
                 var result = lastTransactNo.Split(new[] { '/' }, 2);
                 var resultTid = result[0];
                 var resultYear = result[1];
@@ -445,6 +465,35 @@ namespace DMeServices.Models.Common.BuildingServices
                 }
 
                 return transactNo;
+            }
+        }
+
+        public static string UpdatePaymentStatus(int SupervisionID, int status)
+        {
+            using (eServicesEntities db = new eServicesEntities())
+            {
+                BldSupervisionServices _BldSupervision = new BldSupervisionServices();
+                try
+                {
+
+                    _BldSupervision = db.BldSupervisionServices.Where(x => x.ID == SupervisionID).SingleOrDefault();
+
+                    if (_BldSupervision == null)
+                    {
+                        return null;
+                    }
+
+                    _BldSupervision.Status = status;
+
+                    db.SaveChanges();
+                    return _BldSupervision.ID.ToString();
+                }
+
+                catch (Exception)
+                {
+                    return null;
+                }
+
             }
         }
 

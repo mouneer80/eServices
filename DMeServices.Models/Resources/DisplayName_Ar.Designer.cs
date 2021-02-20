@@ -151,6 +151,15 @@ namespace DMeServices.Models.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ملاحظات المفتش.
+        /// </summary>
+        public static string DmInspectorComments {
+            get {
+                return ResourceManager.GetString("DmInspectorComments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ارقام بطاقات المالكين ان وجدت.
         /// </summary>
         public static string DMLicenseCivilIDs {
@@ -174,6 +183,15 @@ namespace DMeServices.Models.Resources {
         public static string DMLicenseNames {
             get {
                 return ResourceManager.GetString("DMLicenseNames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ملاحظات قسم رقابة البناء.
+        /// </summary>
+        public static string DmSupervisionComments {
+            get {
+                return ResourceManager.GetString("DmSupervisionComments", resourceCulture);
             }
         }
         
@@ -399,6 +417,15 @@ namespace DMeServices.Models.Resources {
         public static string SquareLetterID {
             get {
                 return ResourceManager.GetString("SquareLetterID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to رأي المفتش.
+        /// </summary>
+        public static string SupervisionStatus {
+            get {
+                return ResourceManager.GetString("SupervisionStatus", resourceCulture);
             }
         }
         

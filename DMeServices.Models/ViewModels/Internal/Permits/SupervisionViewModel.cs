@@ -47,5 +47,19 @@ namespace DMeServices.Models.ViewModels.Internal.Permits
         public List<PermitsAttachments> ListOfAttachments { get; set; }
 
         public PermitsAttachments Attachments { get; set; }
+
+        public PermitsAttachments InspectorAttachments { get; set; }
+
+        public PaymentDetails PaymentDetails { get; set; }
+        public List<PaymentDetails> PaymentDetailsList { get; set; }
+        public ServiceFeesDetails ServiceFeesDetails { get; set; }
+        public Payments Payment { get; set; }
+        public List<Payments> Payments { get; set; }
+
+        public int? Quantity { get; set; }
+        public int ServiceID { get; set; }
+        public decimal? Fees { get; set; }
+        public decimal? Total { get; set; }
+        public decimal? TempGrandTotal { get; set; }
     }
 }
