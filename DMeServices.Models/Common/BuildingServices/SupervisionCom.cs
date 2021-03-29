@@ -204,6 +204,16 @@ namespace DMeServices.Models.Common.BuildingServices
             }
 
         }
+
+        public static Contractor ContractorByCRNO(int? contractorCR_No)
+        {
+            using (var db = new eServicesEntities())
+            {
+                BldSupervisionContractors _bldSupervisionContractor = db.BldSupervisionContractors.Where(x => x.Cr_No == contractorCR_No).SingleOrDefault();
+                var contractor = Mapper.Map<BldSupervisionContractors, Contractor>(_bldSupervisionContractor);
+                return contractor;
+            }
+        }
         #endregion
 
         #region Method :: Supervisions By Engineer Number
@@ -211,7 +221,7 @@ namespace DMeServices.Models.Common.BuildingServices
         {
             using (var db = new eServicesEntities())
             {
-                List<BldSupervisionServices> bldSupervisionServices = db.BldSupervisionServices.Where(x => x.BldPermits.DmEngineerNo == engNum).OrderByDescending(x => x.BldPermits.Id).Include(y => y.BldPermits.BldPermitsAttachments).OrderByDescending(x => x.BldPermits.Id).ToList();
+                List<BldSupervisionServices> bldSupervisionServices = db.BldSupervisionServices.Where(x => x.DmEngineerNo == engNum).OrderByDescending(x => x.ID).Include(y => y.BldPermits.BldPermitsAttachments).OrderByDescending(x => x.ID).ToList();
                 var BuildingSupervision = Mapper.Map<List<BldSupervisionServices>, List<BuildingSupervision>>(bldSupervisionServices);
                 return BuildingSupervision;
             }
@@ -241,16 +251,18 @@ namespace DMeServices.Models.Common.BuildingServices
                     _BldSupervisionServices.BldPermitID = oModel.BuildingPermits.Id;
                     _BldSupervisionServices.ServiceTypeID = oModel.ServiceType.ID;
                     _BldSupervisionServices.KrokiNO = oModel.BuildingPermits.KrokiNO;
-                    _BldSupervisionServices.OwnerCivilId = (int)oModel.BuildingPermits.OwnerCivilId;
+                    //_BldSupervisionServices.OwnerCivilId = (int)oModel.BuildingPermits.OwnerCivilId;
                     _BldSupervisionServices.LicenseNo = oModel.BuildingPermits.LicenseNo;
-                    _BldSupervisionServices.OwnerName = oModel.BuildingPermits.OwnerName;
-                    _BldSupervisionServices.OwnerPhoneNo = oModel.BuildingPermits.OwnerPhoneNo;
+                    //_BldSupervisionServices.OwnerName = oModel.BuildingPermits.OwnerName;
+                    //_BldSupervisionServices.OwnerPhoneNo = oModel.BuildingPermits.OwnerPhoneNo;
                     //_BldSupervisionServices.BldPermits.ConsultantCrNo = (int)oModel.oUserInfo.ConsultantCrNo;
                     _BldSupervisionServices.ConsultantCivilId = oModel.oUserInfo.CivilId;
+                    _BldSupervisionServices.ContractorCR_No = oModel.Contractor.Cr_No;
                     _BldSupervisionServices.CreatedBy = oModel.oUserInfo.FullName;
                     _BldSupervisionServices.CreatedOn = DateTime.Now.Date;
                     _BldSupervisionServices.RequestDate = DateTime.Now.Date;
                     _BldSupervisionServices.Status = 8;
+                    
                     db.BldSupervisionServices.Add(_BldSupervisionServices);
                     db.SaveChanges();
                     if (oModel.ListOfAttachments != null)
@@ -259,9 +271,39 @@ namespace DMeServices.Models.Common.BuildingServices
                         foreach (var file in lstAttachments)
                         {
                             file.BldPermitId = _BldSupervisionServices.BldPermitID;
+                            
                             //file.Description = _BldSupervisionServices.TransactNo;
                             db.BldPermitsAttachments.Add(file);
                             db.SaveChanges();
+                        }
+                    }
+                    if(oModel.Contractor !=null)
+                    {
+                        var _BldSupervisionContractor = new BldSupervisionContractors();
+                        try
+                        {
+                            _BldSupervisionContractor = db.BldSupervisionContractors.SingleOrDefault(x => x.Cr_No == oModel.Contractor.Cr_No);
+                            if (_BldSupervisionContractor != null)
+                            {
+                                return null;
+                            }
+                            
+                            _BldSupervisionContractor = Mapper.Map<Contractor, BldSupervisionContractors>(oModel.Contractor);
+                            _BldSupervisionContractor.Cr_No = oModel.Contractor.Cr_No;
+                            _BldSupervisionContractor.Cr_Name = oModel.Contractor.Cr_Name;
+                            _BldSupervisionContractor.Foreman_Name = oModel.Contractor.Foreman_Name;
+                            _BldSupervisionContractor.Foreman_Civil_ID = oModel.Contractor.Foreman_Civil_ID;
+                            _BldSupervisionContractor.OwnerFullName = oModel.Contractor.OwnerFullName;
+                            _BldSupervisionContractor.Owner_Civil_ID = oModel.Contractor.Owner_Civil_ID;
+                            _BldSupervisionContractor.PhoneNo = oModel.Contractor.PhoneNo;
+                            _BldSupervisionContractor.Email = oModel.Contractor.Email;
+                            _BldSupervisionContractor.LegalForm = oModel.Contractor.LegalForm;
+                            db.BldSupervisionContractors.Add(_BldSupervisionContractor);
+                            db.SaveChanges();
+                        }
+                        catch (Exception ex)
+                        {
+                            throw ex;
                         }
                     }
                     return _BldSupervisionServices.TransactNo;
@@ -270,6 +312,18 @@ namespace DMeServices.Models.Common.BuildingServices
                 {
                     throw ex;
                 }
+            }
+        }
+
+        public static List<Transactions> SupervisionsTransactById(int id)
+        {
+            using (var db = new eServicesEntities())
+            {
+
+                var bldSupervisionTransact = db.BldTransactions.Where(x => x.BldSupervisionId == id).ToList();
+                var BuildingSupervisionTransact = Mapper.Map<List<BldTransactions>, List<Transactions>>(bldSupervisionTransact);
+
+                return BuildingSupervisionTransact;
             }
         }
         #endregion
@@ -290,7 +344,12 @@ namespace DMeServices.Models.Common.BuildingServices
                     {
                         return null;
                     }
-
+                    if (oModel.BuildingSupervision.Status == 66)
+                    {
+                        bldSupervisionServices.LicenseNo = GenLicenseNo(ServiceByID((int)oModel.BuildingSupervision.ServiceTypeID).ServiceNameEn);
+                        bldSupervisionServices.DmSupervisionComments = oModel.BuildingSupervision.DmSupervisionComments;
+                        bldSupervisionServices.DmInspectorComments = oModel.BuildingSupervision.DmInspectorComments;
+                    }
                     //  _BldSupervisionServices = Mapper.Map<BuildingSupervision, BldSupervisionServices>(oModel.BuildingSupervision);
                     bldSupervisionServices.Status = oModel.BuildingSupervision.Status;
                     //if(oModel.BuildingSupervision.PaymentID != null)
@@ -315,6 +374,100 @@ namespace DMeServices.Models.Common.BuildingServices
 
 
 
+
+
+        #endregion
+
+        #region Method :: Generate License Number
+
+        private static string GenLicenseNo(string serviceNameEn)
+        {
+            string LicenseNo = serviceNameEn[0].ToString() + "/2021/9999";
+            using (eServicesEntities db = new eServicesEntities())
+            {
+
+                string CurrentYear = DateTime.Now.Year.ToString();
+                int LastTNo;
+
+                string lastLicenseNo;
+
+                BldPermits Bld = db.BldPermits.OrderByDescending(x => x.LicenseNo).FirstOrDefault();
+
+
+                if (Bld == null)
+                {
+                    lastLicenseNo = serviceNameEn[0].ToString() + "/" + CurrentYear + "/" + "00000";
+                }
+                else
+                {
+                    lastLicenseNo = Bld.LicenseNo;
+                }
+
+
+                string PermitYear = lastLicenseNo.Substring(0, 4);
+                //lastLicenseNo = lastLicenseNo.Substring(4);
+                string[] Result = lastLicenseNo.Split(new[] { '/' }, 2);
+                string ResultTNo = Result[1];
+                string ResultYear = Result[0];
+                if (ResultYear == CurrentYear)
+                {
+                    LastTNo = int.Parse(ResultTNo);
+                    LastTNo = LastTNo + 1;
+                    LicenseNo = "" + serviceNameEn[0].ToString() + "/" + PermitYear + "/" + String.Format("{0:00000}", LastTNo) + "";
+                }
+                else
+                {
+                    LastTNo = 1;
+                    LicenseNo = "" + serviceNameEn[0].ToString() + "/" + CurrentYear + "/" + String.Format("{0:00000}", LastTNo) + "";
+                }
+
+                return LicenseNo;
+            }
+        }
+        public static string GenLicenseNo()
+        {
+            string LicenseNo = "S/2021/9999";
+            using (eServicesEntities db = new eServicesEntities())
+            {
+
+                string CurrentYear = DateTime.Now.Year.ToString();
+                int LastTNo;
+
+                string lastLicenseNo;
+
+                BldPermits Bld = db.BldPermits.OrderByDescending(x => x.LicenseNo).FirstOrDefault();
+
+
+                if (Bld == null)
+                {
+                    lastLicenseNo = "S" + "/" + CurrentYear + "/" + "00000";
+                }
+                else
+                {
+                    lastLicenseNo = Bld.LicenseNo;
+                }
+
+
+                string PermitYear = lastLicenseNo.Substring(0, 4);
+                //lastLicenseNo = lastLicenseNo.Substring(4);
+                string[] Result = lastLicenseNo.Split(new[] { '/' }, 2);
+                string ResultTNo = Result[1];
+                string ResultYear = Result[0];
+                if (ResultYear == CurrentYear)
+                {
+                    LastTNo = int.Parse(ResultTNo);
+                    LastTNo = LastTNo + 1;
+                    LicenseNo = "" + "S" + "/" + PermitYear + "/" + String.Format("{0:00000}", LastTNo) + "";
+                }
+                else
+                {
+                    LastTNo = 1;
+                    LicenseNo = "" + "S" + "/" + CurrentYear + "/" + String.Format("{0:00000}", LastTNo) + "";
+                }
+
+                return LicenseNo;
+            }
+        }
 
         #endregion
 
@@ -367,7 +520,7 @@ namespace DMeServices.Models.Common.BuildingServices
                     return "ok";
                 }
 
-                catch (Exception)
+                catch (Exception e)
                 {
                     return null;
                 }
@@ -494,6 +647,36 @@ namespace DMeServices.Models.Common.BuildingServices
                     return null;
                 }
 
+            }
+        }
+
+        public static string SaveSupervisionTransact(SupervisionViewModel oModel)
+        {
+            using (var db = new eServicesEntities())
+            {
+                var _BldSupervisionTransact = new BldTransactions();
+                try
+                {
+                    
+                    if (oModel.oUserInfo.ConsultantCrNo == null)
+                    {
+                        return null;
+                    }
+                    _BldSupervisionTransact = Mapper.Map<Transactions, BldTransactions>(oModel.SupervisionTransact);
+
+                    _BldSupervisionTransact.BldPermitId = oModel.BuildingSupervision.BldPermitID;
+                    _BldSupervisionTransact.TypeId = oModel.ServiceType.ID;
+                    _BldSupervisionTransact.BldSupervisionId = oModel.BuildingSupervision.ID;
+                    _BldSupervisionTransact.Status = 8;
+                    db.BldTransactions.Add(_BldSupervisionTransact);
+                    db.SaveChanges();
+                    
+                    return _BldSupervisionTransact.BldSupervisionId.ToString();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
             }
         }
 

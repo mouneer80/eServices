@@ -15,7 +15,7 @@ using Oracle.ManagedDataAccess.Client;
 
 namespace DMeServicesExternal.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : LangController
     {
         
         public ActionResult Index()
@@ -161,6 +161,13 @@ namespace DMeServicesExternal.Web.Controllers
             studentCookies.Expires = DateTime.Now.AddHours(1);
             return studentCookies;
         }
+
+        public ActionResult ChangeLanguage(string lang)
+        {
+            new LanguageManager().SetLanguage(lang);
+            return RedirectToAction("Index", "Home");
+        }
+
         //Old Index Controller before IDP
         //public ActionResult Index()
         //{

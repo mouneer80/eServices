@@ -249,15 +249,17 @@
 
                 </ul>
             </li>*@
+
             <li>
                 <a href="#">الخدمات</a>
                 <ul>
                     <li>
                         <a href="#">المكتب الاستشاري</a>
                         <ul>
-                            <li><a href="@Url.Action("ConsultancyOwnerService","Home")">مالك المكتب</a></li>
+                            <li><a href="@Url.Action("ConsultancyOwnerService","Home")">@DMeServices.Models.Resources.DisplayName.CosultantOwner</a></li>
                             <li><a href="@Url.Action("ConsultancyEngineerService","Home")"> المهندس الاستشاري </a></li>
                         </ul>
+                        </li>
                     <li><a href="@Url.Action("LandOwnerService","Home")"> مالك المشروع </a></li>
                     @*<li><a href="#"> المقاول </a></li>*@
                 </ul>
@@ -270,6 +272,22 @@
                 <li class="divider"></li>
                 <li class="out_position"><a href=" @Url.Action("Logout", "UsersLogin")"> تسجيل الخروج</a></li>
             }
+
+        </ul>
+        <ul class="sm sm-blue nav navbar-nav navbar-right">
+            @*<li>
+                @Html.ActionLink("English", "ChangeLanguage", "Home", new { @lang = "En", @returnurl = this.Request.RawUrl }, null)
+            </li>
+            <li class="divider"></li>
+            <li class="nav navbar-nav navbar-right">
+                @Html.ActionLink("العربية", "ChangeLanguage", "Home", new { @lang = "Ar", @returnurl = this.Request.RawUrl }, null)
+            </li>*@
+            @{
+            foreach (var i in DMeServices.Models.Common.LanguageManager.AvailableLanguages)
+            {
+                @Html.ActionLink(i.LanguageFullName, "ChangeLanguage", "Home", new { lang = i.LanguageCultureName }, null) <text> </text>
+            }
+        }
         </ul>
     </nav>
 

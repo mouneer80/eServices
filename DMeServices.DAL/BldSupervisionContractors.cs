@@ -14,6 +14,12 @@ namespace DMeServices.DAL
     
     public partial class BldSupervisionContractors
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public BldSupervisionContractors()
+        {
+            this.BldSupervisionServices = new HashSet<BldSupervisionServices>();
+        }
+    
         public int Id { get; set; }
         public Nullable<int> Cr_No { get; set; }
         public string Cr_Name { get; set; }
@@ -26,5 +32,9 @@ namespace DMeServices.DAL
         public Nullable<int> Owner_Civil_ID { get; set; }
         public string Foreman_Name { get; set; }
         public Nullable<int> Foreman_Civil_ID { get; set; }
+        public string OwnerFullName { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BldSupervisionServices> BldSupervisionServices { get; set; }
     }
 }

@@ -10,7 +10,8 @@
             var Company = "لا يوجد";
             if (User != null)
             {
-                Company = DMeServices.Models.Common.BuildingServices.MociCompaniesData.GetCompanyByCr_Frist((int)User.ConsultantCrNo).COMMERCIAL_NAME;
+                //Company = DMeServices.Models.Common.BuildingServices.MociCompaniesData.GetCompanyByCr_Frist((int)User.ConsultantCrNo).COMMERCIAL_NAME;
+                Company = User.CompanyName;
             }
             else
             {
@@ -22,12 +23,17 @@
                 Region = DMeServices.Models.Common.BuildingServices.RegionsCom.RegionByID(item.RegionID).RegionArName;
             }
             var SquareLetter = "لا يوجد";
-            if(item.SquareLetterID != null)
+            if (item.SquareLetterID != null)
             {
                 SquareLetter = DMeServices.Models.Common.BuildingServices.SquareLettersCom.SquareLetterByID((int)item.SquareLetterID).ArLetter;
             }
+            if (item.WorkflowStatus == null)
+            {
+                item.WorkflowStatus = 8;
+            }
             var Status = DMeServices.Models.Common.LookupsTypeCom.LookupByID((int)item.WorkflowStatus).LookupNameAr;
             var StatusColor = DMeServices.Models.Common.LookupsTypeCom.LookupByID((int)item.WorkflowStatus).LookupNameEn;
+            var ownersName = DMeServices.Models.Common.BuildingServices.PermitsCom.GetOwnersNames((int)item.Id);
             if (User != null)
             {
                 <td class="center">
@@ -40,9 +46,27 @@
                     لايوجد
                 </td>
             }
+            if (ownersName.Count > 0)
+            {
+                <td class="center">
+                    @foreach (var name in ownersName)
+                    {
+                       <ul><li>@name.Name</li></ul> 
+                    }
+                </td>
+                <td class="center">
+                    @foreach (var name in ownersName)
+                    {
+                        <ul><li>@name.CivilID</li></ul>
+                    }
+                </td>
+            }
+            else
+            {
+                <td class="center">@item.OwnerName</td>
+                <td class="center"> @item.OwnerCivilId</td>
+            }
         }
-        <td class="center">@item.OwnerName</td>
-        <td class="center"> @item.OwnerCivilId</td>
         <td class="center">@item.DistrictNo</td>
         <td class="center">@SquareLetter</td>
         <td class="center">@Region</td>

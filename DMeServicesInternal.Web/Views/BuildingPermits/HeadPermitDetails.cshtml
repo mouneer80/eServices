@@ -93,7 +93,7 @@
             @Html.HiddenFor(x => x.BuildingPermits.ConsultantCivilId)
             @Html.HiddenFor(x => x.BuildingPermits.TransactNo)
             <div class="row">
-                <div class="form-group col-lg-4">
+                <div class="form-group col-lg-6">
                     <h5>بيانات الاستشاري</h5>
                     <div class="form-group col-lg-4">
                         <label class="control-label">اسم المكتب الاستشاري</label>
@@ -108,22 +108,36 @@
                         <lable class="form-control">@User.MobileNo.ToString()</lable>
                     </div>
                 </div>
-                <div class="form-group col-lg-4">
+                <div class="form-group col-lg-6">
                     <h5>بيانات مالك الارض</h5>
-                    <div class="form-group col-lg-4">
-                        <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.OwnerName)</label>
-                        @Html.TextBoxFor(m => m.BuildingPermits.OwnerName, new { @readonly = "readonly", @class = "form-control", id = "OwnerName", @placeholder = "إسم المالك" })
-                    </div>
-                    <div class="form-group col-lg-4">
-                        <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.OwnerCivilId)</label>
-                        @Html.TextBoxFor(m => m.BuildingPermits.OwnerCivilId, new { @readonly = "readonly", @class = "form-control", id = "OwnerCivilId", @placeholder = "الرقم المدني للمالك" })
-                    </div>
-                    <div class="form-group col-lg-4">
-                        <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.OwnerPhoneNo)</label>
-                        @Html.TextBoxFor(m => m.BuildingPermits.OwnerPhoneNo, new { @readonly = "readonly", @class = "form-control", id = "OwnerPhoneNo", @placeholder = "الهاتف" })
-                    </div>
+                    @{
+                        if (Model.BuildingPermits.OwnerName != null)
+                        {
+                            <div class="form-group col-lg-3">
+                                <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.OwnerName)</label>
+                                @Html.TextBoxFor(m => m.BuildingPermits.OwnerName, new { @readonly = "readonly", @class = "form-control", id = "OwnerName", @placeholder = "إسم المالك" })
+                            </div>
+                            <div class="form-group col-lg-3">
+                                <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.OwnerCivilId)</label>
+                                @Html.TextBoxFor(m => m.BuildingPermits.OwnerCivilId, new { @readonly = "readonly", @class = "form-control", id = "OwnerCivilId", @placeholder = "الرقم المدني للمالك" })
+                            </div>
+                            <div class="form-group col-lg-3">
+                                <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.OwnerPhoneNo)</label>
+                                @Html.TextBoxFor(m => m.BuildingPermits.OwnerPhoneNo, new { @readonly = "readonly", @class = "form-control", id = "OwnerPhoneNo", @placeholder = "الهاتف" })
+                            </div>
+                        }
+                        else
+                        {
+                            <div id="divOwners" class="box">
+                                @if (Model.ListOfOwners != null && Model.ListOfOwners.Count > 0)
+                                {
+                                    Html.RenderPartial("_ListOwnersDetails", Model);
+                                }
+                            </div>
+                        }
+                    }
                 </div>
-                <div class="form-group col-lg-4">
+                <div class="form-group col-lg-6">
                     <h5>بيانات مكان قطعة الأرض</h5>
                     <div class="form-group col-lg-3">
                         <label class="control-label">محافظة</label>
@@ -319,8 +333,8 @@
     $(document).ready(function () {
         $("#EngineerID option[value='0']").attr("disabled", "disabled");
 
-        var array1 = ["0", "18", "31"];
-        var array2 = ["19", "20", "28", "29", "30"];
+        var array1 = ["0", "18", "60"];
+        var array2 = ["19", "20", "28", "29", "30", "51", "31", "8"];
 
         $("#PermitsStatus option[value='0']").attr("disabled", "disabled");
 

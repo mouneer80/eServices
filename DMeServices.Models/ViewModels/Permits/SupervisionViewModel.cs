@@ -61,7 +61,9 @@ namespace DMeServices.Models.ViewModels.Permits
 
         public PermitsAttachments ProjectBoardForm { get; set; }
 
-        public PermitsAttachments Others { get; set; }
+        public PermitsAttachments OtherAttachments { get; set; }
+
+        public PermitsAttachments CosultantAttachments { get; set; }
 
         public PermitsAttachments ConstructionPermitApplication { get; set; }
 
@@ -83,5 +85,13 @@ namespace DMeServices.Models.ViewModels.Permits
         public ServiceFeesDetails ServiceFeesDetails { get; set; }
         public Payments Payment { get; set; }
         public List<Payments> Payments { get; set; }
+        public Transactions SupervisionTransact { get; set; }
+        public List<Transactions> TransactsList { get; set; }
+
+        public Owner Owner { get; set; }
+        public List<Owner> ListOfOwners { get; set; }
+
+        public Contractor Contractor { get; set; }
+
     }
 }

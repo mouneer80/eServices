@@ -23,23 +23,32 @@
                     @if (Model.PaymentDetailsList != null)
                     {
                         Model.TempGrandTotal = 0;
+                        int i = 0;
                         foreach (var item in Model.PaymentDetailsList)
                         {
                             Model.TempGrandTotal += item.TotalAmount;
-                                <tr>
-                                    <td class="col-sm-1" style="width:10%;">
-                                        @DMeServices.Models.Common.BuildingServices.ServiceFeesCom.TypeByID((int)@item.ServiceID).ServiceName
-                                    </td>
-                                    <td class="col-sm-1" unprintable>
-                                        @item.ServiceFees
-                                    </td>
-                                    <td class="col-sm-1" unprintable>
-                                        @item.ServiceQuantity
-                                    </td>
-                                    <td class="col-sm-1" unprintable>
-                                        @item.TotalAmount
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td class="col-sm-1" style="width:10%;">
+                                    @DMeServices.Models.Common.BuildingServices.ServiceFeesCom.TypeByID((int)@item.ServiceID).ServiceName
+                                </td>
+                                <td class="col-sm-1" unprintable>
+                                    @item.ServiceFees
+                                </td>
+                                <td class="col-sm-1" unprintable>
+                                    @item.ServiceQuantity
+                                </td>
+                                <td class="col-sm-1" unprintable>
+                                    @item.TotalAmount
+                                </td>
+                                <td class="col-sm-1" style="width:20%;">
+
+                                    <button type="button" class="btn btn-danger" id="deleteBtn" value="@i" onclick="reply_click(this.value)">
+                                        <i class="fa fa-close"></i>&nbsp; حذف
+                                    </button>
+
+                                </td>
+                            </tr>
+                            i++;
                         }
                     }
                 </tbody>
@@ -55,7 +64,6 @@
                         </td>
                     </tr>
                     <tr>
-                        
                     </tr>
                 </tfoot>
             </table>
@@ -79,7 +87,27 @@
         $('#MainModal').modal('hide');
     }
 </script>
+<script>
+    function reply_click(id) {
+        var data = new FormData();
+        data.append("Id", id);
+             var url = "@Url.Action("DeleteFee", "BuildingPermits")";
+            $.ajax({
+                url: url,
+                type: "POST",
+                processData: false,
+                contentType: false,
+                data: data,
+                success: function (response) {
+                    $('#divPayments').html(response);
+                },
+                error: function (er) {
+                    alert(er.message);
 
+                }
+            });
+        }
+</script>
 
 <script type="text/javascript">
     $(function () {

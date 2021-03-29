@@ -39,6 +39,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <ExcludeGeneratedDebugSymbol>true</ExcludeGeneratedDebugSymbol>
+    <LegacyPublishPropertiesPageEnabled>true</LegacyPublishPropertiesPageEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -1185,6 +1187,7 @@
     <Content Include="Content\css\uploadify.css" />
     <Content Include="Content\demo.css" />
     <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\linecons.css" />
     <Content Include="Content\responsive.css" />
     <Content Include="Content\style.css" />
@@ -1197,42 +1200,6 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\frame.png" />
-    <Content Include="Images\Signatures\Tتوقيع1.png" />
-    <Content Include="Images\Signatures\Tتوقيع10.png" />
-    <Content Include="Images\Signatures\Tتوقيع2.png" />
-    <Content Include="Images\Signatures\Tتوقيع4.png" />
-    <Content Include="Images\Signatures\Tتوقيع5.png" />
-    <Content Include="Images\Signatures\Tتوقيع6.png" />
-    <Content Include="Images\Signatures\Tتوقيع7.png" />
-    <Content Include="Images\Signatures\Tتوقيع8.png" />
-    <Content Include="Images\Signatures\الشؤون الهندسية-اخصائي اداري.png" />
-    <Content Include="Images\Signatures\توقيعR13.png" />
-    <Content Include="Images\Signatures\توقيعR3.png" />
-    <Content Include="Images\Signatures\توقيعR4.png" />
-    <Content Include="Images\Signatures\توقيعR5.png" />
-    <Content Include="Images\Signatures\توقيعR6.png" />
-    <Content Include="Images\Signatures\توقيعR9.png" />
-    <Content Include="Images\Signatures\رئيس قسم رقابة البناء.png" />
-    <Content Include="Images\Signatures\مدير دائرة الشؤون الهندسية .png" />
-    <Content Include="Images\Stamps\213.png" />
-    <Content Include="Images\Stamps\R.png" />
-    <Content Include="Images\Stamps\R13.png" />
-    <Content Include="Images\Stamps\R3.png" />
-    <Content Include="Images\Stamps\R4.png" />
-    <Content Include="Images\Stamps\R5.png" />
-    <Content Include="Images\Stamps\R6.png" />
-    <Content Include="Images\Stamps\R9.png" />
-    <Content Include="Images\Stamps\T.png" />
-    <Content Include="Images\Stamps\T1.png" />
-    <Content Include="Images\Stamps\T10.png" />
-    <Content Include="Images\Stamps\T2.png" />
-    <Content Include="Images\Stamps\T5.png" />
-    <Content Include="Images\Stamps\T6.png" />
-    <Content Include="Images\Stamps\T7.png" />
-    <Content Include="Images\Stamps\T8.png" />
-    <Content Include="Images\Stamps\الشؤون الهندسية-اخصائي اداري ختم.png" />
-    <Content Include="Images\Stamps\رئيس قسم رقابة البناء ختم.png" />
-    <Content Include="Images\Stamps\مدير دائرة الشؤون الهندسية _1.png" />
     <Content Include="img\1.png" />
     <Content Include="img\2.png" />
     <Content Include="img\3.png" />
@@ -1378,7 +1345,6 @@
     <Content Include="img\Slider\E-Payment.jpg" />
     <Content Include="img\Slider\Easy_Services.jpg" />
     <Content Include="img\Slider\Electronic_payment.jpg" />
-    <Content Include="img\Slider\الدفع الالكتروني 2.jpg" />
     <Content Include="img\Social_Media\facbook.png" />
     <Content Include="img\Social_Media\insta.png" />
     <Content Include="img\Social_Media\twiter.png" />
@@ -1399,10 +1365,6 @@
     <Content Include="img\up-arrow.png" />
     <Content Include="img\uploadify-cancel.png" />
     <Content Include="img\wp.png" />
-    <Content Include="img\بدون-عنوان--1.png" />
-    <Content Include="img\بدون-عنوان--2.png" />
-    <Content Include="img\بدون-عنوان--3.png" />
-    <Content Include="img\معنا اسهل.png" />
     <Content Include="Content\css\font.css" />
     <Content Include="Reports\Report.aspx" />
     <Content Include="Scripts\bootstrap.js" />
@@ -1607,6 +1569,7 @@
     <Content Include="Scripts\jquery-1.12.1.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
+    <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -1735,6 +1698,9 @@
     <Content Include="Views\BuildingSupervision\_ListPrints.cshtml" />
     <Content Include="Views\BuildingSupervision\_ListPayments.cshtml" />
     <Content Include="Views\BuildingSupervision\_ListDues.cshtml" />
+    <Content Include="Views\BuildingSupervision\_ListTransacts.cshtml" />
+    <Content Include="Views\BuildingPermits\_ListOwnersDetails.cshtml" />
+    <Content Include="Views\BuildingSupervision\_ListOwnersDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1767,9 +1733,16 @@
     <Content Include="App_GlobalResources\PdfWebControlResourcesAR.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>PdfWebControlResourcesAR.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Reports\rpt\PrintChangeContractorRpt.rdlc" />
+    <EmbeddedResource Include="Reports\rpt\PrintBuildingCertificateRpt.rdlc" />
+    <EmbeddedResource Include="Reports\rpt\PrintStartBuildingRpt.rdlc" />
+    <EmbeddedResource Include="Reports\rpt\PrintTechnicalRpt.rdlc" />
+    <EmbeddedResource Include="Reports\rpt\PrintWaterRpt.rdlc" />
+    <EmbeddedResource Include="Reports\rpt\PrintElectricityRpt.rdlc" />
     <EmbeddedResource Include="Reports\rpt\PrintPermit.rdlc" />
     <EmbeddedResource Include="Reports\rpt\CalculateFees.rdlc" />
   </ItemGroup>

@@ -11,7 +11,17 @@ namespace DMeServicesExternal.Web
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
-            
+            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
+            routes.LowercaseUrls = true;
+
+            routes.MapRoute(
+                name: "DefaultWithLang",
+                url: "{lang}/{controller}/{action}/{id}",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional, lang="en" }
+                //constraints: new { lang = new LanguageRouteConstraint() }
+            );
+
 
             routes.MapRoute(
                 name: "Default",

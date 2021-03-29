@@ -116,20 +116,34 @@
             @Html.HiddenFor(x => x.BuildingPermits.Id)
             @Html.HiddenFor(x => x.BuildingPermits.TransactNo)
             <div class="row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-12">
                     <h5>بيانات مالك الارض</h5>
-                    <div class="form-group col-lg-3">
-                        <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.OwnerName)</label>
-                        @Html.TextBoxFor(m => m.BuildingPermits.OwnerName, new { @readonly = "readonly", @class = "form-control", id = "OwnerName", @placeholder = "إسم المالك" })
-                    </div>
-                    <div class="form-group col-lg-3">
-                        <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.OwnerCivilId)</label>
-                        @Html.TextBoxFor(m => m.BuildingPermits.OwnerCivilId, new { @readonly = "readonly", @class = "form-control", id = "OwnerCivilId", @placeholder = "الرقم المدني للمالك" })
-                    </div>
-                    <div class="form-group col-lg-3">
-                        <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.OwnerPhoneNo)</label>
-                        @Html.TextBoxFor(m => m.BuildingPermits.OwnerPhoneNo, new { @readonly = "readonly", @class = "form-control", id = "OwnerPhoneNo", @placeholder = "الهاتف" })
-                    </div>
+                    @{
+                        if (Model.BuildingPermits.OwnerName != null)
+                        {
+                            <div class="form-group col-lg-3">
+                                <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.OwnerName)</label>
+                                @Html.TextBoxFor(m => m.BuildingPermits.OwnerName, new { @readonly = "readonly", @class = "form-control", id = "OwnerName", @placeholder = "إسم المالك" })
+                            </div>
+                            <div class="form-group col-lg-3">
+                                <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.OwnerCivilId)</label>
+                                @Html.TextBoxFor(m => m.BuildingPermits.OwnerCivilId, new { @readonly = "readonly", @class = "form-control", id = "OwnerCivilId", @placeholder = "الرقم المدني للمالك" })
+                            </div>
+                            <div class="form-group col-lg-3">
+                                <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.OwnerPhoneNo)</label>
+                                @Html.TextBoxFor(m => m.BuildingPermits.OwnerPhoneNo, new { @readonly = "readonly", @class = "form-control", id = "OwnerPhoneNo", @placeholder = "الهاتف" })
+                            </div>
+                        }
+                        else
+                        {
+                            <div id="divOwners" class="box">
+                                @if (Model.ListOfOwners != null && Model.ListOfOwners.Count > 0)
+                                {
+                                    Html.RenderPartial("_ListOwnersDetails", Model);
+                                }
+                            </div>
+                        }
+                    }
                 </div>
                 <div class="form-group col-md-6">
                     <h5>بيانات مكان قطعة الأرض</h5>
@@ -173,7 +187,7 @@
                             <input type="text" style="width: 40px; display: inline" onkeyup="moveCursor(this, KrokiNO5);" maxlength="2" class="form-control" id="KrokiNO4" />
                             <label class="control-label">-</label>
                             <input type="text" style="width: 55px; display: inline" onkeyup="moveCursor(this, KrokiNO);" maxlength="4" class="form-control" id="KrokiNO5" />
-                            
+
                             @Html.TextBoxFor(m => m.BuildingPermits.KrokiNO, new { @class = "form-control", @readonly = "readonly", id = "KrokiNO", @placeholder = "رقم الكروكي" })
                             @Html.ValidationMessageFor(m => m.BuildingPermits.KrokiNO, "", new { @style = "color:orange;" })
                         </div>
@@ -258,7 +272,7 @@
             <i class="glyphicon glyphicon-ok"></i> حفظ
         </button>
     }
-    <a style="float:left" href="@Url.Action( " Index","BuildingPermits")" class="btn btn-primary" role="button">الصفحة السابقة</a>
+    <a style="float:left" href="@Url.Action("Index","BuildingPermits")" class="btn btn-primary" role="button">الصفحة السابقة</a>
 </div>
 
 <script>

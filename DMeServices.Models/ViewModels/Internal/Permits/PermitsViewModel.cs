@@ -77,7 +77,7 @@ namespace DMeServices.Models.ViewModels.Internal.Permits
         public List<Payments> Payments { get; set; }
 
 
-        public Owners Owner { get; set; }
-        public List<Owners> ListOfOwners { get; set; }
+        public Owner Owner { get; set; }
+        public List<Owner> ListOfOwners { get; set; }
     }
 }

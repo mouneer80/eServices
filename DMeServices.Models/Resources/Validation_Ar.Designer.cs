@@ -79,7 +79,7 @@ namespace DMeServices.Models.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to صيغة الملف غير صالحة ,صيغ الملفات المتاحة(PDF,JPG, JPEG &amp; PNG ).
+        ///   Looks up a localized string similar to صيغة الملف غير صالحة ,صيغ الملفات المتاحة(PDF ).
         /// </summary>
         public static string FileType {
             get {
@@ -88,7 +88,7 @@ namespace DMeServices.Models.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to صيغة الملف غير صالحة ,صيغ الملفات المتاحة(JPG, JPEG &amp; PNG).
+        ///   Looks up a localized string similar to صيغة الملف غير صالحة ,صيغ الملفات المتاحة(PDF).
         /// </summary>
         public static string ImageType {
             get {

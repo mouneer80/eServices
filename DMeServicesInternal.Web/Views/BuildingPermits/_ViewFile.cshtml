@@ -1,27 +1,30 @@
-﻿
-
-<div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-    <h4 class="modal-title" style="text-align:center" id="myModalLabel">
-        عرض الملف
-    </h4>
-</div>
-<style type="text/css">
+﻿<style type="text/css">
     html, body {
         width: 100%;
         height: 100%;
         overflow: hidden;
         margin: 0px;
     }
-</style>
-@*<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>*@
-@*<script src="~/Scripts/jquery-1.9.1.min.js"></script>*@
-<script type="text/javascript">
-    function autoResize(iframe) {
-        $(iframe).height($(iframe).contents().find('html').height());
+
+    .wrap {
+        width: 100%;
+        height: 850px;
+        padding: 0;
+        overflow: hidden;
     }
-</script>
-<style>
+
+    .frame {
+        width: 100%;
+        height: 850px;
+        border: 1px solid black;
+    }
+
+        .frame > img {
+            zoom: 0.5;
+            -moz-transform: scale(0.5);
+            -moz-transform-origin: 0 0;
+        }
+
     .modal-open {
         direction: unset;
     }
@@ -31,42 +34,54 @@
         margin-top: 10px auto;
     }
 
+    .modal-body > img {
+        zoom:0.5;
+    }
+
     #scaled-frame > img {
         background-color: #ff6a00;
+        zoom: 0.5;
     }
 </style>
-<script type="text/javascript">
-    function unloadModal() {
-        $('#MainModal').modal('hide');
-    }
 
-</script>
-@*<script type="text/javascript">
-    jQuery(document).ready(function () {
-        var iframe = $("#scaled-frame");
-        ////var iframe = document.getElementById('scaled-frame');
-        var style = document.createElement('style');
-        style.textContent =
-            'body {' +
-            '  cursor: zoom-out' +
-            '}'
-           ;
-        iframe.context.head.appendChild(style);
-        console.log(iframe.context.head.appendChild(style));
-    });
-</script>*@
-
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    <h4 class="modal-title" style="text-align:center" id="myModalLabel">
+        عرض الملف
+    </h4>
+</div>
 
 <div class="modal-body" style="padding:0px">
-    <div class="form-group">
-        <div>
-            <div style="text-align:center">
-                <iframe id="scaled-frame" style="width:100%; height:550px" src="@Url.Action("DisplayFiles", new { @controller = "BuildingPermits", @Id = ViewBag.ID })">
-                    <p>Your browser does not support iframes.</p>
-                </iframe>
-            </div>
-        </div>
+    <div class="wrap">
+        <iframe id="scaled-frame" class="frame" src="@Url.Action("DisplayFiles", new { @controller = "BuildingPermits", @Id = ViewBag.ID })">
+            <p>Your browser does not support iframes.</p>
+        </iframe>
     </div>
 </div>
 
+@*<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>*@
+@*<script src="~/Scripts/jquery-1.9.1.min.js"></script>*@
+<script type="text/javascript">
+    function autoResize(iframe) {
+        alert("test", iframe.height);
+        $(iframe).height($(iframe).contents().find('html').height());
+    }
+    function unloadModal() {
+        $('#MainModal').modal('hide');
+    }
+</script>
+@*<script type="text/javascript">
+        jQuery(document).ready(function () {
+            var iframe = $("#scaled-frame");
+            ////var iframe = document.getElementById('scaled-frame');
+            var style = document.createElement('style');
+            style.textContent =
+                'body {' +
+                '  cursor: zoom-out' +
+                '}'
+               ;
+            iframe.context.head.appendChild(style);
+            console.log(iframe.context.head.appendChild(style));
+        });
+    </script>*@
 

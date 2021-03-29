@@ -145,7 +145,7 @@ namespace DMeServicesExternal.Web.Controllers
 
                 // to save the attachments on the memory
                 TempData["Attachments"] = new List<PermitsAttachments>();
-                TempData["Owners"] = new List<Owners>();
+                TempData["Owners"] = new List<Owner>();
                 ViewBag.DDAttachmentsType = DDAttachmentTypes();
                 ViewBag.DDWelayat = DDWelayat();
                 ViewBag.DDBuildingTypes = DDBuildingTypes();
@@ -166,9 +166,12 @@ namespace DMeServicesExternal.Web.Controllers
             //ModelState.Remove(oModel.AttachmentDetails.Id.ToString());
             //if (ModelState.IsValid)
             //{
-            //oModel.ListOfOwners = (List<Owners>)TempData["Owners"];
+            oModel.ListOfOwners = (List<Owner>)TempData["Owners"];
             oModel.ListOfAttachments = (List<PermitsAttachments>)TempData["Attachments"];
-            TempData["Attachments"] = null;
+            //if (oModel.ListOfOwners != null && oModel.ListOfOwners.Count > 1)
+            //{
+            //    oModel.ListOfOwners = SaveOwnersDetails(oModel);
+            //}
             //TempData["Owners"] = null;
             if (isListOfAttachment(oModel.ListOfAttachments))
             {
@@ -182,36 +185,58 @@ namespace DMeServicesExternal.Web.Controllers
                 oModel.ListOfAttachments.Add(oModel.PersonalCard);
                 oModel.ListOfAttachments.Add(oModel.KrokeFile);
                 oModel.ListOfAttachments.Add(oModel.OwnerFile);
-                oModel.ListOfAttachments.Add(oModel.ConsLetter);
-                oModel.ListOfAttachments.Add(oModel.LandPic);
-                oModel.ListOfAttachments.Add(oModel.ConsAgreementFile);
-                oModel.ListOfAttachments.Add(oModel.Others);
+                if (oModel.ConsLetter.OptionalFile != null)
+                {
+                    oModel.ListOfAttachments.Add(oModel.ConsLetter);
+                }
+                if (oModel.LandPic.OptionalFile != null)
+                {
+                    oModel.ListOfAttachments.Add(oModel.LandPic);
+                }
+                if (oModel.ConsAgreementFile.OptionalFile != null)
+                {
+                    oModel.ListOfAttachments.Add(oModel.ConsAgreementFile);
+                }
+                if (oModel.Others.OptionalFile != null)
+                {
+                    oModel.ListOfAttachments.Add(oModel.Others);
+                }
                 //oModel.BuildingPermits.LicenseNo = "ح / 5665";
-                
-                oModel.ListOfAttachments = SaveFiles(oModel);
-                string result = PermitsCom.SavePermits(oModel);
 
-                ViewBag.TranseID = result;
-                DMeServices.Models.Common.SmsCom.SendSms("968" + oModel.oUserInfo.MobileNo, ":تم تسليم طلبك بنجاح رقم المعاملة" + result);
+
+
+                oModel.ListOfAttachments = SaveFiles(oModel);
             }
-            return View("SaveNewPermitsSuccessPage");
+
+            string result = PermitsCom.SavePermits(oModel);
+            if (result != "")
+            {
+                ViewBag.TranseID = result;
+                TempData["Attachments"] = null;
+                TempData["Owners"] = null;
+                DMeServices.Models.Common.SmsCom.SendSms("968" + oModel.oUserInfo.MobileNo, ":تم تسليم طلبك بنجاح رقم المعاملة" + result);
+
+                return View("SaveNewPermitsSuccessPage");
+            }
             //}
-            //else
-            //{
-            //    return View("~/Views/Shared/SaveFailPage");
-            //}
+            else
+            {
+                return View("~/Views/Shared/SaveFailPage");
+            }
         }
 
         private bool isListOfAttachment(List<PermitsAttachments> listOfAttachments)
         {
-            if (listOfAttachments.Count == 0 || listOfAttachments.Count > 20) return false;
-
-            foreach (var Attachment in listOfAttachments)
+            if (listOfAttachments.Count > 20) return false;
+            if (listOfAttachments.Count != 0)
             {
-                HttpPostedFileBase oFile = Attachment.File;
-                FileInfo oFileInfo = new FileInfo(oFile.FileName);
+                foreach (var Attachment in listOfAttachments)
+                {
+                    HttpPostedFileBase oFile = Attachment.File;
+                    FileInfo oFileInfo = new FileInfo(oFile.FileName);
 
-                if (oFile == null || oFile.ContentLength <= 0 || !new string[] { ".jpg", ".jpeg", ".pdf", ".png" }.Contains(oFileInfo.Extension.ToLower())) return false;
+                    if (oFile == null || oFile.ContentLength <= 0 || !new string[] { ".jpg", ".jpeg", ".pdf", ".png" }.Contains(oFileInfo.Extension.ToLower())) return false;
+                }
             }
             return true;
         }
@@ -238,6 +263,7 @@ namespace DMeServicesExternal.Web.Controllers
 
             oModel.BuildingPermits = PermitsCom.PermitsByID(id);
             TempData["Attachments"] = new List<PermitsAttachments>();
+            TempData["Owners"] = new List<Owner>();
             ViewBag.DDAttachmentsType = DDAttachmentTypes();
 
             ViewBag.DDWelayat = DDWelayat();
@@ -246,8 +272,8 @@ namespace DMeServicesExternal.Web.Controllers
             ViewBag.DDBuildingTypes = DDBuildingTypes();
             ViewBag.DDLandUseTypes = DdLandUseTypes();
             ViewBag.DDSquareLetters = DdSquareLetters();
-            oModel.ListOfAttachments = PermitsAttachmentsCom.AttachmentsByPermitsID(id, (int)oModel.BuildingPermits.OwnerCivilId);
-
+            oModel.ListOfAttachments = PermitsAttachmentsCom.AttachmentsByPermitsID(id, oModel.BuildingPermits.KrokiNO);
+            oModel.ListOfOwners = PermitsCom.OwnersByPermitID(id);
             oModel.Payments = PaymentsCom.PaymentsByPermitsID(id);
             oModel.PaymentDetailsList = PaymentsCom.MapsPaymentDetailsByPermitsID(id);
 
@@ -268,22 +294,27 @@ namespace DMeServicesExternal.Web.Controllers
             //IExcelDataReader reader = null;
             PermitsAttachments Attachment = PermitsAttachmentsCom.AttachmentsByID(Id);
             string contentType = MimeMapping.GetMimeMapping(Attachment.AttachmentPath);
+            Stream stream = new MemoryStream();
             if (Attachment.AttachmentStream == null || Attachment.AttachmentStream.Length <= 0)
             {
                 System.IO.FileStream oFile = new FileStream(Attachment.AttachmentPath, FileMode.Open, FileAccess.Read);
 
-                MemoryStream streamToUpdate = new MemoryStream();
-                oFile.CopyTo(streamToUpdate);
-                byte[] data = streamToUpdate.ToArray();
-                Attachment.AttachmentStream = data;
-                UpdateStream(Attachment);
+                //MemoryStream streamToUpdate = new MemoryStream();
+                oFile.CopyTo(stream);
+                //byte[] data = streamToUpdate.ToArray();
+                //Attachment.AttachmentStream = data;
+                //UpdateStream(Attachment);
+            }
+            else
+            {
+                stream = new MemoryStream(Attachment.AttachmentStream);
             }
 
 
             if (Attachment != null)
             {
 
-                Stream stream = new MemoryStream(Attachment.AttachmentStream);
+
                 stream.Position = 0;
                 //    if (filepath.EndsWith(".xls"))
                 //    {
@@ -483,7 +514,7 @@ namespace DMeServicesExternal.Web.Controllers
         #endregion
 
         #region Method :: Delete Attachment
-
+        [HttpPost]
         public ActionResult DeleteAttachment(int Id)
         {
             PermitsViewModel oModel = new PermitsViewModel();
@@ -566,6 +597,11 @@ namespace DMeServicesExternal.Web.Controllers
             foreach (var Attachment in oModel.ListOfAttachments)
             {
                 HttpPostedFileBase oFile = Attachment.File;
+                if (Attachment.File == null && Attachment.OptionalFile != null)
+                { 
+                    oFile = Attachment.OptionalFile; 
+                }
+                
                 FileInfo oFileInfo = new FileInfo(oFile.FileName);
 
                 if (oFile != null && oFile.ContentLength > 0)
@@ -579,8 +615,8 @@ namespace DMeServicesExternal.Web.Controllers
                             //int height = Image.FromStream(oFile.InputStream).Height;
                             //if (width > 1000)
                             //    ResizeImage(oFile.FileName, oFile.FileName + "resized", ImageFormat.Jpeg, 1000,1000);
-                            sFilename = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + oFileInfo.Extension;
-                            PerPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/Personal/" + oModel.BuildingPermits.OwnerCivilId.ToString()));
+                            sFilename = Attachment.AttachmentTypeId.ToString() + "_" + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + oFileInfo.Extension;
+                            PerPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/Personal/" + oModel.BuildingPermits.KrokiNO));
                             sPath = System.IO.Path.Combine(PerPath.ToString());
                             string PerUploadPath = string.Format("{0}\\{1}", sPath, sFilename);
                             if (!Directory.Exists(PerPath))
@@ -594,7 +630,7 @@ namespace DMeServicesExternal.Web.Controllers
                             break;
                         case 4:
                             sFilename = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + oFileInfo.Extension;
-                            ConsPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/Consultant/" + oModel.BuildingPermits.OwnerCivilId.ToString()));
+                            ConsPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/Consultant/" + oModel.BuildingPermits.KrokiNO));
                             sPath = System.IO.Path.Combine(ConsPath.ToString());
                             string ConsUploadPath = string.Format("{0}\\{1}", sPath, sFilename);
                             if (!Directory.Exists(ConsPath))
@@ -612,7 +648,7 @@ namespace DMeServicesExternal.Web.Controllers
                         case 8:
                         case 14:
                             sFilename = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + oFileInfo.Extension;
-                            StrPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/StructuralFiles/" + oModel.BuildingPermits.OwnerCivilId.ToString()));
+                            StrPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/StructuralFiles/" + oModel.BuildingPermits.KrokiNO));
                             sPath = System.IO.Path.Combine(StrPath.ToString());
                             string StrUploadPath = string.Format("{0}\\{1}", sPath, sFilename);
                             if (!Directory.Exists(StrPath))
@@ -626,7 +662,7 @@ namespace DMeServicesExternal.Web.Controllers
                             break;
                         case 15:
                             sFilename = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + oFileInfo.Extension;
-                            LandPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/LandFiles/" + oModel.BuildingPermits.OwnerCivilId.ToString()));
+                            LandPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/LandFiles/" + oModel.BuildingPermits.KrokiNO));
                             sPath = System.IO.Path.Combine(LandPath.ToString());
                             string LandUploadPath = string.Format("{0}\\{1}", sPath, sFilename);
                             if (!Directory.Exists(LandPath))
@@ -640,7 +676,7 @@ namespace DMeServicesExternal.Web.Controllers
                             break;
                         case 16:
                             sFilename = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + oFileInfo.Extension;
-                            ConsultantPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/Consultant/" + oModel.BuildingPermits.OwnerCivilId.ToString()));
+                            ConsultantPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/Consultant/" + oModel.BuildingPermits.KrokiNO));
                             sPath = System.IO.Path.Combine(ConsultantPath.ToString());
                             string ConsultantUploadPath = string.Format("{0}\\{1}", sPath, sFilename);
                             if (!Directory.Exists(ConsultantPath))
@@ -654,7 +690,7 @@ namespace DMeServicesExternal.Web.Controllers
                             break;
                         case 20:
                             sFilename = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + oFileInfo.Extension;
-                            OtherPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/Others/" + oModel.BuildingPermits.OwnerCivilId.ToString()));
+                            OtherPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/Others/" + oModel.BuildingPermits.KrokiNO));
                             sPath = System.IO.Path.Combine(OtherPath.ToString());
                             string OtherUploadPath = string.Format("{0}\\{1}", sPath, sFilename);
                             if (!Directory.Exists(OtherPath))
@@ -733,7 +769,7 @@ namespace DMeServicesExternal.Web.Controllers
                     if (oFile != null && oFile.ContentLength > 0)
                     {
                         var sFilename = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + oFileInfo.Extension;
-                        var StrPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/StructuralFiles/" + oModel.BuildingPermits.OwnerCivilId.ToString()));
+                        var StrPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/StructuralFiles/" + oModel.BuildingPermits.KrokiNO));
                         var sPath = System.IO.Path.Combine(StrPath.ToString());
                         string StrUploadPath = string.Format("{0}\\{1}", sPath, sFilename);
                         if (!Directory.Exists(StrPath))
@@ -940,6 +976,81 @@ namespace DMeServicesExternal.Web.Controllers
             return LstBuildingTypes;
         }
 
+        #endregion
+
+        #region Method :: Save Owner Details
+
+
+        public static List<Owner> SaveOwnersDetails(PermitsViewModel oModel)
+        {
+            List<Owner> ListOwners = new List<Owner>();
+
+            if (oModel.ListOfOwners == null)
+            {
+                return null;
+            }
+
+            foreach (var Owner in oModel.ListOfOwners)
+            {
+
+                //Owner.BldPermitId = oModel.BuildingPermits.Id;
+                Owner.CivilID = oModel.Owner.CivilID;
+                Owner.Name = oModel.Owner.Name;
+                Owner.Phone = oModel.Owner.Phone;
+
+                ListOwners.Add(Owner);
+            }
+            return ListOwners;
+
+        }
+
+        #endregion
+
+        #region Method :: Save Owner
+        [HttpPost]
+        public ActionResult SaveOwner()
+        {
+            PermitsViewModel oModel = new PermitsViewModel();
+            var OwnerCivilID = System.Web.HttpContext.Current.Request.Form["OwnerCivilId"];
+            var OwnerName = System.Web.HttpContext.Current.Request.Form["OwnerName"];
+            var OwnerPhone = System.Web.HttpContext.Current.Request.Form["OwnerPhoneNo"];
+            //var PermitID = System.Web.HttpContext.Current.Request.Form["PermitID"];
+            oModel.Owner = new Owner();
+            oModel.Owner.CivilID = int.Parse(OwnerCivilID);
+            oModel.Owner.Name = OwnerName;
+            oModel.Owner.Phone = int.Parse(OwnerPhone);
+            //oModel.Owner.SurveyID = int.Parse(SurveyID);
+            oModel.ListOfOwners = (List<Owner>)TempData["Owners"];
+            if (oModel.ListOfOwners == null)
+            {
+                oModel.ListOfOwners = new List<Owner>();
+            }
+            //if (oModel.ListOfOwners.Count == 0)
+            //{
+            //    if (PermitID != null)
+            //    {
+            //        oModel.ListOfOwners = PermitsCom.OwnersByPermitID(int.Parse(PermitID));
+            //    }
+            //}
+            oModel.ListOfOwners.Add(oModel.Owner);
+            TempData["Owners"] = oModel.ListOfOwners;
+
+            return PartialView("_ListOwners", oModel);
+        }
+        #endregion
+
+        #region Method :: Delete Owner
+        [HttpPost]
+        public ActionResult DeleteOwner(int Id)
+        {
+            PermitsViewModel oModel = new PermitsViewModel();
+            oModel.ListOfOwners = (List<Owner>)TempData["Owners"];
+            oModel.Owner = oModel.ListOfOwners[Id];
+            oModel.ListOfOwners.Remove(oModel.Owner);
+            TempData["Owners"] = oModel.ListOfOwners;
+            return PartialView("_ListOwners", oModel);
+
+        }
         #endregion
 
     }

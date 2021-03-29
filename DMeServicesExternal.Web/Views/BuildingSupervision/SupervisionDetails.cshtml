@@ -97,7 +97,7 @@
             @Html.HiddenFor(x => x.BuildingSupervision.ID)
             @Html.HiddenFor(x => x.BuildingSupervision.ConsultantCivilId)
             @Html.HiddenFor(x => x.BuildingSupervision.TransactNo)
-            @Html.HiddenFor(x => x.ShowAdd, new { @id = "showAdd" } )
+            @Html.HiddenFor(x => x.ShowAdd, new { @id = "showAdd" })
             <div class="row">
                 <div class="row">
                     <div class="form-group col-lg-2">
@@ -107,18 +107,32 @@
                 </div>
                 <div class="form-group col-lg-4">
                     <h5>بيانات مالك الارض</h5>
-                    <div class="form-group col-lg-4">
-                        <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.OwnerName)</label>
-                        @Html.TextBoxFor(m => m.BuildingSupervision.OwnerName, new { @readonly = "readonly", @class = "form-control", id = "OwnerName", @placeholder = "إسم المالك" })
-                    </div>
-                    <div class="form-group col-lg-4">
-                        <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.OwnerCivilId)</label>
-                        @Html.TextBoxFor(m => m.BuildingSupervision.OwnerCivilId, new { @readonly = "readonly", @class = "form-control", id = "OwnerCivilId", @placeholder = "الرقم المدني للمالك" })
-                    </div>
-                    <div class="form-group col-lg-4">
-                        <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.OwnerPhoneNo)</label>
-                        @Html.TextBoxFor(m => m.BuildingSupervision.OwnerPhoneNo, new { @readonly = "readonly", @class = "form-control", id = "OwnerPhoneNo", @placeholder = "الهاتف" })
-                    </div>
+                    @{
+                        if (Model.BuildingPermits.OwnerName != null)
+                        {
+                            <div class="form-group col-lg-4">
+                                <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.OwnerName)</label>
+                                @Html.TextBoxFor(m => m.BuildingSupervision.OwnerName, new { @readonly = "readonly", @class = "form-control", id = "OwnerName", @placeholder = "إسم المالك" })
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.OwnerCivilId)</label>
+                                @Html.TextBoxFor(m => m.BuildingSupervision.OwnerCivilId, new { @readonly = "readonly", @class = "form-control", id = "OwnerCivilId", @placeholder = "الرقم المدني للمالك" })
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.OwnerPhoneNo)</label>
+                                @Html.TextBoxFor(m => m.BuildingSupervision.OwnerPhoneNo, new { @readonly = "readonly", @class = "form-control", id = "OwnerPhoneNo", @placeholder = "الهاتف" })
+                            </div>
+                        }
+                        else
+                        {
+                            <div id="divOwners" class="box">
+                                @if (Model.ListOfOwners != null && Model.ListOfOwners.Count > 0)
+                                {
+                                    Html.RenderPartial("_ListOwnersDetails", Model);
+                                }
+                            </div>
+                        }
+                    }
                 </div>
                 <div class="form-group col-lg-4">
                     <h5>بيانات مكان قطعة الأرض</h5>
@@ -180,7 +194,7 @@
                     <h5>بيانات ترخيص البناء</h5>
                     <div class="form-group col-lg-2">
                         <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.LicenseNo)</label>
-                        @Html.TextBoxFor(m => m.BuildingSupervision.BldPermits.LicenseNo, new { @readonly = "readonly", @class = "form-control", id = "LicenseNo", @placeholder = "رقم الترخيص" })
+                        @Html.TextBoxFor(m => m.BuildingSupervision.BldPermits.LicenseNo, new { @readonly = "readonly", @class = "form-control", id = "LicenseNo", @placeholder = " رقم ترخيص البناء" })
                     </div>
                     <div class="form-group col-lg-2">
                         <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.ConstructedArea)</label>
@@ -201,6 +215,55 @@
                         <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.NumberOfFloors)</label>
                         @Html.TextBoxFor(m => m.BuildingSupervision.BldPermits.NumberOfFloors, new { @readonly = "readonly", @class = "form-control", id = "NumberOfFloors", @placeholder = "عدد الطوابق المراد بنائها" })
                     </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label class="control-label"> السجل التجاري للمقاول</label>
+                    @Html.TextBoxFor(n => n.Contractor.Cr_No, null, new { @readonly = "readonly", @class = "form-control", placeholder = "السجل التجاري للمقاول", @id = "CommercialNo", @onchange = "EmptyTextBoxes();" })
+                </div>
+                <div class="form-group col-md-3">
+                    <label class="control-label"> اسم الشركة</label>
+                    @*<input type="text" readonly class="form-control" id="CompanyName">*@
+                    @Html.TextBoxFor(n => n.Contractor.Cr_Name, null, new { @readonly = "readonly", @class = "form-control", placeholder = "اسم الشركة", @id = "CompanyName" })
+                </div>
+                <div class="form-group col-md-3">
+                    <label class="control-label"> الاسم بالكامل</label>
+                    @*<input type="text" readonly class="form-control" id="CompanyName">*@
+                    @Html.TextBoxFor(n => n.Contractor.OwnerFullName, null, new { @readonly = "readonly", @class = "form-control", placeholder = "الاسم بالكامل", @id = "FullName" })
+                    @Html.ValidationMessageFor(n => n.Contractor.OwnerFullName, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group col-md-3">
+                    <label class="control-label"> الرقم المدني</label>
+                    @*<input type="text" readonly class="form-control" id="CompanyName">*@
+                    @Html.TextBoxFor(n => n.Contractor.Owner_Civil_ID, null, new { @readonly = "readonly", @class = "form-control", placeholder = "الرقم المدني", @id = "CivilID" })
+                    @Html.ValidationMessageFor(n => n.Contractor.Owner_Civil_ID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label class="control-label"> رقم الهاتف</label>
+                    @*<input type="text" readonly class="form-control" id="CompanyName">*@
+                    @Html.TextBoxFor(n => n.Contractor.PhoneNo, null, new { @class = "form-control", placeholder = "رقم الهاتف", @id = "PhoneNumber" })
+                    @Html.ValidationMessageFor(n => n.Contractor.PhoneNo, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group col-md-3">
+                    <label class="control-label"> البريد الالكتروني</label>
+                    @*<input type="text" readonly class="form-control" id="CompanyName">*@
+                    @Html.TextBoxFor(n => n.Contractor.Email, null, new { @class = "form-control", placeholder = "البريد الالكتروني", @id = "Email" })
+                    @Html.ValidationMessageFor(n => n.Contractor.Email, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group col-md-3">
+                    <label class="control-label">اسم مشرف العمال</label>
+                    @*<input type="text" readonly class="form-control" id="CompanyName">*@
+                    @Html.TextBoxFor(n => n.Contractor.Foreman_Name, null, new { @class = "form-control", placeholder = "رقم الهاتف", @id = "PhoneNumber" })
+                    @Html.ValidationMessageFor(n => n.Contractor.Foreman_Name, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group col-md-3">
+                    <label class="control-label"> الرقم المدني لمشرف العمال</label>
+                    @*<input type="text" readonly class="form-control" id="CompanyName">*@
+                    @Html.TextBoxFor(n => n.Contractor.Foreman_Civil_ID, null, new { @class = "form-control", placeholder = "رقم الهاتف", @id = "PhoneNumber" })
+                    @Html.ValidationMessageFor(n => n.Contractor.Foreman_Civil_ID, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="row">
@@ -230,20 +293,23 @@
                         @{ Html.RenderPartial("_ListDues", Model);}
                     </div>
                 }
-                @*@if (Model.BuildingPermits.WorkflowStatus > 28)
-        {
-            <div id="divPrints" class="form-group">
-                @{ Html.RenderPartial("_ListPrints", Model);}
-            </div>
-        }*@
-                @*<div id="divDues" class="form-group">
-            @{ Html.RenderPartial("_ListDues", Model);}
-        </div>
+                @if (Model.TransactsList != null && Model.TransactsList.Count > 0)
+                {
+                    <div class="form-group">
+                        @{ Html.RenderPartial("_ListTransacts", Model);}
+                    </div>
+                }
 
+                @if (Model.BuildingSupervision.Status > 28)
+                {
+                    <div id="divPrints" class="form-group">
+                        @{ Html.RenderPartial("_ListPrints", Model);}
+                    </div>
+                }
 
-        <div id="divPrints" class="form-group">
-            @{ Html.RenderPartial("_ListPrints", Model);}
-        </div>*@
+                @*<div id="divPrints" class="form-group">
+                        @{ Html.RenderPartial("_ListPrints", Model);}
+                    </div>*@
 
             </div>
         }
@@ -256,7 +322,13 @@
             <i class="glyphicon glyphicon-ok"></i> حفظ
         </button>
     }
-    <a style="float:left" href="@Url.Action( "Index","BuildingSupervision", new { @showadd = Model.ShowAdd } )" class="btn btn-primary" role="button">الصفحة السايفة</a>
+    @if (Model.BuildingSupervision != null && Model.BuildingSupervision.Status == 30)
+    {
+        <a class="btn btn-primary" id="btnChangeContractor" href="@Url.Action( "SupervisionCloseTransaction","BuildingSupervision", new {@id= Model.BuildingSupervision.ID, @showadd = Model.ShowAdd})" role="button">
+            <i class="glyphicon glyphicon-ok"></i> تغيير المقاول / استرداد التأمين / اتمام المعاملة
+        </a>
+    }
+    <a style="float:left" href="@Url.Action( "Index","BuildingSupervision", new { @showadd = Model.ShowAdd } )" class="btn btn-primary" role="button">الصفحة السابقة</a>
     <br />
     @*<a style="float:left" id="Pay" href="@Url.Action( "PayWithPost","BuildingPermits")" class="btn btn-primary" role="button">الدفع</a>*@
 </div>
@@ -270,6 +342,9 @@
         alert('Your Message');
     });
 
+    $("#ChangeContractor").click(function () {
+        $('#Permitsform').submit();
+    });
 
 
 </script>

@@ -97,6 +97,15 @@ namespace DMeServices.Models.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to مالك المكتب الهندسي.
+        /// </summary>
+        public static string CosultantOwner {
+            get {
+                return ResourceManager.GetString("CosultantOwner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
         public static string CS_NO {
@@ -408,6 +417,15 @@ namespace DMeServices.Models.Resources {
         public static string SecondName {
             get {
                 return ResourceManager.GetString("SecondName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to الخدمات.
+        /// </summary>
+        public static string Services {
+            get {
+                return ResourceManager.GetString("Services", resourceCulture);
             }
         }
         

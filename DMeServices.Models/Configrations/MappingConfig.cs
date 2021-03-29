@@ -35,11 +35,15 @@ namespace DMeServices.Models.Configrations
                 config.CreateMap<HsPermitType, PermitType>();
                 config.CreateMap<EmployeeGroups, EmployeeGroup>();
                 config.CreateMap<BldWorkersHousingDetails, WorkersHousingDetails>();
-                config.CreateMap<BuildingSupervision, BldSupervisionServices>();
+                config.CreateMap<BldSupervisionServices, BuildingSupervision>();
                 config.CreateMap<BldSupervisionServicesTypes, SupervisionServicesTypes>();
                 config.CreateMap<BldServiceFees, ServiceFeesDetails>();
                 config.CreateMap<BldPayment, Payments>();
                 config.CreateMap<BldPaymentDetails, PaymentDetails>();
+                config.CreateMap<BldTransactions, Transactions>();
+                config.CreateMap<BldOwners, Owner>();
+                config.CreateMap<BldSupervisionContractors, Contractor>();
+
 
 
 
@@ -68,6 +72,9 @@ namespace DMeServices.Models.Configrations
                 config.CreateMap<ServiceFeesDetails, BldServiceFees>();
                 config.CreateMap<Payments, BldPayment>();
                 config.CreateMap<PaymentDetails, BldPaymentDetails>();
+                config.CreateMap<Transactions, BldTransactions>();
+                config.CreateMap<Owner, BldOwners>();
+                config.CreateMap<Contractor, BldSupervisionContractors>();
             });
 
 

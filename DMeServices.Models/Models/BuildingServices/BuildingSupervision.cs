@@ -14,7 +14,7 @@ namespace DMeServices.Models.BuildingServices
         public int BldPermitID { get; set; }
         public int ServiceTypeID { get; set; }
         public Nullable<int> Status { get; set; }
-        public int OwnerCivilId { get; set; }
+        public Nullable<int> OwnerCivilId { get; set; }
         public string KrokiNO { get; set; }
         public string OwnerName { get; set; }
         public string OwnerPhoneNo { get; set; }
@@ -32,8 +32,13 @@ namespace DMeServices.Models.BuildingServices
         public string DmSupervisionComments { get; set; }
         public string DmInspectorComments { get; set; }
         public Nullable<int> PaymentID { get; set; }
+        public string ConsultantNotes { get; set; }
+        public string OwnerNotes { get; set; }
+        public Nullable<int> ContractorCR_No { get; set; }
+
         public SupervisionServicesTypes BldSupervisionServicesTypes { get; set; }
         public BuildingPermits BldPermits { get; set; }
+        public Contractor Contractor { get; set; }
 
     }
 }

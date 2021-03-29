@@ -255,4 +255,10 @@
   <data name="SupervisionStatus" xml:space="preserve">
     <value>رأي المفتش</value>
   </data>
+  <data name="Services" xml:space="preserve">
+    <value>الخدمات</value>
+  </data>
+  <data name="CosultantOwner" xml:space="preserve">
+    <value>مالك المكتب الهندسي</value>
+  </data>
 </root>

@@ -1,0 +1,126 @@
+﻿@model DMeServices.Models.ViewModels.Internal.Permits.PermitsViewModel
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
+<div class="box-inner">
+    <div class="box-header well" data-original-title="">
+        <h2><i class="glyphicon glyphicon-edit"></i>اسماء ملاك قطعة الأرض</h2>
+    </div>
+    <div class="box-content">
+        <!--item details-->
+        <div class="">
+            <table id="myTable" class=" table order-list">
+                <thead>
+                    <tr>
+                        <td>اسم المالك</td>
+                        <td>الرقم المدني</td>
+                        <td>رقم الهاتف</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.ListOfOwners != null)
+                    {
+                        int i = 0;
+                        foreach (var item in Model.ListOfOwners)
+                        {
+                            <tr>
+                                <td class="col-sm-1" style="width:10%;">
+                                    @item.Name
+
+                                </td>
+                                <td class="col-sm-1" style="width:25%;">
+                                    @item.CivilID
+                                </td>
+                                <td class="col-sm-1" style="width:5%;">
+                                    @item.Phone
+                                </td>
+
+
+                                @*<td class="col-sm-1" style="width:20%;">
+                                    @using (Ajax.BeginForm("DeleteOwner", new { @controller = "BuildingPermits", @Id = i }, new AjaxOptions { UpdateTargetId = "divOwners" }, new { @style = "display: inline-block;" }))
+                                    {
+                                        <button type="submit" class="btn btn-danger" onclick="return confirm('هل انت متأكد من الحذف؟')">
+                                            <i class="fa fa-close"></i>&nbsp; حذف
+                                        </button>
+                                    }
+                                </td>*@
+                            </tr>
+                            i++;
+                        }
+
+                    }
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="10" style="text-align:center;"></td>
+                    </tr>
+                    <tr></tr>
+                </tfoot>
+            </table>
+        </div>
+        <!--end of item details-->
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="MainModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function unloadModal() {
+        $('#MainModal').modal('hide');
+    }
+</script>
+
+
+<script type="text/javascript">
+    $(function () {
+        // Initialize numeric spinner input boxes
+        //$(".numeric-spinner").spinedit();
+
+        // Initalize modal dialog
+        // attach modal-container bootstrap attributes to links with .modal-link class.
+        // when a link is clicked with these attributes, bootstrap will display the href content in a modal dialog.
+
+        $('body').on('click', '.modal-link', function (e) {
+
+            $(this).attr('data-target', '#MainModal');
+            e.preventDefault();
+            $("iframe").attr("src", $(this).attr('href'));
+            $(this).attr('data-toggle', 'modal');
+        });
+
+
+        // Attach listener to .modal-close-btn's so that when the button is pressed the modal dialog disappears
+        $('body').on('click', '.modal-close-btn', function () {
+
+            $('#MainModal').modal('hide');
+
+        });
+
+        //clear modal cache, so that new content can be loaded
+        $('#MainModal').on('hidden.bs.modal', function () {
+
+            $(this).removeData('bs.modal');
+        });
+
+        $(document).on("hidden.bs.modal", function (e) {
+            $(e.target).removeData("bs.modal").find(".modal-content").empty();
+        });
+
+        $('#CancelModal').on('click', function () {
+            return false;
+        });
+    });
+</script>
+
+
+

@@ -14,11 +14,17 @@ namespace DMeServices.DAL
     
     public partial class BldSupervisionServices
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public BldSupervisionServices()
+        {
+            this.BldTransactions = new HashSet<BldTransactions>();
+        }
+    
         public int ID { get; set; }
         public int BldPermitID { get; set; }
         public int ServiceTypeID { get; set; }
         public Nullable<int> Status { get; set; }
-        public int OwnerCivilId { get; set; }
+        public Nullable<int> OwnerCivilId { get; set; }
         public string KrokiNO { get; set; }
         public string OwnerName { get; set; }
         public string OwnerPhoneNo { get; set; }
@@ -35,8 +41,15 @@ namespace DMeServices.DAL
         public string DmSupervisionComments { get; set; }
         public string DmInspectorComments { get; set; }
         public Nullable<int> PaymentID { get; set; }
+        public string ConsultantNotes { get; set; }
+        public string OwnerNotes { get; set; }
+        public Nullable<int> ContractorCR_No { get; set; }
+        public Nullable<int> ContractorID { get; set; }
     
         public virtual BldSupervisionServicesTypes BldSupervisionServicesTypes { get; set; }
         public virtual BldPermits BldPermits { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BldTransactions> BldTransactions { get; set; }
+        public virtual BldSupervisionContractors BldSupervisionContractors { get; set; }
     }
 }

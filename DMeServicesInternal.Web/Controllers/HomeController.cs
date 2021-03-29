@@ -1,4 +1,5 @@
-﻿using DMeServices.Models.ViewModels.Internal.Permits;
+﻿using DMeServices.Models.Common;
+using DMeServices.Models.ViewModels.Internal.Permits;
 using DMeServicesInternal.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -40,24 +41,28 @@ namespace DMeServicesInternal.Web.Controllers
             dashboard.Users_count = DMeServices.Models.Common.UserCom.AllUsers().Count;
             return View("About", dashboard);
         }
+        public ActionResult ChangeLanguage(string lang)
+        {
+            new LanguageManager().SetLanguage(lang);
+            return RedirectToAction("Index", "Home");
+        }
 
+        //public ActionResult About()
+        //{
+        //    ViewBag.Message = "Your application description page.";
 
-    //public ActionResult About()
-    //{
-    //    ViewBag.Message = "Your application description page.";
+        //    return View();
+        //}
 
-    //    return View();
-    //}
+        //public ActionResult Contact()
+        //{
+        //    ViewBag.Message = "Your contact page.";
 
-    //public ActionResult Contact()
-    //{
-    //    ViewBag.Message = "Your contact page.";
+        //    return View();
+        //}
 
-    //    return View();
-    //}
-
-    #region Method:: Report
-    public void GetReport()
+        #region Method:: Report
+        public void GetReport()
         {
             ReportParams objReportParams = new ReportParams();
 

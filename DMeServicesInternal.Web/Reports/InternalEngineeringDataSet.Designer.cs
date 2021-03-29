@@ -26,25 +26,35 @@ namespace DMeServicesInternal.Web.Reports {
         
         private BldPermitsDataTable tableBldPermits;
         
+        private BldRegionsDataTable tableBldRegions;
+        
         private BldSquareLettersDataTable tableBldSquareLetters;
+        
+        private BldWelyatDataTable tableBldWelyat;
+        
+        private BldPaymentDataTable tableBldPayment;
         
         private BldBuildingTypesDataTable tableBldBuildingTypes;
         
         private BldLandUseTypesDataTable tableBldLandUseTypes;
         
-        private BldRegionsDataTable tableBldRegions;
+        private BldSupervisionServicesDataTable tableBldSupervisionServices;
         
-        private BldWelyatDataTable tableBldWelyat;
-        
-        private global::System.Data.DataRelation relationFK_BldPermits_BldLandUseTypes;
-        
-        private global::System.Data.DataRelation relationFK_BldRegions_BldWelyat;
-        
-        private global::System.Data.DataRelation relationFK_BldPermits_BldSquareLetters;
+        private BldSupervisionServicesTypesDataTable tableBldSupervisionServicesTypes;
         
         private global::System.Data.DataRelation relationFK_BldPermits_BldBuildingTypes;
         
+        private global::System.Data.DataRelation relationFK_BldPermits_BldLandUseTypes;
+        
+        private global::System.Data.DataRelation relationFK_BldPermits_BldRegions;
+        
+        private global::System.Data.DataRelation relationFK_BldPermits_BldSquareLetters;
+        
         private global::System.Data.DataRelation relationFK_BldPermits_BldWelyat;
+        
+        private global::System.Data.DataRelation relationFK_BldRegions_BldWelyat;
+        
+        private global::System.Data.DataRelation relationFK_BldPayment_BldPermits;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -77,8 +87,17 @@ namespace DMeServicesInternal.Web.Reports {
                 if ((ds.Tables["BldPermits"] != null)) {
                     base.Tables.Add(new BldPermitsDataTable(ds.Tables["BldPermits"]));
                 }
+                if ((ds.Tables["BldRegions"] != null)) {
+                    base.Tables.Add(new BldRegionsDataTable(ds.Tables["BldRegions"]));
+                }
                 if ((ds.Tables["BldSquareLetters"] != null)) {
                     base.Tables.Add(new BldSquareLettersDataTable(ds.Tables["BldSquareLetters"]));
+                }
+                if ((ds.Tables["BldWelyat"] != null)) {
+                    base.Tables.Add(new BldWelyatDataTable(ds.Tables["BldWelyat"]));
+                }
+                if ((ds.Tables["BldPayment"] != null)) {
+                    base.Tables.Add(new BldPaymentDataTable(ds.Tables["BldPayment"]));
                 }
                 if ((ds.Tables["BldBuildingTypes"] != null)) {
                     base.Tables.Add(new BldBuildingTypesDataTable(ds.Tables["BldBuildingTypes"]));
@@ -86,11 +105,11 @@ namespace DMeServicesInternal.Web.Reports {
                 if ((ds.Tables["BldLandUseTypes"] != null)) {
                     base.Tables.Add(new BldLandUseTypesDataTable(ds.Tables["BldLandUseTypes"]));
                 }
-                if ((ds.Tables["BldRegions"] != null)) {
-                    base.Tables.Add(new BldRegionsDataTable(ds.Tables["BldRegions"]));
+                if ((ds.Tables["BldSupervisionServices"] != null)) {
+                    base.Tables.Add(new BldSupervisionServicesDataTable(ds.Tables["BldSupervisionServices"]));
                 }
-                if ((ds.Tables["BldWelyat"] != null)) {
-                    base.Tables.Add(new BldWelyatDataTable(ds.Tables["BldWelyat"]));
+                if ((ds.Tables["BldSupervisionServicesTypes"] != null)) {
+                    base.Tables.Add(new BldSupervisionServicesTypesDataTable(ds.Tables["BldSupervisionServicesTypes"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -124,9 +143,39 @@ namespace DMeServicesInternal.Web.Reports {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public BldRegionsDataTable BldRegions {
+            get {
+                return this.tableBldRegions;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
         public BldSquareLettersDataTable BldSquareLetters {
             get {
                 return this.tableBldSquareLetters;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public BldWelyatDataTable BldWelyat {
+            get {
+                return this.tableBldWelyat;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public BldPaymentDataTable BldPayment {
+            get {
+                return this.tableBldPayment;
             }
         }
         
@@ -154,9 +203,9 @@ namespace DMeServicesInternal.Web.Reports {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public BldRegionsDataTable BldRegions {
+        public BldSupervisionServicesDataTable BldSupervisionServices {
             get {
-                return this.tableBldRegions;
+                return this.tableBldSupervisionServices;
             }
         }
         
@@ -164,9 +213,9 @@ namespace DMeServicesInternal.Web.Reports {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public BldWelyatDataTable BldWelyat {
+        public BldSupervisionServicesTypesDataTable BldSupervisionServicesTypes {
             get {
-                return this.tableBldWelyat;
+                return this.tableBldSupervisionServicesTypes;
             }
         }
         
@@ -240,8 +289,17 @@ namespace DMeServicesInternal.Web.Reports {
                 if ((ds.Tables["BldPermits"] != null)) {
                     base.Tables.Add(new BldPermitsDataTable(ds.Tables["BldPermits"]));
                 }
+                if ((ds.Tables["BldRegions"] != null)) {
+                    base.Tables.Add(new BldRegionsDataTable(ds.Tables["BldRegions"]));
+                }
                 if ((ds.Tables["BldSquareLetters"] != null)) {
                     base.Tables.Add(new BldSquareLettersDataTable(ds.Tables["BldSquareLetters"]));
+                }
+                if ((ds.Tables["BldWelyat"] != null)) {
+                    base.Tables.Add(new BldWelyatDataTable(ds.Tables["BldWelyat"]));
+                }
+                if ((ds.Tables["BldPayment"] != null)) {
+                    base.Tables.Add(new BldPaymentDataTable(ds.Tables["BldPayment"]));
                 }
                 if ((ds.Tables["BldBuildingTypes"] != null)) {
                     base.Tables.Add(new BldBuildingTypesDataTable(ds.Tables["BldBuildingTypes"]));
@@ -249,11 +307,11 @@ namespace DMeServicesInternal.Web.Reports {
                 if ((ds.Tables["BldLandUseTypes"] != null)) {
                     base.Tables.Add(new BldLandUseTypesDataTable(ds.Tables["BldLandUseTypes"]));
                 }
-                if ((ds.Tables["BldRegions"] != null)) {
-                    base.Tables.Add(new BldRegionsDataTable(ds.Tables["BldRegions"]));
+                if ((ds.Tables["BldSupervisionServices"] != null)) {
+                    base.Tables.Add(new BldSupervisionServicesDataTable(ds.Tables["BldSupervisionServices"]));
                 }
-                if ((ds.Tables["BldWelyat"] != null)) {
-                    base.Tables.Add(new BldWelyatDataTable(ds.Tables["BldWelyat"]));
+                if ((ds.Tables["BldSupervisionServicesTypes"] != null)) {
+                    base.Tables.Add(new BldSupervisionServicesTypesDataTable(ds.Tables["BldSupervisionServicesTypes"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -294,10 +352,28 @@ namespace DMeServicesInternal.Web.Reports {
                     this.tableBldPermits.InitVars();
                 }
             }
+            this.tableBldRegions = ((BldRegionsDataTable)(base.Tables["BldRegions"]));
+            if ((initTable == true)) {
+                if ((this.tableBldRegions != null)) {
+                    this.tableBldRegions.InitVars();
+                }
+            }
             this.tableBldSquareLetters = ((BldSquareLettersDataTable)(base.Tables["BldSquareLetters"]));
             if ((initTable == true)) {
                 if ((this.tableBldSquareLetters != null)) {
                     this.tableBldSquareLetters.InitVars();
+                }
+            }
+            this.tableBldWelyat = ((BldWelyatDataTable)(base.Tables["BldWelyat"]));
+            if ((initTable == true)) {
+                if ((this.tableBldWelyat != null)) {
+                    this.tableBldWelyat.InitVars();
+                }
+            }
+            this.tableBldPayment = ((BldPaymentDataTable)(base.Tables["BldPayment"]));
+            if ((initTable == true)) {
+                if ((this.tableBldPayment != null)) {
+                    this.tableBldPayment.InitVars();
                 }
             }
             this.tableBldBuildingTypes = ((BldBuildingTypesDataTable)(base.Tables["BldBuildingTypes"]));
@@ -312,23 +388,25 @@ namespace DMeServicesInternal.Web.Reports {
                     this.tableBldLandUseTypes.InitVars();
                 }
             }
-            this.tableBldRegions = ((BldRegionsDataTable)(base.Tables["BldRegions"]));
+            this.tableBldSupervisionServices = ((BldSupervisionServicesDataTable)(base.Tables["BldSupervisionServices"]));
             if ((initTable == true)) {
-                if ((this.tableBldRegions != null)) {
-                    this.tableBldRegions.InitVars();
+                if ((this.tableBldSupervisionServices != null)) {
+                    this.tableBldSupervisionServices.InitVars();
                 }
             }
-            this.tableBldWelyat = ((BldWelyatDataTable)(base.Tables["BldWelyat"]));
+            this.tableBldSupervisionServicesTypes = ((BldSupervisionServicesTypesDataTable)(base.Tables["BldSupervisionServicesTypes"]));
             if ((initTable == true)) {
-                if ((this.tableBldWelyat != null)) {
-                    this.tableBldWelyat.InitVars();
+                if ((this.tableBldSupervisionServicesTypes != null)) {
+                    this.tableBldSupervisionServicesTypes.InitVars();
                 }
             }
-            this.relationFK_BldPermits_BldLandUseTypes = this.Relations["FK_BldPermits_BldLandUseTypes"];
-            this.relationFK_BldRegions_BldWelyat = this.Relations["FK_BldRegions_BldWelyat"];
-            this.relationFK_BldPermits_BldSquareLetters = this.Relations["FK_BldPermits_BldSquareLetters"];
             this.relationFK_BldPermits_BldBuildingTypes = this.Relations["FK_BldPermits_BldBuildingTypes"];
+            this.relationFK_BldPermits_BldLandUseTypes = this.Relations["FK_BldPermits_BldLandUseTypes"];
+            this.relationFK_BldPermits_BldRegions = this.Relations["FK_BldPermits_BldRegions"];
+            this.relationFK_BldPermits_BldSquareLetters = this.Relations["FK_BldPermits_BldSquareLetters"];
             this.relationFK_BldPermits_BldWelyat = this.Relations["FK_BldPermits_BldWelyat"];
+            this.relationFK_BldRegions_BldWelyat = this.Relations["FK_BldRegions_BldWelyat"];
+            this.relationFK_BldPayment_BldPermits = this.Relations["FK_BldPayment_BldPermits"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -341,44 +419,50 @@ namespace DMeServicesInternal.Web.Reports {
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
             this.tableBldPermits = new BldPermitsDataTable();
             base.Tables.Add(this.tableBldPermits);
+            this.tableBldRegions = new BldRegionsDataTable();
+            base.Tables.Add(this.tableBldRegions);
             this.tableBldSquareLetters = new BldSquareLettersDataTable();
             base.Tables.Add(this.tableBldSquareLetters);
+            this.tableBldWelyat = new BldWelyatDataTable();
+            base.Tables.Add(this.tableBldWelyat);
+            this.tableBldPayment = new BldPaymentDataTable();
+            base.Tables.Add(this.tableBldPayment);
             this.tableBldBuildingTypes = new BldBuildingTypesDataTable();
             base.Tables.Add(this.tableBldBuildingTypes);
             this.tableBldLandUseTypes = new BldLandUseTypesDataTable();
             base.Tables.Add(this.tableBldLandUseTypes);
-            this.tableBldRegions = new BldRegionsDataTable();
-            base.Tables.Add(this.tableBldRegions);
-            this.tableBldWelyat = new BldWelyatDataTable();
-            base.Tables.Add(this.tableBldWelyat);
-            global::System.Data.ForeignKeyConstraint fkc;
-            fkc = new global::System.Data.ForeignKeyConstraint("FK_BldPermits_BldLandUseTypes", new global::System.Data.DataColumn[] {
-                        this.tableBldLandUseTypes.IDColumn}, new global::System.Data.DataColumn[] {
-                        this.tableBldPermits.UseTypeIDColumn});
-            this.tableBldPermits.Constraints.Add(fkc);
-            fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
-            fkc.DeleteRule = global::System.Data.Rule.None;
-            fkc.UpdateRule = global::System.Data.Rule.None;
-            this.relationFK_BldPermits_BldLandUseTypes = new global::System.Data.DataRelation("FK_BldPermits_BldLandUseTypes", new global::System.Data.DataColumn[] {
-                        this.tableBldLandUseTypes.IDColumn}, new global::System.Data.DataColumn[] {
-                        this.tableBldPermits.UseTypeIDColumn}, false);
-            this.Relations.Add(this.relationFK_BldPermits_BldLandUseTypes);
-            this.relationFK_BldRegions_BldWelyat = new global::System.Data.DataRelation("FK_BldRegions_BldWelyat", new global::System.Data.DataColumn[] {
-                        this.tableBldWelyat.WelyahIDColumn}, new global::System.Data.DataColumn[] {
-                        this.tableBldRegions.WelyahIDColumn}, false);
-            this.Relations.Add(this.relationFK_BldRegions_BldWelyat);
-            this.relationFK_BldPermits_BldSquareLetters = new global::System.Data.DataRelation("FK_BldPermits_BldSquareLetters", new global::System.Data.DataColumn[] {
-                        this.tableBldSquareLetters.IDColumn}, new global::System.Data.DataColumn[] {
-                        this.tableBldPermits.SquareLetterIDColumn}, false);
-            this.Relations.Add(this.relationFK_BldPermits_BldSquareLetters);
+            this.tableBldSupervisionServices = new BldSupervisionServicesDataTable();
+            base.Tables.Add(this.tableBldSupervisionServices);
+            this.tableBldSupervisionServicesTypes = new BldSupervisionServicesTypesDataTable();
+            base.Tables.Add(this.tableBldSupervisionServicesTypes);
             this.relationFK_BldPermits_BldBuildingTypes = new global::System.Data.DataRelation("FK_BldPermits_BldBuildingTypes", new global::System.Data.DataColumn[] {
                         this.tableBldBuildingTypes.IDColumn}, new global::System.Data.DataColumn[] {
                         this.tableBldPermits.BuildingTypeIDColumn}, false);
             this.Relations.Add(this.relationFK_BldPermits_BldBuildingTypes);
+            this.relationFK_BldPermits_BldLandUseTypes = new global::System.Data.DataRelation("FK_BldPermits_BldLandUseTypes", new global::System.Data.DataColumn[] {
+                        this.tableBldLandUseTypes.IDColumn}, new global::System.Data.DataColumn[] {
+                        this.tableBldPermits.UseTypeIDColumn}, false);
+            this.Relations.Add(this.relationFK_BldPermits_BldLandUseTypes);
+            this.relationFK_BldPermits_BldRegions = new global::System.Data.DataRelation("FK_BldPermits_BldRegions", new global::System.Data.DataColumn[] {
+                        this.tableBldRegions.RegionIDColumn}, new global::System.Data.DataColumn[] {
+                        this.tableBldPermits.RegionIDColumn}, false);
+            this.Relations.Add(this.relationFK_BldPermits_BldRegions);
+            this.relationFK_BldPermits_BldSquareLetters = new global::System.Data.DataRelation("FK_BldPermits_BldSquareLetters", new global::System.Data.DataColumn[] {
+                        this.tableBldSquareLetters.IDColumn}, new global::System.Data.DataColumn[] {
+                        this.tableBldPermits.SquareLetterIDColumn}, false);
+            this.Relations.Add(this.relationFK_BldPermits_BldSquareLetters);
             this.relationFK_BldPermits_BldWelyat = new global::System.Data.DataRelation("FK_BldPermits_BldWelyat", new global::System.Data.DataColumn[] {
                         this.tableBldWelyat.WelyahIDColumn}, new global::System.Data.DataColumn[] {
                         this.tableBldPermits.WelayahIDColumn}, false);
             this.Relations.Add(this.relationFK_BldPermits_BldWelyat);
+            this.relationFK_BldRegions_BldWelyat = new global::System.Data.DataRelation("FK_BldRegions_BldWelyat", new global::System.Data.DataColumn[] {
+                        this.tableBldWelyat.WelyahIDColumn}, new global::System.Data.DataColumn[] {
+                        this.tableBldRegions.WelyahIDColumn}, false);
+            this.Relations.Add(this.relationFK_BldRegions_BldWelyat);
+            this.relationFK_BldPayment_BldPermits = new global::System.Data.DataRelation("FK_BldPayment_BldPermits", new global::System.Data.DataColumn[] {
+                        this.tableBldPermits.IdColumn}, new global::System.Data.DataColumn[] {
+                        this.tableBldPayment.BldPermitIdColumn}, false);
+            this.Relations.Add(this.relationFK_BldPayment_BldPermits);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -389,7 +473,25 @@ namespace DMeServicesInternal.Web.Reports {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private bool ShouldSerializeBldRegions() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private bool ShouldSerializeBldSquareLetters() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private bool ShouldSerializeBldWelyat() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private bool ShouldSerializeBldPayment() {
             return false;
         }
         
@@ -407,13 +509,13 @@ namespace DMeServicesInternal.Web.Reports {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private bool ShouldSerializeBldRegions() {
+        private bool ShouldSerializeBldSupervisionServices() {
             return false;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private bool ShouldSerializeBldWelyat() {
+        private bool ShouldSerializeBldSupervisionServicesTypes() {
             return false;
         }
         
@@ -476,7 +578,16 @@ namespace DMeServicesInternal.Web.Reports {
         public delegate void BldPermitsRowChangeEventHandler(object sender, BldPermitsRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public delegate void BldRegionsRowChangeEventHandler(object sender, BldRegionsRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public delegate void BldSquareLettersRowChangeEventHandler(object sender, BldSquareLettersRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public delegate void BldWelyatRowChangeEventHandler(object sender, BldWelyatRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public delegate void BldPaymentRowChangeEventHandler(object sender, BldPaymentRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public delegate void BldBuildingTypesRowChangeEventHandler(object sender, BldBuildingTypesRowChangeEvent e);
@@ -485,10 +596,10 @@ namespace DMeServicesInternal.Web.Reports {
         public delegate void BldLandUseTypesRowChangeEventHandler(object sender, BldLandUseTypesRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public delegate void BldRegionsRowChangeEventHandler(object sender, BldRegionsRowChangeEvent e);
+        public delegate void BldSupervisionServicesRowChangeEventHandler(object sender, BldSupervisionServicesRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public delegate void BldWelyatRowChangeEventHandler(object sender, BldWelyatRowChangeEvent e);
+        public delegate void BldSupervisionServicesTypesRowChangeEventHandler(object sender, BldSupervisionServicesTypesRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -496,6 +607,8 @@ namespace DMeServicesInternal.Web.Reports {
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class BldPermitsDataTable : global::System.Data.TypedTableBase<BldPermitsRow> {
+            
+            private global::System.Data.DataColumn columnId;
             
             private global::System.Data.DataColumn columnTransactNo;
             
@@ -531,12 +644,6 @@ namespace DMeServicesInternal.Web.Reports {
             
             private global::System.Data.DataColumn columnLicenseNo;
             
-            private global::System.Data.DataColumn columnPaymentReceiptNo;
-            
-            private global::System.Data.DataColumn columnPaymentAmount;
-            
-            private global::System.Data.DataColumn columnPaymentDate;
-            
             private global::System.Data.DataColumn columnWorkflowStatus;
             
             private global::System.Data.DataColumn columnDmEngineerNo;
@@ -546,6 +653,8 @@ namespace DMeServicesInternal.Web.Reports {
             private global::System.Data.DataColumn columnConsultantCivilId;
             
             private global::System.Data.DataColumn columnWelayahID;
+            
+            private global::System.Data.DataColumn columnRegionID;
             
             private global::System.Data.DataColumn columnSquareLetterID;
             
@@ -557,43 +666,55 @@ namespace DMeServicesInternal.Web.Reports {
             
             private global::System.Data.DataColumn columnDmFileNumber;
             
+            private global::System.Data.DataColumn columnLandDeedReceiptNo;
+            
+            private global::System.Data.DataColumn columnDMLicenseNames;
+            
+            private global::System.Data.DataColumn columnDMLicenseComments;
+            
+            private global::System.Data.DataColumn columnDMLicenseCivilIDs;
+            
+            private global::System.Data.DataColumn columnLandArea;
+            
+            private global::System.Data.DataColumn columnLandDeedReceiptDate;
+            
+            private global::System.Data.DataColumn columnLandDeedNo;
+            
+            private global::System.Data.DataColumn columnBuildingType;
+            
+            private global::System.Data.DataColumn columnRegionCode;
+            
             private global::System.Data.DataColumn columnRegionArName;
             
             private global::System.Data.DataColumn columnUseType;
             
-            private global::System.Data.DataColumn columnBuildingType;
+            private global::System.Data.DataColumn columnWelyahArName;
             
             private global::System.Data.DataColumn columnArLetter;
             
-            private global::System.Data.DataColumn columnWelyahArName;
-            
-            private global::System.Data.DataColumn columnId;
-            
-            private global::System.Data.DataColumn columnRegionID;
-            
             private global::System.Data.DataColumn columnPaymentTotalAmount;
             
-            private global::System.Data.DataColumn columnTokenID;
+            private global::System.Data.DataColumn columnBldPermitId;
             
             private global::System.Data.DataColumn columnBankResponseID;
+            
+            private global::System.Data.DataColumn columnPaymentStatus;
+            
+            private global::System.Data.DataColumn columnReferenceid;
+            
+            private global::System.Data.DataColumn columnPaymentrequestid;
+            
+            private global::System.Data.DataColumn columnBankpaymentid;
+            
+            private global::System.Data.DataColumn columnTransactionid;
             
             private global::System.Data.DataColumn columnFeesDate;
             
             private global::System.Data.DataColumn columnPaymentType;
             
-            private global::System.Data.DataColumn columnTransactionid;
-            
-            private global::System.Data.DataColumn columnPaymentrequestid;
-            
-            private global::System.Data.DataColumn columnReferenceid;
-            
-            private global::System.Data.DataColumn columnBankpaymentid;
-            
-            private global::System.Data.DataColumn columnPaymentStatus;
-            
-            private global::System.Data.DataColumn columnBldPermitId;
-            
             private global::System.Data.DataColumn columnPayOn;
+            
+            private global::System.Data.DataColumn columnowners;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
@@ -626,6 +747,14 @@ namespace DMeServicesInternal.Web.Reports {
             protected BldPermitsDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn IdColumn {
+                get {
+                    return this.columnId;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -766,30 +895,6 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn PaymentReceiptNoColumn {
-                get {
-                    return this.columnPaymentReceiptNo;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn PaymentAmountColumn {
-                get {
-                    return this.columnPaymentAmount;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn PaymentDateColumn {
-                get {
-                    return this.columnPaymentDate;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public global::System.Data.DataColumn WorkflowStatusColumn {
                 get {
                     return this.columnWorkflowStatus;
@@ -825,6 +930,14 @@ namespace DMeServicesInternal.Web.Reports {
             public global::System.Data.DataColumn WelayahIDColumn {
                 get {
                     return this.columnWelayahID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn RegionIDColumn {
+                get {
+                    return this.columnRegionID;
                 }
             }
             
@@ -870,6 +983,78 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn LandDeedReceiptNoColumn {
+                get {
+                    return this.columnLandDeedReceiptNo;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn DMLicenseNamesColumn {
+                get {
+                    return this.columnDMLicenseNames;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn DMLicenseCommentsColumn {
+                get {
+                    return this.columnDMLicenseComments;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn DMLicenseCivilIDsColumn {
+                get {
+                    return this.columnDMLicenseCivilIDs;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn LandAreaColumn {
+                get {
+                    return this.columnLandArea;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn LandDeedReceiptDateColumn {
+                get {
+                    return this.columnLandDeedReceiptDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn LandDeedNoColumn {
+                get {
+                    return this.columnLandDeedNo;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn BuildingTypeColumn {
+                get {
+                    return this.columnBuildingType;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn RegionCodeColumn {
+                get {
+                    return this.columnRegionCode;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public global::System.Data.DataColumn RegionArNameColumn {
                 get {
                     return this.columnRegionArName;
@@ -886,9 +1071,9 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn BuildingTypeColumn {
+            public global::System.Data.DataColumn WelyahArNameColumn {
                 get {
-                    return this.columnBuildingType;
+                    return this.columnWelyahArName;
                 }
             }
             
@@ -902,30 +1087,6 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn WelyahArNameColumn {
-                get {
-                    return this.columnWelyahArName;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn IdColumn {
-                get {
-                    return this.columnId;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn RegionIDColumn {
-                get {
-                    return this.columnRegionID;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public global::System.Data.DataColumn PaymentTotalAmountColumn {
                 get {
                     return this.columnPaymentTotalAmount;
@@ -934,9 +1095,9 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn TokenIDColumn {
+            public global::System.Data.DataColumn BldPermitIdColumn {
                 get {
-                    return this.columnTokenID;
+                    return this.columnBldPermitId;
                 }
             }
             
@@ -945,6 +1106,46 @@ namespace DMeServicesInternal.Web.Reports {
             public global::System.Data.DataColumn BankResponseIDColumn {
                 get {
                     return this.columnBankResponseID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn PaymentStatusColumn {
+                get {
+                    return this.columnPaymentStatus;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn ReferenceidColumn {
+                get {
+                    return this.columnReferenceid;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn PaymentrequestidColumn {
+                get {
+                    return this.columnPaymentrequestid;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn BankpaymentidColumn {
+                get {
+                    return this.columnBankpaymentid;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn TransactionidColumn {
+                get {
+                    return this.columnTransactionid;
                 }
             }
             
@@ -966,57 +1167,17 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn TransactionidColumn {
-                get {
-                    return this.columnTransactionid;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn PaymentrequestidColumn {
-                get {
-                    return this.columnPaymentrequestid;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn ReferenceidColumn {
-                get {
-                    return this.columnReferenceid;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn BankpaymentidColumn {
-                get {
-                    return this.columnBankpaymentid;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn PaymentStatusColumn {
-                get {
-                    return this.columnPaymentStatus;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn BldPermitIdColumn {
-                get {
-                    return this.columnBldPermitId;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public global::System.Data.DataColumn PayOnColumn {
                 get {
                     return this.columnPayOn;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn ownersColumn {
+                get {
+                    return this.columnowners;
                 }
             }
             
@@ -1060,13 +1221,13 @@ namespace DMeServicesInternal.Web.Reports {
             public BldPermitsRow AddBldPermitsRow(
                         string TransactNo, 
                         string OwnerName, 
-                        long OwnerCivilId, 
+                        int OwnerCivilId, 
                         string OwnerPhoneNo, 
                         string DistrictName, 
                         int DistrictNo, 
                         string ConstructedArea, 
                         string NumberOfFloors, 
-                        long ConsultantCrNo, 
+                        int ConsultantCrNo, 
                         string ConstructionType, 
                         System.DateTime RequestDate, 
                         string CreatedBy, 
@@ -1075,39 +1236,45 @@ namespace DMeServicesInternal.Web.Reports {
                         System.DateTime UpdatedOn, 
                         string SquareArea, 
                         string LicenseNo, 
-                        string PaymentReceiptNo, 
-                        decimal PaymentAmount, 
-                        System.DateTime PaymentDate, 
                         int WorkflowStatus, 
                         int DmEngineerNo, 
                         string DmEngineerComments, 
-                        long ConsultantCivilId, 
+                        int ConsultantCivilId, 
                         BldWelyatRow parentBldWelyatRowByFK_BldPermits_BldWelyat, 
+                        BldRegionsRow parentBldRegionsRowByFK_BldPermits_BldRegions, 
                         BldSquareLettersRow parentBldSquareLettersRowByFK_BldPermits_BldSquareLetters, 
                         BldLandUseTypesRow parentBldLandUseTypesRowByFK_BldPermits_BldLandUseTypes, 
                         BldBuildingTypesRow parentBldBuildingTypesRowByFK_BldPermits_BldBuildingTypes, 
                         string KrokiNO, 
                         string DmFileNumber, 
+                        string LandDeedReceiptNo, 
+                        string DMLicenseNames, 
+                        string DMLicenseComments, 
+                        string DMLicenseCivilIDs, 
+                        string LandArea, 
+                        System.DateTime LandDeedReceiptDate, 
+                        string LandDeedNo, 
+                        string BuildingType, 
+                        int RegionCode, 
                         string RegionArName, 
                         string UseType, 
-                        string BuildingType, 
-                        string ArLetter, 
                         string WelyahArName, 
-                        int RegionID, 
+                        string ArLetter, 
                         decimal PaymentTotalAmount, 
-                        string TokenID, 
+                        int BldPermitId, 
                         int BankResponseID, 
+                        int PaymentStatus, 
+                        string Referenceid, 
+                        int Paymentrequestid, 
+                        string Bankpaymentid, 
+                        string Transactionid, 
                         System.DateTime FeesDate, 
                         int PaymentType, 
-                        string Transactionid, 
-                        int Paymentrequestid, 
-                        string Referenceid, 
-                        string Bankpaymentid, 
-                        int PaymentStatus, 
-                        long BldPermitId, 
-                        string PayOn) {
+                        string PayOn, 
+                        string owners) {
                 BldPermitsRow rowBldPermitsRow = ((BldPermitsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
+                        null,
                         TransactNo,
                         OwnerName,
                         OwnerCivilId,
@@ -1125,9 +1292,6 @@ namespace DMeServicesInternal.Web.Reports {
                         UpdatedOn,
                         SquareArea,
                         LicenseNo,
-                        PaymentReceiptNo,
-                        PaymentAmount,
-                        PaymentDate,
                         WorkflowStatus,
                         DmEngineerNo,
                         DmEngineerComments,
@@ -1136,38 +1300,48 @@ namespace DMeServicesInternal.Web.Reports {
                         null,
                         null,
                         null,
+                        null,
                         KrokiNO,
                         DmFileNumber,
+                        LandDeedReceiptNo,
+                        DMLicenseNames,
+                        DMLicenseComments,
+                        DMLicenseCivilIDs,
+                        LandArea,
+                        LandDeedReceiptDate,
+                        LandDeedNo,
+                        BuildingType,
+                        RegionCode,
                         RegionArName,
                         UseType,
-                        BuildingType,
-                        ArLetter,
                         WelyahArName,
-                        null,
-                        RegionID,
+                        ArLetter,
                         PaymentTotalAmount,
-                        TokenID,
+                        BldPermitId,
                         BankResponseID,
+                        PaymentStatus,
+                        Referenceid,
+                        Paymentrequestid,
+                        Bankpaymentid,
+                        Transactionid,
                         FeesDate,
                         PaymentType,
-                        Transactionid,
-                        Paymentrequestid,
-                        Referenceid,
-                        Bankpaymentid,
-                        PaymentStatus,
-                        BldPermitId,
-                        PayOn};
+                        PayOn,
+                        owners};
                 if ((parentBldWelyatRowByFK_BldPermits_BldWelyat != null)) {
-                    columnValuesArray[24] = parentBldWelyatRowByFK_BldPermits_BldWelyat[0];
+                    columnValuesArray[22] = parentBldWelyatRowByFK_BldPermits_BldWelyat[0];
+                }
+                if ((parentBldRegionsRowByFK_BldPermits_BldRegions != null)) {
+                    columnValuesArray[23] = parentBldRegionsRowByFK_BldPermits_BldRegions[0];
                 }
                 if ((parentBldSquareLettersRowByFK_BldPermits_BldSquareLetters != null)) {
-                    columnValuesArray[25] = parentBldSquareLettersRowByFK_BldPermits_BldSquareLetters[0];
+                    columnValuesArray[24] = parentBldSquareLettersRowByFK_BldPermits_BldSquareLetters[0];
                 }
                 if ((parentBldLandUseTypesRowByFK_BldPermits_BldLandUseTypes != null)) {
-                    columnValuesArray[26] = parentBldLandUseTypesRowByFK_BldPermits_BldLandUseTypes[0];
+                    columnValuesArray[25] = parentBldLandUseTypesRowByFK_BldPermits_BldLandUseTypes[0];
                 }
                 if ((parentBldBuildingTypesRowByFK_BldPermits_BldBuildingTypes != null)) {
-                    columnValuesArray[27] = parentBldBuildingTypesRowByFK_BldPermits_BldBuildingTypes[0];
+                    columnValuesArray[26] = parentBldBuildingTypesRowByFK_BldPermits_BldBuildingTypes[0];
                 }
                 rowBldPermitsRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowBldPermitsRow);
@@ -1176,7 +1350,7 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public BldPermitsRow FindById(long Id) {
+            public BldPermitsRow FindById(int Id) {
                 return ((BldPermitsRow)(this.Rows.Find(new object[] {
                             Id})));
             }
@@ -1198,6 +1372,7 @@ namespace DMeServicesInternal.Web.Reports {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             internal void InitVars() {
+                this.columnId = base.Columns["Id"];
                 this.columnTransactNo = base.Columns["TransactNo"];
                 this.columnOwnerName = base.Columns["OwnerName"];
                 this.columnOwnerCivilId = base.Columns["OwnerCivilId"];
@@ -1215,48 +1390,54 @@ namespace DMeServicesInternal.Web.Reports {
                 this.columnUpdatedOn = base.Columns["UpdatedOn"];
                 this.columnSquareArea = base.Columns["SquareArea"];
                 this.columnLicenseNo = base.Columns["LicenseNo"];
-                this.columnPaymentReceiptNo = base.Columns["PaymentReceiptNo"];
-                this.columnPaymentAmount = base.Columns["PaymentAmount"];
-                this.columnPaymentDate = base.Columns["PaymentDate"];
                 this.columnWorkflowStatus = base.Columns["WorkflowStatus"];
                 this.columnDmEngineerNo = base.Columns["DmEngineerNo"];
                 this.columnDmEngineerComments = base.Columns["DmEngineerComments"];
                 this.columnConsultantCivilId = base.Columns["ConsultantCivilId"];
                 this.columnWelayahID = base.Columns["WelayahID"];
+                this.columnRegionID = base.Columns["RegionID"];
                 this.columnSquareLetterID = base.Columns["SquareLetterID"];
                 this.columnUseTypeID = base.Columns["UseTypeID"];
                 this.columnBuildingTypeID = base.Columns["BuildingTypeID"];
                 this.columnKrokiNO = base.Columns["KrokiNO"];
                 this.columnDmFileNumber = base.Columns["DmFileNumber"];
+                this.columnLandDeedReceiptNo = base.Columns["LandDeedReceiptNo"];
+                this.columnDMLicenseNames = base.Columns["DMLicenseNames"];
+                this.columnDMLicenseComments = base.Columns["DMLicenseComments"];
+                this.columnDMLicenseCivilIDs = base.Columns["DMLicenseCivilIDs"];
+                this.columnLandArea = base.Columns["LandArea"];
+                this.columnLandDeedReceiptDate = base.Columns["LandDeedReceiptDate"];
+                this.columnLandDeedNo = base.Columns["LandDeedNo"];
+                this.columnBuildingType = base.Columns["BuildingType"];
+                this.columnRegionCode = base.Columns["RegionCode"];
                 this.columnRegionArName = base.Columns["RegionArName"];
                 this.columnUseType = base.Columns["UseType"];
-                this.columnBuildingType = base.Columns["BuildingType"];
-                this.columnArLetter = base.Columns["ArLetter"];
                 this.columnWelyahArName = base.Columns["WelyahArName"];
-                this.columnId = base.Columns["Id"];
-                this.columnRegionID = base.Columns["RegionID"];
+                this.columnArLetter = base.Columns["ArLetter"];
                 this.columnPaymentTotalAmount = base.Columns["PaymentTotalAmount"];
-                this.columnTokenID = base.Columns["TokenID"];
+                this.columnBldPermitId = base.Columns["BldPermitId"];
                 this.columnBankResponseID = base.Columns["BankResponseID"];
+                this.columnPaymentStatus = base.Columns["PaymentStatus"];
+                this.columnReferenceid = base.Columns["Referenceid"];
+                this.columnPaymentrequestid = base.Columns["Paymentrequestid"];
+                this.columnBankpaymentid = base.Columns["Bankpaymentid"];
+                this.columnTransactionid = base.Columns["Transactionid"];
                 this.columnFeesDate = base.Columns["FeesDate"];
                 this.columnPaymentType = base.Columns["PaymentType"];
-                this.columnTransactionid = base.Columns["Transactionid"];
-                this.columnPaymentrequestid = base.Columns["Paymentrequestid"];
-                this.columnReferenceid = base.Columns["Referenceid"];
-                this.columnBankpaymentid = base.Columns["Bankpaymentid"];
-                this.columnPaymentStatus = base.Columns["PaymentStatus"];
-                this.columnBldPermitId = base.Columns["BldPermitId"];
                 this.columnPayOn = base.Columns["PayOn"];
+                this.columnowners = base.Columns["owners"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             private void InitClass() {
+                this.columnId = new global::System.Data.DataColumn("Id", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnId);
                 this.columnTransactNo = new global::System.Data.DataColumn("TransactNo", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTransactNo);
                 this.columnOwnerName = new global::System.Data.DataColumn("OwnerName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnOwnerName);
-                this.columnOwnerCivilId = new global::System.Data.DataColumn("OwnerCivilId", typeof(long), null, global::System.Data.MappingType.Element);
+                this.columnOwnerCivilId = new global::System.Data.DataColumn("OwnerCivilId", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnOwnerCivilId);
                 this.columnOwnerPhoneNo = new global::System.Data.DataColumn("OwnerPhoneNo", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnOwnerPhoneNo);
@@ -1268,7 +1449,7 @@ namespace DMeServicesInternal.Web.Reports {
                 base.Columns.Add(this.columnConstructedArea);
                 this.columnNumberOfFloors = new global::System.Data.DataColumn("NumberOfFloors", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnNumberOfFloors);
-                this.columnConsultantCrNo = new global::System.Data.DataColumn("ConsultantCrNo", typeof(long), null, global::System.Data.MappingType.Element);
+                this.columnConsultantCrNo = new global::System.Data.DataColumn("ConsultantCrNo", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnConsultantCrNo);
                 this.columnConstructionType = new global::System.Data.DataColumn("ConstructionType", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnConstructionType);
@@ -1286,22 +1467,18 @@ namespace DMeServicesInternal.Web.Reports {
                 base.Columns.Add(this.columnSquareArea);
                 this.columnLicenseNo = new global::System.Data.DataColumn("LicenseNo", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnLicenseNo);
-                this.columnPaymentReceiptNo = new global::System.Data.DataColumn("PaymentReceiptNo", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPaymentReceiptNo);
-                this.columnPaymentAmount = new global::System.Data.DataColumn("PaymentAmount", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPaymentAmount);
-                this.columnPaymentDate = new global::System.Data.DataColumn("PaymentDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPaymentDate);
                 this.columnWorkflowStatus = new global::System.Data.DataColumn("WorkflowStatus", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnWorkflowStatus);
                 this.columnDmEngineerNo = new global::System.Data.DataColumn("DmEngineerNo", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDmEngineerNo);
                 this.columnDmEngineerComments = new global::System.Data.DataColumn("DmEngineerComments", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDmEngineerComments);
-                this.columnConsultantCivilId = new global::System.Data.DataColumn("ConsultantCivilId", typeof(long), null, global::System.Data.MappingType.Element);
+                this.columnConsultantCivilId = new global::System.Data.DataColumn("ConsultantCivilId", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnConsultantCivilId);
                 this.columnWelayahID = new global::System.Data.DataColumn("WelayahID", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnWelayahID);
+                this.columnRegionID = new global::System.Data.DataColumn("RegionID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRegionID);
                 this.columnSquareLetterID = new global::System.Data.DataColumn("SquareLetterID", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnSquareLetterID);
                 this.columnUseTypeID = new global::System.Data.DataColumn("UseTypeID", typeof(int), null, global::System.Data.MappingType.Element);
@@ -1312,51 +1489,67 @@ namespace DMeServicesInternal.Web.Reports {
                 base.Columns.Add(this.columnKrokiNO);
                 this.columnDmFileNumber = new global::System.Data.DataColumn("DmFileNumber", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDmFileNumber);
+                this.columnLandDeedReceiptNo = new global::System.Data.DataColumn("LandDeedReceiptNo", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLandDeedReceiptNo);
+                this.columnDMLicenseNames = new global::System.Data.DataColumn("DMLicenseNames", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDMLicenseNames);
+                this.columnDMLicenseComments = new global::System.Data.DataColumn("DMLicenseComments", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDMLicenseComments);
+                this.columnDMLicenseCivilIDs = new global::System.Data.DataColumn("DMLicenseCivilIDs", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDMLicenseCivilIDs);
+                this.columnLandArea = new global::System.Data.DataColumn("LandArea", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLandArea);
+                this.columnLandDeedReceiptDate = new global::System.Data.DataColumn("LandDeedReceiptDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLandDeedReceiptDate);
+                this.columnLandDeedNo = new global::System.Data.DataColumn("LandDeedNo", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLandDeedNo);
+                this.columnBuildingType = new global::System.Data.DataColumn("BuildingType", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBuildingType);
+                this.columnRegionCode = new global::System.Data.DataColumn("RegionCode", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRegionCode);
                 this.columnRegionArName = new global::System.Data.DataColumn("RegionArName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnRegionArName);
                 this.columnUseType = new global::System.Data.DataColumn("UseType", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnUseType);
-                this.columnBuildingType = new global::System.Data.DataColumn("BuildingType", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnBuildingType);
-                this.columnArLetter = new global::System.Data.DataColumn("ArLetter", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnArLetter);
                 this.columnWelyahArName = new global::System.Data.DataColumn("WelyahArName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnWelyahArName);
-                this.columnId = new global::System.Data.DataColumn("Id", typeof(long), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnId);
-                this.columnRegionID = new global::System.Data.DataColumn("RegionID", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnRegionID);
+                this.columnArLetter = new global::System.Data.DataColumn("ArLetter", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnArLetter);
                 this.columnPaymentTotalAmount = new global::System.Data.DataColumn("PaymentTotalAmount", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnPaymentTotalAmount);
-                this.columnTokenID = new global::System.Data.DataColumn("TokenID", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnTokenID);
+                this.columnBldPermitId = new global::System.Data.DataColumn("BldPermitId", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBldPermitId);
                 this.columnBankResponseID = new global::System.Data.DataColumn("BankResponseID", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnBankResponseID);
+                this.columnPaymentStatus = new global::System.Data.DataColumn("PaymentStatus", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPaymentStatus);
+                this.columnReferenceid = new global::System.Data.DataColumn("Referenceid", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnReferenceid);
+                this.columnPaymentrequestid = new global::System.Data.DataColumn("Paymentrequestid", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPaymentrequestid);
+                this.columnBankpaymentid = new global::System.Data.DataColumn("Bankpaymentid", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBankpaymentid);
+                this.columnTransactionid = new global::System.Data.DataColumn("Transactionid", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTransactionid);
                 this.columnFeesDate = new global::System.Data.DataColumn("FeesDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnFeesDate);
                 this.columnPaymentType = new global::System.Data.DataColumn("PaymentType", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnPaymentType);
-                this.columnTransactionid = new global::System.Data.DataColumn("Transactionid", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnTransactionid);
-                this.columnPaymentrequestid = new global::System.Data.DataColumn("Paymentrequestid", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPaymentrequestid);
-                this.columnReferenceid = new global::System.Data.DataColumn("Referenceid", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnReferenceid);
-                this.columnBankpaymentid = new global::System.Data.DataColumn("Bankpaymentid", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnBankpaymentid);
-                this.columnPaymentStatus = new global::System.Data.DataColumn("PaymentStatus", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPaymentStatus);
-                this.columnBldPermitId = new global::System.Data.DataColumn("BldPermitId", typeof(long), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnBldPermitId);
                 this.columnPayOn = new global::System.Data.DataColumn("PayOn", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnPayOn);
+                this.columnowners = new global::System.Data.DataColumn("owners", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnowners);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
+                this.columnId.AutoIncrement = true;
+                this.columnId.AutoIncrementSeed = -1;
+                this.columnId.AutoIncrementStep = -1;
+                this.columnId.AllowDBNull = false;
+                this.columnId.ReadOnly = true;
+                this.columnId.Unique = true;
                 this.columnTransactNo.AllowDBNull = false;
                 this.columnTransactNo.MaxLength = 400;
-                this.columnOwnerName.AllowDBNull = false;
                 this.columnOwnerName.MaxLength = 250;
-                this.columnOwnerPhoneNo.AllowDBNull = false;
                 this.columnOwnerPhoneNo.MaxLength = 100;
                 this.columnDistrictName.MaxLength = 250;
                 this.columnConstructedArea.MaxLength = 50;
@@ -1368,29 +1561,30 @@ namespace DMeServicesInternal.Web.Reports {
                 this.columnUpdatedBy.MaxLength = 150;
                 this.columnSquareArea.MaxLength = 50;
                 this.columnLicenseNo.MaxLength = 100;
-                this.columnPaymentReceiptNo.MaxLength = 250;
                 this.columnDmEngineerComments.MaxLength = 500;
                 this.columnKrokiNO.MaxLength = 50;
                 this.columnDmFileNumber.MaxLength = 50;
+                this.columnLandDeedReceiptNo.MaxLength = 50;
+                this.columnDMLicenseNames.MaxLength = 250;
+                this.columnDMLicenseComments.MaxLength = 250;
+                this.columnDMLicenseCivilIDs.MaxLength = 250;
+                this.columnLandArea.MaxLength = 50;
+                this.columnLandDeedNo.MaxLength = 50;
+                this.columnBuildingType.MaxLength = 50;
+                this.columnRegionCode.AllowDBNull = false;
                 this.columnRegionArName.AllowDBNull = false;
                 this.columnRegionArName.MaxLength = 50;
                 this.columnUseType.MaxLength = 50;
-                this.columnBuildingType.MaxLength = 50;
-                this.columnArLetter.MaxLength = 10;
                 this.columnWelyahArName.AllowDBNull = false;
                 this.columnWelyahArName.MaxLength = 50;
-                this.columnId.AutoIncrement = true;
-                this.columnId.AutoIncrementSeed = -1;
-                this.columnId.AutoIncrementStep = -1;
-                this.columnId.AllowDBNull = false;
-                this.columnId.ReadOnly = true;
-                this.columnId.Unique = true;
-                this.columnTokenID.MaxLength = 150;
-                this.columnTransactionid.MaxLength = 200;
+                this.columnArLetter.MaxLength = 10;
                 this.columnReferenceid.MaxLength = 200;
                 this.columnBankpaymentid.MaxLength = 200;
+                this.columnTransactionid.MaxLength = 200;
                 this.columnPayOn.ReadOnly = true;
-                this.columnPayOn.MaxLength = 10;
+                this.columnPayOn.MaxLength = 20;
+                this.columnowners.ReadOnly = true;
+                this.columnowners.MaxLength = 2147483647;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1477,6 +1671,332 @@ namespace DMeServicesInternal.Web.Reports {
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
                 attribute2.FixedValue = "BldPermitsDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class BldRegionsDataTable : global::System.Data.TypedTableBase<BldRegionsRow> {
+            
+            private global::System.Data.DataColumn columnRegionID;
+            
+            private global::System.Data.DataColumn columnRegionCode;
+            
+            private global::System.Data.DataColumn columnRegionEnName;
+            
+            private global::System.Data.DataColumn columnRegionArName;
+            
+            private global::System.Data.DataColumn columnWelyahID;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public BldRegionsDataTable() {
+                this.TableName = "BldRegions";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal BldRegionsDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected BldRegionsDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn RegionIDColumn {
+                get {
+                    return this.columnRegionID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn RegionCodeColumn {
+                get {
+                    return this.columnRegionCode;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn RegionEnNameColumn {
+                get {
+                    return this.columnRegionEnName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn RegionArNameColumn {
+                get {
+                    return this.columnRegionArName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn WelyahIDColumn {
+                get {
+                    return this.columnWelyahID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public BldRegionsRow this[int index] {
+                get {
+                    return ((BldRegionsRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event BldRegionsRowChangeEventHandler BldRegionsRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event BldRegionsRowChangeEventHandler BldRegionsRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event BldRegionsRowChangeEventHandler BldRegionsRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event BldRegionsRowChangeEventHandler BldRegionsRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void AddBldRegionsRow(BldRegionsRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public BldRegionsRow AddBldRegionsRow(int RegionCode, string RegionEnName, string RegionArName, BldWelyatRow parentBldWelyatRowByFK_BldRegions_BldWelyat) {
+                BldRegionsRow rowBldRegionsRow = ((BldRegionsRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        null,
+                        RegionCode,
+                        RegionEnName,
+                        RegionArName,
+                        null};
+                if ((parentBldWelyatRowByFK_BldRegions_BldWelyat != null)) {
+                    columnValuesArray[4] = parentBldWelyatRowByFK_BldRegions_BldWelyat[0];
+                }
+                rowBldRegionsRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowBldRegionsRow);
+                return rowBldRegionsRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public BldRegionsRow FindByRegionID(int RegionID) {
+                return ((BldRegionsRow)(this.Rows.Find(new object[] {
+                            RegionID})));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                BldRegionsDataTable cln = ((BldRegionsDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new BldRegionsDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal void InitVars() {
+                this.columnRegionID = base.Columns["RegionID"];
+                this.columnRegionCode = base.Columns["RegionCode"];
+                this.columnRegionEnName = base.Columns["RegionEnName"];
+                this.columnRegionArName = base.Columns["RegionArName"];
+                this.columnWelyahID = base.Columns["WelyahID"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            private void InitClass() {
+                this.columnRegionID = new global::System.Data.DataColumn("RegionID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRegionID);
+                this.columnRegionCode = new global::System.Data.DataColumn("RegionCode", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRegionCode);
+                this.columnRegionEnName = new global::System.Data.DataColumn("RegionEnName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRegionEnName);
+                this.columnRegionArName = new global::System.Data.DataColumn("RegionArName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRegionArName);
+                this.columnWelyahID = new global::System.Data.DataColumn("WelyahID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnWelyahID);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnRegionID}, true));
+                this.columnRegionID.AutoIncrement = true;
+                this.columnRegionID.AutoIncrementSeed = -1;
+                this.columnRegionID.AutoIncrementStep = -1;
+                this.columnRegionID.AllowDBNull = false;
+                this.columnRegionID.ReadOnly = true;
+                this.columnRegionID.Unique = true;
+                this.columnRegionCode.AllowDBNull = false;
+                this.columnRegionEnName.MaxLength = 50;
+                this.columnRegionArName.AllowDBNull = false;
+                this.columnRegionArName.MaxLength = 50;
+                this.columnWelyahID.AllowDBNull = false;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public BldRegionsRow NewBldRegionsRow() {
+                return ((BldRegionsRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new BldRegionsRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(BldRegionsRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.BldRegionsRowChanged != null)) {
+                    this.BldRegionsRowChanged(this, new BldRegionsRowChangeEvent(((BldRegionsRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.BldRegionsRowChanging != null)) {
+                    this.BldRegionsRowChanging(this, new BldRegionsRowChangeEvent(((BldRegionsRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.BldRegionsRowDeleted != null)) {
+                    this.BldRegionsRowDeleted(this, new BldRegionsRowChangeEvent(((BldRegionsRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.BldRegionsRowDeleting != null)) {
+                    this.BldRegionsRowDeleting(this, new BldRegionsRowChangeEvent(((BldRegionsRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void RemoveBldRegionsRow(BldRegionsRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                InternalEngineeringDataSet ds = new InternalEngineeringDataSet();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "BldRegionsDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -1769,6 +2289,766 @@ namespace DMeServicesInternal.Web.Reports {
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
                 attribute2.FixedValue = "BldSquareLettersDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class BldWelyatDataTable : global::System.Data.TypedTableBase<BldWelyatRow> {
+            
+            private global::System.Data.DataColumn columnWelyahID;
+            
+            private global::System.Data.DataColumn columnWelyahCode;
+            
+            private global::System.Data.DataColumn columnWelyahEnName;
+            
+            private global::System.Data.DataColumn columnWelyahArName;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public BldWelyatDataTable() {
+                this.TableName = "BldWelyat";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal BldWelyatDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected BldWelyatDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn WelyahIDColumn {
+                get {
+                    return this.columnWelyahID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn WelyahCodeColumn {
+                get {
+                    return this.columnWelyahCode;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn WelyahEnNameColumn {
+                get {
+                    return this.columnWelyahEnName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn WelyahArNameColumn {
+                get {
+                    return this.columnWelyahArName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public BldWelyatRow this[int index] {
+                get {
+                    return ((BldWelyatRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event BldWelyatRowChangeEventHandler BldWelyatRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event BldWelyatRowChangeEventHandler BldWelyatRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event BldWelyatRowChangeEventHandler BldWelyatRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event BldWelyatRowChangeEventHandler BldWelyatRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void AddBldWelyatRow(BldWelyatRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public BldWelyatRow AddBldWelyatRow(int WelyahCode, string WelyahEnName, string WelyahArName) {
+                BldWelyatRow rowBldWelyatRow = ((BldWelyatRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        null,
+                        WelyahCode,
+                        WelyahEnName,
+                        WelyahArName};
+                rowBldWelyatRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowBldWelyatRow);
+                return rowBldWelyatRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public BldWelyatRow FindByWelyahID(int WelyahID) {
+                return ((BldWelyatRow)(this.Rows.Find(new object[] {
+                            WelyahID})));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                BldWelyatDataTable cln = ((BldWelyatDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new BldWelyatDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal void InitVars() {
+                this.columnWelyahID = base.Columns["WelyahID"];
+                this.columnWelyahCode = base.Columns["WelyahCode"];
+                this.columnWelyahEnName = base.Columns["WelyahEnName"];
+                this.columnWelyahArName = base.Columns["WelyahArName"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            private void InitClass() {
+                this.columnWelyahID = new global::System.Data.DataColumn("WelyahID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnWelyahID);
+                this.columnWelyahCode = new global::System.Data.DataColumn("WelyahCode", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnWelyahCode);
+                this.columnWelyahEnName = new global::System.Data.DataColumn("WelyahEnName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnWelyahEnName);
+                this.columnWelyahArName = new global::System.Data.DataColumn("WelyahArName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnWelyahArName);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnWelyahID}, true));
+                this.columnWelyahID.AutoIncrement = true;
+                this.columnWelyahID.AutoIncrementSeed = -1;
+                this.columnWelyahID.AutoIncrementStep = -1;
+                this.columnWelyahID.AllowDBNull = false;
+                this.columnWelyahID.ReadOnly = true;
+                this.columnWelyahID.Unique = true;
+                this.columnWelyahCode.AllowDBNull = false;
+                this.columnWelyahEnName.AllowDBNull = false;
+                this.columnWelyahEnName.MaxLength = 50;
+                this.columnWelyahArName.AllowDBNull = false;
+                this.columnWelyahArName.MaxLength = 50;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public BldWelyatRow NewBldWelyatRow() {
+                return ((BldWelyatRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new BldWelyatRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(BldWelyatRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.BldWelyatRowChanged != null)) {
+                    this.BldWelyatRowChanged(this, new BldWelyatRowChangeEvent(((BldWelyatRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.BldWelyatRowChanging != null)) {
+                    this.BldWelyatRowChanging(this, new BldWelyatRowChangeEvent(((BldWelyatRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.BldWelyatRowDeleted != null)) {
+                    this.BldWelyatRowDeleted(this, new BldWelyatRowChangeEvent(((BldWelyatRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.BldWelyatRowDeleting != null)) {
+                    this.BldWelyatRowDeleting(this, new BldWelyatRowChangeEvent(((BldWelyatRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void RemoveBldWelyatRow(BldWelyatRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                InternalEngineeringDataSet ds = new InternalEngineeringDataSet();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "BldWelyatDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class BldPaymentDataTable : global::System.Data.TypedTableBase<BldPaymentRow> {
+            
+            private global::System.Data.DataColumn columnPaymentID;
+            
+            private global::System.Data.DataColumn columnBldPermitId;
+            
+            private global::System.Data.DataColumn columnPaymentTotalAmount;
+            
+            private global::System.Data.DataColumn columnTokenID;
+            
+            private global::System.Data.DataColumn columnBankResponseID;
+            
+            private global::System.Data.DataColumn columnPaymentDate;
+            
+            private global::System.Data.DataColumn columnFeesDate;
+            
+            private global::System.Data.DataColumn columnPaymentType;
+            
+            private global::System.Data.DataColumn columnTransactionid;
+            
+            private global::System.Data.DataColumn columnPaymentrequestid;
+            
+            private global::System.Data.DataColumn columnReferenceid;
+            
+            private global::System.Data.DataColumn columnBankpaymentid;
+            
+            private global::System.Data.DataColumn columnPaymentStatus;
+            
+            private global::System.Data.DataColumn columnSupervisionID;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public BldPaymentDataTable() {
+                this.TableName = "BldPayment";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal BldPaymentDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected BldPaymentDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn PaymentIDColumn {
+                get {
+                    return this.columnPaymentID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn BldPermitIdColumn {
+                get {
+                    return this.columnBldPermitId;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn PaymentTotalAmountColumn {
+                get {
+                    return this.columnPaymentTotalAmount;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn TokenIDColumn {
+                get {
+                    return this.columnTokenID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn BankResponseIDColumn {
+                get {
+                    return this.columnBankResponseID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn PaymentDateColumn {
+                get {
+                    return this.columnPaymentDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn FeesDateColumn {
+                get {
+                    return this.columnFeesDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn PaymentTypeColumn {
+                get {
+                    return this.columnPaymentType;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn TransactionidColumn {
+                get {
+                    return this.columnTransactionid;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn PaymentrequestidColumn {
+                get {
+                    return this.columnPaymentrequestid;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn ReferenceidColumn {
+                get {
+                    return this.columnReferenceid;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn BankpaymentidColumn {
+                get {
+                    return this.columnBankpaymentid;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn PaymentStatusColumn {
+                get {
+                    return this.columnPaymentStatus;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn SupervisionIDColumn {
+                get {
+                    return this.columnSupervisionID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public BldPaymentRow this[int index] {
+                get {
+                    return ((BldPaymentRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event BldPaymentRowChangeEventHandler BldPaymentRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event BldPaymentRowChangeEventHandler BldPaymentRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event BldPaymentRowChangeEventHandler BldPaymentRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event BldPaymentRowChangeEventHandler BldPaymentRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void AddBldPaymentRow(BldPaymentRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public BldPaymentRow AddBldPaymentRow(BldPermitsRow parentBldPermitsRowByFK_BldPayment_BldPermits, decimal PaymentTotalAmount, string TokenID, int BankResponseID, System.DateTime PaymentDate, System.DateTime FeesDate, int PaymentType, string Transactionid, int Paymentrequestid, string Referenceid, string Bankpaymentid, int PaymentStatus, int SupervisionID) {
+                BldPaymentRow rowBldPaymentRow = ((BldPaymentRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        null,
+                        null,
+                        PaymentTotalAmount,
+                        TokenID,
+                        BankResponseID,
+                        PaymentDate,
+                        FeesDate,
+                        PaymentType,
+                        Transactionid,
+                        Paymentrequestid,
+                        Referenceid,
+                        Bankpaymentid,
+                        PaymentStatus,
+                        SupervisionID};
+                if ((parentBldPermitsRowByFK_BldPayment_BldPermits != null)) {
+                    columnValuesArray[1] = parentBldPermitsRowByFK_BldPayment_BldPermits[0];
+                }
+                rowBldPaymentRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowBldPaymentRow);
+                return rowBldPaymentRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public BldPaymentRow FindByPaymentID(int PaymentID) {
+                return ((BldPaymentRow)(this.Rows.Find(new object[] {
+                            PaymentID})));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                BldPaymentDataTable cln = ((BldPaymentDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new BldPaymentDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal void InitVars() {
+                this.columnPaymentID = base.Columns["PaymentID"];
+                this.columnBldPermitId = base.Columns["BldPermitId"];
+                this.columnPaymentTotalAmount = base.Columns["PaymentTotalAmount"];
+                this.columnTokenID = base.Columns["TokenID"];
+                this.columnBankResponseID = base.Columns["BankResponseID"];
+                this.columnPaymentDate = base.Columns["PaymentDate"];
+                this.columnFeesDate = base.Columns["FeesDate"];
+                this.columnPaymentType = base.Columns["PaymentType"];
+                this.columnTransactionid = base.Columns["Transactionid"];
+                this.columnPaymentrequestid = base.Columns["Paymentrequestid"];
+                this.columnReferenceid = base.Columns["Referenceid"];
+                this.columnBankpaymentid = base.Columns["Bankpaymentid"];
+                this.columnPaymentStatus = base.Columns["PaymentStatus"];
+                this.columnSupervisionID = base.Columns["SupervisionID"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            private void InitClass() {
+                this.columnPaymentID = new global::System.Data.DataColumn("PaymentID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPaymentID);
+                this.columnBldPermitId = new global::System.Data.DataColumn("BldPermitId", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBldPermitId);
+                this.columnPaymentTotalAmount = new global::System.Data.DataColumn("PaymentTotalAmount", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPaymentTotalAmount);
+                this.columnTokenID = new global::System.Data.DataColumn("TokenID", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTokenID);
+                this.columnBankResponseID = new global::System.Data.DataColumn("BankResponseID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBankResponseID);
+                this.columnPaymentDate = new global::System.Data.DataColumn("PaymentDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPaymentDate);
+                this.columnFeesDate = new global::System.Data.DataColumn("FeesDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFeesDate);
+                this.columnPaymentType = new global::System.Data.DataColumn("PaymentType", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPaymentType);
+                this.columnTransactionid = new global::System.Data.DataColumn("Transactionid", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTransactionid);
+                this.columnPaymentrequestid = new global::System.Data.DataColumn("Paymentrequestid", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPaymentrequestid);
+                this.columnReferenceid = new global::System.Data.DataColumn("Referenceid", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnReferenceid);
+                this.columnBankpaymentid = new global::System.Data.DataColumn("Bankpaymentid", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBankpaymentid);
+                this.columnPaymentStatus = new global::System.Data.DataColumn("PaymentStatus", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPaymentStatus);
+                this.columnSupervisionID = new global::System.Data.DataColumn("SupervisionID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSupervisionID);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnPaymentID}, true));
+                this.columnPaymentID.AutoIncrement = true;
+                this.columnPaymentID.AutoIncrementSeed = -1;
+                this.columnPaymentID.AutoIncrementStep = -1;
+                this.columnPaymentID.AllowDBNull = false;
+                this.columnPaymentID.ReadOnly = true;
+                this.columnPaymentID.Unique = true;
+                this.columnTokenID.MaxLength = 150;
+                this.columnTransactionid.MaxLength = 200;
+                this.columnReferenceid.MaxLength = 200;
+                this.columnBankpaymentid.MaxLength = 200;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public BldPaymentRow NewBldPaymentRow() {
+                return ((BldPaymentRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new BldPaymentRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(BldPaymentRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.BldPaymentRowChanged != null)) {
+                    this.BldPaymentRowChanged(this, new BldPaymentRowChangeEvent(((BldPaymentRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.BldPaymentRowChanging != null)) {
+                    this.BldPaymentRowChanging(this, new BldPaymentRowChangeEvent(((BldPaymentRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.BldPaymentRowDeleted != null)) {
+                    this.BldPaymentRowDeleted(this, new BldPaymentRowChangeEvent(((BldPaymentRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.BldPaymentRowDeleting != null)) {
+                    this.BldPaymentRowDeleting(this, new BldPaymentRowChangeEvent(((BldPaymentRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void RemoveBldPaymentRow(BldPaymentRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                InternalEngineeringDataSet ds = new InternalEngineeringDataSet();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "BldPaymentDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -2368,22 +3648,104 @@ namespace DMeServicesInternal.Web.Reports {
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class BldRegionsDataTable : global::System.Data.TypedTableBase<BldRegionsRow> {
+        public partial class BldSupervisionServicesDataTable : global::System.Data.TypedTableBase<BldSupervisionServicesRow> {
             
-            private global::System.Data.DataColumn columnRegionID;
+            private global::System.Data.DataColumn columnID;
             
-            private global::System.Data.DataColumn columnRegionCode;
+            private global::System.Data.DataColumn columnOwnerCivilId;
             
-            private global::System.Data.DataColumn columnRegionEnName;
+            private global::System.Data.DataColumn columnKrokiNO;
+            
+            private global::System.Data.DataColumn columnOwnerName;
+            
+            private global::System.Data.DataColumn columnLicenseNo;
+            
+            private global::System.Data.DataColumn columnTransactNo;
+            
+            private global::System.Data.DataColumn columnDmFileNumber;
+            
+            private global::System.Data.DataColumn columnDmInspectorComments;
+            
+            private global::System.Data.DataColumn columnConsultantNotes;
+            
+            private global::System.Data.DataColumn columnOwnerNotes;
+            
+            private global::System.Data.DataColumn columnConstructionType;
+            
+            private global::System.Data.DataColumn columnConsultantCrNo;
+            
+            private global::System.Data.DataColumn columnNumberOfFloors;
+            
+            private global::System.Data.DataColumn columnConstructedArea;
+            
+            private global::System.Data.DataColumn columnSquareArea;
+            
+            private global::System.Data.DataColumn columnDMLicenseNames;
+            
+            private global::System.Data.DataColumn columnDMLicenseComments;
+            
+            private global::System.Data.DataColumn columnDMLicenseCivilIDs;
+            
+            private global::System.Data.DataColumn columnLandArea;
+            
+            private global::System.Data.DataColumn columnLandDeedReceiptDate;
+            
+            private global::System.Data.DataColumn columnLandDeedNo;
+            
+            private global::System.Data.DataColumn columnFileNumber;
+            
+            private global::System.Data.DataColumn columnWelyahArName;
+            
+            private global::System.Data.DataColumn columnWelyahEnName;
+            
+            private global::System.Data.DataColumn columnWelyahCode;
+            
+            private global::System.Data.DataColumn columnServiceNameAR;
+            
+            private global::System.Data.DataColumn columnServiceNameEn;
+            
+            private global::System.Data.DataColumn columnArLetter;
+            
+            private global::System.Data.DataColumn columnEnLetter;
+            
+            private global::System.Data.DataColumn columnBuildingType;
+            
+            private global::System.Data.DataColumn columnUseType;
             
             private global::System.Data.DataColumn columnRegionArName;
             
-            private global::System.Data.DataColumn columnWelyahID;
+            private global::System.Data.DataColumn columnRegionEnName;
+            
+            private global::System.Data.DataColumn columnRegionCode;
+            
+            private global::System.Data.DataColumn columnDistrictNo;
+            
+            private global::System.Data.DataColumn columnBldPermitID;
+            
+            private global::System.Data.DataColumn columnContractor_Name;
+            
+            private global::System.Data.DataColumn columnContractor_CRNumber;
+            
+            private global::System.Data.DataColumn columnContractor_CR_Number;
+            
+            private global::System.Data.DataColumn columnReferenceid;
+            
+            private global::System.Data.DataColumn columnPaymentType;
+            
+            private global::System.Data.DataColumn columnPaymentID;
+            
+            private global::System.Data.DataColumn columnConsultantCivilId;
+            
+            private global::System.Data.DataColumn columnCompanyName;
+            
+            private global::System.Data.DataColumn columnPaymentDate;
+            
+            private global::System.Data.DataColumn columnSupervisionLicenseNo;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public BldRegionsDataTable() {
-                this.TableName = "BldRegions";
+            public BldSupervisionServicesDataTable() {
+                this.TableName = "BldSupervisionServices";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -2391,7 +3753,7 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal BldRegionsDataTable(global::System.Data.DataTable table) {
+            internal BldSupervisionServicesDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -2408,32 +3770,256 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected BldRegionsDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected BldSupervisionServicesDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn RegionIDColumn {
+            public global::System.Data.DataColumn IDColumn {
                 get {
-                    return this.columnRegionID;
+                    return this.columnID;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn RegionCodeColumn {
+            public global::System.Data.DataColumn OwnerCivilIdColumn {
                 get {
-                    return this.columnRegionCode;
+                    return this.columnOwnerCivilId;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn RegionEnNameColumn {
+            public global::System.Data.DataColumn KrokiNOColumn {
                 get {
-                    return this.columnRegionEnName;
+                    return this.columnKrokiNO;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn OwnerNameColumn {
+                get {
+                    return this.columnOwnerName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn LicenseNoColumn {
+                get {
+                    return this.columnLicenseNo;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn TransactNoColumn {
+                get {
+                    return this.columnTransactNo;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn DmFileNumberColumn {
+                get {
+                    return this.columnDmFileNumber;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn DmInspectorCommentsColumn {
+                get {
+                    return this.columnDmInspectorComments;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn ConsultantNotesColumn {
+                get {
+                    return this.columnConsultantNotes;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn OwnerNotesColumn {
+                get {
+                    return this.columnOwnerNotes;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn ConstructionTypeColumn {
+                get {
+                    return this.columnConstructionType;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn ConsultantCrNoColumn {
+                get {
+                    return this.columnConsultantCrNo;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn NumberOfFloorsColumn {
+                get {
+                    return this.columnNumberOfFloors;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn ConstructedAreaColumn {
+                get {
+                    return this.columnConstructedArea;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn SquareAreaColumn {
+                get {
+                    return this.columnSquareArea;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn DMLicenseNamesColumn {
+                get {
+                    return this.columnDMLicenseNames;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn DMLicenseCommentsColumn {
+                get {
+                    return this.columnDMLicenseComments;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn DMLicenseCivilIDsColumn {
+                get {
+                    return this.columnDMLicenseCivilIDs;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn LandAreaColumn {
+                get {
+                    return this.columnLandArea;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn LandDeedReceiptDateColumn {
+                get {
+                    return this.columnLandDeedReceiptDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn LandDeedNoColumn {
+                get {
+                    return this.columnLandDeedNo;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn FileNumberColumn {
+                get {
+                    return this.columnFileNumber;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn WelyahArNameColumn {
+                get {
+                    return this.columnWelyahArName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn WelyahEnNameColumn {
+                get {
+                    return this.columnWelyahEnName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn WelyahCodeColumn {
+                get {
+                    return this.columnWelyahCode;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn ServiceNameARColumn {
+                get {
+                    return this.columnServiceNameAR;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn ServiceNameEnColumn {
+                get {
+                    return this.columnServiceNameEn;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn ArLetterColumn {
+                get {
+                    return this.columnArLetter;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn EnLetterColumn {
+                get {
+                    return this.columnEnLetter;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn BuildingTypeColumn {
+                get {
+                    return this.columnBuildingType;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn UseTypeColumn {
+                get {
+                    return this.columnUseType;
                 }
             }
             
@@ -2447,9 +4033,113 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn WelyahIDColumn {
+            public global::System.Data.DataColumn RegionEnNameColumn {
                 get {
-                    return this.columnWelyahID;
+                    return this.columnRegionEnName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn RegionCodeColumn {
+                get {
+                    return this.columnRegionCode;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn DistrictNoColumn {
+                get {
+                    return this.columnDistrictNo;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn BldPermitIDColumn {
+                get {
+                    return this.columnBldPermitID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn Contractor_NameColumn {
+                get {
+                    return this.columnContractor_Name;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn Contractor_CRNumberColumn {
+                get {
+                    return this.columnContractor_CRNumber;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn Contractor_CR_NumberColumn {
+                get {
+                    return this.columnContractor_CR_Number;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn ReferenceidColumn {
+                get {
+                    return this.columnReferenceid;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn PaymentTypeColumn {
+                get {
+                    return this.columnPaymentType;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn PaymentIDColumn {
+                get {
+                    return this.columnPaymentID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn ConsultantCivilIdColumn {
+                get {
+                    return this.columnConsultantCivilId;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn CompanyNameColumn {
+                get {
+                    return this.columnCompanyName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn PaymentDateColumn {
+                get {
+                    return this.columnPaymentDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn SupervisionLicenseNoColumn {
+                get {
+                    return this.columnSupervisionLicenseNo;
                 }
             }
             
@@ -2464,59 +4154,142 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public BldRegionsRow this[int index] {
+            public BldSupervisionServicesRow this[int index] {
                 get {
-                    return ((BldRegionsRow)(this.Rows[index]));
+                    return ((BldSupervisionServicesRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event BldRegionsRowChangeEventHandler BldRegionsRowChanging;
+            public event BldSupervisionServicesRowChangeEventHandler BldSupervisionServicesRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event BldRegionsRowChangeEventHandler BldRegionsRowChanged;
+            public event BldSupervisionServicesRowChangeEventHandler BldSupervisionServicesRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event BldRegionsRowChangeEventHandler BldRegionsRowDeleting;
+            public event BldSupervisionServicesRowChangeEventHandler BldSupervisionServicesRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event BldRegionsRowChangeEventHandler BldRegionsRowDeleted;
+            public event BldSupervisionServicesRowChangeEventHandler BldSupervisionServicesRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void AddBldRegionsRow(BldRegionsRow row) {
+            public void AddBldSupervisionServicesRow(BldSupervisionServicesRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public BldRegionsRow AddBldRegionsRow(int RegionCode, string RegionEnName, string RegionArName, BldWelyatRow parentBldWelyatRowByFK_BldRegions_BldWelyat) {
-                BldRegionsRow rowBldRegionsRow = ((BldRegionsRow)(this.NewRow()));
+            public BldSupervisionServicesRow AddBldSupervisionServicesRow(
+                        int OwnerCivilId, 
+                        string KrokiNO, 
+                        string OwnerName, 
+                        string LicenseNo, 
+                        string TransactNo, 
+                        string DmFileNumber, 
+                        string DmInspectorComments, 
+                        string ConsultantNotes, 
+                        string OwnerNotes, 
+                        string ConstructionType, 
+                        int ConsultantCrNo, 
+                        string NumberOfFloors, 
+                        string ConstructedArea, 
+                        string SquareArea, 
+                        string DMLicenseNames, 
+                        string DMLicenseComments, 
+                        string DMLicenseCivilIDs, 
+                        string LandArea, 
+                        System.DateTime LandDeedReceiptDate, 
+                        string LandDeedNo, 
+                        string FileNumber, 
+                        string WelyahArName, 
+                        string WelyahEnName, 
+                        int WelyahCode, 
+                        string ServiceNameAR, 
+                        string ServiceNameEn, 
+                        string ArLetter, 
+                        string EnLetter, 
+                        string BuildingType, 
+                        string UseType, 
+                        string RegionArName, 
+                        string RegionEnName, 
+                        int RegionCode, 
+                        int DistrictNo, 
+                        int BldPermitID, 
+                        string Contractor_Name, 
+                        int Contractor_CRNumber, 
+                        int Contractor_CR_Number, 
+                        string Referenceid, 
+                        int PaymentType, 
+                        int PaymentID, 
+                        int ConsultantCivilId, 
+                        string CompanyName, 
+                        System.DateTime PaymentDate, 
+                        string SupervisionLicenseNo) {
+                BldSupervisionServicesRow rowBldSupervisionServicesRow = ((BldSupervisionServicesRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
-                        RegionCode,
-                        RegionEnName,
+                        OwnerCivilId,
+                        KrokiNO,
+                        OwnerName,
+                        LicenseNo,
+                        TransactNo,
+                        DmFileNumber,
+                        DmInspectorComments,
+                        ConsultantNotes,
+                        OwnerNotes,
+                        ConstructionType,
+                        ConsultantCrNo,
+                        NumberOfFloors,
+                        ConstructedArea,
+                        SquareArea,
+                        DMLicenseNames,
+                        DMLicenseComments,
+                        DMLicenseCivilIDs,
+                        LandArea,
+                        LandDeedReceiptDate,
+                        LandDeedNo,
+                        FileNumber,
+                        WelyahArName,
+                        WelyahEnName,
+                        WelyahCode,
+                        ServiceNameAR,
+                        ServiceNameEn,
+                        ArLetter,
+                        EnLetter,
+                        BuildingType,
+                        UseType,
                         RegionArName,
-                        null};
-                if ((parentBldWelyatRowByFK_BldRegions_BldWelyat != null)) {
-                    columnValuesArray[4] = parentBldWelyatRowByFK_BldRegions_BldWelyat[0];
-                }
-                rowBldRegionsRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowBldRegionsRow);
-                return rowBldRegionsRow;
+                        RegionEnName,
+                        RegionCode,
+                        DistrictNo,
+                        BldPermitID,
+                        Contractor_Name,
+                        Contractor_CRNumber,
+                        Contractor_CR_Number,
+                        Referenceid,
+                        PaymentType,
+                        PaymentID,
+                        ConsultantCivilId,
+                        CompanyName,
+                        PaymentDate,
+                        SupervisionLicenseNo};
+                rowBldSupervisionServicesRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowBldSupervisionServicesRow);
+                return rowBldSupervisionServicesRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public BldRegionsRow FindByRegionID(int RegionID) {
-                return ((BldRegionsRow)(this.Rows.Find(new object[] {
-                            RegionID})));
+            public BldSupervisionServicesRow FindByID(int ID) {
+                return ((BldSupervisionServicesRow)(this.Rows.Find(new object[] {
+                            ID})));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                BldRegionsDataTable cln = ((BldRegionsDataTable)(base.Clone()));
+                BldSupervisionServicesDataTable cln = ((BldSupervisionServicesDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -2524,71 +4297,230 @@ namespace DMeServicesInternal.Web.Reports {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new BldRegionsDataTable();
+                return new BldSupervisionServicesDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             internal void InitVars() {
-                this.columnRegionID = base.Columns["RegionID"];
-                this.columnRegionCode = base.Columns["RegionCode"];
-                this.columnRegionEnName = base.Columns["RegionEnName"];
+                this.columnID = base.Columns["ID"];
+                this.columnOwnerCivilId = base.Columns["OwnerCivilId"];
+                this.columnKrokiNO = base.Columns["KrokiNO"];
+                this.columnOwnerName = base.Columns["OwnerName"];
+                this.columnLicenseNo = base.Columns["LicenseNo"];
+                this.columnTransactNo = base.Columns["TransactNo"];
+                this.columnDmFileNumber = base.Columns["DmFileNumber"];
+                this.columnDmInspectorComments = base.Columns["DmInspectorComments"];
+                this.columnConsultantNotes = base.Columns["ConsultantNotes"];
+                this.columnOwnerNotes = base.Columns["OwnerNotes"];
+                this.columnConstructionType = base.Columns["ConstructionType"];
+                this.columnConsultantCrNo = base.Columns["ConsultantCrNo"];
+                this.columnNumberOfFloors = base.Columns["NumberOfFloors"];
+                this.columnConstructedArea = base.Columns["ConstructedArea"];
+                this.columnSquareArea = base.Columns["SquareArea"];
+                this.columnDMLicenseNames = base.Columns["DMLicenseNames"];
+                this.columnDMLicenseComments = base.Columns["DMLicenseComments"];
+                this.columnDMLicenseCivilIDs = base.Columns["DMLicenseCivilIDs"];
+                this.columnLandArea = base.Columns["LandArea"];
+                this.columnLandDeedReceiptDate = base.Columns["LandDeedReceiptDate"];
+                this.columnLandDeedNo = base.Columns["LandDeedNo"];
+                this.columnFileNumber = base.Columns["FileNumber"];
+                this.columnWelyahArName = base.Columns["WelyahArName"];
+                this.columnWelyahEnName = base.Columns["WelyahEnName"];
+                this.columnWelyahCode = base.Columns["WelyahCode"];
+                this.columnServiceNameAR = base.Columns["ServiceNameAR"];
+                this.columnServiceNameEn = base.Columns["ServiceNameEn"];
+                this.columnArLetter = base.Columns["ArLetter"];
+                this.columnEnLetter = base.Columns["EnLetter"];
+                this.columnBuildingType = base.Columns["BuildingType"];
+                this.columnUseType = base.Columns["UseType"];
                 this.columnRegionArName = base.Columns["RegionArName"];
-                this.columnWelyahID = base.Columns["WelyahID"];
+                this.columnRegionEnName = base.Columns["RegionEnName"];
+                this.columnRegionCode = base.Columns["RegionCode"];
+                this.columnDistrictNo = base.Columns["DistrictNo"];
+                this.columnBldPermitID = base.Columns["BldPermitID"];
+                this.columnContractor_Name = base.Columns["Contractor_Name"];
+                this.columnContractor_CRNumber = base.Columns["Contractor_CRNumber"];
+                this.columnContractor_CR_Number = base.Columns["Contractor_CR_Number"];
+                this.columnReferenceid = base.Columns["Referenceid"];
+                this.columnPaymentType = base.Columns["PaymentType"];
+                this.columnPaymentID = base.Columns["PaymentID"];
+                this.columnConsultantCivilId = base.Columns["ConsultantCivilId"];
+                this.columnCompanyName = base.Columns["CompanyName"];
+                this.columnPaymentDate = base.Columns["PaymentDate"];
+                this.columnSupervisionLicenseNo = base.Columns["SupervisionLicenseNo"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             private void InitClass() {
-                this.columnRegionID = new global::System.Data.DataColumn("RegionID", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnRegionID);
-                this.columnRegionCode = new global::System.Data.DataColumn("RegionCode", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnRegionCode);
-                this.columnRegionEnName = new global::System.Data.DataColumn("RegionEnName", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnRegionEnName);
+                this.columnID = new global::System.Data.DataColumn("ID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnID);
+                this.columnOwnerCivilId = new global::System.Data.DataColumn("OwnerCivilId", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnOwnerCivilId);
+                this.columnKrokiNO = new global::System.Data.DataColumn("KrokiNO", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnKrokiNO);
+                this.columnOwnerName = new global::System.Data.DataColumn("OwnerName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnOwnerName);
+                this.columnLicenseNo = new global::System.Data.DataColumn("LicenseNo", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLicenseNo);
+                this.columnTransactNo = new global::System.Data.DataColumn("TransactNo", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTransactNo);
+                this.columnDmFileNumber = new global::System.Data.DataColumn("DmFileNumber", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDmFileNumber);
+                this.columnDmInspectorComments = new global::System.Data.DataColumn("DmInspectorComments", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDmInspectorComments);
+                this.columnConsultantNotes = new global::System.Data.DataColumn("ConsultantNotes", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnConsultantNotes);
+                this.columnOwnerNotes = new global::System.Data.DataColumn("OwnerNotes", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnOwnerNotes);
+                this.columnConstructionType = new global::System.Data.DataColumn("ConstructionType", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnConstructionType);
+                this.columnConsultantCrNo = new global::System.Data.DataColumn("ConsultantCrNo", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnConsultantCrNo);
+                this.columnNumberOfFloors = new global::System.Data.DataColumn("NumberOfFloors", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNumberOfFloors);
+                this.columnConstructedArea = new global::System.Data.DataColumn("ConstructedArea", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnConstructedArea);
+                this.columnSquareArea = new global::System.Data.DataColumn("SquareArea", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSquareArea);
+                this.columnDMLicenseNames = new global::System.Data.DataColumn("DMLicenseNames", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDMLicenseNames);
+                this.columnDMLicenseComments = new global::System.Data.DataColumn("DMLicenseComments", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDMLicenseComments);
+                this.columnDMLicenseCivilIDs = new global::System.Data.DataColumn("DMLicenseCivilIDs", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDMLicenseCivilIDs);
+                this.columnLandArea = new global::System.Data.DataColumn("LandArea", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLandArea);
+                this.columnLandDeedReceiptDate = new global::System.Data.DataColumn("LandDeedReceiptDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLandDeedReceiptDate);
+                this.columnLandDeedNo = new global::System.Data.DataColumn("LandDeedNo", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLandDeedNo);
+                this.columnFileNumber = new global::System.Data.DataColumn("FileNumber", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFileNumber);
+                this.columnWelyahArName = new global::System.Data.DataColumn("WelyahArName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnWelyahArName);
+                this.columnWelyahEnName = new global::System.Data.DataColumn("WelyahEnName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnWelyahEnName);
+                this.columnWelyahCode = new global::System.Data.DataColumn("WelyahCode", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnWelyahCode);
+                this.columnServiceNameAR = new global::System.Data.DataColumn("ServiceNameAR", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnServiceNameAR);
+                this.columnServiceNameEn = new global::System.Data.DataColumn("ServiceNameEn", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnServiceNameEn);
+                this.columnArLetter = new global::System.Data.DataColumn("ArLetter", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnArLetter);
+                this.columnEnLetter = new global::System.Data.DataColumn("EnLetter", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEnLetter);
+                this.columnBuildingType = new global::System.Data.DataColumn("BuildingType", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBuildingType);
+                this.columnUseType = new global::System.Data.DataColumn("UseType", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnUseType);
                 this.columnRegionArName = new global::System.Data.DataColumn("RegionArName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnRegionArName);
-                this.columnWelyahID = new global::System.Data.DataColumn("WelyahID", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnWelyahID);
+                this.columnRegionEnName = new global::System.Data.DataColumn("RegionEnName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRegionEnName);
+                this.columnRegionCode = new global::System.Data.DataColumn("RegionCode", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRegionCode);
+                this.columnDistrictNo = new global::System.Data.DataColumn("DistrictNo", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDistrictNo);
+                this.columnBldPermitID = new global::System.Data.DataColumn("BldPermitID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBldPermitID);
+                this.columnContractor_Name = new global::System.Data.DataColumn("Contractor_Name", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnContractor_Name);
+                this.columnContractor_CRNumber = new global::System.Data.DataColumn("Contractor_CRNumber", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnContractor_CRNumber);
+                this.columnContractor_CR_Number = new global::System.Data.DataColumn("Contractor_CR_Number", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnContractor_CR_Number);
+                this.columnReferenceid = new global::System.Data.DataColumn("Referenceid", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnReferenceid);
+                this.columnPaymentType = new global::System.Data.DataColumn("PaymentType", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPaymentType);
+                this.columnPaymentID = new global::System.Data.DataColumn("PaymentID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPaymentID);
+                this.columnConsultantCivilId = new global::System.Data.DataColumn("ConsultantCivilId", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnConsultantCivilId);
+                this.columnCompanyName = new global::System.Data.DataColumn("CompanyName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCompanyName);
+                this.columnPaymentDate = new global::System.Data.DataColumn("PaymentDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPaymentDate);
+                this.columnSupervisionLicenseNo = new global::System.Data.DataColumn("SupervisionLicenseNo", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSupervisionLicenseNo);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
-                                this.columnRegionID}, true));
-                this.columnRegionID.AutoIncrement = true;
-                this.columnRegionID.AutoIncrementSeed = -1;
-                this.columnRegionID.AutoIncrementStep = -1;
-                this.columnRegionID.AllowDBNull = false;
-                this.columnRegionID.ReadOnly = true;
-                this.columnRegionID.Unique = true;
-                this.columnRegionCode.AllowDBNull = false;
-                this.columnRegionEnName.MaxLength = 50;
+                                this.columnID}, true));
+                this.columnID.AutoIncrement = true;
+                this.columnID.AutoIncrementSeed = -1;
+                this.columnID.AutoIncrementStep = -1;
+                this.columnID.AllowDBNull = false;
+                this.columnID.ReadOnly = true;
+                this.columnID.Unique = true;
+                this.columnKrokiNO.MaxLength = 50;
+                this.columnOwnerName.MaxLength = 250;
+                this.columnLicenseNo.MaxLength = 100;
+                this.columnTransactNo.AllowDBNull = false;
+                this.columnTransactNo.MaxLength = 400;
+                this.columnDmFileNumber.MaxLength = 50;
+                this.columnDmInspectorComments.MaxLength = 500;
+                this.columnConsultantNotes.MaxLength = 250;
+                this.columnOwnerNotes.MaxLength = 250;
+                this.columnConstructionType.MaxLength = 50;
+                this.columnConsultantCrNo.AllowDBNull = false;
+                this.columnNumberOfFloors.MaxLength = 50;
+                this.columnConstructedArea.MaxLength = 50;
+                this.columnSquareArea.MaxLength = 50;
+                this.columnDMLicenseNames.MaxLength = 250;
+                this.columnDMLicenseComments.MaxLength = 250;
+                this.columnDMLicenseCivilIDs.MaxLength = 250;
+                this.columnLandArea.MaxLength = 50;
+                this.columnLandDeedNo.MaxLength = 50;
+                this.columnFileNumber.MaxLength = 50;
+                this.columnWelyahArName.AllowDBNull = false;
+                this.columnWelyahArName.MaxLength = 50;
+                this.columnWelyahEnName.AllowDBNull = false;
+                this.columnWelyahEnName.MaxLength = 50;
+                this.columnWelyahCode.AllowDBNull = false;
+                this.columnServiceNameAR.AllowDBNull = false;
+                this.columnServiceNameAR.MaxLength = 100;
+                this.columnServiceNameEn.MaxLength = 100;
+                this.columnArLetter.MaxLength = 10;
+                this.columnEnLetter.MaxLength = 5;
+                this.columnBuildingType.MaxLength = 50;
+                this.columnUseType.MaxLength = 50;
                 this.columnRegionArName.AllowDBNull = false;
                 this.columnRegionArName.MaxLength = 50;
-                this.columnWelyahID.AllowDBNull = false;
+                this.columnRegionEnName.MaxLength = 50;
+                this.columnRegionCode.AllowDBNull = false;
+                this.columnBldPermitID.AllowDBNull = false;
+                this.columnContractor_Name.MaxLength = 200;
+                this.columnReferenceid.MaxLength = 200;
+                this.columnCompanyName.MaxLength = 400;
+                this.columnSupervisionLicenseNo.MaxLength = 100;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public BldRegionsRow NewBldRegionsRow() {
-                return ((BldRegionsRow)(this.NewRow()));
+            public BldSupervisionServicesRow NewBldSupervisionServicesRow() {
+                return ((BldSupervisionServicesRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new BldRegionsRow(builder);
+                return new BldSupervisionServicesRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(BldRegionsRow);
+                return typeof(BldSupervisionServicesRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.BldRegionsRowChanged != null)) {
-                    this.BldRegionsRowChanged(this, new BldRegionsRowChangeEvent(((BldRegionsRow)(e.Row)), e.Action));
+                if ((this.BldSupervisionServicesRowChanged != null)) {
+                    this.BldSupervisionServicesRowChanged(this, new BldSupervisionServicesRowChangeEvent(((BldSupervisionServicesRow)(e.Row)), e.Action));
                 }
             }
             
@@ -2596,8 +4528,8 @@ namespace DMeServicesInternal.Web.Reports {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.BldRegionsRowChanging != null)) {
-                    this.BldRegionsRowChanging(this, new BldRegionsRowChangeEvent(((BldRegionsRow)(e.Row)), e.Action));
+                if ((this.BldSupervisionServicesRowChanging != null)) {
+                    this.BldSupervisionServicesRowChanging(this, new BldSupervisionServicesRowChangeEvent(((BldSupervisionServicesRow)(e.Row)), e.Action));
                 }
             }
             
@@ -2605,8 +4537,8 @@ namespace DMeServicesInternal.Web.Reports {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.BldRegionsRowDeleted != null)) {
-                    this.BldRegionsRowDeleted(this, new BldRegionsRowChangeEvent(((BldRegionsRow)(e.Row)), e.Action));
+                if ((this.BldSupervisionServicesRowDeleted != null)) {
+                    this.BldSupervisionServicesRowDeleted(this, new BldSupervisionServicesRowChangeEvent(((BldSupervisionServicesRow)(e.Row)), e.Action));
                 }
             }
             
@@ -2614,14 +4546,14 @@ namespace DMeServicesInternal.Web.Reports {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.BldRegionsRowDeleting != null)) {
-                    this.BldRegionsRowDeleting(this, new BldRegionsRowChangeEvent(((BldRegionsRow)(e.Row)), e.Action));
+                if ((this.BldSupervisionServicesRowDeleting != null)) {
+                    this.BldSupervisionServicesRowDeleting(this, new BldSupervisionServicesRowChangeEvent(((BldSupervisionServicesRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void RemoveBldRegionsRow(BldRegionsRow row) {
+            public void RemoveBldSupervisionServicesRow(BldSupervisionServicesRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -2648,7 +4580,7 @@ namespace DMeServicesInternal.Web.Reports {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "BldRegionsDataTable";
+                attribute2.FixedValue = "BldSupervisionServicesDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -2694,20 +4626,20 @@ namespace DMeServicesInternal.Web.Reports {
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class BldWelyatDataTable : global::System.Data.TypedTableBase<BldWelyatRow> {
+        public partial class BldSupervisionServicesTypesDataTable : global::System.Data.TypedTableBase<BldSupervisionServicesTypesRow> {
             
-            private global::System.Data.DataColumn columnWelyahID;
+            private global::System.Data.DataColumn columnID;
             
-            private global::System.Data.DataColumn columnWelyahCode;
+            private global::System.Data.DataColumn columnServiceNameAR;
             
-            private global::System.Data.DataColumn columnWelyahEnName;
+            private global::System.Data.DataColumn columnServiceNameEn;
             
-            private global::System.Data.DataColumn columnWelyahArName;
+            private global::System.Data.DataColumn columnServiceStatus;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public BldWelyatDataTable() {
-                this.TableName = "BldWelyat";
+            public BldSupervisionServicesTypesDataTable() {
+                this.TableName = "BldSupervisionServicesTypes";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -2715,7 +4647,7 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal BldWelyatDataTable(global::System.Data.DataTable table) {
+            internal BldSupervisionServicesTypesDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -2732,40 +4664,40 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected BldWelyatDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected BldSupervisionServicesTypesDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn WelyahIDColumn {
+            public global::System.Data.DataColumn IDColumn {
                 get {
-                    return this.columnWelyahID;
+                    return this.columnID;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn WelyahCodeColumn {
+            public global::System.Data.DataColumn ServiceNameARColumn {
                 get {
-                    return this.columnWelyahCode;
+                    return this.columnServiceNameAR;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn WelyahEnNameColumn {
+            public global::System.Data.DataColumn ServiceNameEnColumn {
                 get {
-                    return this.columnWelyahEnName;
+                    return this.columnServiceNameEn;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn WelyahArNameColumn {
+            public global::System.Data.DataColumn ServiceStatusColumn {
                 get {
-                    return this.columnWelyahArName;
+                    return this.columnServiceStatus;
                 }
             }
             
@@ -2780,55 +4712,55 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public BldWelyatRow this[int index] {
+            public BldSupervisionServicesTypesRow this[int index] {
                 get {
-                    return ((BldWelyatRow)(this.Rows[index]));
+                    return ((BldSupervisionServicesTypesRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event BldWelyatRowChangeEventHandler BldWelyatRowChanging;
+            public event BldSupervisionServicesTypesRowChangeEventHandler BldSupervisionServicesTypesRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event BldWelyatRowChangeEventHandler BldWelyatRowChanged;
+            public event BldSupervisionServicesTypesRowChangeEventHandler BldSupervisionServicesTypesRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event BldWelyatRowChangeEventHandler BldWelyatRowDeleting;
+            public event BldSupervisionServicesTypesRowChangeEventHandler BldSupervisionServicesTypesRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event BldWelyatRowChangeEventHandler BldWelyatRowDeleted;
+            public event BldSupervisionServicesTypesRowChangeEventHandler BldSupervisionServicesTypesRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void AddBldWelyatRow(BldWelyatRow row) {
+            public void AddBldSupervisionServicesTypesRow(BldSupervisionServicesTypesRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public BldWelyatRow AddBldWelyatRow(int WelyahCode, string WelyahEnName, string WelyahArName) {
-                BldWelyatRow rowBldWelyatRow = ((BldWelyatRow)(this.NewRow()));
+            public BldSupervisionServicesTypesRow AddBldSupervisionServicesTypesRow(string ServiceNameAR, string ServiceNameEn, int ServiceStatus) {
+                BldSupervisionServicesTypesRow rowBldSupervisionServicesTypesRow = ((BldSupervisionServicesTypesRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
-                        WelyahCode,
-                        WelyahEnName,
-                        WelyahArName};
-                rowBldWelyatRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowBldWelyatRow);
-                return rowBldWelyatRow;
+                        ServiceNameAR,
+                        ServiceNameEn,
+                        ServiceStatus};
+                rowBldSupervisionServicesTypesRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowBldSupervisionServicesTypesRow);
+                return rowBldSupervisionServicesTypesRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public BldWelyatRow FindByWelyahID(int WelyahID) {
-                return ((BldWelyatRow)(this.Rows.Find(new object[] {
-                            WelyahID})));
+            public BldSupervisionServicesTypesRow FindByID(int ID) {
+                return ((BldSupervisionServicesTypesRow)(this.Rows.Find(new object[] {
+                            ID})));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                BldWelyatDataTable cln = ((BldWelyatDataTable)(base.Clone()));
+                BldSupervisionServicesTypesDataTable cln = ((BldSupervisionServicesTypesDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -2836,68 +4768,66 @@ namespace DMeServicesInternal.Web.Reports {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new BldWelyatDataTable();
+                return new BldSupervisionServicesTypesDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             internal void InitVars() {
-                this.columnWelyahID = base.Columns["WelyahID"];
-                this.columnWelyahCode = base.Columns["WelyahCode"];
-                this.columnWelyahEnName = base.Columns["WelyahEnName"];
-                this.columnWelyahArName = base.Columns["WelyahArName"];
+                this.columnID = base.Columns["ID"];
+                this.columnServiceNameAR = base.Columns["ServiceNameAR"];
+                this.columnServiceNameEn = base.Columns["ServiceNameEn"];
+                this.columnServiceStatus = base.Columns["ServiceStatus"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             private void InitClass() {
-                this.columnWelyahID = new global::System.Data.DataColumn("WelyahID", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnWelyahID);
-                this.columnWelyahCode = new global::System.Data.DataColumn("WelyahCode", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnWelyahCode);
-                this.columnWelyahEnName = new global::System.Data.DataColumn("WelyahEnName", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnWelyahEnName);
-                this.columnWelyahArName = new global::System.Data.DataColumn("WelyahArName", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnWelyahArName);
+                this.columnID = new global::System.Data.DataColumn("ID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnID);
+                this.columnServiceNameAR = new global::System.Data.DataColumn("ServiceNameAR", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnServiceNameAR);
+                this.columnServiceNameEn = new global::System.Data.DataColumn("ServiceNameEn", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnServiceNameEn);
+                this.columnServiceStatus = new global::System.Data.DataColumn("ServiceStatus", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnServiceStatus);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
-                                this.columnWelyahID}, true));
-                this.columnWelyahID.AutoIncrement = true;
-                this.columnWelyahID.AutoIncrementSeed = -1;
-                this.columnWelyahID.AutoIncrementStep = -1;
-                this.columnWelyahID.AllowDBNull = false;
-                this.columnWelyahID.ReadOnly = true;
-                this.columnWelyahID.Unique = true;
-                this.columnWelyahCode.AllowDBNull = false;
-                this.columnWelyahEnName.AllowDBNull = false;
-                this.columnWelyahEnName.MaxLength = 50;
-                this.columnWelyahArName.AllowDBNull = false;
-                this.columnWelyahArName.MaxLength = 50;
+                                this.columnID}, true));
+                this.columnID.AutoIncrement = true;
+                this.columnID.AutoIncrementSeed = -1;
+                this.columnID.AutoIncrementStep = -1;
+                this.columnID.AllowDBNull = false;
+                this.columnID.ReadOnly = true;
+                this.columnID.Unique = true;
+                this.columnServiceNameAR.AllowDBNull = false;
+                this.columnServiceNameAR.MaxLength = 100;
+                this.columnServiceNameEn.MaxLength = 100;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public BldWelyatRow NewBldWelyatRow() {
-                return ((BldWelyatRow)(this.NewRow()));
+            public BldSupervisionServicesTypesRow NewBldSupervisionServicesTypesRow() {
+                return ((BldSupervisionServicesTypesRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new BldWelyatRow(builder);
+                return new BldSupervisionServicesTypesRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(BldWelyatRow);
+                return typeof(BldSupervisionServicesTypesRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.BldWelyatRowChanged != null)) {
-                    this.BldWelyatRowChanged(this, new BldWelyatRowChangeEvent(((BldWelyatRow)(e.Row)), e.Action));
+                if ((this.BldSupervisionServicesTypesRowChanged != null)) {
+                    this.BldSupervisionServicesTypesRowChanged(this, new BldSupervisionServicesTypesRowChangeEvent(((BldSupervisionServicesTypesRow)(e.Row)), e.Action));
                 }
             }
             
@@ -2905,8 +4835,8 @@ namespace DMeServicesInternal.Web.Reports {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.BldWelyatRowChanging != null)) {
-                    this.BldWelyatRowChanging(this, new BldWelyatRowChangeEvent(((BldWelyatRow)(e.Row)), e.Action));
+                if ((this.BldSupervisionServicesTypesRowChanging != null)) {
+                    this.BldSupervisionServicesTypesRowChanging(this, new BldSupervisionServicesTypesRowChangeEvent(((BldSupervisionServicesTypesRow)(e.Row)), e.Action));
                 }
             }
             
@@ -2914,8 +4844,8 @@ namespace DMeServicesInternal.Web.Reports {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.BldWelyatRowDeleted != null)) {
-                    this.BldWelyatRowDeleted(this, new BldWelyatRowChangeEvent(((BldWelyatRow)(e.Row)), e.Action));
+                if ((this.BldSupervisionServicesTypesRowDeleted != null)) {
+                    this.BldSupervisionServicesTypesRowDeleted(this, new BldSupervisionServicesTypesRowChangeEvent(((BldSupervisionServicesTypesRow)(e.Row)), e.Action));
                 }
             }
             
@@ -2923,14 +4853,14 @@ namespace DMeServicesInternal.Web.Reports {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.BldWelyatRowDeleting != null)) {
-                    this.BldWelyatRowDeleting(this, new BldWelyatRowChangeEvent(((BldWelyatRow)(e.Row)), e.Action));
+                if ((this.BldSupervisionServicesTypesRowDeleting != null)) {
+                    this.BldSupervisionServicesTypesRowDeleting(this, new BldSupervisionServicesTypesRowChangeEvent(((BldSupervisionServicesTypesRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void RemoveBldWelyatRow(BldWelyatRow row) {
+            public void RemoveBldSupervisionServicesTypesRow(BldSupervisionServicesTypesRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -2957,7 +4887,7 @@ namespace DMeServicesInternal.Web.Reports {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "BldWelyatDataTable";
+                attribute2.FixedValue = "BldSupervisionServicesTypesDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -3014,6 +4944,17 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int Id {
+                get {
+                    return ((int)(this[this.tableBldPermits.IdColumn]));
+                }
+                set {
+                    this[this.tableBldPermits.IdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public string TransactNo {
                 get {
                     return ((string)(this[this.tableBldPermits.TransactNoColumn]));
@@ -3027,7 +4968,12 @@ namespace DMeServicesInternal.Web.Reports {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public string OwnerName {
                 get {
-                    return ((string)(this[this.tableBldPermits.OwnerNameColumn]));
+                    try {
+                        return ((string)(this[this.tableBldPermits.OwnerNameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'OwnerName\' in table \'BldPermits\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableBldPermits.OwnerNameColumn] = value;
@@ -3036,10 +4982,10 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public long OwnerCivilId {
+            public int OwnerCivilId {
                 get {
                     try {
-                        return ((long)(this[this.tableBldPermits.OwnerCivilIdColumn]));
+                        return ((int)(this[this.tableBldPermits.OwnerCivilIdColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'OwnerCivilId\' in table \'BldPermits\' is DBNull.", e);
@@ -3054,7 +5000,12 @@ namespace DMeServicesInternal.Web.Reports {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public string OwnerPhoneNo {
                 get {
-                    return ((string)(this[this.tableBldPermits.OwnerPhoneNoColumn]));
+                    try {
+                        return ((string)(this[this.tableBldPermits.OwnerPhoneNoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'OwnerPhoneNo\' in table \'BldPermits\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableBldPermits.OwnerPhoneNoColumn] = value;
@@ -3127,9 +5078,9 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public long ConsultantCrNo {
+            public int ConsultantCrNo {
                 get {
-                    return ((long)(this[this.tableBldPermits.ConsultantCrNoColumn]));
+                    return ((int)(this[this.tableBldPermits.ConsultantCrNoColumn]));
                 }
                 set {
                     this[this.tableBldPermits.ConsultantCrNoColumn] = value;
@@ -3261,54 +5212,6 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string PaymentReceiptNo {
-                get {
-                    try {
-                        return ((string)(this[this.tableBldPermits.PaymentReceiptNoColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PaymentReceiptNo\' in table \'BldPermits\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableBldPermits.PaymentReceiptNoColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public decimal PaymentAmount {
-                get {
-                    try {
-                        return ((decimal)(this[this.tableBldPermits.PaymentAmountColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PaymentAmount\' in table \'BldPermits\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableBldPermits.PaymentAmountColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public System.DateTime PaymentDate {
-                get {
-                    try {
-                        return ((global::System.DateTime)(this[this.tableBldPermits.PaymentDateColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PaymentDate\' in table \'BldPermits\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableBldPermits.PaymentDateColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public int WorkflowStatus {
                 get {
                     try {
@@ -3357,10 +5260,10 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public long ConsultantCivilId {
+            public int ConsultantCivilId {
                 get {
                     try {
-                        return ((long)(this[this.tableBldPermits.ConsultantCivilIdColumn]));
+                        return ((int)(this[this.tableBldPermits.ConsultantCivilIdColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'ConsultantCivilId\' in table \'BldPermits\' is DBNull.", e);
@@ -3384,6 +5287,22 @@ namespace DMeServicesInternal.Web.Reports {
                 }
                 set {
                     this[this.tableBldPermits.WelayahIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int RegionID {
+                get {
+                    try {
+                        return ((int)(this[this.tableBldPermits.RegionIDColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'RegionID\' in table \'BldPermits\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldPermits.RegionIDColumn] = value;
                 }
             }
             
@@ -3469,6 +5388,145 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string LandDeedReceiptNo {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldPermits.LandDeedReceiptNoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'LandDeedReceiptNo\' in table \'BldPermits\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldPermits.LandDeedReceiptNoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string DMLicenseNames {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldPermits.DMLicenseNamesColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DMLicenseNames\' in table \'BldPermits\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldPermits.DMLicenseNamesColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string DMLicenseComments {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldPermits.DMLicenseCommentsColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DMLicenseComments\' in table \'BldPermits\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldPermits.DMLicenseCommentsColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string DMLicenseCivilIDs {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldPermits.DMLicenseCivilIDsColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DMLicenseCivilIDs\' in table \'BldPermits\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldPermits.DMLicenseCivilIDsColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string LandArea {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldPermits.LandAreaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'LandArea\' in table \'BldPermits\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldPermits.LandAreaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public System.DateTime LandDeedReceiptDate {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableBldPermits.LandDeedReceiptDateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'LandDeedReceiptDate\' in table \'BldPermits\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldPermits.LandDeedReceiptDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string LandDeedNo {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldPermits.LandDeedNoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'LandDeedNo\' in table \'BldPermits\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldPermits.LandDeedNoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string BuildingType {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldPermits.BuildingTypeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'BuildingType\' in table \'BldPermits\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldPermits.BuildingTypeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int RegionCode {
+                get {
+                    return ((int)(this[this.tableBldPermits.RegionCodeColumn]));
+                }
+                set {
+                    this[this.tableBldPermits.RegionCodeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public string RegionArName {
                 get {
                     return ((string)(this[this.tableBldPermits.RegionArNameColumn]));
@@ -3496,17 +5554,12 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string BuildingType {
+            public string WelyahArName {
                 get {
-                    try {
-                        return ((string)(this[this.tableBldPermits.BuildingTypeColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'BuildingType\' in table \'BldPermits\' is DBNull.", e);
-                    }
+                    return ((string)(this[this.tableBldPermits.WelyahArNameColumn]));
                 }
                 set {
-                    this[this.tableBldPermits.BuildingTypeColumn] = value;
+                    this[this.tableBldPermits.WelyahArNameColumn] = value;
                 }
             }
             
@@ -3528,44 +5581,6 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string WelyahArName {
-                get {
-                    return ((string)(this[this.tableBldPermits.WelyahArNameColumn]));
-                }
-                set {
-                    this[this.tableBldPermits.WelyahArNameColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public long Id {
-                get {
-                    return ((long)(this[this.tableBldPermits.IdColumn]));
-                }
-                set {
-                    this[this.tableBldPermits.IdColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int RegionID {
-                get {
-                    try {
-                        return ((int)(this[this.tableBldPermits.RegionIDColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'RegionID\' in table \'BldPermits\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableBldPermits.RegionIDColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public decimal PaymentTotalAmount {
                 get {
                     try {
@@ -3582,17 +5597,17 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string TokenID {
+            public int BldPermitId {
                 get {
                     try {
-                        return ((string)(this[this.tableBldPermits.TokenIDColumn]));
+                        return ((int)(this[this.tableBldPermits.BldPermitIdColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'TokenID\' in table \'BldPermits\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'BldPermitId\' in table \'BldPermits\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableBldPermits.TokenIDColumn] = value;
+                    this[this.tableBldPermits.BldPermitIdColumn] = value;
                 }
             }
             
@@ -3609,6 +5624,86 @@ namespace DMeServicesInternal.Web.Reports {
                 }
                 set {
                     this[this.tableBldPermits.BankResponseIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int PaymentStatus {
+                get {
+                    try {
+                        return ((int)(this[this.tableBldPermits.PaymentStatusColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PaymentStatus\' in table \'BldPermits\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldPermits.PaymentStatusColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Referenceid {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldPermits.ReferenceidColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Referenceid\' in table \'BldPermits\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldPermits.ReferenceidColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int Paymentrequestid {
+                get {
+                    try {
+                        return ((int)(this[this.tableBldPermits.PaymentrequestidColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Paymentrequestid\' in table \'BldPermits\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldPermits.PaymentrequestidColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Bankpaymentid {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldPermits.BankpaymentidColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Bankpaymentid\' in table \'BldPermits\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldPermits.BankpaymentidColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Transactionid {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldPermits.TransactionidColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Transactionid\' in table \'BldPermits\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldPermits.TransactionidColumn] = value;
                 }
             }
             
@@ -3646,102 +5741,6 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string Transactionid {
-                get {
-                    try {
-                        return ((string)(this[this.tableBldPermits.TransactionidColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Transactionid\' in table \'BldPermits\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableBldPermits.TransactionidColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int Paymentrequestid {
-                get {
-                    try {
-                        return ((int)(this[this.tableBldPermits.PaymentrequestidColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Paymentrequestid\' in table \'BldPermits\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableBldPermits.PaymentrequestidColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string Referenceid {
-                get {
-                    try {
-                        return ((string)(this[this.tableBldPermits.ReferenceidColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Referenceid\' in table \'BldPermits\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableBldPermits.ReferenceidColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string Bankpaymentid {
-                get {
-                    try {
-                        return ((string)(this[this.tableBldPermits.BankpaymentidColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Bankpaymentid\' in table \'BldPermits\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableBldPermits.BankpaymentidColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int PaymentStatus {
-                get {
-                    try {
-                        return ((int)(this[this.tableBldPermits.PaymentStatusColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PaymentStatus\' in table \'BldPermits\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableBldPermits.PaymentStatusColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public long BldPermitId {
-                get {
-                    try {
-                        return ((long)(this[this.tableBldPermits.BldPermitIdColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'BldPermitId\' in table \'BldPermits\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableBldPermits.BldPermitIdColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public string PayOn {
                 get {
                     try {
@@ -3758,23 +5757,17 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public BldLandUseTypesRow BldLandUseTypesRow {
+            public string owners {
                 get {
-                    return ((BldLandUseTypesRow)(this.GetParentRow(this.Table.ParentRelations["FK_BldPermits_BldLandUseTypes"])));
+                    try {
+                        return ((string)(this[this.tableBldPermits.ownersColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'owners\' in table \'BldPermits\' is DBNull.", e);
+                    }
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_BldPermits_BldLandUseTypes"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public BldSquareLettersRow BldSquareLettersRow {
-                get {
-                    return ((BldSquareLettersRow)(this.GetParentRow(this.Table.ParentRelations["FK_BldPermits_BldSquareLetters"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_BldPermits_BldSquareLetters"]);
+                    this[this.tableBldPermits.ownersColumn] = value;
                 }
             }
             
@@ -3791,6 +5784,39 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public BldLandUseTypesRow BldLandUseTypesRow {
+                get {
+                    return ((BldLandUseTypesRow)(this.GetParentRow(this.Table.ParentRelations["FK_BldPermits_BldLandUseTypes"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_BldPermits_BldLandUseTypes"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public BldRegionsRow BldRegionsRow {
+                get {
+                    return ((BldRegionsRow)(this.GetParentRow(this.Table.ParentRelations["FK_BldPermits_BldRegions"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_BldPermits_BldRegions"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public BldSquareLettersRow BldSquareLettersRow {
+                get {
+                    return ((BldSquareLettersRow)(this.GetParentRow(this.Table.ParentRelations["FK_BldPermits_BldSquareLetters"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_BldPermits_BldSquareLetters"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public BldWelyatRow BldWelyatRow {
                 get {
                     return ((BldWelyatRow)(this.GetParentRow(this.Table.ParentRelations["FK_BldPermits_BldWelyat"])));
@@ -3798,6 +5824,18 @@ namespace DMeServicesInternal.Web.Reports {
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["FK_BldPermits_BldWelyat"]);
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsOwnerNameNull() {
+                return this.IsNull(this.tableBldPermits.OwnerNameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetOwnerNameNull() {
+                this[this.tableBldPermits.OwnerNameColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3810,6 +5848,18 @@ namespace DMeServicesInternal.Web.Reports {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetOwnerCivilIdNull() {
                 this[this.tableBldPermits.OwnerCivilIdColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsOwnerPhoneNoNull() {
+                return this.IsNull(this.tableBldPermits.OwnerPhoneNoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetOwnerPhoneNoNull() {
+                this[this.tableBldPermits.OwnerPhoneNoColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3946,42 +5996,6 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsPaymentReceiptNoNull() {
-                return this.IsNull(this.tableBldPermits.PaymentReceiptNoColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetPaymentReceiptNoNull() {
-                this[this.tableBldPermits.PaymentReceiptNoColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsPaymentAmountNull() {
-                return this.IsNull(this.tableBldPermits.PaymentAmountColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetPaymentAmountNull() {
-                this[this.tableBldPermits.PaymentAmountColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsPaymentDateNull() {
-                return this.IsNull(this.tableBldPermits.PaymentDateColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetPaymentDateNull() {
-                this[this.tableBldPermits.PaymentDateColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsWorkflowStatusNull() {
                 return this.IsNull(this.tableBldPermits.WorkflowStatusColumn);
             }
@@ -4038,6 +6052,18 @@ namespace DMeServicesInternal.Web.Reports {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetWelayahIDNull() {
                 this[this.tableBldPermits.WelayahIDColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsRegionIDNull() {
+                return this.IsNull(this.tableBldPermits.RegionIDColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetRegionIDNull() {
+                this[this.tableBldPermits.RegionIDColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4102,14 +6128,86 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsUseTypeNull() {
-                return this.IsNull(this.tableBldPermits.UseTypeColumn);
+            public bool IsLandDeedReceiptNoNull() {
+                return this.IsNull(this.tableBldPermits.LandDeedReceiptNoColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetUseTypeNull() {
-                this[this.tableBldPermits.UseTypeColumn] = global::System.Convert.DBNull;
+            public void SetLandDeedReceiptNoNull() {
+                this[this.tableBldPermits.LandDeedReceiptNoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsDMLicenseNamesNull() {
+                return this.IsNull(this.tableBldPermits.DMLicenseNamesColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetDMLicenseNamesNull() {
+                this[this.tableBldPermits.DMLicenseNamesColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsDMLicenseCommentsNull() {
+                return this.IsNull(this.tableBldPermits.DMLicenseCommentsColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetDMLicenseCommentsNull() {
+                this[this.tableBldPermits.DMLicenseCommentsColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsDMLicenseCivilIDsNull() {
+                return this.IsNull(this.tableBldPermits.DMLicenseCivilIDsColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetDMLicenseCivilIDsNull() {
+                this[this.tableBldPermits.DMLicenseCivilIDsColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsLandAreaNull() {
+                return this.IsNull(this.tableBldPermits.LandAreaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetLandAreaNull() {
+                this[this.tableBldPermits.LandAreaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsLandDeedReceiptDateNull() {
+                return this.IsNull(this.tableBldPermits.LandDeedReceiptDateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetLandDeedReceiptDateNull() {
+                this[this.tableBldPermits.LandDeedReceiptDateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsLandDeedNoNull() {
+                return this.IsNull(this.tableBldPermits.LandDeedNoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetLandDeedNoNull() {
+                this[this.tableBldPermits.LandDeedNoColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4126,6 +6224,18 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsUseTypeNull() {
+                return this.IsNull(this.tableBldPermits.UseTypeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetUseTypeNull() {
+                this[this.tableBldPermits.UseTypeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsArLetterNull() {
                 return this.IsNull(this.tableBldPermits.ArLetterColumn);
             }
@@ -4134,18 +6244,6 @@ namespace DMeServicesInternal.Web.Reports {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetArLetterNull() {
                 this[this.tableBldPermits.ArLetterColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsRegionIDNull() {
-                return this.IsNull(this.tableBldPermits.RegionIDColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetRegionIDNull() {
-                this[this.tableBldPermits.RegionIDColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4162,14 +6260,14 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsTokenIDNull() {
-                return this.IsNull(this.tableBldPermits.TokenIDColumn);
+            public bool IsBldPermitIdNull() {
+                return this.IsNull(this.tableBldPermits.BldPermitIdColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetTokenIDNull() {
-                this[this.tableBldPermits.TokenIDColumn] = global::System.Convert.DBNull;
+            public void SetBldPermitIdNull() {
+                this[this.tableBldPermits.BldPermitIdColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4182,6 +6280,66 @@ namespace DMeServicesInternal.Web.Reports {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetBankResponseIDNull() {
                 this[this.tableBldPermits.BankResponseIDColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsPaymentStatusNull() {
+                return this.IsNull(this.tableBldPermits.PaymentStatusColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetPaymentStatusNull() {
+                this[this.tableBldPermits.PaymentStatusColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsReferenceidNull() {
+                return this.IsNull(this.tableBldPermits.ReferenceidColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetReferenceidNull() {
+                this[this.tableBldPermits.ReferenceidColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsPaymentrequestidNull() {
+                return this.IsNull(this.tableBldPermits.PaymentrequestidColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetPaymentrequestidNull() {
+                this[this.tableBldPermits.PaymentrequestidColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsBankpaymentidNull() {
+                return this.IsNull(this.tableBldPermits.BankpaymentidColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetBankpaymentidNull() {
+                this[this.tableBldPermits.BankpaymentidColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsTransactionidNull() {
+                return this.IsNull(this.tableBldPermits.TransactionidColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetTransactionidNull() {
+                this[this.tableBldPermits.TransactionidColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4210,78 +6368,6 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsTransactionidNull() {
-                return this.IsNull(this.tableBldPermits.TransactionidColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetTransactionidNull() {
-                this[this.tableBldPermits.TransactionidColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsPaymentrequestidNull() {
-                return this.IsNull(this.tableBldPermits.PaymentrequestidColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetPaymentrequestidNull() {
-                this[this.tableBldPermits.PaymentrequestidColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsReferenceidNull() {
-                return this.IsNull(this.tableBldPermits.ReferenceidColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetReferenceidNull() {
-                this[this.tableBldPermits.ReferenceidColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsBankpaymentidNull() {
-                return this.IsNull(this.tableBldPermits.BankpaymentidColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetBankpaymentidNull() {
-                this[this.tableBldPermits.BankpaymentidColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsPaymentStatusNull() {
-                return this.IsNull(this.tableBldPermits.PaymentStatusColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetPaymentStatusNull() {
-                this[this.tableBldPermits.PaymentStatusColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsBldPermitIdNull() {
-                return this.IsNull(this.tableBldPermits.BldPermitIdColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetBldPermitIdNull() {
-                this[this.tableBldPermits.BldPermitIdColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsPayOnNull() {
                 return this.IsNull(this.tableBldPermits.PayOnColumn);
             }
@@ -4290,6 +6376,138 @@ namespace DMeServicesInternal.Web.Reports {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetPayOnNull() {
                 this[this.tableBldPermits.PayOnColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsownersNull() {
+                return this.IsNull(this.tableBldPermits.ownersColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetownersNull() {
+                this[this.tableBldPermits.ownersColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public BldPaymentRow[] GetBldPaymentRows() {
+                if ((this.Table.ChildRelations["FK_BldPayment_BldPermits"] == null)) {
+                    return new BldPaymentRow[0];
+                }
+                else {
+                    return ((BldPaymentRow[])(base.GetChildRows(this.Table.ChildRelations["FK_BldPayment_BldPermits"])));
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class BldRegionsRow : global::System.Data.DataRow {
+            
+            private BldRegionsDataTable tableBldRegions;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal BldRegionsRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableBldRegions = ((BldRegionsDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int RegionID {
+                get {
+                    return ((int)(this[this.tableBldRegions.RegionIDColumn]));
+                }
+                set {
+                    this[this.tableBldRegions.RegionIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int RegionCode {
+                get {
+                    return ((int)(this[this.tableBldRegions.RegionCodeColumn]));
+                }
+                set {
+                    this[this.tableBldRegions.RegionCodeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string RegionEnName {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldRegions.RegionEnNameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'RegionEnName\' in table \'BldRegions\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldRegions.RegionEnNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string RegionArName {
+                get {
+                    return ((string)(this[this.tableBldRegions.RegionArNameColumn]));
+                }
+                set {
+                    this[this.tableBldRegions.RegionArNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int WelyahID {
+                get {
+                    return ((int)(this[this.tableBldRegions.WelyahIDColumn]));
+                }
+                set {
+                    this[this.tableBldRegions.WelyahIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public BldWelyatRow BldWelyatRow {
+                get {
+                    return ((BldWelyatRow)(this.GetParentRow(this.Table.ParentRelations["FK_BldRegions_BldWelyat"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_BldRegions_BldWelyat"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsRegionEnNameNull() {
+                return this.IsNull(this.tableBldRegions.RegionEnNameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetRegionEnNameNull() {
+                this[this.tableBldRegions.RegionEnNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public BldPermitsRow[] GetBldPermitsRows() {
+                if ((this.Table.ChildRelations["FK_BldPermits_BldRegions"] == null)) {
+                    return new BldPermitsRow[0];
+                }
+                else {
+                    return ((BldPermitsRow[])(base.GetChildRows(this.Table.ChildRelations["FK_BldPermits_BldRegions"])));
+                }
             }
         }
         
@@ -4383,6 +6601,488 @@ namespace DMeServicesInternal.Web.Reports {
                 else {
                     return ((BldPermitsRow[])(base.GetChildRows(this.Table.ChildRelations["FK_BldPermits_BldSquareLetters"])));
                 }
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class BldWelyatRow : global::System.Data.DataRow {
+            
+            private BldWelyatDataTable tableBldWelyat;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal BldWelyatRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableBldWelyat = ((BldWelyatDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int WelyahID {
+                get {
+                    return ((int)(this[this.tableBldWelyat.WelyahIDColumn]));
+                }
+                set {
+                    this[this.tableBldWelyat.WelyahIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int WelyahCode {
+                get {
+                    return ((int)(this[this.tableBldWelyat.WelyahCodeColumn]));
+                }
+                set {
+                    this[this.tableBldWelyat.WelyahCodeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string WelyahEnName {
+                get {
+                    return ((string)(this[this.tableBldWelyat.WelyahEnNameColumn]));
+                }
+                set {
+                    this[this.tableBldWelyat.WelyahEnNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string WelyahArName {
+                get {
+                    return ((string)(this[this.tableBldWelyat.WelyahArNameColumn]));
+                }
+                set {
+                    this[this.tableBldWelyat.WelyahArNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public BldPermitsRow[] GetBldPermitsRows() {
+                if ((this.Table.ChildRelations["FK_BldPermits_BldWelyat"] == null)) {
+                    return new BldPermitsRow[0];
+                }
+                else {
+                    return ((BldPermitsRow[])(base.GetChildRows(this.Table.ChildRelations["FK_BldPermits_BldWelyat"])));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public BldRegionsRow[] GetBldRegionsRows() {
+                if ((this.Table.ChildRelations["FK_BldRegions_BldWelyat"] == null)) {
+                    return new BldRegionsRow[0];
+                }
+                else {
+                    return ((BldRegionsRow[])(base.GetChildRows(this.Table.ChildRelations["FK_BldRegions_BldWelyat"])));
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class BldPaymentRow : global::System.Data.DataRow {
+            
+            private BldPaymentDataTable tableBldPayment;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal BldPaymentRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableBldPayment = ((BldPaymentDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int PaymentID {
+                get {
+                    return ((int)(this[this.tableBldPayment.PaymentIDColumn]));
+                }
+                set {
+                    this[this.tableBldPayment.PaymentIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int BldPermitId {
+                get {
+                    try {
+                        return ((int)(this[this.tableBldPayment.BldPermitIdColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'BldPermitId\' in table \'BldPayment\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldPayment.BldPermitIdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public decimal PaymentTotalAmount {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableBldPayment.PaymentTotalAmountColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PaymentTotalAmount\' in table \'BldPayment\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldPayment.PaymentTotalAmountColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string TokenID {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldPayment.TokenIDColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'TokenID\' in table \'BldPayment\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldPayment.TokenIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int BankResponseID {
+                get {
+                    try {
+                        return ((int)(this[this.tableBldPayment.BankResponseIDColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'BankResponseID\' in table \'BldPayment\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldPayment.BankResponseIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public System.DateTime PaymentDate {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableBldPayment.PaymentDateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PaymentDate\' in table \'BldPayment\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldPayment.PaymentDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public System.DateTime FeesDate {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableBldPayment.FeesDateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'FeesDate\' in table \'BldPayment\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldPayment.FeesDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int PaymentType {
+                get {
+                    try {
+                        return ((int)(this[this.tableBldPayment.PaymentTypeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PaymentType\' in table \'BldPayment\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldPayment.PaymentTypeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Transactionid {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldPayment.TransactionidColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Transactionid\' in table \'BldPayment\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldPayment.TransactionidColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int Paymentrequestid {
+                get {
+                    try {
+                        return ((int)(this[this.tableBldPayment.PaymentrequestidColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Paymentrequestid\' in table \'BldPayment\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldPayment.PaymentrequestidColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Referenceid {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldPayment.ReferenceidColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Referenceid\' in table \'BldPayment\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldPayment.ReferenceidColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Bankpaymentid {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldPayment.BankpaymentidColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Bankpaymentid\' in table \'BldPayment\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldPayment.BankpaymentidColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int PaymentStatus {
+                get {
+                    try {
+                        return ((int)(this[this.tableBldPayment.PaymentStatusColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PaymentStatus\' in table \'BldPayment\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldPayment.PaymentStatusColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int SupervisionID {
+                get {
+                    try {
+                        return ((int)(this[this.tableBldPayment.SupervisionIDColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'SupervisionID\' in table \'BldPayment\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldPayment.SupervisionIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public BldPermitsRow BldPermitsRow {
+                get {
+                    return ((BldPermitsRow)(this.GetParentRow(this.Table.ParentRelations["FK_BldPayment_BldPermits"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_BldPayment_BldPermits"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsBldPermitIdNull() {
+                return this.IsNull(this.tableBldPayment.BldPermitIdColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetBldPermitIdNull() {
+                this[this.tableBldPayment.BldPermitIdColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsPaymentTotalAmountNull() {
+                return this.IsNull(this.tableBldPayment.PaymentTotalAmountColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetPaymentTotalAmountNull() {
+                this[this.tableBldPayment.PaymentTotalAmountColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsTokenIDNull() {
+                return this.IsNull(this.tableBldPayment.TokenIDColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetTokenIDNull() {
+                this[this.tableBldPayment.TokenIDColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsBankResponseIDNull() {
+                return this.IsNull(this.tableBldPayment.BankResponseIDColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetBankResponseIDNull() {
+                this[this.tableBldPayment.BankResponseIDColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsPaymentDateNull() {
+                return this.IsNull(this.tableBldPayment.PaymentDateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetPaymentDateNull() {
+                this[this.tableBldPayment.PaymentDateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsFeesDateNull() {
+                return this.IsNull(this.tableBldPayment.FeesDateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetFeesDateNull() {
+                this[this.tableBldPayment.FeesDateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsPaymentTypeNull() {
+                return this.IsNull(this.tableBldPayment.PaymentTypeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetPaymentTypeNull() {
+                this[this.tableBldPayment.PaymentTypeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsTransactionidNull() {
+                return this.IsNull(this.tableBldPayment.TransactionidColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetTransactionidNull() {
+                this[this.tableBldPayment.TransactionidColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsPaymentrequestidNull() {
+                return this.IsNull(this.tableBldPayment.PaymentrequestidColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetPaymentrequestidNull() {
+                this[this.tableBldPayment.PaymentrequestidColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsReferenceidNull() {
+                return this.IsNull(this.tableBldPayment.ReferenceidColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetReferenceidNull() {
+                this[this.tableBldPayment.ReferenceidColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsBankpaymentidNull() {
+                return this.IsNull(this.tableBldPayment.BankpaymentidColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetBankpaymentidNull() {
+                this[this.tableBldPayment.BankpaymentidColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsPaymentStatusNull() {
+                return this.IsNull(this.tableBldPayment.PaymentStatusColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetPaymentStatusNull() {
+                this[this.tableBldPayment.PaymentStatusColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsSupervisionIDNull() {
+                return this.IsNull(this.tableBldPayment.SupervisionIDColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetSupervisionIDNull() {
+                this[this.tableBldPayment.SupervisionIDColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -4519,36 +7219,496 @@ namespace DMeServicesInternal.Web.Reports {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class BldRegionsRow : global::System.Data.DataRow {
+        public partial class BldSupervisionServicesRow : global::System.Data.DataRow {
             
-            private BldRegionsDataTable tableBldRegions;
+            private BldSupervisionServicesDataTable tableBldSupervisionServices;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal BldRegionsRow(global::System.Data.DataRowBuilder rb) : 
+            internal BldSupervisionServicesRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tableBldRegions = ((BldRegionsDataTable)(this.Table));
+                this.tableBldSupervisionServices = ((BldSupervisionServicesDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int RegionID {
+            public int ID {
                 get {
-                    return ((int)(this[this.tableBldRegions.RegionIDColumn]));
+                    return ((int)(this[this.tableBldSupervisionServices.IDColumn]));
                 }
                 set {
-                    this[this.tableBldRegions.RegionIDColumn] = value;
+                    this[this.tableBldSupervisionServices.IDColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int RegionCode {
+            public int OwnerCivilId {
                 get {
-                    return ((int)(this[this.tableBldRegions.RegionCodeColumn]));
+                    try {
+                        return ((int)(this[this.tableBldSupervisionServices.OwnerCivilIdColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'OwnerCivilId\' in table \'BldSupervisionServices\' is DBNull.", e);
+                    }
                 }
                 set {
-                    this[this.tableBldRegions.RegionCodeColumn] = value;
+                    this[this.tableBldSupervisionServices.OwnerCivilIdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string KrokiNO {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldSupervisionServices.KrokiNOColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'KrokiNO\' in table \'BldSupervisionServices\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldSupervisionServices.KrokiNOColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string OwnerName {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldSupervisionServices.OwnerNameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'OwnerName\' in table \'BldSupervisionServices\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldSupervisionServices.OwnerNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string LicenseNo {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldSupervisionServices.LicenseNoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'LicenseNo\' in table \'BldSupervisionServices\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldSupervisionServices.LicenseNoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string TransactNo {
+                get {
+                    return ((string)(this[this.tableBldSupervisionServices.TransactNoColumn]));
+                }
+                set {
+                    this[this.tableBldSupervisionServices.TransactNoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string DmFileNumber {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldSupervisionServices.DmFileNumberColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DmFileNumber\' in table \'BldSupervisionServices\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldSupervisionServices.DmFileNumberColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string DmInspectorComments {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldSupervisionServices.DmInspectorCommentsColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DmInspectorComments\' in table \'BldSupervisionServices\' is D" +
+                                "BNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldSupervisionServices.DmInspectorCommentsColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string ConsultantNotes {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldSupervisionServices.ConsultantNotesColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ConsultantNotes\' in table \'BldSupervisionServices\' is DBNul" +
+                                "l.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldSupervisionServices.ConsultantNotesColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string OwnerNotes {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldSupervisionServices.OwnerNotesColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'OwnerNotes\' in table \'BldSupervisionServices\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldSupervisionServices.OwnerNotesColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string ConstructionType {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldSupervisionServices.ConstructionTypeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ConstructionType\' in table \'BldSupervisionServices\' is DBNu" +
+                                "ll.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldSupervisionServices.ConstructionTypeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int ConsultantCrNo {
+                get {
+                    return ((int)(this[this.tableBldSupervisionServices.ConsultantCrNoColumn]));
+                }
+                set {
+                    this[this.tableBldSupervisionServices.ConsultantCrNoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string NumberOfFloors {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldSupervisionServices.NumberOfFloorsColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'NumberOfFloors\' in table \'BldSupervisionServices\' is DBNull" +
+                                ".", e);
+                    }
+                }
+                set {
+                    this[this.tableBldSupervisionServices.NumberOfFloorsColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string ConstructedArea {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldSupervisionServices.ConstructedAreaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ConstructedArea\' in table \'BldSupervisionServices\' is DBNul" +
+                                "l.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldSupervisionServices.ConstructedAreaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string SquareArea {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldSupervisionServices.SquareAreaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'SquareArea\' in table \'BldSupervisionServices\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldSupervisionServices.SquareAreaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string DMLicenseNames {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldSupervisionServices.DMLicenseNamesColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DMLicenseNames\' in table \'BldSupervisionServices\' is DBNull" +
+                                ".", e);
+                    }
+                }
+                set {
+                    this[this.tableBldSupervisionServices.DMLicenseNamesColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string DMLicenseComments {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldSupervisionServices.DMLicenseCommentsColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DMLicenseComments\' in table \'BldSupervisionServices\' is DBN" +
+                                "ull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldSupervisionServices.DMLicenseCommentsColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string DMLicenseCivilIDs {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldSupervisionServices.DMLicenseCivilIDsColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DMLicenseCivilIDs\' in table \'BldSupervisionServices\' is DBN" +
+                                "ull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldSupervisionServices.DMLicenseCivilIDsColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string LandArea {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldSupervisionServices.LandAreaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'LandArea\' in table \'BldSupervisionServices\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldSupervisionServices.LandAreaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public System.DateTime LandDeedReceiptDate {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableBldSupervisionServices.LandDeedReceiptDateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'LandDeedReceiptDate\' in table \'BldSupervisionServices\' is D" +
+                                "BNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldSupervisionServices.LandDeedReceiptDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string LandDeedNo {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldSupervisionServices.LandDeedNoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'LandDeedNo\' in table \'BldSupervisionServices\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldSupervisionServices.LandDeedNoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string FileNumber {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldSupervisionServices.FileNumberColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'FileNumber\' in table \'BldSupervisionServices\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldSupervisionServices.FileNumberColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string WelyahArName {
+                get {
+                    return ((string)(this[this.tableBldSupervisionServices.WelyahArNameColumn]));
+                }
+                set {
+                    this[this.tableBldSupervisionServices.WelyahArNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string WelyahEnName {
+                get {
+                    return ((string)(this[this.tableBldSupervisionServices.WelyahEnNameColumn]));
+                }
+                set {
+                    this[this.tableBldSupervisionServices.WelyahEnNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int WelyahCode {
+                get {
+                    return ((int)(this[this.tableBldSupervisionServices.WelyahCodeColumn]));
+                }
+                set {
+                    this[this.tableBldSupervisionServices.WelyahCodeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string ServiceNameAR {
+                get {
+                    return ((string)(this[this.tableBldSupervisionServices.ServiceNameARColumn]));
+                }
+                set {
+                    this[this.tableBldSupervisionServices.ServiceNameARColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string ServiceNameEn {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldSupervisionServices.ServiceNameEnColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ServiceNameEn\' in table \'BldSupervisionServices\' is DBNull." +
+                                "", e);
+                    }
+                }
+                set {
+                    this[this.tableBldSupervisionServices.ServiceNameEnColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string ArLetter {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldSupervisionServices.ArLetterColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ArLetter\' in table \'BldSupervisionServices\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldSupervisionServices.ArLetterColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string EnLetter {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldSupervisionServices.EnLetterColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'EnLetter\' in table \'BldSupervisionServices\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldSupervisionServices.EnLetterColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string BuildingType {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldSupervisionServices.BuildingTypeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'BuildingType\' in table \'BldSupervisionServices\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldSupervisionServices.BuildingTypeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string UseType {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldSupervisionServices.UseTypeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'UseType\' in table \'BldSupervisionServices\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldSupervisionServices.UseTypeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string RegionArName {
+                get {
+                    return ((string)(this[this.tableBldSupervisionServices.RegionArNameColumn]));
+                }
+                set {
+                    this[this.tableBldSupervisionServices.RegionArNameColumn] = value;
                 }
             }
             
@@ -4557,141 +7717,745 @@ namespace DMeServicesInternal.Web.Reports {
             public string RegionEnName {
                 get {
                     try {
-                        return ((string)(this[this.tableBldRegions.RegionEnNameColumn]));
+                        return ((string)(this[this.tableBldSupervisionServices.RegionEnNameColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'RegionEnName\' in table \'BldRegions\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'RegionEnName\' in table \'BldSupervisionServices\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableBldRegions.RegionEnNameColumn] = value;
+                    this[this.tableBldSupervisionServices.RegionEnNameColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string RegionArName {
+            public int RegionCode {
                 get {
-                    return ((string)(this[this.tableBldRegions.RegionArNameColumn]));
+                    return ((int)(this[this.tableBldSupervisionServices.RegionCodeColumn]));
                 }
                 set {
-                    this[this.tableBldRegions.RegionArNameColumn] = value;
+                    this[this.tableBldSupervisionServices.RegionCodeColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int WelyahID {
+            public int DistrictNo {
                 get {
-                    return ((int)(this[this.tableBldRegions.WelyahIDColumn]));
+                    try {
+                        return ((int)(this[this.tableBldSupervisionServices.DistrictNoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DistrictNo\' in table \'BldSupervisionServices\' is DBNull.", e);
+                    }
                 }
                 set {
-                    this[this.tableBldRegions.WelyahIDColumn] = value;
+                    this[this.tableBldSupervisionServices.DistrictNoColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public BldWelyatRow BldWelyatRow {
+            public int BldPermitID {
                 get {
-                    return ((BldWelyatRow)(this.GetParentRow(this.Table.ParentRelations["FK_BldRegions_BldWelyat"])));
+                    return ((int)(this[this.tableBldSupervisionServices.BldPermitIDColumn]));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_BldRegions_BldWelyat"]);
+                    this[this.tableBldSupervisionServices.BldPermitIDColumn] = value;
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Contractor_Name {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldSupervisionServices.Contractor_NameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Contractor_Name\' in table \'BldSupervisionServices\' is DBNul" +
+                                "l.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldSupervisionServices.Contractor_NameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int Contractor_CRNumber {
+                get {
+                    try {
+                        return ((int)(this[this.tableBldSupervisionServices.Contractor_CRNumberColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Contractor_CRNumber\' in table \'BldSupervisionServices\' is D" +
+                                "BNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldSupervisionServices.Contractor_CRNumberColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int Contractor_CR_Number {
+                get {
+                    try {
+                        return ((int)(this[this.tableBldSupervisionServices.Contractor_CR_NumberColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Contractor_CR_Number\' in table \'BldSupervisionServices\' is " +
+                                "DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldSupervisionServices.Contractor_CR_NumberColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Referenceid {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldSupervisionServices.ReferenceidColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Referenceid\' in table \'BldSupervisionServices\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldSupervisionServices.ReferenceidColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int PaymentType {
+                get {
+                    try {
+                        return ((int)(this[this.tableBldSupervisionServices.PaymentTypeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PaymentType\' in table \'BldSupervisionServices\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldSupervisionServices.PaymentTypeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int PaymentID {
+                get {
+                    try {
+                        return ((int)(this[this.tableBldSupervisionServices.PaymentIDColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PaymentID\' in table \'BldSupervisionServices\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldSupervisionServices.PaymentIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int ConsultantCivilId {
+                get {
+                    try {
+                        return ((int)(this[this.tableBldSupervisionServices.ConsultantCivilIdColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ConsultantCivilId\' in table \'BldSupervisionServices\' is DBN" +
+                                "ull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldSupervisionServices.ConsultantCivilIdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string CompanyName {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldSupervisionServices.CompanyNameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CompanyName\' in table \'BldSupervisionServices\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldSupervisionServices.CompanyNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public System.DateTime PaymentDate {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableBldSupervisionServices.PaymentDateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PaymentDate\' in table \'BldSupervisionServices\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldSupervisionServices.PaymentDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string SupervisionLicenseNo {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldSupervisionServices.SupervisionLicenseNoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'SupervisionLicenseNo\' in table \'BldSupervisionServices\' is " +
+                                "DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldSupervisionServices.SupervisionLicenseNoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsOwnerCivilIdNull() {
+                return this.IsNull(this.tableBldSupervisionServices.OwnerCivilIdColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetOwnerCivilIdNull() {
+                this[this.tableBldSupervisionServices.OwnerCivilIdColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsKrokiNONull() {
+                return this.IsNull(this.tableBldSupervisionServices.KrokiNOColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetKrokiNONull() {
+                this[this.tableBldSupervisionServices.KrokiNOColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsOwnerNameNull() {
+                return this.IsNull(this.tableBldSupervisionServices.OwnerNameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetOwnerNameNull() {
+                this[this.tableBldSupervisionServices.OwnerNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsLicenseNoNull() {
+                return this.IsNull(this.tableBldSupervisionServices.LicenseNoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetLicenseNoNull() {
+                this[this.tableBldSupervisionServices.LicenseNoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsDmFileNumberNull() {
+                return this.IsNull(this.tableBldSupervisionServices.DmFileNumberColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetDmFileNumberNull() {
+                this[this.tableBldSupervisionServices.DmFileNumberColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsDmInspectorCommentsNull() {
+                return this.IsNull(this.tableBldSupervisionServices.DmInspectorCommentsColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetDmInspectorCommentsNull() {
+                this[this.tableBldSupervisionServices.DmInspectorCommentsColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsConsultantNotesNull() {
+                return this.IsNull(this.tableBldSupervisionServices.ConsultantNotesColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetConsultantNotesNull() {
+                this[this.tableBldSupervisionServices.ConsultantNotesColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsOwnerNotesNull() {
+                return this.IsNull(this.tableBldSupervisionServices.OwnerNotesColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetOwnerNotesNull() {
+                this[this.tableBldSupervisionServices.OwnerNotesColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsConstructionTypeNull() {
+                return this.IsNull(this.tableBldSupervisionServices.ConstructionTypeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetConstructionTypeNull() {
+                this[this.tableBldSupervisionServices.ConstructionTypeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsNumberOfFloorsNull() {
+                return this.IsNull(this.tableBldSupervisionServices.NumberOfFloorsColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetNumberOfFloorsNull() {
+                this[this.tableBldSupervisionServices.NumberOfFloorsColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsConstructedAreaNull() {
+                return this.IsNull(this.tableBldSupervisionServices.ConstructedAreaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetConstructedAreaNull() {
+                this[this.tableBldSupervisionServices.ConstructedAreaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsSquareAreaNull() {
+                return this.IsNull(this.tableBldSupervisionServices.SquareAreaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetSquareAreaNull() {
+                this[this.tableBldSupervisionServices.SquareAreaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsDMLicenseNamesNull() {
+                return this.IsNull(this.tableBldSupervisionServices.DMLicenseNamesColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetDMLicenseNamesNull() {
+                this[this.tableBldSupervisionServices.DMLicenseNamesColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsDMLicenseCommentsNull() {
+                return this.IsNull(this.tableBldSupervisionServices.DMLicenseCommentsColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetDMLicenseCommentsNull() {
+                this[this.tableBldSupervisionServices.DMLicenseCommentsColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsDMLicenseCivilIDsNull() {
+                return this.IsNull(this.tableBldSupervisionServices.DMLicenseCivilIDsColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetDMLicenseCivilIDsNull() {
+                this[this.tableBldSupervisionServices.DMLicenseCivilIDsColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsLandAreaNull() {
+                return this.IsNull(this.tableBldSupervisionServices.LandAreaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetLandAreaNull() {
+                this[this.tableBldSupervisionServices.LandAreaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsLandDeedReceiptDateNull() {
+                return this.IsNull(this.tableBldSupervisionServices.LandDeedReceiptDateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetLandDeedReceiptDateNull() {
+                this[this.tableBldSupervisionServices.LandDeedReceiptDateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsLandDeedNoNull() {
+                return this.IsNull(this.tableBldSupervisionServices.LandDeedNoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetLandDeedNoNull() {
+                this[this.tableBldSupervisionServices.LandDeedNoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsFileNumberNull() {
+                return this.IsNull(this.tableBldSupervisionServices.FileNumberColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetFileNumberNull() {
+                this[this.tableBldSupervisionServices.FileNumberColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsServiceNameEnNull() {
+                return this.IsNull(this.tableBldSupervisionServices.ServiceNameEnColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetServiceNameEnNull() {
+                this[this.tableBldSupervisionServices.ServiceNameEnColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsArLetterNull() {
+                return this.IsNull(this.tableBldSupervisionServices.ArLetterColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetArLetterNull() {
+                this[this.tableBldSupervisionServices.ArLetterColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsEnLetterNull() {
+                return this.IsNull(this.tableBldSupervisionServices.EnLetterColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetEnLetterNull() {
+                this[this.tableBldSupervisionServices.EnLetterColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsBuildingTypeNull() {
+                return this.IsNull(this.tableBldSupervisionServices.BuildingTypeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetBuildingTypeNull() {
+                this[this.tableBldSupervisionServices.BuildingTypeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsUseTypeNull() {
+                return this.IsNull(this.tableBldSupervisionServices.UseTypeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetUseTypeNull() {
+                this[this.tableBldSupervisionServices.UseTypeColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsRegionEnNameNull() {
-                return this.IsNull(this.tableBldRegions.RegionEnNameColumn);
+                return this.IsNull(this.tableBldSupervisionServices.RegionEnNameColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetRegionEnNameNull() {
-                this[this.tableBldRegions.RegionEnNameColumn] = global::System.Convert.DBNull;
+                this[this.tableBldSupervisionServices.RegionEnNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsDistrictNoNull() {
+                return this.IsNull(this.tableBldSupervisionServices.DistrictNoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetDistrictNoNull() {
+                this[this.tableBldSupervisionServices.DistrictNoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsContractor_NameNull() {
+                return this.IsNull(this.tableBldSupervisionServices.Contractor_NameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetContractor_NameNull() {
+                this[this.tableBldSupervisionServices.Contractor_NameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsContractor_CRNumberNull() {
+                return this.IsNull(this.tableBldSupervisionServices.Contractor_CRNumberColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetContractor_CRNumberNull() {
+                this[this.tableBldSupervisionServices.Contractor_CRNumberColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsContractor_CR_NumberNull() {
+                return this.IsNull(this.tableBldSupervisionServices.Contractor_CR_NumberColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetContractor_CR_NumberNull() {
+                this[this.tableBldSupervisionServices.Contractor_CR_NumberColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsReferenceidNull() {
+                return this.IsNull(this.tableBldSupervisionServices.ReferenceidColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetReferenceidNull() {
+                this[this.tableBldSupervisionServices.ReferenceidColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsPaymentTypeNull() {
+                return this.IsNull(this.tableBldSupervisionServices.PaymentTypeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetPaymentTypeNull() {
+                this[this.tableBldSupervisionServices.PaymentTypeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsPaymentIDNull() {
+                return this.IsNull(this.tableBldSupervisionServices.PaymentIDColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetPaymentIDNull() {
+                this[this.tableBldSupervisionServices.PaymentIDColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsConsultantCivilIdNull() {
+                return this.IsNull(this.tableBldSupervisionServices.ConsultantCivilIdColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetConsultantCivilIdNull() {
+                this[this.tableBldSupervisionServices.ConsultantCivilIdColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCompanyNameNull() {
+                return this.IsNull(this.tableBldSupervisionServices.CompanyNameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCompanyNameNull() {
+                this[this.tableBldSupervisionServices.CompanyNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsPaymentDateNull() {
+                return this.IsNull(this.tableBldSupervisionServices.PaymentDateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetPaymentDateNull() {
+                this[this.tableBldSupervisionServices.PaymentDateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsSupervisionLicenseNoNull() {
+                return this.IsNull(this.tableBldSupervisionServices.SupervisionLicenseNoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetSupervisionLicenseNoNull() {
+                this[this.tableBldSupervisionServices.SupervisionLicenseNoColumn] = global::System.Convert.DBNull;
             }
         }
         
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class BldWelyatRow : global::System.Data.DataRow {
+        public partial class BldSupervisionServicesTypesRow : global::System.Data.DataRow {
             
-            private BldWelyatDataTable tableBldWelyat;
+            private BldSupervisionServicesTypesDataTable tableBldSupervisionServicesTypes;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal BldWelyatRow(global::System.Data.DataRowBuilder rb) : 
+            internal BldSupervisionServicesTypesRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tableBldWelyat = ((BldWelyatDataTable)(this.Table));
+                this.tableBldSupervisionServicesTypes = ((BldSupervisionServicesTypesDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int WelyahID {
+            public int ID {
                 get {
-                    return ((int)(this[this.tableBldWelyat.WelyahIDColumn]));
+                    return ((int)(this[this.tableBldSupervisionServicesTypes.IDColumn]));
                 }
                 set {
-                    this[this.tableBldWelyat.WelyahIDColumn] = value;
+                    this[this.tableBldSupervisionServicesTypes.IDColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int WelyahCode {
+            public string ServiceNameAR {
                 get {
-                    return ((int)(this[this.tableBldWelyat.WelyahCodeColumn]));
+                    return ((string)(this[this.tableBldSupervisionServicesTypes.ServiceNameARColumn]));
                 }
                 set {
-                    this[this.tableBldWelyat.WelyahCodeColumn] = value;
+                    this[this.tableBldSupervisionServicesTypes.ServiceNameARColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string WelyahEnName {
+            public string ServiceNameEn {
                 get {
-                    return ((string)(this[this.tableBldWelyat.WelyahEnNameColumn]));
+                    try {
+                        return ((string)(this[this.tableBldSupervisionServicesTypes.ServiceNameEnColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ServiceNameEn\' in table \'BldSupervisionServicesTypes\' is DB" +
+                                "Null.", e);
+                    }
                 }
                 set {
-                    this[this.tableBldWelyat.WelyahEnNameColumn] = value;
+                    this[this.tableBldSupervisionServicesTypes.ServiceNameEnColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string WelyahArName {
+            public int ServiceStatus {
                 get {
-                    return ((string)(this[this.tableBldWelyat.WelyahArNameColumn]));
+                    try {
+                        return ((int)(this[this.tableBldSupervisionServicesTypes.ServiceStatusColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ServiceStatus\' in table \'BldSupervisionServicesTypes\' is DB" +
+                                "Null.", e);
+                    }
                 }
                 set {
-                    this[this.tableBldWelyat.WelyahArNameColumn] = value;
+                    this[this.tableBldSupervisionServicesTypes.ServiceStatusColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public BldRegionsRow[] GetBldRegionsRows() {
-                if ((this.Table.ChildRelations["FK_BldRegions_BldWelyat"] == null)) {
-                    return new BldRegionsRow[0];
-                }
-                else {
-                    return ((BldRegionsRow[])(base.GetChildRows(this.Table.ChildRelations["FK_BldRegions_BldWelyat"])));
-                }
+            public bool IsServiceNameEnNull() {
+                return this.IsNull(this.tableBldSupervisionServicesTypes.ServiceNameEnColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public BldPermitsRow[] GetBldPermitsRows() {
-                if ((this.Table.ChildRelations["FK_BldPermits_BldWelyat"] == null)) {
-                    return new BldPermitsRow[0];
-                }
-                else {
-                    return ((BldPermitsRow[])(base.GetChildRows(this.Table.ChildRelations["FK_BldPermits_BldWelyat"])));
-                }
+            public void SetServiceNameEnNull() {
+                this[this.tableBldSupervisionServicesTypes.ServiceNameEnColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsServiceStatusNull() {
+                return this.IsNull(this.tableBldSupervisionServicesTypes.ServiceStatusColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetServiceStatusNull() {
+                this[this.tableBldSupervisionServicesTypes.ServiceStatusColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -4733,6 +8497,40 @@ namespace DMeServicesInternal.Web.Reports {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public class BldRegionsRowChangeEvent : global::System.EventArgs {
+            
+            private BldRegionsRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public BldRegionsRowChangeEvent(BldRegionsRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public BldRegionsRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public class BldSquareLettersRowChangeEvent : global::System.EventArgs {
             
             private BldSquareLettersRow eventRow;
@@ -4749,6 +8547,74 @@ namespace DMeServicesInternal.Web.Reports {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public BldSquareLettersRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public class BldWelyatRowChangeEvent : global::System.EventArgs {
+            
+            private BldWelyatRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public BldWelyatRowChangeEvent(BldWelyatRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public BldWelyatRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public class BldPaymentRowChangeEvent : global::System.EventArgs {
+            
+            private BldPaymentRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public BldPaymentRowChangeEvent(BldPaymentRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public BldPaymentRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -4835,22 +8701,22 @@ namespace DMeServicesInternal.Web.Reports {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public class BldRegionsRowChangeEvent : global::System.EventArgs {
+        public class BldSupervisionServicesRowChangeEvent : global::System.EventArgs {
             
-            private BldRegionsRow eventRow;
+            private BldSupervisionServicesRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public BldRegionsRowChangeEvent(BldRegionsRow row, global::System.Data.DataRowAction action) {
+            public BldSupervisionServicesRowChangeEvent(BldSupervisionServicesRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public BldRegionsRow Row {
+            public BldSupervisionServicesRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -4869,22 +8735,22 @@ namespace DMeServicesInternal.Web.Reports {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public class BldWelyatRowChangeEvent : global::System.EventArgs {
+        public class BldSupervisionServicesTypesRowChangeEvent : global::System.EventArgs {
             
-            private BldWelyatRow eventRow;
+            private BldSupervisionServicesTypesRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public BldWelyatRowChangeEvent(BldWelyatRow row, global::System.Data.DataRowAction action) {
+            public BldSupervisionServicesTypesRowChangeEvent(BldSupervisionServicesTypesRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public BldWelyatRow Row {
+            public BldSupervisionServicesTypesRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -5024,6 +8890,7 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
             tableMapping.DataSetTable = "BldPermits";
+            tableMapping.ColumnMappings.Add("Id", "Id");
             tableMapping.ColumnMappings.Add("TransactNo", "TransactNo");
             tableMapping.ColumnMappings.Add("OwnerName", "OwnerName");
             tableMapping.ColumnMappings.Add("OwnerCivilId", "OwnerCivilId");
@@ -5041,38 +8908,42 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
             tableMapping.ColumnMappings.Add("UpdatedOn", "UpdatedOn");
             tableMapping.ColumnMappings.Add("SquareArea", "SquareArea");
             tableMapping.ColumnMappings.Add("LicenseNo", "LicenseNo");
-            tableMapping.ColumnMappings.Add("PaymentReceiptNo", "PaymentReceiptNo");
-            tableMapping.ColumnMappings.Add("PaymentAmount", "PaymentAmount");
-            tableMapping.ColumnMappings.Add("PaymentDate", "PaymentDate");
             tableMapping.ColumnMappings.Add("WorkflowStatus", "WorkflowStatus");
             tableMapping.ColumnMappings.Add("DmEngineerNo", "DmEngineerNo");
             tableMapping.ColumnMappings.Add("DmEngineerComments", "DmEngineerComments");
             tableMapping.ColumnMappings.Add("ConsultantCivilId", "ConsultantCivilId");
             tableMapping.ColumnMappings.Add("WelayahID", "WelayahID");
+            tableMapping.ColumnMappings.Add("RegionID", "RegionID");
             tableMapping.ColumnMappings.Add("SquareLetterID", "SquareLetterID");
             tableMapping.ColumnMappings.Add("UseTypeID", "UseTypeID");
             tableMapping.ColumnMappings.Add("BuildingTypeID", "BuildingTypeID");
             tableMapping.ColumnMappings.Add("KrokiNO", "KrokiNO");
             tableMapping.ColumnMappings.Add("DmFileNumber", "DmFileNumber");
+            tableMapping.ColumnMappings.Add("LandDeedReceiptNo", "LandDeedReceiptNo");
+            tableMapping.ColumnMappings.Add("DMLicenseNames", "DMLicenseNames");
+            tableMapping.ColumnMappings.Add("DMLicenseComments", "DMLicenseComments");
+            tableMapping.ColumnMappings.Add("DMLicenseCivilIDs", "DMLicenseCivilIDs");
+            tableMapping.ColumnMappings.Add("LandArea", "LandArea");
+            tableMapping.ColumnMappings.Add("LandDeedReceiptDate", "LandDeedReceiptDate");
+            tableMapping.ColumnMappings.Add("LandDeedNo", "LandDeedNo");
+            tableMapping.ColumnMappings.Add("BuildingType", "BuildingType");
+            tableMapping.ColumnMappings.Add("RegionCode", "RegionCode");
             tableMapping.ColumnMappings.Add("RegionArName", "RegionArName");
             tableMapping.ColumnMappings.Add("UseType", "UseType");
-            tableMapping.ColumnMappings.Add("BuildingType", "BuildingType");
-            tableMapping.ColumnMappings.Add("ArLetter", "ArLetter");
             tableMapping.ColumnMappings.Add("WelyahArName", "WelyahArName");
-            tableMapping.ColumnMappings.Add("Id", "Id");
-            tableMapping.ColumnMappings.Add("RegionID", "RegionID");
+            tableMapping.ColumnMappings.Add("ArLetter", "ArLetter");
             tableMapping.ColumnMappings.Add("PaymentTotalAmount", "PaymentTotalAmount");
-            tableMapping.ColumnMappings.Add("TokenID", "TokenID");
+            tableMapping.ColumnMappings.Add("BldPermitId", "BldPermitId");
             tableMapping.ColumnMappings.Add("BankResponseID", "BankResponseID");
+            tableMapping.ColumnMappings.Add("PaymentStatus", "PaymentStatus");
+            tableMapping.ColumnMappings.Add("Referenceid", "Referenceid");
+            tableMapping.ColumnMappings.Add("Paymentrequestid", "Paymentrequestid");
+            tableMapping.ColumnMappings.Add("Bankpaymentid", "Bankpaymentid");
+            tableMapping.ColumnMappings.Add("Transactionid", "Transactionid");
             tableMapping.ColumnMappings.Add("FeesDate", "FeesDate");
             tableMapping.ColumnMappings.Add("PaymentType", "PaymentType");
-            tableMapping.ColumnMappings.Add("Transactionid", "Transactionid");
-            tableMapping.ColumnMappings.Add("Paymentrequestid", "Paymentrequestid");
-            tableMapping.ColumnMappings.Add("Referenceid", "Referenceid");
-            tableMapping.ColumnMappings.Add("Bankpaymentid", "Bankpaymentid");
-            tableMapping.ColumnMappings.Add("PaymentStatus", "PaymentStatus");
-            tableMapping.ColumnMappings.Add("BldPermitId", "BldPermitId");
             tableMapping.ColumnMappings.Add("PayOn", "PayOn");
+            tableMapping.ColumnMappings.Add("owners", "owners");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -5095,42 +8966,46 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
                 "             BldPermits.ConsultantCrNo, BldPermits.ConstructionType, BldPermits." +
                 "RequestDate, BldPermits.CreatedBy, BldPermits.CreatedOn, BldPermits.UpdatedBy, B" +
                 "ldPermits.UpdatedOn, BldPermits.SquareArea, \r\n                         BldPermit" +
-                "s.LicenseNo, BldPermits.PaymentReceiptNo, BldPermits.PaymentAmount, BldPermits.P" +
-                "aymentDate, BldPermits.WorkflowStatus, BldPermits.DmEngineerNo, BldPermits.DmEng" +
-                "ineerComments, \r\n                         BldPermits.ConsultantCivilId, BldPermi" +
-                "ts.WelayahID, BldPermits.RegionID, BldPermits.SquareLetterID, BldPermits.UseType" +
-                "ID, BldPermits.BuildingTypeID, BldPermits.KrokiNO, BldPermits.DmFileNumber, \r\n  " +
-                "                       BldBuildingTypes.BuildingType, BldLandUseTypes.UseType, B" +
-                "ldSquareLetters.ArLetter, BldRegions.RegionArName, BldWelyat.WelyahArName, BldPa" +
-                "yment.PaymentTotalAmount, BldPayment.TokenID, \r\n                         BldPaym" +
-                "ent.BankResponseID, CONVERT(VARCHAR(10), BldPayment.PaymentDate, 103) AS PayOn, " +
-                "BldPayment.FeesDate, BldPayment.PaymentType, BldPayment.Transactionid, BldPaymen" +
-                "t.Paymentrequestid, \r\n                         BldPayment.Referenceid, BldPaymen" +
-                "t.Bankpaymentid, BldPayment.PaymentStatus, BldPayment.BldPermitId\r\nFROM         " +
-                "   BldPermits INNER JOIN\r\n                         BldBuildingTypes ON BldPermit" +
-                "s.BuildingTypeID = BldBuildingTypes.ID INNER JOIN\r\n                         BldL" +
-                "andUseTypes ON BldPermits.UseTypeID = BldLandUseTypes.ID INNER JOIN\r\n           " +
-                "              BldRegions ON BldPermits.RegionID = BldRegions.RegionID INNER JOIN" +
-                "\r\n                         BldSquareLetters ON BldPermits.SquareLetterID = BldSq" +
-                "uareLetters.ID INNER JOIN\r\n                         BldWelyat ON BldPermits.Wela" +
-                "yahID = BldWelyat.WelyahID AND BldRegions.WelyahID = BldWelyat.WelyahID INNER JO" +
-                "IN\r\n                         BldPayment ON BldPermits.Id = BldPayment.BldPermitI" +
-                "d\r\nWHERE        (BldPermits.Id = @ID) AND (BldPayment.PaymentStatus = 1) AND (Bl" +
-                "dPayment.PaymentDate IN\r\n                             (SELECT        MAX(Payment" +
-                "Date) AS PayDate\r\n                                FROM            BldPayment AS " +
-                "BldPayment_1\r\n                                WHERE        (BldPayment.BldPermit" +
-                "Id = @ID)))";
+                "s.LicenseNo, BldPermits.WorkflowStatus, BldPermits.DmEngineerNo, BldPermits.DmEn" +
+                "gineerComments, BldPermits.ConsultantCivilId, BldPermits.WelayahID, BldPermits.R" +
+                "egionID, BldPermits.SquareLetterID, \r\n                         BldPermits.UseTyp" +
+                "eID, BldPermits.BuildingTypeID, BldPermits.KrokiNO, BldPermits.DmFileNumber, Bld" +
+                "Permits.LandDeedReceiptNo, BldPermits.DMLicenseNames, BldPermits.DMLicenseCommen" +
+                "ts, \r\n                         BldPermits.DMLicenseCivilIDs, BldPermits.LandArea" +
+                ", BldPermits.LandDeedReceiptDate, BldPermits.LandDeedNo, BldBuildingTypes.Buildi" +
+                "ngType, BldRegions.RegionCode, BldRegions.RegionArName, \r\n                      " +
+                "   BldLandUseTypes.UseType, BldWelyat.WelyahArName, BldSquareLetters.ArLetter, B" +
+                "ldPayment.PaymentTotalAmount, BldPayment.BldPermitId, BldPayment.BankResponseID," +
+                " BldPayment.PaymentStatus, \r\n                         BldPayment.Referenceid, Bl" +
+                "dPayment.Paymentrequestid, BldPayment.Bankpaymentid, BldPayment.Transactionid, B" +
+                "ldPayment.FeesDate, BldPayment.PaymentType, CONVERT(VARCHAR(20), BldPayment.Paym" +
+                "entDate, 103) \r\n                         AS PayOn, SUBSTRING(\r\n        (\r\n      " +
+                "      SELECT \',\'+bldowners.Name  AS [text()]\r\n            FROM bldowners \r\n     " +
+                "       WHERE bldowners.BldPermitId = 10192\r\n            \r\n            FOR XML PA" +
+                "TH (\'\')\r\n        ), 2, 1000) owners\r\nFROM            BldPermits INNER JOIN\r\n    " +
+                "                     BldBuildingTypes ON BldPermits.BuildingTypeID = BldBuilding" +
+                "Types.ID INNER JOIN\r\n                         BldLandUseTypes ON BldPermits.UseT" +
+                "ypeID = BldLandUseTypes.ID INNER JOIN\r\n                         BldPayment ON Bl" +
+                "dPermits.Id = BldPayment.BldPermitId INNER JOIN\r\n                         BldReg" +
+                "ions ON BldPermits.RegionID = BldRegions.RegionID INNER JOIN\r\n                  " +
+                "       BldSquareLetters ON BldPermits.SquareLetterID = BldSquareLetters.ID INNER" +
+                " JOIN\r\n                         BldWelyat ON BldPermits.WelayahID = BldWelyat.We" +
+                "lyahID AND BldRegions.WelyahID = BldWelyat.WelyahID\r\nWHERE        (BldPermits.Id" +
+                " = @ID) AND (BldPayment.PaymentStatus = 1) AND (BldPayment.PaymentDate IN\r\n     " +
+                "                        (SELECT        MAX(PaymentDate) AS PayDate\r\n            " +
+                "                    FROM            BldPayment AS BldPayment_1\r\n                " +
+                "                WHERE        (BldPermitId = @ID)))";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ID", global::System.Data.SqlDbType.BigInt, 8, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ID", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(InternalEngineeringDataSet.BldPermitsDataTable dataTable, long ID) {
+        public virtual int Fill(InternalEngineeringDataSet.BldPermitsDataTable dataTable, int ID) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            this.Adapter.SelectCommand.Parameters[0].Value = ((long)(ID));
+            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ID));
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
             }
@@ -5142,12 +9017,331 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual InternalEngineeringDataSet.BldPermitsDataTable GetData(long ID) {
+        public virtual InternalEngineeringDataSet.BldPermitsDataTable GetData(int ID) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            this.Adapter.SelectCommand.Parameters[0].Value = ((long)(ID));
+            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ID));
             InternalEngineeringDataSet.BldPermitsDataTable dataTable = new InternalEngineeringDataSet.BldPermitsDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
+        }
+    }
+    
+    /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class BldRegionsTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private global::System.Data.SqlClient.SqlConnection _connection;
+        
+        private global::System.Data.SqlClient.SqlTransaction _transaction;
+        
+        private global::System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public BldRegionsTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        protected internal global::System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        internal global::System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        internal global::System.Data.SqlClient.SqlTransaction Transaction {
+            get {
+                return this._transaction;
+            }
+            set {
+                this._transaction = value;
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    this.CommandCollection[i].Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.DeleteCommand != null))) {
+                    this.Adapter.DeleteCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.InsertCommand != null))) {
+                    this.Adapter.InsertCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.UpdateCommand != null))) {
+                    this.Adapter.UpdateCommand.Transaction = this._transaction;
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        protected global::System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private void InitAdapter() {
+            this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
+            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "BldRegions";
+            tableMapping.ColumnMappings.Add("RegionID", "RegionID");
+            tableMapping.ColumnMappings.Add("RegionCode", "RegionCode");
+            tableMapping.ColumnMappings.Add("RegionEnName", "RegionEnName");
+            tableMapping.ColumnMappings.Add("RegionArName", "RegionArName");
+            tableMapping.ColumnMappings.Add("WelyahID", "WelyahID");
+            this._adapter.TableMappings.Add(tableMapping);
+            this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.DeleteCommand.Connection = this.Connection;
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[BldRegions] WHERE (([RegionID] = @Original_RegionID))";
+            this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_RegionID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RegionID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.InsertCommand.Connection = this.Connection;
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[BldRegions] ([RegionCode], [RegionEnName], [RegionArName], [We" +
+                "lyahID]) VALUES (@RegionCode, @RegionEnName, @RegionArName, @WelyahID)";
+            this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RegionCode", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RegionCode", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RegionEnName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RegionEnName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RegionArName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RegionArName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@WelyahID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "WelyahID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.UpdateCommand.Connection = this.Connection;
+            this._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[BldRegions] SET [RegionCode] = @RegionCode, [RegionEnName] = @Regio" +
+                "nEnName, [RegionArName] = @RegionArName, [WelyahID] = @WelyahID WHERE (([RegionI" +
+                "D] = @Original_RegionID))";
+            this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RegionCode", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RegionCode", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RegionEnName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RegionEnName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RegionArName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RegionArName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@WelyahID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "WelyahID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_RegionID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RegionID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private void InitConnection() {
+            this._connection = new global::System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["eServicesConnectionString"].ConnectionString;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "SELECT RegionID, RegionCode, RegionEnName, RegionArName, WelyahID FROM dbo.BldReg" +
+                "ions";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(InternalEngineeringDataSet.BldRegionsDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual InternalEngineeringDataSet.BldRegionsDataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            InternalEngineeringDataSet.BldRegionsDataTable dataTable = new InternalEngineeringDataSet.BldRegionsDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(InternalEngineeringDataSet.BldRegionsDataTable dataTable) {
+            return this.Adapter.Update(dataTable);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(InternalEngineeringDataSet dataSet) {
+            return this.Adapter.Update(dataSet, "BldRegions");
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow dataRow) {
+            return this.Adapter.Update(new global::System.Data.DataRow[] {
+                        dataRow});
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow[] dataRows) {
+            return this.Adapter.Update(dataRows);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
+        public virtual int Delete(int Original_RegionID) {
+            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_RegionID));
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
+            if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.DeleteCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.DeleteCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
+        public virtual int Insert(int RegionCode, string RegionEnName, string RegionArName, int WelyahID) {
+            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(RegionCode));
+            if ((RegionEnName == null)) {
+                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(RegionEnName));
+            }
+            if ((RegionArName == null)) {
+                throw new global::System.ArgumentNullException("RegionArName");
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(RegionArName));
+            }
+            this.Adapter.InsertCommand.Parameters[3].Value = ((int)(WelyahID));
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
+            if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.InsertCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.InsertCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(int RegionCode, string RegionEnName, string RegionArName, int WelyahID, int Original_RegionID) {
+            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(RegionCode));
+            if ((RegionEnName == null)) {
+                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(RegionEnName));
+            }
+            if ((RegionArName == null)) {
+                throw new global::System.ArgumentNullException("RegionArName");
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(RegionArName));
+            }
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(WelyahID));
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_RegionID));
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
+            if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.UpdateCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.UpdateCommand.Connection.Close();
+                }
+            }
         }
     }
     
@@ -5441,6 +9635,791 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
                 this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(EnLetter));
             }
             this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Original_ID));
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
+            if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.UpdateCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.UpdateCommand.Connection.Close();
+                }
+            }
+        }
+    }
+    
+    /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class BldWelyatTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private global::System.Data.SqlClient.SqlConnection _connection;
+        
+        private global::System.Data.SqlClient.SqlTransaction _transaction;
+        
+        private global::System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public BldWelyatTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        protected internal global::System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        internal global::System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        internal global::System.Data.SqlClient.SqlTransaction Transaction {
+            get {
+                return this._transaction;
+            }
+            set {
+                this._transaction = value;
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    this.CommandCollection[i].Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.DeleteCommand != null))) {
+                    this.Adapter.DeleteCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.InsertCommand != null))) {
+                    this.Adapter.InsertCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.UpdateCommand != null))) {
+                    this.Adapter.UpdateCommand.Transaction = this._transaction;
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        protected global::System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private void InitAdapter() {
+            this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
+            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "BldWelyat";
+            tableMapping.ColumnMappings.Add("WelyahID", "WelyahID");
+            tableMapping.ColumnMappings.Add("WelyahCode", "WelyahCode");
+            tableMapping.ColumnMappings.Add("WelyahEnName", "WelyahEnName");
+            tableMapping.ColumnMappings.Add("WelyahArName", "WelyahArName");
+            this._adapter.TableMappings.Add(tableMapping);
+            this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.DeleteCommand.Connection = this.Connection;
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[BldWelyat] WHERE (([WelyahID] = @Original_WelyahID))";
+            this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_WelyahID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "WelyahID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.InsertCommand.Connection = this.Connection;
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[BldWelyat] ([WelyahCode], [WelyahEnName], [WelyahArName]) VALU" +
+                "ES (@WelyahCode, @WelyahEnName, @WelyahArName)";
+            this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@WelyahCode", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "WelyahCode", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@WelyahEnName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "WelyahEnName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@WelyahArName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "WelyahArName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.UpdateCommand.Connection = this.Connection;
+            this._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[BldWelyat] SET [WelyahCode] = @WelyahCode, [WelyahEnName] = @Welyah" +
+                "EnName, [WelyahArName] = @WelyahArName WHERE (([WelyahID] = @Original_WelyahID))" +
+                "";
+            this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@WelyahCode", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "WelyahCode", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@WelyahEnName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "WelyahEnName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@WelyahArName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "WelyahArName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_WelyahID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "WelyahID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private void InitConnection() {
+            this._connection = new global::System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["eServicesConnectionString"].ConnectionString;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "SELECT WelyahID, WelyahCode, WelyahEnName, WelyahArName FROM dbo.BldWelyat";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(InternalEngineeringDataSet.BldWelyatDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual InternalEngineeringDataSet.BldWelyatDataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            InternalEngineeringDataSet.BldWelyatDataTable dataTable = new InternalEngineeringDataSet.BldWelyatDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(InternalEngineeringDataSet.BldWelyatDataTable dataTable) {
+            return this.Adapter.Update(dataTable);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(InternalEngineeringDataSet dataSet) {
+            return this.Adapter.Update(dataSet, "BldWelyat");
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow dataRow) {
+            return this.Adapter.Update(new global::System.Data.DataRow[] {
+                        dataRow});
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow[] dataRows) {
+            return this.Adapter.Update(dataRows);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
+        public virtual int Delete(int Original_WelyahID) {
+            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_WelyahID));
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
+            if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.DeleteCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.DeleteCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
+        public virtual int Insert(int WelyahCode, string WelyahEnName, string WelyahArName) {
+            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(WelyahCode));
+            if ((WelyahEnName == null)) {
+                throw new global::System.ArgumentNullException("WelyahEnName");
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(WelyahEnName));
+            }
+            if ((WelyahArName == null)) {
+                throw new global::System.ArgumentNullException("WelyahArName");
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(WelyahArName));
+            }
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
+            if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.InsertCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.InsertCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(int WelyahCode, string WelyahEnName, string WelyahArName, int Original_WelyahID) {
+            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(WelyahCode));
+            if ((WelyahEnName == null)) {
+                throw new global::System.ArgumentNullException("WelyahEnName");
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(WelyahEnName));
+            }
+            if ((WelyahArName == null)) {
+                throw new global::System.ArgumentNullException("WelyahArName");
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(WelyahArName));
+            }
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_WelyahID));
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
+            if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.UpdateCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.UpdateCommand.Connection.Close();
+                }
+            }
+        }
+    }
+    
+    /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class BldPaymentTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private global::System.Data.SqlClient.SqlConnection _connection;
+        
+        private global::System.Data.SqlClient.SqlTransaction _transaction;
+        
+        private global::System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public BldPaymentTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        protected internal global::System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        internal global::System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        internal global::System.Data.SqlClient.SqlTransaction Transaction {
+            get {
+                return this._transaction;
+            }
+            set {
+                this._transaction = value;
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    this.CommandCollection[i].Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.DeleteCommand != null))) {
+                    this.Adapter.DeleteCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.InsertCommand != null))) {
+                    this.Adapter.InsertCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.UpdateCommand != null))) {
+                    this.Adapter.UpdateCommand.Transaction = this._transaction;
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        protected global::System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private void InitAdapter() {
+            this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
+            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "BldPayment";
+            tableMapping.ColumnMappings.Add("PaymentID", "PaymentID");
+            tableMapping.ColumnMappings.Add("BldPermitId", "BldPermitId");
+            tableMapping.ColumnMappings.Add("PaymentTotalAmount", "PaymentTotalAmount");
+            tableMapping.ColumnMappings.Add("TokenID", "TokenID");
+            tableMapping.ColumnMappings.Add("BankResponseID", "BankResponseID");
+            tableMapping.ColumnMappings.Add("PaymentDate", "PaymentDate");
+            tableMapping.ColumnMappings.Add("FeesDate", "FeesDate");
+            tableMapping.ColumnMappings.Add("PaymentType", "PaymentType");
+            tableMapping.ColumnMappings.Add("Transactionid", "Transactionid");
+            tableMapping.ColumnMappings.Add("Paymentrequestid", "Paymentrequestid");
+            tableMapping.ColumnMappings.Add("Referenceid", "Referenceid");
+            tableMapping.ColumnMappings.Add("Bankpaymentid", "Bankpaymentid");
+            tableMapping.ColumnMappings.Add("PaymentStatus", "PaymentStatus");
+            tableMapping.ColumnMappings.Add("SupervisionID", "SupervisionID");
+            this._adapter.TableMappings.Add(tableMapping);
+            this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.DeleteCommand.Connection = this.Connection;
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[BldPayment] WHERE (([PaymentID] = @Original_PaymentID))";
+            this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PaymentID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PaymentID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.InsertCommand.Connection = this.Connection;
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[BldPayment] ([BldPermitId], [PaymentTotalAmount], [TokenID], [BankResponseID], [PaymentDate], [FeesDate], [PaymentType], [Transactionid], [Paymentrequestid], [Referenceid], [Bankpaymentid], [PaymentStatus], [SupervisionID]) VALUES (@BldPermitId, @PaymentTotalAmount, @TokenID, @BankResponseID, @PaymentDate, @FeesDate, @PaymentType, @Transactionid, @Paymentrequestid, @Referenceid, @Bankpaymentid, @PaymentStatus, @SupervisionID)";
+            this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@BldPermitId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "BldPermitId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PaymentTotalAmount", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 3, "PaymentTotalAmount", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TokenID", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TokenID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@BankResponseID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "BankResponseID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PaymentDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PaymentDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@FeesDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "FeesDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PaymentType", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PaymentType", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Transactionid", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Transactionid", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Paymentrequestid", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Paymentrequestid", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Referenceid", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Referenceid", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Bankpaymentid", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Bankpaymentid", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PaymentStatus", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PaymentStatus", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@SupervisionID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SupervisionID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.UpdateCommand.Connection = this.Connection;
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[BldPayment] SET [BldPermitId] = @BldPermitId, [PaymentTotalAmount] = @PaymentTotalAmount, [TokenID] = @TokenID, [BankResponseID] = @BankResponseID, [PaymentDate] = @PaymentDate, [FeesDate] = @FeesDate, [PaymentType] = @PaymentType, [Transactionid] = @Transactionid, [Paymentrequestid] = @Paymentrequestid, [Referenceid] = @Referenceid, [Bankpaymentid] = @Bankpaymentid, [PaymentStatus] = @PaymentStatus, [SupervisionID] = @SupervisionID WHERE (([PaymentID] = @Original_PaymentID))";
+            this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@BldPermitId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "BldPermitId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PaymentTotalAmount", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 3, "PaymentTotalAmount", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TokenID", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TokenID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@BankResponseID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "BankResponseID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PaymentDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PaymentDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@FeesDate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "FeesDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PaymentType", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PaymentType", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Transactionid", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Transactionid", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Paymentrequestid", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Paymentrequestid", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Referenceid", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Referenceid", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Bankpaymentid", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Bankpaymentid", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PaymentStatus", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PaymentStatus", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@SupervisionID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SupervisionID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PaymentID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PaymentID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private void InitConnection() {
+            this._connection = new global::System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["eServicesConnectionString"].ConnectionString;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "SELECT PaymentID, BldPermitId, PaymentTotalAmount, TokenID, BankResponseID, Payme" +
+                "ntDate, FeesDate, PaymentType, Transactionid, Paymentrequestid, Referenceid, Ban" +
+                "kpaymentid, PaymentStatus, SupervisionID FROM dbo.BldPayment";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(InternalEngineeringDataSet.BldPaymentDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual InternalEngineeringDataSet.BldPaymentDataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            InternalEngineeringDataSet.BldPaymentDataTable dataTable = new InternalEngineeringDataSet.BldPaymentDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(InternalEngineeringDataSet.BldPaymentDataTable dataTable) {
+            return this.Adapter.Update(dataTable);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(InternalEngineeringDataSet dataSet) {
+            return this.Adapter.Update(dataSet, "BldPayment");
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow dataRow) {
+            return this.Adapter.Update(new global::System.Data.DataRow[] {
+                        dataRow});
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow[] dataRows) {
+            return this.Adapter.Update(dataRows);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
+        public virtual int Delete(int Original_PaymentID) {
+            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_PaymentID));
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
+            if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.DeleteCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.DeleteCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
+        public virtual int Insert(global::System.Nullable<int> BldPermitId, global::System.Nullable<decimal> PaymentTotalAmount, string TokenID, global::System.Nullable<int> BankResponseID, global::System.Nullable<global::System.DateTime> PaymentDate, global::System.Nullable<global::System.DateTime> FeesDate, global::System.Nullable<int> PaymentType, string Transactionid, global::System.Nullable<int> Paymentrequestid, string Referenceid, string Bankpaymentid, global::System.Nullable<int> PaymentStatus, global::System.Nullable<int> SupervisionID) {
+            if ((BldPermitId.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[0].Value = ((int)(BldPermitId.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            if ((PaymentTotalAmount.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[1].Value = ((decimal)(PaymentTotalAmount.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            if ((TokenID == null)) {
+                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(TokenID));
+            }
+            if ((BankResponseID.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[3].Value = ((int)(BankResponseID.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            if ((PaymentDate.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[4].Value = ((System.DateTime)(PaymentDate.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            if ((FeesDate.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[5].Value = ((System.DateTime)(FeesDate.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
+            }
+            if ((PaymentType.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[6].Value = ((int)(PaymentType.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
+            if ((Transactionid == null)) {
+                this.Adapter.InsertCommand.Parameters[7].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[7].Value = ((string)(Transactionid));
+            }
+            if ((Paymentrequestid.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[8].Value = ((int)(Paymentrequestid.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[8].Value = global::System.DBNull.Value;
+            }
+            if ((Referenceid == null)) {
+                this.Adapter.InsertCommand.Parameters[9].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[9].Value = ((string)(Referenceid));
+            }
+            if ((Bankpaymentid == null)) {
+                this.Adapter.InsertCommand.Parameters[10].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[10].Value = ((string)(Bankpaymentid));
+            }
+            if ((PaymentStatus.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[11].Value = ((int)(PaymentStatus.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[11].Value = global::System.DBNull.Value;
+            }
+            if ((SupervisionID.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[12].Value = ((int)(SupervisionID.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[12].Value = global::System.DBNull.Value;
+            }
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
+            if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.InsertCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.InsertCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(global::System.Nullable<int> BldPermitId, global::System.Nullable<decimal> PaymentTotalAmount, string TokenID, global::System.Nullable<int> BankResponseID, global::System.Nullable<global::System.DateTime> PaymentDate, global::System.Nullable<global::System.DateTime> FeesDate, global::System.Nullable<int> PaymentType, string Transactionid, global::System.Nullable<int> Paymentrequestid, string Referenceid, string Bankpaymentid, global::System.Nullable<int> PaymentStatus, global::System.Nullable<int> SupervisionID, int Original_PaymentID) {
+            if ((BldPermitId.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(BldPermitId.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            if ((PaymentTotalAmount.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((decimal)(PaymentTotalAmount.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            if ((TokenID == null)) {
+                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(TokenID));
+            }
+            if ((BankResponseID.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(BankResponseID.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            if ((PaymentDate.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((System.DateTime)(PaymentDate.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            if ((FeesDate.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((System.DateTime)(FeesDate.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
+            }
+            if ((PaymentType.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(PaymentType.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
+            if ((Transactionid == null)) {
+                this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(Transactionid));
+            }
+            if ((Paymentrequestid.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(Paymentrequestid.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
+            }
+            if ((Referenceid == null)) {
+                this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((string)(Referenceid));
+            }
+            if ((Bankpaymentid == null)) {
+                this.Adapter.UpdateCommand.Parameters[10].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((string)(Bankpaymentid));
+            }
+            if ((PaymentStatus.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((int)(PaymentStatus.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[11].Value = global::System.DBNull.Value;
+            }
+            if ((SupervisionID.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((int)(SupervisionID.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[12].Value = global::System.DBNull.Value;
+            }
+            this.Adapter.UpdateCommand.Parameters[13].Value = ((int)(Original_PaymentID));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -6049,7 +11028,7 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
     [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
         ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class BldRegionsTableAdapter : global::System.ComponentModel.Component {
+    public partial class BldSupervisionServicesTableAdapter : global::System.ComponentModel.Component {
         
         private global::System.Data.SqlClient.SqlDataAdapter _adapter;
         
@@ -6063,7 +11042,7 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public BldRegionsTableAdapter() {
+        public BldSupervisionServicesTableAdapter() {
             this.ClearBeforeFill = true;
         }
         
@@ -6160,38 +11139,54 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
             this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "BldRegions";
-            tableMapping.ColumnMappings.Add("RegionID", "RegionID");
-            tableMapping.ColumnMappings.Add("RegionCode", "RegionCode");
-            tableMapping.ColumnMappings.Add("RegionEnName", "RegionEnName");
+            tableMapping.DataSetTable = "BldSupervisionServices";
+            tableMapping.ColumnMappings.Add("ID", "ID");
+            tableMapping.ColumnMappings.Add("OwnerCivilId", "OwnerCivilId");
+            tableMapping.ColumnMappings.Add("KrokiNO", "KrokiNO");
+            tableMapping.ColumnMappings.Add("OwnerName", "OwnerName");
+            tableMapping.ColumnMappings.Add("LicenseNo", "LicenseNo");
+            tableMapping.ColumnMappings.Add("TransactNo", "TransactNo");
+            tableMapping.ColumnMappings.Add("DmFileNumber", "DmFileNumber");
+            tableMapping.ColumnMappings.Add("DmInspectorComments", "DmInspectorComments");
+            tableMapping.ColumnMappings.Add("ConsultantNotes", "ConsultantNotes");
+            tableMapping.ColumnMappings.Add("OwnerNotes", "OwnerNotes");
+            tableMapping.ColumnMappings.Add("ConstructionType", "ConstructionType");
+            tableMapping.ColumnMappings.Add("ConsultantCrNo", "ConsultantCrNo");
+            tableMapping.ColumnMappings.Add("NumberOfFloors", "NumberOfFloors");
+            tableMapping.ColumnMappings.Add("ConstructedArea", "ConstructedArea");
+            tableMapping.ColumnMappings.Add("SquareArea", "SquareArea");
+            tableMapping.ColumnMappings.Add("DMLicenseNames", "DMLicenseNames");
+            tableMapping.ColumnMappings.Add("DMLicenseComments", "DMLicenseComments");
+            tableMapping.ColumnMappings.Add("DMLicenseCivilIDs", "DMLicenseCivilIDs");
+            tableMapping.ColumnMappings.Add("LandArea", "LandArea");
+            tableMapping.ColumnMappings.Add("LandDeedReceiptDate", "LandDeedReceiptDate");
+            tableMapping.ColumnMappings.Add("LandDeedNo", "LandDeedNo");
+            tableMapping.ColumnMappings.Add("FileNumber", "FileNumber");
+            tableMapping.ColumnMappings.Add("WelyahArName", "WelyahArName");
+            tableMapping.ColumnMappings.Add("WelyahEnName", "WelyahEnName");
+            tableMapping.ColumnMappings.Add("WelyahCode", "WelyahCode");
+            tableMapping.ColumnMappings.Add("ServiceNameAR", "ServiceNameAR");
+            tableMapping.ColumnMappings.Add("ServiceNameEn", "ServiceNameEn");
+            tableMapping.ColumnMappings.Add("ArLetter", "ArLetter");
+            tableMapping.ColumnMappings.Add("EnLetter", "EnLetter");
+            tableMapping.ColumnMappings.Add("BuildingType", "BuildingType");
+            tableMapping.ColumnMappings.Add("UseType", "UseType");
             tableMapping.ColumnMappings.Add("RegionArName", "RegionArName");
-            tableMapping.ColumnMappings.Add("WelyahID", "WelyahID");
+            tableMapping.ColumnMappings.Add("RegionEnName", "RegionEnName");
+            tableMapping.ColumnMappings.Add("RegionCode", "RegionCode");
+            tableMapping.ColumnMappings.Add("DistrictNo", "DistrictNo");
+            tableMapping.ColumnMappings.Add("BldPermitID", "BldPermitID");
+            tableMapping.ColumnMappings.Add("Contractor_Name", "Contractor_Name");
+            tableMapping.ColumnMappings.Add("Contractor_CRNumber", "Contractor_CRNumber");
+            tableMapping.ColumnMappings.Add("Contractor_CR_Number", "Contractor_CR_Number");
+            tableMapping.ColumnMappings.Add("Referenceid", "Referenceid");
+            tableMapping.ColumnMappings.Add("PaymentType", "PaymentType");
+            tableMapping.ColumnMappings.Add("PaymentID", "PaymentID");
+            tableMapping.ColumnMappings.Add("ConsultantCivilId", "ConsultantCivilId");
+            tableMapping.ColumnMappings.Add("CompanyName", "CompanyName");
+            tableMapping.ColumnMappings.Add("PaymentDate", "PaymentDate");
+            tableMapping.ColumnMappings.Add("SupervisionLicenseNo", "SupervisionLicenseNo");
             this._adapter.TableMappings.Add(tableMapping);
-            this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
-            this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[BldRegions] WHERE (([RegionID] = @Original_RegionID))";
-            this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_RegionID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RegionID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
-            this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[BldRegions] ([RegionCode], [RegionEnName], [RegionArName], [We" +
-                "lyahID]) VALUES (@RegionCode, @RegionEnName, @RegionArName, @WelyahID)";
-            this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RegionCode", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RegionCode", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RegionEnName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RegionEnName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RegionArName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RegionArName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@WelyahID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "WelyahID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
-            this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[BldRegions] SET [RegionCode] = @RegionCode, [RegionEnName] = @Regio" +
-                "nEnName, [RegionArName] = @RegionArName, [WelyahID] = @WelyahID WHERE (([RegionI" +
-                "D] = @Original_RegionID))";
-            this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RegionCode", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RegionCode", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RegionEnName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RegionEnName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RegionArName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RegionArName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@WelyahID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "WelyahID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_RegionID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RegionID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6204,20 +11199,89 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[2];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT RegionID, RegionCode, RegionEnName, RegionArName, WelyahID FROM dbo.BldReg" +
-                "ions";
+            this._commandCollection[0].CommandText = "SELECT        BldPermits.OwnerCivilId, BldPermits.OwnerName, BldPermits.Construct" +
+                "ionType, BldPermits.ConsultantCrNo, BldPermits.NumberOfFloors, BldPermits.Constr" +
+                "uctedArea, BldPermits.SquareArea, BldPermits.LicenseNo, \r\n                      " +
+                "   BldPermits.KrokiNO, BldPermits.DmFileNumber, BldPermits.DMLicenseNames, BldPe" +
+                "rmits.DMLicenseComments, BldPermits.DMLicenseCivilIDs, BldPermits.LandArea, BldP" +
+                "ermits.LandDeedReceiptDate, \r\n                         BldPermits.LandDeedNo, Bl" +
+                "dSupervisionServices.OwnerNotes, BldSupervisionServices.ConsultantNotes, BldSupe" +
+                "rvisionServices.DmFileNumber AS FileNumber, BldSupervisionServices.DmInspectorCo" +
+                "mments, \r\n                         BldSupervisionServices.TransactNo, BldSupervi" +
+                "sionServices.ID, BldWelyat.WelyahArName, BldWelyat.WelyahEnName, BldWelyat.Welya" +
+                "hCode, BldSupervisionServicesTypes.ServiceNameAR, \r\n                         Bld" +
+                "SupervisionServicesTypes.ServiceNameEn, BldSquareLetters.ArLetter, BldSquareLett" +
+                "ers.EnLetter, BldBuildingTypes.BuildingType, BldLandUseTypes.UseType, BldRegions" +
+                ".RegionArName, BldRegions.RegionEnName, \r\n                         BldRegions.Re" +
+                "gionCode, BldPermits.DistrictNo, BldSupervisionServices.BldPermitID, BldSupervis" +
+                "ionContractors.Cr_Name AS Contractor_Name, BldSupervisionContractors.Cr_No AS Co" +
+                "ntractor_CRNumber, \r\n                         BldSupervisionServices.ContractorC" +
+                "R_No AS Contractor_CR_Number, BldPayment.Referenceid, BldPayment.PaymentType, Bl" +
+                "dSupervisionServices.PaymentID, BldSupervisionServices.ConsultantCivilId, Users." +
+                "CompanyName, \r\n                         BldPayment.PaymentDate, BldSupervisionSe" +
+                "rvices.LicenseNo AS SupervisionLicenseNo\r\nFROM            BldSupervisionServices" +
+                " INNER JOIN\r\n                         BldPermits ON BldSupervisionServices.BldPe" +
+                "rmitID = BldPermits.Id INNER JOIN\r\n                         BldWelyat ON BldPerm" +
+                "its.WelayahID = BldWelyat.WelyahID INNER JOIN\r\n                         BldBuild" +
+                "ingTypes ON BldPermits.BuildingTypeID = BldBuildingTypes.ID INNER JOIN\r\n        " +
+                "                 BldLandUseTypes ON BldPermits.UseTypeID = BldLandUseTypes.ID IN" +
+                "NER JOIN\r\n                         BldRegions ON BldPermits.RegionID = BldRegion" +
+                "s.RegionID AND BldWelyat.WelyahID = BldRegions.WelyahID INNER JOIN\r\n            " +
+                "             BldSquareLetters ON BldPermits.SquareLetterID = BldSquareLetters.ID" +
+                " INNER JOIN\r\n                         BldSupervisionServicesTypes ON BldSupervis" +
+                "ionServices.ServiceTypeID = BldSupervisionServicesTypes.ID INNER JOIN\r\n         " +
+                "                BldSupervisionContractors ON BldSupervisionServices.ContractorCR" +
+                "_No = BldSupervisionContractors.Cr_No INNER JOIN\r\n                         BldPa" +
+                "yment ON BldSupervisionServices.PaymentID = BldPayment.PaymentID AND BldPayment." +
+                "PaymentType = 3 INNER JOIN\r\n                         Users ON BldSupervisionServ" +
+                "ices.ConsultantCivilId = Users.CivilId\r\nWHERE        (BldSupervisionServices.ID " +
+                "= @ID)";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ID", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = "SELECT        BldPermits.OwnerCivilId, BldPermits.OwnerName, BldPermits.Construct" +
+                "ionType, BldPermits.ConsultantCrNo, BldPermits.NumberOfFloors, BldPermits.Constr" +
+                "uctedArea, BldPermits.SquareArea, BldPermits.LicenseNo, \r\n                      " +
+                "   BldPermits.KrokiNO, BldPermits.DmFileNumber, BldPermits.DMLicenseNames, BldPe" +
+                "rmits.DMLicenseComments, BldPermits.DMLicenseCivilIDs, BldPermits.LandArea, BldP" +
+                "ermits.LandDeedReceiptDate, \r\n                         BldPermits.LandDeedNo, Bl" +
+                "dSupervisionServices.OwnerNotes, BldSupervisionServices.ConsultantNotes, BldSupe" +
+                "rvisionServices.DmFileNumber AS FileNumber, BldSupervisionServices.DmInspectorCo" +
+                "mments, \r\n                         BldSupervisionServices.TransactNo, BldSupervi" +
+                "sionServices.ID, BldWelyat.WelyahArName, BldWelyat.WelyahEnName, BldWelyat.Welya" +
+                "hCode, BldSupervisionServicesTypes.ServiceNameAR, \r\n                         Bld" +
+                "SupervisionServicesTypes.ServiceNameEn, BldSquareLetters.ArLetter, BldSquareLett" +
+                "ers.EnLetter, BldBuildingTypes.BuildingType, BldLandUseTypes.UseType, BldRegions" +
+                ".RegionArName, BldRegions.RegionEnName, \r\n                         BldRegions.Re" +
+                "gionCode, BldPermits.DistrictNo, BldSupervisionServices.BldPermitID, BldSupervis" +
+                "ionServices.ContractorCR_No AS Contractor_CR_Number, BldSupervisionServices.Paym" +
+                "entID, \r\n                         BldSupervisionServices.ConsultantCivilId, BldS" +
+                "upervisionServices.LicenseNo AS SupervisionLicenseNo\r\nFROM            BldSupervi" +
+                "sionServices INNER JOIN\r\n                         BldPermits ON BldSupervisionSe" +
+                "rvices.BldPermitID = BldPermits.Id INNER JOIN\r\n                         BldWelya" +
+                "t ON BldPermits.WelayahID = BldWelyat.WelyahID INNER JOIN\r\n                     " +
+                "    BldBuildingTypes ON BldPermits.BuildingTypeID = BldBuildingTypes.ID INNER JO" +
+                "IN\r\n                         BldLandUseTypes ON BldPermits.UseTypeID = BldLandUs" +
+                "eTypes.ID INNER JOIN\r\n                         BldRegions ON BldPermits.RegionID" +
+                " = BldRegions.RegionID INNER JOIN\r\n                         BldSquareLetters ON " +
+                "BldPermits.SquareLetterID = BldSquareLetters.ID INNER JOIN\r\n                    " +
+                "     BldSupervisionServicesTypes ON BldSupervisionServices.ServiceTypeID = BldSu" +
+                "pervisionServicesTypes.ID\r\nWHERE        (BldSupervisionServices.ID = @ID)";
+            this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ID", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(InternalEngineeringDataSet.BldRegionsDataTable dataTable) {
+        public virtual int Fill(InternalEngineeringDataSet.BldSupervisionServicesDataTable dataTable, int ID) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ID));
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
             }
@@ -6229,9 +11293,10 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual InternalEngineeringDataSet.BldRegionsDataTable GetData() {
+        public virtual InternalEngineeringDataSet.BldSupervisionServicesDataTable GetData(int ID) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            InternalEngineeringDataSet.BldRegionsDataTable dataTable = new InternalEngineeringDataSet.BldRegionsDataTable();
+            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ID));
+            InternalEngineeringDataSet.BldSupervisionServicesDataTable dataTable = new InternalEngineeringDataSet.BldSupervisionServicesDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -6239,123 +11304,27 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(InternalEngineeringDataSet.BldRegionsDataTable dataTable) {
-            return this.Adapter.Update(dataTable);
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillForUnpaidServices(InternalEngineeringDataSet.BldSupervisionServicesDataTable dataTable, int ID) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ID));
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(InternalEngineeringDataSet dataSet) {
-            return this.Adapter.Update(dataSet, "BldRegions");
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(global::System.Data.DataRow dataRow) {
-            return this.Adapter.Update(new global::System.Data.DataRow[] {
-                        dataRow});
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(global::System.Data.DataRow[] dataRows) {
-            return this.Adapter.Update(dataRows);
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_RegionID) {
-            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_RegionID));
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
-            if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.DeleteCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.DeleteCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int RegionCode, string RegionEnName, string RegionArName, int WelyahID) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(RegionCode));
-            if ((RegionEnName == null)) {
-                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(RegionEnName));
-            }
-            if ((RegionArName == null)) {
-                throw new global::System.ArgumentNullException("RegionArName");
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(RegionArName));
-            }
-            this.Adapter.InsertCommand.Parameters[3].Value = ((int)(WelyahID));
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
-            if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.InsertCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.InsertCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int RegionCode, string RegionEnName, string RegionArName, int WelyahID, int Original_RegionID) {
-            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(RegionCode));
-            if ((RegionEnName == null)) {
-                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(RegionEnName));
-            }
-            if ((RegionArName == null)) {
-                throw new global::System.ArgumentNullException("RegionArName");
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(RegionArName));
-            }
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(WelyahID));
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_RegionID));
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
-            if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.UpdateCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.UpdateCommand.Connection.Close();
-                }
-            }
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual InternalEngineeringDataSet.BldSupervisionServicesDataTable GetDataForUnpaidServices(int ID) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ID));
+            InternalEngineeringDataSet.BldSupervisionServicesDataTable dataTable = new InternalEngineeringDataSet.BldSupervisionServicesDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
         }
     }
     
@@ -6368,7 +11337,7 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
     [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
         ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class BldWelyatTableAdapter : global::System.ComponentModel.Component {
+    public partial class BldSupervisionServicesTypesTableAdapter : global::System.ComponentModel.Component {
         
         private global::System.Data.SqlClient.SqlDataAdapter _adapter;
         
@@ -6382,7 +11351,7 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public BldWelyatTableAdapter() {
+        public BldSupervisionServicesTypesTableAdapter() {
             this.ClearBeforeFill = true;
         }
         
@@ -6479,35 +11448,35 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
             this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "BldWelyat";
-            tableMapping.ColumnMappings.Add("WelyahID", "WelyahID");
-            tableMapping.ColumnMappings.Add("WelyahCode", "WelyahCode");
-            tableMapping.ColumnMappings.Add("WelyahEnName", "WelyahEnName");
-            tableMapping.ColumnMappings.Add("WelyahArName", "WelyahArName");
+            tableMapping.DataSetTable = "BldSupervisionServicesTypes";
+            tableMapping.ColumnMappings.Add("ID", "ID");
+            tableMapping.ColumnMappings.Add("ServiceNameAR", "ServiceNameAR");
+            tableMapping.ColumnMappings.Add("ServiceNameEn", "ServiceNameEn");
+            tableMapping.ColumnMappings.Add("ServiceStatus", "ServiceStatus");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[BldWelyat] WHERE (([WelyahID] = @Original_WelyahID))";
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[BldSupervisionServicesTypes] WHERE (([ID] = @Original_ID))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_WelyahID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "WelyahID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[BldWelyat] ([WelyahCode], [WelyahEnName], [WelyahArName]) VALU" +
-                "ES (@WelyahCode, @WelyahEnName, @WelyahArName)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[BldSupervisionServicesTypes] ([ServiceNameAR], [ServiceNameEn]" +
+                ", [ServiceStatus]) VALUES (@ServiceNameAR, @ServiceNameEn, @ServiceStatus)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@WelyahCode", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "WelyahCode", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@WelyahEnName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "WelyahEnName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@WelyahArName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "WelyahArName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ServiceNameAR", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ServiceNameAR", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ServiceNameEn", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ServiceNameEn", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ServiceStatus", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ServiceStatus", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[BldWelyat] SET [WelyahCode] = @WelyahCode, [WelyahEnName] = @Welyah" +
-                "EnName, [WelyahArName] = @WelyahArName WHERE (([WelyahID] = @Original_WelyahID))" +
-                "";
+            this._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[BldSupervisionServicesTypes] SET [ServiceNameAR] = @ServiceNameAR, " +
+                "[ServiceNameEn] = @ServiceNameEn, [ServiceStatus] = @ServiceStatus WHERE (([ID] " +
+                "= @Original_ID))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@WelyahCode", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "WelyahCode", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@WelyahEnName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "WelyahEnName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@WelyahArName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "WelyahArName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_WelyahID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "WelyahID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ServiceNameAR", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ServiceNameAR", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ServiceNameEn", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ServiceNameEn", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ServiceStatus", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ServiceStatus", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6523,7 +11492,8 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT WelyahID, WelyahCode, WelyahEnName, WelyahArName FROM dbo.BldWelyat";
+            this._commandCollection[0].CommandText = "SELECT ID, ServiceNameAR, ServiceNameEn, ServiceStatus FROM dbo.BldSupervisionSer" +
+                "vicesTypes";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -6531,7 +11501,7 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(InternalEngineeringDataSet.BldWelyatDataTable dataTable) {
+        public virtual int Fill(InternalEngineeringDataSet.BldSupervisionServicesTypesDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -6544,9 +11514,9 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual InternalEngineeringDataSet.BldWelyatDataTable GetData() {
+        public virtual InternalEngineeringDataSet.BldSupervisionServicesTypesDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            InternalEngineeringDataSet.BldWelyatDataTable dataTable = new InternalEngineeringDataSet.BldWelyatDataTable();
+            InternalEngineeringDataSet.BldSupervisionServicesTypesDataTable dataTable = new InternalEngineeringDataSet.BldSupervisionServicesTypesDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -6554,7 +11524,7 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(InternalEngineeringDataSet.BldWelyatDataTable dataTable) {
+        public virtual int Update(InternalEngineeringDataSet.BldSupervisionServicesTypesDataTable dataTable) {
             return this.Adapter.Update(dataTable);
         }
         
@@ -6562,7 +11532,7 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         public virtual int Update(InternalEngineeringDataSet dataSet) {
-            return this.Adapter.Update(dataSet, "BldWelyat");
+            return this.Adapter.Update(dataSet, "BldSupervisionServicesTypes");
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6584,8 +11554,8 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_WelyahID) {
-            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_WelyahID));
+        public virtual int Delete(int Original_ID) {
+            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ID));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -6606,19 +11576,24 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int WelyahCode, string WelyahEnName, string WelyahArName) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(WelyahCode));
-            if ((WelyahEnName == null)) {
-                throw new global::System.ArgumentNullException("WelyahEnName");
+        public virtual int Insert(string ServiceNameAR, string ServiceNameEn, global::System.Nullable<int> ServiceStatus) {
+            if ((ServiceNameAR == null)) {
+                throw new global::System.ArgumentNullException("ServiceNameAR");
             }
             else {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(WelyahEnName));
+                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(ServiceNameAR));
             }
-            if ((WelyahArName == null)) {
-                throw new global::System.ArgumentNullException("WelyahArName");
+            if ((ServiceNameEn == null)) {
+                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(WelyahArName));
+                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(ServiceNameEn));
+            }
+            if ((ServiceStatus.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[2].Value = ((int)(ServiceStatus.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -6640,21 +11615,26 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int WelyahCode, string WelyahEnName, string WelyahArName, int Original_WelyahID) {
-            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(WelyahCode));
-            if ((WelyahEnName == null)) {
-                throw new global::System.ArgumentNullException("WelyahEnName");
+        public virtual int Update(string ServiceNameAR, string ServiceNameEn, global::System.Nullable<int> ServiceStatus, int Original_ID) {
+            if ((ServiceNameAR == null)) {
+                throw new global::System.ArgumentNullException("ServiceNameAR");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(WelyahEnName));
+                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(ServiceNameAR));
             }
-            if ((WelyahArName == null)) {
-                throw new global::System.ArgumentNullException("WelyahArName");
+            if ((ServiceNameEn == null)) {
+                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(WelyahArName));
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(ServiceNameEn));
             }
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_WelyahID));
+            if ((ServiceStatus.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(ServiceStatus.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_ID));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -6684,15 +11664,19 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
         
         private UpdateOrderOption _updateOrder;
         
+        private BldRegionsTableAdapter _bldRegionsTableAdapter;
+        
         private BldSquareLettersTableAdapter _bldSquareLettersTableAdapter;
+        
+        private BldWelyatTableAdapter _bldWelyatTableAdapter;
+        
+        private BldPaymentTableAdapter _bldPaymentTableAdapter;
         
         private BldBuildingTypesTableAdapter _bldBuildingTypesTableAdapter;
         
         private BldLandUseTypesTableAdapter _bldLandUseTypesTableAdapter;
         
-        private BldRegionsTableAdapter _bldRegionsTableAdapter;
-        
-        private BldWelyatTableAdapter _bldWelyatTableAdapter;
+        private BldSupervisionServicesTypesTableAdapter _bldSupervisionServicesTypesTableAdapter;
         
         private bool _backupDataSetBeforeUpdate;
         
@@ -6714,12 +11698,54 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
         [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
             "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" +
             "a", "System.Drawing.Design.UITypeEditor")]
+        public BldRegionsTableAdapter BldRegionsTableAdapter {
+            get {
+                return this._bldRegionsTableAdapter;
+            }
+            set {
+                this._bldRegionsTableAdapter = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
+            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" +
+            "a", "System.Drawing.Design.UITypeEditor")]
         public BldSquareLettersTableAdapter BldSquareLettersTableAdapter {
             get {
                 return this._bldSquareLettersTableAdapter;
             }
             set {
                 this._bldSquareLettersTableAdapter = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
+            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" +
+            "a", "System.Drawing.Design.UITypeEditor")]
+        public BldWelyatTableAdapter BldWelyatTableAdapter {
+            get {
+                return this._bldWelyatTableAdapter;
+            }
+            set {
+                this._bldWelyatTableAdapter = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
+            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" +
+            "a", "System.Drawing.Design.UITypeEditor")]
+        public BldPaymentTableAdapter BldPaymentTableAdapter {
+            get {
+                return this._bldPaymentTableAdapter;
+            }
+            set {
+                this._bldPaymentTableAdapter = value;
             }
         }
         
@@ -6756,26 +11782,12 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
         [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
             "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" +
             "a", "System.Drawing.Design.UITypeEditor")]
-        public BldRegionsTableAdapter BldRegionsTableAdapter {
+        public BldSupervisionServicesTypesTableAdapter BldSupervisionServicesTypesTableAdapter {
             get {
-                return this._bldRegionsTableAdapter;
+                return this._bldSupervisionServicesTypesTableAdapter;
             }
             set {
-                this._bldRegionsTableAdapter = value;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
-            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" +
-            "a", "System.Drawing.Design.UITypeEditor")]
-        public BldWelyatTableAdapter BldWelyatTableAdapter {
-            get {
-                return this._bldWelyatTableAdapter;
-            }
-            set {
-                this._bldWelyatTableAdapter = value;
+                this._bldSupervisionServicesTypesTableAdapter = value;
             }
         }
         
@@ -6798,9 +11810,21 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
                 if ((this._connection != null)) {
                     return this._connection;
                 }
+                if (((this._bldRegionsTableAdapter != null) 
+                            && (this._bldRegionsTableAdapter.Connection != null))) {
+                    return this._bldRegionsTableAdapter.Connection;
+                }
                 if (((this._bldSquareLettersTableAdapter != null) 
                             && (this._bldSquareLettersTableAdapter.Connection != null))) {
                     return this._bldSquareLettersTableAdapter.Connection;
+                }
+                if (((this._bldWelyatTableAdapter != null) 
+                            && (this._bldWelyatTableAdapter.Connection != null))) {
+                    return this._bldWelyatTableAdapter.Connection;
+                }
+                if (((this._bldPaymentTableAdapter != null) 
+                            && (this._bldPaymentTableAdapter.Connection != null))) {
+                    return this._bldPaymentTableAdapter.Connection;
                 }
                 if (((this._bldBuildingTypesTableAdapter != null) 
                             && (this._bldBuildingTypesTableAdapter.Connection != null))) {
@@ -6810,13 +11834,9 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
                             && (this._bldLandUseTypesTableAdapter.Connection != null))) {
                     return this._bldLandUseTypesTableAdapter.Connection;
                 }
-                if (((this._bldRegionsTableAdapter != null) 
-                            && (this._bldRegionsTableAdapter.Connection != null))) {
-                    return this._bldRegionsTableAdapter.Connection;
-                }
-                if (((this._bldWelyatTableAdapter != null) 
-                            && (this._bldWelyatTableAdapter.Connection != null))) {
-                    return this._bldWelyatTableAdapter.Connection;
+                if (((this._bldSupervisionServicesTypesTableAdapter != null) 
+                            && (this._bldSupervisionServicesTypesTableAdapter.Connection != null))) {
+                    return this._bldSupervisionServicesTypesTableAdapter.Connection;
                 }
                 return null;
             }
@@ -6831,7 +11851,16 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
         public int TableAdapterInstanceCount {
             get {
                 int count = 0;
+                if ((this._bldRegionsTableAdapter != null)) {
+                    count = (count + 1);
+                }
                 if ((this._bldSquareLettersTableAdapter != null)) {
+                    count = (count + 1);
+                }
+                if ((this._bldWelyatTableAdapter != null)) {
+                    count = (count + 1);
+                }
+                if ((this._bldPaymentTableAdapter != null)) {
                     count = (count + 1);
                 }
                 if ((this._bldBuildingTypesTableAdapter != null)) {
@@ -6840,10 +11869,7 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
                 if ((this._bldLandUseTypesTableAdapter != null)) {
                     count = (count + 1);
                 }
-                if ((this._bldRegionsTableAdapter != null)) {
-                    count = (count + 1);
-                }
-                if ((this._bldWelyatTableAdapter != null)) {
+                if ((this._bldSupervisionServicesTypesTableAdapter != null)) {
                     count = (count + 1);
                 }
                 return count;
@@ -6857,6 +11883,24 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private int UpdateUpdatedRows(InternalEngineeringDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
+            if ((this._bldWelyatTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.BldWelyat.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._bldWelyatTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._bldRegionsTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.BldRegions.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._bldRegionsTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
             if ((this._bldSquareLettersTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.BldSquareLetters.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
@@ -6884,21 +11928,21 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._bldWelyatTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.BldWelyat.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._bldPaymentTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.BldPayment.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._bldWelyatTableAdapter.Update(updatedRows));
+                    result = (result + this._bldPaymentTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._bldRegionsTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.BldRegions.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._bldSupervisionServicesTypesTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.BldSupervisionServicesTypes.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._bldRegionsTableAdapter.Update(updatedRows));
+                    result = (result + this._bldSupervisionServicesTypesTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -6912,6 +11956,22 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private int UpdateInsertedRows(InternalEngineeringDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
+            if ((this._bldWelyatTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.BldWelyat.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._bldWelyatTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._bldRegionsTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.BldRegions.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._bldRegionsTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
             if ((this._bldSquareLettersTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.BldSquareLetters.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
@@ -6936,19 +11996,19 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._bldWelyatTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.BldWelyat.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._bldPaymentTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.BldPayment.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._bldWelyatTableAdapter.Update(addedRows));
+                    result = (result + this._bldPaymentTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._bldRegionsTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.BldRegions.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._bldSupervisionServicesTypesTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.BldSupervisionServicesTypes.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._bldRegionsTableAdapter.Update(addedRows));
+                    result = (result + this._bldSupervisionServicesTypesTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -6962,19 +12022,19 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private int UpdateDeletedRows(InternalEngineeringDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
-            if ((this._bldRegionsTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.BldRegions.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._bldSupervisionServicesTypesTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.BldSupervisionServicesTypes.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._bldRegionsTableAdapter.Update(deletedRows));
+                    result = (result + this._bldSupervisionServicesTypesTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._bldWelyatTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.BldWelyat.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._bldPaymentTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.BldPayment.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._bldWelyatTableAdapter.Update(deletedRows));
+                    result = (result + this._bldPaymentTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -6999,6 +12059,22 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._bldSquareLettersTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._bldRegionsTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.BldRegions.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._bldRegionsTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._bldWelyatTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.BldWelyat.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._bldWelyatTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -7041,8 +12117,23 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
             if ((dataSet.HasChanges() == false)) {
                 return 0;
             }
+            if (((this._bldRegionsTableAdapter != null) 
+                        && (this.MatchTableAdapterConnection(this._bldRegionsTableAdapter.Connection) == false))) {
+                throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
+                        "tring.");
+            }
             if (((this._bldSquareLettersTableAdapter != null) 
                         && (this.MatchTableAdapterConnection(this._bldSquareLettersTableAdapter.Connection) == false))) {
+                throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
+                        "tring.");
+            }
+            if (((this._bldWelyatTableAdapter != null) 
+                        && (this.MatchTableAdapterConnection(this._bldWelyatTableAdapter.Connection) == false))) {
+                throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
+                        "tring.");
+            }
+            if (((this._bldPaymentTableAdapter != null) 
+                        && (this.MatchTableAdapterConnection(this._bldPaymentTableAdapter.Connection) == false))) {
                 throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
                         "tring.");
             }
@@ -7056,13 +12147,8 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
                 throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
                         "tring.");
             }
-            if (((this._bldRegionsTableAdapter != null) 
-                        && (this.MatchTableAdapterConnection(this._bldRegionsTableAdapter.Connection) == false))) {
-                throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
-                        "tring.");
-            }
-            if (((this._bldWelyatTableAdapter != null) 
-                        && (this.MatchTableAdapterConnection(this._bldWelyatTableAdapter.Connection) == false))) {
+            if (((this._bldSupervisionServicesTypesTableAdapter != null) 
+                        && (this.MatchTableAdapterConnection(this._bldSupervisionServicesTypesTableAdapter.Connection) == false))) {
                 throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
                         "tring.");
             }
@@ -7098,6 +12184,15 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
             try {
                 // ---- Prepare for update -----------
                 //
+                if ((this._bldRegionsTableAdapter != null)) {
+                    revertConnections.Add(this._bldRegionsTableAdapter, this._bldRegionsTableAdapter.Connection);
+                    this._bldRegionsTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(workConnection));
+                    this._bldRegionsTableAdapter.Transaction = ((global::System.Data.SqlClient.SqlTransaction)(workTransaction));
+                    if (this._bldRegionsTableAdapter.Adapter.AcceptChangesDuringUpdate) {
+                        this._bldRegionsTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
+                        adaptersWithAcceptChangesDuringUpdate.Add(this._bldRegionsTableAdapter.Adapter);
+                    }
+                }
                 if ((this._bldSquareLettersTableAdapter != null)) {
                     revertConnections.Add(this._bldSquareLettersTableAdapter, this._bldSquareLettersTableAdapter.Connection);
                     this._bldSquareLettersTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(workConnection));
@@ -7105,6 +12200,24 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
                     if (this._bldSquareLettersTableAdapter.Adapter.AcceptChangesDuringUpdate) {
                         this._bldSquareLettersTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
                         adaptersWithAcceptChangesDuringUpdate.Add(this._bldSquareLettersTableAdapter.Adapter);
+                    }
+                }
+                if ((this._bldWelyatTableAdapter != null)) {
+                    revertConnections.Add(this._bldWelyatTableAdapter, this._bldWelyatTableAdapter.Connection);
+                    this._bldWelyatTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(workConnection));
+                    this._bldWelyatTableAdapter.Transaction = ((global::System.Data.SqlClient.SqlTransaction)(workTransaction));
+                    if (this._bldWelyatTableAdapter.Adapter.AcceptChangesDuringUpdate) {
+                        this._bldWelyatTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
+                        adaptersWithAcceptChangesDuringUpdate.Add(this._bldWelyatTableAdapter.Adapter);
+                    }
+                }
+                if ((this._bldPaymentTableAdapter != null)) {
+                    revertConnections.Add(this._bldPaymentTableAdapter, this._bldPaymentTableAdapter.Connection);
+                    this._bldPaymentTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(workConnection));
+                    this._bldPaymentTableAdapter.Transaction = ((global::System.Data.SqlClient.SqlTransaction)(workTransaction));
+                    if (this._bldPaymentTableAdapter.Adapter.AcceptChangesDuringUpdate) {
+                        this._bldPaymentTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
+                        adaptersWithAcceptChangesDuringUpdate.Add(this._bldPaymentTableAdapter.Adapter);
                     }
                 }
                 if ((this._bldBuildingTypesTableAdapter != null)) {
@@ -7125,22 +12238,13 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
                         adaptersWithAcceptChangesDuringUpdate.Add(this._bldLandUseTypesTableAdapter.Adapter);
                     }
                 }
-                if ((this._bldRegionsTableAdapter != null)) {
-                    revertConnections.Add(this._bldRegionsTableAdapter, this._bldRegionsTableAdapter.Connection);
-                    this._bldRegionsTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(workConnection));
-                    this._bldRegionsTableAdapter.Transaction = ((global::System.Data.SqlClient.SqlTransaction)(workTransaction));
-                    if (this._bldRegionsTableAdapter.Adapter.AcceptChangesDuringUpdate) {
-                        this._bldRegionsTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
-                        adaptersWithAcceptChangesDuringUpdate.Add(this._bldRegionsTableAdapter.Adapter);
-                    }
-                }
-                if ((this._bldWelyatTableAdapter != null)) {
-                    revertConnections.Add(this._bldWelyatTableAdapter, this._bldWelyatTableAdapter.Connection);
-                    this._bldWelyatTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(workConnection));
-                    this._bldWelyatTableAdapter.Transaction = ((global::System.Data.SqlClient.SqlTransaction)(workTransaction));
-                    if (this._bldWelyatTableAdapter.Adapter.AcceptChangesDuringUpdate) {
-                        this._bldWelyatTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
-                        adaptersWithAcceptChangesDuringUpdate.Add(this._bldWelyatTableAdapter.Adapter);
+                if ((this._bldSupervisionServicesTypesTableAdapter != null)) {
+                    revertConnections.Add(this._bldSupervisionServicesTypesTableAdapter, this._bldSupervisionServicesTypesTableAdapter.Connection);
+                    this._bldSupervisionServicesTypesTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(workConnection));
+                    this._bldSupervisionServicesTypesTableAdapter.Transaction = ((global::System.Data.SqlClient.SqlTransaction)(workTransaction));
+                    if (this._bldSupervisionServicesTypesTableAdapter.Adapter.AcceptChangesDuringUpdate) {
+                        this._bldSupervisionServicesTypesTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
+                        adaptersWithAcceptChangesDuringUpdate.Add(this._bldSupervisionServicesTypesTableAdapter.Adapter);
                     }
                 }
                 // 
@@ -7201,9 +12305,21 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
                 if (workConnOpened) {
                     workConnection.Close();
                 }
+                if ((this._bldRegionsTableAdapter != null)) {
+                    this._bldRegionsTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._bldRegionsTableAdapter]));
+                    this._bldRegionsTableAdapter.Transaction = null;
+                }
                 if ((this._bldSquareLettersTableAdapter != null)) {
                     this._bldSquareLettersTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._bldSquareLettersTableAdapter]));
                     this._bldSquareLettersTableAdapter.Transaction = null;
+                }
+                if ((this._bldWelyatTableAdapter != null)) {
+                    this._bldWelyatTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._bldWelyatTableAdapter]));
+                    this._bldWelyatTableAdapter.Transaction = null;
+                }
+                if ((this._bldPaymentTableAdapter != null)) {
+                    this._bldPaymentTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._bldPaymentTableAdapter]));
+                    this._bldPaymentTableAdapter.Transaction = null;
                 }
                 if ((this._bldBuildingTypesTableAdapter != null)) {
                     this._bldBuildingTypesTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._bldBuildingTypesTableAdapter]));
@@ -7213,13 +12329,9 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
                     this._bldLandUseTypesTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._bldLandUseTypesTableAdapter]));
                     this._bldLandUseTypesTableAdapter.Transaction = null;
                 }
-                if ((this._bldRegionsTableAdapter != null)) {
-                    this._bldRegionsTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._bldRegionsTableAdapter]));
-                    this._bldRegionsTableAdapter.Transaction = null;
-                }
-                if ((this._bldWelyatTableAdapter != null)) {
-                    this._bldWelyatTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._bldWelyatTableAdapter]));
-                    this._bldWelyatTableAdapter.Transaction = null;
+                if ((this._bldSupervisionServicesTypesTableAdapter != null)) {
+                    this._bldSupervisionServicesTypesTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._bldSupervisionServicesTypesTableAdapter]));
+                    this._bldSupervisionServicesTypesTableAdapter.Transaction = null;
                 }
                 if ((0 < adaptersWithAcceptChangesDuringUpdate.Count)) {
                     global::System.Data.Common.DataAdapter[] adapters = new System.Data.Common.DataAdapter[adaptersWithAcceptChangesDuringUpdate.Count];

@@ -14,7 +14,7 @@ namespace DMeServices.Models.Configrations
 
         private static string GetMessageFromResource(string resourceId)
         {
-            ResourceManager resourceManager = new ResourceManager(typeof(Resources.DisplayName_Ar));
+            ResourceManager resourceManager = new ResourceManager(typeof(Resources.DisplayName));
             return resourceManager.GetString(resourceId);
         }
 

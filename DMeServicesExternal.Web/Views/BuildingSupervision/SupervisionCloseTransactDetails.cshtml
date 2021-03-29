@@ -1,0 +1,353 @@
+﻿@model DMeServices.Models.ViewModels.Permits.SupervisionViewModel
+@{
+    ViewBag.Title = "NewPayment";
+    Layout = "~/Views/Shared/_SubLayout.cshtml";
+
+}
+
+<script>
+    $(document).ready(function () {
+        $("#btnGenerateReport").click(function () {
+
+            ReportManager.GenerateReport();
+
+        });
+    });
+    var ReportManager = {
+        GenerateReport: function () {
+
+            var jsonParam = "";
+            var serviceUrl = "../../Home/GetReport";
+            ReportManager.GetReport(serviceUrl, jsonParam, onFailed);
+
+            function onFailed(error) {
+                alert(error);
+            }
+        },
+        GetReport: function (serviceUrl, jsonParam, errorCallBack) {
+
+            jQuery.ajax({
+                url: serviceUrl,
+                async: false,
+                type: "POST",
+                data: "{" + jsonParam + "}",
+                contentType: "application/json; charset=utf-8",
+                success: function () {
+                    window.open('../../Reports/ReportViewer.aspx', 'newtab');
+                },
+                error: errorCallBack
+            });
+        }
+    };
+    var ReportHelper = {
+
+    };
+</script>
+
+<style>
+    .form-group {
+        margin-bottom: 2px;
+    }
+
+    .table > tbody > tr > td, .table > thead > tr > td {
+        padding: 4px;
+    }
+
+    .dropdown-toggle {
+        background-color: transparent;
+        border-color: #000000;
+        border-style: solid;
+    }
+</style>
+
+<div>
+    <ul class="breadcrumb">
+        <li>
+            <a href="@Url.Action("Index","Home")">الرئيسية</a>
+        </li>
+        <li>
+            <a href="@Url.Action("Index","BuildingPermits")">تصاريح البناء</a>
+        </li>
+        <li>
+            <a href="#"> تفاصيل تصريح البناء</a>
+        </li>
+    </ul>
+</div>
+
+<div class="col-lg-12 col-sm-12">
+    <div class="row">
+        @using (Html.BeginForm("SaveSupervisionCloseTransaction", "BuildingSupervision", FormMethod.Post, new { encType = "multipart/form-data", @id = "Supervisionform" }))
+        {
+            var Welayah = DMeServices.Models.Common.BuildingServices.WelayatCom.WelayahByID((int)Model.BuildingPermits.WelayahID);
+            var Region = DMeServices.Models.Common.BuildingServices.RegionsCom.RegionByID((int)Model.BuildingPermits.RegionID);
+            var SquarLetter = DMeServices.Models.Common.BuildingServices.SquareLettersCom.SquareLetterByID((int)Model.BuildingPermits.SquareLetterID);
+            var LandUse = DMeServices.Models.Common.BuildingServices.LandUseTypesCom.LandUseTypesByID((int)Model.BuildingPermits.UseTypeID);
+            var BuildingType = DMeServices.Models.Common.BuildingServices.BuildingTypesCom.BuildingTypesByID((int)Model.BuildingPermits.BuildingTypeID);
+            var serviceType = DMeServices.Models.Common.BuildingServices.SupervisionCom.ServiceByID((int)Model.BuildingSupervision.ServiceTypeID).ServiceNameAR;
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(x => x.BuildingSupervision.ID)
+            @Html.HiddenFor(x => x.BuildingSupervision.BldPermitID)
+            @Html.HiddenFor(x => x.BuildingSupervision.ConsultantCivilId)
+            @Html.HiddenFor(x => x.BuildingSupervision.TransactNo)
+
+            <div class="row">
+                
+                <div class="box col-md-6">
+                    <h5>بيانات مكان قطعة الأرض</h5>
+                    <div class="form-group col-md-4">
+                        <label class="control-label">محافظة</label>
+                        <input class="form-control" placeholder="ظفار" readonly="readonly" />
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label class="control-label">الولاية</label>
+                        <label class="form-control" readonly="readonly">@Welayah.WelyahArName</label>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label class="control-label">اسم المنطقة / القرية</label>
+                        <label class="form-control" readonly="readonly">@Region.RegionArName</label>
+                    </div>
+                </div>
+                <div class="box col-md-6">
+                    <h5>بيانات قطعة الأرض</h5>
+                    <div class="form-group col-md-4">
+                        <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.SquareLetterID)</label>
+                        <label class="form-control" readonly="readonly">@SquarLetter.ArLetter</label>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.DistrictNo)</label>
+                        @Html.TextBoxFor(m => m.BuildingPermits.DistrictNo, new { @readonly = "readonly", @class = "form-control", id = "DistrictNo", @placeholder = "رقم القطعة" })
+                    </div>
+                </div>
+                <div class="box col-md-6">
+                    <h5>بيانات ترخيص البناء</h5>
+                    <div class="form-group col-md-3">
+                        <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.ConstructedArea)</label>
+                        @Html.TextBoxFor(m => m.BuildingPermits.ConstructedArea, new { @readonly = "readonly", @class = "form-control", id = "ConstructedArea", @placeholder = "المساحة المراد بنائها" })
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.ConstructionType)</label>
+                        <label class="form-control" readonly="readonly">@LandUse.UseType</label>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.BuildingTypeID)</label>
+                        <label class="form-control" readonly="readonly">@BuildingType.BuildingType</label>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.NumberOfFloors)</label>
+                        @Html.TextBoxFor(m => m.BuildingPermits.NumberOfFloors, new { @class = "form-control", @readonly = "readonly", id = "NumberOfFloors", @placeholder = "عدد الطوابق المراد بنائها" })
+                    </div>
+                </div>
+            </div>
+
+            <br />
+
+            <h5>تفاصيل الطلب</h5>
+            <br />
+            <div class="row">
+                <div id="FileBrowse" class="form-group col-md-12">
+
+
+                    <div class="form-group col-lg-2">
+                        <label class="control-label">نزع الخدمة المطلوبة</label>
+                        @Html.DropDownListFor(s => s.ServiceType.ID, (List<SelectListItem>)ViewBag.DDServiceType, new { style = "padding:0px", @class = "form-control", @data_rel = "chosen", id = "ServiceType" })
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label class="control-label">@Html.DisplayNameFor(m => m.BuildingSupervision.ConsultantNotes)</label>
+                        @Html.TextAreaFor(m => m.BuildingSupervision.ConsultantNotes, new { @class = "form-control", id = "Notes", @placeholder = "ملاحظات" })
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <div class="col-lg-10">
+                            <label class="control-label">@Html.DisplayName("مرفقات العمل الحالي")</label>
+                        
+                            @Html.TextBoxFor(m => m.CosultantAttachments.File, new { @type = "file", @multiple = "multiple", @id = "InspectorAttachments", @class = "form-control", @onchange = "onchangeevent(this);" })
+                            @Html.ValidationMessageFor(m => m.CosultantAttachments.File, "", new { @style = "color:orange;" })
+                        </div>
+
+                        <div class="col-lg-2">
+                            <div id="CosultantAttachmentsLoader" class="loading" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader"></div>
+                            <span id="CosultantAttachmentsSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+                
+
+                <br />
+                <div class="row">
+
+                    <button class="btn btn-primary" id="Save">
+                        <i class="glyphicon glyphicon-ok"></i> حفظ
+                    </button>
+
+                    <a style="float:left" href="@Url.Action( "Index","BuildingSupervision")" class="btn btn-primary" role="button">الصفحة السابقة</a>
+
+                </div>
+            </div>
+        }
+    </div>
+
+</div>
+
+
+
+<div class="modal fade" id="MainModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+
+        $("#Quantity,#Fees").keyup(function (e) {
+
+            var q = $("#Quantity").val();
+            var p = $("#Fees").val();
+            var result = "";
+
+            if (q !== "" && p !== "" && $.isNumeric(q) && $.isNumeric(p)) {
+                result = parseFloat(q) * parseFloat(p);
+            }
+            $("#Total").val(result);
+
+        });
+
+    });
+    $("#Save").click(function () {
+        alert("top");
+        $('#Supervisionform').submit();
+    });
+
+</script>
+<script>
+
+    $(document).ready(function () {
+
+        $("#ServiceID").change(function () {
+            $("#Fees").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetFees")', // Calling json method
+                dataType: 'json',
+                data: { id: $("#ServiceID").val() },
+                // Get Selected Country ID.
+                success: function (response) {
+
+                    $("#Fees").val(response);
+
+                },
+                error: function (ex) {
+                    console.log(ex.message)
+                    alert('Failed to retrieve states.' + ex);
+                }
+            });
+            return false;
+        })
+
+        $('#SaveFees').attr('disabled', true);
+        $("#ServiceID option[value='0']").attr("disabled", "disabled");
+        $("#Quantity").change(function () {
+
+            var total = $("#Total").val();
+            if (total > 0) {
+
+                $('#SaveFees').attr('disabled', false);
+            }
+        })
+
+        $("#SaveFees").click(function () {
+
+            var data = new FormData();
+            var total = $("#Total").val();
+            if (total > 0) {
+                data.append("ServiceID", $("#ServiceID").val());
+                data.append("Fees", $("#Fees").val());
+                data.append("Quantity", $("#Quantity").val());
+                data.append("Total", $("#Total").val());
+
+            }
+            var url = "@Url.Action("SavePayment", "BuildingSupervision")";
+            $.ajax({
+                url: url,
+                type: "POST",
+                processData: false,
+                contentType: false,
+                data: data,
+                async: false,
+                success: function (response) {
+                    if (response != "") {
+                        $('#divPayments').html(response);
+                    }
+                    $('#Fees').val('');
+                    $('#ServiceID').val('0');
+                    $('#Quantity').val('');
+                    $('#Total').val('');
+                    $('#SaveFees').attr('disabled', true);
+                },
+                error: function (er) {
+                    console.log(er.message);
+                    $('#SaveFees').attr('disabled', true);
+                }
+            });
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+
+        $("#PermitsStatus option[value='0']").attr("disabled", "disabled");
+
+        $("#Save").click(function () {
+            alert("down");
+            $("#Supervisionform").submit();
+        });
+
+
+
+    });
+</script>
+
+
+<script type="text/javascript">
+    $(function () {
+        // Initialize numeric spinner input boxes
+        //$(".numeric-spinner").spinedit();
+
+        // Initalize modal dialog
+        // attach modal-container bootstrap attributes to links with .modal-link class.
+        // when a link is clicked with these attributes, bootstrap will display the href content in a modal dialog.
+
+        $('body').on('click', '.modal-link', function (e) {
+
+            $(this).attr('data-target', '#MainModal');
+            $(this).attr('data-toggle', 'modal');
+        });
+
+
+        // Attach listener to .modal-close-btn's so that when the button is pressed the modal dialog disappears
+        $('body').on('click', '.modal-close-btn', function () {
+
+            $('#MainModal').modal('hide');
+        });
+
+        //clear modal cache, so that new content can be loaded
+        $('#MainModal').on('hidden.bs.modal', function () {
+
+            $(this).removeData('bs.modal');
+        });
+
+        $(document).on("hidden.bs.modal", function (e) {
+            $(e.target).removeData("bs.modal").find(".modal-content").empty();
+        });
+
+        $('#CancelModal').on('click', function () {
+            return false;
+        });
+    });
+</script>
+

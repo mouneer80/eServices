@@ -61,5 +61,13 @@ namespace DMeServices.Models.ViewModels.Internal.Permits
         public decimal? Fees { get; set; }
         public decimal? Total { get; set; }
         public decimal? TempGrandTotal { get; set; }
+
+        public Transactions SupervisionTransact { get; set; }
+        public List<Transactions> TransactsList { get; set; }
+
+        public Owner Owner { get; set; }
+        public List<Owner> ListOfOwners { get; set; }
+
+        public Contractor Contractor { get; set; }
     }
 }

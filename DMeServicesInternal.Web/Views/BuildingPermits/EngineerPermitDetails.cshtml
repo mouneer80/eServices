@@ -4,6 +4,7 @@
     ViewBag.Title = "PermitDetails";
     Layout = "~/Views/Shared/_SubLayout.cshtml";
 }
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
 
 <script>
     $(document).ready(function () {
@@ -22,8 +23,18 @@
             counter++;
         });
 
-        $("#btnFees").hide();
-        $("#btnPrint").hide();
+        if ($('#PermitsStatus').val() == '28') {
+            $('#btnFees').show();
+            $("#btnPrint").hide();
+        }
+        else if ($('#PermitsStatus').val() == '29') {
+            $("#btnFees").hide();
+            $("#btnPrint").show();
+        }
+        else {
+            $("#btnFees").hide();
+            $("#btnPrint").hide();
+        }
 
         $("#PermitsStatus").on("change", function () {
             if (this.value == 28) {
@@ -153,7 +164,7 @@
             @Html.HiddenFor(x => x.BuildingPermits.ConsultantCivilId)
             @Html.HiddenFor(x => x.BuildingPermits.TransactNo)
             <div class="row">
-                <div class="form-group col-lg-4">
+                <div class="form-group col-lg-6">
                     <h5>بيانات الاستشاري</h5>
                     <div class="form-group col-lg-4">
                         <label class="control-label">اسم المكتب الاستشاري</label>
@@ -168,22 +179,36 @@
                         <lable class="form-control">@User.MobileNo.ToString()</lable>
                     </div>
                 </div>
-                <div class="form-group col-lg-4">
+                <div class="form-group col-lg-6">
                     <h5>بيانات مالك الارض</h5>
-                    <div class="form-group col-lg-4">
-                        <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.OwnerName)</label>
-                        @Html.TextBoxFor(m => m.BuildingPermits.OwnerName, new { @readonly = "readonly", @class = "form-control", id = "OwnerName", @placeholder = "إسم المالك" })
-                    </div>
-                    <div class="form-group col-lg-4">
-                        <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.OwnerCivilId)</label>
-                        @Html.TextBoxFor(m => m.BuildingPermits.OwnerCivilId, new { @readonly = "readonly", @class = "form-control", id = "OwnerCivilId", @placeholder = "الرقم المدني للمالك" })
-                    </div>
-                    <div class="form-group col-lg-4">
-                        <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.OwnerPhoneNo)</label>
-                        @Html.TextBoxFor(m => m.BuildingPermits.OwnerPhoneNo, new { @readonly = "readonly", @class = "form-control", id = "OwnerPhoneNo", @placeholder = "الهاتف" })
-                    </div>
+                    @{
+                        if (Model.BuildingPermits.OwnerName != null)
+                        {
+                            <div class="form-group col-lg-3">
+                                <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.OwnerName)</label>
+                                @Html.TextBoxFor(m => m.BuildingPermits.OwnerName, new { @readonly = "readonly", @class = "form-control", id = "OwnerName", @placeholder = "إسم المالك" })
+                            </div>
+                            <div class="form-group col-lg-3">
+                                <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.OwnerCivilId)</label>
+                                @Html.TextBoxFor(m => m.BuildingPermits.OwnerCivilId, new { @readonly = "readonly", @class = "form-control", id = "OwnerCivilId", @placeholder = "الرقم المدني للمالك" })
+                            </div>
+                            <div class="form-group col-lg-3">
+                                <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.OwnerPhoneNo)</label>
+                                @Html.TextBoxFor(m => m.BuildingPermits.OwnerPhoneNo, new { @readonly = "readonly", @class = "form-control", id = "OwnerPhoneNo", @placeholder = "الهاتف" })
+                            </div>
+                        }
+                        else
+                        {
+                            <div id="divOwners" class="box">
+                                @if (Model.ListOfOwners != null && Model.ListOfOwners.Count > 0)
+                                {
+                                    Html.RenderPartial("_ListOwnersDetails", Model);
+                                }
+                            </div>
+                        }
+                    }
                 </div>
-                <div class="form-group col-lg-4">
+                <div class="form-group col-lg-6">
                     <h5>بيانات مكان قطعة الأرض</h5>
                     <div class="form-group col-lg-3">
                         <label class="control-label">محافظة</label>
@@ -334,11 +359,68 @@
         }
 
     </div>
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <script type="text/javascript">
+
+            window.onload = function () {
+                $('#ErrorModal').find('.modal-content').text('@ViewBag.ErrorMessage');
+                $("#ErrorModal").modal("show");
+                @*$("#lblError").html('@Html.Raw(ViewBag.ErrorMessage)');*@
+                /*$("#MainModal").modal("show");*/
+            };
+        </script>
+        <style>
+            #ErrorModal .modal-open {
+                direction: rtl;
+            }
+
+            #ErrorModal .modal-dialog {
+                width: 40%;
+                height: 100px;
+                margin-top: 50px;
+            }
+
+            #ErrorModal .modal-content {
+                height: 100px;
+                margin: 50px auto;
+                padding: 25px 50px;
+            }
+
+            #ErrorModal .modal-header {
+                background: linear-gradient(to bottom, rgb(255 255 255) 100%, #999999 100%);
+            }
+
+            #ErrorModal .modal-footer {
+                background: linear-gradient(to bottom, rgb(255 255 255) 100%, #DDDDDD 100%);
+            }
+
+            #ErrorModal .modal-body {
+                background: linear-gradient(to bottom, rgb(255 255 255) 100%, #DDDDDD 100%);
+            }
+
+            #ErrorModal .modal-content {
+                background-color: #ffffff;
+                border: 0px solid #999999;
+                webkit-box-shadow: none;
+                box-shadow: none;
+                border-radius: 0;
+            }
+        </style>
+    }
 </div>
 
 
 
 <div class="modal fade" id="MainModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ErrorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
 

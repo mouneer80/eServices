@@ -21,6 +21,7 @@ namespace DMeServicesInternal.Web.Controllers
         // GET: BuildingPermits
         public ActionResult Index()
         {
+            //PermitsCom.GenLicenseNo();
             PermitsViewModel oModel = new PermitsViewModel();
             return View(oModel);
         }
@@ -94,8 +95,12 @@ namespace DMeServicesInternal.Web.Controllers
         #endregion
 
         #region Method :: Permits Details
-        public ActionResult PermitDetails(int Id)
+        public ActionResult PermitDetails(int Id, string errorMessage)
         {
+            if (!string.IsNullOrEmpty(errorMessage))
+            {
+                ViewBag.ErrorMessage = errorMessage;
+            }
             PermitsViewModel oModel = new PermitsViewModel();
             oModel.BuildingPermits = PermitsCom.PermitsByID(Id);
             ViewBag.DDWelayat = DDWelayat();
@@ -104,12 +109,25 @@ namespace DMeServicesInternal.Web.Controllers
             ViewBag.DDBuildingTypes = DDBuildingTypes();
             ViewBag.DDLandUseTypes = DDLandUseTypes();
             ViewBag.DDSquareLetters = DDSquareLetters();
-            oModel.ListOfAttachments = PermitsAttachmentsCom.AttachmentsByPermitsID(Id, (int)oModel.BuildingPermits.OwnerCivilId);
-            ViewBag.DDPermitsStatus = DDPermitsStatus();
+            oModel.ListOfAttachments = PermitsAttachmentsCom.AttachmentsByPermitsID(Id, oModel.BuildingPermits.KrokiNO);
+            //ViewBag.DDPermitsStatus = DDPermitsStatus();
+            oModel.ListOfOwners = PermitsCom.OwnersByPermitID(Id);
             oModel.Payments = PaymentsCom.PaymentsByPermitsID(Id);
             oModel.PaymentDetailsList = PaymentsCom.MapsPaymentDetailsByPermitsID(Id);
+
+            List<SelectListItem> Statuslist = DDPermitsStatus();            
+            foreach (SelectListItem item in Statuslist.ToList())
+            {
+                if (item.Value == "8")
+                {
+                    Statuslist.Remove(item);
+                }
+            }
+            ViewBag.DDPermitsStatus = Statuslist;
+
             if (oModel.oEmployeeInfo.IsEngineerHead)
             {
+                ViewBag.DDPermitsStatus = DDPermitsStatus();
                 ViewBag.DDEngineersList = DDEngineers();
                 return View("HeadPermitDetails", oModel);
             }
@@ -132,20 +150,25 @@ namespace DMeServicesInternal.Web.Controllers
             //IExcelDataReader reader = null;
             PermitsAttachments Attachment = DMeServices.Models.Common.BuildingServices.PermitsAttachmentsCom.AttachmentsByID(Id);
             string contentType = MimeMapping.GetMimeMapping(Attachment.AttachmentPath);
+            Stream stream = new MemoryStream();
             if (Attachment.AttachmentStream == null || Attachment.AttachmentStream.Length <= 0)
             {
                 System.IO.FileStream oFile = new FileStream(Attachment.AttachmentPath, FileMode.Open, FileAccess.Read);
-                MemoryStream streamToUpdate = new MemoryStream();
-                oFile.CopyTo(streamToUpdate);
-                byte[] data = streamToUpdate.ToArray();
-                Attachment.AttachmentStream = data;
-                UpdateStream(Attachment);
+
+                oFile.CopyTo(stream);
+                //byte[] data = stream.ToArray();
+                //Attachment.AttachmentStream = data;
+                //UpdateStream(Attachment);
+            }
+            else
+            {
+                stream = new MemoryStream(Attachment.AttachmentStream);
             }
             if (Attachment != null)
             {
                 //FileStream file = new FileStream(Attachment.AttachmentPath, FileMode.Open, FileAccess.Read);
 
-                Stream stream = new MemoryStream(Attachment.AttachmentStream);
+                //Stream stream = new MemoryStream(Attachment.AttachmentStream);
                 //Stream stream = new MemoryStream();
                 //file.CopyTo(stream);
                 stream.Position = 0;
@@ -205,6 +228,65 @@ namespace DMeServicesInternal.Web.Controllers
                 }
             }
             return new EmptyResult();
+        }
+        #endregion
+
+        #region Method ::Edit PDF Files 
+        public ActionResult EditPDFFile(int Id, int PirmID)
+        {
+            //IExcelDataReader reader = null;
+            PermitsAttachments Attachment = DMeServices.Models.Common.BuildingServices.PermitsAttachmentsCom.AttachmentsByID(Id);
+
+            string contentType = MimeMapping.GetMimeMapping(Attachment.AttachmentPath);
+            if (Attachment.AttachmentStream == null || Attachment.AttachmentStream.Length <= 0)
+            {
+                System.IO.FileStream oFile = new FileStream(Attachment.AttachmentPath, FileMode.Open, FileAccess.Read);
+
+                MemoryStream streamToUpdate = new MemoryStream();
+                oFile.CopyTo(streamToUpdate);
+                byte[] data = streamToUpdate.ToArray();
+                Attachment.AttachmentStream = data;
+                UpdateStream(Attachment);
+            }
+
+            if (Attachment != null)
+            {
+                Stream stream = new MemoryStream(Attachment.AttachmentStream);
+                stream.Position = 0;
+                if (Attachment.AttachmentName.EndsWith(".pdf"))
+                {
+                    // Create RAD PDF control
+                    PdfWebControl pdfWebControl1 = new PdfWebControl();
+                    // Setup pdfWebControl1 with any properties which must be called before CreateDocument (optional)
+                    // e.g. pdfWebControl1.RenderDpi = 144;
+                    // Create document from PDF data
+                    pdfWebControl1.CreateDocument(Attachment.Id.ToString(), stream);
+                    // Put control in ViewBag
+                    ViewBag.PdfWebControl1 = pdfWebControl1;
+                    ViewBag.DocID = Attachment.Id;
+                    ViewBag.PermitNo = DMeServices.Models.Common.BuildingServices.PermitsCom.PermitsByID(Attachment.BldPermitId).LicenseNo;
+                    return PartialView("EditPDFFile");
+                    //   return new FileStreamResult(stream, contentType);
+                }
+                else if (Attachment.AttachmentName.EndsWith(".jpg"))
+                {
+                    return new FileStreamResult(stream, contentType);
+                }
+                else if (Attachment.AttachmentName.EndsWith(".png"))
+                {
+                    return new FileStreamResult(stream, contentType);
+                }
+                else if (Attachment.AttachmentName.EndsWith(".txt"))
+                {
+                    return new FileStreamResult(stream, contentType);
+                }
+            }
+            return new EmptyResult();
+        }
+
+        public static void UpdateStream(PermitsAttachments attachment)
+        {
+            PermitsAttachmentsCom.UpdateAttachmentStream((int)attachment.Id, attachment.AttachmentStream);
         }
         #endregion
 
@@ -347,37 +429,37 @@ namespace DMeServicesInternal.Web.Controllers
         #endregion
 
         #region Method :: Assign Permit
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AssignPermits(PermitsViewModel oModel)
         {
-            if (oModel.BuildingPermits.WorkflowStatus != 12 && oModel.BuildingPermits.WorkflowStatus != 0)
+            if (oModel.BuildingPermits.WorkflowStatus == 18)
             {
-                string Result = PermitsCom.SaveEngineerPermits(oModel);
+                SaveEngineerPermits(oModel);
+                //string Result = PermitsCom.SaveEngineerPermits(oModel);
 
-                if (Result == "ok")
-                {
-                    var User = DMeServices.Models.Common.UserCom.UserByCivilID((int)oModel.BuildingPermits.ConsultantCivilId);
+                //if (Result == "ok")
+                //{
+                //    var User = DMeServices.Models.Common.UserCom.UserByCivilID((int)oModel.BuildingPermits.ConsultantCivilId);
 
-                    switch (oModel.BuildingPermits.WorkflowStatus)
-                    {
-                        case 18:
-                            DMeServices.Models.Common.SmsCom.SendSms("968" + User.MobileNo, " : تم   الغاء المعاملة رقم المعاملة " + oModel.BuildingPermits.TransactNo);
-                            DMeServices.Models.Common.SmsCom.SendSms("968" + oModel.BuildingPermits.OwnerPhoneNo, " : تم   الغاء المعاملة رقم المعاملة " + oModel.BuildingPermits.TransactNo);
-                            break;
+                //    switch (oModel.BuildingPermits.WorkflowStatus)
+                //    {
+                //        case 18:
+                //            DMeServices.Models.Common.SmsCom.SendSms("968" + User.MobileNo, " : تم تعليق معاملتكم لحين استيفاء البيانات رقم المعاملة " + oModel.BuildingPermits.TransactNo);
+                //            DMeServices.Models.Common.SmsCom.SendSms("968" + oModel.BuildingPermits.OwnerPhoneNo, " : تم تعليق معاملتكم لحين استيفاء البيانات  رقم المعاملة " + oModel.BuildingPermits.TransactNo);
+                //            break;
 
-                        case 19:
-                            DMeServices.Models.Common.SmsCom.SendSms("968" + User.MobileNo, " : تم قبول المعاملة رقم المعاملة " + oModel.BuildingPermits.TransactNo);
-                            DMeServices.Models.Common.SmsCom.SendSms("968" + oModel.BuildingPermits.OwnerPhoneNo, " : تم قبول المعاملة  رقم المعاملة " + oModel.BuildingPermits.TransactNo);
-                            break;
-                        case 20:
-                            DMeServices.Models.Common.SmsCom.SendSms("968" + User.MobileNo, " : يوجد بعض التعديلات علي الخرائط رقم المعاملة " + oModel.BuildingPermits.TransactNo);
-                            DMeServices.Models.Common.SmsCom.SendSms("968" + oModel.BuildingPermits.OwnerPhoneNo, " : يوجد بعض التعديلات علي الخرائط رقم المعاملة " + oModel.BuildingPermits.TransactNo);
-                            break;
-                    }
+                //        case 19:
+                //            DMeServices.Models.Common.SmsCom.SendSms("968" + User.MobileNo, " : تم قبول معاملتكم وفي انتظار الدفع رقم المعاملة " + oModel.BuildingPermits.TransactNo);
+                //            DMeServices.Models.Common.SmsCom.SendSms("968" + oModel.BuildingPermits.OwnerPhoneNo, " : تم قبول معاملتكم وفي انتظار الدفع رقم المعاملة " + oModel.BuildingPermits.TransactNo);
+                //            break;
+                //        case 20:
+                //            DMeServices.Models.Common.SmsCom.SendSms("968" + User.MobileNo, " : يوجد بعض التعديلات علي الخرائط رقم المعاملة " + oModel.BuildingPermits.TransactNo);
+                //            DMeServices.Models.Common.SmsCom.SendSms("968" + oModel.BuildingPermits.OwnerPhoneNo, " : يوجد بعض التعديلات علي الخرائط رقم المعاملة " + oModel.BuildingPermits.TransactNo);
+                //            break;
+                //    }
 
-                }
+                //}
             }
             else
             {
@@ -390,7 +472,6 @@ namespace DMeServicesInternal.Web.Controllers
         #endregion
 
         #region Method :: Save Engineer Permits
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult SaveEngineerPermits(PermitsViewModel oModel)
@@ -420,68 +501,9 @@ namespace DMeServicesInternal.Web.Controllers
             }
             return RedirectToAction("Index");
         }
-
         #endregion
 
-        #region Method ::Edit PDF Files 
-        public ActionResult EditPDFFile(int Id, int PirmID)
-        {
-            //IExcelDataReader reader = null;
-            PermitsAttachments Attachment = DMeServices.Models.Common.BuildingServices.PermitsAttachmentsCom.AttachmentsByID(Id);
 
-            string contentType = MimeMapping.GetMimeMapping(Attachment.AttachmentPath);
-            if (Attachment.AttachmentStream == null || Attachment.AttachmentStream.Length <= 0)
-            {
-                System.IO.FileStream oFile = new FileStream(Attachment.AttachmentPath, FileMode.Open, FileAccess.Read);
-
-                MemoryStream streamToUpdate = new MemoryStream();
-                oFile.CopyTo(streamToUpdate);
-                byte[] data = streamToUpdate.ToArray();
-                Attachment.AttachmentStream = data;
-                UpdateStream(Attachment);
-            }
-
-            if (Attachment != null)
-            {
-
-                Stream stream = new MemoryStream(Attachment.AttachmentStream);
-                stream.Position = 0;
-                if (Attachment.AttachmentName.EndsWith(".pdf"))
-                {
-                    // Create RAD PDF control
-                    PdfWebControl pdfWebControl1 = new PdfWebControl();
-                    // Setup pdfWebControl1 with any properties which must be called before CreateDocument (optional)
-                    // e.g. pdfWebControl1.RenderDpi = 144;
-                    // Create document from PDF data
-                    pdfWebControl1.CreateDocument(Attachment.Id.ToString(), stream);
-                    // Put control in ViewBag
-                    ViewBag.PdfWebControl1 = pdfWebControl1;
-                    ViewBag.DocID = Attachment.Id;
-                    ViewBag.PirmID = PirmID;
-                    return PartialView("EditPDFFile");
-                    //   return new FileStreamResult(stream, contentType);
-                }
-                else if (Attachment.AttachmentName.EndsWith(".jpg"))
-                {
-                    return new FileStreamResult(stream, contentType);
-                }
-                else if (Attachment.AttachmentName.EndsWith(".png"))
-                {
-                    return new FileStreamResult(stream, contentType);
-                }
-                else if (Attachment.AttachmentName.EndsWith(".txt"))
-                {
-                    return new FileStreamResult(stream, contentType);
-                }
-            }
-            return new EmptyResult();
-        }
-
-        public static void UpdateStream(PermitsAttachments attachment)
-        {
-            PermitsAttachmentsCom.UpdateAttachmentStream((int)attachment.Id, attachment.AttachmentStream);
-        }
-        #endregion
 
         #region Method :: List Attachment Details
 
@@ -491,8 +513,6 @@ namespace DMeServicesInternal.Web.Controllers
             oModel.ListOfAttachmentDetails = DMeServices.Models.Common.BuildingServices.PermitsAttachmentsCom.AttachmentsDetailsByAttachmentsID(Id);
             return PartialView("_ListAttachmentsDetails", oModel);
         }
-
-
         #endregion
 
         #region Method :: List Payment Details
@@ -511,13 +531,9 @@ namespace DMeServicesInternal.Web.Controllers
         [HttpPost]
         public ActionResult SelectAttachmentDetails(PermitsViewModel oModel, int Id = -99)
         {
-
-
             oModel.ListOfAttachmentDetails = DMeServices.Models.Common.BuildingServices.PermitsAttachmentsCom.AttachmentsDetailsByAttachmentsID(Id);
             return PartialView("_ListAttachmentsDetails", oModel);
-
         }
-
         #endregion
 
         #region Method :: DD Permits Status
@@ -533,7 +549,6 @@ namespace DMeServicesInternal.Web.Controllers
                 {
                     LstPermitsStatus.Add(new SelectListItem() { Text = item.LookupNameAr, Value = item.LookupId.ToString() });
                 }
-
             }
             return LstPermitsStatus;
         }
@@ -565,26 +580,40 @@ namespace DMeServicesInternal.Web.Controllers
         {
             PermitsViewModel oModel = new PermitsViewModel();
             oModel.BuildingPermits = PermitsCom.PermitsByID(Id);
-            var result = LoadReport(Id.ToString(), oModel.BuildingPermits.OwnerCivilId.ToString());
-            oModel.Attachments = new PermitsAttachments();
-            oModel.Attachments.AttachmentPath = result.Content;
-            oModel.Attachments.AttachmentTypeId = 30;
-            oModel.Attachments.BldPermitId = Id;
-            oModel.Attachments.Description = "رخصة بناء";
-            oModel.Attachments.AttachmentContentType = ".pdf";
-            oModel.Attachments.CreatedBy = oModel.oEmployeeInfo.NAME;
-            oModel.Attachments.AttachmentName = Path.GetFileName(result.Content);
+            List<Payments> payments = PaymentsCom.PaymentsByPermitsID(Id);
+            var paymentDone = payments.Where(x => x.PaymentStatus == 1).ToList();
+            string ErrorMessage;
 
-            PermitsAttachmentsCom.InsertPrintedPermits(oModel.Attachments);
-            return RedirectToAction("PermitDetails", "BuildingPermits", new { Id = oModel.BuildingPermits.Id });
+            if (payments.Count != paymentDone.Count)
+            {
+                ErrorMessage = "لم يتم دفع كل البنود";
+                //return View("PermitDetails", oModel);
+            }
+            else
+            {
+                ErrorMessage = "";
+                var result = LoadReport(Id.ToString(), oModel.BuildingPermits.KrokiNO);
+                oModel.Attachments = new PermitsAttachments();
+                oModel.Attachments.AttachmentPath = result.Content;
+                oModel.Attachments.AttachmentTypeId = 30;
+                oModel.Attachments.BldPermitId = Id;
+                oModel.Attachments.Description = "رخصة بناء";
+                oModel.Attachments.AttachmentContentType = ".pdf";
+                oModel.Attachments.CreatedBy = oModel.oEmployeeInfo.NAME;
+                oModel.Attachments.AttachmentName = Path.GetFileName(result.Content);
+
+                PermitsAttachmentsCom.InsertPrintedPermits(oModel.Attachments);
+
+            }
+            return RedirectToAction("PermitDetails", "BuildingPermits", new { Id = oModel.BuildingPermits.Id, errorMessage = ErrorMessage });
             //return Redirect("~/Reports/Report.aspx?id=" + Id.ToString() + "&civilid=" + oModel.BuildingPermits.OwnerCivilId.ToString());
         }
 
-        private ContentResult LoadReport(string id, string civilid)
+        private ContentResult LoadReport(string id, string FolderName)
         {
             Reports.InternalEngineeringDataSetTableAdapters.BldPermitsTableAdapter ta = new Reports.InternalEngineeringDataSetTableAdapters.BldPermitsTableAdapter();
             InternalEngineeringDataSet.BldPermitsDataTable dt = new InternalEngineeringDataSet.BldPermitsDataTable();
-            ta.Fill(dt, Convert.ToInt64(id));
+            ta.Fill(dt, Convert.ToInt32(id));
             ReportDataSource rds = new ReportDataSource();
             rds.Name = "Permits";
             rds.Value = dt;
@@ -623,19 +652,19 @@ namespace DMeServicesInternal.Web.Controllers
                 out extension,
                 out streamIds,
                 out warnings);
-            var tempPath = System.Web.HttpContext.Current.Server.MapPath("~/Images/PrintedFiles/" + civilid);
+            var tempPath = System.Web.HttpContext.Current.Server.MapPath("~/Images/PrintedFiles/" + FolderName);
             if (!Directory.Exists(tempPath))
             {
                 Directory.CreateDirectory(tempPath);
             }
             //oFile.SaveAs(StrUploadPath);
-            var saveAs = string.Format("{0}.pdf", Path.Combine(tempPath, civilid + "_" + id));
+            var saveAs = string.Format("{0}.pdf", Path.Combine(tempPath, FolderName + "_" + id));
 
             var idx = 0;
             while (System.IO.File.Exists(saveAs))
             {
                 idx++;
-                saveAs = string.Format("{0}_{1}.pdf", Path.Combine(tempPath, civilid + "_" + id), idx);
+                saveAs = string.Format("{0}_{1}.pdf", Path.Combine(tempPath, FolderName + "_" + id), idx);
             }
 
             using (var stream = new FileStream(saveAs, FileMode.Create, FileAccess.Write))
@@ -730,6 +759,20 @@ namespace DMeServicesInternal.Web.Controllers
             return PartialView("_ListPayments", oModel);
         }
 
+        #endregion
+
+        #region Method :: Delete Fee
+        [HttpPost]
+        public ActionResult DeleteFee(int Id)
+        {
+            PermitsViewModel oModel = new PermitsViewModel();
+            oModel.PaymentDetailsList = (List<PaymentDetails>)TempData["PaymentDetails"];
+            oModel.PaymentDetails = oModel.PaymentDetailsList[Id];
+            oModel.PaymentDetailsList.Remove(oModel.PaymentDetails);
+            TempData["PaymentDetails"] = oModel.PaymentDetailsList;
+            return PartialView("_ListPayments", oModel);
+
+        }
         #endregion
     }
 }

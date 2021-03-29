@@ -285,7 +285,9 @@
                 data: data,
                 async: false,
                 success: function (response) {
+                    console.log(response);
                     if (response != "") {
+                        
                         $('#divPayments').html(response);
                     }
                     $('#Fees').val('');

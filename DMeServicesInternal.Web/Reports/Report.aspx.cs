@@ -56,7 +56,7 @@ namespace DMeServicesInternal.Web.Reports
         {
             InternalEngineeringDataSetTableAdapters.BldPermitsTableAdapter ta = new InternalEngineeringDataSetTableAdapters.BldPermitsTableAdapter();
             InternalEngineeringDataSet.BldPermitsDataTable dt = new InternalEngineeringDataSet.BldPermitsDataTable();
-            ta.Fill(dt, Convert.ToInt64(id));
+            ta.Fill(dt, Convert.ToInt32(id));
             ReportDataSource rds = new ReportDataSource();
             rds.Name = "Permits";
             rds.Value = dt;

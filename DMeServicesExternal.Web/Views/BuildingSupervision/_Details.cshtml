@@ -4,21 +4,35 @@
 <div class="box-inner">
     <div class="box-content">
         <div class="row">
-            @Html.HiddenFor(m => m.BuildingPermits.Id);
+            @Html.HiddenFor(m => m.BuildingPermits.Id)
             <div class="form-group col-lg-4">
                 <h5>بيانات مالك الارض</h5>
-                <div class="form-group col-lg-4">
-                    <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.OwnerName)</label>
-                    @Html.TextBoxFor(m => m.BuildingPermits.OwnerName, new { @readonly = "readonly", @class = "form-control", id = "OwnerName", @placeholder = "إسم المالك" })
-                </div>
-                <div class="form-group col-lg-4">
-                    <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.OwnerCivilId)</label>
-                    @Html.TextBoxFor(m => m.BuildingPermits.OwnerCivilId, new { @readonly = "readonly", @class = "form-control", id = "OwnerCivilId", @placeholder = "الرقم المدني للمالك" })
-                </div>
-                <div class="form-group col-lg-4">
-                    <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.OwnerPhoneNo)</label>
-                    @Html.TextBoxFor(m => m.BuildingPermits.OwnerPhoneNo, new { @readonly = "readonly", @class = "form-control", id = "OwnerPhoneNo", @placeholder = "الهاتف" })
-                </div>
+                @{
+                    if (Model.BuildingPermits.OwnerName != null)
+                    {
+                        <div class="form-group col-lg-4">
+                            <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.OwnerName)</label>
+                            @Html.TextBoxFor(m => m.BuildingSupervision.OwnerName, new { @readonly = "readonly", @class = "form-control", id = "OwnerName", @placeholder = "إسم المالك" })
+                        </div>
+                        <div class="form-group col-lg-4">
+                            <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.OwnerCivilId)</label>
+                            @Html.TextBoxFor(m => m.BuildingSupervision.OwnerCivilId, new { @readonly = "readonly", @class = "form-control", id = "OwnerCivilId", @placeholder = "الرقم المدني للمالك" })
+                        </div>
+                        <div class="form-group col-lg-4">
+                            <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.OwnerPhoneNo)</label>
+                            @Html.TextBoxFor(m => m.BuildingSupervision.OwnerPhoneNo, new { @readonly = "readonly", @class = "form-control", id = "OwnerPhoneNo", @placeholder = "الهاتف" })
+                        </div>
+                    }
+                    else
+                    {
+                        <div id="divOwners" class="box">
+                            @if (Model.ListOfOwners != null && Model.ListOfOwners.Count > 0)
+                            {
+                                Html.RenderPartial("_ListOwnersDetails", Model);
+                            }
+                        </div>
+                    }
+                }
             </div>
             <div class="form-group col-lg-4">
                 <h5>بيانات مكان قطعة الأرض</h5>

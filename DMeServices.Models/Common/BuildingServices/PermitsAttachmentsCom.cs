@@ -18,7 +18,7 @@ namespace DMeServices.Models.Common.BuildingServices
 
         #region Method :: List Attachments By Permits ID
 
-        public static List<PermitsAttachments> AttachmentsByPermitsID(int BldPermitId, int OwnerCivilId)
+        public static List<PermitsAttachments> AttachmentsByPermitsID(int BldPermitId, string FolderName)
         {
 
             string sWebSiteURL = System.Configuration.ConfigurationManager.AppSettings["WebSiteURL"].ToString();
@@ -48,26 +48,26 @@ namespace DMeServices.Models.Common.BuildingServices
                         case 1:
                         case 2:
                         case 3:
-                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/Personal/" + OwnerCivilId.ToString() + item.AttachmentName;
+                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/Personal/" + FolderName.ToString() + item.AttachmentName;
                             break;
                         case 4:
-                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/Consultant/" + OwnerCivilId.ToString() + item.AttachmentName;
+                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/Consultant/" + FolderName.ToString() + item.AttachmentName;
                             break;
                         case 5:
                         case 6:
                         case 7:
                         case 8:
                         case 14:
-                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/StructuralFiles/" + OwnerCivilId.ToString() + item.AttachmentName;
+                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/StructuralFiles/" + FolderName.ToString() + item.AttachmentName;
                             break;
                         case 15:
-                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/LandFiles/" + OwnerCivilId.ToString() + item.AttachmentName;
+                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/LandFiles/" + FolderName.ToString() + item.AttachmentName;
                             break;
                         case 16:
-                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/Consultant/" + OwnerCivilId.ToString() + item.AttachmentName;
+                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/Consultant/" + FolderName.ToString() + item.AttachmentName;
                             break;
                         case 20:
-                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/Others/" + OwnerCivilId.ToString() + item.AttachmentName;
+                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/Others/" + FolderName.ToString() + item.AttachmentName;
                             break;
                         case 41:
                         case 42:
@@ -77,7 +77,7 @@ namespace DMeServices.Models.Common.BuildingServices
                         case 46:
                         case 47:
                         case 48:
-                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/SupervisionFiles/" + OwnerCivilId.ToString() + item.AttachmentName;
+                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/SupervisionFiles/" + FolderName.ToString() + item.AttachmentName;
                             break;
                     }
 

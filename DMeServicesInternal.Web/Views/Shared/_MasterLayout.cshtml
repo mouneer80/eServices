@@ -166,27 +166,27 @@
 
                         <ul class="dropdown-menu" role="menu">
                             @*<li><a href="@Url.Action("Index","HealthRenewal")">تصاريح البلدية</a></li>
-                    <li class="divider"></li>*@
+                        <li class="divider"></li>*@
                             @if (Session["Show"] == null)
                             {
                                 <li><a href="@Url.Action("Index","BuildingPermits")">تصاريح البناء</a></li>
                             }
                             @*<li class="divider"></li>
-                    <li><a href="#">تصاريح المساكن الجماعية</a></li>*@
+                        <li><a href="#">تصاريح المساكن الجماعية</a></li>*@
                             <li class="divider"></li>
                             @if (Session["Show"] != null)
                             {
                                 <li><a href="@Url.Action("Index", "BuildingSupervision")">رقابة البناء</a></li>
                             }
                             @*<li class="divider"></li>
-                    <li><a href="#">البطاقات الصحية</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">فحص المركبات </a></li>*@
+                        <li><a href="#">البطاقات الصحية</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">فحص المركبات </a></li>*@
                         </ul>
                     }
                 </li>
                 @*<li><a href="#"> المركز الإعلامي</a></li>
-        <li><a href="#" style="font-size:15px; font-weight:bold;"> تواصل معنا</a></li>*@
+            <li><a href="#" style="font-size:15px; font-weight:bold;"> تواصل معنا</a></li>*@
 
 
 
@@ -200,7 +200,7 @@
                 }
                 else
                 {
-                    <li><a href="#" style="font-weight:bold;">مرحباً :  @(((DMeServices.Models.Employee)Session["EmployeeInfo"]).NAME))</a></li>
+                    <li><a href="#" style="font-weight:bold;">مرحباً :  @(((DMeServices.Models.Employee)Session["EmployeeInfo"]).NAME)</a></li>
                     <li class="divider"></li>
                     <li><a href=" @Url.Action("Logout","Account")"> تسجيل الخروج</a></li>
                     <li><a href="@Url.Action("DashBoard", "Home")">احصاءات</a></li>
@@ -211,18 +211,33 @@
 
 
             </ul>
+            <ul class="sm sm-blue nav navbar-nav navbar-right">
+                @*<li>
+                @Html.ActionLink("English", "ChangeLanguage", "Home", new { @lang = "En", @returnurl = this.Request.RawUrl }, null)
+            </li>
+            <li class="divider"></li>
+            <li class="nav navbar-nav navbar-right">
+                @Html.ActionLink("العربية", "ChangeLanguage", "Home", new { @lang = "Ar", @returnurl = this.Request.RawUrl }, null)
+            </li>*@
+                @{
+                    foreach (var i in DMeServices.Models.Common.LanguageManager.AvailableLanguages)
+                    {
+                        @Html.ActionLink(i.LanguageFullName, "ChangeLanguage", "Home", new { lang = i.LanguageCultureName }, null) <text> </text>
+                    }
+                }
+            </ul>
 
             <!-- theme selector starts -->
             @*<div class="btn-group pull-right theme-container animated tada">
-                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                    <i class="glyphicon glyphicon-tint"></i><span class="hidden-sm hidden-xs">Change Theme / Skin</span>
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" id="themes">
-                    <li><a data-value="cerulean" href="#"><i class="whitespace"></i> Cerulean</a></li>
-                    <li><a data-value="slate" href="#"><i class="whitespace"></i> Slate</a></li>
-                </ul>
-            </div>*@
+            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                <i class="glyphicon glyphicon-tint"></i><span class="hidden-sm hidden-xs">Change Theme / Skin</span>
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" id="themes">
+                <li><a data-value="cerulean" href="#"><i class="whitespace"></i> Cerulean</a></li>
+                <li><a data-value="slate" href="#"><i class="whitespace"></i> Slate</a></li>
+            </ul>
+        </div>*@
             <!-- theme selector ends -->
 
             <ul class="collapse navbar-collapse nav navbar-nav top-menu" style="font-size:15px; font-weight:bold;float:left;">

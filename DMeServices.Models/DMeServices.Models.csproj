@@ -110,6 +110,7 @@
     <Compile Include="Common\HealthServices\PermitAdvertisementCom.cs" />
     <Compile Include="Common\HealthServices\PermitDataCom.cs" />
     <Compile Include="Common\HealthServices\MociDataCom.cs" />
+    <Compile Include="Common\LanguageManager.cs" />
     <Compile Include="Common\LookupsTypeCom.cs" />
     <Compile Include="Common\PaymentCom.cs" />
     <Compile Include="MetaData\BuildingServices\Meta_AreaSurveys.cs" />
@@ -118,7 +119,9 @@
     <Compile Include="MetaData\BuildingServices\Meta_Surveys.cs" />
     <Compile Include="Models\BuildingServices\AreaSurvey.cs" />
     <Compile Include="Models\BuildingServices\BuildingSupervision.cs" />
-    <Compile Include="Models\BuildingServices\Owners.cs" />
+    <Compile Include="Models\BuildingServices\Contractor.cs" />
+    <Compile Include="Models\BuildingServices\Owner.cs" />
+    <Compile Include="Models\BuildingServices\Transactions.cs" />
     <Compile Include="Models\BuildingServices\SupervisionServicesTypes.cs" />
     <Compile Include="Models\BuildingServices\LandSurvey.cs" />
     <Compile Include="Models\BuildingServices\LandUseTypes.cs" />
@@ -183,15 +186,20 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Configrations\LocalizedDisplayNameAttribute.cs" />
     <Compile Include="Configrations\MappingConfig.cs" />
+    <Compile Include="Resources\DisplayName.Ar.Designer.cs">
+      <DependentUpon>DisplayName.Ar.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Resources\DisplayName_Ar.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DisplayName_Ar.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\DisplayName_En.Designer.cs">
+    <Compile Include="Resources\DisplayName.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DisplayName_En.resx</DependentUpon>
+      <DependentUpon>DisplayName.resx</DependentUpon>
     </Compile>
     <Compile Include="Resources\Validation_Ar.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -223,14 +231,18 @@
     <Folder Include="MetaData\HealthServices\" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\DisplayName.Ar.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>DisplayName.Ar.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\DisplayName_Ar.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>DisplayName_Ar.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\DisplayName_En.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>DisplayName_En.Designer.cs</LastGenOutput>
+    <EmbeddedResource Include="Resources\DisplayName.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>DisplayName.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Validation_Ar.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

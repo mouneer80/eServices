@@ -24,7 +24,7 @@ namespace DMeServicesInternal.Web.RadPdf
 
 
         public string DocID { get; set; }
-
+        public string PrimID { get; set; }
         public class PdfIntegrationProvider
         {
         }
@@ -51,9 +51,9 @@ namespace DMeServicesInternal.Web.RadPdf
             switch (key)
             {
                 case "dynamic":
-                    int imageWidth = 300;
+                    int imageWidth = 200;
                     int margin = 10;
-                    Font font = new Font(FontFamily.GenericMonospace, 10);
+                    Font font = new Font(FontFamily.GenericMonospace, 8);
                     StringFormat stringFormat = new StringFormat();
 
                     int stringHeight = MeasureDisplayStringHeight(text, font, imageWidth - 2 * margin, stringFormat);
@@ -71,17 +71,17 @@ namespace DMeServicesInternal.Web.RadPdf
                             RectangleF rect = gr.VisibleClipBounds;
 
                             //Create a new brush to draw background with
-                            using (Brush br = new SolidBrush(Color.Yellow))
+                            using (Brush br = new SolidBrush(Color.FromArgb(255, 255, 255, 255)))
                             {
                                 //Draw background
                                 gr.FillRectangle(br, rect);
                             }
 
                             //Create a new brush to draw text with
-                            using (Brush br = new SolidBrush(Color.Black))
+                            using (Brush br = new SolidBrush(Color.FromArgb(255, 215, 105, 5)))
                             {
                                 //Create a new font to draw text with
-                                using (Font ft = new Font("Arial", 20.0f, FontStyle.Bold, GraphicsUnit.Pixel))
+                                using (Font ft = new Font("Arial", 20.0f, FontStyle.Bold, GraphicsUnit.Point))
                                 {
                                     //Create string format to draw text with
                                     using (StringFormat sf = new StringFormat())
@@ -93,15 +93,73 @@ namespace DMeServicesInternal.Web.RadPdf
                                         //Draw current date to bitmap
                                         gr.DrawString(text, ft, br, rect, sf);
                                     }
+                               }
+                            }
+                        }
+
+                        //Create output stream
+                        using (MemoryStream ms = new MemoryStream())
+                        {
+                            //Save image to stream
+                            bmp.Save(ms, ImageFormat.Png);
+
+                            //Write bytes to the response
+                            context.Response.Write(ms.ToArray());
+                        }
+                    }
+                    break;
+                case "dynamicNO":
+                    imageWidth = 100;
+                    margin = 10;
+                    font = new Font(FontFamily.GenericMonospace, 8);
+                    stringFormat = new StringFormat();
+
+                    stringHeight = MeasureDisplayStringHeight(text, font, imageWidth - 2 * margin, stringFormat);
+                    imageHeight = stringHeight + margin * 2;
+                    //Create a dynamic image showing the date (200px by 50px)
+                    using (Bitmap bmp = new Bitmap(imageWidth, imageHeight, PixelFormat.Format32bppArgb))
+                    {
+                        //Create graphics object
+                        using (Graphics gr = Graphics.FromImage(bmp))
+                        {
+                            //Set smoothing mode
+                            //gr.SmoothingMode = SmoothingMode.AntiAlias;
+                            gr.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixelGridFit;
+                            //Get the rect for the bitmap
+                            RectangleF rect = gr.VisibleClipBounds;
+
+                            //Create a new brush to draw background with
+                            using (Brush br = new SolidBrush(Color.FromArgb(0, 255, 255, 255)))
+                            {
+                                //Draw background
+                                gr.FillRectangle(br, rect);
+                            }
+
+                            //Create a new brush to draw text with
+                            using (Brush br = new SolidBrush(Color.FromArgb(255, 0, 69, 224)))
+                            {
+                                //Create a new font to draw text with
+                                using (Font ft = new Font("Arial", 10.0f, FontStyle.Bold, GraphicsUnit.Point))
+                                {
+                                    //Create string format to draw text with
+                                    using (StringFormat sf = new StringFormat())
+                                    {
+                                        //Set format properties
+                                        sf.Alignment = StringAlignment.Center;
+                                        sf.LineAlignment = StringAlignment.Center;
+                                        
+                                        //Draw current date to bitmap
+                                        gr.DrawString(text, ft, br, rect, sf);
+                                    }
                                 }
                             }
                         }
 
-                        //Create output strea
+                        //Create output stream
                         using (MemoryStream ms = new MemoryStream())
                         {
                             //Save image to stream
-                            bmp.Save(ms, ImageFormat.Gif);
+                            bmp.Save(ms, ImageFormat.Png);
 
                             //Write bytes to the response
                             context.Response.Write(ms.ToArray());
@@ -118,6 +176,36 @@ namespace DMeServicesInternal.Web.RadPdf
                     //Write a file to the response
                     //Alternatively, we could also use the .Write method to write data from almost any source (e.g. database, memory, etc.)
                     context.Response.WriteFile(HttpContext.Current.Server.MapPath(@"~/Images/Stamps/" + empNo.ToString() + ".png"));
+                    break;
+                case "stamp_r_CivilDefence":
+                    //Write a file to the response
+                    //Alternatively, we could also use the .Write method to write data from almost any source (e.g. database, memory, etc.)
+                    context.Response.WriteFile(HttpContext.Current.Server.MapPath(@"~/Images/Stamps/r_CivilDefence.png"));
+                    break;
+                case "stamp_r_Permit":
+                    //Write a file to the response
+                    //Alternatively, we could also use the .Write method to write data from almost any source (e.g. database, memory, etc.)
+                    context.Response.WriteFile(HttpContext.Current.Server.MapPath(@"~/Images/Stamps/r_Permit.png"));
+                    break;
+                case "stamp_r_Rifi":
+                    //Write a file to the response
+                    //Alternatively, we could also use the .Write method to write data from almost any source (e.g. database, memory, etc.)
+                    context.Response.WriteFile(HttpContext.Current.Server.MapPath(@"~/Images/Stamps/r_Rifi.png"));
+                    break;
+                case "stamp_r_SmallPermit":
+                    //Write a file to the response
+                    //Alternatively, we could also use the .Write method to write data from almost any source (e.g. database, memory, etc.)
+                    context.Response.WriteFile(HttpContext.Current.Server.MapPath(@"~/Images/Stamps/r_SmallPermit.png"));
+                    break;
+                case "stamp_r_SupervisionStamp":
+                    //Write a file to the response
+                    //Alternatively, we could also use the .Write method to write data from almost any source (e.g. database, memory, etc.)
+                    context.Response.WriteFile(HttpContext.Current.Server.MapPath(@"~/Images/Stamps/r_SupervisionStamp.png"));
+                    break;
+                case "stamp_r_PermitNo":
+                    //Write a file to the response
+                    //Alternatively, we could also use the .Write method to write data from almost any source (e.g. database, memory, etc.)
+                    context.Response.WriteFile(HttpContext.Current.Server.MapPath(@"~/Images/Notes/" + "stamp_r_PermitNo" + docid + ".png"));
                     break;
                 case "note":
                     //Write a file to the response
@@ -170,19 +258,33 @@ namespace DMeServicesInternal.Web.RadPdf
 
         public override void OnDocumentSaved(DocumentSavedEventArgs e)
         {
+            string sFilename = string.Empty;
+            string PerPath;
+            string sPath;
+
             base.OnDocumentSaved(e);
+
+            sFilename = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + DocID;
+            PerPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/EditedFiles/" + e.DocumentID.ToString()));
+            sPath = System.IO.Path.Combine(PerPath.ToString());
+            string PerUploadPath = string.Format("{0}\\{1}", sPath, sFilename);
+            if (!Directory.Exists(PerPath))
+            {
+                Directory.CreateDirectory(PerPath);
+            }
+           
             PermitsViewModel model = new PermitsViewModel();
             //Look for form field with the name "test" and see if it is null or has no value 
             var req = System.Web.HttpContext.Current.Request;
             if (e.Document.DocumentInfo.Title == "PrintPermit")
             {
-                DMeServices.Models.Common.BuildingServices.PermitsAttachmentsCom.UpdateAttachmentStream(int.Parse(DocID), e.DocumentData);
-                
+                File.WriteAllBytes(PerUploadPath + ".pdf", e.DocumentData);
+                DMeServices.Models.Common.BuildingServices.PermitsAttachmentsCom.UpdateAttachmentStream(int.Parse(DocID), e.DocumentData);         
             }
             else
             {
-                DMeServices.Models.Common.BuildingServices.PermitsAttachmentsCom.UpdatePermitsAttachments(model.oEmployeeInfo.NAME, (int)model.oEmployeeInfo.EMP_NO, int.Parse(DocID), e.DocumentData);
-                
+                File.WriteAllBytes(PerUploadPath + ".pdf", e.DocumentData);
+                DMeServices.Models.Common.BuildingServices.PermitsAttachmentsCom.UpdatePermitsAttachments(model.oEmployeeInfo.NAME, (int)model.oEmployeeInfo.EMP_NO, int.Parse(DocID), e.DocumentData);   
             }
             return;
         }

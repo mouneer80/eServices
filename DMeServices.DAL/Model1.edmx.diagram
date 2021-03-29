@@ -83,7 +83,7 @@
         <AssociationConnector Association="eServicesModel.FK_BldPermits_BldRegions" />
         <AssociationConnector Association="eServicesModel.FK_BldPermits_BldSquareLetters" />
         <AssociationConnector Association="eServicesModel.FK_BldPermits_BldWelyat" />
-        <EntityTypeShape EntityType="eServicesModel.BldSupervisionServices" Width="1.5" PointX="10" PointY="7.75" />
+        <EntityTypeShape EntityType="eServicesModel.BldSupervisionServices" Width="1.5" PointX="10" PointY="8.25" />
         <EntityTypeShape EntityType="eServicesModel.BldSupervisionServicesTypes" Width="1.5" PointX="7.75" PointY="7" />
         <EntityTypeShape EntityType="eServicesModel.ConsultantOccupations" Width="1.5" PointX="12.375" PointY="6.75" />
         <AssociationConnector Association="eServicesModel.FK_BldSupervisionServices_BldSupervisionServicesTypes" />
@@ -103,6 +103,8 @@
         <AssociationConnector Association="eServicesModel.FK_BldTransactions_BldTransactionTypes" />
         <EntityTypeShape EntityType="eServicesModel.BldOwners" Width="1.5" PointX="15.625" PointY="28.625" />
         <AssociationConnector Association="eServicesModel.FK_BldOwners_BldPermits" />
+        <AssociationConnector Association="eServicesModel.FK_BldTransactions_BldSupervisionServices" />
+        <AssociationConnector Association="eServicesModel.FK_BldSupervisionServices_BldSupervisionContractors" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

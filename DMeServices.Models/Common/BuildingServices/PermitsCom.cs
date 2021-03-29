@@ -180,8 +180,6 @@ namespace DMeServices.Models.Common.BuildingServices
         #endregion
 
         #region Method :: Save Permits 
-
-
         public static string SavePermits(PermitsViewModel oModel)
         {
             using (eServicesEntities db = new eServicesEntities())
@@ -203,17 +201,18 @@ namespace DMeServices.Models.Common.BuildingServices
                     _BldPermits.TransactNo = GenTransactNo();
                     //_BldPermits.ConsultantCrNo = (long)oModel.oUserInfo.ConsultantCrNo;
                     //_BldPermits.ConsultantCivilId = (long)oModel.oUserInfo.CivilId;
-                    _BldPermits.WelayahID = oModel.WID;
-                    _BldPermits.RegionID = oModel.RID;
-                    _BldPermits.SquareLetterID = oModel.SID;
-                    _BldPermits.UseTypeID = oModel.LID;
-                    _BldPermits.BuildingTypeID = oModel.BID;
+                    _BldPermits.WelayahID = oModel.BuildingPermits.WelayahID;
+                    _BldPermits.RegionID = oModel.BuildingPermits.RegionID;
+                    _BldPermits.SquareLetterID = oModel.BuildingPermits.SquareLetterID;
+                    _BldPermits.UseTypeID = oModel.BuildingPermits.UseTypeID;
+                    _BldPermits.BuildingTypeID = oModel.BuildingPermits.BuildingTypeID;
                     _BldPermits.CreatedBy = oModel.oUserInfo.FullName;
                     _BldPermits.CreatedOn = DateTime.Now.Date;
                     _BldPermits.RequestDate = DateTime.Now.Date;
                     _BldPermits.WorkflowStatus = 8;
                     db.BldPermits.Add(_BldPermits);
                     db.SaveChanges();
+
                     if (oModel.ListOfAttachments != null)
                     {
                         List<BldPermitsAttachments> LstAttachments = Mapper.Map<List<PermitsAttachments>, List<BldPermitsAttachments>>(oModel.ListOfAttachments);
@@ -221,6 +220,16 @@ namespace DMeServices.Models.Common.BuildingServices
                         {
                             File.BldPermitId = _BldPermits.Id;
                             db.BldPermitsAttachments.Add(File);
+                            db.SaveChanges();
+                        }
+                    }
+                    if(oModel.ListOfOwners != null)
+                    {
+                        List<BldOwners> LstOwners = Mapper.Map<List<Owner>, List<BldOwners>>(oModel.ListOfOwners);
+                        foreach (var owner in LstOwners)
+                        {
+                            owner.BldPermitId = _BldPermits.Id;
+                            db.BldOwners.Add(owner);
                             db.SaveChanges();
                         }
                     }
@@ -233,17 +242,9 @@ namespace DMeServices.Models.Common.BuildingServices
             }
 
         }
-
-
-
-
         #endregion
 
-        
-
         #region Method :: Save Engineer Permits 
-
-
         public static string SaveEngineerPermits(ViewModels.Internal.Permits.PermitsViewModel oModel)
         {
             using (eServicesEntities db = new eServicesEntities())
@@ -259,8 +260,17 @@ namespace DMeServices.Models.Common.BuildingServices
                         return null;
                     }
 
-                    //  _BldPermits = Mapper.Map<BuildingPermits, BldPermits>(oModel.BuildingPermits);
-                    
+                    //_BldPermits = Mapper.Map<BuildingPermits, BldPermits>(oModel.BuildingPermits);
+                    if(oModel.BuildingPermits.WorkflowStatus == null)
+                    {
+                        _BldPermits.WorkflowStatus = 12;
+                    }
+
+                    if (oModel.BuildingPermits.WorkflowStatus == 19)
+                    {   
+                        _BldPermits.LicenseNo = GenLicenseNo();
+                        _BldPermits.DMLicenseComments = oModel.BuildingPermits.DMLicenseComments;
+                    }
                     _BldPermits.WorkflowStatus = oModel.BuildingPermits.WorkflowStatus;
                     _BldPermits.UpdatedBy = oModel.oEmployeeInfo.NAME;
                     _BldPermits.UpdatedOn = DateTime.Now.Date;
@@ -276,6 +286,16 @@ namespace DMeServices.Models.Common.BuildingServices
 
             }
 
+        }
+
+        public static List<Owner> OwnersByPermitID(int id)
+        {
+            using (eServicesEntities db = new eServicesEntities())
+            {
+                List<BldOwners> _BldOwners = db.BldOwners.Where(x => x.BldPermitId == id).OrderByDescending(x => x.Id).ToList();
+                List<Owner> _Owners = Mapper.Map<List<BldOwners>, List<Owner>>(_BldOwners);
+                return _Owners;
+            }
         }
 
 
@@ -436,6 +456,69 @@ namespace DMeServices.Models.Common.BuildingServices
         }
 
         #endregion
+
+        #region Method :: Generate License Number
+
+        public static string GenLicenseNo()
+        {
+            string LicenseNo = "2021/9999";
+            using (eServicesEntities db = new eServicesEntities())
+            {
+
+                string CurrentYear = DateTime.Now.Year.ToString();
+                int LastTNo;
+
+                string lastLicenseNo;
+
+                BldPermits Bld = db.BldPermits.OrderByDescending(x => x.LicenseNo).FirstOrDefault();
+
+
+                if (Bld == null)
+                {
+                    lastLicenseNo = CurrentYear + "/" + "00000";
+                }
+                else
+                {
+                    lastLicenseNo = Bld.LicenseNo;
+                }
+
+
+                string PermitYear = lastLicenseNo.Substring(0, 4);
+                //lastLicenseNo = lastLicenseNo.Substring(4);
+                string[] Result = lastLicenseNo.Split(new[] { '/' }, 2);
+                string ResultTNo = Result[1];
+                string ResultYear = Result[0];
+                if (ResultYear == CurrentYear)
+                {
+                    LastTNo = int.Parse(ResultTNo);
+                    LastTNo = LastTNo + 1;
+                    LicenseNo = "" + PermitYear + "/" + String.Format("{0:00000}", LastTNo) + "";
+                }
+                else
+                {
+                    LastTNo = 1;
+                    LicenseNo = "" + CurrentYear + "/" + String.Format("{0:00000}", LastTNo) + "";
+                }
+
+                return LicenseNo;
+            }
+        }
+
+        #endregion
+
+        #region Method :: Owners By Permit ID
+        public static List<Owner> GetOwnersNames(int permitId)
+        {
+            using (eServicesEntities db = new eServicesEntities())
+            {
+                List<BldOwners> _BldOwners = db.BldOwners.Where(x => x.BldPermitId == permitId).OrderByDescending(x => x.Id).ToList();
+                List<Owner> _PermitOwners = Mapper.Map<List<BldOwners>, List<Owner>>(_BldOwners);
+                return _PermitOwners;
+            }
+        }
+        #endregion
+
+        
 
     }
 }

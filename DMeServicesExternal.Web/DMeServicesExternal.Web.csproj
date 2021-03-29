@@ -39,6 +39,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <ExcludeGeneratedDebugSymbol>true</ExcludeGeneratedDebugSymbol>
+    <LegacyPublishPropertiesPageEnabled>true</LegacyPublishPropertiesPageEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -196,6 +198,7 @@
     <Compile Include="Controllers\HealthRenewalController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IndustrialSurveysController.cs" />
+    <Compile Include="Controllers\LangController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\CompanyOverviewResult.cs" />
     <Compile Include="Controllers\UsersLoginController.cs" />
@@ -1772,8 +1775,11 @@
     </None>
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.1.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\jquery-ui.js" />
@@ -1882,6 +1888,12 @@
     <Content Include="Views\BuildingSupervision\_ListDues.cshtml" />
     <Content Include="Views\BuildingSupervision\_ListPayments.cshtml" />
     <Content Include="Views\BuildingSupervision\_ListPrints.cshtml" />
+    <Content Include="Views\BuildingSupervision\_NewContractorDetails.cshtml" />
+    <Content Include="Views\BuildingSupervision\SupervisionFees.cshtml" />
+    <Content Include="Views\BuildingSupervision\SupervisionCloseTransactDetails.cshtml" />
+    <Content Include="Views\BuildingSupervision\_ListTransacts.cshtml" />
+    <Content Include="Views\BuildingPermits\_ListOwnersDetails.cshtml" />
+    <Content Include="Views\BuildingSupervision\_ListOwnersDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -36,10 +36,8 @@ namespace DMeServices.Models.Common
         {
             using (eServicesEntities db = new eServicesEntities())
             {
-
                 List<LookupTypes> _LookupTypes = db.LookupTypes.Where(x => x.LookupParentDesc == Name).ToList();
                 List<LookupType> _LookupType = Mapper.Map<List<LookupTypes>, List<LookupType>>(_LookupTypes);
-
                 return _LookupType;
             }
 

@@ -60,7 +60,7 @@ namespace DMeServices.Models.BuildingServices
         
         public ServiceFeesDetails ServiceFees { get; set; }
         
-        public Owners PermitOwners { get; set; }
+        public Owner PermitOwners { get; set; }
 
     }
 }

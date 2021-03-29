@@ -1,4 +1,4 @@
-﻿@model DMeServices.Models.ViewModels.Permits.PermitsViewModel
+﻿@model DMeServices.Models.ViewModels.Permits.SupervisionViewModel
 
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
@@ -8,7 +8,7 @@
 <div class="box col-lg-6">
     <div class="box-inner">
         <div class="box-header well" data-original-title="">
-            <h2><i class="glyphicon glyphicon-edit"></i> تراخيص البناء</h2>
+            <h2><i class="glyphicon glyphicon-edit"></i> التصاريح والشهادات</h2>
         </div>
         <div class="box-content">
             <!--item details-->
@@ -27,7 +27,7 @@
                         {
                             foreach (var item in Model.ListOfAttachments)
                             {
-                                if (item.AttachmentTypeId == 30)
+                                if (item.AttachmentTypeId >= 31 && item.AttachmentTypeId < 40)
                                 {
                                     <tr>
                                         <td class="col-sm-2" style="width:10%;">
@@ -40,7 +40,7 @@
                                             @item.CreatedBy
                                         </td>
                                         <td class="col-sm-2" unprintable>
-                                            <a class="modal-link" href="@Url.Action("GetFile", new { @controller = "BuildingPermits", @Id = item.Id })">عرض الملف<i class="fa fa-eye-slash modal-link"></i></a>
+                                            <a class="modal-link" href="@Url.Action("GetFile", new { @controller = "BuildingSupervision", @Id = item.Id })">عرض الملف<i class="fa fa-eye-slash modal-link"></i></a>
                                         </td>
                                     </tr>
                                 }
