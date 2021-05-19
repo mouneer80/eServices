@@ -88,7 +88,7 @@
 
                 <div class="form-group col-lg-2">
                     <label class="control-label">
-                        @Html.DisplayNameFor(m => m.BuildingPermits.ConstructionType)
+                        @Html.DisplayNameFor(m => m.BuildingPermits.UseTypeID)
                     </label>
                     @Html.DropDownListFor(m => m.BuildingPermits.UseTypeID, (List<SelectListItem>)ViewBag.DDLandUseTypes, new { @disabled = "disabled", style = "padding:0px", @class = "form-control", @data_rel = "chosen", @id = "LandUseTypes" })
                 </div>
@@ -214,8 +214,8 @@
                             <label class="control-label">@Html.DisplayName("مرفقات اخرى")</label>
                         </div>
                         <div class="col-lg-4">
-                            @Html.TextBoxFor(m => m.Others.File, new { @type = "file", @id = "Others", @class = "form-control", @onchange = "onchangeevent(this);" })
-                            @Html.ValidationMessageFor(m => m.Others.File, "", new { @style = "color:orange;" })
+                            @Html.TextBoxFor(m => m.OtherAttachments.File, new { @type = "file", @id = "Others", @class = "form-control", @onchange = "onchangeevent(this);" })
+                            @Html.ValidationMessageFor(m => m.OtherAttachments.File, "", new { @style = "color:orange;" })
                         </div>
                         <!--<div class="col-lg-3">-->
                         @*<a class="modal-link" href="@Url.Action("PdfPartial", new { @controller = "BuildingSupervision", @Id = 2 })">عرض الملف<i class="fa fa-eye-slash modal-link"></i></a>*@

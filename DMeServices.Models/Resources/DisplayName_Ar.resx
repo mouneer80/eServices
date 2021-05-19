@@ -118,16 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ConstructedArea" xml:space="preserve">
-    <value>مساحة البناء</value>
+    <value>مساحة التنفيذ</value>
   </data>
-  <data name="ConstructionType" xml:space="preserve">
-    <value>استعمال قطعة الأرض</value>
+  <data name="BuildingComplex" xml:space="preserve">
+    <value>التجمع السكني</value>
   </data>
   <data name="CS_NO" xml:space="preserve">
     <value />
   </data>
-  <data name="DistrictName" xml:space="preserve">
-    <value>المنطقة</value>
+  <data name="ServiceName" xml:space="preserve">
+    <value>نوع الخدمة المطلوبة</value>
   </data>
   <data name="DistrictNo" xml:space="preserve">
     <value>رقم القطعة</value>
@@ -154,7 +154,7 @@
     <value>رقم الموبايل</value>
   </data>
   <data name="NumberOfFloors" xml:space="preserve">
-    <value>عدد الطوابق المراد بنائها</value>
+    <value>عدد الطوابق المراد تنفيذها</value>
   </data>
   <data name="OwnerCivilId" xml:space="preserve">
     <value>الرقم المدني للمالك</value>
@@ -220,19 +220,19 @@
     <value>نوع المبنى</value>
   </data>
   <data name="DmEngineerComments" xml:space="preserve">
-    <value>ملاحظات قسم تراخيص البناء</value>
+    <value>ملاحظات قسم تراخيص للاستشاري</value>
   </data>
   <data name="DmFileNumber" xml:space="preserve">
     <value>رقم الملف</value>
   </data>
-  <data name="DMLicenseCivilIDs" xml:space="preserve">
-    <value>ارقام بطاقات المالكين ان وجدت</value>
+  <data name="DMEngineerNotes" xml:space="preserve">
+    <value>ملاحظات للإدارة</value>
   </data>
   <data name="DMLicenseComments" xml:space="preserve">
     <value>بيان الترخيص</value>
   </data>
-  <data name="DMLicenseNames" xml:space="preserve">
-    <value>اسماء المالكين ان وجدت</value>
+  <data name="DMManagerNotes" xml:space="preserve">
+    <value>ملاحظات مدير الدائرة</value>
   </data>
   <data name="RegionID" xml:space="preserve">
     <value>اسم المنطقة / القرية</value>

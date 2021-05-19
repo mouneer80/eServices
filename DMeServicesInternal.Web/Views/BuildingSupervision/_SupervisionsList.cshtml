@@ -35,7 +35,7 @@
                 item.Status = 8;
             }
             var Status = DMeServices.Models.Common.LookupsTypeCom.LookupByID((int)item.Status).LookupNameAr;
-            var StatusColor = DMeServices.Models.Common.LookupsTypeCom.LookupByID((int)item.Status).LookupNameEn;
+            var StatusColor = DMeServices.Models.Common.LookupsTypeCom.LookupByID((int)item.Status).CssClassName;
             var userrCompany = "";
             if (User != null)
             {
@@ -78,10 +78,10 @@
         <td class="center">@item.BldPermits.DistrictNo</td>
         <td class="center">@SquareLetter</td>
         <td class="center">@Region</td>
-        <td class="center">@item.RequestDate.ToShortDateString()</td>
+        <td class="center">@item.RequestDate.ToString("yyyy/MM/dd HH:mm")</td>
         <td class="center @StatusColor">@Status</td>
 
-        @if (Model.oEmployeeInfo.IsSupervisionHead)
+        @if (Model.oEmployeeInfo.IsSupervisionHead || Model.oEmployeeInfo.IsEngineerManager)
         {
             if (item.DmEngineerNo == null)
             {

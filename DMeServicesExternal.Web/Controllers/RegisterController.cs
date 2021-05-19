@@ -22,17 +22,17 @@ namespace DMeServicesExternal.Web.Controllers
         {
             UserViewModel oModel = new UserViewModel();
 
-           var list = new List<SelectListItem>
+            var list = new List<SelectListItem>
 
-      //      ViewBag.CourierList = new List<SelectListItem>
+            //ViewBag.CourierList = new List<SelectListItem>
          {
         new SelectListItem{ Text="الأفراد", Value = "1", Selected = true },
         new SelectListItem{ Text="الاستشاري", Value = "2" }
         //new SelectListItem{ Text="Option 3", Value = "3", Selected = true },
          };
 
-             ViewData["RegisterType"] = list;
-             return View(oModel);
+            ViewData["RegisterType"] = list;
+            return View(oModel);
         }
         public ActionResult SaveUser(UserViewModel oModel)
         {
@@ -54,7 +54,7 @@ namespace DMeServicesExternal.Web.Controllers
                     oUser = oModel.oUser
                 };
 
-            
+
 
                 return View("Index", viewModel);
 
@@ -73,7 +73,8 @@ namespace DMeServicesExternal.Web.Controllers
             }
             switch (vResult)
             {
-                case 1: ViewBag.Result = "تم تسجيل بنجاح";
+                case 1:
+                    ViewBag.Result = "تم تسجيل بنجاح";
                     break;
                 case 99:
                     ViewBag.Result = "بيانات المستخدم موجوده مسبقا";
@@ -85,7 +86,7 @@ namespace DMeServicesExternal.Web.Controllers
             }
 
             return RedirectToAction("Login", "UsersLogin");
-           // return View();
+            // return View();
 
 
         }
@@ -97,7 +98,7 @@ namespace DMeServicesExternal.Web.Controllers
                 oModel.CompanyData.CIVIL_ID = oModel.oUserInfo.CivilId.ToString();
                 oModel.CompanyData.FULL_NAME = oModel.oUserInfo.FullName;
                 if (oModel.CompanyData.COMMERCIAL_NO != null)
-                    oModel.CompanyData.ID =  long.Parse((oModel.CompanyData.COMMERCIAL_NO.Value).ToString() + (oModel.oUserInfo.CivilId).ToString());
+                    oModel.CompanyData.ID = long.Parse((oModel.CompanyData.COMMERCIAL_NO.Value).ToString() + (oModel.oUserInfo.CivilId).ToString());
 
                 ViewBag.Result = MociCompaniesData.SaveCompany(oModel.CompanyData);
                 return RedirectToAction("CompanyList", "BuildingPermits");
@@ -115,7 +116,7 @@ namespace DMeServicesExternal.Web.Controllers
         [HttpGet]
         public string GetCompanyDataByCr(string id)
         {
-            var client = new RestClient("http://10.21.4.4:8087/dm/rest/services/companydata?crNumber="+ id);
+            var client = new RestClient("http://10.21.4.4:8087/dm/rest/services/companydata?crNumber=" + id);
             var request = new RestRequest(Method.GET);
             request.AddHeader("content-type", "application/json");
             IRestResponse restResponse = client.Execute(request);
@@ -133,7 +134,7 @@ namespace DMeServicesExternal.Web.Controllers
             };
             return View(companyViewModel);
         }
-        
+
         #region Method :: Save Consultant
         [HttpPost]
         public ActionResult SaveConsultant()
@@ -180,12 +181,12 @@ namespace DMeServicesExternal.Web.Controllers
             return PartialView("_ListConsultants", oModel);
         }
         #endregion
-        
+
         #region Method :: Delete Consultant
 
         public ActionResult DeleteConsultant(int id)
         {
-            var oModel = new CompanyViewModel {ConsultantsList = (List<User>) TempData["Consultants"]};
+            var oModel = new CompanyViewModel { ConsultantsList = (List<User>)TempData["Consultants"] };
             oModel.Consultant = oModel.ConsultantsList[id];
             oModel.ConsultantsList.Remove(oModel.Consultant);
             TempData["Consultants"] = oModel.ConsultantsList;
@@ -195,7 +196,7 @@ namespace DMeServicesExternal.Web.Controllers
 
         public ActionResult EditCompany(CompanyViewModel oModel)
         {
-            oModel.ConsultantsList = (List<User>) TempData["Consultants"];
+            oModel.ConsultantsList = (List<User>)TempData["Consultants"];
             string result = MociCompaniesData.SaveCompany(oModel);
             if (!string.IsNullOrWhiteSpace(result))
             {

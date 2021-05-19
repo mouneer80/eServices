@@ -94,6 +94,14 @@ namespace DMeServices.Models.Common.Account
                             oEmployee.IsSupervisionHead = true;
                             break;
 
+                        case 9:
+                            oEmployee.IsEngineerCounter = true;
+                            break;
+
+                        case 10:
+                            oEmployee.IsEngineerManager = true;
+                            break;
+
                     }
                 }
                 return oEmployee;

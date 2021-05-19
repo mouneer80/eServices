@@ -19,5 +19,6 @@ namespace DMeServices.DAL
         public string LookupNameEn { get; set; }
         public string LookupParentDesc { get; set; }
         public int LookupParentId { get; set; }
+        public string CssClassName { get; set; }
     }
 }

@@ -31,7 +31,7 @@ namespace DMeServicesInternal.Web.Controllers
             {
                 Session["EmployeeInfo"] = oEmployee;
 
-                if (oEmployee.IsEngineer || oEmployee.IsEngineerHead)
+                if (oEmployee.IsEngineer || oEmployee.IsEngineerHead || oEmployee.IsEngineerManager)
                 {
                     Session["Show"] = null;
                     return RedirectToAction("Index", "BuildingPermits");

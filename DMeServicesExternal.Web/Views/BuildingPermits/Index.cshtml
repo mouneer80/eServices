@@ -2,8 +2,68 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_SubLayout.cshtml";
+    @*<script src="@Url.Content("~/Scripts/jquery-2.2.1.min.js")"></script>
+        <script src="@Url.Content("~/Scripts/moment.min.js")"></script>
+        <script src="@Url.Content("~/Scripts/js/jquery.datatables.min.js")"></script>
+        <script src="@Url.Content("~/Scripts/datetime-moment.js")"></script>*@
+
 }
 
+<script>
+    $(document).ready(function () {
+
+        //$.fn.dataTable.moment('MMM-DD-Y HH:mm');
+
+        //$('.datatable').dataTable({
+            
+        //    "order": [[1, "desc"]]
+        //});
+        //    $('#oTable').DataTable({
+        //        "language": {
+        //            "info": "معاملات في الصفحة",
+        //        }
+        //    });
+
+    });
+</script>
+
+<style>
+    .Modifiying {
+        color: orangered;
+    }
+
+    .WaitingSignature {
+        color: mediumvioletred;
+    }
+
+    .NotComplete, .NotAgree, .Cancel, .Missing, .NotCompleted {
+        color: red;
+    }
+
+    .WaitingPayment {
+        color: brown;
+    }
+
+    .Pending, .Updated {
+        color: orange;
+    }
+
+    .New, .Small {
+        color: olivedrab;
+    }
+
+    .Completed, .Agree, .Accepted {
+        color: darkgreen;
+    }
+
+    .Paid {
+        color: midnightblue;
+    }
+
+    .Ended, .BigPermit {
+        color: darkviolet;
+    }
+</style>
 <ul class="breadcrumb">
     <li>
         <a href="@Url.Action("Index","Home")">الرئيسية</a>
@@ -39,6 +99,7 @@
                             <tr>
                                 <th>رقم المعاملة</th>
                                 <th>اسم المالك</th>
+                                <th>الرقم المدني</th>
                                 <th>الموقع</th>
                                 <th>تاريخ الطلب</th>
                                 <th>حالة الطلب</th>
@@ -47,6 +108,12 @@
                         <tbody>
                             @foreach (var item in Model.ListBuildingPermits)
                             {
+                                var Region = "لا يوجد";
+
+                                if (item.RegionID != null)
+                                {
+                                    Region = DMeServices.Models.Common.BuildingServices.RegionsCom.RegionByID((int)item.RegionID).RegionArName;
+                                }
                                 <tr>
                                     <td class="center"> <a class="btn btn-primary modal-link" href="@Url.Action("PermitDetails", "BuildingPermits", new { @Id = item.Id })"> @item.TransactNo  </a> </td>
                                     @*<td class="center">@item.TransactNo</td>*@
@@ -56,7 +123,7 @@
                                             item.WorkflowStatus = 8;
                                         }
                                         var Status = DMeServices.Models.Common.LookupsTypeCom.LookupByID((int)item.WorkflowStatus).LookupNameAr;
-                                        var StatusColor = DMeServices.Models.Common.LookupsTypeCom.LookupByID((int)item.WorkflowStatus).LookupNameEn;
+                                        var StatusColor = DMeServices.Models.Common.LookupsTypeCom.LookupByID((int)item.WorkflowStatus).CssClassName;
                                         var ownersName = DMeServices.Models.Common.BuildingServices.PermitsCom.GetOwnersNames((int)item.Id);
 
                                         if (ownersName != null && ownersName.Count > 0)
@@ -81,9 +148,9 @@
                                         }
                                     }
 
-                                    <td class="center">@item.ConstructedArea</td>
-                                    <td class="center">@item.RequestDate.ToShortDateString()</td>
-                                    <td class="center" style="color:#2f9ce5;">@Status</td>
+                                    <td class="center">@Region</td>
+                                    <td class="center">@item.RequestDate.ToString("yyyy/MM/dd-HH:mm")</td>
+                                    <td class="center @StatusColor">@Status</td>
                                 </tr>
                             }
                         </tbody>

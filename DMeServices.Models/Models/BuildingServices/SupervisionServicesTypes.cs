@@ -10,5 +10,6 @@ namespace DMeServices.Models.BuildingServices
         public string ServiceNameAR { get; set; }
         public string ServiceNameEn { get; set; }
         public Nullable<int> ServiceStatus { get; set; }
+        public string CssClassName { get; set; }
     }
 }

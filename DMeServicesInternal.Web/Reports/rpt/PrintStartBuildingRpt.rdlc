@@ -57,10 +57,6 @@
           <DataField>OwnerNotes</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="ConstructionType">
-          <DataField>ConstructionType</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
         <Field Name="ConsultantCrNo">
           <DataField>ConsultantCrNo</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
@@ -73,20 +69,8 @@
           <DataField>ConstructedArea</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="SquareArea">
-          <DataField>SquareArea</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="DMLicenseNames">
-          <DataField>DMLicenseNames</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
         <Field Name="DMLicenseComments">
           <DataField>DMLicenseComments</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="DMLicenseCivilIDs">
-          <DataField>DMLicenseCivilIDs</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="LandArea">
@@ -199,6 +183,34 @@
         </Field>
         <Field Name="SupervisionLicenseNo">
           <DataField>SupervisionLicenseNo</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="BuildingComplex">
+          <DataField>BuildingComplex</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="RequestDate">
+          <DataField>RequestDate</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="CreatedBy">
+          <DataField>CreatedBy</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CreatedOn">
+          <DataField>CreatedOn</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="UpdatedBy">
+          <DataField>UpdatedBy</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="UpdatedOn">
+          <DataField>UpdatedOn</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="UnitNo">
+          <DataField>UnitNo</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
@@ -631,9 +643,9 @@
             </Paragraphs>
             <rd:DefaultName>Textbox11</rd:DefaultName>
             <Top>17.74976cm</Top>
-            <Left>4.40701cm</Left>
+            <Left>3.79847cm</Left>
             <Height>0.58236cm</Height>
-            <Width>9.70431cm</Width>
+            <Width>10.31285cm</Width>
             <ZIndex>11</ZIndex>
             <Style>
               <Border>

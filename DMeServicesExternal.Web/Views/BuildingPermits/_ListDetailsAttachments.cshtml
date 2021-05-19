@@ -40,13 +40,13 @@
 
                                                 <td class="col-lg-1" unprintable>
 
-                                                    @item.InsertDate.ToShortDateString()
+                                                    @item.InsertDate.ToString("yyyy/MM/dd")
 
                                                 </td>
 
                                                 <td class="col-lg-1" unprintable>
 
-                                                    @item.InsertDate.ToShortTimeString()
+                                                    @item.InsertDate.ToString("hh:mm")
 
                                                 </td>
                                                 <td class="col-lg-1" unprintable>
@@ -79,7 +79,7 @@
             </div>
         </div>
         <div class="box col-lg-6">
-            @if (Model.BuildingPermits != null && Model.BuildingPermits.WorkflowStatus == 20)
+            @if (Model.BuildingPermits != null && Model.BuildingPermits.WorkflowStatus == 20 || Model.BuildingPermits != null && Model.BuildingPermits.WorkflowStatus == 18)
             {
                 <div class="box">
                     <div class="box-header well" data-original-title="">

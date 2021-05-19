@@ -95,7 +95,7 @@
                             </div>
                             <div class="form-group col-md-3">
                                 <label class="control-label">تاريخ الدفع</label><label style="color:red;margin:2px;">  </label>
-                                @Html.TextBoxFor(m => m.RevMainPayment.PaymentDate, new { @class = "form-control", @style = "", type = "text", disabled = true, id = "PaymentDate", @Value = @DateTime.Now.ToString("yyyy/MM/dd") })
+                                @Html.TextBoxFor(m => m.RevMainPayment.PaymentDate, new { @class = "form-control", @style = "", type = "text", disabled = true, id = "PaymentDate", @Value = @DateTime.Now.ToString("yyyy/MM/dd h:m") })
 
                             </div>
                             <div class="form-group col-md-6">

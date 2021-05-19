@@ -21,13 +21,13 @@ namespace DMeServices.Models.ViewModels.Internal.Permits
                 oEmployeeInfo = (Employee)HttpContext.Current.Session["EmployeeInfo"];
 
 
-                if (oEmployeeInfo.IsEngineerHead)
+                if (oEmployeeInfo.IsEngineerHead || oEmployeeInfo.IsEngineerManager)
                 {
                     ListBuildingPermits = PermitsCom.AllPermits();
                 }
                 else
                 {
-                    ListBuildingPermits = PermitsCom.PermitsByEngineerID(oEmployeeInfo.EMP_NO);
+                    ListBuildingPermits = PermitsCom.PermitsByEngineerID(oEmployeeInfo.EMP_NO, 1);
                 }
             }
         }

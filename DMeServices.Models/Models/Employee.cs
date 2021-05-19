@@ -60,7 +60,7 @@ namespace DMeServices.Models
         public bool IsSupervisionHead { get; set; }
 
         public bool IsSupervisionInspector { get; set; }
-
-
+        public bool IsEngineerManager { get; set; }
+        public bool IsEngineerCounter { get; internal set; }
     }
 }

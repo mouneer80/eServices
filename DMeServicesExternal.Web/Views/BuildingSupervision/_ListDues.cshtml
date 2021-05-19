@@ -49,12 +49,26 @@
                                     <td class="col-sm-1" unprintable>
                                         @item.PaymentTotalAmount
                                     </td>
-                                    <td class="col-sm-2" unprintable>
-                                        @item.FeesDate
-                                    </td>
-                                    <td class="col-sm-2" unprintable>
-                                        @item.PaymentDate
-                                    </td>
+                                    @if (item.FeesDate.HasValue)
+                                    {
+                                        <td class="col-sm-2" unprintable>
+                                            @item.FeesDate.Value.ToString("yyyy/MM/dd-hh:mm")
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td class="col-sm-2"></td>
+                                    }
+                                    @if (item.PaymentDate.HasValue)
+                                    {
+                                        <td class="col-sm-2" unprintable>
+                                            @item.PaymentDate.Value.ToString("yyyy/MM/dd-hh:mm")
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td class="col-sm-2"></td>
+                                    }
                                     <td class="col-sm-2" unprintable>
                                         @item.Referenceid
                                     </td>

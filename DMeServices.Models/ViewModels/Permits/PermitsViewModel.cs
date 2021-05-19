@@ -47,6 +47,20 @@ namespace DMeServices.Models.ViewModels.Permits
         public PermitsAttachments LandPic { get; set; }
 
         public PermitsAttachments Others { get; set; }
+        
+        public PermitsAttachments OptionalLetter1 { get; set; }
+        public PermitsAttachments OptionalLetter2 { get; set; }
+        public PermitsAttachments OptionalLetter3 { get; set; }
+        public PermitsAttachments OptionalLetter4 { get; set; }
+        public PermitsAttachments OptionalLetter5 { get; set; }
+        public PermitsAttachments OptionalLetter6 { get; set; }
+        public PermitsAttachments OptionalLetter7 { get; set; }
+        public PermitsAttachments OptionalLetter8 { get; set; }
+        public PermitsAttachments OptionalLetter9 { get; set; }
+        public PermitsAttachments OptionalLetter10 { get; set; }
+        public PermitsAttachments OptionalLetter11 { get; set; }
+        public PermitsAttachments OptionalLetter12 { get; set; }
+
 
         public PermitsAttachmentDetails AttachmentDetails { get; set; }
 

@@ -5,11 +5,19 @@
     <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
     <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
     <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
+    @*<script src="@Url.Content("~/Scripts/jquery-2.2.1.min.js")"></script>
+        <script src="@Url.Content("~/Scripts/moment.min.js")"></script>
+        <script src="@Url.Content("~/Scripts/js/jquery.datatables.min.js")"></script>
+        <script src="@Url.Content("~/Scripts/datetime-moment.js")"></script>*@
 
 }
 
 <script>
     $(document).ready(function () {
+
+        //$.fn.dataTable.moment('MMM-DD-Y HH:mm');
+
+
         //    $('#oTable').DataTable({
         //        "language": {
         //            "info": "معاملات في الصفحة",
@@ -28,7 +36,15 @@
         cursor: pointer;
     }
 
-    .NotComplete, .NotAgree, .Cancel, .Missing {
+    .Modifiying {
+        color: orangered;
+    }
+
+    .WaitingSignature {
+        color: mediumvioletred;
+    }
+
+    .NotComplete, .NotAgree, .Cancel, .Missing, .NotCompleted {
         color: red;
     }
 
@@ -40,47 +56,53 @@
         color: orange;
     }
 
-    .Paid, .New, .Completed, .Agree, .Accepted, .Ended {
+    .New, .Small {
         color: olivedrab;
     }
 
-    .Paid, .Completed, .Agree, .Accepted {
+    .Completed, .Agree, .Accepted {
         color: darkgreen;
     }
 
-    .Ended {
-        color: darkviolet,
+    .Paid {
+        color: midnightblue;
+    }
+
+    .Ended, .BigPermit {
+        color: darkviolet;
     }
 </style>
 <div class="col-lg-12 col-sm-12">
+    @if (Model.oEmployeeInfo.IsEngineerManager)
+    {
+        <div class="row">
+            <div class="col-lg-6 col-sm-6">
+                <a href="@Url.Action("Index", "BuildingSupervision")" class="btn btn-primary ">
+                    <i class="glyphicon glyphicon-plus icon-white"></i>طلبات رقابة البناء
+                </a>
+            </div>
+        </div>
+    }
     <div class="row">
         <div class="box col-md-12">
             <div class="box-inner">
                 <div class="box-header well" data-original-title="">
                     <h2><i class="glyphicon glyphicon-road"></i> طلبات تراخيص البناء</h2>
-                    @if (Model.oEmployeeInfo.IsEngineerHead)
+                    @if (Model.oEmployeeInfo.IsEngineerHead || Model.oEmployeeInfo.IsEngineerManager || Model.oEmployeeInfo.IsEngineer)
                     {
                         <div style="font-size:12px;">
-
-
-
                             <div style="float:left ; padding-right:10px;">
                                 <label class="radio-inline">الطلبات الغير مكتملة</label>
                                 <input value="NotCompletePermits" type="radio" name="optradio" />
                             </div>
-
                             <div style="float:left ; padding-right:10px;">
                                 <label class="radio-inline">الطلبات المقبولة</label>
                                 <input value="AcceptedPermits" type="radio" name="optradio" />
                             </div>
-
                             <div style="float:left ; padding-right:10px;">
                                 <label class="radio-inline">الطلبات المرفوضة</label>
                                 <input value="CanceledPermits" type="radio" name="optradio" />
                             </div>
-
-
-
                             <div style="float:left ; padding-right:10px;">
                                 <label class="radio-inline">جميع الطلبات</label>
                                 <input value="AllPermits" type="radio" checked="checked" name="optradio" />
@@ -91,8 +113,6 @@
                             </div>
                         </div>
                     }
-
-
                 </div>
 
 
@@ -103,16 +123,20 @@
                         <thead>
                             <tr>
                                 <th>رقم المعاملة</th>
+                                <th>نوع الطلب</th>
                                 <th>اسم المكتب الاستشاري</th>
                                 <th>اسم مالك المشروع</th>
                                 <th>رقم البطاقة الشخصية للمالك</th>
                                 <th>رقم قطعة الأرض</th>
-                                <th>مربع رقم</th>
+                                <th>الولاية</th>
                                 <th>المنطقة</th>
+                                <th>مربع رقم</th>
+                                <th>رقم الكروكي</th>
                                 <th>تاريخ الطلب</th>
+                                <th>تاريخ التعديل</th>
                                 <th>حالة الطلب</th>
 
-                                @if (Model.oEmployeeInfo.IsEngineerHead)
+                                @if (Model.oEmployeeInfo.IsEngineerHead || Model.oEmployeeInfo.IsEngineerManager)
                                 {
                                     <th>المهندس المختص</th>
                                 }
@@ -133,6 +157,26 @@
 
 <script>
     $(document).ready(function () {
+        @*$("#divLoader").show();
+        var type = "AllPermits";
+        var url = "@Url.Action("PermitsList", "BuildingPermits")";
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: { Type: type },
+            success: function (response) {
+                //$('#oTable').dataTable().api().ajax.reload();
+                $("#divLoader").hide();
+                $('#PermitsList').html(response);
+                //$('#oTable').dataTable().fnAddData(response);
+                //$('#oTable').dataTable().fnDraw();
+            },
+            error: function (er) {
+                $("#divLoader").hide();
+                console.log(er);
+            }
+
+        });*@
         $("#divLoader").hide();
         $('input[type="radio"]').click(function () {
             if ($(this).is(':checked')) {

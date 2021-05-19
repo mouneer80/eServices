@@ -120,17 +120,17 @@
   <data name="BirthDate" xml:space="preserve">
     <value>تاريخ الميلاد</value>
   </data>
+  <data name="BuildingComplex" xml:space="preserve">
+    <value>التجمع السكني</value>
+  </data>
   <data name="BuildingTypeID" xml:space="preserve">
     <value>Building Type</value>
   </data>
   <data name="ConstructedArea" xml:space="preserve">
-    <value>مساحة البناء</value>
-  </data>
-  <data name="ConstructionType" xml:space="preserve">
-    <value>استعمال قطعة الأرض</value>
+    <value>مساحة التنفذ</value>
   </data>
   <data name="CosultantOwner" xml:space="preserve">
-    <value>Cosultant Owner</value>
+    <value>مالك المكتب</value>
   </data>
   <data name="CS_NO" xml:space="preserve">
     <value />
@@ -138,14 +138,14 @@
   <data name="Department" xml:space="preserve">
     <value>القسم</value>
   </data>
-  <data name="DistrictName" xml:space="preserve">
-    <value>المنطقة</value>
-  </data>
   <data name="DistrictNo" xml:space="preserve">
     <value>رقم القطعة</value>
   </data>
   <data name="DmEngineerComments" xml:space="preserve">
-    <value>ملاحظات قسم تراخيص البناء</value>
+    <value>ملاحظات قسم تراخيص البناء للاستشاري</value>
+  </data>
+  <data name="DMEngineerNotes" xml:space="preserve">
+    <value>ملاحظات للإدارة</value>
   </data>
   <data name="DmFileNumber" xml:space="preserve">
     <value>رقم الملف</value>
@@ -153,14 +153,11 @@
   <data name="DmInspectorComments" xml:space="preserve">
     <value>ملاحظات المفتش</value>
   </data>
-  <data name="DMLicenseCivilIDs" xml:space="preserve">
-    <value>ارقام بطاقات المالكين ان وجدت</value>
-  </data>
   <data name="DMLicenseComments" xml:space="preserve">
     <value>بيان الترخيص</value>
   </data>
-  <data name="DMLicenseNames" xml:space="preserve">
-    <value>اسماء المالكين ان وجدت</value>
+  <data name="DMManagerNotes" xml:space="preserve">
+    <value>ملاحظات مدير الدائرة</value>
   </data>
   <data name="DmSupervisionComments" xml:space="preserve">
     <value>ملاحظات قسم رقابة البناء</value>
@@ -214,13 +211,13 @@
     <value>لا يوجد</value>
   </data>
   <data name="NumberOfFloors" xml:space="preserve">
-    <value>عدد الطوابق المراد بنائها</value>
+    <value>عدد الطوابق المراد تنفذها</value>
   </data>
   <data name="OwnerCivilId" xml:space="preserve">
     <value>الرقم المدني للمالك</value>
   </data>
   <data name="OwnerName" xml:space="preserve">
-    <value>Owner Name</value>
+    <value>أسم المالك</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>كلمة المرور</value>
@@ -236,6 +233,9 @@
   </data>
   <data name="SecondName" xml:space="preserve">
     <value>الاسم الثاني</value>
+  </data>
+  <data name="ServiceName" xml:space="preserve">
+    <value>نوع الخدمة المطلوبة</value>
   </data>
   <data name="Services" xml:space="preserve">
     <value>Our Services</value>

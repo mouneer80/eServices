@@ -139,7 +139,7 @@
                 <div class="form-group col-md-12">
                     <div class="form-group col-md-6">
                         <label class="control-label">
-                            @Html.DisplayNameFor(m => m.BuildingPermits.ConstructionType)
+                            @Html.DisplayNameFor(m => m.BuildingPermits.UseTypeID)
                         </label>
                         <label class="form-control" readonly="readonly">@LandUse.UseType</label>
                     </div>
@@ -147,46 +147,46 @@
                         <label class="control-label">نوع المبنى</label>
                         <label class="form-control" readonly="readonly">@BuildingType.BuildingType</label>
                     </div>
-
-
                     <div class="form-group col-md-6">
-
                         <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.NumberOfFloors)</label>
                         @Html.TextBoxFor(m => m.BuildingPermits.NumberOfFloors, new { @class = "form-control", @readonly = "readonly", id = "NumberOfFloors", @placeholder = "عدد الطوابق المراد بنائها" })
-
-
                     </div>
-
                 </div>
             </div>
-
             <br />
             <h5> أضافة التفاصيل</h5>
             <br />
             <label class="control-label">تفاصيل الخدمة</label>
             <div class="row">
                 <div id="FileBrowse" class="form-group col-md-12">
-                    <div class="col-sm-3">
-                        <input type="submit" id="SaveFees" name="SaveFees" class="btn btn-success" value="إضافة تفاصيل" />
-                    </div>
-                    <div class="col-sm-2">
-                        @Html.TextBoxFor(m => m.Total, new { @class = "form-control", @id = "Total", @placeholder = "المبلغ" })
-                        @*@Html.ValidationMessageFor(m => m.Attachments.Description, "", new { @style = "color:orange;" })*@
-                    </div>
-                    <div class="col-sm-2">
-                        @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control", @id = "Quantity", @placeholder = "المساحة" })
-                        @*@Html.ValidationMessageFor(m => m.Attachments.Description, "", new { @style = "color:orange;" })*@
-                    </div>
-                    <div class="col-sm-2">
-                        @Html.TextBoxFor(m => m.Fees, new { @class = "form-control", @id = "Fees", @placeholder = "الرسوم" })
-                        @*@Html.ValidationMessageFor(m => m.Attachments.Description, "", new { @style = "color:orange;" })*@
-                    </div>
-                    <div class="form-group col-md-3">
-
+                    <div class="form-group col-md-2">
                         @Html.DropDownListFor(s => s.ServiceID, (List<SelectListItem>)ViewBag.DDServices, new { style = "padding:0px", @class = "form-control", @data_rel = "chosen", id = "ServiceID" })
                     </div>
+                    <div class="col-md-1">
+                        @Html.TextBoxFor(m => m.Fees, new { @class = "form-control", @id = "Fees", @placeholder = "الرسوم" })
+                    </div>
+                    <div class="col-md-2" id="divFristFloor">
+                        @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control", @id = "fristFloor", @placeholder = "مساحة الطابق الأول" })
+                    </div>
+                    <div class="col-md-2" id="divLastFloor">
+                        @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control", @id = "lastFloor", @placeholder = "مساحة الطابق الأخير" })
+                    </div>
+                    <div class="col-md-1" id="divExFloor">
+                        @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control", @id = "exFloor", @placeholder = "مساحة الملحق" })
+                    </div>
+                    <div class="col-md-1">
+                        @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control", @id = "Quantity", @placeholder = "المساحة" })
+                    </div>
+                    <div class="col-md-1" id="divCount">
+                        @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control", @id = "Count", @placeholder = "عدد الطوابق" })
+                    </div>
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.Total, new { @class = "form-control", @id = "Total", @placeholder = "المبلغ" })
+                    </div>
+                    <div class="col-md-1">
+                        <input type="submit" id="SaveFees" name="SaveFees" class="btn btn-success" value="إضافة تفاصيل" />
+                    </div>
                 </div>
-
                 <div class="row">
                     <div class="box col-md-12">
                         <div id="divPayments" class="row">
@@ -194,66 +194,167 @@
                         </div>
                     </div>
                     <div class="col-sm-6">
-
                     </div>
                 </div>
-
                 <br />
                 <div class="row">
-
                     <button class="btn btn-primary" id="Save">
                         <i class="glyphicon glyphicon-ok"></i> حفظ
                     </button>
-
                     <a style="float:left" href="@Url.Action( "Index","BuildingPermits")" class="btn btn-primary" role="button">الصفحة السابقة</a>
-
                 </div>
             </div>
         }
     </div>
-
 </div>
-
-
-
 <div class="modal fade" id="MainModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-
         </div>
     </div>
 </div>
-
 <script src="~/Scripts/jquery-1.10.2.js"></script>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script type="text/javascript">
     $(function () {
-
         $("#Quantity,#Fees").keyup(function (e) {
-
             var q = $("#Quantity").val();
             var p = $("#Fees").val();
             var result = "";
-
             if (q !== "" && p !== "" && $.isNumeric(q) && $.isNumeric(p)) {
                 result = parseFloat(q) * parseFloat(p);
             }
             $("#Total").val(result);
-
         });
-
     });
     $("#Save").click(function () {
         $('#Permitsform').submit();
     });
-    
 </script>
 <script>
-
     $(document).ready(function () {
-
+        $("#divFristFloor").hide();
+        $("#divLastFloor").hide();
+        $("#divCount").hide();
+        $("#divExFloor").hide();
         $("#ServiceID").change(function () {
+        var feesValue = $("#ServiceID").val();
+
+            if (feesValue == "6" || feesValue == "7" || feesValue == "24" || feesValue == "25") {
+
+
+                if (feesValue == "6") {
+                    $("#divFristFloor").show();
+                    $("#divLastFloor").hide();
+                    $("#divExFloor").hide();
+                    $("#divCount").hide();
+                    $("#fristFloor").keyup(function () {
+                        let space = parseInt($("#fristFloor").val()) * 0.25;
+                        $("#Quantity").val(space);
+                        var q = $("#Quantity").val();
+                        var p = $("#Fees").val();
+                        var result = "";
+
+                        if (q !== "" && p !== "" && $.isNumeric(q) && $.isNumeric(p)) {
+                            result = parseFloat(q) * parseFloat(p);
+                        }
+                        $("#Total").val(result);
+                        $('#SaveFees').attr('disabled', false);
+                    })
+                } else if (feesValue == "7") {
+                    $("#divFristFloor").hide();
+                    $("#divLastFloor").show();
+                    $("#divExFloor").show();
+                    $("#divCount").hide();
+                    $("#exFloor,#lastFloor").keyup(function () {
+                        let space = parseFloat($("#exFloor").val()) - parseInt($("#lastFloor").val()) * 0.25;
+                        if (space < 0 || isNaN(space)) {
+                            space = 0;
+                        }
+                        $("#Quantity").val(space);
+                        var q = $("#Quantity").val();
+                        var p = $("#Fees").val();
+                        var result = "";
+
+                        if (q !== "" && p !== "" && $.isNumeric(q) && $.isNumeric(p)) {
+                            result = parseFloat(q) * parseFloat(p);
+                        }
+                        $("#Total").val(result);
+                        $('#SaveFees').attr('disabled', false);
+                    })
+                } else if (feesValue == "24") {
+                    $("#divFristFloor").show();
+                    $("#divLastFloor").show();
+                    $("#divExFloor").show();
+                    $("#divCount").hide();
+                    $("#fristFloor").keyup(function () {
+                        let space = parseInt($("#fristFloor").val()) * 0.5;
+                        if (space < 0) {
+                            space = 0;
+                        }
+                        $("#Quantity").val(space);
+                        var q = $("#Quantity").val();
+                        var p = $("#Fees").val();
+                        var result = "";
+
+                        if (q !== "" && p !== "" && $.isNumeric(q) && $.isNumeric(p)) {
+                            result = parseFloat(q) * parseFloat(p);
+                        }
+                        $("#Total").val(result);
+                        $('#SaveFees').attr('disabled', false);
+                    })
+                } else if (feesValue == "25") {
+                    $("#divFristFloor").hide();
+                    $("#divLastFloor").show();
+                    $("#divExFloor").show();
+                    $("#divCount").hide();
+                    $("#exFloor,#lastFloor").keyup(function () {
+                        let space = parseFloat($("#exFloor").val()) - parseInt($("#lastFloor").val()) * 0.5;
+                        if (space < 0 || isNaN(space)) {
+                            space = 0;
+                        }
+                        $("#Quantity").val(space);
+                        var q = $("#Quantity").val();
+                        var p = $("#Fees").val();
+                        var result = "";
+
+                        if (q !== "" && p !== "" && $.isNumeric(q) && $.isNumeric(p)) {
+                            result = parseFloat(q) * parseFloat(p);
+                        }
+                        $("#Total").val(result);
+                        $('#SaveFees').attr('disabled', false);
+                    })
+                }
+            }
+            else if (feesValue == "5") {
+                $("#divFristFloor").hide();
+                $("#divLastFloor").hide();
+                $("#divExFloor").hide();
+                $("#divCount").show();
+                $("#Quantity,#Count").keyup(function () {
+                    var q = $("#Quantity").val();
+                    var p = $("#Fees").val();
+                    var c = $("#Count").val();
+                    var result = "";
+
+                    if (q !== "" && p !== "" && c !== "" && $.isNumeric(q) && $.isNumeric(p) && $.isNumeric(c)) {
+                        result = parseFloat(q) * parseFloat(p) * parseFloat(c);
+                    }
+                    $("#Total").val(result);
+                    $('#SaveFees').attr('disabled', false);
+                })
+            }
+            else {
+                $("#divFristFloor").hide();
+                $("#divLastFloor").hide();
+                $("#divCount").hide();
+                $("#divExFloor").hide();
+                //$("#fristFloor").attr('display', 'none');
+                //$("#lastFloor").attr('display', 'none');
+                $('#SaveFees').attr('disabled', true);
+            }
             $("#Fees").empty();
+
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("GetFees")', // Calling json method
@@ -275,20 +376,30 @@
 
         $('#SaveFees').attr('disabled', true);
         $("#ServiceID option[value='0']").attr("disabled", "disabled");
-        $("#Quantity").change(function () {
-
-            var total = $("#Total").val();
-            if (total > 0) {
-
-                $('#SaveFees').attr('disabled', false);
-            }
+        $("#ServiceID option[value='17']").hide();
+        $("#ServiceID option[value='18']").hide();
+        //var total = $("#Total").val();
+        //if (total != "المبلغ") {
+        //    $('#SaveFees').attr('disabled', false);
+        //}
+        $("#Quantity").on('change', (function () {
+            var totalSpace = $("#Quantity").val();
+                if (totalSpace > 0) {
+                    var total = $("#Total").val();
+                    if (total >= 0) {
+                        $('#SaveFees').attr('disabled', false);
+                    }
+                }
+                else {
+                    $('#SaveFees').attr('disabled', true);
+                }
         })
-
+            )
         $("#SaveFees").click(function () {
-            
+
             var data = new FormData();
             var total = $("#Total").val();
-            if (total > 0) {
+            if (total >= 0) {
                 data.append("ServiceID", $("#ServiceID").val());
                 data.append("Fees", $("#Fees").val());
                 data.append("Quantity", $("#Quantity").val());
@@ -311,6 +422,11 @@
                     $('#ServiceID').val('0');
                     $('#Quantity').val('');
                     $('#Total').val('');
+                    $("#fristFloor").val('');
+                    $("#lastFloor").val('');
+                    $("#Count").val('');
+                    $("#exFloor").val('');
+
                     $('#SaveFees').attr('disabled', true);
                 },
                 error: function (er) {

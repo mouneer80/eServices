@@ -25,7 +25,7 @@ $(document).ready(function () {
             && !$('.navbar-toggle').is(e.target)
             && $('.navbar-toggle').has(e.target).length === 0
             && $sidebarNav.hasClass('active')
-            )// ... nor a descendant of the container
+        )// ... nor a descendant of the container
         {
             e.stopPropagation();
             $('.navbar-toggle').click();
@@ -36,7 +36,7 @@ $(document).ready(function () {
     $('#themes a').click(function (e) {
         e.preventDefault();
         currentTheme = $(this).attr('data-value');
-        $.cookie('currentTheme', currentTheme, {expires: 365});
+        $.cookie('currentTheme', currentTheme, { expires: 365 });
         switchTheme(currentTheme);
     });
 
@@ -45,7 +45,7 @@ $(document).ready(function () {
         if (themeName == 'classic') {
             $('#bs-css').attr('href', '/Content/bower_components/bootstrap/dist/css/bootstrap.min.css');
         } else {
-            $('#bs-css').attr('href', '/Content/css/bootstrap-' + themeName +'_ar'+'.min.css');
+            $('#bs-css').attr('href', '/Content/css/bootstrap-' + themeName + '_ar' + '.min.css');
         }
 
         $('#themes i').removeClass('glyphicon glyphicon-ok whitespace').addClass('whitespace');
@@ -54,7 +54,7 @@ $(document).ready(function () {
 
     //ajax menu checkbox
     $('#is-ajax').click(function (e) {
-        $.cookie('is-ajax', $(this).prop('checked'), {expires: 365});
+        $.cookie('is-ajax', $(this).prop('checked'), { expires: 365 });
     });
     $('#is-ajax').prop('checked', $.cookie('is-ajax') === 'true' ? true : false);
 
@@ -116,7 +116,7 @@ $(document).ready(function () {
         var $ul = $(this).siblings('ul');
         var $li = $(this).parent();
         if ($ul.is(':visible')) $li.removeClass('active');
-        else                    $li.addClass('active');
+        else $li.addClass('active');
         $ul.slideToggle();
     });
 
@@ -183,10 +183,10 @@ function docReady() {
         $(this).append('<div class="well gallery-controls">' +
             '<p><a href="#" class="gallery-edit btn"><i class="glyphicon glyphicon-edit"></i></a> <a href="#" class="gallery-delete btn"><i class="glyphicon glyphicon-remove"></i></a></p>' +
             '</div>');
-        $(this).find('.gallery-controls').stop().animate({'margin-top': '-1'}, 400);
+        $(this).find('.gallery-controls').stop().animate({ 'margin-top': '-1' }, 400);
     }, function () {
         $('img', this).fadeToggle(1000);
-        $(this).find('.gallery-controls').stop().animate({'margin-top': '-30'}, 200, function () {
+        $(this).find('.gallery-controls').stop().animate({ 'margin-top': '-30' }, 200, function () {
             $(this).remove();
         });
     });
@@ -237,7 +237,7 @@ function docReady() {
     });
 
     //tour
-    if ($('.tour').length && typeof(tour) == 'undefined') {
+    if ($('.tour').length && typeof (tour) == 'undefined') {
         var tour = new Tour();
         tour.addStep({
             element: "#content", /* html element next to which the step popover should be shown */
@@ -275,9 +275,8 @@ function docReady() {
     $('.datatable').dataTable({
         "sDom": "<'row'<'col-md-6'l><'col-md-6'f>r>t<'row'<'col-md-12'i><'col-md-12 center-block'p>>",
         "sPaginationType": "bootstrap",
-        "oLanguage": {
-            "sLengthMenu": "_MENU_ records per page"
-        }
+        
+        "bOrder": [[11, "asc"]]
     });
     $('.btn-close').click(function (e) {
         e.preventDefault();
@@ -287,7 +286,7 @@ function docReady() {
         e.preventDefault();
         var $target = $(this).parent().parent().next('.box-content');
         if ($target.is(':visible')) $('i', $(this)).removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
-        else                       $('i', $(this)).removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
+        else $('i', $(this)).removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
         $target.slideToggle();
     });
     $('.btn-setting').click(function (e) {
@@ -372,9 +371,9 @@ $.extend($.fn.dataTableExt.oPagination, {
 
             $(nPaging).addClass('pagination').append(
                 '<ul class="pagination">' +
-                    '<li class="prev disabled"><a href="#">&larr; ' + oLang.sPrevious + '</a></li>' +
-                    '<li class="next disabled"><a href="#">' + oLang.sNext + ' &rarr; </a></li>' +
-                    '</ul>'
+                '<li class="prev disabled"><a href="#">&larr; ' + oLang.sPrevious + '</a></li>' +
+                '<li class="next disabled"><a href="#">' + oLang.sNext + ' &rarr; </a></li>' +
+                '</ul>'
             );
             var els = $('a', nPaging);
             $(els[0]).bind('click.DT', { action: "previous" }, fnClickHandler);

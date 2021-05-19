@@ -19,7 +19,7 @@ namespace DMeServices.Models.ViewModels.Internal.Permits
             {
                 oEmployeeInfo = (Employee)HttpContext.Current.Session["EmployeeInfo"];
 
-                if (oEmployeeInfo.IsSupervisionHead)
+                if (oEmployeeInfo.IsSupervisionHead || oEmployeeInfo.IsEngineerManager)
                 {
                     ListBuildingSupervision = SupervisionCom.GetAllSupervisionsByFlowStatus(8);
                 }

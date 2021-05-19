@@ -126,7 +126,7 @@
             </div>
             if (Model.ShowAdd == true)
             {
-                <div class="row">
+                <div class="row" id="divContractor">
                     <div class="form-group col-md-4">
                         <div class="col-md-6">
                             <label class="control-label"> السجل التجاري للمقاول</label>
@@ -372,7 +372,7 @@
     </div>
     <br />
     <br />
-    <button class="btn btn-primary" id="Save" onclick="return confirm('هل انت متاكد !');">
+    <button class="btn btn-primary" id="Save" @*onclick="return confirm('هل انت متاكد !');"*@>
         <i class="glyphicon glyphicon-ok"></i> أرسال البيانات
     </button>
     <a style="float:left" href="@Url.Action( "Index","BuildingPermits")" class="btn btn-primary" role="button">الصفحة السابقة</a>
@@ -641,11 +641,38 @@
         $('#txtMessageText').text('');
     }
     $("#Save").click(function () {
-        $('#Permitsform').submit();
+        if ($("#ServiceType").val() == 0) {
+            $('.modal-content').text("فضلا اختر نوع الخدمة المطلوبة");
+            $('#MainModal').modal('show');
+            $("#ServiceType").focus();
+            $("#ServiceType").select();
+            return;
+        }
+        var validator = $('#Permitsform').validate();
+        if ($('#Permitsform').valid()) {  //<<< I was missing this check
+            $('#Permitsform').submit();
+        }
+        else {
+            console.log(validator.errorList);
+        }
+        //$('#Permitsform').submit();
     });
 </script>
 
 <script>
+    $("#ServiceType").change(function () {
+       
+        let selectedVal = parseInt($('#ServiceType').val());
+
+        if (selectedVal == 5) {
+            //ترخيص بناء جديد او قائم
+            /*resetDivs();*/
+            $("#divContractor").show();
+            /*alert($('#ServiceType').find('option:selected').text());*/
+        } else {
+            $("#divContractor").hide();
+        }
+    });
     function onchangeevent(textBox) {
         var fileName = $('#' + textBox.id).val();
         $('#' + textBox.id + 'Loader').css("display", "block");
@@ -680,6 +707,7 @@
 
 <script>
     $(document).ready(function () {
+        $("#divContractor").hide();
         $('#SaveAttachment').attr('disabled', true);
         $("#AttTypeId option[value='0']").attr("disabled", "disabled");
         $("#MapFile").change(function () {

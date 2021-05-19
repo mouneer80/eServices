@@ -37,13 +37,13 @@
 
                                     <td class="col-sm-1" unprintable>
 
-                                        @item.InsertDate.ToShortDateString()
+                                        @item.InsertDate.ToString("yyyy/MM/dd")
 
                                     </td>
 
                                     <td class="col-sm-1" unprintable>
 
-                                        @item.InsertDate.ToShortTimeString()
+                                        @item.InsertDate.ToString("hh:mm")
 
                                     </td>
                                     <td class="col-sm-1" unprintable>
@@ -109,11 +109,11 @@
                                             @item.Description
                                         </td>
                                         <td class="col-sm-3" unprintable>
-                                            @item.InsertDate.ToShortDateString()
+                                            @item.InsertDate.ToString("yyyy/MM/dd")
                                         </td>
 
                                         <td class="col-sm-2" unprintable>
-                                            @item.InsertDate.ToShortTimeString()
+                                            @item.InsertDate.ToString("hh:mm")
                                         </td>
                                         <td class="col-sm-1" unprintable>
                                             <a class="modal-link" href="@Url.Action("GetFile", new { @controller = "BuildingSupervision", @Id = item.Id })">عرض الملف<i class="fa fa-eye-slash modal-link"></i></a>

@@ -113,8 +113,25 @@
         @using (Html.BeginForm("SaveConsultantPermits", "BuildingPermits", FormMethod.Post, new { encType = "multipart/form-data", @id = "Permitsform" }))
         {
             @Html.AntiForgeryToken()
-            @Html.HiddenFor(x => x.BuildingPermits.Id)
+            var serviceType = DMeServices.Models.Common.BuildingServices.SupervisionCom.ServiceByID(String.IsNullOrEmpty(Model.BuildingPermits.ServiceName) ? 12 : Int32.Parse(Model.BuildingPermits.ServiceName)).ServiceNameAR;
+            @Html.HiddenFor(x => x.BuildingPermits.Id, new { id = "bldID" })
+            @Html.HiddenFor(x => x.BuildingPermits.AppointmentStatus, new { id = "bldAppointment" })
             @Html.HiddenFor(x => x.BuildingPermits.TransactNo)
+            <div class="row">
+                <label>نوع الخدمة</label>
+                <h5>@serviceType</h5>
+            </div>
+            if (Model.BuildingPermits.ContractorName != null)
+            {
+                <div class="row" id="divContractorName">
+                    <h5>بيانات شركة المقاولات</h5>
+                    <div class="form-group col-lg-2">
+                        <label class="control-label">إسم شركة المقاولات</label>
+                        @Html.TextBoxFor(m => m.BuildingPermits.ContractorName, new { @class = "form-control", id = "ContractorName", @placeholder = "إسم شركة المقاولات" })
+                        @*@Html.ValidationMessageFor(m => m.BuildingPermits.ContractorName, "", new { @style = "color:orange;" })*@
+                    </div>
+                </div>
+            }
             <div class="row">
                 <div class="form-group col-md-12">
                     <h5>بيانات مالك الارض</h5>
@@ -170,6 +187,11 @@
                         <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.DistrictNo)</label>
                         @Html.TextBoxFor(m => m.BuildingPermits.DistrictNo, new { @readonly = "readonly", @class = "form-control", id = "DistrictNo", @placeholder = "رقم القطعة" })
                     </div>
+                    <div class="form-group col-lg-1" id="divUnitNo">
+                        <label class="control-label">رقم الوحدة</label>
+                        @Html.TextBoxFor(m => m.BuildingPermits.UnitNo, new { @class = "form-control", id = "DistrictNo", @placeholder = "رقم الوحدة" })
+                        @*@Html.ValidationMessageFor(m => m.BuildingPermits.DistrictNo, "", new { @style = "color:orange;" })*@
+                    </div>
                     <div class="form-group col-lg-2">
                         <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.LandArea)</label>
                         @Html.TextBoxFor(m => m.BuildingPermits.LandArea, new { @class = "form-control", id = "LandArea", @placeholder = "المساحة الكلية لقطعة الأرض" })
@@ -178,7 +200,7 @@
                     <div class="form-group col-lg-3">
                         <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.KrokiNO)</label>
                         <div style="direction:ltr">
-                            <input type="text" style="width: 40px; display: inline" onkeyup="moveCursor(this, KrokiNO2);" maxlength="2" class="form-control" id="KrokiNO1" />
+                            @*<input type="text" style="width: 40px; display: inline" onkeyup="moveCursor(this, KrokiNO2);" maxlength="2" class="form-control" id="KrokiNO1" />
                             <label class="control-label">-</label>
                             <input type="text" style="width: 40px; display: inline" onkeyup="moveCursor(this, KrokiNO3);" maxlength="2" class="form-control" id="KrokiNO2" />
                             <label class="control-label">-</label>
@@ -186,7 +208,7 @@
                             <label class="control-label">-</label>
                             <input type="text" style="width: 40px; display: inline" onkeyup="moveCursor(this, KrokiNO5);" maxlength="2" class="form-control" id="KrokiNO4" />
                             <label class="control-label">-</label>
-                            <input type="text" style="width: 55px; display: inline" onkeyup="moveCursor(this, KrokiNO);" maxlength="4" class="form-control" id="KrokiNO5" />
+                            <input type="text" style="width: 55px; display: inline" onkeyup="moveCursor(this, KrokiNO);" maxlength="4" class="form-control" id="KrokiNO5" />*@
 
                             @Html.TextBoxFor(m => m.BuildingPermits.KrokiNO, new { @class = "form-control", @readonly = "readonly", id = "KrokiNO", @placeholder = "رقم الكروكي" })
                             @Html.ValidationMessageFor(m => m.BuildingPermits.KrokiNO, "", new { @style = "color:orange;" })
@@ -212,11 +234,11 @@
                     <div class="form-group col-md-3">
                         <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.LicenseNo)</label>
                         <div style="direction:ltr">
-                            <input type="text" style="width: 75px; display: inline" onkeyup="moveCursorLicenseNo(this, LicenseNo2);" maxlength="4" class="form-control" id="LicenseNo1" placeholder="السنة" />
+                            @*<input type="text" style="width: 75px; display: inline" onkeyup="moveCursorLicenseNo(this, LicenseNo2);" maxlength="4" class="form-control" id="LicenseNo1" placeholder="السنة" />
                             <label class="control-label">/</label>
-                            <input type="text" style="width: 75px; display: inline" onkeyup="moveCursorLicenseNo(this, LicenseNo);" maxlength="5" class="form-control" id="LicenseNo2" placeholder="الرقم" />
+                            <input type="text" style="width: 75px; display: inline" onkeyup="moveCursorLicenseNo(this, LicenseNo);" maxlength="5" class="form-control" id="LicenseNo2" placeholder="الرقم" />*@
 
-                            @Html.TextBoxFor(m => m.BuildingPermits.LicenseNo, new { @class = "form-control", id = "LicenseNo", @placeholder = "رقم الترخيص" })
+                            @Html.TextBoxFor(m => m.BuildingPermits.LicenseNo, new { @readonly = "raedonly", @class = "form-control", id = "LicenseNo", @placeholder = "رقم الترخيص" })
                             @*@Html.ValidationMessageFor(m => m.BuildingPermits.LicenseNo, "", new { @style = "color:orange;" })*@
                         </div>
                     </div>
@@ -226,7 +248,7 @@
                         @Html.ValidationMessageFor(m => m.BuildingPermits.ConstructedArea, "", new { @style = "color:orange;" })
                     </div>
                     <div class="form-group col-lg-3">
-                        <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.ConstructionType)</label>
+                        <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.UseTypeID)</label>
                         @Html.DropDownListFor(m => m.BuildingPermits.UseTypeID, (List<SelectListItem>)ViewBag.DDLandUseTypes, new { style = "padding:0px", @class = "form-control", @data_rel = "chosen", id = "LandUseTypes" })
                     </div>
                     <div class="form-group col-lg-2">
@@ -240,11 +262,26 @@
                 </div>
             </div>
             <div class="row">
-                <div class="form-group col-lg-12">
+                <div class="form-group col-lg-6">
                     <h5>@Html.DisplayNameFor(m => m.BuildingPermits.DmEngineerComments)</h5>
                     <div class="form-group col-md-6">
                         @Html.TextAreaFor(m => m.BuildingPermits.DmEngineerComments, new { @style = "font-size:11px; height:200px;", @readonly = "readonly", @class = "form-control", id = "OwnerName", @placeholder = "لا يوجد ملاحظات" })
                     </div>
+                </div>
+                <div class="form-group col-lg-2" id="divAppointmentDetails">
+                    <h5>حالة طلب المقابلة</h5>
+                    @if (Model.BuildingPermits.AppointmentDate != null && Model.BuildingPermits.AppointmentStatus != null)
+                    {
+                        <div class="form-group col-md-12">
+                            @Html.TextAreaFor(m => m.BuildingPermits.AppointmentDate, new { @readonly = "readonly", @class = "form-control", id = "appointmentDate", @placeholder = "لا يوجد موعد مقابلة" })
+                        </div>
+                    }
+                    else
+                    {
+                        <label class="form-group col-md-12" id="lblAppointmentDate">
+                            "لا يوجد طلب موعد للمقابلة"
+                        </label>
+                    }
                 </div>
             </div>
         }
@@ -266,21 +303,111 @@
             </div>
         }
     </div>
-    @if (Model.BuildingPermits != null && Model.BuildingPermits.WorkflowStatus == 20)
+    @if (Model.BuildingPermits != null && Model.BuildingPermits.WorkflowStatus == 20 || Model.BuildingPermits != null && Model.BuildingPermits.WorkflowStatus == 18)
     {
         <button class="btn btn-primary" id="Save" @*onclick="return confirm('هل انت متاكد من حفظ التعديلات !');" *@>
             <i class="glyphicon glyphicon-ok"></i> حفظ
         </button>
     }
+    <button id="MakeAppointment" class="btn btn-primary"><i class="glyphicon glyphicon-ok"></i>تحديد موعد للمقابلة</button>
     <a style="float:left" href="@Url.Action("Index","BuildingPermits")" class="btn btn-primary" role="button">الصفحة السابقة</a>
 </div>
+<div class="modal fade" id="MainModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog box-inner modal-sm">
 
+        <div class="modal-header box-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h5 class="modal-title">تحذير</h5>
+
+        </div>
+        <div class="modal-body box-content">
+            <div class="modal-content">
+            </div>
+        </div>
+        <div class="modal-footer box-footer">
+            <button type="button" data-dismiss="modal" aria-hidden="true" class="btn btn-primary">موافق</button>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        // Initialize numeric spinner input boxes
+        //$(".numeric-spinner").spinedit();
+
+        // Initalize modal dialog
+        // attach modal-container bootstrap attributes to links with .modal-link class.
+        // when a link is clicked with these attributes, bootstrap will display the href content in a modal dialog.
+
+        $('body').on('click', '.modal-link', function (e) {
+
+            $(this).attr('data-target', '#MainModal');
+            e.preventDefault();
+            $("iframe").attr("src", $(this).attr('href'));
+            $(this).attr('data-toggle', 'modal');
+        });
+
+
+        // Attach listener to .modal-close-btn's so that when the button is pressed the modal dialog disappears
+        $('body').on('click', '.modal-close-btn', function () {
+
+            $('#MainModal').modal('hide');
+        });
+
+        //clear modal cache, so that new content can be loaded
+        $('#MainModal').on('hidden.bs.modal', function () {
+
+            $(this).removeData('bs.modal');
+        });
+
+        $(document).on("hidden.bs.modal", function (e) {
+            $(e.target).removeData("bs.modal").find(".modal-content").empty();
+        });
+
+        $('#CancelModal').on('click', function () {
+            return false;
+        });
+    });
+</script>
 <script>
     $("#Save").click(function () {
         $('#Permitsform').submit();
     });
     $("#Pay").on("click", function () {
         alert('Your Message');
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        if ($("#bldAppointment").val() == 1 || $("#bldAppointment").val() == 2) {
+            $('#MakeAppointment').attr('disabled', true);
+        } else {
+            $("#MakeAppointment").click(function () {
+                var data = new FormData();
+                var url = "@Url.Action("MakeAppointment", "BuildingPermits")";
+                data.append("bldID", $("#bldID").val());
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    processData: false,
+                    contentType: false,
+                    data: data,
+                    success: function (response) {
+                        if (response.msg) {
+                            var error = response.msg;
+                            $('.modal-content').css({ fontSize: "12px", color: "green" });
+                            $('.modal-content').text(error);
+                            $("#MainModal").modal("show");
+                            $('#lblAppointmentDate').text("تم تقديم طلب المقابلة");
+                            $('#MakeAppointment').attr('disabled', true);
+                        }
+                    },
+                    error: function (er) {
+                        console.log(er);
+                        $('#MakeAppointment').attr('disabled', true);
+                    }
+                });
+            });
+        }
     });
 </script>
 

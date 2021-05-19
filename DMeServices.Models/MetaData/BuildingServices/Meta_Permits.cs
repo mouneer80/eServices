@@ -41,10 +41,10 @@ namespace DMeServices.Models.MetaData.BuildingServices
 
 
 
-        [Display(Name = "DistrictName", ResourceType = typeof(Resources.DisplayName_Ar))]
+        [Display(Name = "ServiceName", ResourceType = typeof(Resources.DisplayName_Ar))]
         //[Required(ErrorMessageResourceType = typeof(Resources.Validation_Ar), ErrorMessageResourceName = "RequirdField", AllowEmptyStrings = false)]
         [StringLength(maximumLength: 50, MinimumLength = 1, ErrorMessageResourceName = "OutOfRange", ErrorMessageResourceType = typeof(Resources.Validation_Ar))]
-        public string DistrictName { get; set; }
+        public string ServiceName { get; set; }
 
 
         [Display(Name = "DistrictNo", ResourceType = typeof(Resources.DisplayName_Ar))]
@@ -70,10 +70,10 @@ namespace DMeServices.Models.MetaData.BuildingServices
         public int ConsultantCrNo { get; set; }
 
 
-        [Display(Name = "ConstructionType", ResourceType = typeof(Resources.DisplayName_Ar))]
+        [Display(Name = "BuildingComplex", ResourceType = typeof(Resources.DisplayName_Ar))]
         //[Required(ErrorMessageResourceType = typeof(Resources.Validation_Ar), ErrorMessageResourceName = "RequirdField", AllowEmptyStrings = false)]
         [StringLength(maximumLength: 50, MinimumLength = 1, ErrorMessageResourceName = "OutOfRange", ErrorMessageResourceType = typeof(Resources.Validation_Ar))]
-        public string ConstructionType { get; set; }
+        public string BuildingComplex { get; set; }
 
         [DataType(DataType.Date)]
         public System.DateTime RequestDate { get; set; }
@@ -90,11 +90,11 @@ namespace DMeServices.Models.MetaData.BuildingServices
         [StringLength(maximumLength: 50, MinimumLength = 1, ErrorMessageResourceName = "OutOfRange", ErrorMessageResourceType = typeof(Resources.Validation_Ar))]
         public string LicenseNo { get; set; }
 
-        public string PaymentReceiptNo { get; set; }
+        public string AppointmentStatus { get; set; }
 
         public Nullable<decimal> PaymentAmount { get; set; }
 
-        public Nullable<System.DateTime> PaymentDate { get; set; }
+        public Nullable<System.DateTime> AppointmentDate { get; set; }
 
 
         [Display(Name = "WorkflowStatus", ResourceType = typeof(Resources.DisplayName_Ar))]
@@ -133,14 +133,14 @@ namespace DMeServices.Models.MetaData.BuildingServices
         [Display(Name = "DmFileNumber", ResourceType = typeof(Resources.DisplayName_Ar))]
         public string DmFileNumber { get; set; }
 
-        [Display(Name = "DMLicenseNames", ResourceType = typeof(Resources.DisplayName_Ar))]
-        public string DMLicenseNames { get; set; }
+        [Display(Name = "DMManagerNotes", ResourceType = typeof(Resources.DisplayName_Ar))]
+        public string DMManagerNotes { get; set; }
 
         [Display(Name = "DMLicenseComments", ResourceType = typeof(Resources.DisplayName_Ar))]
         public string DMLicenseComments { get; set; }
 
-        [Display(Name = "DMLicenseCivilIDs", ResourceType = typeof(Resources.DisplayName_Ar))]
-        public string DMLicenseCivilIDs { get; set; }
+        [Display(Name = "DMEngineerNotes", ResourceType = typeof(Resources.DisplayName_Ar))]
+        public string DMEngineerNotes { get; set; }
 
         [Display(Name = "LandArea", ResourceType = typeof(Resources.DisplayName_Ar))]
         [Required(ErrorMessageResourceType = typeof(Resources.Validation_Ar), ErrorMessageResourceName = "RequirdField", AllowEmptyStrings = false)]

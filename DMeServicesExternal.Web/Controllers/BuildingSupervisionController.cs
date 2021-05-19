@@ -179,7 +179,7 @@ namespace DMeServicesExternal.Web.Controllers
                 {
                     return Json(new
                     {
-                        msg = "عفوا .. لا يمكنك اضافة طلبات على هذا الترخيص .. حيث ان الرقم المدني المستخدم غير مطابق .. برجاء مراجعة قسم رقابة البناء"
+                        msg = "عفوا .. لا يمكنك اضافة طلبات على هذا الترخيص .. حيث ان الرقم المدني المستخدم غير مطابق او رقم الترخيص غير صحيح او غير مسجل .. برجاء مراجعة قسم رقابة البناء"
                     });
                     //    ViewBag.Message = "عفوا .. لا يمكنك اضافة طلبات على هذا الترخيص .. حيث ان الرقم المدني المستخدم غير مطابق .. برجاء مراجعة قسم رقابة البناء";
                     //    return View();
@@ -196,10 +196,23 @@ namespace DMeServicesExternal.Web.Controllers
             ViewBag.DDLandUseTypes = DdLandUseTypes();
             ViewBag.DDSquareLetters = DdSquareLetters();
             oModel.ListOfOwners = PermitsCom.OwnersByPermitID(oModel.BuildingPermits.Id);
-            oModel.ListOfAttachments = PermitsAttachmentsCom.AttachmentsByPermitsID(oModel.BuildingPermits.Id, oModel.BuildingPermits.KrokiNO);
+            string folderName = dirName(oModel);
+            oModel.ListOfAttachments = PermitsAttachmentsCom.AttachmentsByPermitsID(oModel.BuildingPermits.Id, folderName);
             return PartialView("_Details", oModel);
         }
-
+        private static string dirName(SupervisionViewModel oModel)
+        {
+            string directoryName;
+            if (string.IsNullOrEmpty(oModel.BuildingPermits.KrokiNO))
+            {
+                directoryName = oModel.BuildingPermits.ConsultantCivilId.ToString() + "_" + oModel.BuildingPermits.ConsultantCrNo.ToString();
+            }
+            else
+            {
+                directoryName = oModel.BuildingPermits.KrokiNO;
+            }
+            return directoryName;
+        }
         public ActionResult SupervisionDetails(bool showadd, int id = -99)
         {
             SupervisionViewModel oModel = new SupervisionViewModel();
@@ -223,7 +236,8 @@ namespace DMeServicesExternal.Web.Controllers
             ViewBag.DDLandUseTypes = DdLandUseTypes();
             ViewBag.DDSquareLetters = DdSquareLetters();
             oModel.ListOfOwners = PermitsCom.OwnersByPermitID(oModel.BuildingSupervision.BldPermitID);
-            oModel.ListOfAttachments = PermitsAttachmentsCom.AttachmentsByPermitsID(oModel.BuildingSupervision.BldPermitID, oModel.BuildingPermits.KrokiNO);
+            string folderName = dirName(oModel);
+            oModel.ListOfAttachments = PermitsAttachmentsCom.AttachmentsByPermitsID(oModel.BuildingSupervision.BldPermitID, folderName);
             oModel.Payments = PaymentsCom.PaymentsBySupervisionID(oModel.BuildingSupervision.ID);
             oModel.PaymentDetailsList = PaymentsCom.MapsPaymentDetailsBySupervisionID(oModel.BuildingSupervision.ID);
             oModel.TransactsList = SupervisionCom.SupervisionsTransactById(oModel.BuildingSupervision.ID);
@@ -240,22 +254,6 @@ namespace DMeServicesExternal.Web.Controllers
         public async Task<ActionResult> ShowModalDocument(int id)
         {
             string filePath = "~/Files/" + id.ToString() + ".pdf";
-            //if (id == 1)
-            //{
-            //    filePath = "~/Files/1.pdf";
-            //}
-            //else if (id == 2)
-            //{
-            //    filePath = "~/Files/2.pdf";
-            //}
-            //else if (id == 4)
-            //{
-            //    filePath = "~/Files/4.pdf";
-            //}
-            //else
-            //{
-            //    filePath = "~/Files/3.pdf";
-            //}
 
             var contentDisposition = new System.Net.Mime.ContentDisposition
             {
@@ -538,7 +536,7 @@ namespace DMeServicesExternal.Web.Controllers
 
                 HttpPostedFileBase oFile = Attachment.File;
                 FileInfo oFileInfo = new FileInfo(oFile.FileName);
-
+                string folderName = dirName(oModel);
                 if (oFile != null && oFile.ContentLength > 0)
                 {
                     switch (Attachment.AttachmentTypeId)
@@ -547,7 +545,7 @@ namespace DMeServicesExternal.Web.Controllers
                         case 2:
                         case 3:
                             sFilename = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + oFileInfo.Extension;
-                            PerPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/Personal/" + oModel.BuildingPermits.KrokiNO));
+                            PerPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/Personal/" + folderName));
                             sPath = System.IO.Path.Combine(PerPath.ToString());
                             string PerUploadPath = string.Format("{0}\\{1}", sPath, sFilename);
 
@@ -564,7 +562,7 @@ namespace DMeServicesExternal.Web.Controllers
                         case 8:
                         case 14:
                             sFilename = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + oFileInfo.Extension;
-                            StrPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/StructuralFiles/" + oModel.BuildingPermits.KrokiNO));
+                            StrPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/StructuralFiles/" + folderName));
                             sPath = System.IO.Path.Combine(StrPath.ToString());
                             string StrUploadPath = string.Format("{0}\\{1}", sPath, sFilename);
                             // oFile.SaveAs(StrUploadPath);
@@ -582,7 +580,7 @@ namespace DMeServicesExternal.Web.Controllers
                         case 48:
                         case 49:
                             sFilename = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + oFileInfo.Extension;
-                            StrPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/SupervisionFiles/" + oModel.BuildingPermits.KrokiNO));
+                            StrPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/SupervisionFiles/" + folderName));
                             sPath = System.IO.Path.Combine(StrPath.ToString());
                             string SupUploadPath = string.Format("{0}\\{1}", sPath, sFilename);
                             // oFile.SaveAs(StrUploadPath);
@@ -628,11 +626,11 @@ namespace DMeServicesExternal.Web.Controllers
                 {
                     HttpPostedFileBase oFile = Attachment.File;
                     FileInfo oFileInfo = new FileInfo(oFile.FileName);
-
+                    string folderName = dirName(oModel);
                     if (oFile != null && oFile.ContentLength > 0)
                     {
                         var sFilename = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + oFileInfo.Extension;
-                        var StrPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/StructuralFiles/" + oModel.BuildingPermits.KrokiNO));
+                        var StrPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/StructuralFiles/" + folderName));
                         var sPath = System.IO.Path.Combine(StrPath.ToString());
                         string StrUploadPath = string.Format("{0}\\{1}", sPath, sFilename);
                         // oFile.SaveAs(StrUploadPath);

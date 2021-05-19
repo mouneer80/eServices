@@ -70,6 +70,15 @@ namespace DMeServices.Models.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to التجمع السكني.
+        /// </summary>
+        public static string BuildingComplex {
+            get {
+                return ResourceManager.GetString("BuildingComplex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Building Type.
         /// </summary>
         public static string BuildingTypeID {
@@ -79,7 +88,7 @@ namespace DMeServices.Models.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to مساحة البناء.
+        ///   Looks up a localized string similar to مساحة التنفذ.
         /// </summary>
         public static string ConstructedArea {
             get {
@@ -88,16 +97,7 @@ namespace DMeServices.Models.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to استعمال قطعة الأرض.
-        /// </summary>
-        public static string ConstructionType {
-            get {
-                return ResourceManager.GetString("ConstructionType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Cosultant Owner.
+        ///   Looks up a localized string similar to مالك المكتب.
         /// </summary>
         public static string CosultantOwner {
             get {
@@ -124,15 +124,6 @@ namespace DMeServices.Models.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to المنطقة.
-        /// </summary>
-        public static string DistrictName {
-            get {
-                return ResourceManager.GetString("DistrictName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to رقم القطعة.
         /// </summary>
         public static string DistrictNo {
@@ -142,11 +133,20 @@ namespace DMeServices.Models.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ملاحظات قسم تراخيص البناء.
+        ///   Looks up a localized string similar to ملاحظات قسم تراخيص البناء للاستشاري.
         /// </summary>
         public static string DmEngineerComments {
             get {
                 return ResourceManager.GetString("DmEngineerComments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ملاحظات للإدارة.
+        /// </summary>
+        public static string DMEngineerNotes {
+            get {
+                return ResourceManager.GetString("DMEngineerNotes", resourceCulture);
             }
         }
         
@@ -169,15 +169,6 @@ namespace DMeServices.Models.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ارقام بطاقات المالكين ان وجدت.
-        /// </summary>
-        public static string DMLicenseCivilIDs {
-            get {
-                return ResourceManager.GetString("DMLicenseCivilIDs", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to بيان الترخيص.
         /// </summary>
         public static string DMLicenseComments {
@@ -187,11 +178,11 @@ namespace DMeServices.Models.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to اسماء المالكين ان وجدت.
+        ///   Looks up a localized string similar to ملاحظات مدير الدائرة.
         /// </summary>
-        public static string DMLicenseNames {
+        public static string DMManagerNotes {
             get {
-                return ResourceManager.GetString("DMLicenseNames", resourceCulture);
+                return ResourceManager.GetString("DMManagerNotes", resourceCulture);
             }
         }
         
@@ -349,7 +340,7 @@ namespace DMeServices.Models.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to عدد الطوابق المراد بنائها.
+        ///   Looks up a localized string similar to عدد الطوابق المراد تنفذها.
         /// </summary>
         public static string NumberOfFloors {
             get {
@@ -367,7 +358,7 @@ namespace DMeServices.Models.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Owner Name.
+        ///   Looks up a localized string similar to أسم المالك.
         /// </summary>
         public static string OwnerName {
             get {
@@ -417,6 +408,15 @@ namespace DMeServices.Models.Resources {
         public static string SecondName {
             get {
                 return ResourceManager.GetString("SecondName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to نوع الخدمة المطلوبة.
+        /// </summary>
+        public static string ServiceName {
+            get {
+                return ResourceManager.GetString("ServiceName", resourceCulture);
             }
         }
         

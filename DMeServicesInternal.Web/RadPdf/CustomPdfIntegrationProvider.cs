@@ -51,7 +51,7 @@ namespace DMeServicesInternal.Web.RadPdf
             switch (key)
             {
                 case "dynamic":
-                    int imageWidth = 200;
+                    int imageWidth = 300;
                     int margin = 10;
                     Font font = new Font(FontFamily.GenericMonospace, 8);
                     StringFormat stringFormat = new StringFormat();
@@ -65,23 +65,23 @@ namespace DMeServicesInternal.Web.RadPdf
                         using (Graphics gr = Graphics.FromImage(bmp))
                         {
                             //Set smoothing mode
-                            gr.SmoothingMode = SmoothingMode.AntiAlias;
-
+                            //gr.SmoothingMode = SmoothingMode.AntiAlias;
+                            gr.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixelGridFit;
                             //Get the rect for the bitmap
                             RectangleF rect = gr.VisibleClipBounds;
 
                             //Create a new brush to draw background with
-                            using (Brush br = new SolidBrush(Color.FromArgb(255, 255, 255, 255)))
+                            using (Brush br = new SolidBrush(Color.FromArgb(0, 255, 255, 255)))
                             {
                                 //Draw background
                                 gr.FillRectangle(br, rect);
                             }
 
                             //Create a new brush to draw text with
-                            using (Brush br = new SolidBrush(Color.FromArgb(255, 215, 105, 5)))
+                            using (Brush br = new SolidBrush(Color.FromArgb(255, 215, 5, 5)))
                             {
                                 //Create a new font to draw text with
-                                using (Font ft = new Font("Arial", 20.0f, FontStyle.Bold, GraphicsUnit.Point))
+                                using (Font ft = new Font("Arial", 10.0f, FontStyle.Bold, GraphicsUnit.Point))
                                 {
                                     //Create string format to draw text with
                                     using (StringFormat sf = new StringFormat())
@@ -185,7 +185,7 @@ namespace DMeServicesInternal.Web.RadPdf
                 case "stamp_r_Permit":
                     //Write a file to the response
                     //Alternatively, we could also use the .Write method to write data from almost any source (e.g. database, memory, etc.)
-                    context.Response.WriteFile(HttpContext.Current.Server.MapPath(@"~/Images/Stamps/r_Permit.png"));
+                    context.Response.WriteFile(HttpContext.Current.Server.MapPath(@"~/Images/Stamps/Maps/" + empNo.ToString() + ".png"));
                     break;
                 case "stamp_r_Rifi":
                     //Write a file to the response

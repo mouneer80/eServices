@@ -34,10 +34,10 @@
                                                 @DMeServices.Models.Common.BuildingServices.AttachmentTypesCom.TypeByID((int)@item.AttachmentTypeId).Name
                                             </td>
                                             <td class="col-sm-1" unprintable>
-                                                @item.InsertDate.ToShortDateString()
+                                                @item.InsertDate.ToString("yyyy/MM/dd")
                                             </td>
                                             <td class="col-sm-1" unprintable>
-                                                @item.InsertDate.ToShortTimeString()
+                                                @item.InsertDate.ToString("hh:mm")
                                             </td>
                                             <td class="col-sm-1" unprintable>
                                                 <a class="modal-link" href="@Url.Action("GetFile", new { @controller = "BuildingPermits", @Id = item.Id })">عرض الملف<i class="fa fa-eye-slash modal-link"></i></a>
@@ -82,68 +82,64 @@
                             <tbody>
                                 @if (Model.ListOfAttachments != null)
                                 {
-
                                     foreach (var item in Model.ListOfAttachments)
                                     {
                                         if (item.AttachmentTypeId > 4 && item.AttachmentTypeId < 15)
                                         {
+                                            int ListDetails = DMeServices.Models.Common.BuildingServices.PermitsAttachmentsCom.AttachmentsDetailsByAttachmentsID((int)item.Id).Count();
+                                            string TypeName = DMeServices.Models.Common.BuildingServices.AttachmentTypesCom.TypeByID((int)@item.AttachmentTypeId).Name;
                                             <tr>
                                                 <td class="col-sm-1" style="width:10%;">
-                                                    @DMeServices.Models.Common.BuildingServices.AttachmentTypesCom.TypeByID((int)@item.AttachmentTypeId).Name
-
+                                                    @TypeName
                                                 </td>
                                                 <td class="col-sm-1" style="width:5%;">
                                                     @item.Description
                                                 </td>
                                                 <td class="col-sm-1" unprintable>
-
-                                                    @item.InsertDate.ToShortDateString()
-
+                                                    @item.InsertDate.ToString("yyyy/MM/dd")
                                                 </td>
-
                                                 <td class="col-sm-1" unprintable>
-
-                                                    @item.InsertDate.ToShortTimeString()
-
+                                                    @item.InsertDate.ToString("hh:mm")
+                                                </td>
+                                                <td class="col-sm-1" unprintable>
+                                                    <a class="modal-link" href="@Url.Action("GetFile", new { @controller = "BuildingPermits", @Id = item.Id })">عرض الملف<i class="fa fa-eye-slash modal-link"></i></a>
                                                 </td>
 
                                                 @if (item.UpdatedOn != null)
                                                 {
-                                                    <td class="col-sm-1" unprintable>   <p><font color="red">ملف سابق</font></p> </td>
+                                                    if (ListDetails > 0)
+                                                    {
+                                                        <td class="col-sm-1" unprintable><p><font color="red">ملف سابق</font></p></td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td class="col-sm-1" unprintable><p><font color="green">ملف جديد</font></p></td>
+                                                    }
                                                 }
                                                 else
                                                 {
-                                                    <td class="col-sm-1" unprintable>    <p><font color="green">ملف جديد</font></p> </td>
-
-
+                                                    <td class="col-sm-1" unprintable><p><font color="green">ملف جديد</font></p></td>
                                                 }
 
-
-                                                <td class="col-sm-1" unprintable>
-                                                    <a class="modal-link" href="@Url.Action("GetFile", new { @controller = "BuildingPermits", @Id = item.Id })">عرض الملف<i class="fa fa-eye-slash modal-link"></i></a>
-
-                                                </td>
-                                                @if (Model.oEmployeeInfo.IsEngineer == true)
+                                                @if (Model.oEmployeeInfo.IsEngineer == true || Model.oEmployeeInfo.IsEngineerManager == true)
                                                 {
                                                     <td class="col-sm-1" unprintable>
-                                                        @{
-
-                                                            int ListDetails = DMeServices.Models.Common.BuildingServices.PermitsAttachmentsCom.AttachmentsDetailsByAttachmentsID((int)item.Id).Count();
-
-                                                            if (item.UpdatedOn != null)
+                                                        @if (item.UpdatedOn != null)
+                                                        {
+                                                            if (ListDetails > 0)
                                                             {
-                                                                if (ListDetails > 0)
-                                                                {
-                                                                    <a href="#" style="color:darkgreen" fileID="@item.Id" class="GetDetails">عرض تفاصيل الخريطة<i class="fa fa-eye-slash glyphicon glyphicon-collapse-down"></i></a>
-                                                                }
+                                                                <a href="#" style="color:darkgreen" fileID="@item.Id" class="GetDetails">عرض تفاصيل الخريطة<i class="fa fa-eye-slash glyphicon glyphicon-collapse-down"></i></a>
                                                             }
                                                             else
                                                             {
-                                                                <a class="modal-link" href="@Url.Action("EditPDFFile", new { @controller = "BuildingPermits", @Id = item.Id, @PirmID = Model.BuildingPermits.Id })">تعديل الملف<i class="fa fa-eye-slash"></i></a>
-                                                                @*<a class="modal-link" href="@Url.Action("EditPDFFile", new { @controller = "BuildingPermits" })">تعديل الملف<i class="fa fa-eye-slash"></i></a>*@
+                                                                <a class="modal-link" href="@Url.Action("EditPDFFile", "BuildingPermits", new { @Id = item.Id, @PirmID = Model.BuildingPermits.Id })">تعديل الملف<i class="fa fa-eye-slash"></i></a>
                                                             }
                                                         }
-
+                                                        else
+                                                        {
+                                                            <a class="modal-link" href="@Url.Action("EditPDFFile", "BuildingPermits", new { @Id = item.Id, @PirmID = Model.BuildingPermits.Id })">تعديل الملف<i class="fa fa-eye-slash"></i></a>
+                                                            @*<a class="modal-link" href="@Url.Action("EditPDFFile", new { @controller = "BuildingPermits" })">تعديل الملف<i class="fa fa-eye-slash"></i></a>*@
+                                                        }
                                                     </td>
                                                     <td class="col-sm-1" unprintable>
                                                         @if (item.UpdatedOn == null)
@@ -154,11 +150,8 @@
                                                             }
                                                         }
                                                     </td>
-
                                                 }
-
                                             </tr>
-
                                         }
                                         //i++;
                                     }
@@ -202,10 +195,7 @@
             if ($('#divAttachmentsDetails').css('display') == 'block') {
                 $("#divAttachmentsDetails").css("display", "none");
             } else {
-
-
                 var attID = $(this).attr("fileID");
-
                 var url = "@Url.Action("SelectAttachmentDetails", "BuildingPermits")";
                 $.ajax({
                     url: url,
@@ -218,14 +208,9 @@
                     error: function (er) {
                         swal(er);
                     }
-
                 });
-
             }
             });
-
-
-
     });
     $(function () {
         // Initialize numeric spinner input boxes

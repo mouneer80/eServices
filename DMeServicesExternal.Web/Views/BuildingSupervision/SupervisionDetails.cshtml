@@ -203,7 +203,7 @@
 
                     <div class="form-group col-lg-2">
                         <label class="control-label">
-                            @Html.DisplayNameFor(m => m.BuildingPermits.ConstructionType)
+                            @Html.DisplayNameFor(m => m.BuildingPermits.UseTypeID)
                         </label>
                         @Html.DropDownListFor(m => m.BuildingSupervision.BldPermits.UseTypeID, (List<SelectListItem>)ViewBag.DDLandUseTypes, new { @disabled = "disabled", style = "padding:0px", @class = "form-control", @data_rel = "chosen", @id = "LandUseTypes" })
                     </div>

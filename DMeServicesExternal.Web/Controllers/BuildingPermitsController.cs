@@ -146,6 +146,7 @@ namespace DMeServicesExternal.Web.Controllers
                 // to save the attachments on the memory
                 TempData["Attachments"] = new List<PermitsAttachments>();
                 TempData["Owners"] = new List<Owner>();
+                ViewBag.DDServiceType = DDServiceType();
                 ViewBag.DDAttachmentsType = DDAttachmentTypes();
                 ViewBag.DDWelayat = DDWelayat();
                 ViewBag.DDBuildingTypes = DDBuildingTypes();
@@ -153,6 +154,21 @@ namespace DMeServicesExternal.Web.Controllers
                 ViewBag.DDSquareLetters = DdSquareLetters();
             }
             return View(oModel);
+        }
+
+        private dynamic DDServiceType()
+        {
+            List<SelectListItem> LstServices = new List<SelectListItem>();
+            List<SupervisionServicesTypes> AllServices = SupervisionCom.AllPermitsServices();
+            if (AllServices.Count > 0)
+            {
+                LstServices.Add(new SelectListItem() { Text = "أختر نوع الخدمة ", Value = "0" });
+                foreach (var item in AllServices)
+                {
+                    LstServices.Add(new SelectListItem() { Text = item.ServiceNameAR, Value = item.ID.ToString() });
+                }
+            }
+            return LstServices;
         }
 
         [HttpPost]
@@ -175,30 +191,99 @@ namespace DMeServicesExternal.Web.Controllers
             //TempData["Owners"] = null;
             if (isListOfAttachment(oModel.ListOfAttachments))
             {
-                oModel.PersonalCard.AttachmentTypeId = 1;
-                oModel.KrokeFile.AttachmentTypeId = 2;
-                oModel.OwnerFile.AttachmentTypeId = 3;
-                oModel.ConsLetter.AttachmentTypeId = 4;
-                oModel.LandPic.AttachmentTypeId = 15;
-                oModel.ConsAgreementFile.AttachmentTypeId = 16;
-                oModel.Others.AttachmentTypeId = 20;
-                oModel.ListOfAttachments.Add(oModel.PersonalCard);
-                oModel.ListOfAttachments.Add(oModel.KrokeFile);
-                oModel.ListOfAttachments.Add(oModel.OwnerFile);
-                if (oModel.ConsLetter.OptionalFile != null)
+                if (oModel.PersonalCard != null && oModel.PersonalCard.File != null)
                 {
+                    oModel.PersonalCard.AttachmentTypeId = 1;
+                    oModel.ListOfAttachments.Add(oModel.PersonalCard);
+                }
+                if (oModel.KrokeFile != null && oModel.KrokeFile.File != null)
+                {
+                    oModel.KrokeFile.AttachmentTypeId = 2;
+                    oModel.ListOfAttachments.Add(oModel.KrokeFile);
+                }
+                if (oModel.OwnerFile != null && oModel.OwnerFile.File != null)
+                {
+                    oModel.OwnerFile.AttachmentTypeId = 3;
+                    oModel.ListOfAttachments.Add(oModel.OwnerFile);
+                }
+                if (oModel.OptionalLetter1 != null && oModel.OptionalLetter1.OptionalFile != null)
+                {
+                    oModel.OptionalLetter1.AttachmentTypeId = 17;
+                    oModel.ListOfAttachments.Add(oModel.OptionalLetter1);
+                }
+                if (oModel.OptionalLetter2 != null && oModel.OptionalLetter2.OptionalFile != null)
+                {
+                    oModel.OptionalLetter2.AttachmentTypeId = 18;                   
+                    oModel.ListOfAttachments.Add(oModel.OptionalLetter2);
+                }
+                if (oModel.OptionalLetter3 != null && oModel.OptionalLetter3.OptionalFile != null)
+                {
+                    oModel.OptionalLetter3.AttachmentTypeId = 19;                    
+                    oModel.ListOfAttachments.Add(oModel.OptionalLetter3);
+                }
+                if (oModel.OptionalLetter4 != null && oModel.OptionalLetter4.OptionalFile != null)
+                {                   
+                    oModel.OptionalLetter4.AttachmentTypeId = 21;                  
+                    oModel.ListOfAttachments.Add(oModel.OptionalLetter4);
+                }
+                if (oModel.OptionalLetter5 != null && oModel.OptionalLetter5.OptionalFile != null)
+                {
+                    oModel.OptionalLetter5.AttachmentTypeId = 22;              
+                    oModel.ListOfAttachments.Add(oModel.OptionalLetter5);
+                }
+                if (oModel.OptionalLetter6 != null && oModel.OptionalLetter6.OptionalFile != null)
+                {
+                    oModel.OptionalLetter6.AttachmentTypeId = 23;                 
+                    oModel.ListOfAttachments.Add(oModel.OptionalLetter6);
+                }
+                if (oModel.OptionalLetter7 != null && oModel.OptionalLetter7.OptionalFile != null)
+                {
+                    oModel.OptionalLetter7.AttachmentTypeId = 24;                 
+                    oModel.ListOfAttachments.Add(oModel.OptionalLetter7);
+                }
+                if (oModel.OptionalLetter8 != null && oModel.OptionalLetter8.OptionalFile != null)
+                {
+                    oModel.OptionalLetter8.AttachmentTypeId = 25;               
+                    oModel.ListOfAttachments.Add(oModel.OptionalLetter8);
+                }
+                if (oModel.OptionalLetter9 != null && oModel.OptionalLetter9.OptionalFile != null)
+                {
+                    oModel.OptionalLetter9.AttachmentTypeId = 26;
+                    oModel.ListOfAttachments.Add(oModel.OptionalLetter9);
+                }
+                if (oModel.OptionalLetter10 != null && oModel.OptionalLetter10.OptionalFile != null)
+                {
+                    oModel.OptionalLetter9.AttachmentTypeId = 33;
+                    oModel.ListOfAttachments.Add(oModel.OptionalLetter10);
+                }
+                if (oModel.OptionalLetter11 != null && oModel.OptionalLetter11.OptionalFile != null)
+                {
+                    oModel.OptionalLetter11.AttachmentTypeId = 47;
+                    oModel.ListOfAttachments.Add(oModel.OptionalLetter11);
+                }
+                if (oModel.OptionalLetter12 != null && oModel.OptionalLetter12.OptionalFile != null)
+                {
+                    oModel.OptionalLetter12.AttachmentTypeId = 27;
+                    oModel.ListOfAttachments.Add(oModel.OptionalLetter12);
+                }
+                if (oModel.ConsLetter != null && oModel.ConsLetter.OptionalFile != null)
+                {
+                    oModel.ConsLetter.AttachmentTypeId = 4;           
                     oModel.ListOfAttachments.Add(oModel.ConsLetter);
                 }
-                if (oModel.LandPic.OptionalFile != null)
+                if (oModel.LandPic != null && oModel.LandPic.OptionalFile != null)
                 {
+                    oModel.LandPic.AttachmentTypeId = 15;             
                     oModel.ListOfAttachments.Add(oModel.LandPic);
                 }
-                if (oModel.ConsAgreementFile.OptionalFile != null)
+                if (oModel.ConsAgreementFile != null && oModel.ConsAgreementFile.OptionalFile != null)
                 {
+                    oModel.ConsAgreementFile.AttachmentTypeId = 16;
                     oModel.ListOfAttachments.Add(oModel.ConsAgreementFile);
                 }
-                if (oModel.Others.OptionalFile != null)
+                if (oModel.Others != null && oModel.Others.OptionalFile != null)
                 {
+                    oModel.Others.AttachmentTypeId = 20;
                     oModel.ListOfAttachments.Add(oModel.Others);
                 }
                 //oModel.BuildingPermits.LicenseNo = "ح / 5665";
@@ -224,6 +309,18 @@ namespace DMeServicesExternal.Web.Controllers
                 return View("~/Views/Shared/SaveFailPage");
             }
         }
+        [HttpPost]
+        public ActionResult MakeAppointment(string bldID)
+        {
+            PermitsViewModel oModel = new PermitsViewModel();
+            oModel.BuildingPermits = PermitsCom.PermitsByID(int.Parse(bldID));
+            string Result = PermitsCom.UpdateConsultatAppointmentRequests(oModel);
+            return Json(new
+            {
+                msg = "تم تقديم طلبكم بنجاح"
+            });
+        }
+
 
         private bool isListOfAttachment(List<PermitsAttachments> listOfAttachments)
         {
@@ -264,7 +361,7 @@ namespace DMeServicesExternal.Web.Controllers
             oModel.BuildingPermits = PermitsCom.PermitsByID(id);
             TempData["Attachments"] = new List<PermitsAttachments>();
             TempData["Owners"] = new List<Owner>();
-            ViewBag.DDAttachmentsType = DDAttachmentTypes();
+            ViewBag.DDAttachmentsType = DDAttachmentAllTypes();
 
             ViewBag.DDWelayat = DDWelayat();
             ViewBag.DDRegion = DDRegionSaved(oModel.BuildingPermits.WelayahID);
@@ -272,12 +369,29 @@ namespace DMeServicesExternal.Web.Controllers
             ViewBag.DDBuildingTypes = DDBuildingTypes();
             ViewBag.DDLandUseTypes = DdLandUseTypes();
             ViewBag.DDSquareLetters = DdSquareLetters();
-            oModel.ListOfAttachments = PermitsAttachmentsCom.AttachmentsByPermitsID(id, oModel.BuildingPermits.KrokiNO);
+            string folderName = dirName(oModel);
+            oModel.ListOfAttachments = PermitsAttachmentsCom.AttachmentsByPermitsID(id, folderName);
             oModel.ListOfOwners = PermitsCom.OwnersByPermitID(id);
             oModel.Payments = PaymentsCom.PaymentsByPermitsID(id);
             oModel.PaymentDetailsList = PaymentsCom.MapsPaymentDetailsByPermitsID(id);
 
             return View(oModel);
+        }
+
+        
+
+        private static string dirName(PermitsViewModel oModel)
+        {
+            string directoryName;
+            if (string.IsNullOrEmpty(oModel.BuildingPermits.KrokiNO))
+            {
+                directoryName = oModel.BuildingPermits.ConsultantCivilId.ToString() + "_" + oModel.BuildingPermits.ConsultantCrNo.ToString();
+            }
+            else
+            {
+                directoryName = oModel.BuildingPermits.KrokiNO;
+            }
+            return directoryName;
         }
 
         #region Method :: Display Files 
@@ -436,12 +550,13 @@ namespace DMeServicesExternal.Web.Controllers
             {
                 HttpPostedFileBase File = new HttpPostedFileWrapper(System.Web.HttpContext.Current.Request.Files["MyAttached"]);
                 FileInfo oFileInfo = new FileInfo(File.FileName);
+                
                 var AttachmentTypeId = System.Web.HttpContext.Current.Request.Form["AttTypeId"];
                 var FileDescription = System.Web.HttpContext.Current.Request.Form["FileDescription"];
                 oModel.Attachments = new PermitsAttachments();
                 oModel.Attachments.File = File;
                 oModel.Attachments.InsertDate = DateTime.Now;
-                oModel.Attachments.AttachmentContentType = oFileInfo.Extension.ToLower();
+                oModel.Attachments.AttachmentContentType = oFileInfo.Extension.ToLower() + "," + (File.ContentLength/1024).ToString();
                 if (!new string[] { ".jpg", ".jpeg", ".pdf", ".png" }.Contains(oFileInfo.Extension.ToLower()))
                 {
                     return PartialView("_ListAttachments", oModel);
@@ -468,6 +583,7 @@ namespace DMeServicesExternal.Web.Controllers
             {
                 ViewBag.message = " لا يمكن اضافة اكثر من 20 ملف كحد اقصى";
             }
+            
             return PartialView("_ListAttachments", oModel);
         }
         #endregion
@@ -542,7 +658,21 @@ namespace DMeServicesExternal.Web.Controllers
         #endregion
 
         #region Method :: DD Attachment Types
+        private dynamic DDAttachmentAllTypes()
+        {
+            List<SelectListItem> LstAttachmentTypes = new List<SelectListItem>();
+            List<AttachmentTypes> AllAttachmentTypes = AttachmentTypesCom.AllAttachmentTypes();
+            if (AllAttachmentTypes.Count > 0)
+            {
+                LstAttachmentTypes.Add(new SelectListItem() { Text = "أختر نوع الملف ", Value = "0" });
+                foreach (var item in AllAttachmentTypes)
+                {
+                    LstAttachmentTypes.Add(new SelectListItem() { Text = item.Name, Value = item.Id.ToString() });
+                }
 
+            }
+            return LstAttachmentTypes;
+        }
         public static List<SelectListItem> DDAttachmentTypes()
         {
             List<SelectListItem> LstAttachmentTypes = new List<SelectListItem>();
@@ -598,14 +728,15 @@ namespace DMeServicesExternal.Web.Controllers
             {
                 HttpPostedFileBase oFile = Attachment.File;
                 if (Attachment.File == null && Attachment.OptionalFile != null)
-                { 
-                    oFile = Attachment.OptionalFile; 
+                {
+                    oFile = Attachment.OptionalFile;
                 }
-                
-                FileInfo oFileInfo = new FileInfo(oFile.FileName);
 
+                FileInfo oFileInfo = new FileInfo(oFile.FileName);
+                string folderName = dirName(oModel);
                 if (oFile != null && oFile.ContentLength > 0)
                 {
+
                     switch (Attachment.AttachmentTypeId)
                     {
                         case 1:
@@ -616,7 +747,8 @@ namespace DMeServicesExternal.Web.Controllers
                             //if (width > 1000)
                             //    ResizeImage(oFile.FileName, oFile.FileName + "resized", ImageFormat.Jpeg, 1000,1000);
                             sFilename = Attachment.AttachmentTypeId.ToString() + "_" + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + oFileInfo.Extension;
-                            PerPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/Personal/" + oModel.BuildingPermits.KrokiNO));
+
+                            PerPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/Personal/" + folderName));
                             sPath = System.IO.Path.Combine(PerPath.ToString());
                             string PerUploadPath = string.Format("{0}\\{1}", sPath, sFilename);
                             if (!Directory.Exists(PerPath))
@@ -630,7 +762,7 @@ namespace DMeServicesExternal.Web.Controllers
                             break;
                         case 4:
                             sFilename = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + oFileInfo.Extension;
-                            ConsPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/Consultant/" + oModel.BuildingPermits.KrokiNO));
+                            ConsPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/Consultant/" + folderName));
                             sPath = System.IO.Path.Combine(ConsPath.ToString());
                             string ConsUploadPath = string.Format("{0}\\{1}", sPath, sFilename);
                             if (!Directory.Exists(ConsPath))
@@ -646,9 +778,14 @@ namespace DMeServicesExternal.Web.Controllers
                         case 6:
                         case 7:
                         case 8:
+                        case 9:
+                        case 10:
+                        case 11:
+                        case 12:
+                        case 13:
                         case 14:
                             sFilename = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + oFileInfo.Extension;
-                            StrPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/StructuralFiles/" + oModel.BuildingPermits.KrokiNO));
+                            StrPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/StructuralFiles/" + folderName));
                             sPath = System.IO.Path.Combine(StrPath.ToString());
                             string StrUploadPath = string.Format("{0}\\{1}", sPath, sFilename);
                             if (!Directory.Exists(StrPath))
@@ -662,7 +799,7 @@ namespace DMeServicesExternal.Web.Controllers
                             break;
                         case 15:
                             sFilename = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + oFileInfo.Extension;
-                            LandPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/LandFiles/" + oModel.BuildingPermits.KrokiNO));
+                            LandPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/LandFiles/" + folderName));
                             sPath = System.IO.Path.Combine(LandPath.ToString());
                             string LandUploadPath = string.Format("{0}\\{1}", sPath, sFilename);
                             if (!Directory.Exists(LandPath))
@@ -675,8 +812,11 @@ namespace DMeServicesExternal.Web.Controllers
                             sFilename = null;
                             break;
                         case 16:
+                        case 17:
+                        case 18:
+                        case 19:
                             sFilename = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + oFileInfo.Extension;
-                            ConsultantPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/Consultant/" + oModel.BuildingPermits.KrokiNO));
+                            ConsultantPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/Consultant/" + folderName));
                             sPath = System.IO.Path.Combine(ConsultantPath.ToString());
                             string ConsultantUploadPath = string.Format("{0}\\{1}", sPath, sFilename);
                             if (!Directory.Exists(ConsultantPath))
@@ -689,8 +829,17 @@ namespace DMeServicesExternal.Web.Controllers
                             sFilename = null;
                             break;
                         case 20:
+                        case 21:
+                        case 22:
+                        case 23:
+                        case 24:
+                        case 25:
+                        case 26:
+                        case 27:
+                        case 33:
+                        case 47:
                             sFilename = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + oFileInfo.Extension;
-                            OtherPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/Others/" + oModel.BuildingPermits.KrokiNO));
+                            OtherPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/Others/" + folderName));
                             sPath = System.IO.Path.Combine(OtherPath.ToString());
                             string OtherUploadPath = string.Format("{0}\\{1}", sPath, sFilename);
                             if (!Directory.Exists(OtherPath))
@@ -768,8 +917,9 @@ namespace DMeServicesExternal.Web.Controllers
 
                     if (oFile != null && oFile.ContentLength > 0)
                     {
+                        string folderName = dirName(oModel);
                         var sFilename = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + oFileInfo.Extension;
-                        var StrPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/StructuralFiles/" + oModel.BuildingPermits.KrokiNO));
+                        var StrPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/StructuralFiles/" + folderName));
                         var sPath = System.IO.Path.Combine(StrPath.ToString());
                         string StrUploadPath = string.Format("{0}\\{1}", sPath, sFilename);
                         if (!Directory.Exists(StrPath))

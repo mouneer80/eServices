@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_SubLayout.cshtml";
 }
 <link href="~/Content/jquery-ui.css" rel="stylesheet" />
-
+<link href="~/Content/jquery-ui-timepicker-addon.css" rel="stylesheet" />
 <script>
     $(document).ready(function () {
         var counter = 0;
@@ -125,6 +125,12 @@
         border-style: solid;
     }
 
+    .smallFont {
+        font-size: 10px;
+        margin: 5px;
+        width: 40%;
+    }
+
     .chosen-container-single .chosen-single {
         height: 37px !important;
     }
@@ -159,25 +165,105 @@
         @using (Html.BeginForm("SaveEngineerPermits", "BuildingPermits", FormMethod.Post, new { encType = "multipart/form-data", @id = "Permitsform" }))
         {
             var User = DMeServices.Models.Common.UserCom.UserByCivilID((int)Model.BuildingPermits.ConsultantCivilId);
+            var serviceType = DMeServices.Models.Common.BuildingServices.SupervisionCom.ServiceByID(String.IsNullOrEmpty(Model.BuildingPermits.ServiceName) ? 12 : Int32.Parse(Model.BuildingPermits.ServiceName)).ServiceNameAR;
             @Html.AntiForgeryToken()
-            @Html.HiddenFor(x => x.BuildingPermits.Id)
+            @Html.HiddenFor(x => x.BuildingPermits.Id, new { @id = "bldID" })
             @Html.HiddenFor(x => x.BuildingPermits.ConsultantCivilId)
             @Html.HiddenFor(x => x.BuildingPermits.TransactNo)
+            @Html.HiddenFor(x => x.BuildingPermits.ServiceName, new { @id = "ServiceType" })
+            @Html.HiddenFor(x => x.BuildingPermits.AppointmentStatus, new { @id = "bldAppointment" })
+            <div class="row">
+                <label>نوع الخدمة</label>
+                <h5>@serviceType</h5>
+            </div>
             <div class="row">
                 <div class="form-group col-lg-6">
-                    <h5>بيانات الاستشاري</h5>
-                    <div class="form-group col-lg-4">
-                        <label class="control-label">اسم المكتب الاستشاري</label>
-                        <lable class="form-control">@User.CompanyName</lable>
+                    <div class="row">
+                        <h5>بيانات الاستشاري</h5>
+                        <div class="form-group col-lg-4">
+                            <label class="control-label">اسم المكتب الاستشاري</label>
+                            <lable class="form-control">@User.CompanyName</lable>
+                        </div>
+                        <div class="form-group col-lg-4">
+                            <label class="control-label">اسم المهندس الاستشاري</label>
+                            <lable class="form-control">@User.FullName</lable>
+                        </div>
+                        <div class="form-group col-lg-4">
+                            <label class="control-label">رقم تليفون المهندس</label>
+                            <lable class="form-control">@User.MobileNo.ToString()</lable>
+                        </div>
                     </div>
-                    <div class="form-group col-lg-4">
-                        <label class="control-label">اسم المهندس الاستشاري</label>
-                        <lable class="form-control">@User.FullName</lable>
-                    </div>
-                    <div class="form-group col-lg-4">
-                        <label class="control-label">رقم تليفون المهندس</label>
-                        <lable class="form-control">@User.MobileNo.ToString()</lable>
-                    </div>
+                    @if (Model.BuildingPermits.ContractorName != null)
+                    {
+                        <div class="row" id="divContractorName">
+                            <h5>بيانات شركة المقاولات</h5>
+                            <div class="form-group col-lg-2">
+                                <label class="control-label">إسم شركة المقاولات</label>
+                                @Html.TextBoxFor(m => m.BuildingPermits.ContractorName, new { @class = "form-control", id = "ContractorName", @placeholder = "إسم شركة المقاولات" })
+                                @*@Html.ValidationMessageFor(m => m.BuildingPermits.ContractorName, "", new { @style = "color:orange;" })*@
+                            </div>
+                        </div>
+                    }
+                    @if (Model.BuildingPermits.AppointmentStatus == "0" || Model.BuildingPermits.AppointmentStatus == "1" || Model.BuildingPermits.AppointmentStatus == "2")
+                    {
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <a id="AcceptAppointment" class="col-lg-6 smallFont btn btn-success"><i class="glyphicon glyphicon-ok"></i>تحديد موعد للمقابلة</a>
+                                    <a id="RefuseAppointment" class="col-lg-6 smallFont btn btn-danger"><i class="glyphicon glyphicon-remove"></i>رفض المقابلة</a>
+                                    <a id="CancelAppointment" class="col-lg-6 smallFont btn btn-primary"><i class="glyphicon glyphicon-adjust"></i>تمت المقابلة</a>
+                                </div>
+                                <div class="row" id="divAppointmentDate">
+                                    <div class="form-group col-md-6">
+                                        <label class="control-label">اختر موعد</label>
+                                        <div>
+                                            @Html.TextBoxFor(m => m.BuildingPermits.AppointmentDate, new { @class = "form-control", id = "pickerAppointmentDate", @placeholder = "تاريخ المقابلة" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <br />
+                                        <a id="DetrmineAppointment" class="btn btn-primary"><i class="glyphicon glyphicon-ok"></i>تحديد</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6" id="divAppointmentDetails">
+                                <h5>حالة طلب المقابلة</h5>
+                                @if (Model.BuildingPermits.AppointmentDate != null && Model.BuildingPermits.AppointmentStatus == "2")
+                                {
+                                    var appointmentDate = "yyyy/MM/dd HH:mm";
+                                    if (Model.BuildingPermits.AppointmentDate.HasValue)
+                                    {
+                                        appointmentDate = Model.BuildingPermits.AppointmentDate.Value.ToString("yyyy/MM/dd HH:mm");
+                                    }
+                                    else
+                                    {
+                                        appointmentDate = "";
+                                    }
+                                    <label class="form-group col-md-12" id="lblAppointmentDateD">
+                                        @appointmentDate
+                                    </label>
+                                }
+                                else if (Model.BuildingPermits.AppointmentStatus == "1")
+                                {
+                                    <label class="form-group col-md-12" id="lblAppointmentDateP">
+                                        "برجاء تحديد موعد للمقابلة"
+                                    </label>
+                                }
+                                else if (Model.BuildingPermits.AppointmentStatus == "0")
+                                {
+                                    <label class="form-group col-md-12" id="lblAppointmentDateR">
+                                        "تم رفض المقابلة"
+                                    </label>
+                                }
+                                else
+                                {
+                                    <label class="form-group col-md-12" id="lblAppointmentDateE">
+                                        "لا يوجد طلب مقابلة"
+                                    </label>
+                                }
+                            </div>
+                        </div>
+                    }
                 </div>
                 <div class="form-group col-lg-6">
                     <h5>بيانات مالك الارض</h5>
@@ -227,12 +313,17 @@
                         @Html.DropDownListFor(m => m.BuildingPermits.SquareLetterID, (List<SelectListItem>)ViewBag.DDSquareLetters, new { @disabled = "disabled", style = "padding:0px", @class = "form-control", @data_rel = "chosen", id = "SquareLetter" })
                     </div>
                 </div>
-                <div class="form-group col-lg-12">
+                <div class="form-group col-lg-12" id="landDetails">
                     <h5>بيانات قطعة الأرض</h5>
 
                     <div class="form-group col-lg-2">
                         <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.DistrictNo)</label>
                         @Html.TextBoxFor(m => m.BuildingPermits.DistrictNo, new { @readonly = "readonly", @class = "form-control", id = "DistrictNo", @placeholder = "رقم القطعة" })
+                    </div>
+                    <div class="form-group col-lg-1" id="divUnitNo">
+                        <label class="control-label">رقم الوحدة</label>
+                        @Html.TextBoxFor(m => m.BuildingPermits.UnitNo, new { @class = "form-control", id = "UnitNo", @placeholder = "رقم الوحدة" })
+                        @*@Html.ValidationMessageFor(m => m.BuildingPermits.DistrictNo, "", new { @style = "color:orange;" })*@
                     </div>
                     <div class="form-group col-lg-2">
                         <label class="control-label">
@@ -249,20 +340,23 @@
                         @Html.TextBoxFor(m => m.BuildingPermits.KrokiNO, new { @readonly = "readonly", @class = "form-control", id = "KrokiNO", @placeholder = "رقم الكروكي" })
                         @Html.ValidationMessageFor(m => m.BuildingPermits.KrokiNO, "", new { @style = "color:orange;" })
                     </div>
-                    <div class="form-group col-lg-2">
-                        <label class="control-label">
-                            @Html.DisplayNameFor(m => m.BuildingPermits.LandDeedReceiptNo)
-                        </label>
-                        @Html.TextBoxFor(m => m.BuildingPermits.LandDeedReceiptNo, new { @readonly = "readonly", @class = "form-control", id = "LandDeedReceiptNo", @placeholder = "رقم ايصال سند الملكية" })
-                        @Html.ValidationMessageFor(m => m.BuildingPermits.LandDeedReceiptNo, "", new { @style = "color:orange;" })
-                    </div>
-                    <div class="form-group col-lg-3">
-                        <label class="control-label">
-                            @Html.DisplayNameFor(m => m.BuildingPermits.LandDeedReceiptDate)
-                        </label>
-                        @Html.TextBoxFor(m => m.BuildingPermits.LandDeedReceiptDate, new { @readonly = "readonly", @class = "form-control", id = "LandDeedReceiptDate", @placeholder = "تاريخ ايصال سند الملكية" })
-                        @Html.ValidationMessageFor(m => m.BuildingPermits.LandDeedReceiptDate, "", new { @style = "color:orange;" })
-                    </div>
+                    @if (Model.BuildingPermits.LandDeedReceiptNo != null)
+                    {
+                        <div class="form-group col-lg-2">
+                            <label class="control-label">
+                                @Html.DisplayNameFor(m => m.BuildingPermits.LandDeedReceiptNo)
+                            </label>
+                            @Html.TextBoxFor(m => m.BuildingPermits.LandDeedReceiptNo, new { @readonly = "readonly", @class = "form-control", id = "LandDeedReceiptNo", @placeholder = "رقم ايصال سند الملكية" })
+                            @Html.ValidationMessageFor(m => m.BuildingPermits.LandDeedReceiptNo, "", new { @style = "color:orange;" })
+                        </div>
+                        <div class="form-group col-lg-2">
+                            <label class="control-label">
+                                @Html.DisplayNameFor(m => m.BuildingPermits.LandDeedReceiptDate)
+                            </label>
+                            @Html.TextBoxFor(m => m.BuildingPermits.LandDeedReceiptDate, new { @readonly = "readonly", @class = "form-control", id = "LandDeedReceiptDate", @placeholder = "تاريخ ايصال سند الملكية" })
+                            @Html.ValidationMessageFor(m => m.BuildingPermits.LandDeedReceiptDate, "", new { @style = "color:orange;" })
+                        </div>
+                    }
                 </div>
                 <div class="form-group col-lg-12">
                     <h5>بيانات ترخيص البناء</h5>
@@ -272,12 +366,12 @@
                     </div>
                     <div class="form-group col-lg-2">
                         <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.ConstructedArea)</label>
-                        @Html.TextBoxFor(m => m.BuildingPermits.ConstructedArea, new { @readonly = "readonly", @class = "form-control", id = "ConstructedArea", @placeholder = "المساحة المراد بنائها" })
+                        @Html.TextBoxFor(m => m.BuildingPermits.ConstructedArea, new { @readonly = "readonly", @class = "form-control", id = "ConstructedArea", @placeholder = "المساحة المراد تنفيذها" })
                     </div>
 
                     <div class="form-group col-lg-2">
                         <label class="control-label">
-                            @Html.DisplayNameFor(m => m.BuildingPermits.ConstructionType)
+                            @Html.DisplayNameFor(m => m.BuildingPermits.UseTypeID)
                         </label>
                         @Html.DropDownListFor(m => m.BuildingPermits.UseTypeID, (List<SelectListItem>)ViewBag.DDLandUseTypes, new { @disabled = "disabled", style = "padding:0px", @class = "form-control", @data_rel = "chosen", @id = "LandUseTypes" })
                     </div>
@@ -287,7 +381,7 @@
                     </div>
                     <div class="form-group col-lg-2">
                         <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.NumberOfFloors)</label>
-                        @Html.TextBoxFor(m => m.BuildingPermits.NumberOfFloors, new { @readonly = "readonly", @class = "form-control", id = "NumberOfFloors", @placeholder = "عدد الطوابق المراد بنائها" })
+                        @Html.TextBoxFor(m => m.BuildingPermits.NumberOfFloors, new { @readonly = "readonly", @class = "form-control", id = "NumberOfFloors", @placeholder = "عدد الطوابق المراد تنفيذها" })
                     </div>
                 </div>
             </div>
@@ -310,31 +404,32 @@
                     </div>
                 }
             </div>
+
             <div class="row">
                 <div class="box col-lg-6">
                     <div class="col-lg-4">
                         <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.DmFileNumber)</label>
-                        @Html.TextAreaFor(m => m.BuildingPermits.DmFileNumber, new { @class = "form-control", id = "FileNumber", @placeholder = "رقم الملف" })
+                        @Html.TextAreaFor(m => m.BuildingPermits.DmFileNumber, new { @class = "form-control", id = "DmFileNumber", @placeholder = "رقم الملف" })
                     </div>
 
                     <div class="col-lg-4">
                         <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.DmEngineerComments)</label>
-                        @Html.TextAreaFor(m => m.BuildingPermits.DmEngineerComments, new { @class = "form-control", id = "Notes", @placeholder = "ملاحظات" })
+                        @Html.TextAreaFor(m => m.BuildingPermits.DmEngineerComments, new { @class = "form-control", id = "DmEngineerComments", @placeholder = "ملاحظات" })
                     </div>
 
                     <div class="col-lg-4">
                         <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.DMLicenseComments)</label>
-                        @Html.TextAreaFor(m => m.BuildingPermits.DMLicenseComments, new { @class = "form-control", id = "Notes", @placeholder = "بيان الترخيص" })
+                        @Html.TextAreaFor(m => m.BuildingPermits.DMLicenseComments, new { @class = "form-control", id = "DMLicenseComments", @placeholder = "بيان الترخيص" })
                     </div>
                 </div>
                 <div class="box col-lg-6">
                     <div class="col-lg-4">
-                        <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.DMLicenseNames)</label>
-                        @Html.TextAreaFor(m => m.BuildingPermits.DMLicenseNames, new { @class = "form-control", id = "Notes", @placeholder = "بيان اسماء المالكين" })
+                        <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.DMManagerNotes)</label>
+                        @Html.TextAreaFor(m => m.BuildingPermits.DMManagerNotes, new { @readonly = "readonly", @class = "form-control", id = "DMManagerNotes", @placeholder = "ملاحظات مدير الدائرة" })
                     </div>
                     <div class="col-lg-4">
-                        <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.DMLicenseCivilIDs)</label>
-                        @Html.TextAreaFor(m => m.BuildingPermits.DMLicenseCivilIDs, new { @class = "form-control", id = "Notes", @placeholder = "بيان ارقام البطاقات الشخصية للمالكين" })
+                        <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.DMEngineerNotes)</label>
+                        @Html.TextAreaFor(m => m.BuildingPermits.DMEngineerNotes, new { @class = "form-control", id = "DMEngineerNotes", @placeholder = "تعليق مهندس تراخيص البناء" })
                     </div>
                     <div class="col-lg-4">
                         <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.WorkflowStatus)</label>
@@ -427,9 +522,10 @@
         </div>
     </div>
 </div>
-
 <script src="~/Scripts/jquery-1.10.2.js"></script>
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery-ui.js"></script>
+<script src="~/Scripts/jquery-ui-timepicker-addon.js"></script>
+@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
 <script type="text/javascript">
         $(function () {
             //Country Dropdown Selectedchange event
@@ -463,15 +559,184 @@
 
 <script>
     $(document).ready(function () {
+        let arr1 = [12, 15];
+        let arr2 = [13, 14];
+        let arr3 = [16];
+        if ($('#ServiceType').val() == "") {
+            $('#ServiceType').val("12");
+        }
+        let selectedVal = parseInt($('#ServiceType').val());
+        if (arr1.includes(selectedVal)) {
 
+            $("#permitNo").hide();
+            /*alert($('#ServiceType').find('option:selected').text());*/
+        } else if (arr2.includes(selectedVal)) {
+            $("#permitNo").show();
+
+        } else if (arr3.includes(selectedVal)) {
+            $("#permitNo").hide();
+            $("#landDetails").hide();
+
+            $("#Permitsform").data("validator").settings.ignore = ".ignore, :hidden";
+            $("#LandDeedReceiptNo").rules('remove', 'required');
+            $('#LandDeedReceiptNo').removeAttr('required');
+            $('#LandDeedReceiptDate').rules('remove', 'required');
+            $('#LandDeedReceiptDate').removeAttr('required');
+            $('#KrokiNO').rules('remove', 'required');
+            $('#KrokiNO').removeAttr('required');
+        }
         $("#PermitsStatus option[value='0']").attr("disabled", "disabled");
 
         $("#Save").click(function () {
             $("#Permitsform").submit();
         });
+        //var date = $('#datepicker').datepicker({ dateFormat: 'dd-mm-yy' }).val();
+        $("#pickerAppointmentDate").datetimepicker({
+            dateFormat: 'dd/mm/yy',
+            timeFormat: 'HH:mm',
+            changeMonth: false,
+            changeYear: false,
+            showTime: true,
+            stepHour: 1,
+            stepMinute: 15,
 
+        });
+        if ($("#bldAppointment").val() == "0") {
+            $("#AcceptAppointment").show();
+            $("#RefuseAppointment").show();
+            $("#RefuseAppointment").attr('disabled', true);
+            $("#CancelAppointment").hide();
+        } else if ($("#bldAppointment").val() == "1") {
+            $("#AcceptAppointment").show();
+            $("#RefuseAppointment").show();
+            $("#CancelAppointment").hide();
+        } else if ($("#bldAppointment").val() == "2") {
+            $("#AcceptAppointment").hide();
+            $("#RefuseAppointment").hide();
+            $("#CancelAppointment").show();
+        } else if ($("#bldAppointment").val() == "3") {
+            $("#AcceptAppointment").show();
+            $("#RefuseAppointment").show();
+            $("#CancelAppointment").hide();
+        } else {
+            $("#AcceptAppointment").hide();
+            $("#RefuseAppointment").hide();
+            $("#CancelAppointment").hide();
+        }
+        $("#divAppointmentDate").hide();
 
+        $("#AcceptAppointment").click(function () {
+            $("#divAppointmentDate").show();
+        });
 
+        $("#DetrmineAppointment").click(function () {
+            var data = new FormData();
+            var url = "@Url.Action("AcceptAppointment", "BuildingPermits")";
+            data.append("bldID", $("#bldID").val());
+            data.append("appointmentDate", $("#pickerAppointmentDate").val());
+            $.ajax({
+                url: url,
+                type: "POST",
+                processData: false,
+                contentType: false,
+                data: data,
+                success: function (response) {
+                    if (response.msg) {
+                        var error = response.msg;
+                        $('.modal-content').css({ fontSize: "12px", color: "green" });
+                        $("#ErrorModal").find('.modal-content').text(error);
+                        $("#ErrorModal").modal("show");
+                        var date = $("#pickerAppointmentDate").val();
+                        /*console.log(date);*/
+                        //    let year = date.getFullYear();
+                        //let month = (1 + date.getMonth()).toString().padStart(2, '0');
+                        //let day = date.getDate().toString().padStart(2, '0');
+
+                        //let fulldate = year + '/' + month + '/' + day + ' - ';
+                        $('#lblAppointmentDateD').text("تم تحديد طلب المقابلة" + ' - ' + date);
+                        $('#lblAppointmentDateP').text("تم تحديد طلب المقابلة" + ' - ' + date);
+                        $('#lblAppointmentDateR').text("تم تحديد طلب المقابلة" + ' - ' + date);
+                        $('#lblAppointmentDateE').text("تم تحديد طلب المقابلة" + ' - ' + date);
+
+                        /*$("#appointmentDate").val(response);*/
+                        $('#RefuseAppointment').hide();
+                        $('#AcceptAppointment').hide();
+                        $("#CancelAppointment").show();
+                        $("#divAppointmentDate").hide();
+                    }
+                },
+                error: function (er) {
+                    console.log(er);
+                    $('#DetrmineAppointment').attr('disabled', true);
+                }
+            });
+        });
+
+        $("#RefuseAppointment").click(function () {
+            var data = new FormData();
+            var url = "@Url.Action("RefuseAppointment", "BuildingPermits")";
+            data.append("bldID", $("#bldID").val());
+            $.ajax({
+                url: url,
+                type: "POST",
+                processData: false,
+                contentType: false,
+                data: data,
+                success: function (response) {
+                    if (response.msg) {
+                        var error = response.msg;
+                        $('.modal-content').css({ fontSize: "12px", color: "red" });
+                        $('.modal-content').text(error);
+                        $("#ErrorModal").modal("show");
+                        $('#lblAppointmentDateD').text("تم رفض طلب المقابلة");
+                        $('#lblAppointmentDateP').text("تم رفض طلب المقابلة");
+                        $('#lblAppointmentDateR').text("تم رفض طلب المقابلة");
+                        $('#lblAppointmentDateE').text("تم رفض طلب المقابلة");
+                        $('#RefuseAppointment').attr('disabled', true);
+                        $('#AcceptAppointment').attr('disabled', true);
+                    }
+                },
+                error: function (er) {
+                    console.log(er);
+                    $('#RefuseAppointment').attr('disabled', true);
+                }
+            });
+        });
+
+        $("#CancelAppointment").click(function () {
+            var data = new FormData();
+            var url = "@Url.Action("CancelAppointment", "BuildingPermits")";
+            data.append("bldID", $("#bldID").val());
+            $.ajax({
+                url: url,
+                type: "POST",
+                processData: false,
+                contentType: false,
+                data: data,
+                success: function (response) {
+                    if (response.msg) {
+                        var error = response.msg;
+                        $('.modal-content').css({ fontSize: "12px", color: "green" });
+                        $('.modal-content').text(error);
+                        $("#ErrorModal").modal("show");
+                        $('#lblAppointmentDateD').text("تمت المقابلة");
+                        $('#lblAppointmentDateP').text("تمت المقابلة");
+                        $('#lblAppointmentDateR').text("تمت المقابلة");
+                        $('#lblAppointmentDateE').text("تمت المقابلة");
+
+                        $('#RefuseAppointment').attr('disabled', false);
+                        $('#AcceptAppointment').attr('disabled', false);
+                        $("#CancelAppointment").hide();
+                        $('#RefuseAppointment').show();
+                        $('#AcceptAppointment').show();
+                    }
+                },
+                error: function (er) {
+                    console.log(er);
+                    $('#MakeAppointment').attr('disabled', true);
+                }
+            });
+        });
     });
 </script>
 

@@ -156,8 +156,8 @@ namespace DMeServices.Models.Common
                 _sourceTypeId = "3";
                 _userName = "engineeringInsurance";
             }
-
-            var client = new RestClient("https://www.dhofar.gov.om/ePaymentAPITest/API/Paymentrequest/OpenPaymentRequest");
+        
+            var client = new RestClient("https://www.dhofar.gov.om/ePaymentAPI/API/Paymentrequest/OpenPaymentRequest");
             var request = new RestRequest(Method.POST);
             request.AddHeader("content-type", "application/json");
 
@@ -183,7 +183,7 @@ namespace DMeServices.Models.Common
         public static BankResponse GetBankResponse(string token)
         {
             
-            var client = new RestClient("https://www.dhofar.gov.om/ePaymentAPITest/API/Paymentrequest/GetRequestStatus?Token=" + token);
+            var client = new RestClient("https://www.dhofar.gov.om/ePaymentAPI/API/Paymentrequest/GetRequestStatus?Token=" + token);
             var request = new RestRequest(Method.GET);
             request.AddHeader("content-type", "application/json");
 

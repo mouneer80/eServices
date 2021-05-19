@@ -16,22 +16,17 @@ namespace DMeServices.Models.BuildingServices
         public string OwnerName { get; set; }
         public Nullable<int> OwnerCivilId { get; set; }
         public string OwnerPhoneNo { get; set; }
-        public string DistrictName { get; set; }
         public Nullable<int> DistrictNo { get; set; }
         public string ConstructedArea { get; set; }
         public string NumberOfFloors { get; set; }
         public int ConsultantCrNo { get; set; }
-        public string ConstructionType { get; set; }
         public System.DateTime RequestDate { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
-        public string SquareArea { get; set; }
         public string LicenseNo { get; set; }
-        public string PaymentReceiptNo { get; set; }
         public Nullable<decimal> PaymentAmount { get; set; }
-        public Nullable<System.DateTime> PaymentDate { get; set; }
         public Nullable<int> WorkflowStatus { get; set; }
         public Nullable<int> DmEngineerNo { get; set; }
         public string DmEngineerComments { get; set; }
@@ -44,12 +39,20 @@ namespace DMeServices.Models.BuildingServices
         public string KrokiNO { get; set; }
         public string DmFileNumber { get; set; }
         public string LandDeedNo { get; set; }
-        public string DMLicenseNames { get; set; }
         public string DMLicenseComments { get; set; }
-        public string DMLicenseCivilIDs { get; set; }
         public string LandArea { get; set; }
         public string LandDeedReceiptNo { get; set; }
         public Nullable<System.DateTime> LandDeedReceiptDate { get; set; }
+        public string BuildingComplex { get; set; }
+        public string UnitNo { get; set; }
+        public string AppointmentStatus { get; set; }
+        public Nullable<System.DateTime> AppointmentDate { get; set; }
+        public string DMManagerNotes { get; set; }
+        public string DMEngineerNotes { get; set; }
+        public string ContractorName { get; set; }
+        public string ServiceName { get; set; }
+        public string MLicenseStatement { get; set; }
+        public string MLicenseNo { get; set; }
         public BuildingTypes BldBuildingTypes { get; set; }
         public LandUseTypes BldLandUseTypes { get; set; }
         public Regions BldRegions { get; set; }

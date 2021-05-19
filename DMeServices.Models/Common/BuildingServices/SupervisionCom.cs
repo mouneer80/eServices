@@ -129,6 +129,18 @@ namespace DMeServices.Models.Common.BuildingServices
                 return _ServicesTypes;
             }
         }
+        public static List<SupervisionServicesTypes> AllPermitsServices()
+        {
+            using (eServicesEntities db = new eServicesEntities())
+            {
+
+                List<BldSupervisionServicesTypes> _BldServicesTypes = db.BldSupervisionServicesTypes.Where(x => x.ServiceStatus == 4).OrderBy(x => x.ID).ToList();
+                List<SupervisionServicesTypes> _ServicesTypes = Mapper.Map<List<BldSupervisionServicesTypes>, List<SupervisionServicesTypes>>(_BldServicesTypes);
+
+                return _ServicesTypes;
+            }
+        }
+
 
         public static SupervisionServicesTypes ServiceByID(int id)
         {
@@ -184,10 +196,15 @@ namespace DMeServices.Models.Common.BuildingServices
         {
             using (var db = new eServicesEntities())
             {
-                var id = db.BldPermits.Where(x => x.LicenseNo == licenseNo).SingleOrDefault().Id;
-                var bldSupervisionServices = db.BldPermits.Where(x => x.Id == id && x.OwnerCivilId == civilId).Include(y => y.BldPermitsAttachments).SingleOrDefault();
-                var BuildingSupervision = Mapper.Map<BldPermits, BuildingPermits>(bldSupervisionServices);
 
+                var id = db.BldPermits.Where(x => x.LicenseNo == licenseNo && x.ServiceName != "22").SingleOrDefault();
+                if (id == null)
+                {
+                    return null;
+                }
+                var OwnerCivilID = db.BldOwners.Where(x => x.BldPermitId == id.Id && x.CivilID == civilId).SingleOrDefault().CivilID;
+                var bldSupervisionServices = db.BldPermits.Where(x => x.Id == id.Id && OwnerCivilID != null).Include(y => y.BldPermitsAttachments).SingleOrDefault();
+                var BuildingSupervision = Mapper.Map<BldPermits, BuildingPermits>(bldSupervisionServices);
                 return BuildingSupervision;
             }
         }
@@ -259,10 +276,10 @@ namespace DMeServices.Models.Common.BuildingServices
                     _BldSupervisionServices.ConsultantCivilId = oModel.oUserInfo.CivilId;
                     _BldSupervisionServices.ContractorCR_No = oModel.Contractor.Cr_No;
                     _BldSupervisionServices.CreatedBy = oModel.oUserInfo.FullName;
-                    _BldSupervisionServices.CreatedOn = DateTime.Now.Date;
-                    _BldSupervisionServices.RequestDate = DateTime.Now.Date;
+                    _BldSupervisionServices.CreatedOn = DateTime.Now;
+                    _BldSupervisionServices.RequestDate = DateTime.Now;
                     _BldSupervisionServices.Status = 8;
-                    
+
                     db.BldSupervisionServices.Add(_BldSupervisionServices);
                     db.SaveChanges();
                     if (oModel.ListOfAttachments != null)
@@ -271,13 +288,13 @@ namespace DMeServices.Models.Common.BuildingServices
                         foreach (var file in lstAttachments)
                         {
                             file.BldPermitId = _BldSupervisionServices.BldPermitID;
-                            
+
                             //file.Description = _BldSupervisionServices.TransactNo;
                             db.BldPermitsAttachments.Add(file);
                             db.SaveChanges();
                         }
                     }
-                    if(oModel.Contractor !=null)
+                    if (oModel.Contractor != null)
                     {
                         var _BldSupervisionContractor = new BldSupervisionContractors();
                         try
@@ -287,7 +304,7 @@ namespace DMeServices.Models.Common.BuildingServices
                             {
                                 return null;
                             }
-                            
+
                             _BldSupervisionContractor = Mapper.Map<Contractor, BldSupervisionContractors>(oModel.Contractor);
                             _BldSupervisionContractor.Cr_No = oModel.Contractor.Cr_No;
                             _BldSupervisionContractor.Cr_Name = oModel.Contractor.Cr_Name;
@@ -357,7 +374,7 @@ namespace DMeServices.Models.Common.BuildingServices
                     //    bldSupervisionServices.PaymentID = oModel.BuildingSupervision.PaymentID;
                     //}
                     bldSupervisionServices.UpdatedBy = oModel.oEmployeeInfo.NAME;
-                    bldSupervisionServices.UpdatedOn = DateTime.Now.Date;
+                    bldSupervisionServices.UpdatedOn = DateTime.Now;
                     bldSupervisionServices.DmInspectorComments = oModel.BuildingSupervision.DmInspectorComments;
                     db.SaveChanges();
                     return "ok";
@@ -497,7 +514,7 @@ namespace DMeServices.Models.Common.BuildingServices
                             {
                                 attachment.Description = oModel.Attachments.Description + "BLD-SupervisionService";
                                 attachment.UpdatedBy = oModel.oUserInfo.FirstName;
-                                attachment.UpdatedOn = DateTime.Now.Date;
+                                attachment.UpdatedOn = DateTime.Now;
                                 db.SaveChanges();
                             }
                             else
@@ -515,7 +532,7 @@ namespace DMeServices.Models.Common.BuildingServices
                     //  _BldSupervisionServices = Mapper.Map<BuildingSupervision, BldSupervisionServices>(oModel.BuildingSupervision);
                     bldSupervisionServices.Status = 10;
                     bldSupervisionServices.UpdatedBy = oModel.oUserInfo.FirstName;
-                    bldSupervisionServices.UpdatedOn = DateTime.Now.Date;
+                    bldSupervisionServices.UpdatedOn = DateTime.Now;
                     db.SaveChanges();
                     return "ok";
                 }
@@ -657,7 +674,7 @@ namespace DMeServices.Models.Common.BuildingServices
                 var _BldSupervisionTransact = new BldTransactions();
                 try
                 {
-                    
+
                     if (oModel.oUserInfo.ConsultantCrNo == null)
                     {
                         return null;
@@ -670,7 +687,7 @@ namespace DMeServices.Models.Common.BuildingServices
                     _BldSupervisionTransact.Status = 8;
                     db.BldTransactions.Add(_BldSupervisionTransact);
                     db.SaveChanges();
-                    
+
                     return _BldSupervisionTransact.BldSupervisionId.ToString();
                 }
                 catch (Exception ex)

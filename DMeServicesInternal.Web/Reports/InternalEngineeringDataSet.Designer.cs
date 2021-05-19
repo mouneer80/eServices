@@ -618,8 +618,6 @@ namespace DMeServicesInternal.Web.Reports {
             
             private global::System.Data.DataColumn columnOwnerPhoneNo;
             
-            private global::System.Data.DataColumn columnDistrictName;
-            
             private global::System.Data.DataColumn columnDistrictNo;
             
             private global::System.Data.DataColumn columnConstructedArea;
@@ -627,8 +625,6 @@ namespace DMeServicesInternal.Web.Reports {
             private global::System.Data.DataColumn columnNumberOfFloors;
             
             private global::System.Data.DataColumn columnConsultantCrNo;
-            
-            private global::System.Data.DataColumn columnConstructionType;
             
             private global::System.Data.DataColumn columnRequestDate;
             
@@ -639,8 +635,6 @@ namespace DMeServicesInternal.Web.Reports {
             private global::System.Data.DataColumn columnUpdatedBy;
             
             private global::System.Data.DataColumn columnUpdatedOn;
-            
-            private global::System.Data.DataColumn columnSquareArea;
             
             private global::System.Data.DataColumn columnLicenseNo;
             
@@ -668,11 +662,7 @@ namespace DMeServicesInternal.Web.Reports {
             
             private global::System.Data.DataColumn columnLandDeedReceiptNo;
             
-            private global::System.Data.DataColumn columnDMLicenseNames;
-            
             private global::System.Data.DataColumn columnDMLicenseComments;
-            
-            private global::System.Data.DataColumn columnDMLicenseCivilIDs;
             
             private global::System.Data.DataColumn columnLandArea;
             
@@ -692,29 +682,35 @@ namespace DMeServicesInternal.Web.Reports {
             
             private global::System.Data.DataColumn columnArLetter;
             
-            private global::System.Data.DataColumn columnPaymentTotalAmount;
-            
-            private global::System.Data.DataColumn columnBldPermitId;
-            
-            private global::System.Data.DataColumn columnBankResponseID;
-            
-            private global::System.Data.DataColumn columnPaymentStatus;
-            
-            private global::System.Data.DataColumn columnReferenceid;
-            
-            private global::System.Data.DataColumn columnPaymentrequestid;
-            
-            private global::System.Data.DataColumn columnBankpaymentid;
-            
-            private global::System.Data.DataColumn columnTransactionid;
-            
-            private global::System.Data.DataColumn columnFeesDate;
-            
-            private global::System.Data.DataColumn columnPaymentType;
-            
-            private global::System.Data.DataColumn columnPayOn;
-            
             private global::System.Data.DataColumn columnowners;
+            
+            private global::System.Data.DataColumn columnServiceName;
+            
+            private global::System.Data.DataColumn columnBuildingComplex;
+            
+            private global::System.Data.DataColumn columnUnitNo;
+            
+            private global::System.Data.DataColumn columnAppointmentStatus;
+            
+            private global::System.Data.DataColumn columnAppointmentDate;
+            
+            private global::System.Data.DataColumn columnDMManagerNotes;
+            
+            private global::System.Data.DataColumn columnDMEngineerNotes;
+            
+            private global::System.Data.DataColumn columnContractorName;
+            
+            private global::System.Data.DataColumn columnMLicenseStatement;
+            
+            private global::System.Data.DataColumn columnMLicenseNo;
+            
+            private global::System.Data.DataColumn columnFeesRefid;
+            
+            private global::System.Data.DataColumn columnFeesPayOn;
+            
+            private global::System.Data.DataColumn columnInsuranceRefid;
+            
+            private global::System.Data.DataColumn columnInsurancePayOn;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
@@ -791,14 +787,6 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn DistrictNameColumn {
-                get {
-                    return this.columnDistrictName;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public global::System.Data.DataColumn DistrictNoColumn {
                 get {
                     return this.columnDistrictNo;
@@ -826,14 +814,6 @@ namespace DMeServicesInternal.Web.Reports {
             public global::System.Data.DataColumn ConsultantCrNoColumn {
                 get {
                     return this.columnConsultantCrNo;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn ConstructionTypeColumn {
-                get {
-                    return this.columnConstructionType;
                 }
             }
             
@@ -874,14 +854,6 @@ namespace DMeServicesInternal.Web.Reports {
             public global::System.Data.DataColumn UpdatedOnColumn {
                 get {
                     return this.columnUpdatedOn;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn SquareAreaColumn {
-                get {
-                    return this.columnSquareArea;
                 }
             }
             
@@ -991,25 +963,9 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn DMLicenseNamesColumn {
-                get {
-                    return this.columnDMLicenseNames;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public global::System.Data.DataColumn DMLicenseCommentsColumn {
                 get {
                     return this.columnDMLicenseComments;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn DMLicenseCivilIDsColumn {
-                get {
-                    return this.columnDMLicenseCivilIDs;
                 }
             }
             
@@ -1087,97 +1043,121 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn PaymentTotalAmountColumn {
-                get {
-                    return this.columnPaymentTotalAmount;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn BldPermitIdColumn {
-                get {
-                    return this.columnBldPermitId;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn BankResponseIDColumn {
-                get {
-                    return this.columnBankResponseID;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn PaymentStatusColumn {
-                get {
-                    return this.columnPaymentStatus;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn ReferenceidColumn {
-                get {
-                    return this.columnReferenceid;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn PaymentrequestidColumn {
-                get {
-                    return this.columnPaymentrequestid;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn BankpaymentidColumn {
-                get {
-                    return this.columnBankpaymentid;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn TransactionidColumn {
-                get {
-                    return this.columnTransactionid;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn FeesDateColumn {
-                get {
-                    return this.columnFeesDate;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn PaymentTypeColumn {
-                get {
-                    return this.columnPaymentType;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn PayOnColumn {
-                get {
-                    return this.columnPayOn;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public global::System.Data.DataColumn ownersColumn {
                 get {
                     return this.columnowners;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn ServiceNameColumn {
+                get {
+                    return this.columnServiceName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn BuildingComplexColumn {
+                get {
+                    return this.columnBuildingComplex;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn UnitNoColumn {
+                get {
+                    return this.columnUnitNo;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn AppointmentStatusColumn {
+                get {
+                    return this.columnAppointmentStatus;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn AppointmentDateColumn {
+                get {
+                    return this.columnAppointmentDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn DMManagerNotesColumn {
+                get {
+                    return this.columnDMManagerNotes;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn DMEngineerNotesColumn {
+                get {
+                    return this.columnDMEngineerNotes;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn ContractorNameColumn {
+                get {
+                    return this.columnContractorName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn MLicenseStatementColumn {
+                get {
+                    return this.columnMLicenseStatement;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn MLicenseNoColumn {
+                get {
+                    return this.columnMLicenseNo;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn FeesRefidColumn {
+                get {
+                    return this.columnFeesRefid;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn FeesPayOnColumn {
+                get {
+                    return this.columnFeesPayOn;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn InsuranceRefidColumn {
+                get {
+                    return this.columnInsuranceRefid;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn InsurancePayOnColumn {
+                get {
+                    return this.columnInsurancePayOn;
                 }
             }
             
@@ -1223,18 +1203,15 @@ namespace DMeServicesInternal.Web.Reports {
                         string OwnerName, 
                         int OwnerCivilId, 
                         string OwnerPhoneNo, 
-                        string DistrictName, 
                         int DistrictNo, 
                         string ConstructedArea, 
                         string NumberOfFloors, 
                         int ConsultantCrNo, 
-                        string ConstructionType, 
                         System.DateTime RequestDate, 
                         string CreatedBy, 
                         System.DateTime CreatedOn, 
                         string UpdatedBy, 
                         System.DateTime UpdatedOn, 
-                        string SquareArea, 
                         string LicenseNo, 
                         int WorkflowStatus, 
                         int DmEngineerNo, 
@@ -1248,9 +1225,7 @@ namespace DMeServicesInternal.Web.Reports {
                         string KrokiNO, 
                         string DmFileNumber, 
                         string LandDeedReceiptNo, 
-                        string DMLicenseNames, 
                         string DMLicenseComments, 
-                        string DMLicenseCivilIDs, 
                         string LandArea, 
                         System.DateTime LandDeedReceiptDate, 
                         string LandDeedNo, 
@@ -1260,18 +1235,21 @@ namespace DMeServicesInternal.Web.Reports {
                         string UseType, 
                         string WelyahArName, 
                         string ArLetter, 
-                        decimal PaymentTotalAmount, 
-                        int BldPermitId, 
-                        int BankResponseID, 
-                        int PaymentStatus, 
-                        string Referenceid, 
-                        int Paymentrequestid, 
-                        string Bankpaymentid, 
-                        string Transactionid, 
-                        System.DateTime FeesDate, 
-                        int PaymentType, 
-                        string PayOn, 
-                        string owners) {
+                        string owners, 
+                        string ServiceName, 
+                        string BuildingComplex, 
+                        string UnitNo, 
+                        string AppointmentStatus, 
+                        System.DateTime AppointmentDate, 
+                        string DMManagerNotes, 
+                        string DMEngineerNotes, 
+                        string ContractorName, 
+                        string MLicenseStatement, 
+                        string MLicenseNo, 
+                        string FeesRefid, 
+                        string FeesPayOn, 
+                        string InsuranceRefid, 
+                        string InsurancePayOn) {
                 BldPermitsRow rowBldPermitsRow = ((BldPermitsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -1279,18 +1257,15 @@ namespace DMeServicesInternal.Web.Reports {
                         OwnerName,
                         OwnerCivilId,
                         OwnerPhoneNo,
-                        DistrictName,
                         DistrictNo,
                         ConstructedArea,
                         NumberOfFloors,
                         ConsultantCrNo,
-                        ConstructionType,
                         RequestDate,
                         CreatedBy,
                         CreatedOn,
                         UpdatedBy,
                         UpdatedOn,
-                        SquareArea,
                         LicenseNo,
                         WorkflowStatus,
                         DmEngineerNo,
@@ -1304,9 +1279,7 @@ namespace DMeServicesInternal.Web.Reports {
                         KrokiNO,
                         DmFileNumber,
                         LandDeedReceiptNo,
-                        DMLicenseNames,
                         DMLicenseComments,
-                        DMLicenseCivilIDs,
                         LandArea,
                         LandDeedReceiptDate,
                         LandDeedNo,
@@ -1316,32 +1289,35 @@ namespace DMeServicesInternal.Web.Reports {
                         UseType,
                         WelyahArName,
                         ArLetter,
-                        PaymentTotalAmount,
-                        BldPermitId,
-                        BankResponseID,
-                        PaymentStatus,
-                        Referenceid,
-                        Paymentrequestid,
-                        Bankpaymentid,
-                        Transactionid,
-                        FeesDate,
-                        PaymentType,
-                        PayOn,
-                        owners};
+                        owners,
+                        ServiceName,
+                        BuildingComplex,
+                        UnitNo,
+                        AppointmentStatus,
+                        AppointmentDate,
+                        DMManagerNotes,
+                        DMEngineerNotes,
+                        ContractorName,
+                        MLicenseStatement,
+                        MLicenseNo,
+                        FeesRefid,
+                        FeesPayOn,
+                        InsuranceRefid,
+                        InsurancePayOn};
                 if ((parentBldWelyatRowByFK_BldPermits_BldWelyat != null)) {
-                    columnValuesArray[22] = parentBldWelyatRowByFK_BldPermits_BldWelyat[0];
+                    columnValuesArray[19] = parentBldWelyatRowByFK_BldPermits_BldWelyat[0];
                 }
                 if ((parentBldRegionsRowByFK_BldPermits_BldRegions != null)) {
-                    columnValuesArray[23] = parentBldRegionsRowByFK_BldPermits_BldRegions[0];
+                    columnValuesArray[20] = parentBldRegionsRowByFK_BldPermits_BldRegions[0];
                 }
                 if ((parentBldSquareLettersRowByFK_BldPermits_BldSquareLetters != null)) {
-                    columnValuesArray[24] = parentBldSquareLettersRowByFK_BldPermits_BldSquareLetters[0];
+                    columnValuesArray[21] = parentBldSquareLettersRowByFK_BldPermits_BldSquareLetters[0];
                 }
                 if ((parentBldLandUseTypesRowByFK_BldPermits_BldLandUseTypes != null)) {
-                    columnValuesArray[25] = parentBldLandUseTypesRowByFK_BldPermits_BldLandUseTypes[0];
+                    columnValuesArray[22] = parentBldLandUseTypesRowByFK_BldPermits_BldLandUseTypes[0];
                 }
                 if ((parentBldBuildingTypesRowByFK_BldPermits_BldBuildingTypes != null)) {
-                    columnValuesArray[26] = parentBldBuildingTypesRowByFK_BldPermits_BldBuildingTypes[0];
+                    columnValuesArray[23] = parentBldBuildingTypesRowByFK_BldPermits_BldBuildingTypes[0];
                 }
                 rowBldPermitsRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowBldPermitsRow);
@@ -1377,18 +1353,15 @@ namespace DMeServicesInternal.Web.Reports {
                 this.columnOwnerName = base.Columns["OwnerName"];
                 this.columnOwnerCivilId = base.Columns["OwnerCivilId"];
                 this.columnOwnerPhoneNo = base.Columns["OwnerPhoneNo"];
-                this.columnDistrictName = base.Columns["DistrictName"];
                 this.columnDistrictNo = base.Columns["DistrictNo"];
                 this.columnConstructedArea = base.Columns["ConstructedArea"];
                 this.columnNumberOfFloors = base.Columns["NumberOfFloors"];
                 this.columnConsultantCrNo = base.Columns["ConsultantCrNo"];
-                this.columnConstructionType = base.Columns["ConstructionType"];
                 this.columnRequestDate = base.Columns["RequestDate"];
                 this.columnCreatedBy = base.Columns["CreatedBy"];
                 this.columnCreatedOn = base.Columns["CreatedOn"];
                 this.columnUpdatedBy = base.Columns["UpdatedBy"];
                 this.columnUpdatedOn = base.Columns["UpdatedOn"];
-                this.columnSquareArea = base.Columns["SquareArea"];
                 this.columnLicenseNo = base.Columns["LicenseNo"];
                 this.columnWorkflowStatus = base.Columns["WorkflowStatus"];
                 this.columnDmEngineerNo = base.Columns["DmEngineerNo"];
@@ -1402,9 +1375,7 @@ namespace DMeServicesInternal.Web.Reports {
                 this.columnKrokiNO = base.Columns["KrokiNO"];
                 this.columnDmFileNumber = base.Columns["DmFileNumber"];
                 this.columnLandDeedReceiptNo = base.Columns["LandDeedReceiptNo"];
-                this.columnDMLicenseNames = base.Columns["DMLicenseNames"];
                 this.columnDMLicenseComments = base.Columns["DMLicenseComments"];
-                this.columnDMLicenseCivilIDs = base.Columns["DMLicenseCivilIDs"];
                 this.columnLandArea = base.Columns["LandArea"];
                 this.columnLandDeedReceiptDate = base.Columns["LandDeedReceiptDate"];
                 this.columnLandDeedNo = base.Columns["LandDeedNo"];
@@ -1414,18 +1385,21 @@ namespace DMeServicesInternal.Web.Reports {
                 this.columnUseType = base.Columns["UseType"];
                 this.columnWelyahArName = base.Columns["WelyahArName"];
                 this.columnArLetter = base.Columns["ArLetter"];
-                this.columnPaymentTotalAmount = base.Columns["PaymentTotalAmount"];
-                this.columnBldPermitId = base.Columns["BldPermitId"];
-                this.columnBankResponseID = base.Columns["BankResponseID"];
-                this.columnPaymentStatus = base.Columns["PaymentStatus"];
-                this.columnReferenceid = base.Columns["Referenceid"];
-                this.columnPaymentrequestid = base.Columns["Paymentrequestid"];
-                this.columnBankpaymentid = base.Columns["Bankpaymentid"];
-                this.columnTransactionid = base.Columns["Transactionid"];
-                this.columnFeesDate = base.Columns["FeesDate"];
-                this.columnPaymentType = base.Columns["PaymentType"];
-                this.columnPayOn = base.Columns["PayOn"];
                 this.columnowners = base.Columns["owners"];
+                this.columnServiceName = base.Columns["ServiceName"];
+                this.columnBuildingComplex = base.Columns["BuildingComplex"];
+                this.columnUnitNo = base.Columns["UnitNo"];
+                this.columnAppointmentStatus = base.Columns["AppointmentStatus"];
+                this.columnAppointmentDate = base.Columns["AppointmentDate"];
+                this.columnDMManagerNotes = base.Columns["DMManagerNotes"];
+                this.columnDMEngineerNotes = base.Columns["DMEngineerNotes"];
+                this.columnContractorName = base.Columns["ContractorName"];
+                this.columnMLicenseStatement = base.Columns["MLicenseStatement"];
+                this.columnMLicenseNo = base.Columns["MLicenseNo"];
+                this.columnFeesRefid = base.Columns["FeesRefid"];
+                this.columnFeesPayOn = base.Columns["FeesPayOn"];
+                this.columnInsuranceRefid = base.Columns["InsuranceRefid"];
+                this.columnInsurancePayOn = base.Columns["InsurancePayOn"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1441,8 +1415,6 @@ namespace DMeServicesInternal.Web.Reports {
                 base.Columns.Add(this.columnOwnerCivilId);
                 this.columnOwnerPhoneNo = new global::System.Data.DataColumn("OwnerPhoneNo", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnOwnerPhoneNo);
-                this.columnDistrictName = new global::System.Data.DataColumn("DistrictName", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDistrictName);
                 this.columnDistrictNo = new global::System.Data.DataColumn("DistrictNo", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDistrictNo);
                 this.columnConstructedArea = new global::System.Data.DataColumn("ConstructedArea", typeof(string), null, global::System.Data.MappingType.Element);
@@ -1451,8 +1423,6 @@ namespace DMeServicesInternal.Web.Reports {
                 base.Columns.Add(this.columnNumberOfFloors);
                 this.columnConsultantCrNo = new global::System.Data.DataColumn("ConsultantCrNo", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnConsultantCrNo);
-                this.columnConstructionType = new global::System.Data.DataColumn("ConstructionType", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnConstructionType);
                 this.columnRequestDate = new global::System.Data.DataColumn("RequestDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnRequestDate);
                 this.columnCreatedBy = new global::System.Data.DataColumn("CreatedBy", typeof(string), null, global::System.Data.MappingType.Element);
@@ -1463,8 +1433,6 @@ namespace DMeServicesInternal.Web.Reports {
                 base.Columns.Add(this.columnUpdatedBy);
                 this.columnUpdatedOn = new global::System.Data.DataColumn("UpdatedOn", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnUpdatedOn);
-                this.columnSquareArea = new global::System.Data.DataColumn("SquareArea", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnSquareArea);
                 this.columnLicenseNo = new global::System.Data.DataColumn("LicenseNo", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnLicenseNo);
                 this.columnWorkflowStatus = new global::System.Data.DataColumn("WorkflowStatus", typeof(int), null, global::System.Data.MappingType.Element);
@@ -1491,12 +1459,8 @@ namespace DMeServicesInternal.Web.Reports {
                 base.Columns.Add(this.columnDmFileNumber);
                 this.columnLandDeedReceiptNo = new global::System.Data.DataColumn("LandDeedReceiptNo", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnLandDeedReceiptNo);
-                this.columnDMLicenseNames = new global::System.Data.DataColumn("DMLicenseNames", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDMLicenseNames);
                 this.columnDMLicenseComments = new global::System.Data.DataColumn("DMLicenseComments", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDMLicenseComments);
-                this.columnDMLicenseCivilIDs = new global::System.Data.DataColumn("DMLicenseCivilIDs", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDMLicenseCivilIDs);
                 this.columnLandArea = new global::System.Data.DataColumn("LandArea", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnLandArea);
                 this.columnLandDeedReceiptDate = new global::System.Data.DataColumn("LandDeedReceiptDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
@@ -1515,30 +1479,36 @@ namespace DMeServicesInternal.Web.Reports {
                 base.Columns.Add(this.columnWelyahArName);
                 this.columnArLetter = new global::System.Data.DataColumn("ArLetter", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnArLetter);
-                this.columnPaymentTotalAmount = new global::System.Data.DataColumn("PaymentTotalAmount", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPaymentTotalAmount);
-                this.columnBldPermitId = new global::System.Data.DataColumn("BldPermitId", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnBldPermitId);
-                this.columnBankResponseID = new global::System.Data.DataColumn("BankResponseID", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnBankResponseID);
-                this.columnPaymentStatus = new global::System.Data.DataColumn("PaymentStatus", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPaymentStatus);
-                this.columnReferenceid = new global::System.Data.DataColumn("Referenceid", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnReferenceid);
-                this.columnPaymentrequestid = new global::System.Data.DataColumn("Paymentrequestid", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPaymentrequestid);
-                this.columnBankpaymentid = new global::System.Data.DataColumn("Bankpaymentid", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnBankpaymentid);
-                this.columnTransactionid = new global::System.Data.DataColumn("Transactionid", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnTransactionid);
-                this.columnFeesDate = new global::System.Data.DataColumn("FeesDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnFeesDate);
-                this.columnPaymentType = new global::System.Data.DataColumn("PaymentType", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPaymentType);
-                this.columnPayOn = new global::System.Data.DataColumn("PayOn", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPayOn);
                 this.columnowners = new global::System.Data.DataColumn("owners", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnowners);
+                this.columnServiceName = new global::System.Data.DataColumn("ServiceName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnServiceName);
+                this.columnBuildingComplex = new global::System.Data.DataColumn("BuildingComplex", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBuildingComplex);
+                this.columnUnitNo = new global::System.Data.DataColumn("UnitNo", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnUnitNo);
+                this.columnAppointmentStatus = new global::System.Data.DataColumn("AppointmentStatus", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAppointmentStatus);
+                this.columnAppointmentDate = new global::System.Data.DataColumn("AppointmentDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAppointmentDate);
+                this.columnDMManagerNotes = new global::System.Data.DataColumn("DMManagerNotes", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDMManagerNotes);
+                this.columnDMEngineerNotes = new global::System.Data.DataColumn("DMEngineerNotes", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDMEngineerNotes);
+                this.columnContractorName = new global::System.Data.DataColumn("ContractorName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnContractorName);
+                this.columnMLicenseStatement = new global::System.Data.DataColumn("MLicenseStatement", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnMLicenseStatement);
+                this.columnMLicenseNo = new global::System.Data.DataColumn("MLicenseNo", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnMLicenseNo);
+                this.columnFeesRefid = new global::System.Data.DataColumn("FeesRefid", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFeesRefid);
+                this.columnFeesPayOn = new global::System.Data.DataColumn("FeesPayOn", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFeesPayOn);
+                this.columnInsuranceRefid = new global::System.Data.DataColumn("InsuranceRefid", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnInsuranceRefid);
+                this.columnInsurancePayOn = new global::System.Data.DataColumn("InsurancePayOn", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnInsurancePayOn);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
                 this.columnId.AutoIncrement = true;
@@ -1551,23 +1521,18 @@ namespace DMeServicesInternal.Web.Reports {
                 this.columnTransactNo.MaxLength = 400;
                 this.columnOwnerName.MaxLength = 250;
                 this.columnOwnerPhoneNo.MaxLength = 100;
-                this.columnDistrictName.MaxLength = 250;
                 this.columnConstructedArea.MaxLength = 50;
                 this.columnNumberOfFloors.MaxLength = 50;
                 this.columnConsultantCrNo.AllowDBNull = false;
-                this.columnConstructionType.MaxLength = 50;
                 this.columnRequestDate.AllowDBNull = false;
                 this.columnCreatedBy.MaxLength = 150;
                 this.columnUpdatedBy.MaxLength = 150;
-                this.columnSquareArea.MaxLength = 50;
                 this.columnLicenseNo.MaxLength = 100;
                 this.columnDmEngineerComments.MaxLength = 500;
                 this.columnKrokiNO.MaxLength = 50;
                 this.columnDmFileNumber.MaxLength = 50;
                 this.columnLandDeedReceiptNo.MaxLength = 50;
-                this.columnDMLicenseNames.MaxLength = 250;
                 this.columnDMLicenseComments.MaxLength = 250;
-                this.columnDMLicenseCivilIDs.MaxLength = 250;
                 this.columnLandArea.MaxLength = 50;
                 this.columnLandDeedNo.MaxLength = 50;
                 this.columnBuildingType.MaxLength = 50;
@@ -1578,13 +1543,25 @@ namespace DMeServicesInternal.Web.Reports {
                 this.columnWelyahArName.AllowDBNull = false;
                 this.columnWelyahArName.MaxLength = 50;
                 this.columnArLetter.MaxLength = 10;
-                this.columnReferenceid.MaxLength = 200;
-                this.columnBankpaymentid.MaxLength = 200;
-                this.columnTransactionid.MaxLength = 200;
-                this.columnPayOn.ReadOnly = true;
-                this.columnPayOn.MaxLength = 20;
                 this.columnowners.ReadOnly = true;
                 this.columnowners.MaxLength = 2147483647;
+                this.columnServiceName.MaxLength = 250;
+                this.columnBuildingComplex.MaxLength = 50;
+                this.columnUnitNo.MaxLength = 50;
+                this.columnAppointmentStatus.MaxLength = 250;
+                this.columnDMManagerNotes.MaxLength = 250;
+                this.columnDMEngineerNotes.MaxLength = 250;
+                this.columnContractorName.MaxLength = 50;
+                this.columnMLicenseStatement.MaxLength = 250;
+                this.columnMLicenseNo.MaxLength = 100;
+                this.columnFeesRefid.ReadOnly = true;
+                this.columnFeesRefid.MaxLength = 200;
+                this.columnFeesPayOn.ReadOnly = true;
+                this.columnFeesPayOn.MaxLength = 20;
+                this.columnInsuranceRefid.ReadOnly = true;
+                this.columnInsuranceRefid.MaxLength = 200;
+                this.columnInsurancePayOn.ReadOnly = true;
+                this.columnInsurancePayOn.MaxLength = 20;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3670,21 +3647,13 @@ namespace DMeServicesInternal.Web.Reports {
             
             private global::System.Data.DataColumn columnOwnerNotes;
             
-            private global::System.Data.DataColumn columnConstructionType;
-            
             private global::System.Data.DataColumn columnConsultantCrNo;
             
             private global::System.Data.DataColumn columnNumberOfFloors;
             
             private global::System.Data.DataColumn columnConstructedArea;
             
-            private global::System.Data.DataColumn columnSquareArea;
-            
-            private global::System.Data.DataColumn columnDMLicenseNames;
-            
             private global::System.Data.DataColumn columnDMLicenseComments;
-            
-            private global::System.Data.DataColumn columnDMLicenseCivilIDs;
             
             private global::System.Data.DataColumn columnLandArea;
             
@@ -3741,6 +3710,20 @@ namespace DMeServicesInternal.Web.Reports {
             private global::System.Data.DataColumn columnPaymentDate;
             
             private global::System.Data.DataColumn columnSupervisionLicenseNo;
+            
+            private global::System.Data.DataColumn columnBuildingComplex;
+            
+            private global::System.Data.DataColumn columnRequestDate;
+            
+            private global::System.Data.DataColumn columnCreatedBy;
+            
+            private global::System.Data.DataColumn columnCreatedOn;
+            
+            private global::System.Data.DataColumn columnUpdatedBy;
+            
+            private global::System.Data.DataColumn columnUpdatedOn;
+            
+            private global::System.Data.DataColumn columnUnitNo;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
@@ -3857,14 +3840,6 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn ConstructionTypeColumn {
-                get {
-                    return this.columnConstructionType;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public global::System.Data.DataColumn ConsultantCrNoColumn {
                 get {
                     return this.columnConsultantCrNo;
@@ -3889,33 +3864,9 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn SquareAreaColumn {
-                get {
-                    return this.columnSquareArea;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn DMLicenseNamesColumn {
-                get {
-                    return this.columnDMLicenseNames;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public global::System.Data.DataColumn DMLicenseCommentsColumn {
                 get {
                     return this.columnDMLicenseComments;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn DMLicenseCivilIDsColumn {
-                get {
-                    return this.columnDMLicenseCivilIDs;
                 }
             }
             
@@ -4145,6 +4096,62 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn BuildingComplexColumn {
+                get {
+                    return this.columnBuildingComplex;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn RequestDateColumn {
+                get {
+                    return this.columnRequestDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn CreatedByColumn {
+                get {
+                    return this.columnCreatedBy;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn CreatedOnColumn {
+                get {
+                    return this.columnCreatedOn;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn UpdatedByColumn {
+                get {
+                    return this.columnUpdatedBy;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn UpdatedOnColumn {
+                get {
+                    return this.columnUpdatedOn;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn UnitNoColumn {
+                get {
+                    return this.columnUnitNo;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -4190,14 +4197,10 @@ namespace DMeServicesInternal.Web.Reports {
                         string DmInspectorComments, 
                         string ConsultantNotes, 
                         string OwnerNotes, 
-                        string ConstructionType, 
                         int ConsultantCrNo, 
                         string NumberOfFloors, 
                         string ConstructedArea, 
-                        string SquareArea, 
-                        string DMLicenseNames, 
                         string DMLicenseComments, 
-                        string DMLicenseCivilIDs, 
                         string LandArea, 
                         System.DateTime LandDeedReceiptDate, 
                         string LandDeedNo, 
@@ -4225,7 +4228,14 @@ namespace DMeServicesInternal.Web.Reports {
                         int ConsultantCivilId, 
                         string CompanyName, 
                         System.DateTime PaymentDate, 
-                        string SupervisionLicenseNo) {
+                        string SupervisionLicenseNo, 
+                        string BuildingComplex, 
+                        System.DateTime RequestDate, 
+                        string CreatedBy, 
+                        System.DateTime CreatedOn, 
+                        string UpdatedBy, 
+                        System.DateTime UpdatedOn, 
+                        string UnitNo) {
                 BldSupervisionServicesRow rowBldSupervisionServicesRow = ((BldSupervisionServicesRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -4238,14 +4248,10 @@ namespace DMeServicesInternal.Web.Reports {
                         DmInspectorComments,
                         ConsultantNotes,
                         OwnerNotes,
-                        ConstructionType,
                         ConsultantCrNo,
                         NumberOfFloors,
                         ConstructedArea,
-                        SquareArea,
-                        DMLicenseNames,
                         DMLicenseComments,
-                        DMLicenseCivilIDs,
                         LandArea,
                         LandDeedReceiptDate,
                         LandDeedNo,
@@ -4273,7 +4279,14 @@ namespace DMeServicesInternal.Web.Reports {
                         ConsultantCivilId,
                         CompanyName,
                         PaymentDate,
-                        SupervisionLicenseNo};
+                        SupervisionLicenseNo,
+                        BuildingComplex,
+                        RequestDate,
+                        CreatedBy,
+                        CreatedOn,
+                        UpdatedBy,
+                        UpdatedOn,
+                        UnitNo};
                 rowBldSupervisionServicesRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowBldSupervisionServicesRow);
                 return rowBldSupervisionServicesRow;
@@ -4313,14 +4326,10 @@ namespace DMeServicesInternal.Web.Reports {
                 this.columnDmInspectorComments = base.Columns["DmInspectorComments"];
                 this.columnConsultantNotes = base.Columns["ConsultantNotes"];
                 this.columnOwnerNotes = base.Columns["OwnerNotes"];
-                this.columnConstructionType = base.Columns["ConstructionType"];
                 this.columnConsultantCrNo = base.Columns["ConsultantCrNo"];
                 this.columnNumberOfFloors = base.Columns["NumberOfFloors"];
                 this.columnConstructedArea = base.Columns["ConstructedArea"];
-                this.columnSquareArea = base.Columns["SquareArea"];
-                this.columnDMLicenseNames = base.Columns["DMLicenseNames"];
                 this.columnDMLicenseComments = base.Columns["DMLicenseComments"];
-                this.columnDMLicenseCivilIDs = base.Columns["DMLicenseCivilIDs"];
                 this.columnLandArea = base.Columns["LandArea"];
                 this.columnLandDeedReceiptDate = base.Columns["LandDeedReceiptDate"];
                 this.columnLandDeedNo = base.Columns["LandDeedNo"];
@@ -4349,6 +4358,13 @@ namespace DMeServicesInternal.Web.Reports {
                 this.columnCompanyName = base.Columns["CompanyName"];
                 this.columnPaymentDate = base.Columns["PaymentDate"];
                 this.columnSupervisionLicenseNo = base.Columns["SupervisionLicenseNo"];
+                this.columnBuildingComplex = base.Columns["BuildingComplex"];
+                this.columnRequestDate = base.Columns["RequestDate"];
+                this.columnCreatedBy = base.Columns["CreatedBy"];
+                this.columnCreatedOn = base.Columns["CreatedOn"];
+                this.columnUpdatedBy = base.Columns["UpdatedBy"];
+                this.columnUpdatedOn = base.Columns["UpdatedOn"];
+                this.columnUnitNo = base.Columns["UnitNo"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4374,22 +4390,14 @@ namespace DMeServicesInternal.Web.Reports {
                 base.Columns.Add(this.columnConsultantNotes);
                 this.columnOwnerNotes = new global::System.Data.DataColumn("OwnerNotes", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnOwnerNotes);
-                this.columnConstructionType = new global::System.Data.DataColumn("ConstructionType", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnConstructionType);
                 this.columnConsultantCrNo = new global::System.Data.DataColumn("ConsultantCrNo", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnConsultantCrNo);
                 this.columnNumberOfFloors = new global::System.Data.DataColumn("NumberOfFloors", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnNumberOfFloors);
                 this.columnConstructedArea = new global::System.Data.DataColumn("ConstructedArea", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnConstructedArea);
-                this.columnSquareArea = new global::System.Data.DataColumn("SquareArea", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnSquareArea);
-                this.columnDMLicenseNames = new global::System.Data.DataColumn("DMLicenseNames", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDMLicenseNames);
                 this.columnDMLicenseComments = new global::System.Data.DataColumn("DMLicenseComments", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDMLicenseComments);
-                this.columnDMLicenseCivilIDs = new global::System.Data.DataColumn("DMLicenseCivilIDs", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDMLicenseCivilIDs);
                 this.columnLandArea = new global::System.Data.DataColumn("LandArea", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnLandArea);
                 this.columnLandDeedReceiptDate = new global::System.Data.DataColumn("LandDeedReceiptDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
@@ -4446,6 +4454,20 @@ namespace DMeServicesInternal.Web.Reports {
                 base.Columns.Add(this.columnPaymentDate);
                 this.columnSupervisionLicenseNo = new global::System.Data.DataColumn("SupervisionLicenseNo", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnSupervisionLicenseNo);
+                this.columnBuildingComplex = new global::System.Data.DataColumn("BuildingComplex", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBuildingComplex);
+                this.columnRequestDate = new global::System.Data.DataColumn("RequestDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRequestDate);
+                this.columnCreatedBy = new global::System.Data.DataColumn("CreatedBy", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCreatedBy);
+                this.columnCreatedOn = new global::System.Data.DataColumn("CreatedOn", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCreatedOn);
+                this.columnUpdatedBy = new global::System.Data.DataColumn("UpdatedBy", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnUpdatedBy);
+                this.columnUpdatedOn = new global::System.Data.DataColumn("UpdatedOn", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnUpdatedOn);
+                this.columnUnitNo = new global::System.Data.DataColumn("UnitNo", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnUnitNo);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnID}, true));
                 this.columnID.AutoIncrement = true;
@@ -4463,14 +4485,10 @@ namespace DMeServicesInternal.Web.Reports {
                 this.columnDmInspectorComments.MaxLength = 500;
                 this.columnConsultantNotes.MaxLength = 250;
                 this.columnOwnerNotes.MaxLength = 250;
-                this.columnConstructionType.MaxLength = 50;
                 this.columnConsultantCrNo.AllowDBNull = false;
                 this.columnNumberOfFloors.MaxLength = 50;
                 this.columnConstructedArea.MaxLength = 50;
-                this.columnSquareArea.MaxLength = 50;
-                this.columnDMLicenseNames.MaxLength = 250;
                 this.columnDMLicenseComments.MaxLength = 250;
-                this.columnDMLicenseCivilIDs.MaxLength = 250;
                 this.columnLandArea.MaxLength = 50;
                 this.columnLandDeedNo.MaxLength = 50;
                 this.columnFileNumber.MaxLength = 50;
@@ -4495,6 +4513,11 @@ namespace DMeServicesInternal.Web.Reports {
                 this.columnReferenceid.MaxLength = 200;
                 this.columnCompanyName.MaxLength = 400;
                 this.columnSupervisionLicenseNo.MaxLength = 100;
+                this.columnBuildingComplex.MaxLength = 50;
+                this.columnRequestDate.AllowDBNull = false;
+                this.columnCreatedBy.MaxLength = 150;
+                this.columnUpdatedBy.MaxLength = 150;
+                this.columnUnitNo.MaxLength = 50;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5014,22 +5037,6 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string DistrictName {
-                get {
-                    try {
-                        return ((string)(this[this.tableBldPermits.DistrictNameColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'DistrictName\' in table \'BldPermits\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableBldPermits.DistrictNameColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public int DistrictNo {
                 get {
                     try {
@@ -5084,22 +5091,6 @@ namespace DMeServicesInternal.Web.Reports {
                 }
                 set {
                     this[this.tableBldPermits.ConsultantCrNoColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string ConstructionType {
-                get {
-                    try {
-                        return ((string)(this[this.tableBldPermits.ConstructionTypeColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'ConstructionType\' in table \'BldPermits\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableBldPermits.ConstructionTypeColumn] = value;
                 }
             }
             
@@ -5175,22 +5166,6 @@ namespace DMeServicesInternal.Web.Reports {
                 }
                 set {
                     this[this.tableBldPermits.UpdatedOnColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string SquareArea {
-                get {
-                    try {
-                        return ((string)(this[this.tableBldPermits.SquareAreaColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'SquareArea\' in table \'BldPermits\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableBldPermits.SquareAreaColumn] = value;
                 }
             }
             
@@ -5404,22 +5379,6 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string DMLicenseNames {
-                get {
-                    try {
-                        return ((string)(this[this.tableBldPermits.DMLicenseNamesColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'DMLicenseNames\' in table \'BldPermits\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableBldPermits.DMLicenseNamesColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public string DMLicenseComments {
                 get {
                     try {
@@ -5431,22 +5390,6 @@ namespace DMeServicesInternal.Web.Reports {
                 }
                 set {
                     this[this.tableBldPermits.DMLicenseCommentsColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string DMLicenseCivilIDs {
-                get {
-                    try {
-                        return ((string)(this[this.tableBldPermits.DMLicenseCivilIDsColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'DMLicenseCivilIDs\' in table \'BldPermits\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableBldPermits.DMLicenseCivilIDsColumn] = value;
                 }
             }
             
@@ -5581,182 +5524,6 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public decimal PaymentTotalAmount {
-                get {
-                    try {
-                        return ((decimal)(this[this.tableBldPermits.PaymentTotalAmountColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PaymentTotalAmount\' in table \'BldPermits\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableBldPermits.PaymentTotalAmountColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int BldPermitId {
-                get {
-                    try {
-                        return ((int)(this[this.tableBldPermits.BldPermitIdColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'BldPermitId\' in table \'BldPermits\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableBldPermits.BldPermitIdColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int BankResponseID {
-                get {
-                    try {
-                        return ((int)(this[this.tableBldPermits.BankResponseIDColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'BankResponseID\' in table \'BldPermits\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableBldPermits.BankResponseIDColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int PaymentStatus {
-                get {
-                    try {
-                        return ((int)(this[this.tableBldPermits.PaymentStatusColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PaymentStatus\' in table \'BldPermits\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableBldPermits.PaymentStatusColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string Referenceid {
-                get {
-                    try {
-                        return ((string)(this[this.tableBldPermits.ReferenceidColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Referenceid\' in table \'BldPermits\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableBldPermits.ReferenceidColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int Paymentrequestid {
-                get {
-                    try {
-                        return ((int)(this[this.tableBldPermits.PaymentrequestidColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Paymentrequestid\' in table \'BldPermits\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableBldPermits.PaymentrequestidColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string Bankpaymentid {
-                get {
-                    try {
-                        return ((string)(this[this.tableBldPermits.BankpaymentidColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Bankpaymentid\' in table \'BldPermits\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableBldPermits.BankpaymentidColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string Transactionid {
-                get {
-                    try {
-                        return ((string)(this[this.tableBldPermits.TransactionidColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Transactionid\' in table \'BldPermits\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableBldPermits.TransactionidColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public System.DateTime FeesDate {
-                get {
-                    try {
-                        return ((global::System.DateTime)(this[this.tableBldPermits.FeesDateColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'FeesDate\' in table \'BldPermits\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableBldPermits.FeesDateColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int PaymentType {
-                get {
-                    try {
-                        return ((int)(this[this.tableBldPermits.PaymentTypeColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PaymentType\' in table \'BldPermits\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableBldPermits.PaymentTypeColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string PayOn {
-                get {
-                    try {
-                        return ((string)(this[this.tableBldPermits.PayOnColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PayOn\' in table \'BldPermits\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableBldPermits.PayOnColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public string owners {
                 get {
                     try {
@@ -5768,6 +5535,230 @@ namespace DMeServicesInternal.Web.Reports {
                 }
                 set {
                     this[this.tableBldPermits.ownersColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string ServiceName {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldPermits.ServiceNameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ServiceName\' in table \'BldPermits\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldPermits.ServiceNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string BuildingComplex {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldPermits.BuildingComplexColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'BuildingComplex\' in table \'BldPermits\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldPermits.BuildingComplexColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string UnitNo {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldPermits.UnitNoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'UnitNo\' in table \'BldPermits\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldPermits.UnitNoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string AppointmentStatus {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldPermits.AppointmentStatusColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'AppointmentStatus\' in table \'BldPermits\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldPermits.AppointmentStatusColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public System.DateTime AppointmentDate {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableBldPermits.AppointmentDateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'AppointmentDate\' in table \'BldPermits\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldPermits.AppointmentDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string DMManagerNotes {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldPermits.DMManagerNotesColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DMManagerNotes\' in table \'BldPermits\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldPermits.DMManagerNotesColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string DMEngineerNotes {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldPermits.DMEngineerNotesColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DMEngineerNotes\' in table \'BldPermits\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldPermits.DMEngineerNotesColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string ContractorName {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldPermits.ContractorNameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ContractorName\' in table \'BldPermits\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldPermits.ContractorNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string MLicenseStatement {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldPermits.MLicenseStatementColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'MLicenseStatement\' in table \'BldPermits\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldPermits.MLicenseStatementColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string MLicenseNo {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldPermits.MLicenseNoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'MLicenseNo\' in table \'BldPermits\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldPermits.MLicenseNoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string FeesRefid {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldPermits.FeesRefidColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'FeesRefid\' in table \'BldPermits\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldPermits.FeesRefidColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string FeesPayOn {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldPermits.FeesPayOnColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'FeesPayOn\' in table \'BldPermits\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldPermits.FeesPayOnColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string InsuranceRefid {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldPermits.InsuranceRefidColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'InsuranceRefid\' in table \'BldPermits\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldPermits.InsuranceRefidColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string InsurancePayOn {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldPermits.InsurancePayOnColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'InsurancePayOn\' in table \'BldPermits\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldPermits.InsurancePayOnColumn] = value;
                 }
             }
             
@@ -5864,18 +5855,6 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsDistrictNameNull() {
-                return this.IsNull(this.tableBldPermits.DistrictNameColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetDistrictNameNull() {
-                this[this.tableBldPermits.DistrictNameColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsDistrictNoNull() {
                 return this.IsNull(this.tableBldPermits.DistrictNoColumn);
             }
@@ -5908,18 +5887,6 @@ namespace DMeServicesInternal.Web.Reports {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetNumberOfFloorsNull() {
                 this[this.tableBldPermits.NumberOfFloorsColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsConstructionTypeNull() {
-                return this.IsNull(this.tableBldPermits.ConstructionTypeColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetConstructionTypeNull() {
-                this[this.tableBldPermits.ConstructionTypeColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5968,18 +5935,6 @@ namespace DMeServicesInternal.Web.Reports {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetUpdatedOnNull() {
                 this[this.tableBldPermits.UpdatedOnColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsSquareAreaNull() {
-                return this.IsNull(this.tableBldPermits.SquareAreaColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetSquareAreaNull() {
-                this[this.tableBldPermits.SquareAreaColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6140,18 +6095,6 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsDMLicenseNamesNull() {
-                return this.IsNull(this.tableBldPermits.DMLicenseNamesColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetDMLicenseNamesNull() {
-                this[this.tableBldPermits.DMLicenseNamesColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsDMLicenseCommentsNull() {
                 return this.IsNull(this.tableBldPermits.DMLicenseCommentsColumn);
             }
@@ -6160,18 +6103,6 @@ namespace DMeServicesInternal.Web.Reports {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetDMLicenseCommentsNull() {
                 this[this.tableBldPermits.DMLicenseCommentsColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsDMLicenseCivilIDsNull() {
-                return this.IsNull(this.tableBldPermits.DMLicenseCivilIDsColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetDMLicenseCivilIDsNull() {
-                this[this.tableBldPermits.DMLicenseCivilIDsColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6248,138 +6179,6 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsPaymentTotalAmountNull() {
-                return this.IsNull(this.tableBldPermits.PaymentTotalAmountColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetPaymentTotalAmountNull() {
-                this[this.tableBldPermits.PaymentTotalAmountColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsBldPermitIdNull() {
-                return this.IsNull(this.tableBldPermits.BldPermitIdColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetBldPermitIdNull() {
-                this[this.tableBldPermits.BldPermitIdColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsBankResponseIDNull() {
-                return this.IsNull(this.tableBldPermits.BankResponseIDColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetBankResponseIDNull() {
-                this[this.tableBldPermits.BankResponseIDColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsPaymentStatusNull() {
-                return this.IsNull(this.tableBldPermits.PaymentStatusColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetPaymentStatusNull() {
-                this[this.tableBldPermits.PaymentStatusColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsReferenceidNull() {
-                return this.IsNull(this.tableBldPermits.ReferenceidColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetReferenceidNull() {
-                this[this.tableBldPermits.ReferenceidColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsPaymentrequestidNull() {
-                return this.IsNull(this.tableBldPermits.PaymentrequestidColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetPaymentrequestidNull() {
-                this[this.tableBldPermits.PaymentrequestidColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsBankpaymentidNull() {
-                return this.IsNull(this.tableBldPermits.BankpaymentidColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetBankpaymentidNull() {
-                this[this.tableBldPermits.BankpaymentidColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsTransactionidNull() {
-                return this.IsNull(this.tableBldPermits.TransactionidColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetTransactionidNull() {
-                this[this.tableBldPermits.TransactionidColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsFeesDateNull() {
-                return this.IsNull(this.tableBldPermits.FeesDateColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetFeesDateNull() {
-                this[this.tableBldPermits.FeesDateColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsPaymentTypeNull() {
-                return this.IsNull(this.tableBldPermits.PaymentTypeColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetPaymentTypeNull() {
-                this[this.tableBldPermits.PaymentTypeColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsPayOnNull() {
-                return this.IsNull(this.tableBldPermits.PayOnColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetPayOnNull() {
-                this[this.tableBldPermits.PayOnColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsownersNull() {
                 return this.IsNull(this.tableBldPermits.ownersColumn);
             }
@@ -6388,6 +6187,174 @@ namespace DMeServicesInternal.Web.Reports {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetownersNull() {
                 this[this.tableBldPermits.ownersColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsServiceNameNull() {
+                return this.IsNull(this.tableBldPermits.ServiceNameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetServiceNameNull() {
+                this[this.tableBldPermits.ServiceNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsBuildingComplexNull() {
+                return this.IsNull(this.tableBldPermits.BuildingComplexColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetBuildingComplexNull() {
+                this[this.tableBldPermits.BuildingComplexColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsUnitNoNull() {
+                return this.IsNull(this.tableBldPermits.UnitNoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetUnitNoNull() {
+                this[this.tableBldPermits.UnitNoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsAppointmentStatusNull() {
+                return this.IsNull(this.tableBldPermits.AppointmentStatusColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetAppointmentStatusNull() {
+                this[this.tableBldPermits.AppointmentStatusColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsAppointmentDateNull() {
+                return this.IsNull(this.tableBldPermits.AppointmentDateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetAppointmentDateNull() {
+                this[this.tableBldPermits.AppointmentDateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsDMManagerNotesNull() {
+                return this.IsNull(this.tableBldPermits.DMManagerNotesColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetDMManagerNotesNull() {
+                this[this.tableBldPermits.DMManagerNotesColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsDMEngineerNotesNull() {
+                return this.IsNull(this.tableBldPermits.DMEngineerNotesColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetDMEngineerNotesNull() {
+                this[this.tableBldPermits.DMEngineerNotesColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsContractorNameNull() {
+                return this.IsNull(this.tableBldPermits.ContractorNameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetContractorNameNull() {
+                this[this.tableBldPermits.ContractorNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsMLicenseStatementNull() {
+                return this.IsNull(this.tableBldPermits.MLicenseStatementColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetMLicenseStatementNull() {
+                this[this.tableBldPermits.MLicenseStatementColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsMLicenseNoNull() {
+                return this.IsNull(this.tableBldPermits.MLicenseNoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetMLicenseNoNull() {
+                this[this.tableBldPermits.MLicenseNoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsFeesRefidNull() {
+                return this.IsNull(this.tableBldPermits.FeesRefidColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetFeesRefidNull() {
+                this[this.tableBldPermits.FeesRefidColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsFeesPayOnNull() {
+                return this.IsNull(this.tableBldPermits.FeesPayOnColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetFeesPayOnNull() {
+                this[this.tableBldPermits.FeesPayOnColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsInsuranceRefidNull() {
+                return this.IsNull(this.tableBldPermits.InsuranceRefidColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetInsuranceRefidNull() {
+                this[this.tableBldPermits.InsuranceRefidColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsInsurancePayOnNull() {
+                return this.IsNull(this.tableBldPermits.InsurancePayOnColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetInsurancePayOnNull() {
+                this[this.tableBldPermits.InsurancePayOnColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7384,23 +7351,6 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string ConstructionType {
-                get {
-                    try {
-                        return ((string)(this[this.tableBldSupervisionServices.ConstructionTypeColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'ConstructionType\' in table \'BldSupervisionServices\' is DBNu" +
-                                "ll.", e);
-                    }
-                }
-                set {
-                    this[this.tableBldSupervisionServices.ConstructionTypeColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public int ConsultantCrNo {
                 get {
                     return ((int)(this[this.tableBldSupervisionServices.ConsultantCrNoColumn]));
@@ -7446,39 +7396,6 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string SquareArea {
-                get {
-                    try {
-                        return ((string)(this[this.tableBldSupervisionServices.SquareAreaColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'SquareArea\' in table \'BldSupervisionServices\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableBldSupervisionServices.SquareAreaColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string DMLicenseNames {
-                get {
-                    try {
-                        return ((string)(this[this.tableBldSupervisionServices.DMLicenseNamesColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'DMLicenseNames\' in table \'BldSupervisionServices\' is DBNull" +
-                                ".", e);
-                    }
-                }
-                set {
-                    this[this.tableBldSupervisionServices.DMLicenseNamesColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public string DMLicenseComments {
                 get {
                     try {
@@ -7491,23 +7408,6 @@ namespace DMeServicesInternal.Web.Reports {
                 }
                 set {
                     this[this.tableBldSupervisionServices.DMLicenseCommentsColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string DMLicenseCivilIDs {
-                get {
-                    try {
-                        return ((string)(this[this.tableBldSupervisionServices.DMLicenseCivilIDsColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'DMLicenseCivilIDs\' in table \'BldSupervisionServices\' is DBN" +
-                                "ull.", e);
-                    }
-                }
-                set {
-                    this[this.tableBldSupervisionServices.DMLicenseCivilIDsColumn] = value;
                 }
             }
             
@@ -7933,6 +7833,114 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string BuildingComplex {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldSupervisionServices.BuildingComplexColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'BuildingComplex\' in table \'BldSupervisionServices\' is DBNul" +
+                                "l.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldSupervisionServices.BuildingComplexColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public System.DateTime RequestDate {
+                get {
+                    return ((global::System.DateTime)(this[this.tableBldSupervisionServices.RequestDateColumn]));
+                }
+                set {
+                    this[this.tableBldSupervisionServices.RequestDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string CreatedBy {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldSupervisionServices.CreatedByColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CreatedBy\' in table \'BldSupervisionServices\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldSupervisionServices.CreatedByColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public System.DateTime CreatedOn {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableBldSupervisionServices.CreatedOnColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CreatedOn\' in table \'BldSupervisionServices\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldSupervisionServices.CreatedOnColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string UpdatedBy {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldSupervisionServices.UpdatedByColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'UpdatedBy\' in table \'BldSupervisionServices\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldSupervisionServices.UpdatedByColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public System.DateTime UpdatedOn {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableBldSupervisionServices.UpdatedOnColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'UpdatedOn\' in table \'BldSupervisionServices\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldSupervisionServices.UpdatedOnColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string UnitNo {
+                get {
+                    try {
+                        return ((string)(this[this.tableBldSupervisionServices.UnitNoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'UnitNo\' in table \'BldSupervisionServices\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBldSupervisionServices.UnitNoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsOwnerCivilIdNull() {
                 return this.IsNull(this.tableBldSupervisionServices.OwnerCivilIdColumn);
             }
@@ -8029,18 +8037,6 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsConstructionTypeNull() {
-                return this.IsNull(this.tableBldSupervisionServices.ConstructionTypeColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetConstructionTypeNull() {
-                this[this.tableBldSupervisionServices.ConstructionTypeColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsNumberOfFloorsNull() {
                 return this.IsNull(this.tableBldSupervisionServices.NumberOfFloorsColumn);
             }
@@ -8065,30 +8061,6 @@ namespace DMeServicesInternal.Web.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsSquareAreaNull() {
-                return this.IsNull(this.tableBldSupervisionServices.SquareAreaColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetSquareAreaNull() {
-                this[this.tableBldSupervisionServices.SquareAreaColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsDMLicenseNamesNull() {
-                return this.IsNull(this.tableBldSupervisionServices.DMLicenseNamesColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetDMLicenseNamesNull() {
-                this[this.tableBldSupervisionServices.DMLicenseNamesColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsDMLicenseCommentsNull() {
                 return this.IsNull(this.tableBldSupervisionServices.DMLicenseCommentsColumn);
             }
@@ -8097,18 +8069,6 @@ namespace DMeServicesInternal.Web.Reports {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetDMLicenseCommentsNull() {
                 this[this.tableBldSupervisionServices.DMLicenseCommentsColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsDMLicenseCivilIDsNull() {
-                return this.IsNull(this.tableBldSupervisionServices.DMLicenseCivilIDsColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetDMLicenseCivilIDsNull() {
-                this[this.tableBldSupervisionServices.DMLicenseCivilIDsColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -8361,6 +8321,78 @@ namespace DMeServicesInternal.Web.Reports {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetSupervisionLicenseNoNull() {
                 this[this.tableBldSupervisionServices.SupervisionLicenseNoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsBuildingComplexNull() {
+                return this.IsNull(this.tableBldSupervisionServices.BuildingComplexColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetBuildingComplexNull() {
+                this[this.tableBldSupervisionServices.BuildingComplexColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCreatedByNull() {
+                return this.IsNull(this.tableBldSupervisionServices.CreatedByColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCreatedByNull() {
+                this[this.tableBldSupervisionServices.CreatedByColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCreatedOnNull() {
+                return this.IsNull(this.tableBldSupervisionServices.CreatedOnColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCreatedOnNull() {
+                this[this.tableBldSupervisionServices.CreatedOnColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsUpdatedByNull() {
+                return this.IsNull(this.tableBldSupervisionServices.UpdatedByColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetUpdatedByNull() {
+                this[this.tableBldSupervisionServices.UpdatedByColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsUpdatedOnNull() {
+                return this.IsNull(this.tableBldSupervisionServices.UpdatedOnColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetUpdatedOnNull() {
+                this[this.tableBldSupervisionServices.UpdatedOnColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsUnitNoNull() {
+                return this.IsNull(this.tableBldSupervisionServices.UnitNoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetUnitNoNull() {
+                this[this.tableBldSupervisionServices.UnitNoColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -8895,18 +8927,15 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
             tableMapping.ColumnMappings.Add("OwnerName", "OwnerName");
             tableMapping.ColumnMappings.Add("OwnerCivilId", "OwnerCivilId");
             tableMapping.ColumnMappings.Add("OwnerPhoneNo", "OwnerPhoneNo");
-            tableMapping.ColumnMappings.Add("DistrictName", "DistrictName");
             tableMapping.ColumnMappings.Add("DistrictNo", "DistrictNo");
             tableMapping.ColumnMappings.Add("ConstructedArea", "ConstructedArea");
             tableMapping.ColumnMappings.Add("NumberOfFloors", "NumberOfFloors");
             tableMapping.ColumnMappings.Add("ConsultantCrNo", "ConsultantCrNo");
-            tableMapping.ColumnMappings.Add("ConstructionType", "ConstructionType");
             tableMapping.ColumnMappings.Add("RequestDate", "RequestDate");
             tableMapping.ColumnMappings.Add("CreatedBy", "CreatedBy");
             tableMapping.ColumnMappings.Add("CreatedOn", "CreatedOn");
             tableMapping.ColumnMappings.Add("UpdatedBy", "UpdatedBy");
             tableMapping.ColumnMappings.Add("UpdatedOn", "UpdatedOn");
-            tableMapping.ColumnMappings.Add("SquareArea", "SquareArea");
             tableMapping.ColumnMappings.Add("LicenseNo", "LicenseNo");
             tableMapping.ColumnMappings.Add("WorkflowStatus", "WorkflowStatus");
             tableMapping.ColumnMappings.Add("DmEngineerNo", "DmEngineerNo");
@@ -8920,9 +8949,7 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
             tableMapping.ColumnMappings.Add("KrokiNO", "KrokiNO");
             tableMapping.ColumnMappings.Add("DmFileNumber", "DmFileNumber");
             tableMapping.ColumnMappings.Add("LandDeedReceiptNo", "LandDeedReceiptNo");
-            tableMapping.ColumnMappings.Add("DMLicenseNames", "DMLicenseNames");
             tableMapping.ColumnMappings.Add("DMLicenseComments", "DMLicenseComments");
-            tableMapping.ColumnMappings.Add("DMLicenseCivilIDs", "DMLicenseCivilIDs");
             tableMapping.ColumnMappings.Add("LandArea", "LandArea");
             tableMapping.ColumnMappings.Add("LandDeedReceiptDate", "LandDeedReceiptDate");
             tableMapping.ColumnMappings.Add("LandDeedNo", "LandDeedNo");
@@ -8932,18 +8959,21 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
             tableMapping.ColumnMappings.Add("UseType", "UseType");
             tableMapping.ColumnMappings.Add("WelyahArName", "WelyahArName");
             tableMapping.ColumnMappings.Add("ArLetter", "ArLetter");
-            tableMapping.ColumnMappings.Add("PaymentTotalAmount", "PaymentTotalAmount");
-            tableMapping.ColumnMappings.Add("BldPermitId", "BldPermitId");
-            tableMapping.ColumnMappings.Add("BankResponseID", "BankResponseID");
-            tableMapping.ColumnMappings.Add("PaymentStatus", "PaymentStatus");
-            tableMapping.ColumnMappings.Add("Referenceid", "Referenceid");
-            tableMapping.ColumnMappings.Add("Paymentrequestid", "Paymentrequestid");
-            tableMapping.ColumnMappings.Add("Bankpaymentid", "Bankpaymentid");
-            tableMapping.ColumnMappings.Add("Transactionid", "Transactionid");
-            tableMapping.ColumnMappings.Add("FeesDate", "FeesDate");
-            tableMapping.ColumnMappings.Add("PaymentType", "PaymentType");
-            tableMapping.ColumnMappings.Add("PayOn", "PayOn");
             tableMapping.ColumnMappings.Add("owners", "owners");
+            tableMapping.ColumnMappings.Add("ServiceName", "ServiceName");
+            tableMapping.ColumnMappings.Add("BuildingComplex", "BuildingComplex");
+            tableMapping.ColumnMappings.Add("UnitNo", "UnitNo");
+            tableMapping.ColumnMappings.Add("AppointmentStatus", "AppointmentStatus");
+            tableMapping.ColumnMappings.Add("AppointmentDate", "AppointmentDate");
+            tableMapping.ColumnMappings.Add("DMManagerNotes", "DMManagerNotes");
+            tableMapping.ColumnMappings.Add("DMEngineerNotes", "DMEngineerNotes");
+            tableMapping.ColumnMappings.Add("ContractorName", "ContractorName");
+            tableMapping.ColumnMappings.Add("MLicenseStatement", "MLicenseStatement");
+            tableMapping.ColumnMappings.Add("MLicenseNo", "MLicenseNo");
+            tableMapping.ColumnMappings.Add("FeesRefid", "FeesRefid");
+            tableMapping.ColumnMappings.Add("FeesPayOn", "FeesPayOn");
+            tableMapping.ColumnMappings.Add("InsuranceRefid", "InsuranceRefid");
+            tableMapping.ColumnMappings.Add("InsurancePayOn", "InsurancePayOn");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -8961,40 +8991,45 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT        BldPermits.Id, BldPermits.TransactNo, BldPermits.OwnerName, BldPerm" +
-                "its.OwnerCivilId, BldPermits.OwnerPhoneNo, BldPermits.DistrictName, BldPermits.D" +
-                "istrictNo, BldPermits.ConstructedArea, BldPermits.NumberOfFloors, \r\n            " +
-                "             BldPermits.ConsultantCrNo, BldPermits.ConstructionType, BldPermits." +
-                "RequestDate, BldPermits.CreatedBy, BldPermits.CreatedOn, BldPermits.UpdatedBy, B" +
-                "ldPermits.UpdatedOn, BldPermits.SquareArea, \r\n                         BldPermit" +
-                "s.LicenseNo, BldPermits.WorkflowStatus, BldPermits.DmEngineerNo, BldPermits.DmEn" +
-                "gineerComments, BldPermits.ConsultantCivilId, BldPermits.WelayahID, BldPermits.R" +
-                "egionID, BldPermits.SquareLetterID, \r\n                         BldPermits.UseTyp" +
-                "eID, BldPermits.BuildingTypeID, BldPermits.KrokiNO, BldPermits.DmFileNumber, Bld" +
-                "Permits.LandDeedReceiptNo, BldPermits.DMLicenseNames, BldPermits.DMLicenseCommen" +
-                "ts, \r\n                         BldPermits.DMLicenseCivilIDs, BldPermits.LandArea" +
-                ", BldPermits.LandDeedReceiptDate, BldPermits.LandDeedNo, BldBuildingTypes.Buildi" +
-                "ngType, BldRegions.RegionCode, BldRegions.RegionArName, \r\n                      " +
-                "   BldLandUseTypes.UseType, BldWelyat.WelyahArName, BldSquareLetters.ArLetter, B" +
-                "ldPayment.PaymentTotalAmount, BldPayment.BldPermitId, BldPayment.BankResponseID," +
-                " BldPayment.PaymentStatus, \r\n                         BldPayment.Referenceid, Bl" +
-                "dPayment.Paymentrequestid, BldPayment.Bankpaymentid, BldPayment.Transactionid, B" +
-                "ldPayment.FeesDate, BldPayment.PaymentType, CONVERT(VARCHAR(20), BldPayment.Paym" +
-                "entDate, 103) \r\n                         AS PayOn, SUBSTRING(\r\n        (\r\n      " +
-                "      SELECT \',\'+bldowners.Name  AS [text()]\r\n            FROM bldowners \r\n     " +
-                "       WHERE bldowners.BldPermitId = 10192\r\n            \r\n            FOR XML PA" +
-                "TH (\'\')\r\n        ), 2, 1000) owners\r\nFROM            BldPermits INNER JOIN\r\n    " +
-                "                     BldBuildingTypes ON BldPermits.BuildingTypeID = BldBuilding" +
-                "Types.ID INNER JOIN\r\n                         BldLandUseTypes ON BldPermits.UseT" +
-                "ypeID = BldLandUseTypes.ID INNER JOIN\r\n                         BldPayment ON Bl" +
-                "dPermits.Id = BldPayment.BldPermitId INNER JOIN\r\n                         BldReg" +
-                "ions ON BldPermits.RegionID = BldRegions.RegionID INNER JOIN\r\n                  " +
-                "       BldSquareLetters ON BldPermits.SquareLetterID = BldSquareLetters.ID INNER" +
-                " JOIN\r\n                         BldWelyat ON BldPermits.WelayahID = BldWelyat.We" +
-                "lyahID AND BldRegions.WelyahID = BldWelyat.WelyahID\r\nWHERE        (BldPermits.Id" +
-                " = @ID) AND (BldPayment.PaymentStatus = 1) AND (BldPayment.PaymentDate IN\r\n     " +
-                "                        (SELECT        MAX(PaymentDate) AS PayDate\r\n            " +
-                "                    FROM            BldPayment AS BldPayment_1\r\n                " +
-                "                WHERE        (BldPermitId = @ID)))";
+                "its.OwnerCivilId, BldPermits.OwnerPhoneNo, BldPermits.DistrictNo, BldPermits.Con" +
+                "structedArea, BldPermits.NumberOfFloors, \r\n                         BldPermits.C" +
+                "onsultantCrNo, BldPermits.RequestDate, BldPermits.CreatedBy, BldPermits.CreatedO" +
+                "n, BldPermits.UpdatedBy, BldPermits.UpdatedOn, BldPermits.LicenseNo, BldPermits." +
+                "WorkflowStatus, \r\n                         BldPermits.DmEngineerNo, BldPermits.D" +
+                "mEngineerComments, BldPermits.ConsultantCivilId, BldPermits.WelayahID, BldPermit" +
+                "s.RegionID, BldPermits.SquareLetterID, BldPermits.UseTypeID, BldPermits.Building" +
+                "TypeID, \r\n                         BldPermits.KrokiNO, BldPermits.DmFileNumber, " +
+                "BldPermits.LandDeedReceiptNo, BldPermits.DMLicenseComments, BldPermits.LandArea," +
+                " BldPermits.LandDeedReceiptDate, BldPermits.LandDeedNo, \r\n                      " +
+                "   BldBuildingTypes.BuildingType, BldRegions.RegionCode, BldRegions.RegionArName" +
+                ", BldLandUseTypes.UseType, BldWelyat.WelyahArName, BldSquareLetters.ArLetter, \r\n" +
+                "(SELECT BldPayment.Referenceid from BldPayment where PaymentDate = (SELECT MAX(P" +
+                "aymentDate)  from BldPayment where BldPermitId = @ID and PaymentType = 1 and Pay" +
+                "mentStatus = 1)) AS FeesRefid ,\r\n(SELECT MAX(CONVERT(VARCHAR(20), BldPayment.Pay" +
+                "mentDate, 103)) from BldPayment where BldPermitId = @ID and PaymentType = 1 and " +
+                "PaymentStatus = 1) AS FeesPayOn,\r\n(SELECT BldPayment.Referenceid from BldPayment" +
+                " where PaymentDate = (SELECT MAX(PaymentDate)  from BldPayment where BldPermitId" +
+                " = @ID and PaymentType = 3 and PaymentStatus = 1)) AS InsuranceRefid ,\r\n(SELECT " +
+                "MAX(CONVERT(VARCHAR(20), BldPayment.PaymentDate, 103)) from BldPayment where Bld" +
+                "PermitId = @ID and PaymentType = 3 and PaymentStatus = 1) AS InsurancePayOn,\r\n S" +
+                "UBSTRING\r\n                             ((SELECT        \',\' + Name AS [text()]\r\n " +
+                "                                FROM            BldOwners\r\n                     " +
+                "            WHERE        (BldPermitId = @ID) FOR XML PATH(\'\')), 2, 1000) AS owne" +
+                "rs, BldPermits.ServiceName, BldPermits.BuildingComplex, BldPermits.UnitNo, BldPe" +
+                "rmits.AppointmentStatus, BldPermits.AppointmentDate, \r\n                         " +
+                "BldPermits.DMManagerNotes, BldPermits.DMEngineerNotes, BldPermits.ContractorName" +
+                ", BldPermits.MLicenseStatement, BldPermits.MLicenseNo\r\nFROM            BldPermit" +
+                "s INNER JOIN\r\n                         BldBuildingTypes ON BldPermits.BuildingTy" +
+                "peID = BldBuildingTypes.ID INNER JOIN\r\n                         BldLandUseTypes " +
+                "ON BldPermits.UseTypeID = BldLandUseTypes.ID INNER JOIN\r\n                       " +
+                "  BldPayment ON BldPermits.Id = BldPayment.BldPermitId INNER JOIN\r\n             " +
+                "            BldRegions ON BldPermits.RegionID = BldRegions.RegionID INNER JOIN\r\n" +
+                "                         BldSquareLetters ON BldPermits.SquareLetterID = BldSqua" +
+                "reLetters.ID INNER JOIN\r\n                         BldWelyat ON BldPermits.Welaya" +
+                "hID = BldWelyat.WelyahID AND BldRegions.WelyahID = BldWelyat.WelyahID INNER JOIN" +
+                "\r\n                         BldSupervisionServicesTypes ON CAST(BldPermits.Servic" +
+                "eName AS int) = BldSupervisionServicesTypes.ID\r\nWHERE        (BldPermits.Id = @I" +
+                "D)";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ID", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
@@ -11150,14 +11185,10 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
             tableMapping.ColumnMappings.Add("DmInspectorComments", "DmInspectorComments");
             tableMapping.ColumnMappings.Add("ConsultantNotes", "ConsultantNotes");
             tableMapping.ColumnMappings.Add("OwnerNotes", "OwnerNotes");
-            tableMapping.ColumnMappings.Add("ConstructionType", "ConstructionType");
             tableMapping.ColumnMappings.Add("ConsultantCrNo", "ConsultantCrNo");
             tableMapping.ColumnMappings.Add("NumberOfFloors", "NumberOfFloors");
             tableMapping.ColumnMappings.Add("ConstructedArea", "ConstructedArea");
-            tableMapping.ColumnMappings.Add("SquareArea", "SquareArea");
-            tableMapping.ColumnMappings.Add("DMLicenseNames", "DMLicenseNames");
             tableMapping.ColumnMappings.Add("DMLicenseComments", "DMLicenseComments");
-            tableMapping.ColumnMappings.Add("DMLicenseCivilIDs", "DMLicenseCivilIDs");
             tableMapping.ColumnMappings.Add("LandArea", "LandArea");
             tableMapping.ColumnMappings.Add("LandDeedReceiptDate", "LandDeedReceiptDate");
             tableMapping.ColumnMappings.Add("LandDeedNo", "LandDeedNo");
@@ -11186,6 +11217,13 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
             tableMapping.ColumnMappings.Add("CompanyName", "CompanyName");
             tableMapping.ColumnMappings.Add("PaymentDate", "PaymentDate");
             tableMapping.ColumnMappings.Add("SupervisionLicenseNo", "SupervisionLicenseNo");
+            tableMapping.ColumnMappings.Add("BuildingComplex", "BuildingComplex");
+            tableMapping.ColumnMappings.Add("RequestDate", "RequestDate");
+            tableMapping.ColumnMappings.Add("CreatedBy", "CreatedBy");
+            tableMapping.ColumnMappings.Add("CreatedOn", "CreatedOn");
+            tableMapping.ColumnMappings.Add("UpdatedBy", "UpdatedBy");
+            tableMapping.ColumnMappings.Add("UpdatedOn", "UpdatedOn");
+            tableMapping.ColumnMappings.Add("UnitNo", "UnitNo");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -11202,75 +11240,74 @@ namespace DMeServicesInternal.Web.Reports.InternalEngineeringDataSetTableAdapter
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[2];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT        BldPermits.OwnerCivilId, BldPermits.OwnerName, BldPermits.Construct" +
-                "ionType, BldPermits.ConsultantCrNo, BldPermits.NumberOfFloors, BldPermits.Constr" +
-                "uctedArea, BldPermits.SquareArea, BldPermits.LicenseNo, \r\n                      " +
-                "   BldPermits.KrokiNO, BldPermits.DmFileNumber, BldPermits.DMLicenseNames, BldPe" +
-                "rmits.DMLicenseComments, BldPermits.DMLicenseCivilIDs, BldPermits.LandArea, BldP" +
-                "ermits.LandDeedReceiptDate, \r\n                         BldPermits.LandDeedNo, Bl" +
-                "dSupervisionServices.OwnerNotes, BldSupervisionServices.ConsultantNotes, BldSupe" +
-                "rvisionServices.DmFileNumber AS FileNumber, BldSupervisionServices.DmInspectorCo" +
-                "mments, \r\n                         BldSupervisionServices.TransactNo, BldSupervi" +
-                "sionServices.ID, BldWelyat.WelyahArName, BldWelyat.WelyahEnName, BldWelyat.Welya" +
-                "hCode, BldSupervisionServicesTypes.ServiceNameAR, \r\n                         Bld" +
-                "SupervisionServicesTypes.ServiceNameEn, BldSquareLetters.ArLetter, BldSquareLett" +
-                "ers.EnLetter, BldBuildingTypes.BuildingType, BldLandUseTypes.UseType, BldRegions" +
-                ".RegionArName, BldRegions.RegionEnName, \r\n                         BldRegions.Re" +
-                "gionCode, BldPermits.DistrictNo, BldSupervisionServices.BldPermitID, BldSupervis" +
-                "ionContractors.Cr_Name AS Contractor_Name, BldSupervisionContractors.Cr_No AS Co" +
-                "ntractor_CRNumber, \r\n                         BldSupervisionServices.ContractorC" +
-                "R_No AS Contractor_CR_Number, BldPayment.Referenceid, BldPayment.PaymentType, Bl" +
-                "dSupervisionServices.PaymentID, BldSupervisionServices.ConsultantCivilId, Users." +
-                "CompanyName, \r\n                         BldPayment.PaymentDate, BldSupervisionSe" +
-                "rvices.LicenseNo AS SupervisionLicenseNo\r\nFROM            BldSupervisionServices" +
-                " INNER JOIN\r\n                         BldPermits ON BldSupervisionServices.BldPe" +
-                "rmitID = BldPermits.Id INNER JOIN\r\n                         BldWelyat ON BldPerm" +
-                "its.WelayahID = BldWelyat.WelyahID INNER JOIN\r\n                         BldBuild" +
-                "ingTypes ON BldPermits.BuildingTypeID = BldBuildingTypes.ID INNER JOIN\r\n        " +
-                "                 BldLandUseTypes ON BldPermits.UseTypeID = BldLandUseTypes.ID IN" +
-                "NER JOIN\r\n                         BldRegions ON BldPermits.RegionID = BldRegion" +
-                "s.RegionID AND BldWelyat.WelyahID = BldRegions.WelyahID INNER JOIN\r\n            " +
-                "             BldSquareLetters ON BldPermits.SquareLetterID = BldSquareLetters.ID" +
-                " INNER JOIN\r\n                         BldSupervisionServicesTypes ON BldSupervis" +
-                "ionServices.ServiceTypeID = BldSupervisionServicesTypes.ID INNER JOIN\r\n         " +
-                "                BldSupervisionContractors ON BldSupervisionServices.ContractorCR" +
-                "_No = BldSupervisionContractors.Cr_No INNER JOIN\r\n                         BldPa" +
-                "yment ON BldSupervisionServices.PaymentID = BldPayment.PaymentID AND BldPayment." +
-                "PaymentType = 3 INNER JOIN\r\n                         Users ON BldSupervisionServ" +
-                "ices.ConsultantCivilId = Users.CivilId\r\nWHERE        (BldSupervisionServices.ID " +
-                "= @ID)";
+            this._commandCollection[0].CommandText = "SELECT        BldPermits.OwnerCivilId, BldPermits.OwnerName, BldPermits.Consultan" +
+                "tCrNo, BldPermits.NumberOfFloors, BldPermits.ConstructedArea, BldPermits.License" +
+                "No, BldPermits.KrokiNO, BldPermits.DmFileNumber, \r\n                         BldP" +
+                "ermits.DMLicenseComments, BldPermits.LandArea, BldPermits.LandDeedReceiptDate, B" +
+                "ldPermits.LandDeedNo, BldSupervisionServices.OwnerNotes, BldSupervisionServices." +
+                "ConsultantNotes, \r\n                         BldSupervisionServices.DmFileNumber " +
+                "AS FileNumber, BldSupervisionServices.DmInspectorComments, BldSupervisionService" +
+                "s.TransactNo, BldSupervisionServices.ID, BldWelyat.WelyahArName, \r\n             " +
+                "            BldWelyat.WelyahEnName, BldWelyat.WelyahCode, BldSupervisionServices" +
+                "Types.ServiceNameAR, BldSupervisionServicesTypes.ServiceNameEn, BldSquareLetters" +
+                ".ArLetter, BldSquareLetters.EnLetter, \r\n                         BldBuildingType" +
+                "s.BuildingType, BldLandUseTypes.UseType, BldRegions.RegionArName, BldRegions.Reg" +
+                "ionEnName, BldRegions.RegionCode, BldPermits.DistrictNo, BldSupervisionServices." +
+                "BldPermitID, \r\n                         BldSupervisionContractors.Cr_Name AS Con" +
+                "tractor_Name, BldSupervisionContractors.Cr_No AS Contractor_CRNumber, BldSupervi" +
+                "sionServices.ContractorCR_No AS Contractor_CR_Number, BldPayment.Referenceid, \r\n" +
+                "                         BldPayment.PaymentType, BldSupervisionServices.PaymentI" +
+                "D, BldSupervisionServices.ConsultantCivilId, Users.CompanyName, BldPayment.Payme" +
+                "ntDate, BldSupervisionServices.LicenseNo AS SupervisionLicenseNo, \r\n            " +
+                "             BldPermits.BuildingComplex, BldPermits.RequestDate, BldPermits.Crea" +
+                "tedBy, BldPermits.CreatedOn, BldPermits.UpdatedBy, BldPermits.UpdatedOn, BldPerm" +
+                "its.UnitNo\r\nFROM            BldSupervisionServices INNER JOIN\r\n                 " +
+                "        BldPermits ON BldSupervisionServices.BldPermitID = BldPermits.Id INNER J" +
+                "OIN\r\n                         BldWelyat ON BldPermits.WelayahID = BldWelyat.Wely" +
+                "ahID INNER JOIN\r\n                         BldBuildingTypes ON BldPermits.Buildin" +
+                "gTypeID = BldBuildingTypes.ID INNER JOIN\r\n                         BldLandUseTyp" +
+                "es ON BldPermits.UseTypeID = BldLandUseTypes.ID INNER JOIN\r\n                    " +
+                "     BldRegions ON BldPermits.RegionID = BldRegions.RegionID AND BldWelyat.Welya" +
+                "hID = BldRegions.WelyahID INNER JOIN\r\n                         BldSquareLetters " +
+                "ON BldPermits.SquareLetterID = BldSquareLetters.ID INNER JOIN\r\n                 " +
+                "        BldSupervisionServicesTypes ON BldSupervisionServices.ServiceTypeID = Bl" +
+                "dSupervisionServicesTypes.ID INNER JOIN\r\n                         BldSupervision" +
+                "Contractors ON BldSupervisionServices.ContractorCR_No = BldSupervisionContractor" +
+                "s.Cr_No INNER JOIN\r\n                         BldPayment ON BldSupervisionService" +
+                "s.PaymentID = BldPayment.PaymentID AND BldPayment.PaymentType = 3 INNER JOIN\r\n  " +
+                "                       Users ON BldSupervisionServices.ConsultantCivilId = Users" +
+                ".CivilId\r\nWHERE        (BldSupervisionServices.ID = @ID)";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ID", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = "SELECT        BldPermits.OwnerCivilId, BldPermits.OwnerName, BldPermits.Construct" +
-                "ionType, BldPermits.ConsultantCrNo, BldPermits.NumberOfFloors, BldPermits.Constr" +
-                "uctedArea, BldPermits.SquareArea, BldPermits.LicenseNo, \r\n                      " +
-                "   BldPermits.KrokiNO, BldPermits.DmFileNumber, BldPermits.DMLicenseNames, BldPe" +
-                "rmits.DMLicenseComments, BldPermits.DMLicenseCivilIDs, BldPermits.LandArea, BldP" +
-                "ermits.LandDeedReceiptDate, \r\n                         BldPermits.LandDeedNo, Bl" +
-                "dSupervisionServices.OwnerNotes, BldSupervisionServices.ConsultantNotes, BldSupe" +
-                "rvisionServices.DmFileNumber AS FileNumber, BldSupervisionServices.DmInspectorCo" +
-                "mments, \r\n                         BldSupervisionServices.TransactNo, BldSupervi" +
-                "sionServices.ID, BldWelyat.WelyahArName, BldWelyat.WelyahEnName, BldWelyat.Welya" +
-                "hCode, BldSupervisionServicesTypes.ServiceNameAR, \r\n                         Bld" +
-                "SupervisionServicesTypes.ServiceNameEn, BldSquareLetters.ArLetter, BldSquareLett" +
-                "ers.EnLetter, BldBuildingTypes.BuildingType, BldLandUseTypes.UseType, BldRegions" +
-                ".RegionArName, BldRegions.RegionEnName, \r\n                         BldRegions.Re" +
-                "gionCode, BldPermits.DistrictNo, BldSupervisionServices.BldPermitID, BldSupervis" +
-                "ionServices.ContractorCR_No AS Contractor_CR_Number, BldSupervisionServices.Paym" +
-                "entID, \r\n                         BldSupervisionServices.ConsultantCivilId, BldS" +
-                "upervisionServices.LicenseNo AS SupervisionLicenseNo\r\nFROM            BldSupervi" +
-                "sionServices INNER JOIN\r\n                         BldPermits ON BldSupervisionSe" +
-                "rvices.BldPermitID = BldPermits.Id INNER JOIN\r\n                         BldWelya" +
-                "t ON BldPermits.WelayahID = BldWelyat.WelyahID INNER JOIN\r\n                     " +
-                "    BldBuildingTypes ON BldPermits.BuildingTypeID = BldBuildingTypes.ID INNER JO" +
-                "IN\r\n                         BldLandUseTypes ON BldPermits.UseTypeID = BldLandUs" +
-                "eTypes.ID INNER JOIN\r\n                         BldRegions ON BldPermits.RegionID" +
-                " = BldRegions.RegionID INNER JOIN\r\n                         BldSquareLetters ON " +
-                "BldPermits.SquareLetterID = BldSquareLetters.ID INNER JOIN\r\n                    " +
-                "     BldSupervisionServicesTypes ON BldSupervisionServices.ServiceTypeID = BldSu" +
-                "pervisionServicesTypes.ID\r\nWHERE        (BldSupervisionServices.ID = @ID)";
+            this._commandCollection[1].CommandText = "SELECT        BldPermits.OwnerCivilId, BldPermits.OwnerName, BldPermits.Consultan" +
+                "tCrNo, BldPermits.NumberOfFloors, BldPermits.ConstructedArea, BldPermits.License" +
+                "No, BldPermits.KrokiNO, BldPermits.DmFileNumber, \r\n                         BldP" +
+                "ermits.DMLicenseComments, BldPermits.LandArea, BldPermits.LandDeedReceiptDate, B" +
+                "ldPermits.LandDeedNo, BldSupervisionServices.OwnerNotes, BldSupervisionServices." +
+                "ConsultantNotes, \r\n                         BldSupervisionServices.DmFileNumber " +
+                "AS FileNumber, BldSupervisionServices.DmInspectorComments, BldSupervisionService" +
+                "s.TransactNo, BldSupervisionServices.ID, BldWelyat.WelyahArName, \r\n             " +
+                "            BldWelyat.WelyahEnName, BldWelyat.WelyahCode, BldSupervisionServices" +
+                "Types.ServiceNameAR, BldSupervisionServicesTypes.ServiceNameEn, BldSquareLetters" +
+                ".ArLetter, BldSquareLetters.EnLetter, \r\n                         BldBuildingType" +
+                "s.BuildingType, BldLandUseTypes.UseType, BldRegions.RegionArName, BldRegions.Reg" +
+                "ionEnName, BldRegions.RegionCode, BldPermits.DistrictNo, BldSupervisionServices." +
+                "BldPermitID, \r\n                         BldSupervisionServices.ContractorCR_No A" +
+                "S Contractor_CR_Number, BldSupervisionServices.PaymentID, BldSupervisionServices" +
+                ".ConsultantCivilId, BldSupervisionServices.LicenseNo AS SupervisionLicenseNo\r\nFR" +
+                "OM            BldSupervisionServices INNER JOIN\r\n                         BldPer" +
+                "mits ON BldSupervisionServices.BldPermitID = BldPermits.Id INNER JOIN\r\n         " +
+                "                BldWelyat ON BldPermits.WelayahID = BldWelyat.WelyahID INNER JOI" +
+                "N\r\n                         BldBuildingTypes ON BldPermits.BuildingTypeID = BldB" +
+                "uildingTypes.ID INNER JOIN\r\n                         BldLandUseTypes ON BldPermi" +
+                "ts.UseTypeID = BldLandUseTypes.ID INNER JOIN\r\n                         BldRegion" +
+                "s ON BldPermits.RegionID = BldRegions.RegionID INNER JOIN\r\n                     " +
+                "    BldSquareLetters ON BldPermits.SquareLetterID = BldSquareLetters.ID INNER JO" +
+                "IN\r\n                         BldSupervisionServicesTypes ON BldSupervisionServic" +
+                "es.ServiceTypeID = BldSupervisionServicesTypes.ID\r\nWHERE        (BldSupervisionS" +
+                "ervices.ID = @ID)";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ID", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }

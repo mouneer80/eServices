@@ -23,7 +23,7 @@
         // Get id
 		var id = "@Html.Encode(PdfWebControlID)";
 		var docid = $('#docId').text();
-        
+
 		// Get api instance
 		api = new PdfWebControlApi(id);
 
@@ -72,7 +72,8 @@
 		//alert(text);
   //      var text0 = $('#permitNo').value();
 		//alert(text0);
-        var text = $('#permitNo').text();
+		var text1 = $('#permit_No').text();
+        //alert($('#permit_No').text());
 
         // Get id
 		var id = "@Html.Encode(PdfWebControlID)";
@@ -81,7 +82,7 @@
 		api = new PdfWebControlApi(id);
 
 		//Set image mode
-		api.setMode(api.Mode.InsertImageShape, key + "," + text);
+		api.setMode(api.Mode.InsertImageShape, key + "," + text1);
 	}
 
 	function showViewInformation(view)
@@ -245,87 +246,88 @@
 		}
 	}
 </script>
-<div class="modal-header">
-    <div class="row">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-        <h4 class="modal-title" style="text-align:center" id="myModalLabel">
-            تعديل الملف
-        </h4>
-        <br />
-    </div>
-    @*<label id="docId">@ViewBag.DocID</label>*@
-<div class="row" dir="rtl">
-    <div class="col-md-3">
-        <button class="btn btn-toolbar" onclick="SetCustomImageTool('signature'); return false;">اضافة توقيع المهندس</button>
-    </div>
-    <div class="col-md-3">
-        <button class="btn btn-toolbar" onclick="SetCustomImageTool('stamp'); return false;">اضافة ختم المهندس</button>
-    </div>
-    <div class="col-md-3">
-        <button class="btn btn-danger" onclick="SetCustomImageTool('stamp_r_CivilDefence'); return false;">اضافة ختم الدفاع المدني</button>
-    
-        <button class="btn btn-outline-info" onclick="SetCustomImageTool('stamp_r_SupervisionStamp'); return false;">اضافة ختم الاشراف الهندسي</button>
-    </div>
-    <div class="col-md-3">
-        <button class="btn btn-info" onclick="SetCustomImageTool('stamp_r_Rifi'); return false;">اضافة ختم الاسكان الريفي</button>
-   
-        <button class="btn btn-warning" onclick="SetCustomImageTool('stamp_r_SmallPermit'); return false;">اضافة ختم الاباحة الصغرى</button>
-    </div>
-    <div class="col-md-3">
-        <button class="btn btn-success" onclick="SetCustomImageTool('stamp_r_Permit'); return false;">اضافة ختم الترخيص</button>
-
-
-        <button class="btn btn-success" onclick="AddPermitNo('dynamicNO'); return false;">اضافة رقم الترخيص</button>
-        <label id="permitNo">@ViewBag.PermitNo</label>
-    </div>
-    <div class="col-md-3">
-        <label>ملاحظات المهندس</label>
-        <textarea class="form-control" id="txtnotename" style="width:250px; text-align:right"></textarea>
-        @*<input type="button" value="upload" id="upload" />*@
-        <br />
-        <button id="addNotes" class="btn btn-toolbar" onclick="AddNote('dynamic'); return false;">اضافة الملاحظات</button>
-    </div>
-</div>
-</div>
-
 <style>
     .modal-open {
         direction: unset;
     }
 
+    .small-font {
+        font-size: 10px;
+        padding: 5px;
+        margin: 5px;
+    }
+
     .modal-dialog {
-        width: 90%;
-        margin-top: 10px auto;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .modal-content {
+        height: auto;
+        min-height: 100%;
+        border-radius: 0;
     }
 </style>
+<div class="modal-header small-font">
+    <div class="row">
+        <div class="col-md-1" style="float:left">
+            <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        </div>
+        <div class="col-md-8">
+            <h4 class="modal-title" style="text-align:center" id="myModalLabel">
+                تعديل الملف
+            </h4>
+        </div>
+    </div>
+    @*<label id="docId">@ViewBag.DocID</label>*@
+    <div class="row" dir="rtl">
+        <div class="col-md-8">
+            <button class="btn btn-info small-font" onclick="SetCustomImageTool('signature'); return false;">اضافة توقيع المهندس</button>
+            <button class="btn btn-info small-font" onclick="SetCustomImageTool('stamp'); return false;">اضافة ختم المهندس</button>
+            <button class="btn btn-danger small-font" onclick="SetCustomImageTool('stamp_r_CivilDefence'); return false;">اضافة ختم الدفاع المدني</button>
+            <button class="btn btn-warning small-font" onclick="SetCustomImageTool('stamp_r_SupervisionStamp'); return false;">اضافة ختم الاشراف الهندسي</button>
+            <button class="btn btn-warning small-font" onclick="SetCustomImageTool('stamp_r_Rifi'); return false;">اضافة ختم الاسكان الريفي</button>
+            <button class="btn btn-warning small-font" onclick="SetCustomImageTool('stamp_r_SmallPermit'); return false;">اضافة ختم الاباحة الصغرى</button>
+            <button class="btn btn-success small-font" onclick="SetCustomImageTool('stamp_r_Permit'); return false;">اضافة ختم الترخيص</button>
+            <button class="btn btn-success small-font" onclick="AddPermitNo('dynamicNO'); return false;">اضافة رقم الترخيص</button>
+            <label id="permit_No">@ViewBag.PermitNo</label>
+        </div>
+        <div class="col-md-2">
+            <textarea class="form-control" id="txtnotename" style="width:250px; text-align:right"></textarea>
+            <button id="addNotes" class="btn btn-toolbar small-font" onclick="AddNote('dynamic'); return false;">اضافة ملاحظات المهندس</button>
+        </div>
+    </div>
+</div>
 
 
-<div class="modal-body" style="padding:0px">
+
+<div class="modal-body" style="padding:0px;">
     <div class="form-group">
         <div>
             <div style="text-align:center">
                 @{
                     // Get web control from ViewBag
                     PdfWebControl pdfWebControl1 = ViewBag.PdfWebControl1;
-					
+
                     // Set control's properties
                     pdfWebControl1.ID = PdfWebControlID;
-                    pdfWebControl1.Height = new Unit("550px");
+                    pdfWebControl1.Height = new Unit("770px");
                     pdfWebControl1.Width = new Unit("100%");
                     pdfWebControl1.OnClientLoad = "initRadPdf();";
                     pdfWebControl1.HideBookmarks = true;
                     pdfWebControl1.HideBottomBar = true;
                     pdfWebControl1.HideDownloadButton = true;
-                    pdfWebControl1.HideObjectPropertiesBar = true;
+                    pdfWebControl1.HideObjectPropertiesBar = false;
                     pdfWebControl1.HideSearchText = true;
                     pdfWebControl1.HideSideBar = true;
                     pdfWebControl1.HideThumbnails = true;
                     pdfWebControl1.HideToolsTabs = true;
                     pdfWebControl1.HideTopBar = false;
-					pdfWebControl1.HideToolsPageTab = false;
-					
-
-
+                    pdfWebControl1.HideToolsPageTab = false;
+					pdfWebControl1.ViewerScrollXDefault = 3500;
+					//pdfWebControl1.ViewerZoomDefault = ViewerZoom.ZoomFitWidth;
 
                     pdfWebControl1.ViewerPageLayoutDefault = ViewerPageLayout.SinglePageContinuous;
 
@@ -333,16 +335,15 @@
                     @Html.Raw(pdfWebControl1.RenderControl())
                 }
 
-                <div style="text-align:center;">
-                    <button onclick="if(api){api.setView( { 'page' : api.getView().page + 1 } );}return false;">التالي</button>
-                    <span id="pageInformation" style="padding:0px 5px;"></span>
-                    <button onclick="if(api){api.setView( { 'page' : api.getView().page - 1 } );}return false;">السابق</button>
-                </div>
+                @*<div style="text-align:center;">
+                        <button onclick="if(api){api.setView( { 'page' : api.getView().page + 1 } );}return false;">التالي</button>
+                        <span id="pageInformation" style="padding:0px 5px;"></span>
+                        <button onclick="if(api){api.setView( { 'page' : api.getView().page - 1 } );}return false;">السابق</button>
+                    </div>*@
             </div>
         </div>
     </div>
-    <div class="modal-footer" style="text-align:center">
-        <button onclick="if(api){isDownload=false;api.save();}return false;" id="btnSave" class="btn btn-primary"><i class="fa fa-save"></i> حفظ التعديلات</button>
-    </div>
-
+</div>
+<div class="modal-footer small-font" style="text-align: center">
+    <button onclick="if(api){isDownload=false;api.save();}return false;" id="btnSave" class="btn btn-primary small-font"><i class="fa fa-save"></i> حفظ التعديلات</button>
 </div>

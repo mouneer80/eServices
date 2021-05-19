@@ -2,12 +2,33 @@
 {
     <tr>
         @*<td class="center"> <a class="btn btn-primary modal-link" href="@Url.Action("LandSurvey", "BuildingPermits")"> تفاصيل قطعة الأرض  </a> </td>*@
-        <td class="center"> <a class="btn btn-primary modal-link" href="@Url.Action("PermitDetails", "BuildingPermits", new { @Id = item.Id })"> @item.TransactNo  </a> </td>
+
         @{
             if (item.ConsultantCivilId == null)
             { item.ConsultantCivilId = 0; }
             var User = DMeServices.Models.Common.UserCom.UserByCivilID(item.ConsultantCivilId);
+
             var Company = "لا يوجد";
+            int serviceName;
+            var updatedOn = "لا يوجد";
+            if (string.IsNullOrEmpty(item.ServiceName))
+            {
+                serviceName = 12;
+            }
+            else
+            {
+                serviceName = Int32.Parse(item.ServiceName);
+            }
+            var serviceType = DMeServices.Models.Common.BuildingServices.SupervisionCom.ServiceByID(serviceName).ServiceNameAR;
+            var serviceColor = DMeServices.Models.Common.BuildingServices.SupervisionCom.ServiceByID(serviceName).CssClassName;
+            if (serviceColor == "BigPermit")
+            {
+                <td class="center"> <a class="btn btn-warning modal-link" href="@Url.Action("PermitDetails", "BuildingPermits", new { @Id = item.Id })"> @item.TransactNo  </a> </td>
+            }
+            else
+            {
+                <td class="center"> <a class="btn btn-success modal-link" href="@Url.Action("PermitDetails", "BuildingPermits", new { @Id = item.Id })"> @item.TransactNo  </a> </td>
+            }
             if (User != null)
             {
                 //Company = DMeServices.Models.Common.BuildingServices.MociCompaniesData.GetCompanyByCr_Frist((int)User.ConsultantCrNo).COMMERCIAL_NAME;
@@ -18,22 +39,43 @@
                 Company = "لا يوجد";
             }
             var Region = "لا يوجد";
+            var RegionCode = "لا يوجد";
             if (item.RegionID != null)
             {
                 Region = DMeServices.Models.Common.BuildingServices.RegionsCom.RegionByID(item.RegionID).RegionArName;
+                RegionCode = DMeServices.Models.Common.BuildingServices.RegionsCom.RegionByID(item.RegionID).RegionCode + " - ";
+            }
+            var Welayah = "لا يوجد";
+            var WelayahCode = "لا يوجد";
+            if (item.WelayahID != null)
+            {
+                Welayah = DMeServices.Models.Common.BuildingServices.WelayatCom.WelayahByID(item.WelayahID).WelyahArName;
+                WelayahCode = DMeServices.Models.Common.BuildingServices.WelayatCom.WelayahByID(item.WelayahID).WelyahCode + " - ";
             }
             var SquareLetter = "لا يوجد";
+            var SquareLetterCode = "لا يوجد";
             if (item.SquareLetterID != null)
             {
                 SquareLetter = DMeServices.Models.Common.BuildingServices.SquareLettersCom.SquareLetterByID((int)item.SquareLetterID).ArLetter;
+                SquareLetterCode = DMeServices.Models.Common.BuildingServices.SquareLettersCom.SquareLetterByID((int)item.SquareLetterID).EnLetter + " - ";
+            }
+            var crokiNo = "لا يوجد";
+
+            if (item.KrokiNO != null)
+            {
+                crokiNo = item.KrokiNO;
+
             }
             if (item.WorkflowStatus == null)
             {
                 item.WorkflowStatus = 8;
             }
             var Status = DMeServices.Models.Common.LookupsTypeCom.LookupByID((int)item.WorkflowStatus).LookupNameAr;
-            var StatusColor = DMeServices.Models.Common.LookupsTypeCom.LookupByID((int)item.WorkflowStatus).LookupNameEn;
+            var StatusColor = DMeServices.Models.Common.LookupsTypeCom.LookupByID((int)item.WorkflowStatus).CssClassName;
             var ownersName = DMeServices.Models.Common.BuildingServices.PermitsCom.GetOwnersNames((int)item.Id);
+            <td class="center @serviceColor">
+                @serviceType
+            </td>
             if (User != null)
             {
                 <td class="center">
@@ -51,7 +93,7 @@
                 <td class="center">
                     @foreach (var name in ownersName)
                     {
-                       <ul><li>@name.Name</li></ul> 
+                        <ul><li>@name.Name</li></ul>
                     }
                 </td>
                 <td class="center">
@@ -68,13 +110,25 @@
             }
         }
         <td class="center">@item.DistrictNo</td>
-        <td class="center">@SquareLetter</td>
+        <td class="center">@Welayah</td>
+        @*@WelayahCode*@
         <td class="center">@Region</td>
-
-        <td class="center">@item.RequestDate.ToShortDateString()</td>
+        @*@RegionCode*@
+        <td class="center">@SquareLetter</td>
+        @*@SquareLetter*@
+        <td class="center">@crokiNo</td>
+        <td class="center">@item.RequestDate.ToString("yyyy/MM/dd HH:mm")</td>
+        @if (item.UpdatedOn != null)
+        {
+            <td class="center">@item.UpdatedOn.ToString("yyyy/MM/dd HH:mm")</td>
+        }
+        else
+        {
+            <td>@updatedOn</td>
+        }
         <td class="center @StatusColor">@Status</td>
 
-        @if (Model.oEmployeeInfo.IsEngineerHead)
+        @if (Model.oEmployeeInfo.IsEngineerHead || Model.oEmployeeInfo.IsEngineerManager)
         {
             if (item.DmEngineerNo == null)
             {

@@ -140,22 +140,22 @@
           <Property Name="OwnerName" Type="nvarchar" MaxLength="250" />
           <Property Name="OwnerCivilId" Type="int" />
           <Property Name="OwnerPhoneNo" Type="nvarchar" MaxLength="100" />
-          <Property Name="DistrictName" Type="nvarchar" MaxLength="250" />
+          <Property Name="ServiceName" Type="nvarchar" MaxLength="250" />
           <Property Name="DistrictNo" Type="int" />
           <Property Name="ConstructedArea" Type="nvarchar" MaxLength="50" />
           <Property Name="NumberOfFloors" Type="nvarchar" MaxLength="50" />
           <Property Name="ConsultantCrNo" Type="int" Nullable="false" />
-          <Property Name="ConstructionType" Type="nvarchar" MaxLength="50" />
+          <Property Name="BuildingComplex" Type="nvarchar" MaxLength="50" />
           <Property Name="RequestDate" Type="datetime" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="150" />
           <Property Name="CreatedOn" Type="datetime" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="150" />
           <Property Name="UpdatedOn" Type="datetime" />
-          <Property Name="SquareArea" Type="nvarchar" MaxLength="50" />
+          <Property Name="UnitNo" Type="nvarchar" MaxLength="50" />
           <Property Name="LicenseNo" Type="nvarchar" MaxLength="100" />
-          <Property Name="PaymentReceiptNo" Type="nvarchar" MaxLength="250" />
+          <Property Name="AppointmentStatus" Type="nvarchar" MaxLength="250" />
           <Property Name="PaymentAmount" Type="decimal" Precision="18" Scale="3" />
-          <Property Name="PaymentDate" Type="datetime" />
+          <Property Name="AppointmentDate" Type="datetime" />
           <Property Name="WorkflowStatus" Type="int" />
           <Property Name="DmEngineerNo" Type="int" />
           <Property Name="DmEngineerComments" Type="nvarchar" MaxLength="500" />
@@ -168,12 +168,15 @@
           <Property Name="KrokiNO" Type="nvarchar" MaxLength="50" />
           <Property Name="DmFileNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="LandDeedReceiptNo" Type="nvarchar" MaxLength="50" />
-          <Property Name="DMLicenseNames" Type="nvarchar" MaxLength="250" />
+          <Property Name="DMManagerNotes" Type="nvarchar" MaxLength="250" />
           <Property Name="DMLicenseComments" Type="nvarchar" MaxLength="250" />
-          <Property Name="DMLicenseCivilIDs" Type="nvarchar" MaxLength="250" />
+          <Property Name="DMEngineerNotes" Type="nvarchar" MaxLength="250" />
           <Property Name="LandArea" Type="nvarchar" MaxLength="50" />
           <Property Name="LandDeedReceiptDate" Type="date" />
           <Property Name="LandDeedNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContractorName" Type="nvarchar" MaxLength="50" />
+          <Property Name="MLicenseStatement" Type="nvarchar" MaxLength="250" />
+          <Property Name="MLicenseNo" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="BldPermits_Log">
           <Key>
@@ -344,6 +347,7 @@
           <Property Name="ServiceNameAR" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="ServiceNameEn" Type="nvarchar" MaxLength="100" />
           <Property Name="ServiceStatus" Type="int" />
+          <Property Name="CssClassName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="BldTransactions">
           <Key>
@@ -666,6 +670,7 @@ warning 6002: The table/view 'eServices.dbo.ISIC4_LEVEL_3' does not have a prima
           <Property Name="LookupNameEn" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="LookupParentDesc" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="LookupParentId" Type="int" Nullable="false" />
+          <Property Name="CssClassName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="MociData">
           <Key>
@@ -1760,22 +1765,17 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           <Property Name="OwnerName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="OwnerCivilId" Type="Int32" />
           <Property Name="OwnerPhoneNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="DistrictName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="DistrictNo" Type="Int32" />
           <Property Name="ConstructedArea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="NumberOfFloors" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ConsultantCrNo" Type="Int32" Nullable="false" />
-          <Property Name="ConstructionType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="RequestDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreatedBy" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
           <Property Name="UpdatedBy" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-          <Property Name="SquareArea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LicenseNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="PaymentReceiptNo" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="PaymentAmount" Type="Decimal" Precision="18" Scale="3" />
-          <Property Name="PaymentDate" Type="DateTime" Precision="3" />
           <Property Name="WorkflowStatus" Type="Int32" />
           <Property Name="DmEngineerNo" Type="Int32" />
           <Property Name="DmEngineerComments" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
@@ -1796,14 +1796,22 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           <Property Name="DmFileNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="BldPayment" Relationship="eServicesModel.FK_BldPayment_BldPermits" FromRole="BldPermits" ToRole="BldPayment" />
           <Property Name="LandDeedNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DMLicenseNames" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="DMLicenseComments" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="DMLicenseCivilIDs" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="LandArea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LandDeedReceiptNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LandDeedReceiptDate" Type="DateTime" Precision="0" />
           <NavigationProperty Name="BldTransactions" Relationship="eServicesModel.FK_BldTransactions_BldPermits" FromRole="BldPermits" ToRole="BldTransactions" />
           <NavigationProperty Name="BldOwners" Relationship="eServicesModel.FK_BldOwners_BldPermits" FromRole="BldPermits" ToRole="BldOwners" />
+          <Property Name="BuildingComplex" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UnitNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AppointmentStatus" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="AppointmentDate" Type="DateTime" Precision="3" />
+          <Property Name="DMManagerNotes" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="DMEngineerNotes" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ContractorName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ServiceName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="MLicenseStatement" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="MLicenseNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="BldPermitsAttachmentDetails">
           <Key>
@@ -1974,6 +1982,7 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           <Property Name="LookupNameEn" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="LookupParentDesc" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="LookupParentId" Type="Int32" Nullable="false" />
+          <Property Name="CssClassName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="MociData">
           <Key>
@@ -3437,6 +3446,7 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           <Property Name="ServiceNameEn" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="ServiceStatus" Type="Int32" />
           <NavigationProperty Name="BldSupervisionServices" Relationship="eServicesModel.FK_BldSupervisionServices_BldSupervisionServicesTypes" FromRole="BldSupervisionServicesTypes" ToRole="BldSupervisionServices" />
+          <Property Name="CssClassName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ConsultantOccupations">
           <Key>
@@ -3742,13 +3752,21 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           <EntitySetMapping Name="BldPermits">
             <EntityTypeMapping TypeName="eServicesModel.BldPermits">
               <MappingFragment StoreEntitySet="BldPermits">
+                <ScalarProperty Name="MLicenseNo" ColumnName="MLicenseNo" />
+                <ScalarProperty Name="MLicenseStatement" ColumnName="MLicenseStatement" />
+                <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
+                <ScalarProperty Name="ContractorName" ColumnName="ContractorName" />
+                <ScalarProperty Name="DMEngineerNotes" ColumnName="DMEngineerNotes" />
+                <ScalarProperty Name="DMManagerNotes" ColumnName="DMManagerNotes" />
+                <ScalarProperty Name="AppointmentDate" ColumnName="AppointmentDate" />
+                <ScalarProperty Name="AppointmentStatus" ColumnName="AppointmentStatus" />
+                <ScalarProperty Name="UnitNo" ColumnName="UnitNo" />
+                <ScalarProperty Name="BuildingComplex" ColumnName="BuildingComplex" />
                 <ScalarProperty Name="LandDeedNo" ColumnName="LandDeedNo" />
                 <ScalarProperty Name="LandDeedReceiptDate" ColumnName="LandDeedReceiptDate" />
                 <ScalarProperty Name="LandDeedReceiptNo" ColumnName="LandDeedReceiptNo" />
                 <ScalarProperty Name="LandArea" ColumnName="LandArea" />
-                <ScalarProperty Name="DMLicenseCivilIDs" ColumnName="DMLicenseCivilIDs" />
                 <ScalarProperty Name="DMLicenseComments" ColumnName="DMLicenseComments" />
-                <ScalarProperty Name="DMLicenseNames" ColumnName="DMLicenseNames" />
                 <ScalarProperty Name="DmFileNumber" ColumnName="DmFileNumber" />
                 <ScalarProperty Name="KrokiNO" ColumnName="KrokiNO" />
                 <ScalarProperty Name="BuildingTypeID" ColumnName="BuildingTypeID" />
@@ -3761,22 +3779,17 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
                 <ScalarProperty Name="OwnerName" ColumnName="OwnerName" />
                 <ScalarProperty Name="OwnerCivilId" ColumnName="OwnerCivilId" />
                 <ScalarProperty Name="OwnerPhoneNo" ColumnName="OwnerPhoneNo" />
-                <ScalarProperty Name="DistrictName" ColumnName="DistrictName" />
                 <ScalarProperty Name="DistrictNo" ColumnName="DistrictNo" />
                 <ScalarProperty Name="ConstructedArea" ColumnName="ConstructedArea" />
                 <ScalarProperty Name="NumberOfFloors" ColumnName="NumberOfFloors" />
                 <ScalarProperty Name="ConsultantCrNo" ColumnName="ConsultantCrNo" />
-                <ScalarProperty Name="ConstructionType" ColumnName="ConstructionType" />
                 <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-                <ScalarProperty Name="SquareArea" ColumnName="SquareArea" />
                 <ScalarProperty Name="LicenseNo" ColumnName="LicenseNo" />
-                <ScalarProperty Name="PaymentReceiptNo" ColumnName="PaymentReceiptNo" />
                 <ScalarProperty Name="PaymentAmount" ColumnName="PaymentAmount" />
-                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
                 <ScalarProperty Name="WorkflowStatus" ColumnName="WorkflowStatus" />
                 <ScalarProperty Name="DmEngineerNo" ColumnName="DmEngineerNo" />
                 <ScalarProperty Name="DmEngineerComments" ColumnName="DmEngineerComments" />
@@ -3946,6 +3959,7 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           <EntitySetMapping Name="LookupTypes">
             <EntityTypeMapping TypeName="eServicesModel.LookupTypes">
               <MappingFragment StoreEntitySet="LookupTypes">
+                <ScalarProperty Name="CssClassName" ColumnName="CssClassName" />
                 <ScalarProperty Name="LookupId" ColumnName="LookupId" />
                 <ScalarProperty Name="LookupNameAr" ColumnName="LookupNameAr" />
                 <ScalarProperty Name="LookupNameEn" ColumnName="LookupNameEn" />
@@ -4859,6 +4873,7 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           <EntitySetMapping Name="BldSupervisionServicesTypes">
             <EntityTypeMapping TypeName="eServicesModel.BldSupervisionServicesTypes">
               <MappingFragment StoreEntitySet="BldSupervisionServicesTypes">
+                <ScalarProperty Name="CssClassName" ColumnName="CssClassName" />
                 <ScalarProperty Name="ServiceStatus" ColumnName="ServiceStatus" />
                 <ScalarProperty Name="ServiceNameEn" ColumnName="ServiceNameEn" />
                 <ScalarProperty Name="ServiceNameAR" ColumnName="ServiceNameAR" />

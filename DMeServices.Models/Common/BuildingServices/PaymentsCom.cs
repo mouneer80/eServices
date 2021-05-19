@@ -193,6 +193,10 @@ namespace DMeServices.Models.Common.BuildingServices
                     _BldPayment.PaymentTotalAmount = oModel.Payment.PaymentTotalAmount;
                     _BldPayment.FeesDate = DateTime.Now;
                     _BldPayment.PaymentType = paymentType;
+                    if(oModel.Payment.PaymentTotalAmount == 0)
+                    {
+                        _BldPayment.PaymentStatus = 1;
+                    }
                     db.BldPayment.Add(_BldPayment);
                     db.SaveChanges();
                     if (oModel.PaymentDetailsList != null)

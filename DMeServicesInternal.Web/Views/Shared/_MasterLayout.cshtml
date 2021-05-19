@@ -1,15 +1,13 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width">
     <title>خدمات بلدية ظفار</title>
 
     <!-- The styles -->
-    <link href="@Url.Content("~/Content/css/bootstrap-cerulean_ar.min.css")" rel="stylesheet">
-
+    <link href="~/Content/css/bootstrap-cerulean_ar.min.css" rel="stylesheet">
     <link href="~/Content/css/charisma-app_ar.css" rel="stylesheet">
     <link href='~/Content/bower_components/fullcalendar/dist/fullcalendar.css' rel='stylesheet'>
     <link href='~/Content/bower_components/fullcalendar/dist/fullcalendar.print.css' rel='stylesheet' media='print'>
@@ -24,10 +22,16 @@
     <link href='~/Content/css/jquery.iphone.toggle.css' rel='stylesheet'>
     <link href='~/Content/css/uploadify.css' rel='stylesheet'>
     <link href='~/Content/css/animate.min.css' rel='stylesheet'>
-    <link href="@Url.Content("~/Content/css/font.css")" rel="stylesheet" />
+    <link href="~/Content/css/navbar-menu.css" rel="stylesheet" />
+    <link href="~/Content/css/sm-core-css.css" rel="stylesheet" />
+    <link href="~/Content/css/sm-blue.css" rel="stylesheet" />
+    <link href="~/Content/css/font.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="~/img/favicon.ico">
     @*<link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/droid-arabic-kufi" type="text/css" />*@
     <!-- jQuery -->
     <script src="~/Content/bower_components/jquery/jquery.min.js"></script>
+    @*<script src="@Url.Content("~/Scripts/jquery-2.2.1.min.js")"></script>*@
+
     <style>
         .RemoveBorder {
             border: 0px solid rgba(221, 221, 221, 0.46) !important;
@@ -166,27 +170,27 @@
 
                         <ul class="dropdown-menu" role="menu">
                             @*<li><a href="@Url.Action("Index","HealthRenewal")">تصاريح البلدية</a></li>
-                        <li class="divider"></li>*@
+                                <li class="divider"></li>*@
                             @if (Session["Show"] == null)
                             {
                                 <li><a href="@Url.Action("Index","BuildingPermits")">تصاريح البناء</a></li>
                             }
                             @*<li class="divider"></li>
-                        <li><a href="#">تصاريح المساكن الجماعية</a></li>*@
+                                <li><a href="#">تصاريح المساكن الجماعية</a></li>*@
                             <li class="divider"></li>
                             @if (Session["Show"] != null)
                             {
                                 <li><a href="@Url.Action("Index", "BuildingSupervision")">رقابة البناء</a></li>
                             }
                             @*<li class="divider"></li>
-                        <li><a href="#">البطاقات الصحية</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">فحص المركبات </a></li>*@
+                                <li><a href="#">البطاقات الصحية</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">فحص المركبات </a></li>*@
                         </ul>
                     }
                 </li>
                 @*<li><a href="#"> المركز الإعلامي</a></li>
-            <li><a href="#" style="font-size:15px; font-weight:bold;"> تواصل معنا</a></li>*@
+                    <li><a href="#" style="font-size:15px; font-weight:bold;"> تواصل معنا</a></li>*@
 
 
 
@@ -211,33 +215,32 @@
 
 
             </ul>
-            <ul class="sm sm-blue nav navbar-nav navbar-right">
-                @*<li>
-                @Html.ActionLink("English", "ChangeLanguage", "Home", new { @lang = "En", @returnurl = this.Request.RawUrl }, null)
-            </li>
-            <li class="divider"></li>
-            <li class="nav navbar-nav navbar-right">
-                @Html.ActionLink("العربية", "ChangeLanguage", "Home", new { @lang = "Ar", @returnurl = this.Request.RawUrl }, null)
-            </li>*@
-                @{
+            <!--<ul class="sm sm-blue nav navbar-nav navbar-right">-->
+            @*<li>
+                    @Html.ActionLink("English", "ChangeLanguage", "Home", new { @lang = "En", @returnurl = this.Request.RawUrl }, null)
+                </li>
+                <li class="divider"></li>
+                <li class="nav navbar-nav navbar-right">
+                    @Html.ActionLink("العربية", "ChangeLanguage", "Home", new { @lang = "Ar", @returnurl = this.Request.RawUrl }, null)
+                </li>*@
+            <!--@{
                     foreach (var i in DMeServices.Models.Common.LanguageManager.AvailableLanguages)
                     {
                         @Html.ActionLink(i.LanguageFullName, "ChangeLanguage", "Home", new { lang = i.LanguageCultureName }, null) <text> </text>
                     }
                 }
-            </ul>
-
+            </ul>-->
             <!-- theme selector starts -->
             @*<div class="btn-group pull-right theme-container animated tada">
-            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                <i class="glyphicon glyphicon-tint"></i><span class="hidden-sm hidden-xs">Change Theme / Skin</span>
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" id="themes">
-                <li><a data-value="cerulean" href="#"><i class="whitespace"></i> Cerulean</a></li>
-                <li><a data-value="slate" href="#"><i class="whitespace"></i> Slate</a></li>
-            </ul>
-        </div>*@
+                    <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        <i class="glyphicon glyphicon-tint"></i><span class="hidden-sm hidden-xs">Change Theme / Skin</span>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" id="themes">
+                        <li><a data-value="cerulean" href="#"><i class="whitespace"></i> Cerulean</a></li>
+                        <li><a data-value="slate" href="#"><i class="whitespace"></i> Slate</a></li>
+                    </ul>
+                </div>*@
             <!-- theme selector ends -->
 
             <ul class="collapse navbar-collapse nav navbar-nav top-menu" style="font-size:15px; font-weight:bold;float:left;">
@@ -297,36 +300,36 @@
                     <div class="contact_block">
                         <div style="margin: 10px;"></div>
                         @*<span class="footer-color">
-                            روابط خارجية <br>
-                        </span>*@
+                                روابط خارجية <br>
+                            </span>*@
                         <div style="margin: 10px;"></div>
                         @*<span style="line-height:1.9">
-                            مهرجان صلالة<br>
-                        </span>
-                        <span style="line-height:1.9">
-                            الهيئة العامة لحماية المستهلك <br>
-                        </span>
-                        <span style="line-height:1.9">
-                            المركز الوطني للاحصاء والمعلومات<br><br />
-                        </span>*@
+                                مهرجان صلالة<br>
+                            </span>
+                            <span style="line-height:1.9">
+                                الهيئة العامة لحماية المستهلك <br>
+                            </span>
+                            <span style="line-height:1.9">
+                                المركز الوطني للاحصاء والمعلومات<br><br />
+                            </span>*@
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="contact_block">
                         <div style="margin: 10px;"></div>
                         @*<span class="footer-color">
-            روابط خارجية <br>
-        </span>*@
+                                روابط خارجية <br>
+                            </span>*@
                         <div style="margin: 10px;"></div>
                         @*<span>
-            خدمات الحكومة الالكترونية<br>
-        </span>
-        <span style="line-height:1.9">
-            المواقع الحكومية <br>
-        </span>
-        <span style="line-height:1.9">
-            شرطة عمان السلطانية<br>
-        </span>*@
+                                خدمات الحكومة الالكترونية<br>
+                            </span>
+                            <span style="line-height:1.9">
+                                المواقع الحكومية <br>
+                            </span>
+                            <span style="line-height:1.9">
+                                شرطة عمان السلطانية<br>
+                            </span>*@
 
                     </div>
                 </div>
@@ -373,10 +376,11 @@
     <!-- library for cookie management -->
     <script src="~/Scripts/js/jquery.cookie.js"></script>
     <!-- calender plugin -->
+    
     <script src='~/Content/bower_components/moment/min/moment.min.js'></script>
     <script src='~/Content/bower_components/fullcalendar/dist/fullcalendar.min.js'></script>
     <!-- data table plugin -->
-    <script src='~/Scripts/js/jquery.dataTables.min.js'></script>
+    <script src='~/Scripts/jquery.dataTables1.9.2.min.js'></script>
     <!-- select or dropdown enhancer -->
     <script src="~/Content/bower_components/chosen/chosen.jquery.min.js"></script>
     <!-- plugin for gallery image view -->
@@ -399,5 +403,7 @@
     <script src="~/Scripts/js/jquery.history.js"></script>
     <!-- application script for Charisma demo -->
     <script src="~/Scripts/js/charisma_ar.js"></script>
+
+
 </body>
 </html>

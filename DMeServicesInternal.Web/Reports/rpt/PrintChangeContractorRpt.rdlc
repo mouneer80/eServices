@@ -37,10 +37,6 @@
           <DataField>OwnerPhoneNo</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="DistrictName">
-          <DataField>DistrictName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
         <Field Name="DistrictNo">
           <DataField>DistrictNo</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
@@ -56,10 +52,6 @@
         <Field Name="ConsultantCrNo">
           <DataField>ConsultantCrNo</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="ConstructionType">
-          <DataField>ConstructionType</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="RequestDate">
           <DataField>RequestDate</DataField>
@@ -80,10 +72,6 @@
         <Field Name="UpdatedOn">
           <DataField>UpdatedOn</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
-        </Field>
-        <Field Name="SquareArea">
-          <DataField>SquareArea</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="LicenseNo">
           <DataField>LicenseNo</DataField>
@@ -137,16 +125,8 @@
           <DataField>LandDeedReceiptNo</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="DMLicenseNames">
-          <DataField>DMLicenseNames</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
         <Field Name="DMLicenseComments">
           <DataField>DMLicenseComments</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="DMLicenseCivilIDs">
-          <DataField>DMLicenseCivilIDs</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="LandArea">
@@ -227,6 +207,50 @@
         </Field>
         <Field Name="PayOn">
           <DataField>PayOn</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="owners">
+          <DataField>owners</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ServiceName">
+          <DataField>ServiceName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="BuildingComplex">
+          <DataField>BuildingComplex</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="UnitNo">
+          <DataField>UnitNo</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="AppointmentStatus">
+          <DataField>AppointmentStatus</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="AppointmentDate">
+          <DataField>AppointmentDate</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="DMManagerNotes">
+          <DataField>DMManagerNotes</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="DMEngineerNotes">
+          <DataField>DMEngineerNotes</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ContractorName">
+          <DataField>ContractorName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="MLicenseStatement">
+          <DataField>MLicenseStatement</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="MLicenseNo">
+          <DataField>MLicenseNo</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>

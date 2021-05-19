@@ -69,7 +69,7 @@
                                         }
                                     }
                                     <td class="center">@DMeServices.Models.Common.BuildingServices.SupervisionCom.ServiceByID((int)item.ServiceTypeID).ServiceNameAR</td>
-                                    <td class="center">@item.RequestDate.ToShortDateString()</td>
+                                    <td class="center">@item.RequestDate.ToString("yyyy/MM/dd HH:mm")</td>
                                     <td class="center" style="color:#2f9ce5;">@DMeServices.Models.Common.LookupsTypeCom.LookupByID((int)item.Status).LookupNameAr</td>
                                 </tr>
                             }

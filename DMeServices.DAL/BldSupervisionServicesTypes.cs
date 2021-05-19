@@ -24,6 +24,7 @@ namespace DMeServices.DAL
         public string ServiceNameAR { get; set; }
         public string ServiceNameEn { get; set; }
         public Nullable<int> ServiceStatus { get; set; }
+        public string CssClassName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BldSupervisionServices> BldSupervisionServices { get; set; }

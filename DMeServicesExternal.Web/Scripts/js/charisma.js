@@ -277,7 +277,8 @@ function docReady() {
         "sPaginationType": "bootstrap",
         "oLanguage": {
             "sLengthMenu": "_MENU_ نتائج بالصفحة"
-        }
+        },
+        "order": [[1, "desc"]]
     });
     $('.btn-close').click(function (e) {
         e.preventDefault();

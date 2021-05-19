@@ -18,10 +18,24 @@
 	var api = null;
 	var isDownload = false;
 
+	function SetCustomImageTool(key) {
+        // Get id
+		var id = "@Html.Encode(PdfWebControlID)";
+		var docid = $('#docId').text();
+
+		// Get api instance
+		api = new PdfWebControlApi(id);
+
+        //Set image mode
+		api.setMode(api.Mode.InsertImageShape, key + "," + docid);
+	}
+
 	function showViewInformation(view)
 	{
-		// Show page information
-		document.getElementById("pageInformation").innerHTML = "Page " + view.page + " of " + api.getPageCount();
+        var x = document.getElementById("pageInformation");
+        if (x) x.innerHTML = "Page " + view.page + " of " + api.getPageCount();
+        // Show page information
+        document.getElementById("pageInformation").innerHTML = "Page " + view.page + " of " + api.getPageCount();
 	}
 
 	function initRadPdf()
@@ -173,15 +187,26 @@
 	{
 		if(api)
 		{
-			api.setView( { "zoom" : 75 } );
+			api.setView( { "zoom" : 50 } );
 		}
 	}
 </script>
 <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-    <h4 class="modal-title" style="text-align:center" id="myModalLabel">
-        تعديل الملف
-    </h4>
+    <div class="row">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <h4 class="modal-title" style="text-align:center" id="myModalLabel">
+            تعديل الملف
+        </h4>
+        <br />
+    </div>
+    <div class="row" dir="rtl">
+        <div class="col-md-3">
+            <button class="btn btn-toolbar" onclick="SetCustomImageTool('signature'); return false;">اضافة توقيع المهندس</button>
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-toolbar" onclick="SetCustomImageTool('stamp'); return false;">اضافة ختم المهندس</button>
+        </div>
+    </div>
 </div>
 
 <style>
@@ -211,13 +236,17 @@
                     pdfWebControl1.OnClientLoad = "initRadPdf();";
                     pdfWebControl1.HideBookmarks = true;
                     pdfWebControl1.HideBottomBar = true;
-                    pdfWebControl1.HideDownloadButton = false;
-                    pdfWebControl1.HideObjectPropertiesBar = false;
+                    pdfWebControl1.HideDownloadButton = true;
+                    pdfWebControl1.HideObjectPropertiesBar = true;
                     pdfWebControl1.HideSearchText = true;
                     pdfWebControl1.HideSideBar = true;
                     pdfWebControl1.HideThumbnails = true;
                     pdfWebControl1.HideToolsTabs = true;
                     pdfWebControl1.HideTopBar = false;
+                    pdfWebControl1.HideToolsPageTab = false;
+
+
+
 
                     pdfWebControl1.ViewerPageLayoutDefault = ViewerPageLayout.SinglePageContinuous;
 
@@ -225,20 +254,18 @@
                     @Html.Raw(pdfWebControl1.RenderControl())
                 }
 
-                @*<div style="text-align:center;">
-                                    <button onclick="if(api){api.setView( { 'page' : api.getView().page + 1 } );}return false;">التالي</button>
-                                    <span id="pageInformation" style="padding:0px 5px;"></span>
-                                    <button onclick="if(api){api.setView( { 'page' : api.getView().page - 1 } );}return false;">السابق</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer" style="text-align:center">
-                        <button onclick="if(api){isDownload=false;api.save();}return false;" id="btnSave" class="btn btn-primary"><i class="fa fa-save"></i> حفظ التعديلات</button>
-                    </div>*@
+                <div style="text-align:center;">
+                    <button onclick="if(api){api.setView( { 'page' : api.getView().page + 1 } );}return false;">التالي</button>
+                    <span id="pageInformation" style="padding:0px 5px;"></span>
+                    <button onclick="if(api){api.setView( { 'page' : api.getView().page - 1 } );}return false;">السابق</button>
+                </div>
             </div>
         </div>
     </div>
+    <div class="modal-footer" style="text-align:center">
+        <button onclick="if(api){isDownload=false;api.save();}return false;" id="btnSave" class="btn btn-primary"><i class="fa fa-save"></i> حفظ التعديلات</button>
+    </div>
+
 </div>
 
 

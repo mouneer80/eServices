@@ -53,12 +53,22 @@
     }
 </style>
 <div class="col-lg-12 col-sm-12">
+    @if (Model.oEmployeeInfo.IsEngineerManager)
+    {
+        <div class="row">
+            <div class="col-lg-6 col-sm-6">
+                <a href="@Url.Action("Index", "BuildingPermits")" class="btn btn-primary ">
+                    <i class="glyphicon glyphicon-plus icon-white"></i>طلبات تراخيص البناء
+                </a>
+            </div>
+        </div>
+    }
     <div class="row">
         <div class="box col-md-12">
             <div class="box-inner">
                 <div class="box-header well" data-original-title="">
                     <h2><i class="glyphicon glyphicon-road"></i> طلبات رقابة البناء</h2>
-                    @if (Model.oEmployeeInfo.IsSupervisionHead)
+                    @if (Model.oEmployeeInfo.IsSupervisionHead || Model.oEmployeeInfo.IsEngineerManager)
                     {
                         <div style="font-size:12px;">
                             <div style="float:left; padding-right:10px;">
@@ -103,7 +113,7 @@
                                 <th>المنطقة</th>
                                 <th>تاريخ الطلب</th>
                                 <th>حالة الطلب</th>
-                                @if (Model.oEmployeeInfo.IsSupervisionHead)
+                                @if (Model.oEmployeeInfo.IsSupervisionHead || Model.oEmployeeInfo.IsEngineerManager)
                                 {
                                     <th>المفتش المختص</th>
                                 }

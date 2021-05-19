@@ -128,7 +128,7 @@
                 <div class="form-group col-md-6">
 
                     <label class="control-label">اجمالي عدد المباني</label>
-                    @Html.TextBoxFor(m => m.BuildingPermits.SquareArea, new { @class = "form-control", id = "SquareArea", @placeholder = "اجمالي عدد المباني" })
+                    @Html.TextBoxFor(m => m.BuildingPermits.NumberOfFloors, new { @class = "form-control", id = "SquareArea", @placeholder = "اجمالي عدد المباني" })
 
                 </div>
                 <div class="form-group col-md-6">
@@ -147,7 +147,7 @@
                 <div class="form-group col-md-6">
 
                     <label class="control-label">اجمالي عدد المحلات</label>
-                    @Html.TextBoxFor(m => m.BuildingPermits.ConstructionType, new { @class = "form-control", id = "ConstructionType", @placeholder = "اجمالي عدد المحلات" })
+                    @Html.TextBoxFor(m => m.BuildingPermits.UseTypeID, new { @class = "form-control", id = "ConstructionType", @placeholder = "اجمالي عدد المحلات" })
 
 
                 </div>
@@ -165,7 +165,7 @@
 
             <div class="col-sm-6" style="margin-bottom:20px;">
                 <label class="control-label">ملاحظات</label>
-                @Html.TextBoxFor(m => m.BuildingPermits.ConstructionType, new { @class = "form-control", id = "ConstructionType", @placeholder = "ملاحظات" })
+                @Html.TextBoxFor(m => m.BuildingPermits.UseTypeID, new { @class = "form-control", id = "ConstructionType", @placeholder = "ملاحظات" })
                 @*@Html.DropDownListFor(m => m.BuildingPermits.WorkflowStatus, (List<SelectListItem>)ViewBag.DDPermitsStatus, new { @class = "dropdown-toggle", Id = "PermitsStatus" })
                     @Html.ValidationMessageFor(m => m.BuildingPermits.WorkflowStatus, "", new { @style = "color:orange;" })*@
 

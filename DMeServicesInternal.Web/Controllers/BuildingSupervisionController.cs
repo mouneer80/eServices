@@ -81,10 +81,14 @@ namespace DMeServicesInternal.Web.Controllers
             oModel.Payments = PaymentsCom.PaymentsBySupervisionID(oModel.BuildingSupervision.ID);
             oModel.PaymentDetailsList = PaymentsCom.MapsPaymentDetailsBySupervisionID(oModel.BuildingSupervision.ID);
 
-            if (oModel.oEmployeeInfo.IsSupervisionHead)
+            if (oModel.oEmployeeInfo.IsSupervisionHead || oModel.oEmployeeInfo.IsEngineerManager)
             {
                 ViewBag.DDEngineersList = DDEngineers();
-                return View("HeadSupervisionDetails", oModel);
+                if (oModel.oEmployeeInfo.IsSupervisionHead)
+                {
+                    return View("HeadSupervisionDetails", oModel);
+                }
+                return View("ManagerSupervisionDetails", oModel);
             }
 
 
@@ -317,12 +321,25 @@ namespace DMeServicesInternal.Web.Controllers
             return RedirectToAction("Index");
         }
         #endregion
-
+        private static string dirName(SupervisionViewModel oModel)
+        {
+            string directoryName;
+            if (string.IsNullOrEmpty(oModel.BuildingPermits.KrokiNO))
+            {
+                directoryName = oModel.BuildingPermits.ConsultantCivilId.ToString() + "_" + oModel.BuildingPermits.ConsultantCrNo.ToString();
+            }
+            else
+            {
+                directoryName = oModel.BuildingPermits.KrokiNO;
+            }
+            return directoryName;
+        }
         #region Method :: List Attachment Details
         public ActionResult SelectAttachment(int Id = -99)
         {
             SupervisionViewModel oModel = new SupervisionViewModel();
-            oModel.ListOfAttachments = DMeServices.Models.Common.BuildingServices.PermitsAttachmentsCom.AttachmentsByPermitsID(Id, oModel.BuildingPermits.KrokiNO);
+            string folderName = dirName(oModel);
+            oModel.ListOfAttachments = DMeServices.Models.Common.BuildingServices.PermitsAttachmentsCom.AttachmentsByPermitsID(Id, folderName);
             return PartialView("_ListAttachments", oModel);
         }
         #endregion
@@ -423,7 +440,64 @@ namespace DMeServicesInternal.Web.Controllers
             return PartialView("_ListPayments", oModel);
         }
         #endregion
+        #region Method ::Edit PDF Files 
+        public ActionResult EditPDFFile(int Id, int PirmID)
+        {
+            //IExcelDataReader reader = null;
+            PermitsAttachments Attachment = DMeServices.Models.Common.BuildingServices.PermitsAttachmentsCom.AttachmentsByID(Id);
 
+            string contentType = MimeMapping.GetMimeMapping(Attachment.AttachmentPath);
+            if (Attachment.AttachmentStream == null || Attachment.AttachmentStream.Length <= 0)
+            {
+                System.IO.FileStream oFile = new FileStream(Attachment.AttachmentPath, FileMode.Open, FileAccess.Read);
+
+                MemoryStream streamToUpdate = new MemoryStream();
+                oFile.CopyTo(streamToUpdate);
+                byte[] data = streamToUpdate.ToArray();
+                Attachment.AttachmentStream = data;
+                UpdateStream(Attachment);
+            }
+
+            if (Attachment != null)
+            {
+                Stream stream = new MemoryStream(Attachment.AttachmentStream);
+                stream.Position = 0;
+                if (Attachment.AttachmentName.EndsWith(".pdf"))
+                {
+                    // Create RAD PDF control
+                    PdfWebControl pdfWebControl1 = new PdfWebControl();
+                    // Setup pdfWebControl1 with any properties which must be called before CreateDocument (optional)
+                    // e.g. pdfWebControl1.RenderDpi = 144;
+                    // Create document from PDF data
+                    pdfWebControl1.CreateDocument(Attachment.Id.ToString(), stream);
+                    // Put control in ViewBag
+                    ViewBag.PdfWebControl1 = pdfWebControl1;
+                    ViewBag.DocID = Attachment.Id;
+                    //ViewBag.PermitNo = DMeServices.Models.Common.BuildingServices.PermitsCom.PermitsByID(Attachment.BldPermitId).LicenseNo;
+                    return PartialView("EditPDFFile");
+                    //   return new FileStreamResult(stream, contentType);
+                }
+                else if (Attachment.AttachmentName.EndsWith(".jpg"))
+                {
+                    return new FileStreamResult(stream, contentType);
+                }
+                else if (Attachment.AttachmentName.EndsWith(".png"))
+                {
+                    return new FileStreamResult(stream, contentType);
+                }
+                else if (Attachment.AttachmentName.EndsWith(".txt"))
+                {
+                    return new FileStreamResult(stream, contentType);
+                }
+            }
+            return new EmptyResult();
+        }
+
+        public static void UpdateStream(PermitsAttachments attachment)
+        {
+            PermitsAttachmentsCom.UpdateAttachmentStream((int)attachment.Id, attachment.AttachmentStream);
+        }
+        #endregion
         #region Method :: Print Supervision Reports
         public ActionResult BuildingSupervisionPrint(int Id = -99)
         {

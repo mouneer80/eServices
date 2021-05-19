@@ -45,10 +45,10 @@
                                     </td>
                                 }
                                 <td class="col-sm-1" unprintable>
-                                    @item.InsertDate.ToShortDateString()
+                                    @item.InsertDate.ToString("yyyy/MM/dd")
                                 </td>
                                 <td class="col-sm-1" unprintable>
-                                    @item.InsertDate.ToShortTimeString()
+                                    @item.InsertDate.ToString("hh:mm")
                                 </td>
                                 <td class="col-sm-1" unprintable>
                                     <a class="modal-link" href="@Url.Action("GetDetailsFile", new { @controller = "BuildingPermits", @Id = item.Id })">عرض الملف<i class="fa fa-eye-slash"></i></a>
