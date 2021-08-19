@@ -33,6 +33,7 @@ namespace DMeServices.DAL
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
         public Nullable<int> AttachmentTypeId { get; set; }
+        public Nullable<int> BldSupervisionID { get; set; }
     
         public virtual BldAttachmentTypes BldAttachmentTypes { get; set; }
         public virtual BldPermits BldPermits { get; set; }

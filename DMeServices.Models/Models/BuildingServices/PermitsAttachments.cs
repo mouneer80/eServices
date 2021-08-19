@@ -28,7 +28,10 @@ namespace DMeServices.Models.BuildingServices
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
         public HttpPostedFileBase File { get; set; }
+        public HttpPostedFileBase[] Files { get; set; }
         public HttpPostedFileBase OptionalFile { get; set; }
+        public HttpPostedFileBase[] OptionalFiles { get; set; }
         public string AttachmentUrl { get; set; }
+        public Nullable<int> BldSupervisionID { get; set; }
     }
 }

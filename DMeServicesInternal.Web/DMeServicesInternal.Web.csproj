@@ -229,10 +229,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RadPdf\CustomPdfIntegrationProvider.cs" />
     <Compile Include="RadPdf\PdfIntegrationProvider.cs" />
-    <Compile Include="Reports\InternalEngineeringDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
+    <Compile Include="Reports\InternalEngineeringDataSet.cs">
       <DependentUpon>InternalEngineeringDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\InternalEngineeringDataSet.Designer.cs">
+      <DependentUpon>InternalEngineeringDataSet.cs</DependentUpon>
     </Compile>
     <Compile Include="Reports\Report.aspx.cs">
       <DependentUpon>Report.aspx</DependentUpon>
@@ -1814,7 +1815,7 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\ErrorPage.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
@@ -1875,7 +1876,7 @@
     <Content Include="Views\BuildingSupervision\SupervisionFees.cshtml" />
     <Content Include="Views\BuildingSupervision\SupervisionPaymentDetails.cshtml" />
     <Content Include="Views\BuildingSupervision\Supervisions.cshtml" />
-    <Content Include="Views\Shared\ErrorPage.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Home\ErrorPage.cshtml" />
     <Content Include="Views\BuildingPermits\_ListPayments.cshtml" />
     <Content Include="Views\BuildingPermits\ErrorPage.cshtml" />
@@ -1889,6 +1890,7 @@
     <Content Include="Views\BuildingSupervision\_ListOwnersDetails.cshtml" />
     <Content Include="Views\BuildingPermits\ManagerPermitDetails.cshtml" />
     <Content Include="Views\BuildingSupervision\ManagerSupervisionDetails.cshtml" />
+    <Content Include="Views\BuildingPermits\_ListPaymentsDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1925,17 +1927,54 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Reports\rpt\PrintChangeContractorRpt.rdlc" />
-    <EmbeddedResource Include="Reports\rpt\PrintBuildingCertificateRpt.rdlc" />
-    <EmbeddedResource Include="Reports\rpt\PrintFencingRpt.rdlc" />
-    <EmbeddedResource Include="Reports\rpt\PrintDemolitionRpt.rdlc" />
-    <EmbeddedResource Include="Reports\rpt\PrintExtensionRpt.rdlc" />
-    <EmbeddedResource Include="Reports\rpt\PrintRenovationRpt.rdlc" />
-    <EmbeddedResource Include="Reports\rpt\PrintStartBuildingRpt.rdlc" />
-    <EmbeddedResource Include="Reports\rpt\PrintTechnicalRpt.rdlc" />
-    <EmbeddedResource Include="Reports\rpt\PrintWaterRpt.rdlc" />
-    <EmbeddedResource Include="Reports\rpt\PrintElectricityRpt.rdlc" />
-    <EmbeddedResource Include="Reports\rpt\PrintPermit.rdlc" />
+    <EmbeddedResource Include="Reports\rpt\PrintChangeContractorRpt.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rpt\PrintBuildingCertificateRpt.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rpt\PrintFencingRpt.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rpt\PrintDemolitionRpt.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rpt\PrintExtensionRpt.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rpt\PrintModifyRpt.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rpt\PrintRenovationRpt.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rpt\PrintChangeConsultantRpt.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rpt\PrintSpecialSignsRpt.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rpt\PrintStartBuildingRpt.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rpt\PrintTechnicalRpt.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rpt\PrintInsuranceRpt.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rpt\PrintSignsRpt.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rpt\PrintWaterRpt.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rpt\PrintElectricityRpt.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rpt\PrintPermit.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\rpt\CalculateFees.rdlc" />
   </ItemGroup>
   <ItemGroup>

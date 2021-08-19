@@ -2,7 +2,7 @@
    You need this once per page no matter how many menu trees or different themes you use.
 -------------------------------------------------------------------------------------------*/
 
-.sm{box-sizing:border-box;position:relative;z-index:9999;-webkit-tap-highlight-color:rgba(0,0,0,0);}
+.sm{box-sizing:border-box;position:relative;z-index:1;-webkit-tap-highlight-color:rgba(0,0,0,0);}
     .sm, .sm ul, .sm li {
         display: block;
         list-style: none;

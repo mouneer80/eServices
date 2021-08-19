@@ -1,8 +1,5 @@
 ﻿@model DMeServices.Models.ViewModels.Permits.PermitsViewModel
 
-
-
-
 <div class="box col-lg-12">
     <div id="divAttachments">
         <div class="box col-lg-6">
@@ -25,46 +22,27 @@
                             <tbody>
                                 @if (Model.ListOfAttachments != null)
                                 {
-
                                     foreach (var item in Model.ListOfAttachments)
                                     {
-
-
                                         if (item.AttachmentTypeId != 30 && (item.AttachmentTypeId <= 4 || item.AttachmentTypeId > 14))
                                         {
                                             <tr>
                                                 <td class="col-lg-1" style="width:10%;">
                                                     @DMeServices.Models.Common.BuildingServices.AttachmentTypesCom.TypeByID((int)item.AttachmentTypeId).Name
-
                                                 </td>
-
                                                 <td class="col-lg-1" unprintable>
-
                                                     @item.InsertDate.ToString("yyyy/MM/dd")
-
                                                 </td>
-
                                                 <td class="col-lg-1" unprintable>
-
                                                     @item.InsertDate.ToString("hh:mm")
-
                                                 </td>
                                                 <td class="col-lg-1" unprintable>
-
-                                                    <a class="modal-link" href="@Url.Action("GetFile", new { @controller = "BuildingPermits", @Id = item.Id })">عرض الملف<i class="fa fa-eye-slash modal-link"></i></a>
-
+                                                    <a class="modal-link" onclick="return Loading();" href="@Url.Action("GetFile", new { @controller = "BuildingPermits", @Id = item.Id })">عرض الملف<i class="fa fa-eye-slash modal-link"></i></a>
                                                 </td>
-
-
-
                                             </tr>
                                         }
-
-
                                     }
-
                                 }
-
                             </tbody>
                             <tfoot>
                                 <tr>
@@ -89,8 +67,6 @@
                         <!--item details-->
                         <div class="">
                             <div id="FileBrowse" class="form-group col-lg-12">
-
-
                                 <div class="row">
                                     <div class="col-lg-3">
                                         @Html.DropDownListFor(m => m.Attachments.AttachmentTypeId, (List<SelectListItem>)ViewBag.DDAttachmentsType, new { @class = "form-control dropdown-toggle", @style = "font-size:11px;", @id = "AttTypeId" })
@@ -100,12 +76,9 @@
                                         @Html.TextBoxFor(m => m.Attachments.File, new { @type = "file", id = "MapFile", @name = "Files", @class = "form-control" })
                                         @Html.ValidationMessageFor(m => m.Attachments.File, "", new { @style = "color:orange;" })
                                     </div>
-
-
                                     <div class="col-lg-3">
                                         @Html.TextBoxFor(m => m.Attachments.Description, new { @class = "form-control", id = "FileDescription", @placeholder = "ملاحظات" })
                                         @Html.ValidationMessageFor(m => m.Attachments.Description, "", new { @style = "color:orange;" })
-
                                     </div>
                                     <div class="col-lg-1">
                                         <div id="divHere" style="float:left;display:none;">
@@ -118,10 +91,8 @@
                                 <br />
                                 <div id="progressbar-5" class="row">
                                     <div class="progress-label">
-
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -140,48 +111,17 @@
             </div>
         </div>
     </div>
-
 </div>
-
-
-
-
-<div class="modal fade" id="MainModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-
-
-
-
-
-        </div>
-    </div>
-</div>
-
-
-<script type="text/javascript">
-    function unloadModal() {
-        $('#MainModal').modal('hide');
-    }
-</script>
 
 <script>
     function ClearInputs() {
-
         $('#FileNotes').val('');
         $('#FileUpload').val('');
-
     }
-
     function OnFailure() {
         $('#txtMessageText').text('');
-
     }
-
 </script>
-
-
-
 
 <script>
 $(document).ready(function () {
@@ -333,58 +273,8 @@ $(document).ready(function () {
                     error: function (er) {
                         console.log(er.message);
                     }
-
                 });
             }
         });
-
-    });
-
-</script>
-<script type="text/javascript">
-    $(function () {
-        // Initialize numeric spinner input boxes
-        //$(".numeric-spinner").spinedit();
-
-        // Initalize modal dialog
-        // attach modal-container bootstrap attributes to links with .modal-link class.
-        // when a link is clicked with these attributes, bootstrap will display the href content in a modal dialog.
-
-        $('body').on('click', '.modal-link', function (e) {
-
-            $(this).attr('data-target', '#MainModal');
-            e.preventDefault();
-            $("iframe").attr("src", $(this).attr('href'));
-            $(this).attr('data-toggle', 'modal');
-        });
-
-
-        // Attach listener to .modal-close-btn's so that when the button is pressed the modal dialog disappears
-        $('body').on('click', '.modal-close-btn', function () {
-
-            $('#MainModal').modal('hide');
-
-        });
-
-        //clear modal cache, so that new content can be loaded
-        $('#MainModal').on('hidden.bs.modal', function () {
-
-            $(this).removeData('bs.modal');
-        });
-
-        $(document).on("hidden.bs.modal", function (e) {
-            $(e.target).removeData("bs.modal").find(".modal-content").empty();
-        });
-
-        $('#CancelModal').on('click', function () {
-            return false;
-        });
     });
 </script>
-
-
-
-
-
-
-

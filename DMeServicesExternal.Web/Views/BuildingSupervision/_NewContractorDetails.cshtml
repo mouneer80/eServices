@@ -57,7 +57,7 @@
                     <label class="control-label">
                         @Html.DisplayNameFor(m => m.BuildingPermits.KrokiNO)
                     </label>
-                    @Html.TextBoxFor(m => m.BuildingPermits.KrokiNO, new { @readonly = "readonly", @class = "form-control", id = "KrokiNO", @placeholder = "رقم الكروكي" })
+                    @Html.TextBoxFor(m => m.BuildingPermits.KrokiNO, new { @readonly = "readonly", @class = "form-control", id = "KrokiNO", @placeholder = "رقم الرسم المساحي" })
                     @Html.ValidationMessageFor(m => m.BuildingPermits.KrokiNO, "", new { @style = "color:orange;" })
                 </div>
                 <div class="form-group col-lg-2">
@@ -108,15 +108,6 @@
                 <br />
                 @{ Html.RenderPartial("_ListDetailsAttachments", Model);}
             </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="modal fade" id="MainModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-
         </div>
     </div>
 </div>
@@ -199,9 +190,6 @@
 
                         <div class="col-lg-3">
                             <a class="modal-link" href="@Url.Action("PdfPartial", new { @controller = "BuildingSupervision", @Id = 2 })">تحميل الملف<i class="fa fa-eye-slash modal-link"></i></a>
-                            @*<a class="modal-link" data-toggle="tooltip" title="Predogled"
-                                data-url="@Url.Action("PdfPartial", "BuildingSupervision", new { id = 2 })"
-                                onclick="showGenericModal(event);">تحميل الملف<i class="fa fa-eye-slash modal-link"></i></a>*@
                         </div>
                         <div class="col-lg-1">
                             <div id="ConstructionPermitApplicationLoader" class="loading" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader"></div>
@@ -217,12 +205,6 @@
                             @Html.TextBoxFor(m => m.OtherAttachments.File, new { @type = "file", @id = "Others", @class = "form-control", @onchange = "onchangeevent(this);" })
                             @Html.ValidationMessageFor(m => m.OtherAttachments.File, "", new { @style = "color:orange;" })
                         </div>
-                        <!--<div class="col-lg-3">-->
-                        @*<a class="modal-link" href="@Url.Action("PdfPartial", new { @controller = "BuildingSupervision", @Id = 2 })">عرض الملف<i class="fa fa-eye-slash modal-link"></i></a>*@
-                        @*<a class="modal-link" data-toggle="tooltip" title="Predogled"
-                            data-url="@Url.Action("PdfPartial", "BuildingSupervision", new { id = 2 })"
-                            onclick="showGenericModal(event);">تحميل الملف<i class="fa fa-eye-slash modal-link"></i></a>*@
-                        <!--</div>-->
                         <div class="col-lg-1">
                             <div id="Others" class="loading" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader"></div>
                             <span id="Others" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
@@ -239,52 +221,6 @@
     </button>
     <a style="float:left" href="@Url.Action( "Index","BuildingPermits")" class="btn btn-primary" role="button">الصفحة السابقة</a>
 </div>
-<div class="modal fade bs-modal-dialog" id="MainModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">خطأ</h5>
-            </div>
-            <div class="modal-body">
-                <h5 id="error"></h5>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script type="text/javascript">
-    $(function () {
-        $('body').on('click', '.modal-link', function (e) {
-
-            $(this).attr('data-target', '#MainModal');
-            e.preventDefault();
-            $("iframe").attr("src", $(this).attr('href'));
-            $(this).attr('data-toggle', 'modal');
-        });
-        // Attach listener to .modal-close-btn's so that when the button is pressed the modal dialog disappears
-        $('body').on('click', '.modal-close-btn', function () {
-
-            $('#MainModal').modal('hide');
-
-        });
-        //clear modal cache, so that new content can be loaded
-        $('#MainModal').on('hidden.bs.modal', function () {
-
-            $(this).removeData('bs.modal');
-        });
-
-        $(document).on("hidden.bs.modal", function (e) {
-            $(e.target).removeData("bs.modal").find(".modal-content").empty();
-        });
-
-        $('#CancelModal').on('click', function () {
-            return false;
-        });
-    });
-</script>
 <script src="~/Scripts/jquery-1.10.2.js"></script>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>

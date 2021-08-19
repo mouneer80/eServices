@@ -27,7 +27,7 @@ namespace DMeServices.Models.ViewModels.Internal.Permits
                 }
                 else
                 {
-                    ListBuildingPermits = PermitsCom.PermitsByEngineerID(oEmployeeInfo.EMP_NO, 1);
+                    ListBuildingPermits = PermitsCom.PermitsByEngineerID(oEmployeeInfo.EMP_NO, 1, false);
                 }
             }
         }

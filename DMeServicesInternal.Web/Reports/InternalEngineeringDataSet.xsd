@@ -16,24 +16,36 @@
                          BldPermits.ConsultantCrNo, BldPermits.RequestDate, BldPermits.CreatedBy, BldPermits.CreatedOn, BldPermits.UpdatedBy, BldPermits.UpdatedOn, BldPermits.LicenseNo, BldPermits.WorkflowStatus, 
                          BldPermits.DmEngineerNo, BldPermits.DmEngineerComments, BldPermits.ConsultantCivilId, BldPermits.WelayahID, BldPermits.RegionID, BldPermits.SquareLetterID, BldPermits.UseTypeID, BldPermits.BuildingTypeID, 
                          BldPermits.KrokiNO, BldPermits.DmFileNumber, BldPermits.LandDeedReceiptNo, BldPermits.DMLicenseComments, BldPermits.LandArea, BldPermits.LandDeedReceiptDate, BldPermits.LandDeedNo, 
-                         BldBuildingTypes.BuildingType, BldRegions.RegionCode, BldRegions.RegionArName, BldLandUseTypes.UseType, BldWelyat.WelyahArName, BldSquareLetters.ArLetter, 
-(SELECT BldPayment.Referenceid from BldPayment where PaymentDate = (SELECT MAX(PaymentDate)  from BldPayment where BldPermitId = @ID and PaymentType = 1 and PaymentStatus = 1)) AS FeesRefid ,
-(SELECT MAX(CONVERT(VARCHAR(20), BldPayment.PaymentDate, 103)) from BldPayment where BldPermitId = @ID and PaymentType = 1 and PaymentStatus = 1) AS FeesPayOn,
-(SELECT BldPayment.Referenceid from BldPayment where PaymentDate = (SELECT MAX(PaymentDate)  from BldPayment where BldPermitId = @ID and PaymentType = 3 and PaymentStatus = 1)) AS InsuranceRefid ,
-(SELECT MAX(CONVERT(VARCHAR(20), BldPayment.PaymentDate, 103)) from BldPayment where BldPermitId = @ID and PaymentType = 3 and PaymentStatus = 1) AS InsurancePayOn,
- SUBSTRING
+                         BldBuildingTypes.BuildingType, BldRegions.RegionCode, BldRegions.RegionArName, BldLandUseTypes.UseType, BldWelyat.WelyahArName, BldSquareLetters.ArLetter,
+                             (SELECT        Referenceid
+                                FROM            BldPayment
+                                WHERE        (PaymentDate =
+                                                             (SELECT        MAX(PaymentDate) AS Expr1
+                                                                FROM            BldPayment AS BldPayment_5
+                                                                WHERE        (BldPermitId = @ID) AND (PaymentType = 1) AND (PaymentStatus = 1)))) AS FeesRefid,
+                             (SELECT        MAX(CONVERT(VARCHAR(20), PaymentDate, 103)) AS Expr1
+                                FROM            BldPayment AS BldPayment_4
+                                WHERE        (BldPermitId = @ID) AND (PaymentType = 1) AND (PaymentStatus = 1)) AS FeesPayOn,
+                             (SELECT        Referenceid
+                                FROM            BldPayment AS BldPayment_3
+                                WHERE        (PaymentDate =
+                                                             (SELECT        MAX(PaymentDate) AS Expr1
+                                                                FROM            BldPayment AS BldPayment_2
+                                                                WHERE        (BldPermitId = @ID) AND (PaymentType = 3) AND (PaymentStatus = 1)))) AS InsuranceRefid,
+                             (SELECT        MAX(CONVERT(VARCHAR(20), PaymentDate, 103)) AS Expr1
+                                FROM            BldPayment AS BldPayment_1
+                                WHERE        (BldPermitId = @ID) AND (PaymentType = 3) AND (PaymentStatus = 1)) AS InsurancePayOn, SUBSTRING
                              ((SELECT        ',' + Name AS [text()]
                                  FROM            BldOwners
                                  WHERE        (BldPermitId = @ID) FOR XML PATH('')), 2, 1000) AS owners, BldPermits.ServiceName, BldPermits.BuildingComplex, BldPermits.UnitNo, BldPermits.AppointmentStatus, BldPermits.AppointmentDate, 
-                         BldPermits.DMManagerNotes, BldPermits.DMEngineerNotes, BldPermits.ContractorName, BldPermits.MLicenseStatement, BldPermits.MLicenseNo
+                         BldPermits.DMManagerNotes, BldPermits.DMEngineerNotes, BldPermits.ContractorName, BldPermits.MLicenseStatement, BldPermits.MLicenseNo, BldSupervisionServicesTypes.ServiceNameAR
 FROM            BldPermits INNER JOIN
                          BldBuildingTypes ON BldPermits.BuildingTypeID = BldBuildingTypes.ID INNER JOIN
                          BldLandUseTypes ON BldPermits.UseTypeID = BldLandUseTypes.ID INNER JOIN
-                         BldPayment ON BldPermits.Id = BldPayment.BldPermitId INNER JOIN
                          BldRegions ON BldPermits.RegionID = BldRegions.RegionID INNER JOIN
                          BldSquareLetters ON BldPermits.SquareLetterID = BldSquareLetters.ID INNER JOIN
                          BldWelyat ON BldPermits.WelayahID = BldWelyat.WelyahID AND BldRegions.WelyahID = BldWelyat.WelyahID INNER JOIN
-                         BldSupervisionServicesTypes ON CAST(BldPermits.ServiceName AS int) = BldSupervisionServicesTypes.ID
+                         BldSupervisionServicesTypes ON CAST(BldPermits.ServiceName AS INT) = BldSupervisionServicesTypes.ID
 WHERE        (BldPermits.Id = @ID)</CommandText>
                     <Parameters>
                       <Parameter AllowDbNull="false" AutogeneratedName="ID" ColumnName="Id" DataSourceName="eServices.dbo.BldPermits" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@ID" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="Id" SourceColumnNullMapping="false" SourceVersion="Current" />
@@ -95,6 +107,7 @@ WHERE        (BldPermits.Id = @ID)</CommandText>
               <Mapping SourceColumn="FeesPayOn" DataSetColumn="FeesPayOn" />
               <Mapping SourceColumn="InsuranceRefid" DataSetColumn="InsuranceRefid" />
               <Mapping SourceColumn="InsurancePayOn" DataSetColumn="InsurancePayOn" />
+              <Mapping SourceColumn="ServiceNameAR" DataSetColumn="ServiceNameAR" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -409,26 +422,32 @@ WHERE        (BldPermits.Id = @ID)</CommandText>
               <DbSource ConnectionRef="eServicesConnectionString (Web.config)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
-                    <CommandText>SELECT        BldPermits.OwnerCivilId, BldPermits.OwnerName, BldPermits.ConsultantCrNo, BldPermits.NumberOfFloors, BldPermits.ConstructedArea, BldPermits.LicenseNo, BldPermits.KrokiNO, BldPermits.DmFileNumber, 
-                         BldPermits.DMLicenseComments, BldPermits.LandArea, BldPermits.LandDeedReceiptDate, BldPermits.LandDeedNo, BldSupervisionServices.OwnerNotes, BldSupervisionServices.ConsultantNotes, 
-                         BldSupervisionServices.DmFileNumber AS FileNumber, BldSupervisionServices.DmInspectorComments, BldSupervisionServices.TransactNo, BldSupervisionServices.ID, BldWelyat.WelyahArName, 
-                         BldWelyat.WelyahEnName, BldWelyat.WelyahCode, BldSupervisionServicesTypes.ServiceNameAR, BldSupervisionServicesTypes.ServiceNameEn, BldSquareLetters.ArLetter, BldSquareLetters.EnLetter, 
-                         BldBuildingTypes.BuildingType, BldLandUseTypes.UseType, BldRegions.RegionArName, BldRegions.RegionEnName, BldRegions.RegionCode, BldPermits.DistrictNo, BldSupervisionServices.BldPermitID, 
-                         BldSupervisionContractors.Cr_Name AS Contractor_Name, BldSupervisionContractors.Cr_No AS Contractor_CRNumber, BldSupervisionServices.ContractorCR_No AS Contractor_CR_Number, BldPayment.Referenceid, 
-                         BldPayment.PaymentType, BldSupervisionServices.PaymentID, BldSupervisionServices.ConsultantCivilId, Users.CompanyName, BldPayment.PaymentDate, BldSupervisionServices.LicenseNo AS SupervisionLicenseNo, 
-                         BldPermits.BuildingComplex, BldPermits.RequestDate, BldPermits.CreatedBy, BldPermits.CreatedOn, BldPermits.UpdatedBy, BldPermits.UpdatedOn, BldPermits.UnitNo
-FROM            BldSupervisionServices INNER JOIN
-                         BldPermits ON BldSupervisionServices.BldPermitID = BldPermits.Id INNER JOIN
+                    <CommandText>SELECT        BldPermits.ConsultantCrNo, BldPermits.NumberOfFloors, BldPermits.ConstructedArea, BldPermits.LicenseNo, BldPermits.KrokiNO, BldPermits.DmFileNumber, BldPermits.DMLicenseComments, BldPermits.LandArea, 
+                         BldPermits.LandDeedReceiptDate, BldPermits.LandDeedNo, BldSupervisionServices_1.OwnerNotes, BldSupervisionServices_1.ConsultantNotes, BldSupervisionServices_1.DmFileNumber AS FileNumber, 
+                         BldSupervisionServices_1.DmInspectorComments, BldSupervisionServices_1.ID, BldWelyat.WelyahArName, BldSupervisionServicesTypes.ServiceNameAR, BldSupervisionServicesTypes.ServiceNameEn, 
+                         BldSquareLetters.ArLetter, BldBuildingTypes.BuildingType, BldLandUseTypes.UseType, BldRegions.RegionArName, BldRegions.RegionEnName, BldRegions.RegionCode, BldPermits.DistrictNo, 
+                         BldSupervisionServices_1.BldPermitID, BldSupervisionContractors.Cr_Name AS Contractor_Name, BldSupervisionContractors.Cr_No AS Contractor_CRNumber, 
+                         BldSupervisionServices_1.ContractorCR_No AS Contractor_CR_Number, BldPayment.Referenceid, BldPayment.PaymentType, BldSupervisionServices_1.PaymentID, BldSupervisionServices_1.ConsultantCivilId, 
+                         Users.CompanyName, BldPayment.PaymentDate, BldSupervisionServices_1.LicenseNo AS SupervisionLicenseNo, BldPermits.BuildingComplex, BldPermits.RequestDate, BldPermits.CreatedBy, BldPermits.CreatedOn, 
+                         BldPermits.UpdatedBy, BldPermits.UpdatedOn, BldPermits.UnitNo, SUBSTRING
+                             ((SELECT        ',' + Name AS [text()]
+                                 FROM            BldOwners
+                                 WHERE        (BldPermitId =
+                                                               (SELECT        BldPermitID
+                                                                  FROM            BldSupervisionServices
+                                                                  WHERE        (ID = @ID))) FOR XML PATH('')), 2, 1000) AS owners, BldSupervisionServices_1.DMSupervisionStatment
+FROM            BldSupervisionServices AS BldSupervisionServices_1 INNER JOIN
+                         BldPermits ON BldSupervisionServices_1.BldPermitID = BldPermits.Id INNER JOIN
                          BldWelyat ON BldPermits.WelayahID = BldWelyat.WelyahID INNER JOIN
                          BldBuildingTypes ON BldPermits.BuildingTypeID = BldBuildingTypes.ID INNER JOIN
                          BldLandUseTypes ON BldPermits.UseTypeID = BldLandUseTypes.ID INNER JOIN
                          BldRegions ON BldPermits.RegionID = BldRegions.RegionID AND BldWelyat.WelyahID = BldRegions.WelyahID INNER JOIN
                          BldSquareLetters ON BldPermits.SquareLetterID = BldSquareLetters.ID INNER JOIN
-                         BldSupervisionServicesTypes ON BldSupervisionServices.ServiceTypeID = BldSupervisionServicesTypes.ID INNER JOIN
-                         BldSupervisionContractors ON BldSupervisionServices.ContractorCR_No = BldSupervisionContractors.Cr_No INNER JOIN
-                         BldPayment ON BldSupervisionServices.PaymentID = BldPayment.PaymentID AND BldPayment.PaymentType = 3 INNER JOIN
-                         Users ON BldSupervisionServices.ConsultantCivilId = Users.CivilId
-WHERE        (BldSupervisionServices.ID = @ID)</CommandText>
+                         BldSupervisionServicesTypes ON BldSupervisionServices_1.ServiceTypeID = BldSupervisionServicesTypes.ID INNER JOIN
+                         BldSupervisionContractors ON BldSupervisionServices_1.ContractorCR_No = BldSupervisionContractors.Cr_No INNER JOIN
+                         BldPayment ON BldSupervisionServices_1.ID = BldPayment.SupervisionID AND BldPayment.PaymentType = 3 INNER JOIN
+                         Users ON BldSupervisionServices_1.ConsultantCivilId = Users.CivilId
+WHERE        (BldSupervisionServices_1.ID = @ID)</CommandText>
                     <Parameters>
                       <Parameter AllowDbNull="false" AutogeneratedName="ID" ColumnName="ID" DataSourceName="eServices.dbo.BldSupervisionServices" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@ID" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="ID" SourceColumnNullMapping="false" SourceVersion="Current" />
                     </Parameters>
@@ -438,11 +457,8 @@ WHERE        (BldSupervisionServices.ID = @ID)</CommandText>
             </MainSource>
             <Mappings>
               <Mapping SourceColumn="ID" DataSetColumn="ID" />
-              <Mapping SourceColumn="OwnerCivilId" DataSetColumn="OwnerCivilId" />
               <Mapping SourceColumn="KrokiNO" DataSetColumn="KrokiNO" />
-              <Mapping SourceColumn="OwnerName" DataSetColumn="OwnerName" />
               <Mapping SourceColumn="LicenseNo" DataSetColumn="LicenseNo" />
-              <Mapping SourceColumn="TransactNo" DataSetColumn="TransactNo" />
               <Mapping SourceColumn="DmFileNumber" DataSetColumn="DmFileNumber" />
               <Mapping SourceColumn="DmInspectorComments" DataSetColumn="DmInspectorComments" />
               <Mapping SourceColumn="ConsultantNotes" DataSetColumn="ConsultantNotes" />
@@ -456,12 +472,9 @@ WHERE        (BldSupervisionServices.ID = @ID)</CommandText>
               <Mapping SourceColumn="LandDeedNo" DataSetColumn="LandDeedNo" />
               <Mapping SourceColumn="FileNumber" DataSetColumn="FileNumber" />
               <Mapping SourceColumn="WelyahArName" DataSetColumn="WelyahArName" />
-              <Mapping SourceColumn="WelyahEnName" DataSetColumn="WelyahEnName" />
-              <Mapping SourceColumn="WelyahCode" DataSetColumn="WelyahCode" />
               <Mapping SourceColumn="ServiceNameAR" DataSetColumn="ServiceNameAR" />
               <Mapping SourceColumn="ServiceNameEn" DataSetColumn="ServiceNameEn" />
               <Mapping SourceColumn="ArLetter" DataSetColumn="ArLetter" />
-              <Mapping SourceColumn="EnLetter" DataSetColumn="EnLetter" />
               <Mapping SourceColumn="BuildingType" DataSetColumn="BuildingType" />
               <Mapping SourceColumn="UseType" DataSetColumn="UseType" />
               <Mapping SourceColumn="RegionArName" DataSetColumn="RegionArName" />
@@ -486,18 +499,26 @@ WHERE        (BldSupervisionServices.ID = @ID)</CommandText>
               <Mapping SourceColumn="UpdatedBy" DataSetColumn="UpdatedBy" />
               <Mapping SourceColumn="UpdatedOn" DataSetColumn="UpdatedOn" />
               <Mapping SourceColumn="UnitNo" DataSetColumn="UnitNo" />
+              <Mapping SourceColumn="owners" DataSetColumn="owners" />
+              <Mapping SourceColumn="DMSupervisionStatment" DataSetColumn="DMSupervisionStatment" />
             </Mappings>
             <Sources>
               <DbSource ConnectionRef="eServicesConnectionString (Web.config)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="FillForUnpaidServices" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataForUnpaidServices" GeneratorSourceName="FillForUnpaidServices" GetMethodModifier="Public" GetMethodName="GetDataForUnpaidServices" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataForUnpaidServices" UserSourceName="FillForUnpaidServices">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
-                    <CommandText>SELECT        BldPermits.OwnerCivilId, BldPermits.OwnerName, BldPermits.ConsultantCrNo, BldPermits.NumberOfFloors, BldPermits.ConstructedArea, BldPermits.LicenseNo, BldPermits.KrokiNO, BldPermits.DmFileNumber, 
-                         BldPermits.DMLicenseComments, BldPermits.LandArea, BldPermits.LandDeedReceiptDate, BldPermits.LandDeedNo, BldSupervisionServices.OwnerNotes, BldSupervisionServices.ConsultantNotes, 
-                         BldSupervisionServices.DmFileNumber AS FileNumber, BldSupervisionServices.DmInspectorComments, BldSupervisionServices.TransactNo, BldSupervisionServices.ID, BldWelyat.WelyahArName, 
-                         BldWelyat.WelyahEnName, BldWelyat.WelyahCode, BldSupervisionServicesTypes.ServiceNameAR, BldSupervisionServicesTypes.ServiceNameEn, BldSquareLetters.ArLetter, BldSquareLetters.EnLetter, 
-                         BldBuildingTypes.BuildingType, BldLandUseTypes.UseType, BldRegions.RegionArName, BldRegions.RegionEnName, BldRegions.RegionCode, BldPermits.DistrictNo, BldSupervisionServices.BldPermitID, 
-                         BldSupervisionServices.ContractorCR_No AS Contractor_CR_Number, BldSupervisionServices.PaymentID, BldSupervisionServices.ConsultantCivilId, BldSupervisionServices.LicenseNo AS SupervisionLicenseNo
-FROM            BldSupervisionServices INNER JOIN
+                    <CommandText>SELECT        BldPermits.ConsultantCrNo, BldPermits.NumberOfFloors, BldPermits.ConstructedArea, BldPermits.LicenseNo, BldPermits.KrokiNO, BldPermits.DmFileNumber, BldPermits.DMLicenseComments, BldPermits.LandArea, 
+                         BldPermits.LandDeedReceiptDate, BldPermits.LandDeedNo, BldSupervisionServices.OwnerNotes, BldSupervisionServices.ConsultantNotes, BldSupervisionServices.DmFileNumber AS FileNumber, 
+                         BldSupervisionServices.DmInspectorComments, BldSupervisionServices.TransactNo, BldSupervisionServices.ID, BldWelyat.WelyahArName, BldWelyat.WelyahEnName, BldWelyat.WelyahCode, 
+                         BldSupervisionServicesTypes.ServiceNameAR, BldSupervisionServicesTypes.ServiceNameEn, BldSquareLetters.ArLetter, BldSquareLetters.EnLetter, BldBuildingTypes.BuildingType, BldLandUseTypes.UseType, 
+                         BldRegions.RegionArName, BldRegions.RegionEnName, BldRegions.RegionCode, BldPermits.DistrictNo, BldSupervisionServices.BldPermitID, BldSupervisionServices.ContractorCR_No AS Contractor_CR_Number, 
+                         BldSupervisionServices.ConsultantCivilId, BldSupervisionServices.LicenseNo AS SupervisionLicenseNo, SUBSTRING
+                             ((SELECT        ',' + Name AS [text()]
+                                 FROM            BldOwners
+                                 WHERE        (BldPermitId =
+                                                               (SELECT        BldPermitID
+                                                                  FROM            BldSupervisionServices AS BldSupervisionServices_1
+                                                                  WHERE        (ID = @ID))) FOR XML PATH('')), 2, 1000) AS owners, BldSupervisionServices.DMSupervisionStatment
+FROM            BldSupervisionServices AS BldSupervisionServices INNER JOIN
                          BldPermits ON BldSupervisionServices.BldPermitID = BldPermits.Id INNER JOIN
                          BldWelyat ON BldPermits.WelayahID = BldWelyat.WelyahID INNER JOIN
                          BldBuildingTypes ON BldPermits.BuildingTypeID = BldBuildingTypes.ID INNER JOIN
@@ -559,6 +580,222 @@ WHERE        (BldSupervisionServices.ID = @ID)</CommandText>
               <Mapping SourceColumn="ServiceNameAR" DataSetColumn="ServiceNameAR" />
               <Mapping SourceColumn="ServiceNameEn" DataSetColumn="ServiceNameEn" />
               <Mapping SourceColumn="ServiceStatus" DataSetColumn="ServiceStatus" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="UnpaidServicesTableAdapter" GeneratorDataComponentClassName="UnpaidServicesTableAdapter" Name="UnpaidServices" UserDataComponentName="UnpaidServicesTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="eServicesConnectionString (Web.config)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT        BldPermits.ConsultantCrNo, BldPermits.NumberOfFloors, BldPermits.ConstructedArea, BldPermits.LicenseNo, BldPermits.KrokiNO, BldPermits.DmFileNumber, BldPermits.DMLicenseComments, BldPermits.LandArea, 
+                         BldPermits.LandDeedReceiptDate, BldPermits.LandDeedNo, BldSupervisionServices.OwnerNotes, BldSupervisionServices.ConsultantNotes, BldSupervisionServices.DmFileNumber AS FileNumber, 
+                         BldSupervisionServices.DmInspectorComments, BldSupervisionServices.TransactNo, BldSupervisionServices.ID, BldWelyat.WelyahArName, BldWelyat.WelyahEnName, BldWelyat.WelyahCode, 
+                         BldSupervisionServicesTypes.ServiceNameAR, BldSupervisionServicesTypes.ServiceNameEn, BldSquareLetters.ArLetter, BldSquareLetters.EnLetter, BldBuildingTypes.BuildingType, BldLandUseTypes.UseType, 
+                         BldRegions.RegionArName, BldRegions.RegionEnName, BldRegions.RegionCode, BldPermits.DistrictNo, BldSupervisionServices.BldPermitID, BldSupervisionServices.ContractorCR_No AS Contractor_CR_Number, 
+                         BldSupervisionServices.ConsultantCivilId, BldSupervisionServices.LicenseNo AS SupervisionLicenseNo, SUBSTRING
+                             ((SELECT        ',' + Name AS [text()]
+                                 FROM            BldOwners
+                                 WHERE        (BldPermitId =
+                                                               (SELECT        BldPermitID
+                                                                  FROM            BldSupervisionServices AS BldSupervisionServices_1
+                                                                  WHERE        (ID = @ID))) FOR XML PATH('')), 2, 1000) AS owners, BldSupervisionServices.DMSupervisionStatment, BldSupervisionServices.ServiceTypeID, BldSupervisionServices.OwnerCivilId, 
+                         BldSupervisionServices.OwnerName
+FROM            BldSupervisionServices AS BldSupervisionServices INNER JOIN
+                         BldPermits ON BldSupervisionServices.BldPermitID = BldPermits.Id INNER JOIN
+                         BldWelyat ON BldPermits.WelayahID = BldWelyat.WelyahID INNER JOIN
+                         BldBuildingTypes ON BldPermits.BuildingTypeID = BldBuildingTypes.ID INNER JOIN
+                         BldLandUseTypes ON BldPermits.UseTypeID = BldLandUseTypes.ID INNER JOIN
+                         BldRegions ON BldPermits.RegionID = BldRegions.RegionID INNER JOIN
+                         BldSquareLetters ON BldPermits.SquareLetterID = BldSquareLetters.ID INNER JOIN
+                         BldSupervisionServicesTypes ON BldSupervisionServices.ServiceTypeID = BldSupervisionServicesTypes.ID
+WHERE        (BldSupervisionServices.ID = @ID)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="ID" ColumnName="ID" DataSourceName="eServices.dbo.BldSupervisionServices" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@ID" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="ID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="ConsultantCrNo" DataSetColumn="ConsultantCrNo" />
+              <Mapping SourceColumn="NumberOfFloors" DataSetColumn="NumberOfFloors" />
+              <Mapping SourceColumn="ConstructedArea" DataSetColumn="ConstructedArea" />
+              <Mapping SourceColumn="LicenseNo" DataSetColumn="LicenseNo" />
+              <Mapping SourceColumn="KrokiNO" DataSetColumn="KrokiNO" />
+              <Mapping SourceColumn="DmFileNumber" DataSetColumn="DmFileNumber" />
+              <Mapping SourceColumn="DMLicenseComments" DataSetColumn="DMLicenseComments" />
+              <Mapping SourceColumn="LandArea" DataSetColumn="LandArea" />
+              <Mapping SourceColumn="LandDeedReceiptDate" DataSetColumn="LandDeedReceiptDate" />
+              <Mapping SourceColumn="LandDeedNo" DataSetColumn="LandDeedNo" />
+              <Mapping SourceColumn="OwnerNotes" DataSetColumn="OwnerNotes" />
+              <Mapping SourceColumn="ConsultantNotes" DataSetColumn="ConsultantNotes" />
+              <Mapping SourceColumn="FileNumber" DataSetColumn="FileNumber" />
+              <Mapping SourceColumn="DmInspectorComments" DataSetColumn="DmInspectorComments" />
+              <Mapping SourceColumn="TransactNo" DataSetColumn="TransactNo" />
+              <Mapping SourceColumn="ID" DataSetColumn="ID" />
+              <Mapping SourceColumn="WelyahArName" DataSetColumn="WelyahArName" />
+              <Mapping SourceColumn="WelyahEnName" DataSetColumn="WelyahEnName" />
+              <Mapping SourceColumn="WelyahCode" DataSetColumn="WelyahCode" />
+              <Mapping SourceColumn="ServiceNameAR" DataSetColumn="ServiceNameAR" />
+              <Mapping SourceColumn="ServiceNameEn" DataSetColumn="ServiceNameEn" />
+              <Mapping SourceColumn="ArLetter" DataSetColumn="ArLetter" />
+              <Mapping SourceColumn="EnLetter" DataSetColumn="EnLetter" />
+              <Mapping SourceColumn="BuildingType" DataSetColumn="BuildingType" />
+              <Mapping SourceColumn="UseType" DataSetColumn="UseType" />
+              <Mapping SourceColumn="RegionArName" DataSetColumn="RegionArName" />
+              <Mapping SourceColumn="RegionEnName" DataSetColumn="RegionEnName" />
+              <Mapping SourceColumn="RegionCode" DataSetColumn="RegionCode" />
+              <Mapping SourceColumn="DistrictNo" DataSetColumn="DistrictNo" />
+              <Mapping SourceColumn="BldPermitID" DataSetColumn="BldPermitID" />
+              <Mapping SourceColumn="Contractor_CR_Number" DataSetColumn="Contractor_CR_Number" />
+              <Mapping SourceColumn="ConsultantCivilId" DataSetColumn="ConsultantCivilId" />
+              <Mapping SourceColumn="SupervisionLicenseNo" DataSetColumn="SupervisionLicenseNo" />
+              <Mapping SourceColumn="owners" DataSetColumn="owners" />
+              <Mapping SourceColumn="DMSupervisionStatment" DataSetColumn="DMSupervisionStatment" />
+              <Mapping SourceColumn="ServiceTypeID" DataSetColumn="ServiceTypeID" />
+              <Mapping SourceColumn="OwnerCivilId" DataSetColumn="OwnerCivilId" />
+              <Mapping SourceColumn="OwnerName" DataSetColumn="OwnerName" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="AlreadyPaidServicesTableAdapter" GeneratorDataComponentClassName="AlreadyPaidServicesTableAdapter" Name="AlreadyPaidServices" UserDataComponentName="AlreadyPaidServicesTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="eServicesConnectionString (Web.config)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT        BldPermits.ConsultantCrNo, BldPermits.NumberOfFloors, BldPermits.ConstructedArea, BldPermits.LicenseNo, BldPermits.KrokiNO, BldPermits.DmFileNumber, BldPermits.DMLicenseComments, BldPermits.LandArea, 
+                         BldPermits.LandDeedReceiptDate, BldPermits.LandDeedNo, BldSupervisionServices_1.OwnerNotes, BldSupervisionServices_1.ConsultantNotes, BldSupervisionServices_1.DmFileNumber AS FileNumber, 
+                         BldSupervisionServices_1.DmInspectorComments, BldSupervisionServices_1.ID, BldWelyat.WelyahArName, BldSupervisionServicesTypes.ServiceNameAR, BldSupervisionServicesTypes.ServiceNameEn, 
+                         BldSquareLetters.ArLetter, BldBuildingTypes.BuildingType, BldLandUseTypes.UseType, BldRegions.RegionArName, BldRegions.RegionEnName, BldRegions.RegionCode, BldPermits.DistrictNo, 
+                         BldSupervisionServices_1.BldPermitID, BldSupervisionContractors.Cr_Name AS Contractor_Name, BldSupervisionContractors.Cr_No AS Contractor_CRNumber, 
+                         BldSupervisionServices_1.ContractorCR_No AS Contractor_CR_Number, BldPayment.Referenceid, BldPayment.PaymentType, BldSupervisionServices_1.PaymentID, BldSupervisionServices_1.ConsultantCivilId, 
+                         Users.CompanyName, BldPayment.PaymentDate, BldSupervisionServices_1.LicenseNo AS SupervisionLicenseNo, BldPermits.BuildingComplex, BldPermits.RequestDate, BldPermits.CreatedBy, BldPermits.CreatedOn, 
+                         BldPermits.UpdatedBy, BldPermits.UpdatedOn, BldPermits.UnitNo, SUBSTRING
+                             ((SELECT        ',' + Name AS [text()]
+                                 FROM            BldOwners
+                                 WHERE        (BldPermitId =
+                                                               (SELECT        BldPermitID
+                                                                  FROM            BldSupervisionServices
+                                                                  WHERE        (ID = @ID))) FOR XML PATH('')), 2, 1000) AS owners, BldSupervisionServices_1.DMSupervisionStatment
+FROM            BldSupervisionServices AS BldSupervisionServices_1 INNER JOIN
+                         BldPermits ON BldSupervisionServices_1.BldPermitID = BldPermits.Id INNER JOIN
+                         BldWelyat ON BldPermits.WelayahID = BldWelyat.WelyahID INNER JOIN
+                         BldBuildingTypes ON BldPermits.BuildingTypeID = BldBuildingTypes.ID INNER JOIN
+                         BldLandUseTypes ON BldPermits.UseTypeID = BldLandUseTypes.ID INNER JOIN
+                         BldRegions ON BldPermits.RegionID = BldRegions.RegionID AND BldWelyat.WelyahID = BldRegions.WelyahID INNER JOIN
+                         BldSquareLetters ON BldPermits.SquareLetterID = BldSquareLetters.ID INNER JOIN
+                         BldSupervisionServicesTypes ON BldSupervisionServices_1.ServiceTypeID = BldSupervisionServicesTypes.ID INNER JOIN
+                         BldSupervisionContractors ON BldSupervisionServices_1.ContractorCR_No = BldSupervisionContractors.Cr_No INNER JOIN
+                         BldPayment ON BldSupervisionServices_1.PaymentID = BldPayment.PaymentID INNER JOIN
+                         Users ON BldSupervisionServices_1.ConsultantCivilId = Users.CivilId
+WHERE        (BldSupervisionServices_1.ID = @ID)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="ID" ColumnName="ID" DataSourceName="eServices.dbo.BldSupervisionServices" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@ID" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="ID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="ConsultantCrNo" DataSetColumn="ConsultantCrNo" />
+              <Mapping SourceColumn="NumberOfFloors" DataSetColumn="NumberOfFloors" />
+              <Mapping SourceColumn="ConstructedArea" DataSetColumn="ConstructedArea" />
+              <Mapping SourceColumn="LicenseNo" DataSetColumn="LicenseNo" />
+              <Mapping SourceColumn="KrokiNO" DataSetColumn="KrokiNO" />
+              <Mapping SourceColumn="DmFileNumber" DataSetColumn="DmFileNumber" />
+              <Mapping SourceColumn="DMLicenseComments" DataSetColumn="DMLicenseComments" />
+              <Mapping SourceColumn="LandArea" DataSetColumn="LandArea" />
+              <Mapping SourceColumn="LandDeedReceiptDate" DataSetColumn="LandDeedReceiptDate" />
+              <Mapping SourceColumn="LandDeedNo" DataSetColumn="LandDeedNo" />
+              <Mapping SourceColumn="OwnerNotes" DataSetColumn="OwnerNotes" />
+              <Mapping SourceColumn="ConsultantNotes" DataSetColumn="ConsultantNotes" />
+              <Mapping SourceColumn="FileNumber" DataSetColumn="FileNumber" />
+              <Mapping SourceColumn="DmInspectorComments" DataSetColumn="DmInspectorComments" />
+              <Mapping SourceColumn="ID" DataSetColumn="ID" />
+              <Mapping SourceColumn="WelyahArName" DataSetColumn="WelyahArName" />
+              <Mapping SourceColumn="ServiceNameAR" DataSetColumn="ServiceNameAR" />
+              <Mapping SourceColumn="ServiceNameEn" DataSetColumn="ServiceNameEn" />
+              <Mapping SourceColumn="ArLetter" DataSetColumn="ArLetter" />
+              <Mapping SourceColumn="BuildingType" DataSetColumn="BuildingType" />
+              <Mapping SourceColumn="UseType" DataSetColumn="UseType" />
+              <Mapping SourceColumn="RegionArName" DataSetColumn="RegionArName" />
+              <Mapping SourceColumn="RegionEnName" DataSetColumn="RegionEnName" />
+              <Mapping SourceColumn="RegionCode" DataSetColumn="RegionCode" />
+              <Mapping SourceColumn="DistrictNo" DataSetColumn="DistrictNo" />
+              <Mapping SourceColumn="BldPermitID" DataSetColumn="BldPermitID" />
+              <Mapping SourceColumn="Contractor_Name" DataSetColumn="Contractor_Name" />
+              <Mapping SourceColumn="Contractor_CRNumber" DataSetColumn="Contractor_CRNumber" />
+              <Mapping SourceColumn="Contractor_CR_Number" DataSetColumn="Contractor_CR_Number" />
+              <Mapping SourceColumn="Referenceid" DataSetColumn="Referenceid" />
+              <Mapping SourceColumn="PaymentType" DataSetColumn="PaymentType" />
+              <Mapping SourceColumn="PaymentID" DataSetColumn="PaymentID" />
+              <Mapping SourceColumn="ConsultantCivilId" DataSetColumn="ConsultantCivilId" />
+              <Mapping SourceColumn="CompanyName" DataSetColumn="CompanyName" />
+              <Mapping SourceColumn="PaymentDate" DataSetColumn="PaymentDate" />
+              <Mapping SourceColumn="SupervisionLicenseNo" DataSetColumn="SupervisionLicenseNo" />
+              <Mapping SourceColumn="BuildingComplex" DataSetColumn="BuildingComplex" />
+              <Mapping SourceColumn="RequestDate" DataSetColumn="RequestDate" />
+              <Mapping SourceColumn="CreatedBy" DataSetColumn="CreatedBy" />
+              <Mapping SourceColumn="CreatedOn" DataSetColumn="CreatedOn" />
+              <Mapping SourceColumn="UpdatedBy" DataSetColumn="UpdatedBy" />
+              <Mapping SourceColumn="UpdatedOn" DataSetColumn="UpdatedOn" />
+              <Mapping SourceColumn="UnitNo" DataSetColumn="UnitNo" />
+              <Mapping SourceColumn="owners" DataSetColumn="owners" />
+              <Mapping SourceColumn="DMSupervisionStatment" DataSetColumn="DMSupervisionStatment" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="SpecialSignsTableAdapter" GeneratorDataComponentClassName="SpecialSignsTableAdapter" Name="SpecialSigns" UserDataComponentName="SpecialSignsTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="eServicesConnectionString (Web.config)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT        BldSupervisionServices.ID, BldSupervisionServices.ServiceTypeID, BldSupervisionServices.Status, BldSupervisionServices.OwnerCivilId, BldSupervisionServices.KrokiNO, BldSupervisionServices.OwnerName, 
+                         BldSupervisionServices.OwnerPhoneNo, BldSupervisionServices.CreatedBy, BldSupervisionServices.CreatedOn, BldSupervisionServices.UpdatedBy, BldSupervisionServices.UpdatedOn, BldSupervisionServices.LicenseNo, 
+                         BldSupervisionServicesTypes.ServiceNameAR, BldSupervisionServices.TransactNo, BldSupervisionServices.WelayahID, BldSupervisionServices.RegionID, BldSupervisionServices.SquareLetterID, 
+                         BldSupervisionServices.DistrictNo, BldSupervisionServices.UseTypeID, BldSupervisionServices.LandArea, BldSupervisionServices.DMSupervisionStatment, BldRegions.RegionArName, BldWelyat.WelyahArName, 
+                         BldSquareLetters.ArLetter, BldLandUseTypes.UseType
+FROM            BldSupervisionServices INNER JOIN
+                         BldSupervisionServicesTypes ON BldSupervisionServices.ServiceTypeID = BldSupervisionServicesTypes.ID INNER JOIN
+                         BldRegions ON BldSupervisionServices.RegionID = BldRegions.RegionID INNER JOIN
+                         BldSquareLetters ON BldSupervisionServices.SquareLetterID = BldSquareLetters.ID INNER JOIN
+                         BldWelyat ON BldSupervisionServices.WelayahID = BldWelyat.WelyahID INNER JOIN
+                         BldLandUseTypes ON BldSupervisionServices.UseTypeID = BldLandUseTypes.ID
+WHERE        (BldSupervisionServices.ID = @ID)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="ID" ColumnName="ID" DataSourceName="eServices.dbo.BldSupervisionServices" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@ID" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="ID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="ID" DataSetColumn="ID" />
+              <Mapping SourceColumn="ServiceTypeID" DataSetColumn="ServiceTypeID" />
+              <Mapping SourceColumn="Status" DataSetColumn="Status" />
+              <Mapping SourceColumn="OwnerCivilId" DataSetColumn="OwnerCivilId" />
+              <Mapping SourceColumn="KrokiNO" DataSetColumn="KrokiNO" />
+              <Mapping SourceColumn="OwnerName" DataSetColumn="OwnerName" />
+              <Mapping SourceColumn="OwnerPhoneNo" DataSetColumn="OwnerPhoneNo" />
+              <Mapping SourceColumn="CreatedBy" DataSetColumn="CreatedBy" />
+              <Mapping SourceColumn="CreatedOn" DataSetColumn="CreatedOn" />
+              <Mapping SourceColumn="UpdatedBy" DataSetColumn="UpdatedBy" />
+              <Mapping SourceColumn="UpdatedOn" DataSetColumn="UpdatedOn" />
+              <Mapping SourceColumn="LicenseNo" DataSetColumn="LicenseNo" />
+              <Mapping SourceColumn="ServiceNameAR" DataSetColumn="ServiceNameAR" />
+              <Mapping SourceColumn="TransactNo" DataSetColumn="TransactNo" />
+              <Mapping SourceColumn="WelayahID" DataSetColumn="WelayahID" />
+              <Mapping SourceColumn="RegionID" DataSetColumn="RegionID" />
+              <Mapping SourceColumn="SquareLetterID" DataSetColumn="SquareLetterID" />
+              <Mapping SourceColumn="DistrictNo" DataSetColumn="DistrictNo" />
+              <Mapping SourceColumn="UseTypeID" DataSetColumn="UseTypeID" />
+              <Mapping SourceColumn="LandArea" DataSetColumn="LandArea" />
+              <Mapping SourceColumn="DMSupervisionStatment" DataSetColumn="DMSupervisionStatment" />
+              <Mapping SourceColumn="RegionArName" DataSetColumn="RegionArName" />
+              <Mapping SourceColumn="WelyahArName" DataSetColumn="WelyahArName" />
+              <Mapping SourceColumn="ArLetter" DataSetColumn="ArLetter" />
+              <Mapping SourceColumn="UseType" DataSetColumn="UseType" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -829,6 +1066,13 @@ WHERE        (BldSupervisionServices.ID = @ID)</CommandText>
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
+              <xs:element name="ServiceNameAR" msprop:Generator_ColumnVarNameInTable="columnServiceNameAR" msprop:Generator_ColumnPropNameInRow="ServiceNameAR" msprop:Generator_ColumnPropNameInTable="ServiceNameARColumn" msprop:Generator_UserColumnName="ServiceNameAR">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -974,7 +1218,6 @@ WHERE        (BldSupervisionServices.ID = @ID)</CommandText>
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:int" />
-              <xs:element name="OwnerCivilId" msprop:Generator_ColumnVarNameInTable="columnOwnerCivilId" msprop:Generator_ColumnPropNameInRow="OwnerCivilId" msprop:Generator_ColumnPropNameInTable="OwnerCivilIdColumn" msprop:Generator_UserColumnName="OwnerCivilId" type="xs:int" minOccurs="0" />
               <xs:element name="KrokiNO" msprop:Generator_ColumnVarNameInTable="columnKrokiNO" msprop:Generator_ColumnPropNameInRow="KrokiNO" msprop:Generator_ColumnPropNameInTable="KrokiNOColumn" msprop:Generator_UserColumnName="KrokiNO" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
@@ -982,24 +1225,10 @@ WHERE        (BldSupervisionServices.ID = @ID)</CommandText>
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="OwnerName" msprop:Generator_ColumnVarNameInTable="columnOwnerName" msprop:Generator_ColumnPropNameInRow="OwnerName" msprop:Generator_ColumnPropNameInTable="OwnerNameColumn" msprop:Generator_UserColumnName="OwnerName" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="250" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
               <xs:element name="LicenseNo" msprop:Generator_ColumnVarNameInTable="columnLicenseNo" msprop:Generator_ColumnPropNameInRow="LicenseNo" msprop:Generator_ColumnPropNameInTable="LicenseNoColumn" msprop:Generator_UserColumnName="LicenseNo" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="100" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="TransactNo" msprop:Generator_ColumnVarNameInTable="columnTransactNo" msprop:Generator_ColumnPropNameInRow="TransactNo" msprop:Generator_ColumnPropNameInTable="TransactNoColumn" msprop:Generator_UserColumnName="TransactNo">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="400" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
@@ -1082,14 +1311,6 @@ WHERE        (BldSupervisionServices.ID = @ID)</CommandText>
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="WelyahEnName" msprop:Generator_ColumnVarNameInTable="columnWelyahEnName" msprop:Generator_ColumnPropNameInRow="WelyahEnName" msprop:Generator_ColumnPropNameInTable="WelyahEnNameColumn" msprop:Generator_UserColumnName="WelyahEnName">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="50" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="WelyahCode" msprop:Generator_ColumnVarNameInTable="columnWelyahCode" msprop:Generator_ColumnPropNameInRow="WelyahCode" msprop:Generator_ColumnPropNameInTable="WelyahCodeColumn" msprop:Generator_UserColumnName="WelyahCode" type="xs:int" />
               <xs:element name="ServiceNameAR" msprop:Generator_ColumnVarNameInTable="columnServiceNameAR" msprop:Generator_ColumnPropNameInRow="ServiceNameAR" msprop:Generator_ColumnPropNameInTable="ServiceNameARColumn" msprop:Generator_UserColumnName="ServiceNameAR">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
@@ -1108,13 +1329,6 @@ WHERE        (BldSupervisionServices.ID = @ID)</CommandText>
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="10" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="EnLetter" msprop:Generator_ColumnVarNameInTable="columnEnLetter" msprop:Generator_ColumnPropNameInRow="EnLetter" msprop:Generator_ColumnPropNameInTable="EnLetterColumn" msprop:Generator_UserColumnName="EnLetter" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="5" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
@@ -1214,6 +1428,20 @@ WHERE        (BldSupervisionServices.ID = @ID)</CommandText>
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
+              <xs:element name="owners" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnowners" msprop:Generator_ColumnPropNameInRow="owners" msprop:Generator_ColumnPropNameInTable="ownersColumn" msprop:Generator_UserColumnName="owners" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DMSupervisionStatment" msprop:Generator_ColumnVarNameInTable="columnDMSupervisionStatment" msprop:Generator_ColumnPropNameInRow="DMSupervisionStatment" msprop:Generator_ColumnPropNameInTable="DMSupervisionStatmentColumn" msprop:Generator_UserColumnName="DMSupervisionStatment" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1236,6 +1464,558 @@ WHERE        (BldSupervisionServices.ID = @ID)</CommandText>
                 </xs:simpleType>
               </xs:element>
               <xs:element name="ServiceStatus" msprop:Generator_ColumnVarNameInTable="columnServiceStatus" msprop:Generator_ColumnPropNameInRow="ServiceStatus" msprop:Generator_ColumnPropNameInTable="ServiceStatusColumn" msprop:Generator_UserColumnName="ServiceStatus" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="UnpaidServices" msprop:Generator_TableClassName="UnpaidServicesDataTable" msprop:Generator_TableVarName="tableUnpaidServices" msprop:Generator_TablePropName="UnpaidServices" msprop:Generator_RowDeletingName="UnpaidServicesRowDeleting" msprop:Generator_RowChangingName="UnpaidServicesRowChanging" msprop:Generator_RowEvHandlerName="UnpaidServicesRowChangeEventHandler" msprop:Generator_RowDeletedName="UnpaidServicesRowDeleted" msprop:Generator_UserTableName="UnpaidServices" msprop:Generator_RowChangedName="UnpaidServicesRowChanged" msprop:Generator_RowEvArgName="UnpaidServicesRowChangeEvent" msprop:Generator_RowClassName="UnpaidServicesRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ConsultantCrNo" msprop:Generator_ColumnVarNameInTable="columnConsultantCrNo" msprop:Generator_ColumnPropNameInRow="ConsultantCrNo" msprop:Generator_ColumnPropNameInTable="ConsultantCrNoColumn" msprop:Generator_UserColumnName="ConsultantCrNo" type="xs:int" />
+              <xs:element name="NumberOfFloors" msprop:Generator_ColumnVarNameInTable="columnNumberOfFloors" msprop:Generator_ColumnPropNameInRow="NumberOfFloors" msprop:Generator_ColumnPropNameInTable="NumberOfFloorsColumn" msprop:Generator_UserColumnName="NumberOfFloors" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ConstructedArea" msprop:Generator_ColumnVarNameInTable="columnConstructedArea" msprop:Generator_ColumnPropNameInRow="ConstructedArea" msprop:Generator_ColumnPropNameInTable="ConstructedAreaColumn" msprop:Generator_UserColumnName="ConstructedArea" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="LicenseNo" msprop:Generator_ColumnVarNameInTable="columnLicenseNo" msprop:Generator_ColumnPropNameInRow="LicenseNo" msprop:Generator_ColumnPropNameInTable="LicenseNoColumn" msprop:Generator_UserColumnName="LicenseNo" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="KrokiNO" msprop:Generator_ColumnVarNameInTable="columnKrokiNO" msprop:Generator_ColumnPropNameInRow="KrokiNO" msprop:Generator_ColumnPropNameInTable="KrokiNOColumn" msprop:Generator_UserColumnName="KrokiNO" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DmFileNumber" msprop:Generator_ColumnVarNameInTable="columnDmFileNumber" msprop:Generator_ColumnPropNameInRow="DmFileNumber" msprop:Generator_ColumnPropNameInTable="DmFileNumberColumn" msprop:Generator_UserColumnName="DmFileNumber" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DMLicenseComments" msprop:Generator_ColumnVarNameInTable="columnDMLicenseComments" msprop:Generator_ColumnPropNameInRow="DMLicenseComments" msprop:Generator_ColumnPropNameInTable="DMLicenseCommentsColumn" msprop:Generator_UserColumnName="DMLicenseComments" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="LandArea" msprop:Generator_ColumnVarNameInTable="columnLandArea" msprop:Generator_ColumnPropNameInRow="LandArea" msprop:Generator_ColumnPropNameInTable="LandAreaColumn" msprop:Generator_UserColumnName="LandArea" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="LandDeedReceiptDate" msprop:Generator_ColumnVarNameInTable="columnLandDeedReceiptDate" msprop:Generator_ColumnPropNameInRow="LandDeedReceiptDate" msprop:Generator_ColumnPropNameInTable="LandDeedReceiptDateColumn" msprop:Generator_UserColumnName="LandDeedReceiptDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="LandDeedNo" msprop:Generator_ColumnVarNameInTable="columnLandDeedNo" msprop:Generator_ColumnPropNameInRow="LandDeedNo" msprop:Generator_ColumnPropNameInTable="LandDeedNoColumn" msprop:Generator_UserColumnName="LandDeedNo" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="OwnerNotes" msprop:Generator_ColumnVarNameInTable="columnOwnerNotes" msprop:Generator_ColumnPropNameInRow="OwnerNotes" msprop:Generator_ColumnPropNameInTable="OwnerNotesColumn" msprop:Generator_UserColumnName="OwnerNotes" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ConsultantNotes" msprop:Generator_ColumnVarNameInTable="columnConsultantNotes" msprop:Generator_ColumnPropNameInRow="ConsultantNotes" msprop:Generator_ColumnPropNameInTable="ConsultantNotesColumn" msprop:Generator_UserColumnName="ConsultantNotes" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FileNumber" msprop:Generator_ColumnVarNameInTable="columnFileNumber" msprop:Generator_ColumnPropNameInRow="FileNumber" msprop:Generator_ColumnPropNameInTable="FileNumberColumn" msprop:Generator_UserColumnName="FileNumber" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DmInspectorComments" msprop:Generator_ColumnVarNameInTable="columnDmInspectorComments" msprop:Generator_ColumnPropNameInRow="DmInspectorComments" msprop:Generator_ColumnPropNameInTable="DmInspectorCommentsColumn" msprop:Generator_UserColumnName="DmInspectorComments" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="500" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TransactNo" msprop:Generator_ColumnVarNameInTable="columnTransactNo" msprop:Generator_ColumnPropNameInRow="TransactNo" msprop:Generator_ColumnPropNameInTable="TransactNoColumn" msprop:Generator_UserColumnName="TransactNo">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="400" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:int" />
+              <xs:element name="WelyahArName" msprop:Generator_ColumnVarNameInTable="columnWelyahArName" msprop:Generator_ColumnPropNameInRow="WelyahArName" msprop:Generator_ColumnPropNameInTable="WelyahArNameColumn" msprop:Generator_UserColumnName="WelyahArName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="WelyahEnName" msprop:Generator_ColumnVarNameInTable="columnWelyahEnName" msprop:Generator_ColumnPropNameInRow="WelyahEnName" msprop:Generator_ColumnPropNameInTable="WelyahEnNameColumn" msprop:Generator_UserColumnName="WelyahEnName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="WelyahCode" msprop:Generator_ColumnVarNameInTable="columnWelyahCode" msprop:Generator_ColumnPropNameInRow="WelyahCode" msprop:Generator_ColumnPropNameInTable="WelyahCodeColumn" msprop:Generator_UserColumnName="WelyahCode" type="xs:int" />
+              <xs:element name="ServiceNameAR" msprop:Generator_ColumnVarNameInTable="columnServiceNameAR" msprop:Generator_ColumnPropNameInRow="ServiceNameAR" msprop:Generator_ColumnPropNameInTable="ServiceNameARColumn" msprop:Generator_UserColumnName="ServiceNameAR">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ServiceNameEn" msprop:Generator_ColumnVarNameInTable="columnServiceNameEn" msprop:Generator_ColumnPropNameInRow="ServiceNameEn" msprop:Generator_ColumnPropNameInTable="ServiceNameEnColumn" msprop:Generator_UserColumnName="ServiceNameEn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ArLetter" msprop:Generator_ColumnVarNameInTable="columnArLetter" msprop:Generator_ColumnPropNameInRow="ArLetter" msprop:Generator_ColumnPropNameInTable="ArLetterColumn" msprop:Generator_UserColumnName="ArLetter" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="EnLetter" msprop:Generator_ColumnVarNameInTable="columnEnLetter" msprop:Generator_ColumnPropNameInRow="EnLetter" msprop:Generator_ColumnPropNameInTable="EnLetterColumn" msprop:Generator_UserColumnName="EnLetter" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="BuildingType" msprop:Generator_ColumnVarNameInTable="columnBuildingType" msprop:Generator_ColumnPropNameInRow="BuildingType" msprop:Generator_ColumnPropNameInTable="BuildingTypeColumn" msprop:Generator_UserColumnName="BuildingType" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="UseType" msprop:Generator_ColumnVarNameInTable="columnUseType" msprop:Generator_ColumnPropNameInRow="UseType" msprop:Generator_ColumnPropNameInTable="UseTypeColumn" msprop:Generator_UserColumnName="UseType" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="RegionArName" msprop:Generator_ColumnVarNameInTable="columnRegionArName" msprop:Generator_ColumnPropNameInRow="RegionArName" msprop:Generator_ColumnPropNameInTable="RegionArNameColumn" msprop:Generator_UserColumnName="RegionArName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="RegionEnName" msprop:Generator_ColumnVarNameInTable="columnRegionEnName" msprop:Generator_ColumnPropNameInRow="RegionEnName" msprop:Generator_ColumnPropNameInTable="RegionEnNameColumn" msprop:Generator_UserColumnName="RegionEnName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="RegionCode" msprop:Generator_ColumnVarNameInTable="columnRegionCode" msprop:Generator_ColumnPropNameInRow="RegionCode" msprop:Generator_ColumnPropNameInTable="RegionCodeColumn" msprop:Generator_UserColumnName="RegionCode" type="xs:int" />
+              <xs:element name="DistrictNo" msprop:Generator_ColumnVarNameInTable="columnDistrictNo" msprop:Generator_ColumnPropNameInRow="DistrictNo" msprop:Generator_ColumnPropNameInTable="DistrictNoColumn" msprop:Generator_UserColumnName="DistrictNo" type="xs:int" minOccurs="0" />
+              <xs:element name="BldPermitID" msprop:Generator_ColumnVarNameInTable="columnBldPermitID" msprop:Generator_ColumnPropNameInRow="BldPermitID" msprop:Generator_ColumnPropNameInTable="BldPermitIDColumn" msprop:Generator_UserColumnName="BldPermitID" type="xs:int" />
+              <xs:element name="Contractor_CR_Number" msprop:Generator_ColumnVarNameInTable="columnContractor_CR_Number" msprop:Generator_ColumnPropNameInRow="Contractor_CR_Number" msprop:Generator_ColumnPropNameInTable="Contractor_CR_NumberColumn" msprop:Generator_UserColumnName="Contractor_CR_Number" type="xs:int" minOccurs="0" />
+              <xs:element name="ConsultantCivilId" msprop:Generator_ColumnVarNameInTable="columnConsultantCivilId" msprop:Generator_ColumnPropNameInRow="ConsultantCivilId" msprop:Generator_ColumnPropNameInTable="ConsultantCivilIdColumn" msprop:Generator_UserColumnName="ConsultantCivilId" type="xs:int" minOccurs="0" />
+              <xs:element name="SupervisionLicenseNo" msprop:Generator_ColumnVarNameInTable="columnSupervisionLicenseNo" msprop:Generator_ColumnPropNameInRow="SupervisionLicenseNo" msprop:Generator_ColumnPropNameInTable="SupervisionLicenseNoColumn" msprop:Generator_UserColumnName="SupervisionLicenseNo" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="owners" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnowners" msprop:Generator_ColumnPropNameInRow="owners" msprop:Generator_ColumnPropNameInTable="ownersColumn" msprop:Generator_UserColumnName="owners" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DMSupervisionStatment" msprop:Generator_ColumnVarNameInTable="columnDMSupervisionStatment" msprop:Generator_ColumnPropNameInRow="DMSupervisionStatment" msprop:Generator_ColumnPropNameInTable="DMSupervisionStatmentColumn" msprop:Generator_UserColumnName="DMSupervisionStatment" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ServiceTypeID" msprop:Generator_ColumnVarNameInTable="columnServiceTypeID" msprop:Generator_ColumnPropNameInRow="ServiceTypeID" msprop:Generator_ColumnPropNameInTable="ServiceTypeIDColumn" msprop:Generator_UserColumnName="ServiceTypeID" type="xs:int" />
+              <xs:element name="OwnerCivilId" msprop:Generator_ColumnVarNameInTable="columnOwnerCivilId" msprop:Generator_ColumnPropNameInRow="OwnerCivilId" msprop:Generator_ColumnPropNameInTable="OwnerCivilIdColumn" msprop:Generator_UserColumnName="OwnerCivilId" type="xs:int" minOccurs="0" />
+              <xs:element name="OwnerName" msprop:Generator_ColumnVarNameInTable="columnOwnerName" msprop:Generator_ColumnPropNameInRow="OwnerName" msprop:Generator_ColumnPropNameInTable="OwnerNameColumn" msprop:Generator_UserColumnName="OwnerName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="AlreadyPaidServices" msprop:Generator_TableClassName="AlreadyPaidServicesDataTable" msprop:Generator_TableVarName="tableAlreadyPaidServices" msprop:Generator_RowChangedName="AlreadyPaidServicesRowChanged" msprop:Generator_TablePropName="AlreadyPaidServices" msprop:Generator_RowDeletingName="AlreadyPaidServicesRowDeleting" msprop:Generator_RowChangingName="AlreadyPaidServicesRowChanging" msprop:Generator_RowEvHandlerName="AlreadyPaidServicesRowChangeEventHandler" msprop:Generator_RowDeletedName="AlreadyPaidServicesRowDeleted" msprop:Generator_RowClassName="AlreadyPaidServicesRow" msprop:Generator_UserTableName="AlreadyPaidServices" msprop:Generator_RowEvArgName="AlreadyPaidServicesRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ConsultantCrNo" msprop:Generator_ColumnVarNameInTable="columnConsultantCrNo" msprop:Generator_ColumnPropNameInRow="ConsultantCrNo" msprop:Generator_ColumnPropNameInTable="ConsultantCrNoColumn" msprop:Generator_UserColumnName="ConsultantCrNo" type="xs:int" />
+              <xs:element name="NumberOfFloors" msprop:Generator_ColumnVarNameInTable="columnNumberOfFloors" msprop:Generator_ColumnPropNameInRow="NumberOfFloors" msprop:Generator_ColumnPropNameInTable="NumberOfFloorsColumn" msprop:Generator_UserColumnName="NumberOfFloors" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ConstructedArea" msprop:Generator_ColumnVarNameInTable="columnConstructedArea" msprop:Generator_ColumnPropNameInRow="ConstructedArea" msprop:Generator_ColumnPropNameInTable="ConstructedAreaColumn" msprop:Generator_UserColumnName="ConstructedArea" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="LicenseNo" msprop:Generator_ColumnVarNameInTable="columnLicenseNo" msprop:Generator_ColumnPropNameInRow="LicenseNo" msprop:Generator_ColumnPropNameInTable="LicenseNoColumn" msprop:Generator_UserColumnName="LicenseNo" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="KrokiNO" msprop:Generator_ColumnVarNameInTable="columnKrokiNO" msprop:Generator_ColumnPropNameInRow="KrokiNO" msprop:Generator_ColumnPropNameInTable="KrokiNOColumn" msprop:Generator_UserColumnName="KrokiNO" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DmFileNumber" msprop:Generator_ColumnVarNameInTable="columnDmFileNumber" msprop:Generator_ColumnPropNameInRow="DmFileNumber" msprop:Generator_ColumnPropNameInTable="DmFileNumberColumn" msprop:Generator_UserColumnName="DmFileNumber" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DMLicenseComments" msprop:Generator_ColumnVarNameInTable="columnDMLicenseComments" msprop:Generator_ColumnPropNameInRow="DMLicenseComments" msprop:Generator_ColumnPropNameInTable="DMLicenseCommentsColumn" msprop:Generator_UserColumnName="DMLicenseComments" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="LandArea" msprop:Generator_ColumnVarNameInTable="columnLandArea" msprop:Generator_ColumnPropNameInRow="LandArea" msprop:Generator_ColumnPropNameInTable="LandAreaColumn" msprop:Generator_UserColumnName="LandArea" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="LandDeedReceiptDate" msprop:Generator_ColumnVarNameInTable="columnLandDeedReceiptDate" msprop:Generator_ColumnPropNameInRow="LandDeedReceiptDate" msprop:Generator_ColumnPropNameInTable="LandDeedReceiptDateColumn" msprop:Generator_UserColumnName="LandDeedReceiptDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="LandDeedNo" msprop:Generator_ColumnVarNameInTable="columnLandDeedNo" msprop:Generator_ColumnPropNameInRow="LandDeedNo" msprop:Generator_ColumnPropNameInTable="LandDeedNoColumn" msprop:Generator_UserColumnName="LandDeedNo" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="OwnerNotes" msprop:Generator_ColumnVarNameInTable="columnOwnerNotes" msprop:Generator_ColumnPropNameInRow="OwnerNotes" msprop:Generator_ColumnPropNameInTable="OwnerNotesColumn" msprop:Generator_UserColumnName="OwnerNotes" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ConsultantNotes" msprop:Generator_ColumnVarNameInTable="columnConsultantNotes" msprop:Generator_ColumnPropNameInRow="ConsultantNotes" msprop:Generator_ColumnPropNameInTable="ConsultantNotesColumn" msprop:Generator_UserColumnName="ConsultantNotes" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FileNumber" msprop:Generator_ColumnVarNameInTable="columnFileNumber" msprop:Generator_ColumnPropNameInRow="FileNumber" msprop:Generator_ColumnPropNameInTable="FileNumberColumn" msprop:Generator_UserColumnName="FileNumber" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DmInspectorComments" msprop:Generator_ColumnVarNameInTable="columnDmInspectorComments" msprop:Generator_ColumnPropNameInRow="DmInspectorComments" msprop:Generator_ColumnPropNameInTable="DmInspectorCommentsColumn" msprop:Generator_UserColumnName="DmInspectorComments" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="500" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:int" />
+              <xs:element name="WelyahArName" msprop:Generator_ColumnVarNameInTable="columnWelyahArName" msprop:Generator_ColumnPropNameInRow="WelyahArName" msprop:Generator_ColumnPropNameInTable="WelyahArNameColumn" msprop:Generator_UserColumnName="WelyahArName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ServiceNameAR" msprop:Generator_ColumnVarNameInTable="columnServiceNameAR" msprop:Generator_ColumnPropNameInRow="ServiceNameAR" msprop:Generator_ColumnPropNameInTable="ServiceNameARColumn" msprop:Generator_UserColumnName="ServiceNameAR">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ServiceNameEn" msprop:Generator_ColumnVarNameInTable="columnServiceNameEn" msprop:Generator_ColumnPropNameInRow="ServiceNameEn" msprop:Generator_ColumnPropNameInTable="ServiceNameEnColumn" msprop:Generator_UserColumnName="ServiceNameEn" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ArLetter" msprop:Generator_ColumnVarNameInTable="columnArLetter" msprop:Generator_ColumnPropNameInRow="ArLetter" msprop:Generator_ColumnPropNameInTable="ArLetterColumn" msprop:Generator_UserColumnName="ArLetter" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="BuildingType" msprop:Generator_ColumnVarNameInTable="columnBuildingType" msprop:Generator_ColumnPropNameInRow="BuildingType" msprop:Generator_ColumnPropNameInTable="BuildingTypeColumn" msprop:Generator_UserColumnName="BuildingType" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="UseType" msprop:Generator_ColumnVarNameInTable="columnUseType" msprop:Generator_ColumnPropNameInRow="UseType" msprop:Generator_ColumnPropNameInTable="UseTypeColumn" msprop:Generator_UserColumnName="UseType" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="RegionArName" msprop:Generator_ColumnVarNameInTable="columnRegionArName" msprop:Generator_ColumnPropNameInRow="RegionArName" msprop:Generator_ColumnPropNameInTable="RegionArNameColumn" msprop:Generator_UserColumnName="RegionArName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="RegionEnName" msprop:Generator_ColumnVarNameInTable="columnRegionEnName" msprop:Generator_ColumnPropNameInRow="RegionEnName" msprop:Generator_ColumnPropNameInTable="RegionEnNameColumn" msprop:Generator_UserColumnName="RegionEnName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="RegionCode" msprop:Generator_ColumnVarNameInTable="columnRegionCode" msprop:Generator_ColumnPropNameInRow="RegionCode" msprop:Generator_ColumnPropNameInTable="RegionCodeColumn" msprop:Generator_UserColumnName="RegionCode" type="xs:int" />
+              <xs:element name="DistrictNo" msprop:Generator_ColumnVarNameInTable="columnDistrictNo" msprop:Generator_ColumnPropNameInRow="DistrictNo" msprop:Generator_ColumnPropNameInTable="DistrictNoColumn" msprop:Generator_UserColumnName="DistrictNo" type="xs:int" minOccurs="0" />
+              <xs:element name="BldPermitID" msprop:Generator_ColumnVarNameInTable="columnBldPermitID" msprop:Generator_ColumnPropNameInRow="BldPermitID" msprop:Generator_ColumnPropNameInTable="BldPermitIDColumn" msprop:Generator_UserColumnName="BldPermitID" type="xs:int" />
+              <xs:element name="Contractor_Name" msprop:Generator_ColumnVarNameInTable="columnContractor_Name" msprop:Generator_ColumnPropNameInRow="Contractor_Name" msprop:Generator_ColumnPropNameInTable="Contractor_NameColumn" msprop:Generator_UserColumnName="Contractor_Name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="200" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Contractor_CRNumber" msprop:Generator_ColumnVarNameInTable="columnContractor_CRNumber" msprop:Generator_ColumnPropNameInRow="Contractor_CRNumber" msprop:Generator_ColumnPropNameInTable="Contractor_CRNumberColumn" msprop:Generator_UserColumnName="Contractor_CRNumber" type="xs:int" minOccurs="0" />
+              <xs:element name="Contractor_CR_Number" msprop:Generator_ColumnVarNameInTable="columnContractor_CR_Number" msprop:Generator_ColumnPropNameInRow="Contractor_CR_Number" msprop:Generator_ColumnPropNameInTable="Contractor_CR_NumberColumn" msprop:Generator_UserColumnName="Contractor_CR_Number" type="xs:int" minOccurs="0" />
+              <xs:element name="Referenceid" msprop:Generator_ColumnVarNameInTable="columnReferenceid" msprop:Generator_ColumnPropNameInRow="Referenceid" msprop:Generator_ColumnPropNameInTable="ReferenceidColumn" msprop:Generator_UserColumnName="Referenceid" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="200" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PaymentType" msprop:Generator_ColumnVarNameInTable="columnPaymentType" msprop:Generator_ColumnPropNameInRow="PaymentType" msprop:Generator_ColumnPropNameInTable="PaymentTypeColumn" msprop:Generator_UserColumnName="PaymentType" type="xs:int" minOccurs="0" />
+              <xs:element name="PaymentID" msprop:Generator_ColumnVarNameInTable="columnPaymentID" msprop:Generator_ColumnPropNameInRow="PaymentID" msprop:Generator_ColumnPropNameInTable="PaymentIDColumn" msprop:Generator_UserColumnName="PaymentID" type="xs:int" minOccurs="0" />
+              <xs:element name="ConsultantCivilId" msprop:Generator_ColumnVarNameInTable="columnConsultantCivilId" msprop:Generator_ColumnPropNameInRow="ConsultantCivilId" msprop:Generator_ColumnPropNameInTable="ConsultantCivilIdColumn" msprop:Generator_UserColumnName="ConsultantCivilId" type="xs:int" minOccurs="0" />
+              <xs:element name="CompanyName" msprop:Generator_ColumnVarNameInTable="columnCompanyName" msprop:Generator_ColumnPropNameInRow="CompanyName" msprop:Generator_ColumnPropNameInTable="CompanyNameColumn" msprop:Generator_UserColumnName="CompanyName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="400" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PaymentDate" msprop:Generator_ColumnVarNameInTable="columnPaymentDate" msprop:Generator_ColumnPropNameInRow="PaymentDate" msprop:Generator_ColumnPropNameInTable="PaymentDateColumn" msprop:Generator_UserColumnName="PaymentDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="SupervisionLicenseNo" msprop:Generator_ColumnVarNameInTable="columnSupervisionLicenseNo" msprop:Generator_ColumnPropNameInRow="SupervisionLicenseNo" msprop:Generator_ColumnPropNameInTable="SupervisionLicenseNoColumn" msprop:Generator_UserColumnName="SupervisionLicenseNo" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="BuildingComplex" msprop:Generator_ColumnVarNameInTable="columnBuildingComplex" msprop:Generator_ColumnPropNameInRow="BuildingComplex" msprop:Generator_ColumnPropNameInTable="BuildingComplexColumn" msprop:Generator_UserColumnName="BuildingComplex" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="RequestDate" msprop:Generator_ColumnVarNameInTable="columnRequestDate" msprop:Generator_ColumnPropNameInRow="RequestDate" msprop:Generator_ColumnPropNameInTable="RequestDateColumn" msprop:Generator_UserColumnName="RequestDate" type="xs:dateTime" />
+              <xs:element name="CreatedBy" msprop:Generator_ColumnVarNameInTable="columnCreatedBy" msprop:Generator_ColumnPropNameInRow="CreatedBy" msprop:Generator_ColumnPropNameInTable="CreatedByColumn" msprop:Generator_UserColumnName="CreatedBy" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="150" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CreatedOn" msprop:Generator_ColumnVarNameInTable="columnCreatedOn" msprop:Generator_ColumnPropNameInRow="CreatedOn" msprop:Generator_ColumnPropNameInTable="CreatedOnColumn" msprop:Generator_UserColumnName="CreatedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="UpdatedBy" msprop:Generator_ColumnVarNameInTable="columnUpdatedBy" msprop:Generator_ColumnPropNameInRow="UpdatedBy" msprop:Generator_ColumnPropNameInTable="UpdatedByColumn" msprop:Generator_UserColumnName="UpdatedBy" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="150" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="UpdatedOn" msprop:Generator_ColumnVarNameInTable="columnUpdatedOn" msprop:Generator_ColumnPropNameInRow="UpdatedOn" msprop:Generator_ColumnPropNameInTable="UpdatedOnColumn" msprop:Generator_UserColumnName="UpdatedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="UnitNo" msprop:Generator_ColumnVarNameInTable="columnUnitNo" msprop:Generator_ColumnPropNameInRow="UnitNo" msprop:Generator_ColumnPropNameInTable="UnitNoColumn" msprop:Generator_UserColumnName="UnitNo" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="owners" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnowners" msprop:Generator_ColumnPropNameInRow="owners" msprop:Generator_ColumnPropNameInTable="ownersColumn" msprop:Generator_UserColumnName="owners" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DMSupervisionStatment" msprop:Generator_ColumnVarNameInTable="columnDMSupervisionStatment" msprop:Generator_ColumnPropNameInRow="DMSupervisionStatment" msprop:Generator_ColumnPropNameInTable="DMSupervisionStatmentColumn" msprop:Generator_UserColumnName="DMSupervisionStatment" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SpecialSigns" msprop:Generator_TableClassName="SpecialSignsDataTable" msprop:Generator_TableVarName="tableSpecialSigns" msprop:Generator_TablePropName="SpecialSigns" msprop:Generator_RowDeletingName="SpecialSignsRowDeleting" msprop:Generator_RowChangingName="SpecialSignsRowChanging" msprop:Generator_RowEvHandlerName="SpecialSignsRowChangeEventHandler" msprop:Generator_RowDeletedName="SpecialSignsRowDeleted" msprop:Generator_UserTableName="SpecialSigns" msprop:Generator_RowChangedName="SpecialSignsRowChanged" msprop:Generator_RowEvArgName="SpecialSignsRowChangeEvent" msprop:Generator_RowClassName="SpecialSignsRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:int" />
+              <xs:element name="ServiceTypeID" msprop:Generator_ColumnVarNameInTable="columnServiceTypeID" msprop:Generator_ColumnPropNameInRow="ServiceTypeID" msprop:Generator_ColumnPropNameInTable="ServiceTypeIDColumn" msprop:Generator_UserColumnName="ServiceTypeID" type="xs:int" />
+              <xs:element name="Status" msprop:Generator_ColumnVarNameInTable="columnStatus" msprop:Generator_ColumnPropNameInRow="Status" msprop:Generator_ColumnPropNameInTable="StatusColumn" msprop:Generator_UserColumnName="Status" type="xs:int" minOccurs="0" />
+              <xs:element name="OwnerCivilId" msprop:Generator_ColumnVarNameInTable="columnOwnerCivilId" msprop:Generator_ColumnPropNameInRow="OwnerCivilId" msprop:Generator_ColumnPropNameInTable="OwnerCivilIdColumn" msprop:Generator_UserColumnName="OwnerCivilId" type="xs:int" minOccurs="0" />
+              <xs:element name="KrokiNO" msprop:Generator_ColumnVarNameInTable="columnKrokiNO" msprop:Generator_ColumnPropNameInRow="KrokiNO" msprop:Generator_ColumnPropNameInTable="KrokiNOColumn" msprop:Generator_UserColumnName="KrokiNO" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="OwnerName" msprop:Generator_ColumnVarNameInTable="columnOwnerName" msprop:Generator_ColumnPropNameInRow="OwnerName" msprop:Generator_ColumnPropNameInTable="OwnerNameColumn" msprop:Generator_UserColumnName="OwnerName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="OwnerPhoneNo" msprop:Generator_ColumnVarNameInTable="columnOwnerPhoneNo" msprop:Generator_ColumnPropNameInRow="OwnerPhoneNo" msprop:Generator_ColumnPropNameInTable="OwnerPhoneNoColumn" msprop:Generator_UserColumnName="OwnerPhoneNo" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CreatedBy" msprop:Generator_ColumnVarNameInTable="columnCreatedBy" msprop:Generator_ColumnPropNameInRow="CreatedBy" msprop:Generator_ColumnPropNameInTable="CreatedByColumn" msprop:Generator_UserColumnName="CreatedBy" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="150" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CreatedOn" msprop:Generator_ColumnVarNameInTable="columnCreatedOn" msprop:Generator_ColumnPropNameInRow="CreatedOn" msprop:Generator_ColumnPropNameInTable="CreatedOnColumn" msprop:Generator_UserColumnName="CreatedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="UpdatedBy" msprop:Generator_ColumnVarNameInTable="columnUpdatedBy" msprop:Generator_ColumnPropNameInRow="UpdatedBy" msprop:Generator_ColumnPropNameInTable="UpdatedByColumn" msprop:Generator_UserColumnName="UpdatedBy" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="150" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="UpdatedOn" msprop:Generator_ColumnVarNameInTable="columnUpdatedOn" msprop:Generator_ColumnPropNameInRow="UpdatedOn" msprop:Generator_ColumnPropNameInTable="UpdatedOnColumn" msprop:Generator_UserColumnName="UpdatedOn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="LicenseNo" msprop:Generator_ColumnVarNameInTable="columnLicenseNo" msprop:Generator_ColumnPropNameInRow="LicenseNo" msprop:Generator_ColumnPropNameInTable="LicenseNoColumn" msprop:Generator_UserColumnName="LicenseNo" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ServiceNameAR" msprop:Generator_ColumnVarNameInTable="columnServiceNameAR" msprop:Generator_ColumnPropNameInRow="ServiceNameAR" msprop:Generator_ColumnPropNameInTable="ServiceNameARColumn" msprop:Generator_UserColumnName="ServiceNameAR">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TransactNo" msprop:Generator_ColumnVarNameInTable="columnTransactNo" msprop:Generator_ColumnPropNameInRow="TransactNo" msprop:Generator_ColumnPropNameInTable="TransactNoColumn" msprop:Generator_UserColumnName="TransactNo">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="400" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="WelayahID" msprop:Generator_ColumnVarNameInTable="columnWelayahID" msprop:Generator_ColumnPropNameInRow="WelayahID" msprop:Generator_ColumnPropNameInTable="WelayahIDColumn" msprop:Generator_UserColumnName="WelayahID" type="xs:int" minOccurs="0" />
+              <xs:element name="RegionID" msprop:Generator_ColumnVarNameInTable="columnRegionID" msprop:Generator_ColumnPropNameInRow="RegionID" msprop:Generator_ColumnPropNameInTable="RegionIDColumn" msprop:Generator_UserColumnName="RegionID" type="xs:int" minOccurs="0" />
+              <xs:element name="SquareLetterID" msprop:Generator_ColumnVarNameInTable="columnSquareLetterID" msprop:Generator_ColumnPropNameInRow="SquareLetterID" msprop:Generator_ColumnPropNameInTable="SquareLetterIDColumn" msprop:Generator_UserColumnName="SquareLetterID" type="xs:int" minOccurs="0" />
+              <xs:element name="DistrictNo" msprop:Generator_ColumnVarNameInTable="columnDistrictNo" msprop:Generator_ColumnPropNameInRow="DistrictNo" msprop:Generator_ColumnPropNameInTable="DistrictNoColumn" msprop:Generator_UserColumnName="DistrictNo" type="xs:int" minOccurs="0" />
+              <xs:element name="UseTypeID" msprop:Generator_ColumnVarNameInTable="columnUseTypeID" msprop:Generator_ColumnPropNameInRow="UseTypeID" msprop:Generator_ColumnPropNameInTable="UseTypeIDColumn" msprop:Generator_UserColumnName="UseTypeID" type="xs:int" minOccurs="0" />
+              <xs:element name="LandArea" msprop:Generator_ColumnVarNameInTable="columnLandArea" msprop:Generator_ColumnPropNameInRow="LandArea" msprop:Generator_ColumnPropNameInTable="LandAreaColumn" msprop:Generator_UserColumnName="LandArea" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DMSupervisionStatment" msprop:Generator_ColumnVarNameInTable="columnDMSupervisionStatment" msprop:Generator_ColumnPropNameInRow="DMSupervisionStatment" msprop:Generator_ColumnPropNameInTable="DMSupervisionStatmentColumn" msprop:Generator_UserColumnName="DMSupervisionStatment" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="RegionArName" msprop:Generator_ColumnVarNameInTable="columnRegionArName" msprop:Generator_ColumnPropNameInRow="RegionArName" msprop:Generator_ColumnPropNameInTable="RegionArNameColumn" msprop:Generator_UserColumnName="RegionArName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="WelyahArName" msprop:Generator_ColumnVarNameInTable="columnWelyahArName" msprop:Generator_ColumnPropNameInRow="WelyahArName" msprop:Generator_ColumnPropNameInTable="WelyahArNameColumn" msprop:Generator_UserColumnName="WelyahArName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ArLetter" msprop:Generator_ColumnVarNameInTable="columnArLetter" msprop:Generator_ColumnPropNameInRow="ArLetter" msprop:Generator_ColumnPropNameInTable="ArLetterColumn" msprop:Generator_UserColumnName="ArLetter" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="UseType" msprop:Generator_ColumnVarNameInTable="columnUseType" msprop:Generator_ColumnPropNameInRow="UseType" msprop:Generator_ColumnPropNameInTable="UseTypeColumn" msprop:Generator_UserColumnName="UseType" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1277,6 +2057,18 @@ WHERE        (BldSupervisionServices.ID = @ID)</CommandText>
       <xs:selector xpath=".//mstns:BldSupervisionServicesTypes" />
       <xs:field xpath="mstns:ID" />
     </xs:unique>
+    <xs:unique name="UnpaidServices_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:UnpaidServices" />
+      <xs:field xpath="mstns:ID" />
+    </xs:unique>
+    <xs:unique name="AlreadyPaidServices_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:AlreadyPaidServices" />
+      <xs:field xpath="mstns:ID" />
+    </xs:unique>
+    <xs:unique name="SpecialSigns_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:SpecialSigns" />
+      <xs:field xpath="mstns:ID" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -1287,6 +2079,8 @@ WHERE        (BldSupervisionServices.ID = @ID)</CommandText>
       <msdata:Relationship name="FK_BldPermits_BldWelyat" msdata:parent="BldWelyat" msdata:child="BldPermits" msdata:parentkey="WelyahID" msdata:childkey="WelayahID" msprop:Generator_UserChildTable="BldPermits" msprop:Generator_ChildPropName="GetBldPermitsRows" msprop:Generator_UserRelationName="FK_BldPermits_BldWelyat" msprop:Generator_ParentPropName="BldWelyatRow" msprop:Generator_RelationVarName="relationFK_BldPermits_BldWelyat" msprop:Generator_UserParentTable="BldWelyat" />
       <msdata:Relationship name="FK_BldRegions_BldWelyat" msdata:parent="BldWelyat" msdata:child="BldRegions" msdata:parentkey="WelyahID" msdata:childkey="WelyahID" msprop:Generator_UserChildTable="BldRegions" msprop:Generator_ChildPropName="GetBldRegionsRows" msprop:Generator_UserRelationName="FK_BldRegions_BldWelyat" msprop:Generator_ParentPropName="BldWelyatRow" msprop:Generator_RelationVarName="relationFK_BldRegions_BldWelyat" msprop:Generator_UserParentTable="BldWelyat" />
       <msdata:Relationship name="FK_BldPayment_BldPermits" msdata:parent="BldPermits" msdata:child="BldPayment" msdata:parentkey="Id" msdata:childkey="BldPermitId" msprop:Generator_UserChildTable="BldPayment" msprop:Generator_ChildPropName="GetBldPaymentRows" msprop:Generator_UserRelationName="FK_BldPayment_BldPermits" msprop:Generator_RelationVarName="relationFK_BldPayment_BldPermits" msprop:Generator_UserParentTable="BldPermits" msprop:Generator_ParentPropName="BldPermitsRow" />
+      <msdata:Relationship name="FK_BldSupervisionServices_BldSupervisionServicesTypes" msdata:parent="BldSupervisionServicesTypes" msdata:child="UnpaidServices" msdata:parentkey="ID" msdata:childkey="ServiceTypeID" msprop:Generator_UserChildTable="UnpaidServices" msprop:Generator_ChildPropName="GetUnpaidServicesRows" msprop:Generator_UserRelationName="FK_BldSupervisionServices_BldSupervisionServicesTypes" msprop:Generator_ParentPropName="BldSupervisionServicesTypesRow" msprop:Generator_RelationVarName="relationFK_BldSupervisionServices_BldSupervisionServicesTypes" msprop:Generator_UserParentTable="BldSupervisionServicesTypes" />
+      <msdata:Relationship name="FK_BldSupervisionServices_BldSupervisionServicesTypes1" msdata:parent="BldSupervisionServicesTypes" msdata:child="SpecialSigns" msdata:parentkey="ID" msdata:childkey="ServiceTypeID" msprop:Generator_UserChildTable="SpecialSigns" msprop:Generator_ChildPropName="GetSpecialSignsRows" msprop:Generator_UserRelationName="FK_BldSupervisionServices_BldSupervisionServicesTypes1" msprop:Generator_ParentPropName="BldSupervisionServicesTypesRow" msprop:Generator_RelationVarName="relationFK_BldSupervisionServices_BldSupervisionServicesTypes1" msprop:Generator_UserParentTable="BldSupervisionServicesTypes" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

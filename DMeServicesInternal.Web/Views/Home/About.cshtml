@@ -1,4 +1,4 @@
-﻿@model DMeServices.Models.ViewModels.Internal.Permits.PermitsViewModel
+﻿@model DMeServices.Models.ViewModels.Internal.Permits.DashboardViewModel
 @{
     ViewBag.Title = "Dashboard";
     Layout = "~/Views/Shared/_SubLayout.cshtml";
@@ -24,7 +24,7 @@
             <!-- small box -->
             <div class="small-box bg-aqua">
                 <div class="inner" style="color:olive">
-                    <h3>@Model.BuildingPermits_count</h3>
+                    <h3>@Model.NewPermits_count</h3>
                     <p>عدد المعاملات الجديدة في قواعد البيانات</p>
                 </div>
                 <div class="icon">
@@ -66,8 +66,8 @@
             <!-- small box -->
             <div class="small-box bg-red">
                 <div class="inner" style="color:green">
-                    <h3>35</h3>
-                    <p>عدد المعاملات الكلي من 15 ديسمبر</p>
+                    <h3>@Model.AllPermits_Count</h3>
+                    <p>عدد المعاملات الكلي</p>
                 </div>
                 <div class="icon">
                     <i class="ion ion-pie-graph"></i>
@@ -148,7 +148,7 @@
                             </span>
                             <input type="checkbox" value="">
                             <span class="text">اخر عملية تمت على المعاملات</span>
-                            <small class="label label-info"><i class="fa fa-clock-o"></i> 2 hours</small>
+                            <small class="label label-info"><i class="fa fa-clock-o"></i> @Model.lastrequest</small>
                             <div class="tools">
                                 <i class="fa fa-edit"></i>
                                 <i class="fa fa-trash-o"></i>
@@ -160,8 +160,8 @@
                                 <i class="fa fa-ellipsis-v"></i>
                             </span>
                             <input type="checkbox" value="">
-                            <span class="text">معاملات تجت الملاحظة</span>
-                            <small class="label label-warning"><i class="fa fa-clock-o"></i> 1 day</small>
+                            <span class="text">زمن اكتمال اخر معاملة مكتملة</span>
+                            <small class="label label-warning"><i class="fa fa-clock-o"></i>@Model.diffrenceTime.ToString(@"dd\.hh\:mm")</small>
                             <div class="tools">
                                 <i class="fa fa-edit"></i>
                                 <i class="fa fa-trash-o"></i>
@@ -232,8 +232,11 @@
       element: 'sales-chart',
       resize: true,
       colors: ["#3c8dbc", "#f56954", "#00a65a"],
-      data: [
-          { label: "المعاملات الجديدة", value: @Model.BuildingPermits_count},
+        data: [
+          { label: "عدد المعاملات", value: @Model.AllPermits_Count},
+            { label: "المعاملات الجديدة", value: @Model.NewPermits_count},
+          { label: "معاملات قيد التدقيق", value: @Model.InspectedPermits_count},
+          { label: "المعاملات المكتملة", value: @Model.CompletePermits_count},
           { label: "الشركات المسجلة", value: @Model.Companies_count},
             { label: "المهندسين المسجلين", value: @Model.Users_count}
         ],
@@ -241,5 +244,3 @@
     });
   });
 </script>
-</body>
-</html>

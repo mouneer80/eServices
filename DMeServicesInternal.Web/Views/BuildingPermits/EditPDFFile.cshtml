@@ -19,7 +19,8 @@
 	var isDownload = false;
     $('#addNotes').show();
 
-    function SetCustomImageTool(key) {
+	function SetCustomImageTool(key) {
+
         // Get id
 		var id = "@Html.Encode(PdfWebControlID)";
 		var docid = $('#docId').text();
@@ -29,6 +30,61 @@
 
         //Set image mode
 		api.setMode(api.Mode.InsertImageShape, key + "," + docid);
+		if (api) {
+			for (var i = 1; i <= api.getPageCount(); i++) {
+				//Get page
+				var p = api.getPage(i);
+				switch (key) {
+					case "signature":
+                        var obj = p.addObject(api.ObjectType.TextShape, 0, 0, p.getWidth(), 50);
+						break;
+                    case "stamp":
+                        var obj = p.addObject(api.ObjectType.TextShape, 0, 10, p.getWidth(), 50);
+						break;
+                    case "stamp_r_CivilDefence":
+                        var obj = p.addObject(api.ObjectType.TextShape, 0, 20, p.getWidth(), 50);
+						break;
+                    case "stamp_r_SupervisionStamp":
+                        var obj = p.addObject(api.ObjectType.TextShape, 0, 30, p.getWidth(), 50);
+						break;
+                    case "stamp_r_Rifi":
+                        var obj = p.addObject(api.ObjectType.TextShape, 45, 0, p.getWidth(), 50);
+						break;
+                    case "stamp_r_SmallPermit":
+                        var obj = p.addObject(api.ObjectType.TextShape, 30, 10, p.getWidth(), 50);
+						break;
+                    case "stamp_r_Permit":
+                        var obj = p.addObject(api.ObjectType.TextShape, 100, 20, p.getWidth(), 50);
+                        break;
+				}
+
+				//Add watermark object
+
+
+				//Set watermark properties
+				obj.setProperties(
+					{
+						"text": key,
+						"opacity": 10,
+						"font":
+						{
+							"name": "Arial",
+							"color": "#ff0000",
+							"size": 10,
+							"bold": false,
+							"italic": false,
+							"underline": false
+						},
+						"changeable": false,
+						"deletable": false,
+						"duplicatable": false,
+						"hideFocusOutline": true,
+						"movable": false,
+						"resizable": false,
+						"stylable": false
+					});
+				}
+        }
 	}
 
 	@*$('#upload').on('click', function (e) {
@@ -123,14 +179,15 @@
                 if (!isDownload) {
                     $("#divAttachmentsDetails").css("display", "none");
                     unloadModal();
-                    window.alert("تم حفظ التعديلات");
+					window.alert("تم حفظ التعديلات");
+                    window.location.reload();
 				}
 			}
         );
 
 
         function unloadModal() {
-            $('#MainModal').modal('hide');
+            $('#PreviewModal').modal('hide');
         };
 		// Initially show view information
 		showViewInformation(api.getView());
@@ -326,8 +383,8 @@
                     pdfWebControl1.HideToolsTabs = true;
                     pdfWebControl1.HideTopBar = false;
                     pdfWebControl1.HideToolsPageTab = false;
-					pdfWebControl1.ViewerScrollXDefault = 3500;
-					//pdfWebControl1.ViewerZoomDefault = ViewerZoom.ZoomFitWidth;
+                    pdfWebControl1.ViewerScrollXDefault = 3500;
+                    //pdfWebControl1.ViewerZoomDefault = ViewerZoom.ZoomFitWidth;
 
                     pdfWebControl1.ViewerPageLayoutDefault = ViewerPageLayout.SinglePageContinuous;
 
@@ -345,5 +402,5 @@
     </div>
 </div>
 <div class="modal-footer small-font" style="text-align: center">
-    <button onclick="if(api){isDownload=false;api.save();}return false;" id="btnSave" class="btn btn-primary small-font"><i class="fa fa-save"></i> حفظ التعديلات</button>
+    <button onclick="if (api) { isDownload = false; api.save(); } return false;" id="btnSave" class="btn btn-primary small-font"><i class="fa fa-save"></i> حفظ التعديلات</button>
 </div>

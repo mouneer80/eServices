@@ -12,12 +12,12 @@ using DMeServices.Models.Common.Account;
 using DMeServices.Models.Common.BuildingServices;
 using DMeServices.Models.ViewModels;
 using Oracle.ManagedDataAccess.Client;
+using Resources;
 
 namespace DMeServicesExternal.Web.Controllers
 {
     public class HomeController : LangController
     {
-        
         public ActionResult Index()
         {
             //GetUserDataFromOracleDbTestUser();
@@ -33,7 +33,12 @@ namespace DMeServicesExternal.Web.Controllers
                     return View(user);
                 }
             }
-            return Redirect("https://www.dhofar.gov.om/sso/default.aspx?noguid=1&returnUrl=" + Request.Url.AbsoluteUri);
+            //old was
+            //return Redirect("https://www.dhofar.gov.om/sso/default.aspx?noguid=1&returnUrl=" + Request.Url.AbsoluteUri);
+            // dhofar.gov.om
+            //return Redirect(DMeServices.Models.Resources.ApiUrls.SSODhofar.ToString() + Request.Url.AbsoluteUri);
+            // main.edm.gov.om
+            return Redirect(ApiUrls.SSO.ToString() + Request.Url.AbsoluteUri);
         }
         private string ReadPkiSession()
         {
@@ -46,6 +51,7 @@ namespace DMeServicesExternal.Web.Controllers
         }
         public ActionResult ConsultancyOwnerService()
         {
+            Session["UserType"] = "ConsultancyOwner";
             //GetUserDataFromOracleDbTestUser();
             return RedirectToAction("CompanyList", "BuildingPermits");
         }
@@ -56,6 +62,7 @@ namespace DMeServicesExternal.Web.Controllers
                 User user = (User)Session["UserInfo"];
                 if(UserCom.UserByCivilID(user.CivilId) != null)
                 {
+                    Session["UserType"] = "Consultant";
                     return RedirectToAction("Index", "BuildingPermits");
                 }
             }
@@ -68,6 +75,7 @@ namespace DMeServicesExternal.Web.Controllers
         }
         public ActionResult LandOwnerService()
         {
+            Session["UserType"] = "Owner";
             //GetUserDataFromOracleDbTestUser();
             return RedirectToAction("LandProjects", "BuildingPermits");
         }
@@ -75,6 +83,7 @@ namespace DMeServicesExternal.Web.Controllers
         {
             return HttpNotFound();
         }
+
         private User GetUserDataFromOracleDb(string value)
         {
             DataSet dataSet = new DataSet();
@@ -157,7 +166,9 @@ namespace DMeServicesExternal.Web.Controllers
         private HttpCookie CreateStudentCookie()
         {
             HttpCookie studentCookies = new HttpCookie("SSO");
-            studentCookies.Value = "5e745a6b-cda6-4f4e-be2a-21db572b1c75";
+            studentCookies.Value = "5e745a6b-cda6-4f4e-be2a-21db572b1c75"; //منير
+            //studentCookies.Value = "ec2adead-638b-4b29-ab15-52d19f079b04"; //عبد الله سالم مكتب استشاري
+            //studentCookies.Value = "66a39e6f-e9d3-43e3-91b9-b29f0438b819"; //سعيد الشكيلي
             studentCookies.Expires = DateTime.Now.AddHours(1);
             return studentCookies;
         }

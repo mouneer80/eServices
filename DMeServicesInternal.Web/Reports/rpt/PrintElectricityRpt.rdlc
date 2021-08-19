@@ -11,52 +11,12 @@
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="Supervisions">
+    <DataSet Name="UnpaidServices">
       <Query>
         <DataSourceName>InternalEngineeringDataSet</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
-        <Field Name="ID">
-          <DataField>ID</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="OwnerCivilId">
-          <DataField>OwnerCivilId</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="KrokiNO">
-          <DataField>KrokiNO</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="OwnerName">
-          <DataField>OwnerName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="LicenseNo">
-          <DataField>LicenseNo</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="TransactNo">
-          <DataField>TransactNo</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="DmFileNumber">
-          <DataField>DmFileNumber</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="DmInspectorComments">
-          <DataField>DmInspectorComments</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="ConsultantNotes">
-          <DataField>ConsultantNotes</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="OwnerNotes">
-          <DataField>OwnerNotes</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
         <Field Name="ConsultantCrNo">
           <DataField>ConsultantCrNo</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
@@ -67,6 +27,18 @@
         </Field>
         <Field Name="ConstructedArea">
           <DataField>ConstructedArea</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="LicenseNo">
+          <DataField>LicenseNo</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="KrokiNO">
+          <DataField>KrokiNO</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="DmFileNumber">
+          <DataField>DmFileNumber</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="DMLicenseComments">
@@ -85,9 +57,29 @@
           <DataField>LandDeedNo</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="OwnerNotes">
+          <DataField>OwnerNotes</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ConsultantNotes">
+          <DataField>ConsultantNotes</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="FileNumber">
           <DataField>FileNumber</DataField>
           <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="DmInspectorComments">
+          <DataField>DmInspectorComments</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TransactNo">
+          <DataField>TransactNo</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ID">
+          <DataField>ID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="WelyahArName">
           <DataField>WelyahArName</DataField>
@@ -145,82 +137,46 @@
           <DataField>BldPermitID</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="Contractor_Name">
-          <DataField>Contractor_Name</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Contractor_CRNumber">
-          <DataField>Contractor_CRNumber</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
         <Field Name="Contractor_CR_Number">
           <DataField>Contractor_CR_Number</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="Referenceid">
-          <DataField>Referenceid</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="PaymentType">
-          <DataField>PaymentType</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="PaymentID">
-          <DataField>PaymentID</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="ConsultantCivilId">
           <DataField>ConsultantCivilId</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="CompanyName">
-          <DataField>CompanyName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="PaymentDate">
-          <DataField>PaymentDate</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
-        </Field>
         <Field Name="SupervisionLicenseNo">
           <DataField>SupervisionLicenseNo</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="BuildingComplex">
-          <DataField>BuildingComplex</DataField>
+        <Field Name="owners">
+          <DataField>owners</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="RequestDate">
-          <DataField>RequestDate</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
-        </Field>
-        <Field Name="CreatedBy">
-          <DataField>CreatedBy</DataField>
+        <Field Name="DMSupervisionStatment">
+          <DataField>DMSupervisionStatment</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="CreatedOn">
-          <DataField>CreatedOn</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+        <Field Name="ServiceTypeID">
+          <DataField>ServiceTypeID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="UpdatedBy">
-          <DataField>UpdatedBy</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
+        <Field Name="OwnerCivilId">
+          <DataField>OwnerCivilId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="UpdatedOn">
-          <DataField>UpdatedOn</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
-        </Field>
-        <Field Name="UnitNo">
-          <DataField>UnitNo</DataField>
+        <Field Name="OwnerName">
+          <DataField>OwnerName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>InternalEngineeringDataSet</rd:DataSetName>
         <rd:SchemaPath>C:\Users\maa213\Source\Repos\madyzxc\eServices\DMeServicesInternal.Web\Reports\InternalEngineeringDataSet.xsd</rd:SchemaPath>
-        <rd:TableName>BldSupervisionServices</rd:TableName>
+        <rd:TableName>UnpaidServices</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
-        <rd:TableAdapterName>BldSupervisionServicesTableAdapter</rd:TableAdapterName>
+        <rd:TableAdapterName>UnpaidServicesTableAdapter</rd:TableAdapterName>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
@@ -235,9 +191,9 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=Fields!OwnerName.Value</Value>
+                    <Value>=Fields!owners.Value</Value>
                     <Style>
-                      <FontSize>12pt</FontSize>
+                      <FontSize>=iif(len(Fields!owners.Value.ToString) &gt; 60, "10pt", "12pt")</FontSize>
                       <FontWeight>Bold</FontWeight>
                       <Color>#364392</Color>
                     </Style>
@@ -378,7 +334,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=Fields!DMLicenseComments.Value</Value>
+                    <Value>=Fields!DMSupervisionStatment.Value</Value>
                     <Style>
                       <FontSize>12pt</FontSize>
                       <FontWeight>Bold</FontWeight>

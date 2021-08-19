@@ -95,7 +95,7 @@ namespace DMeServicesInternal.Web.Reports
                 out extension,
                 out streamIds,
                 out warnings);
-            var tempPath = System.Web.HttpContext.Current.Server.MapPath("~/Images/PrintedFiles/" + civilid);
+            var tempPath = System.Web.HttpContext.Current.Server.MapPath("~/Files/PrintedFiles/" + civilid);
             if (!Directory.Exists(tempPath))
             {
                 Directory.CreateDirectory(tempPath);

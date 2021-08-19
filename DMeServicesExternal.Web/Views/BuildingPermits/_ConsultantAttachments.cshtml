@@ -49,7 +49,7 @@
 
                                     <td class="col-sm-1" unprintable>
 
-                                        <a class="modal-link" href="@Url.Action("GetFile", new { @controller = "BuildingPermits", @Id = item.Id })">عرض الملف<i class="fa fa-eye-slash"></i></a>
+                                        <a class="modal-link"  onclick="return Loading();" href="@Url.Action("GetFile", new { @controller = "BuildingPermits", @Id = item.Id })">عرض الملف<i class="fa fa-eye-slash"></i></a>
 
                                     </td>
 
@@ -64,7 +64,7 @@
                                         if (ListDetails > 0)
                                         {
                                             <td class="col-sm-1" unprintable>
-                                                <a href="#" style="color:darkgreen;" fileID="@item.Id" PrimID="@Model.BuildingPermits.Id" class="GetDetails">عرض تفاصيل الخريطة<i class="fa fa-eye-slash glyphicon glyphicon-collapse-down"></i>     </a>
+                                                <a onclick="return Loading();" href="#" style="color:darkgreen;" fileID="@item.Id" PrimID="@Model.BuildingPermits.Id" class="GetDetails">عرض تفاصيل الخريطة<i class="fa fa-eye-slash glyphicon glyphicon-collapse-down"></i>     </a>
                                             </td>
                                         }
                                         else

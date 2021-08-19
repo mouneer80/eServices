@@ -10,21 +10,22 @@ using System.Web;
 using System.Web.Mvc;
 using DMeServices.Models;
 using DMeServices.Models.ViewModels.Internal.Permits;
-using iTextSharp.text.pdf;
 using RadPdf.Data.Document.Common;
 using RadPdf.Data.Document.Objects;
 using RadPdf.Data.Document.Objects.FormFields;
 using RadPdf.Data.Document.Objects.Shapes;
 using RadPdf.Integration;
+using System.Collections.Generic;
+//using iTextSharp.text.pdf;
 
 namespace DMeServicesInternal.Web.RadPdf
 {
     public class CustomPdfIntegrationProvider : DefaultPdfIntegrationProvider
     {
 
-
         public string DocID { get; set; }
         public string PrimID { get; set; }
+        List<string> stampStatus = new List<string>();
         public class PdfIntegrationProvider
         {
         }
@@ -53,7 +54,7 @@ namespace DMeServicesInternal.Web.RadPdf
                 case "dynamic":
                     int imageWidth = 300;
                     int margin = 10;
-                    Font font = new Font(FontFamily.GenericMonospace, 8);
+                    Font font = new Font(FontFamily.GenericMonospace, 20);
                     StringFormat stringFormat = new StringFormat();
 
                     int stringHeight = MeasureDisplayStringHeight(text, font, imageWidth - 2 * margin, stringFormat);
@@ -81,7 +82,7 @@ namespace DMeServicesInternal.Web.RadPdf
                             using (Brush br = new SolidBrush(Color.FromArgb(255, 215, 5, 5)))
                             {
                                 //Create a new font to draw text with
-                                using (Font ft = new Font("Arial", 10.0f, FontStyle.Bold, GraphicsUnit.Point))
+                                using (Font ft = new Font("Arial", 15.0f, FontStyle.Bold, GraphicsUnit.Point))
                                 {
                                     //Create string format to draw text with
                                     using (StringFormat sf = new StringFormat())
@@ -93,7 +94,7 @@ namespace DMeServicesInternal.Web.RadPdf
                                         //Draw current date to bitmap
                                         gr.DrawString(text, ft, br, rect, sf);
                                     }
-                               }
+                                }
                             }
                         }
 
@@ -109,7 +110,7 @@ namespace DMeServicesInternal.Web.RadPdf
                     }
                     break;
                 case "dynamicNO":
-                    imageWidth = 100;
+                    imageWidth = 200;
                     margin = 10;
                     font = new Font(FontFamily.GenericMonospace, 8);
                     stringFormat = new StringFormat();
@@ -139,7 +140,7 @@ namespace DMeServicesInternal.Web.RadPdf
                             using (Brush br = new SolidBrush(Color.FromArgb(255, 0, 69, 224)))
                             {
                                 //Create a new font to draw text with
-                                using (Font ft = new Font("Arial", 10.0f, FontStyle.Bold, GraphicsUnit.Point))
+                                using (Font ft = new Font("Arial", 15.0f, FontStyle.Bold, GraphicsUnit.Point))
                                 {
                                     //Create string format to draw text with
                                     using (StringFormat sf = new StringFormat())
@@ -147,7 +148,7 @@ namespace DMeServicesInternal.Web.RadPdf
                                         //Set format properties
                                         sf.Alignment = StringAlignment.Center;
                                         sf.LineAlignment = StringAlignment.Center;
-                                        
+
                                         //Draw current date to bitmap
                                         gr.DrawString(text, ft, br, rect, sf);
                                     }
@@ -272,19 +273,55 @@ namespace DMeServicesInternal.Web.RadPdf
             {
                 Directory.CreateDirectory(PerPath);
             }
-           
+
             PermitsViewModel model = new PermitsViewModel();
             //Look for form field with the name "test" and see if it is null or has no value 
             var req = System.Web.HttpContext.Current.Request;
-            if (e.Document.DocumentInfo.Title == "PrintPermit")
+            if (e.Document.DocumentInfo.Title != "" && e.Document.DocumentInfo.Title.Substring(0, 5) == "Print")
             {
                 File.WriteAllBytes(PerUploadPath + ".pdf", e.DocumentData);
-                DMeServices.Models.Common.BuildingServices.PermitsAttachmentsCom.UpdateAttachmentStream(int.Parse(DocID), e.DocumentData);         
+                DMeServices.Models.Common.BuildingServices.PermitsAttachmentsCom.UpdateAttachmentStream(int.Parse(DocID), e.DocumentData);
             }
             else
             {
                 File.WriteAllBytes(PerUploadPath + ".pdf", e.DocumentData);
-                DMeServices.Models.Common.BuildingServices.PermitsAttachmentsCom.UpdatePermitsAttachments(model.oEmployeeInfo.NAME, (int)model.oEmployeeInfo.EMP_NO, int.Parse(DocID), e.DocumentData);   
+                if (stampStatus.Count != 0)
+                {
+                    List<string> stampNames = new List<string>();
+                    foreach (var stamp in stampStatus)
+                    {
+                        switch (stamp)
+                        {
+                            case "signature":
+                                stampNames.Add("توقيع المهندس");
+                                break;
+                            case "stamp":
+                                stampNames.Add("ختم المهندس");
+                                break;
+                            case "stamp_r_CivilDefence":
+                                stampNames.Add("ختم الدفاع المدني");
+                                break;
+                            case "stamp_r_SupervisionStamp":
+                                stampNames.Add("ختم الاشراف الهندسي");
+                                break;
+                            case "stamp_r_Rifi":
+                                stampNames.Add("ختم السكن الريفي");
+                                break;
+                            case "stamp_r_SmallPermit":
+                                stampNames.Add("ختم الاباحة الصغرى");
+                                break;
+                            case "stamp_r_Permit":
+                                stampNames.Add("ختم الاباحة الكبرى");
+                                break;
+                        }
+                    }
+                    string stamps = string.Join(",", stampNames);
+                    DMeServices.Models.Common.BuildingServices.PermitsAttachmentsCom.UpdatePermitsAttachments(model.oEmployeeInfo.NAME, (int)model.oEmployeeInfo.EMP_NO, int.Parse(DocID), e.DocumentData, 90, stamps);
+                }
+                else
+                {
+                    DMeServices.Models.Common.BuildingServices.PermitsAttachmentsCom.UpdatePermitsAttachments(model.oEmployeeInfo.NAME, (int)model.oEmployeeInfo.EMP_NO, int.Parse(DocID), e.DocumentData);
+                }
             }
             return;
         }
@@ -292,11 +329,27 @@ namespace DMeServicesInternal.Web.RadPdf
         public override void OnDocumentSaving(DocumentSavingEventArgs e)
         {
             base.OnDocumentSaving(e);
+
+            foreach (PdfObject obj in e.Document.Pages[0].Objects)
+            {
+                string type = obj.GetType().Name;
+                if (type == "PdfTextShape")
+                {
+                    try
+                    {
+                        stampStatus.Add((obj as PdfTextShape).Text);
+                    }
+                    catch (Exception ex)
+                    {
+                        string exception = ex.Message;
+                        stampStatus.Add(exception);
+                    }
+                }
+            }
             //e.Document.BidiTextMode = (PdfBidiTextMode)2;
             //Encoding.UTF32.GetBytes(((PdfTextShape)e.Document.Pages[0].Objects[0]).Text);
             //var obj = e.Document.Pages[0].Objects[0];
             //var obj1=((PdfTextShape)obj).Text;
-
             //Encoding.UTF32.GetBytes(obj1);
             DocID = e.Document.DocumentProperties.DocumentFileName;
         }

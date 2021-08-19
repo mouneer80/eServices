@@ -129,6 +129,9 @@
   <data name="ConstructedArea" xml:space="preserve">
     <value>مساحة التنفذ</value>
   </data>
+  <data name="ConsultantNotes" xml:space="preserve">
+    <value>ملاحظات الاستشاري</value>
+  </data>
   <data name="CosultantOwner" xml:space="preserve">
     <value>مالك المكتب</value>
   </data>
@@ -184,7 +187,7 @@
     <value>أسم الوظيفة</value>
   </data>
   <data name="KrokiNO" xml:space="preserve">
-    <value>رقم الكروكي</value>
+    <value>رقم الرسم المساحي</value>
   </data>
   <data name="LandArea" xml:space="preserve">
     <value>المساحة الكلية لقطعة الأرض</value>
@@ -203,6 +206,9 @@
   </data>
   <data name="LicenseNo" xml:space="preserve">
     <value>رقم الترخيص</value>
+  </data>
+  <data name="MLicenseStatement" xml:space="preserve">
+    <value>بيان التعديل او الاضافة</value>
   </data>
   <data name="MobileNo" xml:space="preserve">
     <value>رقم الموبايل</value>

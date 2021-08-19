@@ -25,7 +25,6 @@ namespace DMeServicesInternal.Web.Controllers
         [HttpPost]
         public ActionResult Login(LoginViewModel login)
         {
-
             Employee oEmployee = Account.EmployeeLogin(login.userName, login.Password);
             if (oEmployee != null && oEmployee.EMP_NO > 0)
             {

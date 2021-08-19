@@ -58,7 +58,7 @@
                     <label class="control-label">السجل التجاري</label>
                     @*<input type="text" class="form-control" id="CommercialNo" placeholder="السجل التجاري" value="1326956">*@
                     @Html.TextBoxFor(n => n.CompanyData.COMMERCIAL_NO, null, new { @class = "form-control", placeholder = "السجل التجاري", @id = "CommercialNo" })
-                    <a class="btn btn-primary" onclick="javascript: callRestApi();"> البحث</a>
+                    @*<a class="btn btn-primary" onclick="javascript: callRestApi();"> البحث</a>*@
                 </div>
 
                 <div class="form-group col-md-6">
@@ -112,36 +112,54 @@
         <h5> أضافة بيانات الاستشاريين</h5>
         <br />
         <div class="form-group col-md-12">
-            <div class="row">
-                <div class="col-sm-4">
-                    @Html.TextBoxFor(m => m.Consultant.JobName, new { id = "ConsultantJobName", @readonly = "readonly", @class = "form-control", @placeholder = "الوظيفة" })
+            <div class="box-content">
+
+                <div class="form-group col-md-4">
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(m => m.Consultant.CivilId, new { id = "ConsultantCivilId", @class = "form-control", @placeholder = "برجاء ادخال الرقم المدني" })
+                    </div>
+                    <div class="col-md-4">
+                        <div class="col-md-6">
+                            <a class="btn btn-primary" onclick="javascript: callRestApi();"> البحث</a>
+                        </div>
+                        
+                        <div id="SearchLoader" class="col-md-4" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader"></div>
+                    </div>
                 </div>
 
-                <div class="col-sm-4">
+                <div class="form-group col-md-4">
                     @Html.TextBoxFor(m => m.Consultant.FullName, new { id = "ConsultantFullName", @readonly = "readonly", @class = "form-control", @placeholder = "الاسم" })
                 </div>
 
-                <div class="col-sm-4">
-                    <div class="col-md-8">
-                        @Html.TextBoxFor(m => m.Consultant.CivilId, new { id = "ConsultantCivilId", @class = "form-control", @placeholder = "برجاء ادخال الرقم المدني"})
-                    </div>
-                    <div class="col-md-4">
-                        <a class="btn btn-primary" onclick="javascript: callRestApi();"> البحث</a>
-                    </div>
+                <div class="form-group col-md-4">
+                    @Html.TextBoxFor(m => m.Consultant.JobName, new { id = "ConsultantJobName", @readonly = "readonly", @class = "form-control", @placeholder = "الوظيفة" })
                 </div>
             </div>
             <br />
-            <div class="row">
-                <div class="col-sm-4">
-                    <input id="SaveWorker" name="SaveWorker" class="btn btn-primary" value="إضافة بيان" />
+            <div class="box-content">
+                <div class="form-group col-md-4">
+                    @Html.TextBoxFor(m => m.Consultant.JobName, new { id = "ConsultantPhoneNumber", @class = "form-control", @placeholder = "رقم الهاتف" })
                 </div>
 
-                <div class="col-sm-4">
+                <div class="form-group col-md-4">
                     @Html.TextBoxFor(m => m.Consultant.JobName, new { id = "ConsultantEmail", @class = "form-control", @placeholder = "البريد الالكتروني" })
                 </div>
 
-                <div class="col-sm-4">
-                    @Html.TextBoxFor(m => m.Consultant.JobName, new { id = "ConsultantPhoneNumber", @class = "form-control", @placeholder = "رقم الهاتف" })
+                @*<div class="form-group col-lg-3" id="divOptionalLetter12">
+                        <div class="col-lg-4">
+                            <label class="control-label">@Html.DisplayName("رسالة المالك او الجهة المعنية")</label>
+                        </div>
+                        <div class="col-lg-6">
+                            @Html.TextBoxFor(m => m.ConsLetter.OptionalFile, new { @id = "OptionalLetter12", @type = "file", @class = "form-control", @onchange = "onchangeevent(this);" })
+                        </div>
+                        <div class="col-lg-2">
+                            <span id="ConsLetterFileSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
+                        </div>
+                    </div>*@
+
+                <div class="form-group col-md-4">
+                    <div class="col-md-6"><input id="SaveWorker" name="SaveWorker" class="btn btn-primary" value="إضافة بيان" /></div>
+                    <div id="AddConsLoader" class="loading col-md-6" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader"></div>
                 </div>
             </div>
         </div>
@@ -178,9 +196,10 @@
     }
     //--For Pubilsh please add this in start of url string-- /EngineeringService/External
     function callRestApi() {
+		$("#SearchLoader").show();
         var Comm_Val = $('#CommercialNo').val();
         var userCivilID = $('#ConsultantCivilId').val();
-        var url = "/EngineeringService/External/Register/GetEmployeeDataByCivilID/";
+        var url = "/External/Register/GetEmployeeDataByCivilID/";
 
 
         $.ajax({
@@ -194,7 +213,9 @@
                     if (data.Result === true) {
                         $('#ConsultantFullName').val(data.EmployeeData.EmployeeData[0].EmployeeNameArabic);
                         $('#ConsultantJobName').val(data.EmployeeData.EmployeeData[0].OccupationDescArabic);
+						$("#SearchLoader").hide();
                     } else {
+						$("#SearchLoader").hide();
                         Notify("not found");
                     }
                 }
@@ -212,6 +233,7 @@
 
 
         $("#SaveWorker").click(function () {
+			$("AddConsLoader").show();
             var data = new FormData();
             data.append("ConsultantCivilId", $("#ConsultantCivilId").val());
             data.append("ConsultantFullName", $("#ConsultantFullName").val());
@@ -228,20 +250,19 @@
                 contentType: false,
                 data: data,
                 success: function (response) {
-                    alert(response)
+                    //alert(response)
                     $('#ConsultantCivilId').val('');
                     $('#ConsultantFullName').val('');
                     $('#ConsultantJobName').val('');
                     $('#ConsultantPhoneNumber').val('');
                     $('#ConsultantEmail').val('');
                     $('#SaveWorker').attr('disabled', false);
-
                     $('#divWorkers').html(response);
+					$("AddConsLoader").hide();
                 },
                 error: function (er) {
-
-
                     $('#SaveWorker').attr('disabled', false);
+                    $("AddConsLoader").hide();
                 }
             });
         });

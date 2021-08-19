@@ -225,6 +225,10 @@
           <DataField>InsurancePayOn</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="ServiceNameAR">
+          <DataField>ServiceNameAR</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>InternalEngineeringDataSet</rd:DataSetName>
@@ -324,9 +328,9 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=Fields!owners.Value</Value>
+                    <Value>=IIF(IsNothing(Fields!owners.Value), Fields!OwnerName.Value, Fields!owners.Value)</Value>
                     <Style>
-                      <FontSize>12pt</FontSize>
+                      <FontSize>=iif(len(Fields!owners.Value.ToString) &gt; 60, "10pt", "12pt")</FontSize>
                       <FontWeight>Bold</FontWeight>
                       <Color>#364392</Color>
                     </Style>
@@ -405,13 +409,13 @@
                   </TextRun>
                 </TextRuns>
                 <Style>
-                  <TextAlign>Right</TextAlign>
+                  <TextAlign>Center</TextAlign>
                 </Style>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox11</rd:DefaultName>
             <Top>9.04075cm</Top>
-            <Left>2.32597cm</Left>
+            <Left>2.00847cm</Left>
             <Height>0.74111cm</Height>
             <Width>2.17999cm</Width>
             <ZIndex>4</ZIndex>
@@ -707,7 +711,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=CDate(Fields!LandDeedReceiptDate.Value).ToString("yyyy/MM/dd")</Value>
+                    <Value>=CDate(Fields!LandDeedReceiptDate.Value).ToString("yyyy/dd/MM")</Value>
                     <Style>
                       <FontSize>12pt</FontSize>
                       <FontWeight>Bold</FontWeight>
@@ -1513,10 +1517,6 @@
           <Border>
             <Style>None</Style>
           </Border>
-          <BackgroundImage>
-            <Source>Embedded</Source>
-            <Value>permit</Value>
-          </BackgroundImage>
         </Style>
       </Body>
       <Width>29.7cm</Width>

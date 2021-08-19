@@ -1,0 +1,90 @@
+﻿@model DMeServices.Models.ViewModels.Internal.Permits.PermitsViewModel
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
+<div class="box-inner">
+    <div class="box-header well" data-original-title="">
+        <h2><i class="glyphicon glyphicon-edit"></i> تفاصيل اذن توريد</h2>
+    </div>
+    <div class="box-content">
+        <!--item details-->
+        <div class="">
+            <table id="myTable" class=" table order-list">
+                <thead>
+                    <tr>
+                        <td>التفاصيل</td>
+                        <td>الرسوم</td>
+                        <td>المساحة</td>
+                        <td>المبلغ الكلي</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.PaymentDetailsList != null)
+                    {
+                        Model.TempGrandTotal = 0;
+                        int i = 0;
+                        foreach (var item in Model.PaymentDetailsList)
+                        {
+                            Model.TempGrandTotal += item.TotalAmount;
+                            <tr>
+                                <td class="col-sm-1" style="width:10%;">
+                                    @DMeServices.Models.Common.BuildingServices.ServiceFeesCom.TypeByID((int)@item.ServiceID).ServiceName
+                                </td>
+                                <td class="col-sm-1" unprintable>
+                                    @item.ServiceFees
+                                </td>
+                                <td class="col-sm-1" unprintable>
+                                    @item.ServiceQuantity
+                                </td>
+                                <td class="col-sm-1" unprintable>
+                                    @item.TotalAmount
+                                </td>
+                                
+                            </tr>
+                            i++;
+                        }
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            المجموع الكلي
+                        </td>
+                        <td>
+                            @Model.TempGrandTotal
+                        </td>
+                    </tr>
+                    <tr>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <!--end of item details-->
+    </div>
+</div>
+
+
+<script>
+    function reply_click(id) {
+        var data = new FormData();
+        data.append("Id", id);
+             var url = "@Url.Action("DeleteFee", "BuildingPermits")";
+            $.ajax({
+                url: url,
+                type: "POST",
+                processData: false,
+                contentType: false,
+                data: data,
+                success: function (response) {
+                    $('#divPayments').html(response);
+                },
+                error: function (er) {
+                    alert(er.message);
+
+                }
+            });
+        }
+</script>

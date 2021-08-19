@@ -1,98 +1,101 @@
 ﻿
 @foreach (var item in Model.ListBuildingSupervision)
 {
-    <tr>
+<tr>
 
-        @{
-            var serviceType = DMeServices.Models.Common.BuildingServices.SupervisionCom.ServiceByID(item.ServiceTypeID).ServiceNameAR;
-            if (item.ConsultantCivilId == null)
-            { item.ConsultantCivilId = 0; }
-            var User = DMeServices.Models.Common.UserCom.UserByCivilID(item.ConsultantCivilId);
-            var Company = "لا يوجد";
-            if (User != null)
-            {
-                Company = User.CompanyName;
-            }
-
-            else
-            {
-                Company = "لا يوجد";
-            }
-
-            var Region = "لا يوجد";
-            if (item.BldPermits.RegionID != null)
-            {
-                Region = DMeServices.Models.Common.BuildingServices.RegionsCom.RegionByID(item.BldPermits.RegionID).RegionArName;
-            }
-
-            var SquareLetter = "لا يوجد";
-            if (item.BldPermits.SquareLetterID != null)
-            {
-                SquareLetter = DMeServices.Models.Common.BuildingServices.SquareLettersCom.SquareLetterByID((int)item.BldPermits.SquareLetterID).ArLetter;
-            }
-            if(item.Status==null)
-            {
-                item.Status = 8;
-            }
-            var Status = DMeServices.Models.Common.LookupsTypeCom.LookupByID((int)item.Status).LookupNameAr;
-            var StatusColor = DMeServices.Models.Common.LookupsTypeCom.LookupByID((int)item.Status).CssClassName;
-            var userrCompany = "";
-            if (User != null)
-            {
-                userrCompany = @User.CompanyName;
-            }
-
-            else
-            {
-                userrCompany = "لا يوجد";
-            }
-        }
-        <td class="center"> <a class="btn btn-primary modal-link" href="@Url.Action("SupervisionDetails", "BuildingSupervision", new { @Id = item.ID })">@item.TransactNo</a></td>
-        <td class="center">@serviceType</td>
-        <td class="center">@Company</td>
-        @{
-            var ownersName = DMeServices.Models.Common.BuildingServices.PermitsCom.GetOwnersNames((int)item.BldPermitID);
-            
-            if (ownersName != null && ownersName.Count > 0)
-            {
-                <td class="center">
-                    @foreach (var name in ownersName)
-                    {
-                        <ul><li>@name.Name</li></ul>
-                    }
-                </td>
-                <td class="center">
-                    @foreach (var name in ownersName)
-                    {
-                        <ul><li>@name.CivilID</li></ul>
-                    }
-                </td>
-            }
-            else
-            {
-                <td class="center">@item.OwnerName</td>
-                <td class="center"> @item.OwnerCivilId</td>
-            }
-        }
-        <td class="center">@item.LicenseNo</td>
-        <td class="center">@item.BldPermits.DistrictNo</td>
-        <td class="center">@SquareLetter</td>
-        <td class="center">@Region</td>
-        <td class="center">@item.RequestDate.ToString("yyyy/MM/dd HH:mm")</td>
-        <td class="center @StatusColor">@Status</td>
-
-        @if (Model.oEmployeeInfo.IsSupervisionHead || Model.oEmployeeInfo.IsEngineerManager)
+    @{
+        var bldPermitLicenseNumber = DMeServices.Models.Common.BuildingServices.PermitsCom.PermitsByID(item.BldPermitID).LicenseNo;
+        var serviceType = DMeServices.Models.Common.BuildingServices.SupervisionCom.ServiceByID(item.ServiceTypeID).ServiceNameAR;
+        if (item.ConsultantCivilId == null)
+        { item.ConsultantCivilId = 0; }
+        var User = DMeServices.Models.Common.UserCom.UserByCivilID(item.ConsultantCivilId);
+        var Company = "لا يوجد";
+        if (User != null)
         {
-            if (item.DmEngineerNo == null)
-            {
-                <td class="center">@Html.DisplayName(DMeServices.Models.Resources.DisplayName_Ar.NotFound)</td>
-            }
-            else
-            {
-                <td class="center">@DMeServices.Models.Common.EmployeeCom.EmployeeByID(item.DmEngineerNo.ToString()).NAME</td>
-            }
+            Company = User.CompanyName;
         }
-    </tr>
+
+        else
+        {
+            Company = "لا يوجد";
+        }
+
+        var Region = "لا يوجد";
+        if (item.BldPermits.RegionID != null)
+        {
+            Region = DMeServices.Models.Common.BuildingServices.RegionsCom.RegionByID(item.BldPermits.RegionID).RegionArName;
+        }
+
+        var SquareLetter = "لا يوجد";
+        if (item.BldPermits.SquareLetterID != null)
+        {
+            SquareLetter = DMeServices.Models.Common.BuildingServices.SquareLettersCom.SquareLetterByID((int)item.BldPermits.SquareLetterID).ArLetter;
+        }
+        if (item.Status == null)
+        {
+            item.Status = 8;
+        }
+        var Status = DMeServices.Models.Common.LookupsTypeCom.LookupByID((int)item.Status).LookupNameAr;
+        var StatusColor = DMeServices.Models.Common.LookupsTypeCom.LookupByID((int)item.Status).CssClassName;
+        var userrCompany = "";
+        if (User != null)
+        {
+            userrCompany = @User.CompanyName;
+        }
+
+        else
+        {
+            userrCompany = "لا يوجد";
+        }
+    }
+    <td class="center"> <a onclick="return Loading();" class="btn btn-primary" href="@Url.Action("SupervisionDetails", "BuildingSupervision", new { @Id = item.ID })">@item.TransactNo</a></td>
+    <td class="center">@serviceType</td>
+    <td class="center">@Company</td>
+    @{
+        var ownersName = DMeServices.Models.Common.BuildingServices.PermitsCom.GetOwnersNames((int)item.BldPermitID);
+
+        if (ownersName != null && ownersName.Count > 0)
+        {
+            <td class="center">
+                @foreach (var name in ownersName)
+                {
+                    <ul><li>@name.Name</li></ul>
+                }
+            </td>
+            <td class="center">
+                @foreach (var name in ownersName)
+                {
+                    <ul><li>@name.CivilID</li></ul>
+                }
+            </td>
+        }
+        else
+        {
+            <td class="center">@item.OwnerName</td>
+            <td class="center"> @item.OwnerCivilId</td>
+        }
+    }
+    
+    <td class="center">@item.LicenseNo</td>
+    <td class="center">@bldPermitLicenseNumber</td>
+    <td class="center">@item.BldPermits.DistrictNo</td>
+    <td class="center">@SquareLetter</td>
+    <td class="center">@Region</td>
+    <td class="center">@item.RequestDate.ToString("yyyy/MM/dd HH:mm")</td>
+    <td class="center @StatusColor">@Status</td>
+
+    @if (Model.oEmployeeInfo.IsSupervisionHead || Model.oEmployeeInfo.IsEngineerManager)
+    {
+        if (item.DmEngineerNo == null)
+        {
+            <td class="center">@Html.DisplayName(DMeServices.Models.Resources.DisplayName_Ar.NotFound)</td>
+        }
+        else
+        {
+            <td class="center">@DMeServices.Models.Common.EmployeeCom.EmployeeByID(item.DmEngineerNo.ToString()).NAME</td>
+        }
+    }
+</tr>
 }
 
 

@@ -18,6 +18,10 @@ using System.Threading.Tasks;
 using DMeServices.Models.ViewModels;
 using System.Drawing.Imaging;
 using System.Drawing.Drawing2D;
+using DMeServices.Models;
+using Oracle.ManagedDataAccess.Client;
+using System.Configuration;
+using Resources;
 
 namespace DMeServicesExternal.Web.Controllers
 {
@@ -54,8 +58,11 @@ namespace DMeServicesExternal.Web.Controllers
             // HTTP GET.  
             using (var client = new HttpClient())
             {
-                // Setting Base address.  
-                client.BaseAddress = new Uri("https://www.dhofar.gov.om/ePaymentAPI/");
+                // Setting Base address from dhofar.gov.om  
+                //client.BaseAddress = new Uri(DMeServices.Models.Resources.ApiUrls.PaymentAPIDhofar.ToString());
+
+                // Setting Base address from main.edm.gov.om  
+                client.BaseAddress = new Uri(ApiUrls.PaymentAPI.ToString());
 
                 // Setting content type.  
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -81,7 +88,7 @@ namespace DMeServicesExternal.Web.Controllers
         public async Task<ActionResult> Pay()
         {
             var payment = new DMeServices.Models.Common.PaymentCom();
-            await payment.GetListAsync();
+            await payment.GetListAsync(ApiUrls.PaymentAPI.ToString(), ApiUrls.PaymentAPIOpenRequest.ToString());
 
             return View();
         }
@@ -92,7 +99,7 @@ namespace DMeServicesExternal.Web.Controllers
             var _payment = DMeServices.Models.Common.BuildingServices.PaymentsCom.PaymentByID(id);
             string totalAmountToPay = _payment.PaymentTotalAmount.ToString();
             string amountType = _payment.PaymentType.ToString();
-            var result = DMeServices.Models.Common.PaymentCom.PayAmount(totalAmountToPay, amountType, requestUrl);
+            var result = DMeServices.Models.Common.PaymentCom.PayAmount(totalAmountToPay, amountType, requestUrl, ApiUrls.PaymentAPIOpenRequest.ToString());
 
             var paymentID = DMeServices.Models.Common.BuildingServices.PaymentsCom.UpdatPaymentToken(id, result.token.ToString());
             if (paymentID != null)
@@ -105,48 +112,139 @@ namespace DMeServicesExternal.Web.Controllers
             }
 
         }
+        #region Method :: Home User Info
+        //this region added to get user info from sso cookies while redirecting from paymentgateway on 13-6-2021
+        private string ReadPkiSession()
+        {
+            if (HttpContext.Request.Cookies["SSO"] != null)
+            {
+                HttpCookie cookie = HttpContext.Request.Cookies.Get("SSO");
+                if (cookie != null) return cookie.Value;
+            }
+            return null;
+        }
+        private User GetUserDataFromOracleDb(string value)
+        {
+            DataSet dataSet = new DataSet();
+            using (var connection = new OracleConnection(ConfigurationManager.ConnectionStrings["oracleDB"].ConnectionString))
+            {
+                connection.Open();
+                OracleCommand command = connection.CreateCommand();
+                using (OracleDataAdapter dataAdapter = new OracleDataAdapter())
+                {
+                    command.CommandText = string.Format("select * from SSODM.SSO where GUID = '{0}'", value);
+                    dataAdapter.SelectCommand = command;
+                    dataAdapter.Fill(dataSet);
+                }
+            }
+            User user = BuildUserObject(dataSet.Tables[0]);
+            return user;
+        }
+        private User BuildUserObject(DataTable dt)
+        {
+            string[] names = SplitName(dt.Rows[0]["omancardTitleFullNameAr"].ToString());
+            User user = new User();
+            if (names.Length == 1)
+            {
+                user.FirstName = names[0];
+                user.SecondName = "";
+                user.ThirdName = "";
+                user.LastName = "";
+            }
+            else if (names.Length == 2)
+            {
+                user.FirstName = names[0];
+                user.SecondName = "";
+                user.ThirdName = "";
+                user.LastName = names[1];
+            }
+            else if (names.Length == 3)
+            {
+                user.FirstName = names[0];
+                user.SecondName = names[1];
+                user.ThirdName = "";
+                user.LastName = names[2];
+            }
+            else if (names.Length == 4)
+            {
+                user.FirstName = names[0];
+                user.SecondName = names[1];
+                user.ThirdName = names[2];
+                user.LastName = names[3];
+            }
+            else
+            {
+                user.FirstName = names[0];
+                user.SecondName = names[1];
+                user.ThirdName = names[2];
+                user.LastName = String.Join(" ", names, 3, names.Length - 3);
+            }
+            user.CivilId = int.Parse(dt.Rows[0]["omanIDCivilNumber"].ToString());
+            //user.CivilId = 6243694; //1583659,//6310372,
+            user.CompanyName = dt.Rows[0]["omancardSponsorNameAr"].ToString();
 
+            //user.PhoneNo = int.Parse(dt.Rows[0]["OMANCARDSPONSORFIXEDPHONE"].ToString());
+
+            return user;
+        }
+        private string[] SplitName(string fullName)
+        {
+            return fullName.Split(new char[] { ' ' });
+        }
+        #endregion
         public ActionResult PayingSucceeded(string token)
         {
             token = Request.QueryString["Token"].ToString();
             string T = token;
-            DMeServices.Models.BankResponse _bankResponse = DMeServices.Models.Common.PaymentCom.GetBankResponse(T);
+            DMeServices.Models.BankResponse _bankResponse = DMeServices.Models.Common.PaymentCom.GetBankResponse(T, ApiUrls.PaymentAPIGetRequestStatus.ToString());
             var permitID = DMeServices.Models.Common.BuildingServices.PaymentsCom.UpdatPaymentStatus(T, _bankResponse);
-            int status = 29;
+            int status = 19;
 
             var result = PermitsCom.UpdateStatus(Convert.ToInt32(permitID), status);
-            if (result != null)
+            if (result == "paid")
             {
+                var guid = ReadPkiSession();
+                if (!string.IsNullOrWhiteSpace(guid))
+                {
+                    var user = GetUserDataFromOracleDb(guid);
+                    if (user != null)
+                    {
+                        Session["UserInfo"] = user;
+                        //return View(user);
+                    }
+                }
+                return RedirectToAction("PermitDetails", new { @id = Convert.ToInt32(permitID) });
+
                 //PermitsViewModel pModel = new PermitsViewModel();
                 //pModel.BuildingPermits = PermitsCom.PermitsByID(Convert.ToInt32(permitID));
-                return RedirectToAction("PermitDetails", new { @id = Convert.ToInt32(permitID) });
             }
             else
             {
-                return HttpNotFound();
+                // dhofar.gov.om
+                //return Redirect(DMeServices.Models.Resources.ApiUrls.SSODhofar.ToString() + Request.Url.AbsoluteUri);
+                // main.edm.gov.om
+                return Redirect(ApiUrls.SSO.ToString() + Request.Url.AbsoluteUri);
             }
         }
 
         public ActionResult PayingFailed()
         {
-
-
-            return Redirect("www.google.com");
-
-
+            return HttpNotFound();
+            //return Redirect("www.google.com");
         }
 
         [HttpGet]
-        public ActionResult NewPermits()
+        public ActionResult NewPermits(bool showadd)
         {
             PermitsViewModel oModel = new PermitsViewModel();
+            oModel.ShowAdd = showadd;
             if (ModelState.IsValid)
             {
 
                 // to save the attachments on the memory
                 TempData["Attachments"] = new List<PermitsAttachments>();
                 TempData["Owners"] = new List<Owner>();
-                ViewBag.DDServiceType = DDServiceType();
+                ViewBag.DDServiceType = DDServiceType(oModel.ShowAdd);
                 ViewBag.DDAttachmentsType = DDAttachmentTypes();
                 ViewBag.DDWelayat = DDWelayat();
                 ViewBag.DDBuildingTypes = DDBuildingTypes();
@@ -160,6 +258,23 @@ namespace DMeServicesExternal.Web.Controllers
         {
             List<SelectListItem> LstServices = new List<SelectListItem>();
             List<SupervisionServicesTypes> AllServices = SupervisionCom.AllPermitsServices();
+            if (AllServices.Count > 0)
+            {
+                LstServices.Add(new SelectListItem() { Text = "أختر نوع الخدمة ", Value = "0" });
+                foreach (var item in AllServices)
+                {
+                    LstServices.Add(new SelectListItem() { Text = item.ServiceNameAR, Value = item.ID.ToString() });
+                }
+            }
+            return LstServices;
+        }
+
+        private dynamic DDServiceType(bool showadd)
+        {
+            var userType = showadd ? 4 : 3;
+
+            List<SelectListItem> LstServices = new List<SelectListItem>();
+            List<SupervisionServicesTypes> AllServices = SupervisionCom.AllServices(userType);
             if (AllServices.Count > 0)
             {
                 LstServices.Add(new SelectListItem() { Text = "أختر نوع الخدمة ", Value = "0" });
@@ -213,37 +328,37 @@ namespace DMeServicesExternal.Web.Controllers
                 }
                 if (oModel.OptionalLetter2 != null && oModel.OptionalLetter2.OptionalFile != null)
                 {
-                    oModel.OptionalLetter2.AttachmentTypeId = 18;                   
+                    oModel.OptionalLetter2.AttachmentTypeId = 18;
                     oModel.ListOfAttachments.Add(oModel.OptionalLetter2);
                 }
                 if (oModel.OptionalLetter3 != null && oModel.OptionalLetter3.OptionalFile != null)
                 {
-                    oModel.OptionalLetter3.AttachmentTypeId = 19;                    
+                    oModel.OptionalLetter3.AttachmentTypeId = 19;
                     oModel.ListOfAttachments.Add(oModel.OptionalLetter3);
                 }
                 if (oModel.OptionalLetter4 != null && oModel.OptionalLetter4.OptionalFile != null)
-                {                   
-                    oModel.OptionalLetter4.AttachmentTypeId = 21;                  
+                {
+                    oModel.OptionalLetter4.AttachmentTypeId = 21;
                     oModel.ListOfAttachments.Add(oModel.OptionalLetter4);
                 }
                 if (oModel.OptionalLetter5 != null && oModel.OptionalLetter5.OptionalFile != null)
                 {
-                    oModel.OptionalLetter5.AttachmentTypeId = 22;              
+                    oModel.OptionalLetter5.AttachmentTypeId = 22;
                     oModel.ListOfAttachments.Add(oModel.OptionalLetter5);
                 }
                 if (oModel.OptionalLetter6 != null && oModel.OptionalLetter6.OptionalFile != null)
                 {
-                    oModel.OptionalLetter6.AttachmentTypeId = 23;                 
+                    oModel.OptionalLetter6.AttachmentTypeId = 23;
                     oModel.ListOfAttachments.Add(oModel.OptionalLetter6);
                 }
                 if (oModel.OptionalLetter7 != null && oModel.OptionalLetter7.OptionalFile != null)
                 {
-                    oModel.OptionalLetter7.AttachmentTypeId = 24;                 
+                    oModel.OptionalLetter7.AttachmentTypeId = 24;
                     oModel.ListOfAttachments.Add(oModel.OptionalLetter7);
                 }
                 if (oModel.OptionalLetter8 != null && oModel.OptionalLetter8.OptionalFile != null)
                 {
-                    oModel.OptionalLetter8.AttachmentTypeId = 25;               
+                    oModel.OptionalLetter8.AttachmentTypeId = 25;
                     oModel.ListOfAttachments.Add(oModel.OptionalLetter8);
                 }
                 if (oModel.OptionalLetter9 != null && oModel.OptionalLetter9.OptionalFile != null)
@@ -268,12 +383,12 @@ namespace DMeServicesExternal.Web.Controllers
                 }
                 if (oModel.ConsLetter != null && oModel.ConsLetter.OptionalFile != null)
                 {
-                    oModel.ConsLetter.AttachmentTypeId = 4;           
+                    oModel.ConsLetter.AttachmentTypeId = 4;
                     oModel.ListOfAttachments.Add(oModel.ConsLetter);
                 }
                 if (oModel.LandPic != null && oModel.LandPic.OptionalFile != null)
                 {
-                    oModel.LandPic.AttachmentTypeId = 15;             
+                    oModel.LandPic.AttachmentTypeId = 15;
                     oModel.ListOfAttachments.Add(oModel.LandPic);
                 }
                 if (oModel.ConsAgreementFile != null && oModel.ConsAgreementFile.OptionalFile != null)
@@ -281,14 +396,12 @@ namespace DMeServicesExternal.Web.Controllers
                     oModel.ConsAgreementFile.AttachmentTypeId = 16;
                     oModel.ListOfAttachments.Add(oModel.ConsAgreementFile);
                 }
-                if (oModel.Others != null && oModel.Others.OptionalFile != null)
+                if (oModel.Others != null && oModel.Others.OptionalFiles[0] != null)
                 {
                     oModel.Others.AttachmentTypeId = 20;
                     oModel.ListOfAttachments.Add(oModel.Others);
                 }
                 //oModel.BuildingPermits.LicenseNo = "ح / 5665";
-
-
 
                 oModel.ListOfAttachments = SaveFiles(oModel);
             }
@@ -354,7 +467,10 @@ namespace DMeServicesExternal.Web.Controllers
         public ActionResult PermitDetails(int id = -99)
         {
             PermitsViewModel oModel = new PermitsViewModel();
-
+            if (Session["UserType"] != null && Session["UserType"].ToString() == "Consultant")
+            {
+                oModel.ShowAdd = true;
+            }
             if (oModel.oUserInfo == null && Session["UserInfo"] != null)
                 oModel.oUserInfo = (DMeServices.Models.User)Session["UserInfo"];
 
@@ -378,7 +494,7 @@ namespace DMeServicesExternal.Web.Controllers
             return View(oModel);
         }
 
-        
+
 
         private static string dirName(PermitsViewModel oModel)
         {
@@ -550,13 +666,13 @@ namespace DMeServicesExternal.Web.Controllers
             {
                 HttpPostedFileBase File = new HttpPostedFileWrapper(System.Web.HttpContext.Current.Request.Files["MyAttached"]);
                 FileInfo oFileInfo = new FileInfo(File.FileName);
-                
+
                 var AttachmentTypeId = System.Web.HttpContext.Current.Request.Form["AttTypeId"];
                 var FileDescription = System.Web.HttpContext.Current.Request.Form["FileDescription"];
                 oModel.Attachments = new PermitsAttachments();
                 oModel.Attachments.File = File;
                 oModel.Attachments.InsertDate = DateTime.Now;
-                oModel.Attachments.AttachmentContentType = oFileInfo.Extension.ToLower() + "," + (File.ContentLength/1024).ToString();
+                oModel.Attachments.AttachmentContentType = oFileInfo.Extension.ToLower() + "," + (File.ContentLength / 1024).ToString();
                 if (!new string[] { ".jpg", ".jpeg", ".pdf", ".png" }.Contains(oFileInfo.Extension.ToLower()))
                 {
                     return PartialView("_ListAttachments", oModel);
@@ -583,7 +699,7 @@ namespace DMeServicesExternal.Web.Controllers
             {
                 ViewBag.message = " لا يمكن اضافة اكثر من 20 ملف كحد اقصى";
             }
-            
+
             return PartialView("_ListAttachments", oModel);
         }
         #endregion
@@ -603,7 +719,7 @@ namespace DMeServicesExternal.Web.Controllers
                 oModel.Attachments = new PermitsAttachments();
                 oModel.Attachments.File = File;
                 oModel.Attachments.InsertDate = DateTime.Now;
-                oModel.Attachments.AttachmentContentType = oFileInfo.Extension;
+                oModel.Attachments.AttachmentContentType = oFileInfo.Extension.ToLower();
                 if (string.IsNullOrEmpty(FileDescription))
                 {
                     FileDescription = "لايوجد";
@@ -709,21 +825,6 @@ namespace DMeServicesExternal.Web.Controllers
         public static List<PermitsAttachments> SaveFiles(PermitsViewModel oModel)
         {
             List<PermitsAttachments> ListAttachments = new List<PermitsAttachments>();
-
-            string sFilename = string.Empty;
-            string PerPath;
-            string StrPath;
-            string ConsPath;
-            string LandPath;
-            string OtherPath;
-            string ConsultantPath;
-            string sPath;
-
-            if (oModel.ListOfAttachments == null)
-            {
-                return null;
-            }
-
             foreach (var Attachment in oModel.ListOfAttachments)
             {
                 HttpPostedFileBase oFile = Attachment.File;
@@ -731,48 +832,44 @@ namespace DMeServicesExternal.Web.Controllers
                 {
                     oFile = Attachment.OptionalFile;
                 }
-
-                FileInfo oFileInfo = new FileInfo(oFile.FileName);
+                FileInfo oFileInfo;
+                string attachmentFilePath = "";
+                string attachmentFileType = "";
+                if (Attachment.File != null)
+                {
+                    oFileInfo = new FileInfo(oFile.FileName);
+                    attachmentFileType = oFileInfo.Extension.ToLower();
+                }
                 string folderName = dirName(oModel);
+                string userFirstName = oModel.oUserInfo.FirstName;
+                if (Attachment.OptionalFiles != null && Attachment.OptionalFiles[0] != null)
+                {
+                    foreach (var file in Attachment.OptionalFiles)
+                    {
+                        oFileInfo = new FileInfo(file.FileName);
+                        attachmentFileType = oFileInfo.Extension.ToLower();
+                        attachmentFilePath = SaveAttachmentFileSystem(file, folderName, "Others", Attachment.AttachmentTypeId.ToString());
+                        AddToListOfAttachments(ListAttachments, Attachment, userFirstName, file.FileName.ToLower(), attachmentFilePath, attachmentFileType);
+                    }
+                }
+                if (Attachment.Files != null && Attachment.Files[0] != null)
+                {
+                    foreach (var file in Attachment.Files)
+                    {
+                        oFileInfo = new FileInfo(file.FileName);
+                        attachmentFileType = oFileInfo.Extension.ToLower();
+                        attachmentFilePath = SaveAttachmentFileSystem(file, folderName, "Others", Attachment.AttachmentTypeId.ToString());
+                        AddToListOfAttachments(ListAttachments, Attachment, userFirstName, file.FileName.ToLower(), attachmentFilePath, attachmentFileType);
+                    }
+                }
                 if (oFile != null && oFile.ContentLength > 0)
                 {
-
                     switch (Attachment.AttachmentTypeId)
                     {
                         case 1:
                         case 2:
                         case 3:
-                            //int width = Image.FromStream(oFile.InputStream).Width;
-                            //int height = Image.FromStream(oFile.InputStream).Height;
-                            //if (width > 1000)
-                            //    ResizeImage(oFile.FileName, oFile.FileName + "resized", ImageFormat.Jpeg, 1000,1000);
-                            sFilename = Attachment.AttachmentTypeId.ToString() + "_" + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + oFileInfo.Extension;
-
-                            PerPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/Personal/" + folderName));
-                            sPath = System.IO.Path.Combine(PerPath.ToString());
-                            string PerUploadPath = string.Format("{0}\\{1}", sPath, sFilename);
-                            if (!Directory.Exists(PerPath))
-                            {
-                                Directory.CreateDirectory(PerPath);
-                            }
-                            oFile.SaveAs(PerUploadPath);
-                            Attachment.AttachmentName = sFilename;
-                            Attachment.AttachmentPath = PerUploadPath;
-                            sFilename = null;
-                            break;
-                        case 4:
-                            sFilename = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + oFileInfo.Extension;
-                            ConsPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/Consultant/" + folderName));
-                            sPath = System.IO.Path.Combine(ConsPath.ToString());
-                            string ConsUploadPath = string.Format("{0}\\{1}", sPath, sFilename);
-                            if (!Directory.Exists(ConsPath))
-                            {
-                                Directory.CreateDirectory(ConsPath);
-                            }
-                            oFile.SaveAs(ConsUploadPath);
-                            Attachment.AttachmentName = sFilename;
-                            Attachment.AttachmentPath = ConsUploadPath;
-                            sFilename = null;
+                            attachmentFilePath = SaveAttachmentFileSystem(oFile, folderName, "Personal", Attachment.AttachmentTypeId.ToString());
                             break;
                         case 5:
                         case 6:
@@ -784,49 +881,17 @@ namespace DMeServicesExternal.Web.Controllers
                         case 12:
                         case 13:
                         case 14:
-                            sFilename = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + oFileInfo.Extension;
-                            StrPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/StructuralFiles/" + folderName));
-                            sPath = System.IO.Path.Combine(StrPath.ToString());
-                            string StrUploadPath = string.Format("{0}\\{1}", sPath, sFilename);
-                            if (!Directory.Exists(StrPath))
-                            {
-                                Directory.CreateDirectory(StrPath);
-                            }
-                            oFile.SaveAs(StrUploadPath);
-                            Attachment.AttachmentPath = StrUploadPath;
-                            Attachment.AttachmentName = sFilename;
-                            sFilename = null;
+                            attachmentFilePath = SaveAttachmentFileSystem(oFile, folderName, "StructuralFiles", Attachment.AttachmentTypeId.ToString());
                             break;
                         case 15:
-                            sFilename = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + oFileInfo.Extension;
-                            LandPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/LandFiles/" + folderName));
-                            sPath = System.IO.Path.Combine(LandPath.ToString());
-                            string LandUploadPath = string.Format("{0}\\{1}", sPath, sFilename);
-                            if (!Directory.Exists(LandPath))
-                            {
-                                Directory.CreateDirectory(LandPath);
-                            }
-                            oFile.SaveAs(LandUploadPath);
-                            Attachment.AttachmentPath = LandUploadPath;
-                            Attachment.AttachmentName = sFilename;
-                            sFilename = null;
+                            attachmentFilePath = SaveAttachmentFileSystem(oFile, folderName, "LandFiles", Attachment.AttachmentTypeId.ToString());
                             break;
+                        case 4:
                         case 16:
                         case 17:
                         case 18:
                         case 19:
-                            sFilename = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + oFileInfo.Extension;
-                            ConsultantPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/Consultant/" + folderName));
-                            sPath = System.IO.Path.Combine(ConsultantPath.ToString());
-                            string ConsultantUploadPath = string.Format("{0}\\{1}", sPath, sFilename);
-                            if (!Directory.Exists(ConsultantPath))
-                            {
-                                Directory.CreateDirectory(ConsultantPath);
-                            }
-                            oFile.SaveAs(ConsultantUploadPath);
-                            Attachment.AttachmentPath = ConsultantUploadPath;
-                            Attachment.AttachmentName = sFilename;
-                            sFilename = null;
+                            attachmentFilePath = SaveAttachmentFileSystem(oFile, folderName, "Consultant", Attachment.AttachmentTypeId.ToString());
                             break;
                         case 20:
                         case 21:
@@ -838,37 +903,39 @@ namespace DMeServicesExternal.Web.Controllers
                         case 27:
                         case 33:
                         case 47:
-                            sFilename = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + oFileInfo.Extension;
-                            OtherPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/Others/" + folderName));
-                            sPath = System.IO.Path.Combine(OtherPath.ToString());
-                            string OtherUploadPath = string.Format("{0}\\{1}", sPath, sFilename);
-                            if (!Directory.Exists(OtherPath))
-                            {
-                                Directory.CreateDirectory(OtherPath);
-                            }
-                            oFile.SaveAs(OtherUploadPath);
-                            Attachment.AttachmentPath = OtherUploadPath;
-                            Attachment.AttachmentName = sFilename;
-                            sFilename = null;
+                            attachmentFilePath = SaveAttachmentFileSystem(oFile, folderName, "Others", Attachment.AttachmentTypeId.ToString());
                             break;
-
                     }
-
-                    //MemoryStream stream = new MemoryStream();
-                    //oFile.InputStream.CopyTo(stream);
-                    //byte[] data = stream.ToArray();
-                    //Attachment.AttachmentStream = data;
-
-                    Attachment.AttachmentName = oFile.FileName;
-                    Attachment.AttachmentContentType = oFileInfo.Extension;
-                    Attachment.InsertDate = DateTime.Now;
-                    Attachment.CreatedBy = oModel.oUserInfo.FullName;
-                    Attachment.CreatedOn = DateTime.Now;
-                    ListAttachments.Add(Attachment);
+                    AddToListOfAttachments(ListAttachments, Attachment, userFirstName, oFile.FileName.ToLower(), attachmentFilePath, attachmentFileType);
                 }
             }
             return ListAttachments;
         }
+        private static List<PermitsAttachments> AddToListOfAttachments(List<PermitsAttachments> ListAttachments, PermitsAttachments Attachment, string userFirstName, string attachmentName, string attachmentPath, string attachmentType)
+        {
+            Attachment.AttachmentPath = attachmentPath;
+            Attachment.AttachmentName = attachmentName;
+            Attachment.AttachmentContentType = attachmentType;
+            Attachment.InsertDate = DateTime.Now;
+            Attachment.CreatedBy = userFirstName;
+            Attachment.CreatedOn = DateTime.Now;
+            ListAttachments.Add(Attachment);
+            return ListAttachments;
+        }
+        private static string SaveAttachmentFileSystem(HttpPostedFileBase oFile, string folderName, string directoryName, string attachmentType)
+        {
+            FileInfo oFileInfo = new FileInfo(oFile.FileName);
+            string sFilename = attachmentType + "_" + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + oFileInfo.Extension.ToLower();
+            string sPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/" + directoryName + "/" + folderName));
+            string uploadPath = string.Format("{0}\\{1}", sPath, sFilename);
+            if (!Directory.Exists(sPath))
+            {
+                Directory.CreateDirectory(sPath);
+            }
+            oFile.SaveAs(uploadPath);
+            return uploadPath;
+        }
+
         public static bool ResizeImage(string orgFile, string resizedFile, ImageFormat format, int width, int height)
         {
             try
@@ -892,12 +959,9 @@ namespace DMeServicesExternal.Web.Controllers
                 return false;
             }
         }
-
-
         #endregion
 
         #region Method :: Save Consultant Files
-
         [HttpPost]
         public static List<PermitsAttachments> SaveConsultantFiles(PermitsViewModel oModel)
         {
@@ -918,7 +982,7 @@ namespace DMeServicesExternal.Web.Controllers
                     if (oFile != null && oFile.ContentLength > 0)
                     {
                         string folderName = dirName(oModel);
-                        var sFilename = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + oFileInfo.Extension;
+                        var sFilename = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + oFileInfo.Extension.ToLower();
                         var StrPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/StructuralFiles/" + folderName));
                         var sPath = System.IO.Path.Combine(StrPath.ToString());
                         string StrUploadPath = string.Format("{0}\\{1}", sPath, sFilename);
@@ -933,10 +997,10 @@ namespace DMeServicesExternal.Web.Controllers
                         //MemoryStream stream = new MemoryStream();
                         //oFile.InputStream.CopyTo(stream);
                         //byte[] data = stream.ToArray();
-                        Attachment.AttachmentName = oFile.FileName;
-
                         //Attachment.AttachmentStream = data;
-                        Attachment.AttachmentContentType = oFileInfo.Extension;
+
+                        Attachment.AttachmentName = oFile.FileName.ToLower();
+                        Attachment.AttachmentContentType = oFileInfo.Extension.ToLower();
                         Attachment.InsertDate = DateTime.Now;
                         Attachment.CreatedBy = oModel.oUserInfo.FirstName;
                         Attachment.CreatedOn = DateTime.Now;

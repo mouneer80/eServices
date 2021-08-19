@@ -14,9 +14,9 @@
                 <br />
                 <h1> رقم المعاملة <strong> @ViewBag.TranseID </strong>  </h1>
                 <br />
-                
-                <h3>ستصلك رسالة عبر البريد الإلكتروني و هاتفك المحمول</h3>
 
+                <h3>ستصلك رسالة عبر البريد الإلكتروني و هاتفك المحمول</h3>
+                <a style="float:left" onclick="return Loading();" href="@Url.Action(ViewBag.ShowAdd ? "ConsultantIndex" : "OwnerIndex","BuildingSupervision")" class="btn btn-primary" role="button">الصفحة السابقة</a>
             </div>
         </div>
     </div>

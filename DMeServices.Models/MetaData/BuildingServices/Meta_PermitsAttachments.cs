@@ -42,8 +42,14 @@ namespace DMeServices.Models.MetaData.BuildingServices
         [RegularExpression(@"([a-zA-Z0-9\s@,=%$#&_\u0600-\u06FF])+(.pdf|.PDF)$", ErrorMessageResourceType = typeof(Resources.Validation_Ar), ErrorMessageResourceName = "FileType")]
         public HttpPostedFile File { get; set; }
         //.png|.PNG|.jpg|.JPG|.jpe?g|.JPE?G|
+        [Required(ErrorMessageResourceType = typeof(Resources.Validation_Ar), ErrorMessageResourceName = "RequirdField", AllowEmptyStrings = false)]
+        [RegularExpression(@"([a-zA-Z0-9\s@,=%$#&_\u0600-\u06FF])+(.pdf|.PDF)$", ErrorMessageResourceType = typeof(Resources.Validation_Ar), ErrorMessageResourceName = "FileType")]
+        public HttpPostedFile Files { get; set; }
 
         [RegularExpression(@"([a-zA-Z0-9\s@,=%$#&_\u0600-\u06FF])+(.pdf|.PDF)$", ErrorMessageResourceType = typeof(Resources.Validation_Ar), ErrorMessageResourceName = "FileType")]
         public HttpPostedFile OptionalFile { get; set; }
+
+        [RegularExpression(@"([a-zA-Z0-9\s@,=%$#&_\u0600-\u06FF])+(.pdf|.PDF)$", ErrorMessageResourceType = typeof(Resources.Validation_Ar), ErrorMessageResourceName = "FileType")]
+        public HttpPostedFile OptionalFiles { get; set; }
     }
 }

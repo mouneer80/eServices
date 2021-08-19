@@ -40,6 +40,10 @@
         color: orangered;
     }
 
+    .ToModifiying {
+        color: cornflowerblue
+    }
+
     .WaitingSignature {
         color: mediumvioletred;
     }
@@ -96,12 +100,16 @@
                                 <input value="NotCompletePermits" type="radio" name="optradio" />
                             </div>
                             <div style="float:left ; padding-right:10px;">
+                                <label class="radio-inline">الطلبات بعد التعديل</label>
+                                <input value="ToCompletePermits" type="radio" name="optradio" />
+                            </div>
+                            <div style="float:left ; padding-right:10px;">
                                 <label class="radio-inline">الطلبات المقبولة</label>
                                 <input value="AcceptedPermits" type="radio" name="optradio" />
                             </div>
                             <div style="float:left ; padding-right:10px;">
-                                <label class="radio-inline">الطلبات المرفوضة</label>
-                                <input value="CanceledPermits" type="radio" name="optradio" />
+                                <label class="radio-inline">الطلبات المدفوعة</label>
+                                <input value="PayedPermits" type="radio" name="optradio" />
                             </div>
                             <div style="float:left ; padding-right:10px;">
                                 <label class="radio-inline">جميع الطلبات</label>
@@ -117,7 +125,7 @@
 
 
                 <div class="box-content">
-                    <div id="divLoader" style="display:block;"> <img src="~/Content/ajax-loader.gif" alt="Loader" /> </div>
+                    <div id="divLoader" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader" /> </div>
 
                     <table class="table table-striped table-bordered bootstrap-datatable datatable responsive" id="oTable">
                         <thead>
@@ -131,7 +139,7 @@
                                 <th>الولاية</th>
                                 <th>المنطقة</th>
                                 <th>مربع رقم</th>
-                                <th>رقم الكروكي</th>
+                                <th>رقم الرسم المساحي</th>
                                 <th>تاريخ الطلب</th>
                                 <th>تاريخ التعديل</th>
                                 <th>حالة الطلب</th>
@@ -157,34 +165,14 @@
 
 <script>
     $(document).ready(function () {
-        @*$("#divLoader").show();
-        var type = "AllPermits";
-        var url = "@Url.Action("PermitsList", "BuildingPermits")";
-        $.ajax({
-            url: url,
-            type: 'POST',
-            data: { Type: type },
-            success: function (response) {
-                //$('#oTable').dataTable().api().ajax.reload();
-                $("#divLoader").hide();
-                $('#PermitsList').html(response);
-                //$('#oTable').dataTable().fnAddData(response);
-                //$('#oTable').dataTable().fnDraw();
-            },
-            error: function (er) {
-                $("#divLoader").hide();
-                console.log(er);
-            }
-
-        });*@
-        $("#divLoader").hide();
+        //$("#divLoader").hide();
         $('input[type="radio"]').click(function () {
             if ($(this).is(':checked')) {
-
+                Loading();
             }
             var type = $(this).val();
             var url = "@Url.Action("PermitsList", "BuildingPermits")";
-
+            //Loading();
             $("#divLoader").show();
             $.ajax({
                 url: url,
@@ -198,7 +186,7 @@
                     //$('#oTable').dataTable().fnDraw();
                 },
                 error: function (er) {
-                    $("#divLoader").hide();
+                    //$("#divLoader").hide();
                     console.log(er);
                 }
 

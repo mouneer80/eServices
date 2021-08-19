@@ -239,7 +239,7 @@
                         <label class="control-label">
                             @Html.DisplayNameFor(m => m.BuildingPermits.KrokiNO)
                         </label>
-                        @Html.TextBoxFor(m => m.BuildingPermits.KrokiNO, new { @readonly = "readonly", @class = "form-control", id = "KrokiNO", @placeholder = "رقم الكروكي" })
+                        @Html.TextBoxFor(m => m.BuildingPermits.KrokiNO, new { @readonly = "readonly", @class = "form-control", id = "KrokiNO", @placeholder = "رقم الرسم المساحي" })
                         @Html.ValidationMessageFor(m => m.BuildingPermits.KrokiNO, "", new { @style = "color:orange;" })
                     </div>
                     @if (Model.BuildingPermits.LandDeedReceiptNo != null)
@@ -264,7 +264,18 @@
                     <h5>بيانات ترخيص البناء</h5>
                     <div class="form-group col-lg-3">
                         <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.LicenseNo)</label>
-                        @Html.TextBoxFor(m => m.BuildingPermits.LicenseNo, new { @readonly = "readonly", @class = "form-control", id = "LicenseNo", @placeholder = "رقم الترخيص" })
+                        @if (Model.BuildingPermits.ServiceName == "12" || Model.BuildingPermits.ServiceName == "16" || Model.BuildingPermits.ServiceName == "21")
+                        {
+                            <div style="direction:ltr">
+                                @Html.TextBoxFor(m => m.BuildingPermits.LicenseNo, new { @readonly = "raedonly", @class = "form-control", id = "LicenseNo", @placeholder = "رقم الترخيص" })
+                            </div>
+                        }
+                        else
+                        {
+                            <div style="direction:ltr">
+                                @Html.TextBoxFor(m => m.BuildingPermits.MLicenseNo, new { @readonly = "raedonly", @class = "form-control", id = "LicenseNo", @placeholder = "رقم الترخيص" })
+                            </div>
+                        }
                     </div>
                     <div class="form-group col-lg-2">
                         <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.ConstructedArea)</label>
@@ -321,6 +332,13 @@
                         <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.DMLicenseComments)</label>
                         @Html.TextAreaFor(m => m.BuildingPermits.DMLicenseComments, new { @class = "form-control", id = "DMLicenseComments", @placeholder = "بيان الترخيص" })
                     </div>
+                    @if (Model.BuildingPermits.ServiceName == "21" && Model.BuildingPermits.MLicenseStatement != null)
+                    {
+                        <div class="col-lg-4">
+                            <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.MLicenseStatement)</label>
+                            @Html.TextAreaFor(m => m.BuildingPermits.MLicenseStatement, new { @class = "form-control", id = "MLicenseStatement", @placeholder = "بيان التعديل او الاضافة" })
+                        </div>
+                    }
                 </div>
                 <div class="box col-lg-6">
                     <div class="col-lg-3">
@@ -348,26 +366,28 @@
                 <i class="glyphicon glyphicon-ok"></i> حفظ
             </button>
 
-            <a style="float:left" href="@Url.Action( "Index","BuildingPermits")" class="btn btn-primary" role="button">الصفحة السابقة</a>
+            <a style="float:left" href="@Url.Action( "Index","BuildingPermits")" onclick="return Loading();" class="btn btn-primary" role="button">الصفحة السابقة</a>
 
         }
 
     </div>
+
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <script type="text/javascript">
+
+            window.onload = function () {
+                $('#ErrorModal').find('.modal-content').text('@ViewBag.ErrorMessage');
+                $("#ErrorModal").modal("show");
+
+            };
+        </script>
+    }
 </div>
 
 
-
-<div class="modal fade" id="MainModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-
-        </div>
-    </div>
-</div>
-
-
-<script src="~/Scripts/jquery-1.10.2.js"></script>
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+@*<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
 <script type="text/javascript">
     $(function () {
         //Country Dropdown Selectedchange event
@@ -397,6 +417,24 @@
 </script>
 
 <script>
+    function stopVlidations() {
+        $("#LandDeedReceiptNo").rules('remove', 'required');
+        $('#LandDeedReceiptNo').removeAttr('required');
+        $("#PersonalFile").rules('remove', 'required');
+        $('#PersonalFile').removeAttr('required');
+        $("#DistrictNo").rules('remove', 'required');
+        $('#DistrictNo').removeAttr('required');
+        $("#LandArea").rules('remove', 'required');
+        $('#LandArea').removeAttr('required');
+        $("#KrokiNO").rules('remove', 'required');
+        $('#KrokiNO').removeAttr('required');
+        $("#LandDeedReceiptDate").rules('remove', 'required');
+        $('#LandDeedReceiptDate').removeAttr('required');
+        $("#ConstructedArea").rules('remove', 'required');
+        $('#ConstructedArea').removeAttr('required');
+        $("#NumberOfFloors").rules('remove', 'required');
+        $('#NumberOfFloors').removeAttr('required');
+    }
     $(document).ready(function () {
         let arr1 = [12, 15];
         let arr2 = [13, 14];
@@ -446,47 +484,9 @@
         //hideOptions(array2);
 
         $("#Save").click(function () {
+            stopVlidations();
+            Loading();
             $("#Permitsform").submit();
         });
     });
 </script>
-
-
-<script type="text/javascript">
-    $(function () {
-        // Initialize numeric spinner input boxes
-        //$(".numeric-spinner").spinedit();
-
-        // Initalize modal dialog
-        // attach modal-container bootstrap attributes to links with .modal-link class.
-        // when a link is clicked with these attributes, bootstrap will display the href content in a modal dialog.
-
-        $('body').on('click', '.modal-link', function (e) {
-
-            $(this).attr('data-target', '#MainModal');
-            $(this).attr('data-toggle', 'modal');
-        });
-
-
-        // Attach listener to .modal-close-btn's so that when the button is pressed the modal dialog disappears
-        $('body').on('click', '.modal-close-btn', function () {
-
-            $('#MainModal').modal('hide');
-        });
-
-        //clear modal cache, so that new content can be loaded
-        $('#MainModal').on('hidden.bs.modal', function () {
-
-            $(this).removeData('bs.modal');
-        });
-
-        $(document).on("hidden.bs.modal", function (e) {
-            $(e.target).removeData("bs.modal").find(".modal-content").empty();
-        });
-
-        $('#CancelModal').on('click', function () {
-            return false;
-        });
-    });
-</script>
-

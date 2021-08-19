@@ -45,6 +45,49 @@ namespace DMeServices.Models.Common.BuildingServices
         }
         #endregion
 
+        #region Method :: Permit By ID And License NO
+
+        public static BuildingPermits PermitsByIDWithLicenseNo(int Id)
+        {
+            using (eServicesEntities db = new eServicesEntities())
+            {
+                var _licenseNo = db.BldPermits.Where(x => x.Id == Id).SingleOrDefault().LicenseNo;
+                List<BldPermitsAttachments> _BldPermitsAttach = new List<BldPermitsAttachments>();
+                if (_licenseNo != null)
+                {
+                    List<BldPermits> _samePermits = db.BldPermits.Where(x => x.LicenseNo == _licenseNo).ToList();
+                    foreach (var permit in _samePermits)
+                    {
+                        List<BldPermitsAttachments> _BldSamePermitsAttach = db.BldPermitsAttachments.Where(x => x.BldPermitId == permit.Id).ToList();
+                        foreach (var attch in _BldSamePermitsAttach)
+                        {
+                            _BldPermitsAttach.Add(attch);
+                        }
+                    }
+                }
+
+                BldPermits _BldPermits = db.BldPermits.Where(x => x.Id == Id).Include(y => y.BldPermitsAttachments).SingleOrDefault();
+                _BldPermits.BldPermitsAttachments = _BldPermitsAttach;
+                BuildingPermits _BuildingPermits = Mapper.Map<BldPermits, BuildingPermits>(_BldPermits);
+
+                return _BuildingPermits;
+            }
+
+        }
+
+        public static DateTime GetLastPermitsByflowStatus(int FlowID)
+        {
+            using (eServicesEntities db = new eServicesEntities())
+            {
+                var _BldPermits = db.BldPermits.Where(x => x.WorkflowStatus == FlowID).OrderByDescending(x => x.RequestDate).First();
+                if (_BldPermits != null)
+                    return _BldPermits.RequestDate;
+                
+                return DateTime.Today;
+            }
+        }
+        #endregion
+
         #region Method :: Permit By TransNo
         public static BuildingPermits PermitsByTransNo(string TransNo)
         {
@@ -75,19 +118,36 @@ namespace DMeServices.Models.Common.BuildingServices
         }
         #endregion
 
-        #region Method :: Permit By LandOwner CivilID
+        #region Method :: Permits By Land Owner CivilID
         public static List<BuildingPermits> PermitsByLandOwnerCivilId(long landOwnerCivilId)
         {
             using (eServicesEntities db = new eServicesEntities())
             {
-                List<BldPermits> bldPermits = db.BldPermits.Where(x => x.OwnerCivilId == landOwnerCivilId).OrderByDescending(x => x.RequestDate).ToList();
+                List<int> bldPermitsIDs = PermitsIDsByLandOwnerCivilId(landOwnerCivilId);
+                List<BldPermits> bldPermits = db.BldPermits.Where(x => bldPermitsIDs.Contains(x.Id)).OrderByDescending(x => x.RequestDate).ToList();
                 List<BuildingPermits> buildingPermits = Mapper.Map<List<BldPermits>, List<BuildingPermits>>(bldPermits);
                 return buildingPermits;
             }
         }
         #endregion
 
-        #region Method :: Permit By CivilId
+        #region Method :: Permits IDs By Owner CivilID
+        public static List<int> PermitsIDsByLandOwnerCivilId(long landOwnerCivilId)
+        {
+            using (eServicesEntities db = new eServicesEntities())
+            {
+                List<BldOwners> _bldOwners = db.BldOwners.Where(x => x.CivilID == landOwnerCivilId).ToList();
+                List<int> BLDIDs = new List<int>();
+                foreach (var o in _bldOwners)
+                {
+                    BLDIDs.Add(o.BldPermitId.Value);
+                }
+                return BLDIDs;
+            }
+        }
+        #endregion
+
+        #region Method :: Permit By Consultant CivilId
         public static List<BuildingPermits> PermitsByConsultantCivilId(long CivilId)
         {
             using (eServicesEntities db = new eServicesEntities())
@@ -134,9 +194,9 @@ namespace DMeServices.Models.Common.BuildingServices
                     return "paid";
                 }
 
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    return null;
+                    return ex.Message;
                 }
 
             }
@@ -144,7 +204,6 @@ namespace DMeServices.Models.Common.BuildingServices
         #endregion
 
         #region Method :: Get All New Permits 
-
 
         public static List<BuildingPermits> GetAllPermitsByflowStatus(int FlowID)
         {
@@ -161,18 +220,32 @@ namespace DMeServices.Models.Common.BuildingServices
         #region Method :: Permit By Engineer Number
 
 
-        public static List<BuildingPermits> PermitsByEngineerID(int? EngNum, int Status)
+        public static List<BuildingPermits> PermitsByEngineerID(int? EngNum, int Status, bool IsManager)
         {
             using (eServicesEntities db = new eServicesEntities())
             {
                 List<BldPermits> _BldPermits;
-                if (Status == 1)
+                if (IsManager)
                 {
-                    _BldPermits = db.BldPermits.Where(x => x.DmEngineerNo == EngNum).Include(y => y.BldPermitsAttachments).OrderByDescending(x => x.RequestDate).ToList();
+                    if (Status == 1)
+                    {
+                        _BldPermits = db.BldPermits.Include(y => y.BldPermitsAttachments).OrderByDescending(x => x.RequestDate).ToList();
+                    }
+                    else
+                    {
+                        _BldPermits = db.BldPermits.Where(x => x.WorkflowStatus == Status).Include(y => y.BldPermitsAttachments).OrderByDescending(x => x.RequestDate).ToList();
+                    }
                 }
                 else
                 {
-                    _BldPermits = db.BldPermits.Where(x => x.DmEngineerNo == EngNum && x.WorkflowStatus == Status).Include(y => y.BldPermitsAttachments).OrderByDescending(x => x.RequestDate).ToList();
+                    if (Status == 1)
+                    {
+                        _BldPermits = db.BldPermits.Where(x => x.DmEngineerNo == EngNum).Include(y => y.BldPermitsAttachments).OrderByDescending(x => x.RequestDate).ToList();
+                    }
+                    else
+                    {
+                        _BldPermits = db.BldPermits.Where(x => x.DmEngineerNo == EngNum && x.WorkflowStatus == Status).Include(y => y.BldPermitsAttachments).OrderByDescending(x => x.RequestDate).ToList();
+                    }
                 }
                 List<BuildingPermits> _BuildingPermits = Mapper.Map<List<BldPermits>, List<BuildingPermits>>(_BldPermits);
                 return _BuildingPermits;
@@ -211,7 +284,7 @@ namespace DMeServices.Models.Common.BuildingServices
                     }
                     //_BldPermits.ConsultantCrNo = (long)oModel.oUserInfo.ConsultantCrNo;
                     //_BldPermits.ConsultantCivilId = (long)oModel.oUserInfo.CivilId;
-                    if (oModel.BuildingPermits.WelayahID != null)
+                    if (oModel.BuildingPermits.WelayahID.GetValueOrDefault(0) != 0)
                     {
                         _BldPermits.WelayahID = oModel.BuildingPermits.WelayahID;
                     }
@@ -219,7 +292,7 @@ namespace DMeServices.Models.Common.BuildingServices
                     {
                         _BldPermits.WelayahID = 12;
                     }
-                    if (oModel.BuildingPermits.RegionID != null)
+                    if (oModel.BuildingPermits.RegionID.GetValueOrDefault(0) != 0)
                     {
                         _BldPermits.RegionID = oModel.BuildingPermits.RegionID;
                     }
@@ -227,7 +300,7 @@ namespace DMeServices.Models.Common.BuildingServices
                     {
                         _BldPermits.RegionID = 1;
                     }
-                    if (oModel.BuildingPermits.SquareLetterID != null)
+                    if (oModel.BuildingPermits.SquareLetterID.GetValueOrDefault(0) != 0)
                     {
                         _BldPermits.SquareLetterID = oModel.BuildingPermits.SquareLetterID;
                     }
@@ -235,7 +308,7 @@ namespace DMeServices.Models.Common.BuildingServices
                     {
                         _BldPermits.SquareLetterID = 27;
                     }
-                    if (oModel.BuildingPermits.UseTypeID != null)
+                    if (oModel.BuildingPermits.UseTypeID.GetValueOrDefault(0) != 0)
                     {
                         _BldPermits.UseTypeID = oModel.BuildingPermits.UseTypeID;
                     }
@@ -243,7 +316,7 @@ namespace DMeServices.Models.Common.BuildingServices
                     {
                         _BldPermits.UseTypeID = 106;
                     }
-                    if (oModel.BuildingPermits.BuildingTypeID != null)
+                    if (oModel.BuildingPermits.BuildingTypeID.GetValueOrDefault(0) != 0)
                     {
                         _BldPermits.BuildingTypeID = oModel.BuildingPermits.BuildingTypeID;
                     }
@@ -418,26 +491,49 @@ namespace DMeServices.Models.Common.BuildingServices
                         string[] _bldP = { "12", "16", "21" };
                         if (_bldP.Contains(oModel.BuildingPermits.ServiceName))
                         {
-                            _BldPermits.LicenseNo = GenLicenseNo();
+                            if (_BldPermits.LicenseNo == null && oModel.BuildingPermits.LicenseNo == null)
+                            {
+                                _BldPermits.LicenseNo = GenLicenseNo();
+                            }
+                            if (oModel.BuildingPermits.LicenseNo != null && _BldPermits.LicenseNo != oModel.BuildingPermits.LicenseNo)
+                            {
+                                _BldPermits.LicenseNo = oModel.BuildingPermits.LicenseNo;
+                            }
                         }
                         else
                         {
                             if (_BldPermits.LicenseNo == null)
                             {
-                                _BldPermits.LicenseNo = _BldPermits.MLicenseNo = GenLicenseNoSmallBLDNo();
+                                _BldPermits.LicenseNo = GenLicenseNo();
+                                _BldPermits.MLicenseNo = GenLicenseNoSmallBLDNo();
                             }
                             else
                             {
                                 _BldPermits.MLicenseNo = GenLicenseNoSmallBLDNo();
                             }
                         }
+
                         if (_BldPermits.DMLicenseComments == null)
                         {
                             _BldPermits.DMLicenseComments = _BldPermits.MLicenseStatement = oModel.BuildingPermits.DMLicenseComments;
                         }
                         else
                         {
-                            _BldPermits.MLicenseStatement = oModel.BuildingPermits.DMLicenseComments;
+                            if (oModel.oEmployeeInfo.IsEngineerHead || oModel.oEmployeeInfo.IsEngineerManager)
+                            {
+                                if (_BldPermits.DMLicenseComments != oModel.BuildingPermits.DMLicenseComments)
+                                {
+                                    _BldPermits.DMLicenseComments = oModel.BuildingPermits.DMLicenseComments;
+                                }
+                            }
+                            if (oModel.BuildingPermits.MLicenseStatement == null)
+                            {
+                                _BldPermits.MLicenseStatement = oModel.BuildingPermits.DMLicenseComments;
+                            }
+                            else
+                            {
+                                _BldPermits.MLicenseStatement = oModel.BuildingPermits.MLicenseStatement;
+                            }
                         }
                     }
                     _BldPermits.WorkflowStatus = oModel.BuildingPermits.WorkflowStatus;
@@ -446,6 +542,10 @@ namespace DMeServices.Models.Common.BuildingServices
                     _BldPermits.DmEngineerComments = oModel.BuildingPermits.DmEngineerComments;
                     _BldPermits.DMManagerNotes = oModel.BuildingPermits.DMManagerNotes;
                     _BldPermits.DMEngineerNotes = oModel.BuildingPermits.DMEngineerNotes;
+                    if (oModel.oEmployeeInfo.IsEngineerHead || oModel.oEmployeeInfo.IsEngineerCounter || oModel.oEmployeeInfo.IsEngineerManager)
+                    {
+                        _BldPermits.DmEngineerNo = oModel.BuildingPermits.DmEngineerNo;
+                    }
                     db.SaveChanges();
                     return "ok";
                 }
@@ -687,9 +787,10 @@ namespace DMeServices.Models.Common.BuildingServices
                 return LicenseNo;
             }
         }
+
         public static string GenLicenseNo()
         {
-            string LicenseNo = "2021/9999";
+            string LicenseNo = "2021/99999";
             using (eServicesEntities db = new eServicesEntities())
             {
 
@@ -730,9 +831,6 @@ namespace DMeServices.Models.Common.BuildingServices
                 return LicenseNo;
             }
         }
-
-
-
         #endregion
 
         #region Method :: Owners By Permit ID

@@ -58,30 +58,8 @@
         </iframe>
     </div>
 </div>
-
-@*<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>*@
-@*<script src="~/Scripts/jquery-1.9.1.min.js"></script>*@
 <script type="text/javascript">
     function autoResize(iframe) {
-        alert("test", iframe.height);
         $(iframe).height($(iframe).contents().find('html').height());
     }
-    function unloadModal() {
-        $('#MainModal').modal('hide');
-    }
 </script>
-@*<script type="text/javascript">
-        jQuery(document).ready(function () {
-            var iframe = $("#scaled-frame");
-            ////var iframe = document.getElementById('scaled-frame');
-            var style = document.createElement('style');
-            style.textContent =
-                'body {' +
-                '  cursor: zoom-out' +
-                '}'
-               ;
-            iframe.context.head.appendChild(style);
-            console.log(iframe.context.head.appendChild(style));
-        });
-    </script>*@
-

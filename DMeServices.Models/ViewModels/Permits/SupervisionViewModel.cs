@@ -18,7 +18,12 @@ namespace DMeServices.Models.ViewModels.Permits
             if (HttpContext.Current.Session["UserInfo"] != null)
             {
                 oUserInfo = (User)HttpContext.Current.Session["UserInfo"];
-                BuildingSupervision = new BuildingSupervision { OwnerCivilId  = oUserInfo.CivilId };
+
+
+                BuildingSupervision = new BuildingSupervision();
+
+                //BuildingSupervision = new BuildingSupervision { OwnerCivilId  = oUserInfo.CivilId };
+
             }
 
         }
@@ -36,8 +41,14 @@ namespace DMeServices.Models.ViewModels.Permits
         public BuildingPermits BuildingPermits { get; set; }
 
         public List<BuildingPermits> BuildingPermitsList { get; set; }
-        
+
         public List<PermitsAttachments> ListOfAttachments { get; set; }
+
+        public PermitsAttachments PersonalCard { get; set; }
+
+        public PermitsAttachments KrokeFile { get; set; }
+
+        public PermitsAttachments OwnerFile { get; set; }
 
         public PermitsAttachments Attachments { get; set; }
 
@@ -67,6 +78,7 @@ namespace DMeServices.Models.ViewModels.Permits
 
         public PermitsAttachments ConstructionPermitApplication { get; set; }
 
+        public PermitsAttachments ChangeConsultantStatment { get; set; }
 
         public bool ShowAdd { get; set; }
 

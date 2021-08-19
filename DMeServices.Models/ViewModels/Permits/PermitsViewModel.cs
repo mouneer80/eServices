@@ -19,8 +19,15 @@ namespace DMeServices.Models.ViewModels.Permits
             if (HttpContext.Current.Session["UserInfo"] != null)
             {
                 oUserInfo = (User)HttpContext.Current.Session["UserInfo"];
-                int userCRNO = UserCom.UserByCivilID(oUserInfo.CivilId).ConsultantCrNo;
-                BuildingPermits = new BuildingPermits { ConsultantCivilId = oUserInfo.CivilId, ConsultantCrNo = userCRNO };
+                var userCRNO = UserCom.UserByCivilID(oUserInfo.CivilId);
+                if (userCRNO != null)
+                {
+                    BuildingPermits = new BuildingPermits { ConsultantCivilId = oUserInfo.CivilId, ConsultantCrNo = userCRNO.ConsultantCrNo };
+                }
+                else
+                {
+                    BuildingPermits = new BuildingPermits();
+                }
             }
         }
 
@@ -47,7 +54,7 @@ namespace DMeServices.Models.ViewModels.Permits
         public PermitsAttachments LandPic { get; set; }
 
         public PermitsAttachments Others { get; set; }
-        
+
         public PermitsAttachments OptionalLetter1 { get; set; }
         public PermitsAttachments OptionalLetter2 { get; set; }
         public PermitsAttachments OptionalLetter3 { get; set; }

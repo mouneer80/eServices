@@ -77,6 +77,8 @@
                                     <td>وقت الاضافة</td>
                                     <td>حالة الملف</td>
                                     <td></td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -89,71 +91,52 @@
                                             int ListDetails = DMeServices.Models.Common.BuildingServices.PermitsAttachmentsCom.AttachmentsDetailsByAttachmentsID((int)item.Id).Count();
                                             string TypeName = DMeServices.Models.Common.BuildingServices.AttachmentTypesCom.TypeByID((int)@item.AttachmentTypeId).Name;
                                             <tr>
-                                                <td class="col-sm-1" style="width:10%;">
+                                                <td class="col-md-2" style="width:10%;">
                                                     @TypeName
                                                 </td>
-                                                <td class="col-sm-1" style="width:5%;">
+                                                <td class="col-md-2" style="width:5%;">
                                                     @item.Description
                                                 </td>
-                                                <td class="col-sm-1" unprintable>
+                                                <td class="col-md-1" unprintable>
                                                     @item.InsertDate.ToString("yyyy/MM/dd")
                                                 </td>
-                                                <td class="col-sm-1" unprintable>
+                                                <td class="col-md-1" unprintable>
                                                     @item.InsertDate.ToString("hh:mm")
                                                 </td>
-                                                <td class="col-sm-1" unprintable>
-                                                    <a class="modal-link" href="@Url.Action("GetFile", new { @controller = "BuildingPermits", @Id = item.Id })">عرض الملف<i class="fa fa-eye-slash modal-link"></i></a>
-                                                </td>
-
                                                 @if (item.UpdatedOn != null)
                                                 {
                                                     if (ListDetails > 0)
                                                     {
-                                                        <td class="col-sm-1" unprintable><p><font color="red">ملف سابق</font></p></td>
+                                                        <td class="col-md-2" unprintable><p><font color="red">ملف سابق</font></p></td>
                                                     }
                                                     else
                                                     {
-                                                        <td class="col-sm-1" unprintable><p><font color="green">ملف جديد</font></p></td>
+                                                        <td class="col-md-2" unprintable><p><font color="green">ملف جديد</font></p></td>
                                                     }
                                                 }
                                                 else
                                                 {
-                                                    <td class="col-sm-1" unprintable><p><font color="green">ملف جديد</font></p></td>
+                                                    <td class="col-md-2" unprintable><p><font color="green">ملف جديد</font></p></td>
                                                 }
-
-                                                @if (Model.oEmployeeInfo.IsEngineer == true || Model.oEmployeeInfo.IsEngineerManager == true)
+                                                <td class="col-md-1" unprintable>
+                                                    <a onclick="return Loading();" class="modal-link" href="@Url.Action("GetFile", new { @controller = "BuildingPermits", @Id = item.Id })">عرض الملف<i class="fa fa-eye-slash modal-link"></i></a>
+                                                </td>
+                                                @if (ListDetails > 0)
                                                 {
-                                                    <td class="col-sm-1" unprintable>
-                                                        @if (item.UpdatedOn != null)
-                                                        {
-                                                            if (ListDetails > 0)
-                                                            {
-                                                                <a href="#" style="color:darkgreen" fileID="@item.Id" class="GetDetails">عرض تفاصيل الخريطة<i class="fa fa-eye-slash glyphicon glyphicon-collapse-down"></i></a>
-                                                            }
-                                                            else
-                                                            {
-                                                                <a class="modal-link" href="@Url.Action("EditPDFFile", "BuildingPermits", new { @Id = item.Id, @PirmID = Model.BuildingPermits.Id })">تعديل الملف<i class="fa fa-eye-slash"></i></a>
-                                                            }
-                                                        }
-                                                        else
-                                                        {
-                                                            <a class="modal-link" href="@Url.Action("EditPDFFile", "BuildingPermits", new { @Id = item.Id, @PirmID = Model.BuildingPermits.Id })">تعديل الملف<i class="fa fa-eye-slash"></i></a>
-                                                            @*<a class="modal-link" href="@Url.Action("EditPDFFile", new { @controller = "BuildingPermits" })">تعديل الملف<i class="fa fa-eye-slash"></i></a>*@
-                                                        }
+                                                    <td class="col-md-1" unprintable>تم التعديل سابقا</td>
+                                                    <td class="col-md-2" unprintable>
+                                                        <a onclick="return Loading();" href="#" style="color:darkgreen" fileID="@item.Id" class="GetDetails">عرض تفاصيل الخريطة<i class="fa fa-eye-slash glyphicon glyphicon-collapse-down"></i></a>
                                                     </td>
-                                                    <td class="col-sm-1" unprintable>
-                                                        @if (item.UpdatedOn == null)
-                                                        {
-                                                            if (ListDetails > 0)
-                                                            {
-                                                                <a href="#" fileID="@item.Id" class="GetDetails">عرض تفاصيل الخريطة<i class="fa fa-eye-slash glyphicon glyphicon-collapse-down"></i></a>
-                                                            }
-                                                        }
+                                                }
+                                                else
+                                                {
+                                                    <td class="col-md-1" unprintable>
+                                                        <a onclick="return Loading();" class="modal-link" href="@Url.Action("EditPDFFile", "BuildingPermits", new { @Id = item.Id, @PirmID = Model.BuildingPermits.Id })">تعديل الملف<i class="fa fa-eye-slash"></i></a>
                                                     </td>
+                                                    <td class="col-md-2" unprintable>لا يوجد تفاصيل للتعديل</td>
                                                 }
                                             </tr>
                                         }
-                                        //i++;
                                     }
                                 }
                             </tbody>
@@ -176,25 +159,16 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="MainModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-
-        </div>
-    </div>
-</div>
 
 <script type="text/javascript">
-    function unloadModal() {
-        $('#MainModal').modal('hide');
-    }
     $(document).ready(function () {
         $("#divAttachmentsDetails").css("display", "none");
 
         $(".GetDetails").click(function () {
-            if ($('#divAttachmentsDetails').css('display') == 'block') {
-                $("#divAttachmentsDetails").css("display", "none");
-            } else {
+            //if ($('#divAttachmentsDetails').css('display') == 'block') {
+            //    $("#divAttachmentsDetails").css("display", "none");
+            //} else {
+
                 var attID = $(this).attr("fileID");
                 var url = "@Url.Action("SelectAttachmentDetails", "BuildingPermits")";
                 $.ajax({
@@ -209,47 +183,7 @@
                         swal(er);
                     }
                 });
-            }
+            //}
             });
     });
-    $(function () {
-        // Initialize numeric spinner input boxes
-        //$(".numeric-spinner").spinedit();
-
-        // Initalize modal dialog
-        // attach modal-container bootstrap attributes to links with .modal-link class.
-        // when a link is clicked with these attributes, bootstrap will display the href content in a modal dialog.
-
-        $('body').on('click', '.modal-link', function (e) {
-            $(this).attr('data-target', '#MainModal');
-            e.preventDefault();
-            $("iframe").attr("src", $(this).attr('href'));
-            $(this).attr('data-toggle', 'modal');
-        });
-
-
-        // Attach listener to .modal-close-btn's so that when the button is pressed the modal dialog disappears
-        $('body').on('click', '.modal-close-btn', function () {
-
-            $('#MainModal').modal('hide');
-
-        });
-
-        //clear modal cache, so that new content can be loaded
-        $('#MainModal').on('hidden.bs.modal', function () {
-
-            $(this).removeData('bs.modal');
-        });
-
-        $(document).on("hidden.bs.modal", function (e) {
-            $(e.target).removeData("bs.modal").find(".modal-content").empty();
-        });
-
-        $('#CancelModal').on('click', function () {
-            return false;
-        });
-    });
 </script>
-
-
-

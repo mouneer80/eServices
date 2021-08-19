@@ -21,7 +21,6 @@ namespace DMeServicesInternal.Web.Controllers
         // GET: BuildingPermits
         public ActionResult Index()
         {
-            //PermitsCom.GenLicenseNo();
             PermitsViewModel oModel = new PermitsViewModel();
             return View(oModel);
         }
@@ -38,7 +37,6 @@ namespace DMeServicesInternal.Web.Controllers
 
             // The font for our text
             Font f = new Font("Arial", 35, FontStyle.Bold);
-
 
             // work out how big the text will be when drawn as an image
             SizeF size = g.MeasureString(acatext, f);
@@ -61,7 +59,6 @@ namespace DMeServicesInternal.Web.Controllers
             //    Server.MapPath("~/Images/Notes/"), fileName);
             //file.SaveAs(location);
             return Json("File uploaded" + acatext);
-
         }
 
         #region Method :: Permits
@@ -69,63 +66,32 @@ namespace DMeServicesInternal.Web.Controllers
         {
             PermitsViewModel oModel = new PermitsViewModel();
             oEmployeeInfo = (Employee)System.Web.HttpContext.Current.Session["EmployeeInfo"];
+            bool IsManaging = false;
+            if (oEmployeeInfo.IsEngineerHead || oEmployeeInfo.IsEngineerManager)
+                IsManaging = true;
+            int Status = 1;
             switch (Type)
             {
                 case "NewPermits":
-                    if (oEmployeeInfo.IsEngineerHead || oEmployeeInfo.IsEngineerManager)
-                    {
-                        oModel.ListBuildingPermits = PermitsCom.GetAllPermitsByflowStatus(8);
-                    }
-                    else
-                    {
-                        oModel.ListBuildingPermits = PermitsCom.PermitsByEngineerID(oEmployeeInfo.EMP_NO, 8);
-                    }
+                    Status = 8;
                     break;
-
-                case "CanceledPermits":
-                    if (oEmployeeInfo.IsEngineerHead || oEmployeeInfo.IsEngineerManager)
-                    {
-                        oModel.ListBuildingPermits = PermitsCom.GetAllPermitsByflowStatus(18);
-                    }
-                    else
-                    {
-                        oModel.ListBuildingPermits = PermitsCom.PermitsByEngineerID(oEmployeeInfo.EMP_NO, 18);
-                    }
+                case "ToCompletePermits":
+                    Status = 10;
                     break;
-
+                case "PayedPermits":
+                    Status = 29;
+                    break;
                 case "AcceptedPermits":
-                    if (oEmployeeInfo.IsEngineerHead || oEmployeeInfo.IsEngineerManager)
-                    {
-                        oModel.ListBuildingPermits = PermitsCom.GetAllPermitsByflowStatus(19);
-                    }
-                    else
-                    {
-                        oModel.ListBuildingPermits = PermitsCom.PermitsByEngineerID(oEmployeeInfo.EMP_NO, 19);
-                    }
+                    Status = 30;
                     break;
-
                 case "NotCompletePermits":
-                    if (oEmployeeInfo.IsEngineerHead || oEmployeeInfo.IsEngineerManager)
-                    {
-                        oModel.ListBuildingPermits = PermitsCom.GetAllPermitsByflowStatus(10);
-                    }
-                    else
-                    {
-                        oModel.ListBuildingPermits = PermitsCom.PermitsByEngineerID(oEmployeeInfo.EMP_NO, 10);
-                    }
+                    Status = 18;
                     break;
-
                 case "AllPermits":
-                    if (oEmployeeInfo.IsEngineerHead || oEmployeeInfo.IsEngineerManager)
-                    {
-                        oModel.ListBuildingPermits = PermitsCom.AllPermits();
-                    }
-                    else
-                    {
-                        oModel.ListBuildingPermits = PermitsCom.PermitsByEngineerID(oEmployeeInfo.EMP_NO, 1);
-                    }
+                    Status = 1;
                     break;
             }
+            oModel.ListBuildingPermits = PermitsCom.PermitsByEngineerID(oEmployeeInfo.EMP_NO, Status, IsManaging);
             return PartialView("_PermitsList", oModel);
         }
         #endregion
@@ -153,6 +119,10 @@ namespace DMeServicesInternal.Web.Controllers
             }
             PermitsViewModel oModel = new PermitsViewModel();
             oModel.BuildingPermits = PermitsCom.PermitsByID(Id);
+            //if(oModel.BuildingPermits.ServiceName == "21")
+            //{
+            //    oModel.BuildingPermits = PermitsCom.PermitsByIDWithLicenseNo(Id);
+            //}
             ViewBag.DDWelayat = DDWelayat();
             ViewBag.DDRegion = DDRegionSaved(oModel.BuildingPermits.WelayahID);
             //ViewBag.DDArea = DDAreaSaved(oModel.BuildingPermits.RegionID);
@@ -160,7 +130,14 @@ namespace DMeServicesInternal.Web.Controllers
             ViewBag.DDLandUseTypes = DDLandUseTypes();
             ViewBag.DDSquareLetters = DDSquareLetters();
             string folderName = dirName(oModel);
-            oModel.ListOfAttachments = PermitsAttachmentsCom.AttachmentsByPermitsID(Id, folderName);
+            if (oModel.BuildingPermits.ServiceName == "21")
+            {
+                oModel.ListOfAttachments = PermitsAttachmentsCom.AttachmentsByLicenseNo(oModel.BuildingPermits.LicenseNo, folderName);
+            }
+            else
+            {
+                oModel.ListOfAttachments = PermitsAttachmentsCom.AttachmentsByPermitsID(Id, folderName);
+            }
             //ViewBag.DDPermitsStatus = DDPermitsStatus();
             oModel.ListOfOwners = PermitsCom.OwnersByPermitID(Id);
             oModel.Payments = PaymentsCom.PaymentsByPermitsID(Id);
@@ -486,40 +463,15 @@ namespace DMeServicesInternal.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AssignPermits(PermitsViewModel oModel)
         {
-            if (oModel.BuildingPermits.WorkflowStatus == 18)
+            if (oModel.BuildingPermits.WorkflowStatus == 18 || oModel.BuildingPermits.WorkflowStatus == 19)
             {
-                SaveEngineerPermits(oModel);
-                //string Result = PermitsCom.SaveEngineerPermits(oModel);
-
-                //if (Result == "ok")
-                //{
-                //    var User = DMeServices.Models.Common.UserCom.UserByCivilID((int)oModel.BuildingPermits.ConsultantCivilId);
-
-                //    switch (oModel.BuildingPermits.WorkflowStatus)
-                //    {
-                //        case 18:
-                //            DMeServices.Models.Common.SmsCom.SendSms("968" + User.MobileNo, " : تم تعليق معاملتكم لحين استيفاء البيانات رقم المعاملة " + oModel.BuildingPermits.TransactNo);
-                //            DMeServices.Models.Common.SmsCom.SendSms("968" + oModel.BuildingPermits.OwnerPhoneNo, " : تم تعليق معاملتكم لحين استيفاء البيانات  رقم المعاملة " + oModel.BuildingPermits.TransactNo);
-                //            break;
-
-                //        case 19:
-                //            DMeServices.Models.Common.SmsCom.SendSms("968" + User.MobileNo, " : تم قبول معاملتكم وفي انتظار الدفع رقم المعاملة " + oModel.BuildingPermits.TransactNo);
-                //            DMeServices.Models.Common.SmsCom.SendSms("968" + oModel.BuildingPermits.OwnerPhoneNo, " : تم قبول معاملتكم وفي انتظار الدفع رقم المعاملة " + oModel.BuildingPermits.TransactNo);
-                //            break;
-                //        case 20:
-                //            DMeServices.Models.Common.SmsCom.SendSms("968" + User.MobileNo, " : يوجد بعض التعديلات علي الخرائط رقم المعاملة " + oModel.BuildingPermits.TransactNo);
-                //            DMeServices.Models.Common.SmsCom.SendSms("968" + oModel.BuildingPermits.OwnerPhoneNo, " : يوجد بعض التعديلات علي الخرائط رقم المعاملة " + oModel.BuildingPermits.TransactNo);
-                //            break;
-                //    }
-
-                //}
+                string Result = PermitsCom.SaveEngineerPermits(oModel);
             }
             else
             {
                 BuildingPermits permits = PermitsCom.AssignPermits(oModel.BuildingPermits);
                 oModel.BuildingPermits = permits;
             }
-
             return RedirectToAction("Index");
         }
         #endregion
@@ -530,29 +482,39 @@ namespace DMeServicesInternal.Web.Controllers
         public ActionResult SaveEngineerPermits(PermitsViewModel oModel)
         {
             string Result = PermitsCom.SaveEngineerPermits(oModel);
-
+            string ErrorMessage;
             if (Result == "ok")
             {
                 var User = DMeServices.Models.Common.UserCom.UserByCivilID((int)oModel.BuildingPermits.ConsultantCivilId);
+                oModel.ListOfOwners = PermitsCom.OwnersByPermitID(oModel.BuildingPermits.Id);
 
                 switch (oModel.BuildingPermits.WorkflowStatus)
                 {
                     case 18:
-                        DMeServices.Models.Common.SmsCom.SendSms("968" + User.MobileNo, " : تم تعليق معاملتكم لحين استيفاء البيانات رقم المعاملة " + oModel.BuildingPermits.TransactNo);
+                        DMeServices.Models.Common.SmsCom.SendSms("968" + User.MobileNo, " : تم تعليق معاملتكم لحين استيفاء المرفقات رقم المعاملة " + oModel.BuildingPermits.TransactNo);
                         //DMeServices.Models.Common.SmsCom.SendSms("968" + oModel.BuildingPermits.OwnerPhoneNo, " : تم تعليق معاملتكم لحين استيفاء البيانات  رقم المعاملة " + oModel.BuildingPermits.TransactNo);
-                        break;
-
-                    case 28:
-                        DMeServices.Models.Common.SmsCom.SendSms("968" + User.MobileNo, " : تم قبول معاملتكم وفي انتظار الدفع رقم المعاملة " + oModel.BuildingPermits.TransactNo);
-                        DMeServices.Models.Common.SmsCom.SendSms("968" + oModel.BuildingPermits.OwnerPhoneNo, " : تم قبول معاملتكم وفي انتظار الدفع رقم المعاملة " + oModel.BuildingPermits.TransactNo);
                         break;
                     case 20:
                         DMeServices.Models.Common.SmsCom.SendSms("968" + User.MobileNo, " : يوجد بعض التعديلات علي الخرائط رقم المعاملة " + oModel.BuildingPermits.TransactNo);
                         //DMeServices.Models.Common.SmsCom.SendSms("968" + oModel.BuildingPermits.OwnerPhoneNo, " : يوجد بعض التعديلات علي الخرائط رقم المعاملة " + oModel.BuildingPermits.TransactNo);
                         break;
+                    case 28:
+                        DMeServices.Models.Common.SmsCom.SendSms("968" + User.MobileNo, " : تم قبول معاملتكم وفي انتظار الدفع رقم المعاملة " + oModel.BuildingPermits.TransactNo);
+                        foreach (var Owner in oModel.ListOfOwners)
+                        {
+
+                            DMeServices.Models.Common.SmsCom.SendSms("968" + Owner.Phone, " : تم قبول معاملتكم وفي انتظار الدفع رقم المعاملة " + oModel.BuildingPermits.TransactNo);
+                        }
+                        break;
                 }
+                ErrorMessage = "تم حفظ التفاصيل بنجاح";
             }
-            return RedirectToAction("Index");
+            else
+            {
+                ErrorMessage = "حدث خطأ في حفظ البيانات";
+            }
+            return RedirectToAction("PermitDetails", "BuildingPermits", new { Id = oModel.BuildingPermits.Id, errorMessage = ErrorMessage });
+            //return RedirectToAction("Index");
         }
         #endregion
 
@@ -606,7 +568,7 @@ namespace DMeServicesInternal.Web.Controllers
         {
             PermitsViewModel oModel = new PermitsViewModel();
             oModel.PaymentDetailsList = DMeServices.Models.Common.BuildingServices.PaymentsCom.PaymentDetailsByPaymentID(Id);
-            return PartialView("_ListPayments", oModel);
+            return PartialView("_ListPaymentsDetails", oModel);
         }
 
 
@@ -707,25 +669,26 @@ namespace DMeServicesInternal.Web.Controllers
             rds.Value = dt;
             ReportViewer reportViewer1 = new ReportViewer();
             reportViewer1.ProcessingMode = ProcessingMode.Local;
-            if (serviceName == "New Permit")
+            switch (serviceName)
             {
-                reportViewer1.LocalReport.ReportPath = Server.MapPath("~/" + "Reports//rpt//PrintPermit.rdlc");
-            }
-            else if(serviceName == "Demolition")
-            {
-                reportViewer1.LocalReport.ReportPath = Server.MapPath("~/" + "Reports//rpt//PrintDemolitionRpt.rdlc");
-            }
-            else if (serviceName == "Renovation")
-            {
-                reportViewer1.LocalReport.ReportPath = Server.MapPath("~/" + "Reports//rpt//PrintRenovationRpt.rdlc");
-            }
-            else if (serviceName == "Fencing")
-            {
-                reportViewer1.LocalReport.ReportPath = Server.MapPath("~/" + "Reports//rpt//PrintFencingRpt.rdlc");
-            }
-            else if (serviceName == "Extension Permit")
-            {
-                reportViewer1.LocalReport.ReportPath = Server.MapPath("~/" + "Reports//rpt//PrintExtensionRpt.rdlc");
+                case "New Permit":
+                    reportViewer1.LocalReport.ReportPath = Server.MapPath("~/" + "Reports//rpt//PrintPermit.rdlc");
+                    break;
+                case "Demolition":
+                    reportViewer1.LocalReport.ReportPath = Server.MapPath("~/" + "Reports//rpt//PrintDemolitionRpt.rdlc");
+                    break;
+                case "Renovation":
+                    reportViewer1.LocalReport.ReportPath = Server.MapPath("~/" + "Reports//rpt//PrintRenovationRpt.rdlc");
+                    break;
+                case "Fencing":
+                    reportViewer1.LocalReport.ReportPath = Server.MapPath("~/" + "Reports//rpt//PrintFencingRpt.rdlc");
+                    break;
+                case "Extension Permit":
+                    reportViewer1.LocalReport.ReportPath = Server.MapPath("~/" + "Reports//rpt//PrintExtensionRpt.rdlc");
+                    break;
+                case "Modify Permit":
+                    reportViewer1.LocalReport.ReportPath = Server.MapPath("~/" + "Reports//rpt//PrintModifyRpt.rdlc");
+                    break;
             }
             //eServicesEntities entities = new eServicesEntities();
             //ReportDataSource datasource = new ReportDataSource("Permits", entities.BldPermits);
@@ -757,7 +720,9 @@ namespace DMeServicesInternal.Web.Controllers
                 out extension,
                 out streamIds,
                 out warnings);
-            var tempPath = System.Web.HttpContext.Current.Server.MapPath("~/Images/PrintedFiles/" + FolderName);
+            //it was : "~/Images/PrintedFiles/"
+            //now is : "~/Files/PrintedFiles/Permits/"
+            var tempPath = System.Web.HttpContext.Current.Server.MapPath("~/Files/PrintedFiles/Permits/" + FolderName);
             if (!Directory.Exists(tempPath))
             {
                 Directory.CreateDirectory(tempPath);
@@ -855,7 +820,7 @@ namespace DMeServicesInternal.Web.Controllers
             var quantity = System.Web.HttpContext.Current.Request.Form["Quantity"];
             var total = System.Web.HttpContext.Current.Request.Form["Total"];
             oModel.PaymentDetails = new PaymentDetails();
-            oModel.PaymentDetails.ServiceQuantity = int.Parse(quantity);
+            oModel.PaymentDetails.ServiceQuantity = decimal.Parse(quantity);
             oModel.PaymentDetails.ServiceID = int.Parse(serviceID);
             oModel.PaymentDetails.ServiceFees = decimal.Parse(fees);
             oModel.PaymentDetails.TotalAmount = decimal.Parse(total);

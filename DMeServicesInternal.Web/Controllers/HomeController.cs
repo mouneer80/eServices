@@ -34,11 +34,20 @@ namespace DMeServicesInternal.Web.Controllers
             
         public ActionResult DashBoard()
         {
-            PermitsViewModel dashboard = new PermitsViewModel();
+            var test = DMeServices.Models.Common.BuildingServices.PermitsCom.GetLastPermitsByflowStatus(12);
 
-            dashboard.BuildingPermits_count = DMeServices.Models.Common.BuildingServices.PermitsCom.GetAllPermitsByflowStatus(8).Count;
+            DashboardViewModel dashboard = new DashboardViewModel();
+
+            dashboard.AllPermits_Count = DMeServices.Models.Common.BuildingServices.PermitsCom.AllPermits().Count;
+            dashboard.InspectedPermits_count = DMeServices.Models.Common.BuildingServices.PermitsCom.GetAllPermitsByflowStatus(12).Count;
+            dashboard.NewPermits_count = DMeServices.Models.Common.BuildingServices.PermitsCom.GetAllPermitsByflowStatus(8).Count;
+            dashboard.CompletePermits_count = DMeServices.Models.Common.BuildingServices.PermitsCom.GetAllPermitsByflowStatus(30).Count;
             dashboard.Companies_count = DMeServices.Models.Common.BuildingServices.MociCompaniesData.AllCompanies().Count;
             dashboard.Users_count = DMeServices.Models.Common.UserCom.AllUsers().Count;
+            dashboard.lastrequest = DMeServices.Models.Common.BuildingServices.PermitsCom.GetLastPermitsByflowStatus(12);
+            dashboard.requestTime = DMeServices.Models.Common.BuildingServices.PermitsCom.GetLastPermitsByflowStatus(30);
+            dashboard.updatedTime = (DateTime)DMeServices.Models.Common.BuildingServices.PermitsCom.GetLastPermitsByflowStatus(30);
+            dashboard.diffrenceTime = dashboard.updatedTime - dashboard.requestTime;
             return View("About", dashboard);
         }
         public ActionResult ChangeLanguage(string lang)

@@ -21,11 +21,11 @@ namespace DMeServices.Models.ViewModels.Internal.Permits
 
                 if (oEmployeeInfo.IsSupervisionHead || oEmployeeInfo.IsEngineerManager)
                 {
-                    ListBuildingSupervision = SupervisionCom.GetAllSupervisionsByFlowStatus(8);
+                    ListBuildingSupervision = SupervisionCom.AllSupervisionsByWelayah((int)oEmployeeInfo.DEPT_ID);
                 }
                 else
                 {
-                    ListBuildingSupervision = SupervisionCom.SupervisionsByEngineerId(oEmployeeInfo.EMP_NO);
+                    ListBuildingSupervision = SupervisionCom.SupervisionsByInspectorID(oEmployeeInfo.EMP_NO, 1, false);
                 }
             }
         }

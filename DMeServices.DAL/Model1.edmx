@@ -125,7 +125,7 @@
           </Key>
           <Property Name="PaymentDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ServiceID" Type="int" />
-          <Property Name="ServiceQuantity" Type="int" />
+          <Property Name="ServiceQuantity" Type="numeric" Precision="8" Scale="2" />
           <Property Name="TotalAmount" Type="numeric" Precision="18" Scale="3" />
           <Property Name="ServiceFees" Type="numeric" Precision="18" Scale="3" />
           <Property Name="Notes" Type="nvarchar" MaxLength="250" />
@@ -261,6 +261,7 @@
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="150" />
           <Property Name="UpdatedOn" Type="datetime" />
           <Property Name="AttachmentTypeId" Type="int" />
+          <Property Name="BldSupervisionID" Type="int" />
         </EntityType>
         <EntityType Name="BldRegions">
           <Key>
@@ -338,6 +339,14 @@
           <Property Name="OwnerNotes" Type="nvarchar" MaxLength="250" />
           <Property Name="ContractorCR_No" Type="int" />
           <Property Name="ContractorID" Type="int" />
+          <Property Name="DMSupervisionStatment" Type="nvarchar" MaxLength="250" />
+          <Property Name="SupervisionRelatedID" Type="int" />
+          <Property Name="WelayahID" Type="int" />
+          <Property Name="RegionID" Type="int" />
+          <Property Name="SquareLetterID" Type="int" />
+          <Property Name="DistrictNo" Type="int" />
+          <Property Name="UseTypeID" Type="int" />
+          <Property Name="LandArea" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="BldSupervisionServicesTypes">
           <Key>
@@ -358,6 +367,9 @@
           <Property Name="BldPermitId" Type="int" />
           <Property Name="BldSupervisionId" Type="int" />
           <Property Name="Status" Type="int" />
+          <Property Name="BldNewSupervisionID" Type="int" />
+          <Property Name="BldPermitLicenseNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="BldSupervisionLicenseNo" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="BldTransactionTypes">
           <Key>
@@ -2627,6 +2639,7 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           <NavigationProperty Name="BldAttachmentTypes" Relationship="eServicesModel.FK_BldPermitsAttachments_BldAttachmentTypes" FromRole="BldPermitsAttachments" ToRole="BldAttachmentTypes" />
           <NavigationProperty Name="BldPermits" Relationship="eServicesModel.FK_BldPermit" FromRole="BldPermitsAttachments" ToRole="BldPermits" />
           <NavigationProperty Name="BldPermitsAttachmentDetails" Relationship="eServicesModel.FK_BldPermitAttachment" FromRole="BldPermitsAttachments" ToRole="BldPermitsAttachmentDetails" />
+          <Property Name="BldSupervisionID" Type="Int32" />
         </EntityType>
         <Association Name="FK_BldPermitsAttachments_BldAttachmentTypes">
           <End Type="eServicesModel.BldAttachmentTypes" Role="BldAttachmentTypes" Multiplicity="0..1" />
@@ -3436,6 +3449,14 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           <Property Name="ContractorCR_No" Type="Int32" />
           <Property Name="ContractorID" Type="Int32" />
           <NavigationProperty Name="BldSupervisionContractors" Relationship="eServicesModel.FK_BldSupervisionServices_BldSupervisionContractors" FromRole="BldSupervisionServices" ToRole="BldSupervisionContractors" />
+          <Property Name="DMSupervisionStatment" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="SupervisionRelatedID" Type="Int32" />
+          <Property Name="WelayahID" Type="Int32" />
+          <Property Name="RegionID" Type="Int32" />
+          <Property Name="SquareLetterID" Type="Int32" />
+          <Property Name="DistrictNo" Type="Int32" />
+          <Property Name="UseTypeID" Type="Int32" />
+          <Property Name="LandArea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="BldSupervisionServicesTypes">
           <Key>
@@ -3487,7 +3508,7 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           </Key>
           <Property Name="PaymentDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ServiceID" Type="Int32" />
-          <Property Name="ServiceQuantity" Type="Int32" />
+          <Property Name="ServiceQuantity" Type="Decimal" Precision="8" Scale="2" />
           <Property Name="TotalAmount" Type="Decimal" Precision="18" Scale="3" />
           <Property Name="ServiceFees" Type="Decimal" Precision="18" Scale="3" />
           <Property Name="Notes" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
@@ -3654,6 +3675,9 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           <NavigationProperty Name="BldTransactionTypes" Relationship="eServicesModel.FK_BldTransactions_BldTransactionTypes" FromRole="BldTransactions" ToRole="BldTransactionTypes" />
           <Property Name="Status" Type="Int32" />
           <NavigationProperty Name="BldSupervisionServices" Relationship="eServicesModel.FK_BldTransactions_BldSupervisionServices" FromRole="BldTransactions" ToRole="BldSupervisionServices" />
+          <Property Name="BldNewSupervisionID" Type="Int32" />
+          <Property Name="BldPermitLicenseNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BldSupervisionLicenseNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="BldTransactionTypes">
           <Key>
@@ -4291,6 +4315,7 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           <EntitySetMapping Name="BldPermitsAttachments">
             <EntityTypeMapping TypeName="eServicesModel.BldPermitsAttachments">
               <MappingFragment StoreEntitySet="BldPermitsAttachments">
+                <ScalarProperty Name="BldSupervisionID" ColumnName="BldSupervisionID" />
                 <ScalarProperty Name="AttachmentTypeId" ColumnName="AttachmentTypeId" />
                 <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
@@ -4842,6 +4867,14 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           <EntitySetMapping Name="BldSupervisionServices">
             <EntityTypeMapping TypeName="eServicesModel.BldSupervisionServices">
               <MappingFragment StoreEntitySet="BldSupervisionServices">
+                <ScalarProperty Name="LandArea" ColumnName="LandArea" />
+                <ScalarProperty Name="UseTypeID" ColumnName="UseTypeID" />
+                <ScalarProperty Name="DistrictNo" ColumnName="DistrictNo" />
+                <ScalarProperty Name="SquareLetterID" ColumnName="SquareLetterID" />
+                <ScalarProperty Name="RegionID" ColumnName="RegionID" />
+                <ScalarProperty Name="WelayahID" ColumnName="WelayahID" />
+                <ScalarProperty Name="SupervisionRelatedID" ColumnName="SupervisionRelatedID" />
+                <ScalarProperty Name="DMSupervisionStatment" ColumnName="DMSupervisionStatment" />
                 <ScalarProperty Name="ContractorID" ColumnName="ContractorID" />
                 <ScalarProperty Name="ContractorCR_No" ColumnName="ContractorCR_No" />
                 <ScalarProperty Name="OwnerNotes" ColumnName="OwnerNotes" />
@@ -5019,6 +5052,9 @@ warning 6002: The table/view 'eServices.dbo.pges' does not have a primary key de
           <EntitySetMapping Name="BldTransactions">
             <EntityTypeMapping TypeName="eServicesModel.BldTransactions">
               <MappingFragment StoreEntitySet="BldTransactions">
+                <ScalarProperty Name="BldSupervisionLicenseNo" ColumnName="BldSupervisionLicenseNo" />
+                <ScalarProperty Name="BldPermitLicenseNo" ColumnName="BldPermitLicenseNo" />
+                <ScalarProperty Name="BldNewSupervisionID" ColumnName="BldNewSupervisionID" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="BldSupervisionId" ColumnName="BldSupervisionId" />
                 <ScalarProperty Name="BldPermitId" ColumnName="BldPermitId" />

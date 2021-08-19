@@ -47,6 +47,58 @@
             background-image: url(@Url.Content("~/img/E-Payment.jpg"));
             background-size: contain;
                     }
+        .RemoveBorder {
+            border: 0px solid rgba(221, 221, 221, 0.46) !important;
+        }
+
+        .glyphicon_new {
+            top: 5px !important;
+            font-size: 15pt !important;
+        }
+
+        .land-survey {
+            width: 100%;
+        }
+
+        .modal-header {
+            background: linear-gradient(to bottom, rgb(255 255 255) 100%, #999999 100%);
+        }
+
+        .modal-footer {
+            background: linear-gradient(to bottom, rgb(255 255 255) 100%, #DDDDDD 100%);
+        }
+
+        .modal-body {
+            background: linear-gradient(to bottom, rgb(255 255 255) 100%, #DDDDDD 100%);
+        }
+
+        .modal-dialog {
+            height: 90%; /* = 90% of the .modal-backdrop block = %90 of the screen */
+        }
+
+        #MainModal .modal-dialog {
+            width: 50%; /* = 90% of the .modal-backdrop block = %90 of the screen */
+        }
+
+        #MainModal .modal-content {
+            height: 30%; /* = 90% of the .modal-backdrop block = %90 of the screen */
+        }
+
+        #LoaderModal .modal-dialog {
+            width: 50%; /* = 90% of the .modal-backdrop block = %90 of the screen */
+        }
+
+        #LoaderModal .modal-content {
+            height: 30%; /* = 90% of the .modal-backdrop block = %90 of the screen */
+        }
+
+        .modal-content {
+            background-color: #ffffff;
+            border: 0px solid #999999;
+            webkit-box-shadow: none;
+            box-shadow: none;
+            border-radius: 0;
+        }
     </style>
 </head>
 <body class="Background">
@@ -89,7 +141,7 @@
                                 <p class="center col-md-5">
                                     @*<a href="sindex.html" class="btn btn-primary">دخـــول</a>*@
                                     @*@Html.ActionLink("دخـــول", "Login", "UsersLogin", null, new { @class = "btn btn-primary" })*@
-                                    <button type="submit" class="btn btn-primary btn-block">دخـــول</button>
+                                    <button id="btnLogin" type="submit" class="btn btn-primary btn-block">دخـــول</button>
                                 </p>
                             </fieldset>
                         }
@@ -98,7 +150,20 @@
             </div>
         </div>
     </div>
+    <div class="modal bs-modal-dialog" id="LoaderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
 
+            <div class="modal-header">
+                <h5 class="modal-title text-warning">....Loading</h5>
+            </div>
+            <div class="modal-body">
+                <div id="divLoader" style="display:block;"> <img src="~/img/ajax-loaders/ajax-loader-6.gif" alt="Loader" /> </div>
+            </div>
+            <div class="modal-footer">
+                <h5 class="modal-title text-warning">جاري تحميل طلبك ....</h5>
+            </div>
+        </div>
+    </div>
     <script src="~/Content/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- notification plugin -->
     <script src="~/Scripts/js/jquery.noty.js"></script>
@@ -110,6 +175,24 @@
     <script src="~/Scripts/js/jquery.history.js"></script>
     <!-- application script for charisma demo -->
     <script src="~/Scripts/js/charisma.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#btnLogin").click(function () {
+                Loading();
+            })
+            //$("#divLoader").hide();
+        });
+        function Loading() {
+            $(window).on('load', function () {
+                $('#LoaderModal').fadeOut(500);
+                //$("#divLoader").fadeOut("slow");
+            });
+            $(window).on('beforeunload', function () {
+                //$("#divLoader").fadeIn(50);
+                $("#LoaderModal").fadeIn(50);
+            });
 
+        };
+    </script>
 </body>
 </html>

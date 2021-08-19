@@ -16,7 +16,7 @@ namespace DMeServices.DAL
     {
         public int PaymentDetailID { get; set; }
         public Nullable<int> ServiceID { get; set; }
-        public Nullable<int> ServiceQuantity { get; set; }
+        public Nullable<decimal> ServiceQuantity { get; set; }
         public Nullable<decimal> TotalAmount { get; set; }
         public Nullable<decimal> ServiceFees { get; set; }
         public string Notes { get; set; }

@@ -202,7 +202,7 @@
     <value>لا يوجد</value>
   </data>
   <data name="KrokiNO" xml:space="preserve">
-    <value>رقم الكروكي</value>
+    <value>رقم الرسم المساحي</value>
   </data>
   <data name="LandArea" xml:space="preserve">
     <value>المساحة الكلية لقطعة الأرض</value>
@@ -260,5 +260,11 @@
   </data>
   <data name="CosultantOwner" xml:space="preserve">
     <value>مالك المكتب الهندسي</value>
+  </data>
+  <data name="MLicenseStatement" xml:space="preserve">
+    <value>بيان التعديل او الاضافة</value>
+  </data>
+  <data name="ConsultantNotes" xml:space="preserve">
+    <value>ملاحظات الاستشاري</value>
   </data>
 </root>

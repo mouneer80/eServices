@@ -23,11 +23,11 @@
             var serviceColor = DMeServices.Models.Common.BuildingServices.SupervisionCom.ServiceByID(serviceName).CssClassName;
             if (serviceColor == "BigPermit")
             {
-                <td class="center"> <a class="btn btn-warning modal-link" href="@Url.Action("PermitDetails", "BuildingPermits", new { @Id = item.Id })"> @item.TransactNo  </a> </td>
+                <td class="center"> <a onclick="return Loading();" class="btn btn-warning" href="@Url.Action("PermitDetails", "BuildingPermits", new { @Id = item.Id })"> @item.TransactNo  </a> </td>
             }
             else
             {
-                <td class="center"> <a class="btn btn-success modal-link" href="@Url.Action("PermitDetails", "BuildingPermits", new { @Id = item.Id })"> @item.TransactNo  </a> </td>
+                <td class="center"> <a onclick="return Loading();" class="btn btn-success" href="@Url.Action("PermitDetails", "BuildingPermits", new { @Id = item.Id })"> @item.TransactNo  </a> </td>
             }
             if (User != null)
             {

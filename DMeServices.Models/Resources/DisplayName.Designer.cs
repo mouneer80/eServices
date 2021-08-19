@@ -97,6 +97,15 @@ namespace DMeServices.Models.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ملاحظات الاستشاري.
+        /// </summary>
+        public static string ConsultantNotes {
+            get {
+                return ResourceManager.GetString("ConsultantNotes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to مالك المكتب.
         /// </summary>
         public static string CosultantOwner {
@@ -259,7 +268,7 @@ namespace DMeServices.Models.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to رقم الكروكي.
+        ///   Looks up a localized string similar to رقم الرسم المساحي.
         /// </summary>
         public static string KrokiNO {
             get {
@@ -318,6 +327,15 @@ namespace DMeServices.Models.Resources {
         public static string LicenseNo {
             get {
                 return ResourceManager.GetString("LicenseNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to بيان التعديل او الاضافة.
+        /// </summary>
+        public static string MLicenseStatement {
+            get {
+                return ResourceManager.GetString("MLicenseStatement", resourceCulture);
             }
         }
         

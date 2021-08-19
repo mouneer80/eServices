@@ -19,6 +19,9 @@ namespace DMeServices.DAL
         public Nullable<int> BldPermitId { get; set; }
         public Nullable<int> BldSupervisionId { get; set; }
         public Nullable<int> Status { get; set; }
+        public Nullable<int> BldNewSupervisionID { get; set; }
+        public string BldPermitLicenseNo { get; set; }
+        public string BldSupervisionLicenseNo { get; set; }
     
         public virtual BldPermits BldPermits { get; set; }
         public virtual BldTransactionTypes BldTransactionTypes { get; set; }

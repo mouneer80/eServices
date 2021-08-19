@@ -13,61 +13,41 @@ namespace DMeServices.Models.Common.BuildingServices
 {
     public class PermitsAttachmentsCom
     {
-
-
-
         #region Method :: List Attachments By Permits ID
-
         public static List<PermitsAttachments> AttachmentsByPermitsID(int BldPermitId, string FolderName)
         {
-
             string sWebSiteURL = System.Configuration.ConfigurationManager.AppSettings["WebSiteURL"].ToString();
-
             using (eServicesEntities db = new eServicesEntities())
             {
-
                 List<BldPermitsAttachments> _BldPermitsAttachments = db.BldPermitsAttachments.Where(x => x.BldPermitId == BldPermitId).OrderByDescending(x => x.Id).ToList();
                 List<PermitsAttachments> _PermitsAttachments = Mapper.Map<List<BldPermitsAttachments>, List<PermitsAttachments>>(_BldPermitsAttachments);
                 foreach (var item in _PermitsAttachments)
                 {
-
-                    //FileStream readStream;
-                    //string msg = null;
-
-                    //    readStream = new FileStream("c:\\csharp.net-informations.dat", FileMode.Open);
-                    //    BinaryReader readBinary = new BinaryReader(readStream);
-                    //    msg = readBinary.ReadString();
-
-                    //    readStream.Close();
-
-
-
-
                     switch (item.AttachmentTypeId)
                     {
                         case 1:
                         case 2:
                         case 3:
-                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/Personal/" + FolderName.ToString() + item.AttachmentName;
+                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/Personal/" + FolderName.ToString() + "/" + item.AttachmentName;
                             break;
                         case 4:
-                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/Consultant/" + FolderName.ToString() + item.AttachmentName;
+                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/Consultant/" + FolderName.ToString() + "/" + item.AttachmentName;
                             break;
                         case 5:
                         case 6:
                         case 7:
                         case 8:
                         case 14:
-                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/StructuralFiles/" + FolderName.ToString() + item.AttachmentName;
+                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/StructuralFiles/" + FolderName.ToString() + "/" + item.AttachmentName;
                             break;
                         case 15:
-                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/LandFiles/" + FolderName.ToString() + item.AttachmentName;
+                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/LandFiles/" + FolderName.ToString() + "/" + item.AttachmentName;
                             break;
                         case 16:
-                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/Consultant/" + FolderName.ToString() + item.AttachmentName;
+                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/Consultant/" + FolderName.ToString() + "/" + item.AttachmentName;
                             break;
                         case 20:
-                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/Others/" + FolderName.ToString() + item.AttachmentName;
+                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/Others/" + FolderName.ToString() + "/" + item.AttachmentName;
                             break;
                         case 41:
                         case 42:
@@ -77,43 +57,44 @@ namespace DMeServices.Models.Common.BuildingServices
                         case 46:
                         case 47:
                         case 48:
-                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/SupervisionFiles/" + FolderName.ToString() + item.AttachmentName;
+                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/SupervisionFiles/" + FolderName.ToString() + "/" + item.AttachmentName;
                             break;
                     }
-
-
-
-
                 }
                 return _PermitsAttachments;
             }
-
         }
         #endregion
-
-
-        #region Method :: List Attachments By Permits ID
-
-        public static List<PermitsAttachments> MapsAttachByPermitsID(long BldPermitId)
+        public static List<int> MapsByPermitsID(int BldPermitId)
         {
-
             string sWebSiteURL = System.Configuration.ConfigurationManager.AppSettings["WebSiteURL"].ToString();
-
             using (eServicesEntities db = new eServicesEntities())
             {
+                List<int> _PermitsAttachmentsIDS = new List<int>();
+                List<BldPermitsAttachments> _BldPermitsAttachments = db.BldPermitsAttachments.Where(x => x.BldPermitId == BldPermitId && (x.AttachmentTypeId > 4 && x.AttachmentTypeId < 15)).OrderByDescending(x => x.Id).ToList();
+                List<PermitsAttachments> _PermitsAttachments = Mapper.Map<List<BldPermitsAttachments>, List<PermitsAttachments>>(_BldPermitsAttachments);
+                foreach (var item in _PermitsAttachments)
+                {
+                    _PermitsAttachmentsIDS.Add(item.Id);
+                }
+                return _PermitsAttachmentsIDS;
+            }
+        }
 
+        #region Method :: List Attachments By Permits ID
+        public static List<PermitsAttachments> MapsAttachByPermitsID(long BldPermitId)
+        {
+            string sWebSiteURL = System.Configuration.ConfigurationManager.AppSettings["WebSiteURL"].ToString();
+            using (eServicesEntities db = new eServicesEntities())
+            {
                 List<BldPermitsAttachments> _BldPermitsAttachments = db.BldPermitsAttachments.Where(x => x.BldPermitId == BldPermitId && x.AttachmentTypeId > 4 && x.AttachmentTypeId < 15).OrderByDescending(x => x.Id).ToList();
                 List<PermitsAttachments> _PermitsAttachments = Mapper.Map<List<BldPermitsAttachments>, List<PermitsAttachments>>(_BldPermitsAttachments);
-
                 return _PermitsAttachments;
             }
-
         }
         #endregion
 
-
         #region Method ::List  Attachments Details By Attachments ID
-
         public static List<PermitsAttachmentDetails> AttachmentsDetailsByAttachmentsID(int AttachID)
         {
             using (eServicesEntities db = new eServicesEntities())
@@ -122,29 +103,33 @@ namespace DMeServices.Models.Common.BuildingServices
                 List<PermitsAttachmentDetails> _PermitsAttachmentDetails = Mapper.Map<List<BldPermitsAttachmentDetails>, List<PermitsAttachmentDetails>>(_BldPermitsAttachmentDetails);
                 return _PermitsAttachmentDetails;
             }
-
+        }
+        public static PermitsAttachmentDetails MapStampedInAttachmentDetails(int AttachID)
+        {
+            using (eServicesEntities db = new eServicesEntities())
+            {
+                BldPermitsAttachmentDetails _BldPermitsAttachmentDetails = db.BldPermitsAttachmentDetails.Where(x => x.BldPermitAttId == AttachID && x.AttachmentTypeId == 90).SingleOrDefault();
+                PermitsAttachmentDetails _PermitsAttachmentDetails = Mapper.Map<BldPermitsAttachmentDetails, PermitsAttachmentDetails>(_BldPermitsAttachmentDetails);
+                if(_PermitsAttachmentDetails == null)
+                {
+                    return null;
+                }
+                return _PermitsAttachmentDetails;
+            }
         }
         #endregion
 
         #region Method ::  Attachments By ID
-
         public static PermitsAttachments AttachmentsByID(int Id)
         {
-
-
-
             using (eServicesEntities db = new eServicesEntities())
             {
-
                 BldPermitsAttachments _BldPermitsAttachment = db.BldPermitsAttachments.Where(x => x.Id == Id).SingleOrDefault();
                 PermitsAttachments _PermitsAttachment = Mapper.Map<BldPermitsAttachments, PermitsAttachments>(_BldPermitsAttachment);
                 return _PermitsAttachment;
             }
-
         }
         #endregion
-
-
 
         #region Method ::  Attachments Details By ID
 
@@ -162,9 +147,82 @@ namespace DMeServices.Models.Common.BuildingServices
             }
 
         }
+
+        public static List<PermitsAttachments> AttachmentsByLicenseNo(string licenseNo, string FolderName)
+        {
+            string sWebSiteURL = System.Configuration.ConfigurationManager.AppSettings["WebSiteURL"].ToString();
+
+            using (eServicesEntities db = new eServicesEntities())
+            {
+                List<PermitsAttachments> _AllAttachments = new List<PermitsAttachments>();
+                List<BldPermits> _bldpermits = db.BldPermits.Where(x => x.LicenseNo == licenseNo).ToList();
+                foreach (var bldPermit in _bldpermits)
+                {
+                    List<BldPermitsAttachments> _BldPermitsAttachments = db.BldPermitsAttachments.Where(x => x.BldPermitId == bldPermit.Id).OrderByDescending(x => x.Id).ToList();
+                    List<PermitsAttachments> _PermitsAttachments = Mapper.Map<List<BldPermitsAttachments>, List<PermitsAttachments>>(_BldPermitsAttachments);
+                    foreach (var item in _PermitsAttachments)
+                    {
+
+                        //FileStream readStream;
+                        //string msg = null;
+
+                        //    readStream = new FileStream("c:\\csharp.net-informations.dat", FileMode.Open);
+                        //    BinaryReader readBinary = new BinaryReader(readStream);
+                        //    msg = readBinary.ReadString();
+
+                        //    readStream.Close();
+
+
+
+
+                        switch (item.AttachmentTypeId)
+                        {
+                            case 1:
+                            case 2:
+                            case 3:
+                                item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/Personal/" + FolderName.ToString() + item.AttachmentName;
+                                break;
+                            case 4:
+                                item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/Consultant/" + FolderName.ToString() + item.AttachmentName;
+                                break;
+                            case 5:
+                            case 6:
+                            case 7:
+                            case 8:
+                            case 14:
+                                item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/StructuralFiles/" + FolderName.ToString() + item.AttachmentName;
+                                break;
+                            case 15:
+                                item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/LandFiles/" + FolderName.ToString() + item.AttachmentName;
+                                break;
+                            case 16:
+                                item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/Consultant/" + FolderName.ToString() + item.AttachmentName;
+                                break;
+                            case 20:
+                                item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/Others/" + FolderName.ToString() + item.AttachmentName;
+                                break;
+                            case 41:
+                            case 42:
+                            case 43:
+                            case 44:
+                            case 45:
+                            case 46:
+                            case 47:
+                            case 48:
+                                item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/SupervisionFiles/" + FolderName.ToString() + item.AttachmentName;
+                                break;
+                        }
+
+
+
+
+                        _AllAttachments.Add(item);
+                    }
+                }
+                return _AllAttachments;
+            }
+        }
         #endregion
-
-
 
         #region Method ::  Attachments Details By ID
 
@@ -245,6 +303,7 @@ namespace DMeServices.Models.Common.BuildingServices
                 PermitPrintDetails.InsertDate = DateTime.Now;
                 PermitPrintDetails.CreatedBy = permitAttachments.CreatedBy;
                 PermitPrintDetails.CreatedOn = DateTime.Now;
+                PermitPrintDetails.BldSupervisionID = permitAttachments.BldSupervisionID;
                 db.BldPermitsAttachments.Add(PermitPrintDetails);
                 db.SaveChanges();
             }
@@ -255,7 +314,6 @@ namespace DMeServices.Models.Common.BuildingServices
         #region Method ::   Update Permits Attachment Stream 
         public static void UpdateAttachmentStream(int Id, byte[] DocumentData)
         {
-
             using (eServicesEntities db = new eServicesEntities())
             {
                 BldPermitsAttachments _BldPermitsAttachment = db.BldPermitsAttachments.Where(x => x.Id == Id).SingleOrDefault();
@@ -267,26 +325,43 @@ namespace DMeServices.Models.Common.BuildingServices
                 db.SaveChanges();
             }
         }
+        public static void UpdatePermitsAttachments(string EmpName, int EmpID, int Id, byte[] DocumentData, int attachmentType, string stampsNames)
+        {
+            using (eServicesEntities db = new eServicesEntities())
+            {
+                BldPermitsAttachments _BldPermitsAttachment = db.BldPermitsAttachments.Where(x => x.Id == Id).SingleOrDefault();
+                if (_BldPermitsAttachment == null)
+                {
+                    return;
+                }
+                BldPermitsAttachmentDetails AttachmentDetails = new BldPermitsAttachmentDetails();
+                AttachmentDetails.BldPermitAttId = _BldPermitsAttachment.Id;
+                AttachmentDetails.AttachmentStream = DocumentData;
+                AttachmentDetails.AttachmentContentType = _BldPermitsAttachment.AttachmentContentType;
+                AttachmentDetails.AttachmentName = _BldPermitsAttachment.AttachmentName;
+                AttachmentDetails.AttachmentPath = _BldPermitsAttachment.AttachmentPath;
+                AttachmentDetails.AttachmentTypeId = attachmentType;
+                AttachmentDetails.Description = stampsNames;
+                AttachmentDetails.InsertDate = DateTime.Now;
+                AttachmentDetails.DmEngineerNo = EmpID;
+                AttachmentDetails.CreatedBy = EmpName;
+                AttachmentDetails.CreatedOn = DateTime.Now;
+                db.BldPermitsAttachmentDetails.Add(AttachmentDetails);
+                db.SaveChanges();
+            }
+        }
         #endregion
 
         #region Method ::  Consultant Update Permits Attachments 
-
         public static void UpdateConsultantAttachments(string ConsultName, int CivilID, int Id, byte[] DocumentData)
         {
-
             using (eServicesEntities db = new eServicesEntities())
             {
-
                 BldPermitsAttachmentDetails _BldPermitsAttachmentDetails = db.BldPermitsAttachmentDetails.Where(x => x.Id == Id).SingleOrDefault();
                 if (_BldPermitsAttachmentDetails == null)
                 {
                     return;
                 }
-
-                //_BldPermitsAttachment.AttachmentStream = DocumentData;
-                //_BldPermitsAttachment.UpdatedBy = EmpName;
-                //_BldPermitsAttachment.UpdatedOn = DateTime.Now;
-
                 BldPermitsAttachmentDetails AttachmentDetails = new BldPermitsAttachmentDetails();
                 AttachmentDetails.BldPermitAttId = _BldPermitsAttachmentDetails.BldPermitAttId;
                 AttachmentDetails.AttachmentStream = DocumentData;
@@ -302,7 +377,57 @@ namespace DMeServices.Models.Common.BuildingServices
                 db.BldPermitsAttachmentDetails.Add(AttachmentDetails);
                 db.SaveChanges();
             }
+        }
 
+        public static List<PermitsAttachments> AttachmentsBySupervisionID(int BldSupervisionId, string FolderName)
+        {
+            string sWebSiteURL = System.Configuration.ConfigurationManager.AppSettings["WebSiteURL"].ToString();
+            using (eServicesEntities db = new eServicesEntities())
+            {
+                List<BldPermitsAttachments> _BldPermitsAttachments = db.BldPermitsAttachments.Where(x => x.BldSupervisionID == BldSupervisionId).OrderByDescending(x => x.Id).ToList();
+                List<PermitsAttachments> _PermitsAttachments = Mapper.Map<List<BldPermitsAttachments>, List<PermitsAttachments>>(_BldPermitsAttachments);
+                foreach (var item in _PermitsAttachments)
+                {
+                    switch (item.AttachmentTypeId)
+                    {
+                        case 1:
+                        case 2:
+                        case 3:
+                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/Personal/" + FolderName.ToString() + "/" + item.AttachmentName;
+                            break;
+                        case 4:
+                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/Consultant/" + FolderName.ToString() + "/" + item.AttachmentName;
+                            break;
+                        case 5:
+                        case 6:
+                        case 7:
+                        case 8:
+                        case 14:
+                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/StructuralFiles/" + FolderName.ToString() + "/"+ item.AttachmentName;
+                            break;
+                        case 15:
+                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/LandFiles/" + FolderName.ToString() + "/" + item.AttachmentName;
+                            break;
+                        case 16:
+                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/Consultant/" + FolderName.ToString() + "/" + item.AttachmentName;
+                            break;
+                        case 20:
+                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/Others/" + FolderName.ToString() + "/" + item.AttachmentName;
+                            break;
+                        case 41:
+                        case 42:
+                        case 43:
+                        case 44:
+                        case 45:
+                        case 46:
+                        case 47:
+                        case 48:
+                            item.AttachmentUrl = sWebSiteURL + "/Files/AttachedFiles/SupervisionFiles/" + FolderName.ToString() + "/" + item.AttachmentName;
+                            break;
+                    }
+                }
+                return _PermitsAttachments;
+            }
         }
         #endregion
     }

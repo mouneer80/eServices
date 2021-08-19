@@ -6,15 +6,15 @@
 
 <ul class="breadcrumb">
     <li>
-        <a href="@Url.Action("Index","Home")">الرئيسية</a>
+        <a onclick="return Loading();" href="@Url.Action(Model.ShowAdd ? "Index" : "LandProjects", "BuildingPermits")">الرئيسية</a>
     </li>
     <li>
-        <a href="#">خدمات رقابة البناء</a>
+        <a onclick="return Loading();" href="#">خدمات رقابة البناء</a>
     </li>
 </ul>
 
 <div class="col-lg-12 col-sm-12">
-    <a href="@Url.Action("NewSupervision", "BuildingSupervision", new {@showadd = Model.ShowAdd})" class="btn btn-primary ">
+    <a onclick="return Loading();" href="@Url.Action("NewSupervision", "BuildingSupervision", new {@showadd = Model.ShowAdd})" class="btn btn-primary ">
         <i class="glyphicon glyphicon-plus icon-white"></i> إضافة طلب جديد
     </a>
     <div class="row">
@@ -25,11 +25,13 @@
 
                 </div>
                 <div class="box-content">
+                    
                     <table class="table table-striped table-bordered bootstrap-datatable datatable responsive ">
                         <thead>
                             <tr>
                                 <th>رقم المعاملة</th>
                                 <th>اسم المالك</th>
+                                <th>رقم بطاقة المالك</th>
                                 <th>نوع الطلب</th>
                                 <th>تاريخ الطلب</th>
                                 <th>حالة الطلب</th>
@@ -39,7 +41,7 @@
                             @foreach (var item in Model.ListBuildingSupervision)
                             {
                                 <tr>
-                                    <td class="center"> <a class="btn btn-primary modal-link" href="@Url.Action("SupervisionDetails", "BuildingSupervision", new { @Id = item.ID, @showadd = Model.ShowAdd })"> @item.TransactNo  </a> </td>
+                                    <td class="center"> <a class="btn btn-primary" onclick="return Loading();" href="@Url.Action("SupervisionDetails", "BuildingSupervision", new { @Id = item.ID, @showadd = Model.ShowAdd })"> @item.TransactNo  </a> </td>
                                     @*<td class="center">@item.TransactNo</td>*@
                                     @{
                                         var ownersName = DMeServices.Models.Common.BuildingServices.PermitsCom.GetOwnersNames((int)item.BldPermitID);
@@ -81,5 +83,6 @@
         <!--/span-->
     </div>
 </div>
+
 
 

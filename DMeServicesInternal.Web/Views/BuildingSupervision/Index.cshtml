@@ -68,31 +68,33 @@
             <div class="box-inner">
                 <div class="box-header well" data-original-title="">
                     <h2><i class="glyphicon glyphicon-road"></i> طلبات رقابة البناء</h2>
-                    @if (Model.oEmployeeInfo.IsSupervisionHead || Model.oEmployeeInfo.IsEngineerManager)
-                    {
-                        <div style="font-size:12px;">
-                            <div style="float:left; padding-right:10px;">
-                                <label class="radio-inline">الطلبات الغير مكتملة</label>
-                                <input value="NotCompleteSupervisions" type="radio" name="optradio" />
-                            </div>
-                            <div style="float:left; padding-right:10px;">
-                                <label class="radio-inline">الطلبات المقبولة</label>
-                                <input value="AcceptedSupervisions" type="radio" name="optradio" />
-                            </div>
-                            <div style="float:left ; padding-right:10px;">
-                                <label class="radio-inline">الطلبات المرفوضة</label>
-                                <input value="CanceledSupervisions" type="radio" name="optradio" />
-                            </div>
-                            <div style="float:left ; padding-right:10px;">
-                                <label class="radio-inline">الطلبات الجديدة</label>
-                                <input value="NewSupervisions" type="radio" name="optradio" />
-                            </div>
-                            <div style="float:left ; padding-right:10px;">
-                                <label class="radio-inline">جميع الطلبات</label>
-                                <input value="AllSupervisions" type="radio" checked="checked" name="optradio" />
-                            </div>
+
+                    <div style="font-size:12px;">
+                        <div style="float:left; padding-right:10px;">
+                            <label class="radio-inline">غير مكتملة</label>
+                            <input value="NotCompleteSupervisions" type="radio" name="optradio" />
                         </div>
-                    }
+                        <div style="float:left; padding-right:10px;">
+                            <label class="radio-inline">مقبولة</label>
+                            <input value="AcceptedSupervisions" type="radio" name="optradio" />
+                        </div>
+                        <div style="float:left ; padding-right:10px;">
+                            <label class="radio-inline">قيد الاعتماد</label>
+                            <input value="ForSignatureSupervisions" type="radio" name="optradio" />
+                        </div>
+                        <div style="float:left ; padding-right:10px;">
+                            <label class="radio-inline">جديدة</label>
+                            <input value="NewSupervisions" type="radio" name="optradio" />
+                        </div>
+                        <div style="float:left ; padding-right:10px;">
+                            <label class="radio-inline">جميع الطلبات</label>
+                            <input value="AllSupervisions" type="radio" checked="checked" name="optradio" />
+                        </div>
+                    </div>
+                    @*@if (Model.oEmployeeInfo.IsSupervisionHead || Model.oEmployeeInfo.IsEngineerManager)
+                    { 
+                    
+                    }*@
                 </div>
 
 
@@ -108,6 +110,7 @@
                                 <th>اسم المالك</th>
                                 <th>رقم البطاقة الشخصية للمالك</th>
                                 <th>رقم ترخيص البناء</th>
+                                <th>رقم تصريح رقابة البناء</th>
                                 <th>رقم قطعة الأرض</th>
                                 <th>مربع رقم</th>
                                 <th>المنطقة</th>
@@ -133,6 +136,7 @@
     $(document).ready(function () {
         $("#divLoader").hide();
         $('input[type="radio"]').click(function () {
+            Loading();
             if ($(this).is(':checked')) {
             }
             var type = $(this).val();

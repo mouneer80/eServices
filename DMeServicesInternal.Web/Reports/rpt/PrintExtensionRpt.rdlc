@@ -225,6 +225,10 @@
           <DataField>InsurancePayOn</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="ServiceNameAR">
+          <DataField>ServiceNameAR</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>InternalEngineeringDataSet</rd:DataSetName>
@@ -249,7 +253,7 @@
                   <TextRun>
                     <Value>=Fields!owners.Value</Value>
                     <Style>
-                      <FontSize>12pt</FontSize>
+                      <FontSize>=iif(len(Fields!owners.Value.ToString) &gt; 60, "10pt", "12pt")</FontSize>
                       <FontWeight>Bold</FontWeight>
                       <Color>#364392</Color>
                     </Style>
@@ -636,7 +640,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=Fields!WelyahArName.Value</Value>
+                    <Value>=IIF(Fields!ServiceName.Value = "18", "ملحق ترخيص (أبراج تقوية الإرسال)", IIF(Fields!ServiceName.Value = "17", "ملحق ترخيص (محطات توزيع كهرباء)", ""))</Value>
                     <Style>
                       <FontSize>12pt</FontSize>
                       <FontWeight>Bold</FontWeight>
@@ -650,10 +654,10 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox11</rd:DefaultName>
-            <Top>10.7136cm</Top>
-            <Left>10.67774cm</Left>
+            <Top>10.73477cm</Top>
+            <Left>1.0059cm</Left>
             <Height>0.74111cm</Height>
-            <Width>5.80424cm</Width>
+            <Width>15.47608cm</Width>
             <ZIndex>11</ZIndex>
             <Style>
               <Border>
@@ -708,7 +712,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=CDate(Fields!FeesPayOn.Value).ToString</Value>
+                    <Value>=CDate(Fields!FeesPayOn.Value).ToString("yyyy/MM/dd")</Value>
                     <Style>
                       <FontSize>12pt</FontSize>
                       <FontWeight>Bold</FontWeight>
@@ -744,7 +748,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=CDate(Fields!InsurancePayOn.Value).ToString</Value>
+                    <Value>=CDate(Fields!InsurancePayOn.Value).ToString("yyyy/MM/dd")</Value>
                     <Style>
                       <FontSize>12pt</FontSize>
                       <FontWeight>Bold</FontWeight>

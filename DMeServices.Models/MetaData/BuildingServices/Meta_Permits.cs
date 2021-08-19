@@ -139,6 +139,9 @@ namespace DMeServices.Models.MetaData.BuildingServices
         [Display(Name = "DMLicenseComments", ResourceType = typeof(Resources.DisplayName_Ar))]
         public string DMLicenseComments { get; set; }
 
+        [Display(Name = "MLicenseStatement", ResourceType = typeof(Resources.DisplayName_Ar))]
+        public string MLicenseStatement { get; set; }
+
         [Display(Name = "DMEngineerNotes", ResourceType = typeof(Resources.DisplayName_Ar))]
         public string DMEngineerNotes { get; set; }
 

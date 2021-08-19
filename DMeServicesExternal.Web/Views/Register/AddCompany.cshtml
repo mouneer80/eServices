@@ -50,7 +50,11 @@
                                 @Html.TextBoxFor(n => n.CompanyData.COMMERCIAL_NO, null, new { @class = "form-control", placeholder = "السجل التجاري", @id = "CommercialNo", @onchange = "EmptyTextBoxes();" })
                             </div>
                             <div class="col-md-4">
-                                <a class="btn btn-primary" onclick="javascript: callRestApi();"> البحث</a>
+
+                                <div class="col-md-6">
+                                    <a class="btn btn-primary" onclick="javascript: callRestApi();"> البحث</a>
+                                </div>
+                                <div id="SearchLoader" class="loading col-md-6" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader"></div>
                             </div>
                         </div>
 
@@ -141,11 +145,12 @@
     }
     //--For Pubilsh please add this in start of url string-- /EngineeringService/External
     function callRestApi() {
+        $("#SearchLoader").show();
         var Comm_Val = $('#CommercialNo').val();
         var userCivilID = $('#hiddenCivil_id').val();
         EmptyTextBoxes();
         $.ajax({
-            url: "/Register/GetCompanyDataByCr/" + Comm_Val,
+            url: "../Register/GetCompanyDataByCr/" + Comm_Val,
             type: "Get",
             dataType: "json",
             success: function (data) {
@@ -192,8 +197,10 @@
                             $('#State').val(data.companyOverview.address.state.nameAr);
                             $('#Governorate').val(data.companyOverview.address.governorate.nameAr);
                             $('#Email').val(data.companyOverview.contact.email);
+                            $("#SearchLoader").hide();
                             //$('#CivilID').val(data.companyOverview.investors.investor[0].person.idNumber);
                         } else {
+                            $("#SearchLoader").hide();
                             EmptyTextBoxes();
                             Notify("Not valid Actitvy");
                         }

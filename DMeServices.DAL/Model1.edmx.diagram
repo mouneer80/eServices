@@ -5,8 +5,8 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="01ccf2db8005481e83d1ddd373ee0b33" Name="Diagram1" ZoomLevel="81">
-        <EntityTypeShape EntityType="eServicesModel.BldAttachmentTypes" Width="1.5" PointX="7.75" PointY="2.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="eServicesModel.BldPermits" Width="2" PointX="7.375" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="eServicesModel.BldAttachmentTypes" Width="1.5" PointX="6.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="eServicesModel.BldPermits" Width="2" PointX="6.875" PointY="14" IsExpanded="true" />
         <EntityTypeShape EntityType="eServicesModel.BldPermitsAttachmentDetails" Width="1.5" PointX="12.25" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="eServicesModel.Groups" Width="1.5" PointX="31" PointY="17" IsExpanded="true" />
         <EntityTypeShape EntityType="eServicesModel.HsContractAttachments" Width="1.5" PointX="5.25" PointY="5.25" IsExpanded="true" />
@@ -26,7 +26,7 @@
         <AssociationConnector Association="eServicesModel.FK_HsPermitDuration_HsPermits" ManuallyRouted="false" />
         <AssociationConnector Association="eServicesModel.FK_HsPermitsInspection_HsPermitDuration" ManuallyRouted="false" />
         <AssociationConnector Association="eServicesModel.FK_HsPermitSubActivity_HsPermitType" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="eServicesModel.BldPermitsAttachments" Width="1.5" PointX="10" PointY="2" />
+        <EntityTypeShape EntityType="eServicesModel.BldPermitsAttachments" Width="1.5" PointX="9.625" PointY="0.75" />
         <AssociationConnector Association="eServicesModel.FK_BldPermitsAttachments_BldAttachmentTypes" />
         <AssociationConnector Association="eServicesModel.FK_BldPermit" />
         <AssociationConnector Association="eServicesModel.FK_BldPermitAttachment" />
@@ -97,7 +97,7 @@
         <EntityTypeShape EntityType="eServicesModel.BldAudits" Width="1.5" PointX="24.375" PointY="3.75" />
         <EntityTypeShape EntityType="eServicesModel.BldPermits_Log" Width="1.5" PointX="22.375" PointY="24.75" />
         <EntityTypeShape EntityType="eServicesModel.BldSupervisionContractors" Width="1.5" PointX="24.375" PointY="23.75" />
-        <EntityTypeShape EntityType="eServicesModel.BldTransactions" Width="1.5" PointX="13.125" PointY="25.25" />
+        <EntityTypeShape EntityType="eServicesModel.BldTransactions" Width="2.125" PointX="13.125" PointY="25.25" />
         <EntityTypeShape EntityType="eServicesModel.BldTransactionTypes" Width="1.5" PointX="10.875" PointY="32.5" />
         <AssociationConnector Association="eServicesModel.FK_BldTransactions_BldPermits" />
         <AssociationConnector Association="eServicesModel.FK_BldTransactions_BldTransactionTypes" />

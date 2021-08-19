@@ -34,26 +34,6 @@
         color: red;
     }
 
-    .modal-header {
-        background: linear-gradient(to bottom, rgb(255 255 255) 100%, #999999 100%);
-    }
-
-    .modal-footer {
-        background: linear-gradient(to bottom, rgb(255 255 255) 100%, #DDDDDD 100%);
-    }
-
-    .modal-body {
-        background: linear-gradient(to bottom, rgb(255 255 255) 100%, #DDDDDD 100%);
-    }
-
-    .modal-content {
-        background-color: #ffffff;
-        border: 0px solid #999999;
-        webkit-box-shadow: none;
-        box-shadow: none;
-        border-radius: 0;
-    }
-
     .form-group {
         margin-bottom: 2px;
     }
@@ -116,13 +96,13 @@
 <div>
     <ul class="breadcrumb">
         <li>
-            <a href="@Url.Action("Index","Home")">الرئيسية</a>
+            <a onclick="return Loading();" href="@Url.Action("Index","Home")">الرئيسية</a>
         </li>
         <li>
-            <a href="@Url.Action("Index","BuildingPermits")">تصاريح البناء</a>
+            <a onclick="return Loading();" href="@Url.Action("Index","BuildingPermits")">تصاريح البناء</a>
         </li>
         <li>
-            <a href="#">تصريح بناء جديد</a>
+            <a onclick="return Loading();" href="#">تصريح بناء جديد</a>
         </li>
     </ul>
 </div>
@@ -178,7 +158,10 @@
 
                         <div class="col-lg-1">
                             <br />
-                            <input type="button" id="SaveOwner" name="SaveOwner" class="btn btn-primary" value="إضافة تفاصيل المالك" />
+                            <a id="SaveOwner" name="SaveOwner" class="btn btn-primary">
+                                إضافة تفاصيل المالك
+                            </a>
+                            <div id="SaveOwnerLoader" class="loading col-md-1" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader"></div>
                         </div>
                     </div>
                     <div class="row">
@@ -237,19 +220,19 @@
                         @Html.ValidationMessageFor(m => m.BuildingPermits.LandArea, "", new { @style = "color:orange;" })
                     </div>
                     <div class="form-group col-lg-3" id="crokiNo">
-                        <label class="control-label ignor">@Html.DisplayNameFor(m => m.BuildingPermits.KrokiNO)</label>
+                        <label class="control-label ignor">@Html.DisplayNameFor(m => m.BuildingPermits.KrokiNO) / الرقم المسلسل 00-00-000-00-0000</label>
                         <div style="direction:ltr">
-                            <input type="text" style="width: 40px; display: inline" onkeyup="moveCursor(this, KrokiNO2);" maxlength="2" class="form-control" id="KrokiNO1" />
+                            <input type="text" style="width: 40px; display: inline" onkeyup="moveCursor(this, KrokiNO2);" maxlength="2" class="form-control" id="KrokiNO1" placeholder="00"  />
                             <label class="control-label">-</label>
-                            <input type="text" style="width: 40px; display: inline" onkeyup="moveCursor(this, KrokiNO3);" maxlength="2" class="form-control" id="KrokiNO2" />
+                            <input type="text" style="width: 40px; display: inline" onkeyup="moveCursor(this, KrokiNO3);" maxlength="2" class="form-control" id="KrokiNO2" placeholder="00" />
                             <label class="control-label">-</label>
-                            <input type="text" style="width: 50px; display: inline" onkeyup="moveCursor(this, KrokiNO4);" maxlength="3" class="form-control" id="KrokiNO3" />
+                            <input type="text" style="width: 50px; display: inline" onkeyup="moveCursor(this, KrokiNO4);" maxlength="3" class="form-control" id="KrokiNO3" placeholder="000" />
                             <label class="control-label">-</label>
-                            <input type="text" style="width: 40px; display: inline" onkeyup="moveCursor(this, KrokiNO5);" maxlength="2" class="form-control" id="KrokiNO4" />
+                            <input type="text" style="width: 40px; display: inline" onkeyup="moveCursor(this, KrokiNO5);" maxlength="2" class="form-control" id="KrokiNO4" placeholder="00" />
                             <label class="control-label">-</label>
-                            <input type="text" style="width: 55px; display: inline" onkeyup="moveCursor(this, KrokiNO);" maxlength="4" class="form-control" id="KrokiNO5" />
+                            <input type="text" style="width: 55px; display: inline" onkeyup="moveCursor(this, KrokiNO);" maxlength="4" class="form-control" id="KrokiNO5" placeholder="0000" />
 
-                            @Html.TextBoxFor(m => m.BuildingPermits.KrokiNO, new { @class = "form-control", id = "KrokiNO", @placeholder = "رقم الكروكي" })
+                            @Html.TextBoxFor(m => m.BuildingPermits.KrokiNO, new { @class = "form-control", id = "KrokiNO", @placeholder = "رقم الرسم المساحي" })
                             @Html.ValidationMessageFor(m => m.BuildingPermits.KrokiNO, "", new { @style = "color:orange;" })
                         </div>
                     </div>
@@ -322,18 +305,20 @@
                             @Html.ValidationMessageFor(m => m.PersonalCard.File, "", new { @style = "color:orange;" })
                         </div>
                         <div class="col-lg-2">
+                            <span id="PersonalFileLoader" class="loading" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader" /> </span>
                             <span id="PersonalFileSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
                         </div>
                     </div>
                     <div class="form-group col-lg-3" id="krokiAtt">
                         <div class="col-lg-4">
-                            <label class="control-label">@Html.DisplayName("الكروكي")</label>
+                            <label class="control-label">@Html.DisplayName("الرسم المساحي")</label>
                         </div>
                         <div class="col-lg-6">
                             @Html.TextBoxFor(m => m.KrokeFile.File, new { @type = "file", @id = "KrokeFile", @class = "form-control", @onchange = "onchangeevent(this);" })
                             @Html.ValidationMessageFor(m => m.KrokeFile.File, "", new { @style = "color:orange;" })
                         </div>
                         <div class="col-lg-2">
+                            <span id="KrokeFileLoader" class="loading" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader" /> </span>
                             <span id="KrokeFileSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
                         </div>
                     </div>
@@ -346,6 +331,7 @@
                             @Html.ValidationMessageFor(m => m.OwnerFile.File, "", new { @style = "color:orange;" })
                         </div>
                         <div class="col-lg-2">
+                            <span id="OwnerFileLoader" class="loading" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader" /> </span>
                             <span id="OwnerFileSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
                         </div>
                     </div>
@@ -357,6 +343,7 @@
                             @Html.TextBoxFor(m => m.ConsLetter.OptionalFile, new { @id = "ConsLetterFile", @type = "file", @class = "form-control", @onchange = "onchangeevent(this);" })
                         </div>
                         <div class="col-lg-2">
+                            <span id="ConsLetterFileLoader" class="loading" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader" /> </span>
                             <span id="ConsLetterFileSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
                         </div>
                     </div>
@@ -370,6 +357,7 @@
                             @Html.TextBoxFor(m => m.ConsAgreementFile.OptionalFile, new { @id = "ConsAgreementFile", @type = "file", @class = "form-control", @onchange = "onchangeevent(this);" })
                         </div>
                         <div class="col-lg-2">
+                            <span id="ConsAgreementFileLoader" class="loading" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader" /> </span>
                             <span id="ConsAgreementFileSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
                         </div>
                     </div>
@@ -382,7 +370,8 @@
                             @Html.TextBoxFor(m => m.ConsLetter.OptionalFile, new { @id = "OptionalLetter1", @type = "file", @class = "form-control", @onchange = "onchangeevent(this);" })
                         </div>
                         <div class="col-lg-2">
-                            <span id="ConsLetterFileSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
+                            <span id="OptionalLetter1Loader" class="loading" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader" /> </span>
+                            <span id="OptionalLetter1Span" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
                         </div>
                     </div>
                     <div class="form-group col-lg-3" id="divOptionalLetter2">
@@ -393,7 +382,8 @@
                             @Html.TextBoxFor(m => m.ConsLetter.OptionalFile, new { @id = "OptionalLetter2", @type = "file", @class = "form-control", @onchange = "onchangeevent(this);" })
                         </div>
                         <div class="col-lg-2">
-                            <span id="ConsLetterFileSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
+                            <span id="OptionalLetter2Loader" class="loading" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader" /> </span>
+                            <span id="OptionalLetter2Span" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
                         </div>
                     </div>
                     <div class="form-group col-lg-3" id="divOptionalLetter3">
@@ -404,7 +394,8 @@
                             @Html.TextBoxFor(m => m.ConsLetter.OptionalFile, new { @id = "OptionalLetter3", @type = "file", @class = "form-control", @onchange = "onchangeevent(this);" })
                         </div>
                         <div class="col-lg-2">
-                            <span id="ConsLetterFileSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
+                            <span id="OptionalLetter3Loader" class="loading" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader" /> </span>
+                            <span id="OptionalLetter3Span" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
                         </div>
                     </div>
                     <div class="form-group col-lg-3" id="divOptionalLetter4">
@@ -415,7 +406,8 @@
                             @Html.TextBoxFor(m => m.ConsLetter.OptionalFile, new { @id = "OptionalLetter4", @type = "file", @class = "form-control", @onchange = "onchangeevent(this);" })
                         </div>
                         <div class="col-lg-2">
-                            <span id="ConsLetterFileSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
+                            <span id="OptionalLetter4Loader" class="loading" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader" /> </span>
+                            <span id="OptionalLetter4Span" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
                         </div>
                     </div>
                     <div class="form-group col-lg-3" id="divOptionalLetter5">
@@ -426,7 +418,8 @@
                             @Html.TextBoxFor(m => m.ConsLetter.OptionalFile, new { @id = "OptionalLetter5", @type = "file", @class = "form-control", @onchange = "onchangeevent(this);" })
                         </div>
                         <div class="col-lg-2">
-                            <span id="ConsLetterFileSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
+                            <span id="OptionalLetter5Loader" class="loading" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader" /> </span>
+                            <span id="OptionalLetter5Span" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
                         </div>
                     </div>
                     <div class="form-group col-lg-3" id="divOptionalLetter6">
@@ -437,7 +430,8 @@
                             @Html.TextBoxFor(m => m.ConsLetter.OptionalFile, new { @id = "OptionalLetter6", @type = "file", @class = "form-control", @onchange = "onchangeevent(this);" })
                         </div>
                         <div class="col-lg-2">
-                            <span id="ConsLetterFileSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
+                            <span id="OptionalLetter6Loader" class="loading" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader" /> </span>
+                            <span id="OptionalLetter6Span" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
                         </div>
                     </div>
                     <div class="form-group col-lg-3" id="divOptionalLetter7">
@@ -448,7 +442,8 @@
                             @Html.TextBoxFor(m => m.ConsLetter.OptionalFile, new { @id = "OptionalLetter7", @type = "file", @class = "form-control", @onchange = "onchangeevent(this);" })
                         </div>
                         <div class="col-lg-2">
-                            <span id="ConsLetterFileSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
+                            <span id="OptionalLetter7Loader" class="loading" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader" /> </span>
+                            <span id="OptionalLetter7Span" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
                         </div>
                     </div>
                     <div class="form-group col-lg-3" id="divOptionalLetter8">
@@ -459,7 +454,8 @@
                             @Html.TextBoxFor(m => m.ConsLetter.OptionalFile, new { @id = "OptionalLetter8", @type = "file", @class = "form-control", @onchange = "onchangeevent(this);" })
                         </div>
                         <div class="col-lg-2">
-                            <span id="ConsLetterFileSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
+                            <span id="OptionalLetter8Loader" class="loading" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader" /> </span>
+                            <span id="OptionalLetter8Span" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
                         </div>
                     </div>
                     <div class="form-group col-lg-3" id="divOptionalLetter9">
@@ -470,7 +466,8 @@
                             @Html.TextBoxFor(m => m.ConsLetter.OptionalFile, new { @id = "OptionalLetter9", @type = "file", @class = "form-control", @onchange = "onchangeevent(this);" })
                         </div>
                         <div class="col-lg-2">
-                            <span id="ConsLetterFileSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
+                            <span id="OptionalLetter9Loader" class="loading" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader" /> </span>
+                            <span id="OptionalLetter9Span" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
                         </div>
                     </div>
                     <div class="form-group col-lg-3" id="divOptionalLetter10">
@@ -481,7 +478,8 @@
                             @Html.TextBoxFor(m => m.ConsLetter.OptionalFile, new { @id = "OptionalLetter10", @type = "file", @class = "form-control", @onchange = "onchangeevent(this);" })
                         </div>
                         <div class="col-lg-2">
-                            <span id="ConsLetterFileSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
+                            <span id="OptionalLetter10Loader" class="loading" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader" /> </span>
+                            <span id="OptionalLetter10Span" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
                         </div>
                     </div>
                     <div class="form-group col-lg-3" id="divOptionalLetter11">
@@ -492,7 +490,8 @@
                             @Html.TextBoxFor(m => m.ConsLetter.OptionalFile, new { @id = "OptionalLetter11", @type = "file", @class = "form-control", @onchange = "onchangeevent(this);" })
                         </div>
                         <div class="col-lg-2">
-                            <span id="ConsLetterFileSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
+                            <span id="OptionalLetter11Loader" class="loading" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader" /> </span>
+                            <span id="OptionalLetter11Span" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
                         </div>
                     </div>
                     <div class="form-group col-lg-3" id="divOptionalLetter12">
@@ -503,7 +502,8 @@
                             @Html.TextBoxFor(m => m.ConsLetter.OptionalFile, new { @id = "OptionalLetter12", @type = "file", @class = "form-control", @onchange = "onchangeevent(this);" })
                         </div>
                         <div class="col-lg-2">
-                            <span id="ConsLetterFileSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
+                            <span id="OptionalLetter12Loader" class="loading" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader" /> </span>
+                            <span id="OptionalLetter12Span" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
                         </div>
                     </div>
 
@@ -517,6 +517,7 @@
                             @Html.TextBoxFor(m => m.LandPic.OptionalFile, new { @id = "LandPicFile", @type = "file", @class = "form-control", @onchange = "onchangeevent(this);" })
                         </div>
                         <div class="col-lg-2">
+                            <span id="LandPicFileLoader" class="loading" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader" /> </span>
                             <span id="LandPicFileSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
                         </div>
                     </div>
@@ -525,9 +526,10 @@
                             <label class="control-label">@Html.DisplayName("مرفقات أخرى")</label>
                         </div>
                         <div class="col-lg-6">
-                            @Html.TextBoxFor(m => m.Others.OptionalFile, new { @id = "OthersFile", @type = "file", @multiple = "multiple", @class = "form-control", @onchange = "onchangeevent(this);" })
+                            @Html.TextBoxFor(m => m.Others.OptionalFiles, new { @id = "OthersFile", @type = "file", @multiple = "multiple", @class = "form-control", @onchange = "onchangeevent(this);" })
                         </div>
                         <div class="col-lg-2">
+                            <span id="OthersFileLoader" class="loading" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader" /> </span>
                             <span id="OthersFileSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
                         </div>
                     </div>
@@ -577,35 +579,12 @@
             <button class="btn btn-primary" id="Save" type="button">
                 <i class="glyphicon glyphicon-ok"></i> أرسال البيانات
             </button>
-            <a style="float:left" href="@Url.Action("Index", "BuildingPermits")" class="btn btn-primary" role="button">الصفحة السابقة</a>
+            <a style="float:left" onclick="Loading()" href="@Url.Action(Model.ShowAdd ? "Index" : "LandProjects", "BuildingPermits")" class="btn btn-primary" role="button">الصفحة السابقة</a>
 
         }
-        <!--<button type="submit" class="btn btn-success" style="margin-top:20px;"><i class="glyphicon glyphicon-ok"></i>حفظ البيانات</button>-->
-        @*<a href="Slaughter_Income.html" class="btn btn-warning pull-right" style="margin-top:20px;"><i class="glyphicon glyphicon-share-alt"></i>إلغاء</a>*@
-
     </div>
 </div>
 
-<div class="modal fade" id="MainModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog box-inner modal-sm">
-
-        <div class="modal-header box-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h5 class="modal-title">تحذير</h5>
-
-        </div>
-        <div class="modal-body box-content">
-            <div class="modal-content">
-            </div>
-        </div>
-        <div class="modal-footer box-footer">
-            <button type="button" data-dismiss="modal" aria-hidden="true" class="btn btn-primary">موافق</button>
-        </div>
-    </div>
-</div>
-@*this jquery 1.10.2 make form submit stopped see what use it and not validate*@
-@*<script src="~/Scripts/jquery-1.10.2.js"></script>*@
-@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
 <script src="~/Scripts/jquery-ui.js"></script>
 <script src="~/Scripts/jquery.mask.js"></script>
 <script type="text/javascript">
@@ -733,7 +712,7 @@
     function onchangeevent(textBox) {
 
         var fileName = $('#' + textBox.id).val();
-
+        $('#' + textBox.id + 'Loader').css("display", "block");
         if (fileName) { // returns true if the string is not empty
             var filesize = ($('#' + textBox.id)[0].files[0].size);
             //console.log($('#' + textBox.id)[0].files[0].size);
@@ -743,6 +722,7 @@
             var valid_name = /^[\u0621-\u064Aa-zA-Z\d\_\s]+$/i;
             if (valid_name.test(fileNameOnly)) {
                 if (valid_extensions.test(fileName) && filesize <= 3000000) {
+                    $('#' + textBox.id + 'Loader').css("display", "none");
                     $('#' + textBox.id + 'Span').find('i').switchClass("glyphicon-remove", "glyphicon-ok");
                     $('#' + textBox.id + 'Span').find('i').switchClass("red", "green");
                     $('#' + textBox.id + 'Span').css("display", "block");
@@ -766,6 +746,7 @@
             }
             //alert(fileName + " was selected");
         } else { // no file was selected
+            Loading();
             $('#' + textBox.id + 'Span').find('i').switchClass("glyphicon-ok", "glyphicon-remove");
             $('#' + textBox.id + 'Span').find('i').switchClass("green", "red");
             $('#' + textBox.id + 'Span').css("display", "block");
@@ -824,7 +805,7 @@
             $("#txtSquareLetter").show();
             $("#divOptionalLetter12").show();
             $("#divOptionalLetter10").show();
-        } else if (selectedVal == 15) {
+        } else if (selectedVal == 15 || selectedVal == 24) {
             //تسوير
             resetDivs();
             $("#divOptionalLetter11").show();
@@ -972,6 +953,13 @@
     }
 
     $("#Save").click(function () {
+        if ($("#OwnerName").val() != "") {
+            $('.modal-content').text("برجاء حفظ المالك بالنقر على اضافة تفاصيل المالك");
+            $('#MainModal').modal('show');
+            $("#Welayah").focus();
+            $("#Welayah").select();
+            return;
+        }
         if ($("#Welayah").val() == 0) {
             $('.modal-content').text("فضلا اختر ولاية");
             $('#MainModal').modal('show');
@@ -1002,7 +990,7 @@
             $("#LandUseTypes").select();
             return;
         }
-        if ($("#ServiceType").val() != 15) {
+        if ($("#ServiceType").val() != 15 || $("#ServiceType").val() != 24) {
             if ($("#BuildingTypes").val() == 0) {
                 $('.modal-content').text("فضلا اختر نوع البناء");
                 $('#MainModal').modal('show');
@@ -1022,6 +1010,7 @@
         //ignore: '.no-client-validation, :hidden'
         var validator = $('#Permitsform').validate();
         if ($('#Permitsform').valid()) {  //<<< I was missing this check
+            Loading();
             $('#Permitsform').submit();
         }
         else {
@@ -1030,45 +1019,7 @@
     });
 </script>
 
-<script type="text/javascript">
-    $(function () {
-        // Initialize numeric spinner input boxes
-        //$(".numeric-spinner").spinedit();
 
-        // Initalize modal dialog
-        // attach modal-container bootstrap attributes to links with .modal-link class.
-        // when a link is clicked with these attributes, bootstrap will display the href content in a modal dialog.
-
-        $('body').on('click', '.modal-link', function (e) {
-
-            $(this).attr('data-target', '#MainModal');
-            e.preventDefault();
-            $("iframe").attr("src", $(this).attr('href'));
-            $(this).attr('data-toggle', 'modal');
-        });
-
-
-        // Attach listener to .modal-close-btn's so that when the button is pressed the modal dialog disappears
-        $('body').on('click', '.modal-close-btn', function () {
-
-            $('#MainModal').modal('hide');
-        });
-
-        //clear modal cache, so that new content can be loaded
-        $('#MainModal').on('hidden.bs.modal', function () {
-
-            $(this).removeData('bs.modal');
-        });
-
-        $(document).on("hidden.bs.modal", function (e) {
-            $(e.target).removeData("bs.modal").find(".modal-content").empty();
-        });
-
-        $('#CancelModal').on('click', function () {
-            return false;
-        });
-    });
-</script>
 @*@Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript">
         $("#Save").click(function () {
@@ -1083,6 +1034,7 @@
         resetDivs();
         $("#ServiceType option[value='19']").attr("disabled", "disabled");
         $("#ServiceType option[value='20']").attr("disabled", "disabled");
+        $("#ServiceType option[value='22']").attr("disabled", "disabled");
         //$("#ServiceType").change(function () {
         //    let arr1 = [2, 3, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 97];
         //    let selectedVal = parseInt($('#ServiceType').val());
@@ -1153,6 +1105,7 @@
                 $('#AttTypeId').select();
                 return;
             } else if (files.length > 0) {
+                Loading();
                 $("#divLoader").show();
             data.append("MyAttached", files[0]);
             data.append("AttTypeId", $("#AttTypeId").val());
@@ -1222,33 +1175,40 @@
 </script>
 <script>
     $(document).ready(function () {
-            $("#SaveOwner").click(function () {
+        $("#SaveOwner").click(function () {
+            $("#SaveOwnerLoader").show();
+            if ($("#OwnerCivilId").val() != "" || $("#OwnerName").val() != "" || $("#OwnerPhoneNo").val() != "") {
                 var data = new FormData();
                 data.append("OwnerCivilId", $("#OwnerCivilId").val());
                 data.append("OwnerName", $("#OwnerName").val());
                 data.append("OwnerPhoneNo", $("#OwnerPhoneNo").val());
-             var url = "@Url.Action("SaveOwner", "BuildingPermits")";
-            $.ajax({
-                url: url,
-                type: "POST",
-                processData: false,
-                contentType: false,
-                data: data,
-                success: function (response) {
-                    $('#OwnerName').val('');
-                    $('#OwnerCivilId').val('');
-                    $('#OwnerPhoneNo').val('');
-                    $('#SaveOwner').attr('disabled', false);
-                    $('#divOwners').html(response)
-                },
-                error: function (er) {
-                    alert(er.message);
-                    $('#SaveOwner').attr('disabled', false);
-                }
-            });
+                var url = "@Url.Action("SaveOwner", "BuildingPermits")";
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    processData: false,
+                    contentType: false,
+                    data: data,
+                    success: function (response) {
+                        $('#OwnerName').val('');
+                        $('#OwnerCivilId').val('');
+                        $('#OwnerPhoneNo').val('');
+                        $('#SaveOwner').attr('disabled', false);
+                        $('#divOwners').html(response)
+                        $("#SaveOwnerLoader").hide();
+                    },
+                    error: function (er) {
+                        alert(er.message);
+                        $('#SaveOwner').attr('disabled', false);
+                    }
+                });
+            }
+            else {
+                $('.modal-content').text("فضلا تأكد من وجود اسم المالك و رقمه المدني و رقم الهاتف ");
+                $('#MainModal').modal('show');
+                $('#OwnerName').focus();
+                $('#OwnerName').select();
+            }
         });
         });
 </script>
-
-
-

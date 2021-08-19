@@ -165,50 +165,6 @@
           <DataField>ArLetter</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="PaymentTotalAmount">
-          <DataField>PaymentTotalAmount</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="BldPermitId">
-          <DataField>BldPermitId</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="BankResponseID">
-          <DataField>BankResponseID</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="PaymentStatus">
-          <DataField>PaymentStatus</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="Referenceid">
-          <DataField>Referenceid</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Paymentrequestid">
-          <DataField>Paymentrequestid</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="Bankpaymentid">
-          <DataField>Bankpaymentid</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Transactionid">
-          <DataField>Transactionid</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="FeesDate">
-          <DataField>FeesDate</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
-        </Field>
-        <Field Name="PaymentType">
-          <DataField>PaymentType</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="PayOn">
-          <DataField>PayOn</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
         <Field Name="owners">
           <DataField>owners</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -251,6 +207,22 @@
         </Field>
         <Field Name="MLicenseNo">
           <DataField>MLicenseNo</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="FeesRefid">
+          <DataField>FeesRefid</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="FeesPayOn">
+          <DataField>FeesPayOn</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="InsuranceRefid">
+          <DataField>InsuranceRefid</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="InsurancePayOn">
+          <DataField>InsurancePayOn</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>

@@ -67,6 +67,12 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Oracle.ManagedDataAccess, Version=4.122.19.1, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
+      <HintPath>..\packages\Oracle.ManagedDataAccess.19.11.0\lib\net40\Oracle.ManagedDataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="Oracle.ManagedDataAccessIOP">
+      <HintPath>..\packages\Oracle.ManagedDataAccess.19.10.0\bin\x64\Oracle.ManagedDataAccessIOP.dll</HintPath>
+    </Reference>
     <Reference Include="RestSharp, Version=106.11.7.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.106.11.7\lib\net452\RestSharp.dll</HintPath>
     </Reference>
@@ -77,6 +83,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.OracleClient" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Text.Json, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -207,6 +214,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Configrations\LocalizedDisplayNameAttribute.cs" />
     <Compile Include="Configrations\MappingConfig.cs" />
+    <Compile Include="Resources\ApiUrls.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ApiUrls.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\DisplayName.Ar.Designer.cs">
       <DependentUpon>DisplayName.Ar.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -237,6 +249,7 @@
     <Compile Include="ViewModels\HealthRenewalInternalViewModel.cs" />
     <Compile Include="ViewModels\HealthRenewalViewModel.cs" />
     <Compile Include="ViewModels\Internal\Permits\AreaSurveysViewModel.cs" />
+    <Compile Include="ViewModels\Internal\Permits\DashboardViewModel.cs" />
     <Compile Include="ViewModels\Internal\Permits\SupervisionViewModel.cs" />
     <Compile Include="ViewModels\Internal\Permits\SurveysViewModel.cs" />
     <Compile Include="ViewModels\Internal\Permits\PermitsViewModel.cs" />
@@ -252,9 +265,14 @@
     <Folder Include="MetaData\HealthServices\" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\ApiUrls.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ApiUrls.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\DisplayName.Ar.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>DisplayName.Ar.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\DisplayName_Ar.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -264,6 +282,7 @@
     <EmbeddedResource Include="Resources\DisplayName.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>DisplayName.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Validation_Ar.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

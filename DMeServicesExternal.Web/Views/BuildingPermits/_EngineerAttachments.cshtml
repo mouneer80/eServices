@@ -1,6 +1,5 @@
 ﻿@model DMeServices.Models.ViewModels.Permits.PermitsViewModel
 
-
 <div class="box-inner">
     <div class="box-header well" data-original-title="">
         <h2><i class="glyphicon glyphicon-edit"></i> تعديلات الخرائط</h2>
@@ -51,7 +50,7 @@
                                     @item.InsertDate.ToString("hh:mm")
                                 </td>
                                 <td class="col-sm-1" unprintable>
-                                    <a class="modal-link" href="@Url.Action("GetDetailsFile", new { @controller = "BuildingPermits", @Id = item.Id })">عرض الملف<i class="fa fa-eye-slash"></i></a>
+                                    <a class="modal-link" onclick="return Loading();" href="@Url.Action("GetDetailsFile", new { @controller = "BuildingPermits", @Id = item.Id })">عرض الملف<i class="fa fa-eye-slash"></i></a>
                                 </td>
                             </tr>
                         }
@@ -68,4 +67,3 @@
         <!--end of item details-->
     </div>
 </div>
-

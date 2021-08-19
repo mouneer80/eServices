@@ -77,13 +77,13 @@
                                             int ListDetails = DMeServices.Models.Common.BuildingServices.PaymentsCom.PaymentDetailsByPaymentID((int)item.PaymentID).Count();
                                             if (item.Referenceid == null)
                                             {
-                                                <a href="#" fileID="@item.PaymentID" class="GetPaymentDetails">عرض التفاصيل<i class="fa fa-eye-slash glyphicon glyphicon-collapse-down"></i></a>
+                                                <a onclick="return Loading();" href="#" fileID="@item.PaymentID" class="GetPaymentDetails">عرض التفاصيل<i class="fa fa-eye-slash glyphicon glyphicon-collapse-down"></i></a>
                                                 <div class="btn-warning">في انتظار الدفع</div>
                                             }
                                             else
                                             {
                                                 <div>
-                                                    <a href="#" fileID="@item.PaymentID" class="GetPaymentDetails">عرض التفاصيل<i class="fa fa-eye-slash glyphicon glyphicon-collapse-down"></i></a>
+                                                    <a onclick="return Loading();" href="#" fileID="@item.PaymentID" class="GetPaymentDetails">عرض التفاصيل<i class="fa fa-eye-slash glyphicon glyphicon-collapse-down"></i></a>
                                                 </div>
                                                 <div class="btn-success">تم الدفع</div>
                                             }
@@ -110,20 +110,6 @@
         @{ Html.RenderPartial("_ListPayments", Model);}
     </div>
 </div>
-
-<div class="modal fade" id="MainModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-
-        </div>
-    </div>
-</div>
-
-<script type="text/javascript">
-    function unloadModal() {
-        $('#MainModal').modal('hide');
-    }
-</script>
 
 <script>
 
@@ -156,59 +142,5 @@
 
             }
             });
-
-
-
     });
 </script>
-<script type="text/javascript">
-    $(function () {
-        // Initialize numeric spinner input boxes
-        //$(".numeric-spinner").spinedit();
-
-        // Initalize modal dialog
-        // attach modal-container bootstrap attributes to links with .modal-link class.
-        // when a link is clicked with these attributes, bootstrap will display the href content in a modal dialog.
-
-        $('body').on('click', '.modal-link', function (e) {
-
-            $(this).attr('data-target', '#MainModal');
-            e.preventDefault();
-            $("iframe").attr("src", $(this).attr('href'));
-            $(this).attr('data-toggle', 'modal');
-        });
-
-
-        // Attach listener to .modal-close-btn's so that when the button is pressed the modal dialog disappears
-        $('body').on('click', '.modal-close-btn', function () {
-
-            $('#MainModal').modal('hide');
-
-        });
-
-        //clear modal cache, so that new content can be loaded
-        $('#MainModal').on('hidden.bs.modal', function () {
-
-            $(this).removeData('bs.modal');
-        });
-
-
-
-
-
-
-
-
-
-        $(document).on("hidden.bs.modal", function (e) {
-            $(e.target).removeData("bs.modal").find(".modal-content").empty();
-        });
-
-        $('#CancelModal').on('click', function () {
-            return false;
-        });
-    });
-</script>
-
-
-

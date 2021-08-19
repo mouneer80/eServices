@@ -15,38 +15,65 @@ using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using DMeServices.Models.ViewModels;
+using DMeServices.Models;
+using DMeServices.Models.Common;
+using Resources;
 
 namespace DMeServicesExternal.Web.Controllers
 {
     public class BuildingSupervisionController : BaseController
     {
         // GET: BuildingSupervision
-        public ActionResult Index(bool showadd)
+        public ActionResult Index()
         {
-            var oModel = new SupervisionViewModel();
-            if (showadd == true)
-            {
-                oModel.ListBuildingSupervision = SupervisionCom.SupervisionsByConsultantCivilId(oModel.oUserInfo.CivilId);
-            }
-            else
-            {
-                oModel.ListBuildingSupervision = SupervisionCom.SupervisionsByLandOwnerCivilId(oModel.oUserInfo.CivilId);
-            }
-            oModel.ShowAdd = showadd;
-            return View(oModel);
+            //var oModel = new SupervisionViewModel();
+            //if (showadd == true)
+            //    oModel.ListBuildingSupervision = SupervisionCom.SupervisionsByConsultantCivilId(oModel.oUserInfo.CivilId);
+            //else
+            //    oModel.ListBuildingSupervision = SupervisionCom.SupervisionsByLandOwnerCivilId(oModel.oUserInfo.CivilId);
+            //oModel.ShowAdd = showadd;
+            return View();
+        }
+
+        public ActionResult SaveRev()
+        {
+            string tFees = "f2cbdd5e-fb65-4c5a-a940-886b9355c00a";
+            string tInsurance = "e906985c-acc4-4fd6-b1c0-ed326a19a99a";
+            PaymentsCom.TestSaveRevenue(tInsurance);
+            return View("Index");
         }
         public ActionResult OwnerIndex()
         {
             SupervisionViewModel oModel = new SupervisionViewModel();
-            oModel.ListBuildingSupervision = SupervisionCom.SupervisionsByConsultantCivilId(oModel.oUserInfo.CivilId);
+            oModel.ListBuildingSupervision = SupervisionCom.SupervisionsByLandOwnerCivilId(oModel.oUserInfo.CivilId);
             oModel.ShowAdd = false;
             return View("Index", oModel);
         }
-
+        public ActionResult ConsultantIndex()
+        {
+            SupervisionViewModel oModel = new SupervisionViewModel();
+            oModel.ListBuildingSupervision = SupervisionCom.SupervisionsByConsultantCivilId(oModel.oUserInfo.CivilId);
+            oModel.ShowAdd = true;
+            return View("Index", oModel);
+        }
         public ActionResult NewSupervision(bool showadd)
         {
             SupervisionViewModel oModel = new SupervisionViewModel();
             oModel.ShowAdd = showadd;
+            if (Session["UserInfo"] != null)
+            {
+                User user = (User)Session["UserInfo"];
+                user = UserCom.UserByCivilID(user.CivilId);
+                if (user != null && showadd == true)
+                {
+                    oModel.oUserInfo.CompanyName = user.CompanyName;
+                    oModel.oUserInfo.ConsultantCrNo = user.ConsultantCrNo;
+                    oModel.oUserInfo.PhoneNo = user.PhoneNo;
+                    oModel.oUserInfo.Email = user.Email;
+                    oModel.oUserInfo.UserType = user.UserType;
+                    oModel.oUserInfo.MobileNo = user.MobileNo;
+                }
+            }
             // to save the attachments on the memory
             TempData["Attachments"] = new List<PermitsAttachments>();
             ViewBag.DDAttachmentsType = DDAttachmentTypes();
@@ -57,6 +84,8 @@ namespace DMeServicesExternal.Web.Controllers
             ViewBag.DDSquareLetters = DdSquareLetters();
             return View(oModel);
         }
+
+        #region Method :: Services Type
         private dynamic DDServiceType(bool showadd)
         {
             var userType = showadd ? 1 : 2;
@@ -65,18 +94,14 @@ namespace DMeServicesExternal.Web.Controllers
             List<SupervisionServicesTypes> AllServices = SupervisionCom.AllServices(userType);
             if (AllServices.Count > 0)
             {
-
-
                 LstServices.Add(new SelectListItem() { Text = "أختر نوع الخدمة ", Value = "0" });
                 foreach (var item in AllServices)
                 {
                     LstServices.Add(new SelectListItem() { Text = item.ServiceNameAR, Value = item.ID.ToString() });
                 }
-
             }
             return LstServices;
         }
-
         private dynamic DDServiceType()
         {
             List<SelectListItem> LstServices = new List<SelectListItem>();
@@ -91,53 +116,197 @@ namespace DMeServicesExternal.Web.Controllers
             }
             return LstServices;
         }
+        #endregion
 
+        #region Method :: Save Supervisions
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult SaveNewSupervision(SupervisionViewModel oModel)
         {
-            //if (ModelState.IsValid)
-            //{
+            oModel.ListOfAttachments = (List<PermitsAttachments>)TempData["Attachments"];
+            TempData["Attachments"] = null;
             if (oModel.ShowAdd == true)
             {
-                oModel.ListOfAttachments = (List<PermitsAttachments>)TempData["Attachments"];
-                TempData["Attachments"] = null;
-                //if (isListOfAttachment(oModel.ListOfAttachments))
-                //{
-                oModel.ContractorCRFile.AttachmentTypeId = 41;
-                oModel.ContractorOwnerPersonalCard.AttachmentTypeId = 42;
-                oModel.ForemanPersonalCard.AttachmentTypeId = 43;
-                oModel.SupervisionLetter.AttachmentTypeId = 44;
-                oModel.SupervisionAgreement.AttachmentTypeId = 45;
-                oModel.ConstructionPermitApplication.AttachmentTypeId = 46;
-                oModel.PlotMarksForm.AttachmentTypeId = 47;
-                oModel.ProjectBoardForm.AttachmentTypeId = 48;
+                AddConsultantAttachmentsToListOfAttachments(oModel);
+                oModel.BuildingSupervision.ConsultantCivilId = oModel.oUserInfo.CivilId;
+            }
+            else if (oModel.ShowAdd == false)
+            {
+                if (oModel.BuildingSupervision.ServiceTypeID == 23)
+                    AddOwnerAttachmentsToListOfAttachments(oModel);
+                oModel.BuildingSupervision.OwnerCivilId = oModel.oUserInfo.CivilId;
+                oModel.oUserInfo.ConsultantCrNo = 0;
+            }
+            if (oModel.OtherAttachments != null && oModel.OtherAttachments.OptionalFiles != null && oModel.OtherAttachments.OptionalFiles[0] != null)
+            {
                 oModel.OtherAttachments.AttachmentTypeId = 49;
-                oModel.ListOfAttachments.Add(oModel.ContractorCRFile);
-                oModel.ListOfAttachments.Add(oModel.ContractorOwnerPersonalCard);
-                oModel.ListOfAttachments.Add(oModel.ForemanPersonalCard);
-                oModel.ListOfAttachments.Add(oModel.SupervisionLetter);
-                oModel.ListOfAttachments.Add(oModel.SupervisionAgreement);
-                oModel.ListOfAttachments.Add(oModel.ConstructionPermitApplication);
-                oModel.ListOfAttachments.Add(oModel.PlotMarksForm);
-                oModel.ListOfAttachments.Add(oModel.ProjectBoardForm);
                 oModel.ListOfAttachments.Add(oModel.OtherAttachments);
-                //oModel.BuildingPermits.LicenseNo = "ح / 5665";
+            }
+            if (oModel.ListOfAttachments != null && oModel.ListOfAttachments.Count > 0)
+            {
                 oModel.ListOfAttachments = SaveFiles(oModel);
             }
             string result = SupervisionCom.SaveSupervision(oModel);
+            if (oModel.BuildingSupervision.ServiceTypeID == 23)
+                SupervisionCom.UpdateSupervisionAttachmentsForNonPermitID(result);
+            if (oModel.BuildingSupervision.ServiceTypeID == 10)
+            {
+                SaveChangeConsultantTransaction(oModel);
+            }
             ViewBag.TranseID = result;
-            DMeServices.Models.Common.SmsCom.SendSms("968" + oModel.oUserInfo.MobileNo, ": تم تسليم طلبك بنجاح رقم المعاملة  " + result);
-            //}
+            ViewBag.showadd = oModel.ShowAdd;
+            SendResultSMS(oModel, result);
             return View("SaveSupervisionSuccessPage");
-            //}
-            //else
-            //{
-            //    return View("SaveSupervisionFailPage");
-            //}
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SaveConsultantSupervision(SupervisionViewModel oModel)
+        {
+            oModel.ListOfAttachments = (List<PermitsAttachments>)TempData["Attachments"];
+            TempData["Attachments"] = null;
+            if (oModel.OtherAttachments != null && oModel.OtherAttachments.Files != null)
+            {
+                oModel.OtherAttachments.AttachmentTypeId = 49;
+                oModel.ListOfAttachments.Add(oModel.OtherAttachments);
+            }
+            if (oModel.ListOfAttachments.Count > 0)
+            {
+                oModel.ListOfAttachments = SaveConsultantFiles(oModel);
+            }
+            string Result = SupervisionCom.SaveConsultantSupervisions(oModel);
+
+            ViewBag.TranseID = oModel.BuildingSupervision.TransactNo;
+            ViewBag.showadd = oModel.ShowAdd;
+            return View("SaveSupervisionSuccessPage");
+        }
+        #endregion
+
+        #region Method :: Saving Process
+        private static void SendResultSMS(SupervisionViewModel oModel, string result)
+        {
+            List<int> _phoneNos = new List<int>();
+            if (oModel.oUserInfo.MobileNo != 0)
+                _phoneNos.Add(oModel.oUserInfo.MobileNo);
+            if (oModel.ShowAdd == false)
+            {
+                _phoneNos = GetOwnersPhoneNos(oModel);
+            }
+            if (_phoneNos != null && _phoneNos.Count > 0)
+            {
+                for (var i = 0; i < _phoneNos.Count; i++)
+                    DMeServices.Models.Common.SmsCom.SendSms("968" + _phoneNos[i], ": تم تسليم طلبك بنجاح رقم المعاملة  " + result);
+            }
+        }
+        private static List<int> GetOwnersPhoneNos(SupervisionViewModel oModel)
+        {
+            List<int> _ownersPhoneNos = new List<int>();
+            oModel.ListOfOwners = PermitsCom.OwnersByPermitID(oModel.BuildingPermits.Id);
+            foreach (var Owner in oModel.ListOfOwners)
+            {
+                if (Owner.Phone != null)
+                    _ownersPhoneNos.Add((int)Owner.Phone);
+            }
+            return _ownersPhoneNos;
+        }
+        private static string SaveChangeConsultantTransaction(SupervisionViewModel oModel)
+        {
+            try
+            {
+                oModel.SupervisionTransact = new Transactions();
+                string saveTransactResult = SupervisionCom.SaveSupervisionTransact(oModel);
+                return saveTransactResult;
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+        private static void AddOwnerAttachmentsToListOfAttachments(SupervisionViewModel oModel)
+        {
+            int _defaultPermitID = SupervisionCom.GetBldPermitDefaultValue();
+            if (oModel.PersonalCard != null && oModel.PersonalCard.File != null)
+            {
+                oModel.PersonalCard.BldPermitId = _defaultPermitID;
+                oModel.PersonalCard.AttachmentTypeId = 1;
+                oModel.ListOfAttachments.Add(oModel.PersonalCard);
+            }
+            if (oModel.KrokeFile != null && oModel.KrokeFile.File != null)
+            {
+                oModel.PersonalCard.BldPermitId = _defaultPermitID;
+                oModel.KrokeFile.AttachmentTypeId = 2;
+                oModel.ListOfAttachments.Add(oModel.KrokeFile);
+            }
+            if (oModel.OwnerFile != null && oModel.OwnerFile.File != null)
+            {
+                oModel.PersonalCard.BldPermitId = _defaultPermitID;
+                oModel.OwnerFile.AttachmentTypeId = 3;
+                oModel.ListOfAttachments.Add(oModel.OwnerFile);
+            }
+        }
+        private static void AddConsultantAttachmentsToListOfAttachments(SupervisionViewModel oModel)
+        {
+            if (oModel.ContractorCRFile != null && oModel.ContractorCRFile.File != null)
+            {
+                oModel.ContractorCRFile.AttachmentTypeId = 41;
+                oModel.ListOfAttachments.Add(oModel.ContractorCRFile);
+            }
+            if (oModel.ContractorOwnerPersonalCard != null && oModel.ContractorOwnerPersonalCard.File != null)
+            {
+                oModel.ContractorOwnerPersonalCard.AttachmentTypeId = 42;
+                oModel.ListOfAttachments.Add(oModel.ContractorOwnerPersonalCard);
+            }
+            if (oModel.ForemanPersonalCard != null && oModel.ForemanPersonalCard.File != null)
+            {
+                oModel.ForemanPersonalCard.AttachmentTypeId = 43;
+                oModel.ListOfAttachments.Add(oModel.ForemanPersonalCard);
+            }
+            if (oModel.SupervisionLetter != null && oModel.SupervisionLetter.File != null)
+            {
+                oModel.SupervisionLetter.AttachmentTypeId = 44;
+                oModel.ListOfAttachments.Add(oModel.SupervisionLetter);
+            }
+            if (oModel.SupervisionAgreement != null && oModel.SupervisionAgreement.File != null)
+            {
+                oModel.SupervisionAgreement.AttachmentTypeId = 45;
+                oModel.ListOfAttachments.Add(oModel.SupervisionAgreement);
+            }
+            if (oModel.ConstructionPermitApplication != null && oModel.ConstructionPermitApplication.File != null)
+            {
+                oModel.ConstructionPermitApplication.AttachmentTypeId = 46;
+                oModel.ListOfAttachments.Add(oModel.ConstructionPermitApplication);
+            }
+            if (oModel.PlotMarksForm != null && oModel.PlotMarksForm.File != null)
+            {
+                oModel.PlotMarksForm.AttachmentTypeId = 47;
+                oModel.ListOfAttachments.Add(oModel.PlotMarksForm);
+            }
+            if (oModel.ProjectBoardForm != null && oModel.ProjectBoardForm.File != null)
+            {
+                oModel.ProjectBoardForm.AttachmentTypeId = 48;
+                oModel.ListOfAttachments.Add(oModel.ProjectBoardForm);
+            }
+            if (oModel.ChangeConsultantStatment != null && oModel.ChangeConsultantStatment.File != null)
+            {
+                oModel.ChangeConsultantStatment.AttachmentTypeId = 50;
+                oModel.ListOfAttachments.Add(oModel.ChangeConsultantStatment);
+            }
+        }
+        #endregion
+
+        #region Method :: Appointments
+        [HttpPost]
+        public ActionResult MakeAppointment(string bldID)
+        {
+            SupervisionViewModel oModel = new SupervisionViewModel();
+            oModel.BuildingSupervision = SupervisionCom.SupervisionsById(int.Parse(bldID));
+            string Result = SupervisionCom.UpdateOwnerNotesRequests(oModel);
+            return Json(new
+            {
+                msg = "تم تقديم الطلب بنجاح"
+            });
+        }
         private bool isListOfAttachment(List<PermitsAttachments> listOfAttachments)
         {
             if (listOfAttachments.Count == 0 || listOfAttachments.Count > 20) return false;
@@ -150,27 +319,20 @@ namespace DMeServicesExternal.Web.Controllers
             }
             return true;
         }
+        #endregion
 
+        #region Method :: Get Permit License Data for Supervision Start
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult SaveConsultantSupervision(SupervisionViewModel oModel)
-        {
-            oModel.ListOfAttachments = (List<PermitsAttachments>)TempData["Attachments"];
-            TempData["Attachments"] = null;
-            oModel.ListOfAttachments = SaveConsultantFiles(oModel);
-            string Result = SupervisionCom.SaveConsultantSupervisions(oModel);
-
-            ViewBag.TranseID = oModel.BuildingSupervision.TransactNo;
-            return View("Index");
-        }
-
-        [HttpPost]
-        public ActionResult GetLicenseData(string licenseNo, string userType)
+        public ActionResult GetLicenseData(string licenseNo, string userType, string serviceType)
         {
             SupervisionViewModel oModel = new SupervisionViewModel();
             if (userType == "True")
             {
-                oModel.BuildingPermits = SupervisionCom.SupervisionsByLicenseNo(licenseNo);
+                string _result = GetBuildingPermitResult(licenseNo, serviceType, oModel);
+                if (_result != "done")
+                {
+                    return Json(new { msg = _result });
+                }
             }
             else
             {
@@ -179,15 +341,14 @@ namespace DMeServicesExternal.Web.Controllers
                 {
                     return Json(new
                     {
-                        msg = "عفوا .. لا يمكنك اضافة طلبات على هذا الترخيص .. حيث ان الرقم المدني المستخدم غير مطابق او رقم الترخيص غير صحيح او غير مسجل .. برجاء مراجعة قسم رقابة البناء"
+                        msg = "عفوا .. لا يمكنك اضافة طلبات على هذا الترخيص .. حيث ان الرقم المدني المستخدم غير مطابق او رقم الترخيص غير صحيح او غير مسجل .. برجاء مراجعة قسم تراخيص البناء"
                     });
-                    //    ViewBag.Message = "عفوا .. لا يمكنك اضافة طلبات على هذا الترخيص .. حيث ان الرقم المدني المستخدم غير مطابق .. برجاء مراجعة قسم رقابة البناء";
-                    //    return View();
                 }
             }
             TempData["Attachments"] = new List<PermitsAttachments>();
             ViewBag.DDAttachmentsType = DDAttachmentTypes();
-
+            if (oModel.BuildingSupervision.LicenseNo != null)
+                ViewBag.LicenseNo = oModel.BuildingSupervision.LicenseNo;
             ViewBag.DDWelayat = DDWelayat();
             ViewBag.DDRegion = DDRegionSaved(oModel.BuildingPermits.WelayahID);
             ViewBag.DDServiceType = DDServiceType();
@@ -200,21 +361,38 @@ namespace DMeServicesExternal.Web.Controllers
             oModel.ListOfAttachments = PermitsAttachmentsCom.AttachmentsByPermitsID(oModel.BuildingPermits.Id, folderName);
             return PartialView("_Details", oModel);
         }
-        private static string dirName(SupervisionViewModel oModel)
+
+        private string GetBuildingPermitResult(string licenseNo, string serviceType, SupervisionViewModel oModel)
         {
-            string directoryName;
-            if (string.IsNullOrEmpty(oModel.BuildingPermits.KrokiNO))
+            oModel.BuildingPermits = null;
+            string resultmessage = SupervisionCom.SupervisionsByLicenseNo(licenseNo, serviceType).ToString();
+            int permitID;
+            if (int.TryParse(resultmessage, out permitID))
             {
-                directoryName = oModel.BuildingPermits.ConsultantCivilId.ToString() + "_" + oModel.BuildingPermits.ConsultantCrNo.ToString();
+                FillBuildingSupervision(licenseNo, serviceType, oModel, permitID);
+                return "done";
             }
-            else
-            {
-                directoryName = oModel.BuildingPermits.KrokiNO;
-            }
-            return directoryName;
+            return resultmessage;
         }
+
+        private static void FillBuildingSupervision(string licenseNo, string serviceType, SupervisionViewModel oModel, int permitID)
+        {
+            oModel.BuildingPermits = SupervisionCom.GetBuildingPermit(permitID);
+            if (serviceType == "10")
+            {
+                var supervisionRelated = SupervisionCom.GetSelectedSupervisionRequest(licenseNo);
+                oModel.BuildingSupervision.LicenseNo = supervisionRelated.LicenseNo;
+                oModel.BuildingSupervision.ContractorCR_No = supervisionRelated.ContractorCR_No;
+                oModel.BuildingSupervision.SupervisionRelatedID = supervisionRelated.ID;
+                oModel.BuildingSupervision.PaymentID = PaymentCom.GetPaymentIDBySupervisionID(supervisionRelated.ID);
+            }
+        }
+        #endregion
+
+        #region Method :: Supervision Details
         public ActionResult SupervisionDetails(bool showadd, int id = -99)
         {
+            //System.Threading.Thread.Sleep(10000);
             SupervisionViewModel oModel = new SupervisionViewModel();
             if (oModel.oUserInfo == null && Session["UserInfo"] != null)
                 oModel.oUserInfo = (DMeServices.Models.User)Session["UserInfo"];
@@ -238,13 +416,22 @@ namespace DMeServicesExternal.Web.Controllers
             oModel.ListOfOwners = PermitsCom.OwnersByPermitID(oModel.BuildingSupervision.BldPermitID);
             string folderName = dirName(oModel);
             oModel.ListOfAttachments = PermitsAttachmentsCom.AttachmentsByPermitsID(oModel.BuildingSupervision.BldPermitID, folderName);
+            if (oModel.BuildingSupervision.ServiceTypeID == 23)
+            {
+                ViewBag.DDRegion = DDRegionSaved(oModel.BuildingSupervision.WelayahID);
+                oModel.ListOfAttachments = PermitsAttachmentsCom.AttachmentsBySupervisionID(oModel.BuildingSupervision.ID, folderName);
+            }
             oModel.Payments = PaymentsCom.PaymentsBySupervisionID(oModel.BuildingSupervision.ID);
             oModel.PaymentDetailsList = PaymentsCom.MapsPaymentDetailsBySupervisionID(oModel.BuildingSupervision.ID);
-            oModel.TransactsList = SupervisionCom.SupervisionsTransactById(oModel.BuildingSupervision.ID);
+            if (oModel.BuildingSupervision.ServiceTypeID == 6 || oModel.BuildingSupervision.ServiceTypeID == 9 || oModel.BuildingSupervision.ServiceTypeID == 10)
+                oModel.TransactsList = SupervisionCom.SupervisionsTransactBySupervisionLicenseNo(oModel.BuildingSupervision.LicenseNo);
+            else
+                oModel.TransactsList = SupervisionCom.SupervisionsTransactBySupervisionId(oModel.BuildingSupervision.ID);
             return View(oModel);
         }
+        #endregion
 
-        #region Method :: Display Files 
+        #region Method :: Working With Attachments, Directory and Files 
         public ActionResult PdfPartial(int id)
         {
             ViewBag.Id = id;
@@ -261,8 +448,10 @@ namespace DMeServicesExternal.Web.Controllers
                 Inline = true
             };
             Response.Headers.Add("Content-Disposition", contentDisposition.ToString());
+            await Task.FromResult(0);
             return File(filePath, System.Net.Mime.MediaTypeNames.Application.Pdf);
         }
+
         public ActionResult GetFile(int ID)
         {
             ViewBag.ID = ID;
@@ -300,6 +489,19 @@ namespace DMeServicesExternal.Web.Controllers
                 }
             }
             return new EmptyResult();
+        }
+        private static string dirName(SupervisionViewModel oModel)
+        {
+            string directoryName;
+            if (string.IsNullOrEmpty(oModel.BuildingPermits.KrokiNO))
+            {
+                directoryName = oModel.BuildingPermits.ConsultantCivilId.ToString() + "_" + oModel.BuildingPermits.ConsultantCrNo.ToString();
+            }
+            else
+            {
+                directoryName = oModel.BuildingPermits.KrokiNO;
+            }
+            return directoryName;
         }
         #endregion
 
@@ -394,7 +596,7 @@ namespace DMeServicesExternal.Web.Controllers
                 oModel.Attachments = new PermitsAttachments();
                 oModel.Attachments.File = File;
                 oModel.Attachments.InsertDate = DateTime.Now;
-                oModel.Attachments.AttachmentContentType = oFileInfo.Extension;
+                oModel.Attachments.AttachmentContentType = oFileInfo.Extension.ToLower();
                 if (!new string[] { ".jpg", ".jpeg", ".pdf", ".png" }.Contains(oFileInfo.Extension.ToString()))
                 {
                     return PartialView("_ListAttachments", oModel);
@@ -440,7 +642,7 @@ namespace DMeServicesExternal.Web.Controllers
                 oModel.Attachments = new PermitsAttachments();
                 oModel.Attachments.File = File;
                 oModel.Attachments.InsertDate = DateTime.Now;
-                oModel.Attachments.AttachmentContentType = oFileInfo.Extension;
+                oModel.Attachments.AttachmentContentType = oFileInfo.Extension.ToLower();
                 if (string.IsNullOrEmpty(FileDescription))
                 {
                     FileDescription = "لايوجد";
@@ -515,28 +717,48 @@ namespace DMeServicesExternal.Web.Controllers
         #endregion
 
         #region Method :: Save Files
-
-
         public static List<PermitsAttachments> SaveFiles(SupervisionViewModel oModel)
         {
             List<PermitsAttachments> ListAttachments = new List<PermitsAttachments>();
-
-            string sFilename = string.Empty;
-            string PerPath;
-            string StrPath;
-            string sPath;
-
-            if (oModel.ListOfAttachments == null)
-            {
-                return null;
-            }
-
             foreach (var Attachment in oModel.ListOfAttachments)
             {
-
                 HttpPostedFileBase oFile = Attachment.File;
-                FileInfo oFileInfo = new FileInfo(oFile.FileName);
+                if (Attachment.File == null && Attachment.OptionalFile != null)
+                {
+                    oFile = Attachment.OptionalFile;
+                }
+                FileInfo oFileInfo;
+                string attachmentFilePath = "";
+                string attachmentFileType = "";
+                if (Attachment.File != null)
+                {
+                    oFileInfo = new FileInfo(oFile.FileName);
+                    attachmentFileType = oFileInfo.Extension.ToLower();
+                }
                 string folderName = dirName(oModel);
+                if (oModel.BuildingSupervision.ServiceTypeID == 23)
+                    folderName = oModel.BuildingSupervision.KrokiNO;
+                string userFirstName = oModel.oUserInfo.FirstName;
+                if (Attachment.OptionalFiles != null && Attachment.OptionalFiles[0] != null)
+                {
+                    foreach (var file in Attachment.OptionalFiles)
+                    {
+                        oFileInfo = new FileInfo(file.FileName);
+                        attachmentFileType = oFileInfo.Extension.ToLower();
+                        attachmentFilePath = SaveAttachmentFileSystem(file, folderName, "SupervisionFiles");
+                        AddToListOfAttachments(ListAttachments, Attachment, userFirstName, file.FileName.ToLower(), attachmentFilePath, attachmentFileType);
+                    }
+                }
+                if (Attachment.Files != null && Attachment.Files[0] != null)
+                {
+                    foreach (var file in Attachment.Files)
+                    {
+                        oFileInfo = new FileInfo(file.FileName);
+                        attachmentFileType = oFileInfo.Extension.ToLower();
+                        attachmentFilePath = SaveAttachmentFileSystem(file, folderName, "SupervisionFiles");
+                        AddToListOfAttachments(ListAttachments, Attachment, userFirstName, file.FileName.ToLower(), attachmentFilePath, attachmentFileType);
+                    }
+                }
                 if (oFile != null && oFile.ContentLength > 0)
                 {
                     switch (Attachment.AttachmentTypeId)
@@ -544,16 +766,7 @@ namespace DMeServicesExternal.Web.Controllers
                         case 1:
                         case 2:
                         case 3:
-                            sFilename = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + oFileInfo.Extension;
-                            PerPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/Personal/" + folderName));
-                            sPath = System.IO.Path.Combine(PerPath.ToString());
-                            string PerUploadPath = string.Format("{0}\\{1}", sPath, sFilename);
-
-                            //oFile.SaveAs(PerUploadPath);
-                            Attachment.AttachmentName = sFilename;
-                            Attachment.AttachmentPath = PerUploadPath;
-                            sFilename = null;
-
+                            attachmentFilePath = SaveAttachmentFileSystem(oFile, folderName, "Personal");
                             break;
                         case 4:
                         case 5:
@@ -561,14 +774,7 @@ namespace DMeServicesExternal.Web.Controllers
                         case 7:
                         case 8:
                         case 14:
-                            sFilename = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + oFileInfo.Extension;
-                            StrPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/StructuralFiles/" + folderName));
-                            sPath = System.IO.Path.Combine(StrPath.ToString());
-                            string StrUploadPath = string.Format("{0}\\{1}", sPath, sFilename);
-                            // oFile.SaveAs(StrUploadPath);
-                            Attachment.AttachmentPath = StrUploadPath;
-                            Attachment.AttachmentName = sFilename;
-                            sFilename = null;
+                            attachmentFilePath = SaveAttachmentFileSystem(oFile, folderName, "StructuralFiles");
                             break;
                         case 41:
                         case 42:
@@ -579,86 +785,91 @@ namespace DMeServicesExternal.Web.Controllers
                         case 47:
                         case 48:
                         case 49:
-                            sFilename = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + oFileInfo.Extension;
-                            StrPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/SupervisionFiles/" + folderName));
-                            sPath = System.IO.Path.Combine(StrPath.ToString());
-                            string SupUploadPath = string.Format("{0}\\{1}", sPath, sFilename);
-                            // oFile.SaveAs(StrUploadPath);
-                            Attachment.AttachmentPath = SupUploadPath;
-                            Attachment.AttachmentName = sFilename;
-                            sFilename = null;
+                        case 50:
+                            attachmentFilePath = SaveAttachmentFileSystem(oFile, folderName, "SupervisionFiles");
                             break;
-
                     }
-                    MemoryStream stream = new MemoryStream();
-                    oFile.InputStream.CopyTo(stream);
-                    byte[] data = stream.ToArray();
-                    //Attachment.AttachmentName = oFile.FileName;
-
-                    Attachment.AttachmentStream = data;
-                    Attachment.AttachmentContentType = oFileInfo.Extension;
-                    Attachment.InsertDate = DateTime.Now;
-                    Attachment.CreatedBy = oModel.oUserInfo.FirstName;
-                    Attachment.CreatedOn = DateTime.Now;
-
-                    ListAttachments.Add(Attachment);
+                    AddToListOfAttachments(ListAttachments, Attachment, userFirstName, oFile.FileName.ToLower(), attachmentFilePath, attachmentFileType);
                 }
             }
             return ListAttachments;
         }
-        #endregion
 
-        #region Method :: Save Files
+        private static List<PermitsAttachments> AddToListOfAttachments(List<PermitsAttachments> ListAttachments, PermitsAttachments Attachment, string userFirstName, string attachmentName, string attachmentPath, string attachmentType)
+        {
+            Attachment.AttachmentPath = attachmentPath;
+            Attachment.AttachmentName = attachmentName;
+            Attachment.AttachmentContentType = attachmentType;
+            Attachment.InsertDate = DateTime.Now;
+            Attachment.CreatedBy = userFirstName;
+            Attachment.CreatedOn = DateTime.Now;
+            ListAttachments.Add(Attachment);
+            return ListAttachments;
+        }
 
+        public static string SaveAttachmentFileSystem(HttpPostedFileBase oFile, string folderName, string directoryName)
+        {
+            FileInfo oFileInfo = new FileInfo(oFile.FileName);
+            string sFilename = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + oFileInfo.Extension.ToLower();
+            string sPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/" + directoryName + "/" + folderName));
+            string uploadPath = string.Format("{0}\\{1}", sPath, sFilename);
+            if (!Directory.Exists(sPath))
+            {
+                Directory.CreateDirectory(sPath);
+            }
+            oFile.SaveAs(uploadPath);
+            return uploadPath;
+        }
 
         public static List<PermitsAttachments> SaveConsultantFiles(SupervisionViewModel oModel)
         {
             List<PermitsAttachments> listAttachments = new List<PermitsAttachments>();
-
-            if (oModel.ListOfAttachments == null)
-            {
-                return null;
-            }
-
+            if (oModel.ListOfAttachments == null) return null;
             foreach (var Attachment in oModel.ListOfAttachments)
             {
                 if (Attachment.Id == 0)
                 {
                     HttpPostedFileBase oFile = Attachment.File;
-                    FileInfo oFileInfo = new FileInfo(oFile.FileName);
-                    string folderName = dirName(oModel);
-                    if (oFile != null && oFile.ContentLength > 0)
+                    if (Attachment.Files != null)
                     {
-                        var sFilename = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + oFileInfo.Extension;
-                        var StrPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/StructuralFiles/" + folderName));
-                        var sPath = System.IO.Path.Combine(StrPath.ToString());
-                        string StrUploadPath = string.Format("{0}\\{1}", sPath, sFilename);
-                        // oFile.SaveAs(StrUploadPath);
-                        Attachment.AttachmentPath = StrUploadPath;
-                        Attachment.AttachmentName = sFilename;
-                        sFilename = null;
-                        MemoryStream stream = new MemoryStream();
-                        oFile.InputStream.CopyTo(stream);
-                        byte[] data = stream.ToArray();
-                        //Attachment.AttachmentName = oFile.FileName;
-
-                        Attachment.AttachmentStream = data;
-                        Attachment.AttachmentContentType = oFileInfo.Extension;
-                        Attachment.InsertDate = DateTime.Now;
-                        Attachment.CreatedBy = oModel.oUserInfo.FirstName;
-                        Attachment.CreatedOn = DateTime.Now;
-                        listAttachments.Add(Attachment);
+                        for (int i = 0; i < Attachment.Files.Length; i++)
+                        {
+                            oFile = Attachment.Files[i];
+                            SaveSelectedFile(oModel, listAttachments, Attachment, oFile);
+                        }
                     }
+                    else SaveSelectedFile(oModel, listAttachments, Attachment, oFile);
                 }
-                else
-                {
-                    listAttachments.Add(Attachment);
-                }
+                else listAttachments.Add(Attachment);
             }
             return listAttachments;
-
         }
-
+        private static void SaveSelectedFile(SupervisionViewModel oModel, List<PermitsAttachments> listAttachments, PermitsAttachments Attachment, HttpPostedFileBase oFile)
+        {
+            FileInfo oFileInfo = new FileInfo(oFile.FileName);
+            string folderName = dirName(oModel);
+            if (oFile != null && oFile.ContentLength > 0)
+            {
+                string sFilename = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString() + oFileInfo.Extension.ToLower();
+                string SupPath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Files/AttachedFiles/SupervisionFiles/" + folderName));
+                string sPath = System.IO.Path.Combine(SupPath.ToString());
+                string SupUploadPath = string.Format("{0}\\{1}", sPath, sFilename);
+                if (!Directory.Exists(SupPath))
+                {
+                    Directory.CreateDirectory(SupPath);
+                }
+                oFile.SaveAs(SupUploadPath);
+                Attachment.AttachmentPath = SupUploadPath;
+                Attachment.AttachmentName = sFilename;
+                sFilename = null;
+                Attachment.AttachmentName = oFile.FileName.ToLower();
+                Attachment.AttachmentContentType = oFileInfo.Extension.ToLower();
+                Attachment.InsertDate = DateTime.Now;
+                Attachment.CreatedBy = oModel.oUserInfo.FirstName;
+                Attachment.CreatedOn = DateTime.Now;
+                listAttachments.Add(Attachment);
+            }
+        }
         #endregion
 
         #region Method :: List Engineer Attachment 
@@ -859,8 +1070,11 @@ namespace DMeServicesExternal.Web.Controllers
             // HTTP GET.  
             using (var client = new HttpClient())
             {
-                // Setting Base address.  
-                client.BaseAddress = new Uri("https://www.dhofar.gov.om/ePaymentAPI/");
+                // Setting Base address from dhofar.gov.om  
+                //client.BaseAddress = new Uri(DMeServices.Models.Resources.ApiUrls.PaymentAPIDhofar.ToString());
+
+                // Setting Base address from main.edm.gov.om  
+                client.BaseAddress = new Uri(ApiUrls.PaymentAPI.ToString());
 
                 // Setting content type.  
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -869,7 +1083,8 @@ namespace DMeServicesExternal.Web.Controllers
                 HttpResponseMessage response = new HttpResponseMessage();
 
                 // HTTP GET  
-                response = await client.GetAsync("API/Paymentrequest/OpenPaymentRequest").ConfigureAwait(false);
+                //response = await client.GetAsync(DMeServices.Models.Resources.ApiUrls.PaymentAPIOpenRequestDhofar.ToString()).ConfigureAwait(false);
+                response = await client.GetAsync(ApiUrls.PaymentAPIOpenRequest.ToString()).ConfigureAwait(false);
 
                 // Verification  
                 if (response.IsSuccessStatusCode)
@@ -886,7 +1101,7 @@ namespace DMeServicesExternal.Web.Controllers
         public async Task<ActionResult> Pay()
         {
             var payment = new DMeServices.Models.Common.PaymentCom();
-            await payment.GetListAsync();
+            await payment.GetListAsync(ApiUrls.PaymentAPI.ToString(), ApiUrls.PaymentAPIOpenRequest.ToString());
 
             return View();
         }
@@ -897,7 +1112,7 @@ namespace DMeServicesExternal.Web.Controllers
             var _payment = DMeServices.Models.Common.BuildingServices.PaymentsCom.PaymentByID(id);
             string totalAmountToPay = _payment.PaymentTotalAmount.ToString();
             string amountType = _payment.PaymentType.ToString();
-            var result = DMeServices.Models.Common.PaymentCom.PayAmount(totalAmountToPay, amountType, requestUrl);
+            var result = DMeServices.Models.Common.PaymentCom.PayAmount(totalAmountToPay, amountType, requestUrl, ApiUrls.PaymentAPIOpenRequest.ToString());
 
             var paymentID = DMeServices.Models.Common.BuildingServices.PaymentsCom.UpdatPaymentToken(id, result.token.ToString());
 
@@ -916,7 +1131,7 @@ namespace DMeServicesExternal.Web.Controllers
         {
             token = Request.QueryString["Token"].ToString();
             string T = token;
-            DMeServices.Models.BankResponse _bankResponse = DMeServices.Models.Common.PaymentCom.GetBankResponse(T);
+            DMeServices.Models.BankResponse _bankResponse = DMeServices.Models.Common.PaymentCom.GetBankResponse(T, ApiUrls.PaymentAPIGetRequestStatus.ToString());
             var permitID = DMeServices.Models.Common.BuildingServices.PaymentsCom.UpdatPaymentStatus(T, _bankResponse);
             int SupervisionID = PaymentsCom.PaymentIDByToken(T);
             int status = 29;
@@ -926,7 +1141,7 @@ namespace DMeServicesExternal.Web.Controllers
             {
                 //PermitsViewModel pModel = new PermitsViewModel();
                 //pModel.BuildingPermits = PermitsCom.PermitsByID(Convert.ToInt32(permitID));
-                return RedirectToAction("SupervisionDetails", new { @id = Convert.ToInt32(result) });
+                return RedirectToAction("SupervisionDetails", new { showadd = true, @id = Convert.ToInt32(result) });
             }
             else
             {
@@ -960,7 +1175,7 @@ namespace DMeServicesExternal.Web.Controllers
                 List<SelectListItem> _serviceTypelist = new List<SelectListItem>();
                 foreach (SelectListItem item in serviceTypelist)
                 {
-                    if (item.Value == "0" || item.Value == "9" || item.Value == "11")
+                    if (item.Value == "0" || item.Value == "9" || item.Value == "6")
                     {
                         _serviceTypelist.Add(item);
                     }
@@ -977,11 +1192,15 @@ namespace DMeServicesExternal.Web.Controllers
             oModel.SupervisionTransact = new Transactions();
 
             string Result = SupervisionCom.SaveSupervisionTransact(oModel);
-            oModel.BuildingSupervision.Status = 51;
+            //oModel.BuildingSupervision.Status = 8;
+            oModel.BuildingSupervision.ID = 0;
+            oModel.BuildingSupervision.TransactNo = null;
             //oModel.BuildingSupervision.PaymentID = int.Parse(Result);
-            SupervisionCom.UpdatePaymentStatus(oModel.BuildingSupervision.ID, (int)oModel.BuildingSupervision.Status);
+            //SaveNewSupervision(oModel);
+            //SupervisionCom.UpdatePaymentStatus(oModel.BuildingSupervision.ID, (int)oModel.BuildingSupervision.Status);
             //ViewBag.PaymentID = Result;
-            return RedirectToAction("SupervisionDetails", "BuildingSupervision", new { Id = oModel.BuildingSupervision.ID });
+            //return RedirectToAction("SupervisionDetails", "BuildingSupervision", new { showadd = oModel.ShowAdd, Id = oModel.BuildingSupervision.ID }); return RedirectToAction("SupervisionDetails", "BuildingSupervision", new { showadd = oModel.ShowAdd, Id = oModel.BuildingSupervision.ID });
+            return SaveNewSupervision(oModel);
         }
 
         #endregion

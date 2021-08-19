@@ -71,6 +71,23 @@
             ReportManager.GenerateReport();
 
         });
+
+        $("#btnPrint").click(function (e) {
+
+            var servicetype = $("#ServiceType").val();
+
+            var validServices = ["12", "13", "14", "15", "17", "18", "19", "20", "21"];
+            if (validServices.includes(servicetype)) {
+
+                if ($("#LicenseNo").val() == "" || $("#DMLicenseComments").val() == "") {
+
+                    $('.modal-content').text("لا يمكن طباعة الترخيص بدون بيان أو رقم الترخيص أو بيان التعديل .. فضلا اختر حالة تم الدفع/اصدار رقم الترخيص وقم بادخال البيانات ثم احفظ المعاملة وقم باختيار اصدار الترخيص ثم اطبع الترخيص مرة اخرى");
+                    $('#MainModal').modal('show');
+                    e.preventDefault();
+                    $("#btnPrint").attr("disabled", "disabled");
+                }
+            }
+        })
     });
 
     var ReportManager = {
@@ -222,7 +239,7 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <br />
-                                        <a id="DetrmineAppointment" class="btn btn-primary"><i class="glyphicon glyphicon-ok"></i>تحديد</a>
+                                        <a id="DetrmineAppointment" onclick="return Loading();" class="btn btn-primary"><i class="glyphicon glyphicon-ok"></i>تحديد</a>
                                     </div>
                                 </div>
                             </div>
@@ -337,7 +354,7 @@
                         <label class="control-label">
                             @Html.DisplayNameFor(m => m.BuildingPermits.KrokiNO)
                         </label>
-                        @Html.TextBoxFor(m => m.BuildingPermits.KrokiNO, new { @readonly = "readonly", @class = "form-control", id = "KrokiNO", @placeholder = "رقم الكروكي" })
+                        @Html.TextBoxFor(m => m.BuildingPermits.KrokiNO, new { @readonly = "readonly", @class = "form-control", id = "KrokiNO", @placeholder = "رقم الرسم المساحي" })
                         @Html.ValidationMessageFor(m => m.BuildingPermits.KrokiNO, "", new { @style = "color:orange;" })
                     </div>
                     @if (Model.BuildingPermits.LandDeedReceiptNo != null)
@@ -362,7 +379,18 @@
                     <h5>بيانات ترخيص البناء</h5>
                     <div class="form-group col-lg-3">
                         <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.LicenseNo)</label>
-                        @Html.TextBoxFor(m => m.BuildingPermits.LicenseNo, new { @readonly = "readonly", @class = "form-control", id = "LicenseNo", @placeholder = "رقم الترخيص" })
+                        @if (Model.BuildingPermits.ServiceName == "12" || Model.BuildingPermits.ServiceName == "16" || Model.BuildingPermits.ServiceName == "21")
+                        {
+                            <div style="direction:ltr">
+                                @Html.TextBoxFor(m => m.BuildingPermits.LicenseNo, new { @readonly = "raedonly", @class = "form-control", id = "LicenseNo", @placeholder = "رقم الترخيص" })
+                            </div>
+                        }
+                        else
+                        {
+                            <div style="direction:ltr">
+                                @Html.TextBoxFor(m => m.BuildingPermits.MLicenseNo, new { @readonly = "raedonly", @class = "form-control", id = "LicenseNo", @placeholder = "رقم الترخيص" })
+                            </div>
+                        }
                     </div>
                     <div class="form-group col-lg-2">
                         <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.ConstructedArea)</label>
@@ -416,12 +444,29 @@
                         <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.DmEngineerComments)</label>
                         @Html.TextAreaFor(m => m.BuildingPermits.DmEngineerComments, new { @class = "form-control", id = "DmEngineerComments", @placeholder = "ملاحظات" })
                     </div>
-
-                    <div class="col-lg-4">
-                        <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.DMLicenseComments)</label>
-                        @Html.TextAreaFor(m => m.BuildingPermits.DMLicenseComments, new { @class = "form-control", id = "DMLicenseComments", @placeholder = "بيان الترخيص" })
-                    </div>
+                    @if (Model.BuildingPermits.DMLicenseComments == null)
+                    {
+                        <div class="col-lg-4">
+                            <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.DMLicenseComments)</label>
+                            @Html.TextAreaFor(m => m.BuildingPermits.DMLicenseComments, new { @class = "form-control", id = "DMLicenseComments", @placeholder = "بيان الترخيص" })
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-lg-4">
+                            <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.DMLicenseComments)</label>
+                            @Html.TextAreaFor(m => m.BuildingPermits.DMLicenseComments, new { @readonly = "readonly", @class = "form-control", id = "DMLicenseComments", @placeholder = "بيان الترخيص" })
+                        </div>
+                    }
+                    @if (Model.BuildingPermits.ServiceName == "21" && Model.BuildingPermits.MLicenseStatement != null)
+                    {
+                        <div class="col-lg-4">
+                            <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.MLicenseStatement)</label>
+                            @Html.TextAreaFor(m => m.BuildingPermits.MLicenseStatement, new { @class = "form-control", id = "MLicenseStatement", @placeholder = "بيان التعديل او الاضافة" })
+                        </div>
+                    }
                 </div>
+
                 <div class="box col-lg-6">
                     <div class="col-lg-4">
                         <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.DMManagerNotes)</label>
@@ -443,17 +488,18 @@
                 <button class="btn btn-primary" id="Save" @*onclick="return confirm('هل انت متاكد من حفظ التعديلات !');"*@>
                     <i class="glyphicon glyphicon-ok"></i> حفظ
                 </button>
-                <a class="btn btn-primary" id="btnFees" href="@Url.Action( "PermitFees","BuildingPermits", new {@id= Model.BuildingPermits.Id})" role="button">
-                    <i class="glyphicon glyphicon-ok"></i> تحديد الرسوم
+                <a onclick="return Loading();" class="btn btn-primary" id="btnFees" href="@Url.Action( "PermitFees","BuildingPermits", new {@id= Model.BuildingPermits.Id})" role="button">
+                    <i class="glyphicon glyphicon-credit-card"></i> تحديد الرسوم
                 </a>
-                <a class="btn btn-primary" id="btnPrint" href="@Url.Action( "PermitPrint","BuildingPermits", new {@id= Model.BuildingPermits.Id})" role="button">
-                    <i class="glyphicon glyphicon-ok"></i> طباعة الترخيص
+                <a onclick="return Loading();" class="btn btn-primary" id="btnPrint" href="@Url.Action( "PermitPrint","BuildingPermits", new {@id= Model.BuildingPermits.Id})" role="button">
+                    <i class="glyphicon glyphicon-print"></i> طباعة الترخيص
                 </a>
-                <a style="float:left" href="@Url.Action( "Index","BuildingPermits")" class="btn btn-primary" role="button">الصفحة السابقة</a>
+                <a style="float:left" href="@Url.Action( "Index","BuildingPermits")" onclick="return Loading();" class="btn btn-primary" role="button">الصفحة السابقة</a>
             </div>
         }
 
     </div>
+
     @if (ViewBag.ErrorMessage != null)
     {
         <script type="text/javascript">
@@ -465,64 +511,11 @@
                 /*$("#MainModal").modal("show");*/
             };
         </script>
-        <style>
-            #ErrorModal .modal-open {
-                direction: rtl;
-            }
-
-            #ErrorModal .modal-dialog {
-                width: 40%;
-                height: 100px;
-                margin-top: 50px;
-            }
-
-            #ErrorModal .modal-content {
-                height: 100px;
-                margin: 50px auto;
-                padding: 25px 50px;
-            }
-
-            #ErrorModal .modal-header {
-                background: linear-gradient(to bottom, rgb(255 255 255) 100%, #999999 100%);
-            }
-
-            #ErrorModal .modal-footer {
-                background: linear-gradient(to bottom, rgb(255 255 255) 100%, #DDDDDD 100%);
-            }
-
-            #ErrorModal .modal-body {
-                background: linear-gradient(to bottom, rgb(255 255 255) 100%, #DDDDDD 100%);
-            }
-
-            #ErrorModal .modal-content {
-                background-color: #ffffff;
-                border: 0px solid #999999;
-                webkit-box-shadow: none;
-                box-shadow: none;
-                border-radius: 0;
-            }
-        </style>
     }
 </div>
 
 
-
-<div class="modal fade" id="MainModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="ErrorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-
-        </div>
-    </div>
-</div>
-<script src="~/Scripts/jquery-1.10.2.js"></script>
+@*<script src="~/Scripts/jquery-1.10.2.js"></script>*@
 <script src="~/Scripts/jquery-ui.js"></script>
 <script src="~/Scripts/jquery-ui-timepicker-addon.js"></script>
 @*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
@@ -555,9 +548,26 @@
 
 </script>
 
-
-
 <script>
+    function stopVlidations() {
+        $("#LandDeedReceiptNo").rules('remove', 'required');
+        $('#LandDeedReceiptNo').removeAttr('required');
+        $("#PersonalFile").rules('remove', 'required');
+        $('#PersonalFile').removeAttr('required');
+        $("#DistrictNo").rules('remove', 'required');
+        $('#DistrictNo').removeAttr('required');
+        $("#LandArea").rules('remove', 'required');
+        $('#LandArea').removeAttr('required');
+        $("#KrokiNO").rules('remove', 'required');
+        $('#KrokiNO').removeAttr('required');
+        $("#LandDeedReceiptDate").rules('remove', 'required');
+        $('#LandDeedReceiptDate').removeAttr('required');
+        $("#ConstructedArea").rules('remove', 'required');
+        $('#ConstructedArea').removeAttr('required');
+        $("#NumberOfFloors").rules('remove', 'required');
+        $('#NumberOfFloors').removeAttr('required');
+    }
+
     $(document).ready(function () {
         let arr1 = [12, 15];
         let arr2 = [13, 14];
@@ -588,6 +598,8 @@
         $("#PermitsStatus option[value='0']").attr("disabled", "disabled");
 
         $("#Save").click(function () {
+            stopVlidations();
+            Loading();
             $("#Permitsform").submit();
         });
         //var date = $('#datepicker').datepicker({ dateFormat: 'dd-mm-yy' }).val();
@@ -626,10 +638,12 @@
         $("#divAppointmentDate").hide();
 
         $("#AcceptAppointment").click(function () {
+            Loading();
             $("#divAppointmentDate").show();
         });
 
         $("#DetrmineAppointment").click(function () {
+            Loading();
             var data = new FormData();
             var url = "@Url.Action("AcceptAppointment", "BuildingPermits")";
             data.append("bldID", $("#bldID").val());
@@ -673,6 +687,7 @@
         });
 
         $("#RefuseAppointment").click(function () {
+            Loading();
             var data = new FormData();
             var url = "@Url.Action("RefuseAppointment", "BuildingPermits")";
             data.append("bldID", $("#bldID").val());
@@ -686,7 +701,7 @@
                     if (response.msg) {
                         var error = response.msg;
                         $('.modal-content').css({ fontSize: "12px", color: "red" });
-                        $('.modal-content').text(error);
+                        $('.modal-content').find('.modal-content').text(error);
                         $("#ErrorModal").modal("show");
                         $('#lblAppointmentDateD').text("تم رفض طلب المقابلة");
                         $('#lblAppointmentDateP').text("تم رفض طلب المقابلة");
@@ -704,6 +719,7 @@
         });
 
         $("#CancelAppointment").click(function () {
+            Loading();
             var data = new FormData();
             var url = "@Url.Action("CancelAppointment", "BuildingPermits")";
             data.append("bldID", $("#bldID").val());
@@ -717,7 +733,7 @@
                     if (response.msg) {
                         var error = response.msg;
                         $('.modal-content').css({ fontSize: "12px", color: "green" });
-                        $('.modal-content').text(error);
+                        $('.modal-content').find('.modal-content').text(error);
                         $("#ErrorModal").modal("show");
                         $('#lblAppointmentDateD').text("تمت المقابلة");
                         $('#lblAppointmentDateP').text("تمت المقابلة");
@@ -739,45 +755,3 @@
         });
     });
 </script>
-
-
-<script type="text/javascript">
-    $(function () {
-        // Initialize numeric spinner input boxes
-        //$(".numeric-spinner").spinedit();
-
-        // Initalize modal dialog
-        // attach modal-container bootstrap attributes to links with .modal-link class.
-        // when a link is clicked with these attributes, bootstrap will display the href content in a modal dialog.
-
-        $('body').on('click', '.modal-link', function (e) {
-
-            $(this).attr('data-target', '#MainModal');
-            e.preventDefault();
-            $("iframe").attr("src", $(this).attr('href'));
-            $(this).attr('data-toggle', 'modal');
-        });
-
-
-        // Attach listener to .modal-close-btn's so that when the button is pressed the modal dialog disappears
-        $('body').on('click', '.modal-close-btn', function () {
-
-            $('#MainModal').modal('hide');
-        });
-
-        //clear modal cache, so that new content can be loaded
-        $('#MainModal').on('hidden.bs.modal', function () {
-
-            $(this).removeData('bs.modal');
-        });
-
-        $(document).on("hidden.bs.modal", function (e) {
-            $(e.target).removeData("bs.modal").find(".modal-content").empty();
-        });
-
-        $('#CancelModal').on('click', function () {
-            return false;
-        });
-    });
-</script>
-

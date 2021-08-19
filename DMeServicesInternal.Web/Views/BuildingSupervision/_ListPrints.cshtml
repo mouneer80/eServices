@@ -6,7 +6,7 @@
 <div class="box col-lg-6">
     <div class="box-inner">
         <div class="box-header well" data-original-title="">
-            <h2><i class="glyphicon glyphicon-edit"></i> تراخيص البناء</h2>
+            <h2><i class="glyphicon glyphicon-edit"></i> شهادات رقابة البناء</h2>
         </div>
         <div class="box-content">
             <!--item details-->
@@ -26,7 +26,7 @@
                         {
                             foreach (var item in Model.ListOfAttachments)
                             {
-                                if (item.AttachmentTypeId >= 31 && item.AttachmentTypeId < 40)
+                                if (item.AttachmentTypeId >= 31 && item.AttachmentTypeId <= 40)
                                 {
                                     var type = DMeServices.Models.Common.BuildingServices.AttachmentTypesCom.TypeByID((int)@item.AttachmentTypeId).Name;
                                     <tr>
@@ -62,59 +62,3 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="MainModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-
-
-
-
-
-        </div>
-    </div>
-</div>
-
-<script type="text/javascript">
-    function unloadModal() {
-        $('#MainModal').modal('hide');
-    }
-</script>
-
-<script type="text/javascript">
-    $(function () {
-        // Initialize numeric spinner input boxes
-        //$(".numeric-spinner").spinedit();
-
-        // Initalize modal dialog
-        // attach modal-container bootstrap attributes to links with .modal-link class.
-        // when a link is clicked with these attributes, bootstrap will display the href content in a modal dialog.
-
-        $('body').on('click', '.modal-link', function (e) {
-            $(this).attr('data-target', '#MainModal');
-            e.preventDefault();
-            $("iframe").attr("src", $(this).attr('href'));
-            $(this).attr('data-toggle', 'modal');
-        });
-
-        // Attach listener to .modal-close-btn's so that when the button is pressed the modal dialog disappears
-        $('body').on('click', '.modal-close-btn', function () {
-            $('#MainModal').modal('hide');
-        });
-
-        //clear modal cache, so that new content can be loaded
-        $('#MainModal').on('hidden.bs.modal', function () {
-            $(this).removeData('bs.modal');
-        });
-
-        $(document).on("hidden.bs.modal", function (e) {
-            $(e.target).removeData("bs.modal").find(".modal-content").empty();
-        });
-
-        $('#CancelModal').on('click', function () {
-            return false;
-        });
-    });
-</script>
-
-
-

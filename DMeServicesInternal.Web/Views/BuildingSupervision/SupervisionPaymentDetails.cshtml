@@ -8,7 +8,7 @@
 <script>
     $(document).ready(function () {
         $("#btnGenerateReport").click(function () {
-
+            Loading();
             ReportManager.GenerateReport();
 
         });
@@ -185,23 +185,13 @@
                         <i class="glyphicon glyphicon-ok"></i> حفظ
                     </button>
 
-                    <a style="float:left" href="@Url.Action( "Index","BuildingSupervision")" class="btn btn-primary" role="button">الصفحة السابقة</a>
+                    <a style="float:left" href="@Url.Action("Index","BuildingSupervision")" onclick="return Loading();" class="btn btn-primary" role="button">الصفحة السابقة</a>
 
                 </div>
             </div>
         }
     </div>
 
-</div>
-
-
-
-<div class="modal fade" id="MainModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-
-        </div>
-    </div>
 </div>
 
 <script src="~/Scripts/jquery-1.10.2.js"></script>
@@ -223,11 +213,6 @@
         });
 
     });
-    $("#Save").click(function () {
-        alert("top");
-        $('#Supervisionform').submit();
-    });
-
 </script>
 <script>
 
@@ -257,16 +242,20 @@
         $('#SaveFees').attr('disabled', true);
         $("#ServiceID option[value='0']").attr("disabled", "disabled");
         $("#Quantity").change(function () {
-
-            var total = $("#Total").val();
-            if (total > 0) {
-
+            var selectedService = $("#ServiceID").val();
+            if (selectedService == 22 || selectedService == 23) {
                 $('#SaveFees').attr('disabled', false);
+            }
+            else {
+                var total = $("#Total").val();
+                if (total > 0) {
+                    $('#SaveFees').attr('disabled', false);
+                }
             }
         })
 
         $("#SaveFees").click(function () {
-
+            Loading();
             var data = new FormData();
             var total = $("#Total").val();
             if (total > 0) {
@@ -274,8 +263,8 @@
                 data.append("Fees", $("#Fees").val());
                 data.append("Quantity", $("#Quantity").val());
                 data.append("Total", $("#Total").val());
+                }
 
-            }
             var url = "@Url.Action("SavePayment", "BuildingSupervision")";
             $.ajax({
                 url: url,
@@ -285,9 +274,8 @@
                 data: data,
                 async: false,
                 success: function (response) {
-                    console.log(response);
+                    //console.log(response);
                     if (response != "") {
-                        
                         $('#divPayments').html(response);
                     }
                     $('#Fees').val('');
@@ -307,55 +295,28 @@
 
 <script>
     $(document).ready(function () {
+        var array1 = ["0", "17", "21"];
+        var array2 = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "18", "22", "23", "24", "25"];
+
+        function hideOptions(array) {
+            for (var i = 0; i < array.length; i++) {
+                $('#ServiceID option[value="' + array[i] + '"]').hide();
+            }
+        }
+
+        function showOptions(array) {
+            for (var i = 0; i < array.length; i++) {
+                $('#ServiceID option[value="' + array[i] + '"]').show();
+            }
+        }
+        showOptions(array1);
+        hideOptions(array2);
 
         $("#PermitsStatus option[value='0']").attr("disabled", "disabled");
 
         $("#Save").click(function () {
-            alert("down");
+            Loading();
             $("#Supervisionform").submit();
         });
-
-
-
     });
 </script>
-
-
-<script type="text/javascript">
-    $(function () {
-        // Initialize numeric spinner input boxes
-        //$(".numeric-spinner").spinedit();
-
-        // Initalize modal dialog
-        // attach modal-container bootstrap attributes to links with .modal-link class.
-        // when a link is clicked with these attributes, bootstrap will display the href content in a modal dialog.
-
-        $('body').on('click', '.modal-link', function (e) {
-
-            $(this).attr('data-target', '#MainModal');
-            $(this).attr('data-toggle', 'modal');
-        });
-
-
-        // Attach listener to .modal-close-btn's so that when the button is pressed the modal dialog disappears
-        $('body').on('click', '.modal-close-btn', function () {
-
-            $('#MainModal').modal('hide');
-        });
-
-        //clear modal cache, so that new content can be loaded
-        $('#MainModal').on('hidden.bs.modal', function () {
-
-            $(this).removeData('bs.modal');
-        });
-
-        $(document).on("hidden.bs.modal", function (e) {
-            $(e.target).removeData("bs.modal").find(".modal-content").empty();
-        });
-
-        $('#CancelModal').on('click', function () {
-            return false;
-        });
-    });
-</script>
-

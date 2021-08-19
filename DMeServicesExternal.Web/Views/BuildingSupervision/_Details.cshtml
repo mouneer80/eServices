@@ -5,6 +5,17 @@
     <div class="box-content">
         <div class="row">
             @Html.HiddenFor(m => m.BuildingPermits.Id)
+            @Html.HiddenFor(m => m.BuildingSupervision.ContractorCR_No)
+            @Html.HiddenFor(m => m.BuildingSupervision.PaymentID)
+            @Html.HiddenFor(m => m.BuildingSupervision.SupervisionRelatedID)
+            @*@Html.HiddenFor("SelectedSupervisionID", ViewBag.SelectedSupervisionID)*@
+            @if (Model.BuildingSupervision.LicenseNo != null)
+            {
+                <div class="form-group col-lg-2">
+                    <label class="control-label">تصريح رقم</label>
+                    @Html.TextBoxFor(m => m.BuildingSupervision.LicenseNo, new { @readonly = "readonly", @class = "form-control", id = "OwnerName", @placeholder = "تصريح رقم" })
+                </div>
+            }
             <div class="form-group col-lg-4">
                 <h5>بيانات مالك الارض</h5>
                 @{
@@ -72,7 +83,7 @@
                     <label class="control-label">
                         @Html.DisplayNameFor(m => m.BuildingPermits.KrokiNO)
                     </label>
-                    @Html.TextBoxFor(m => m.BuildingPermits.KrokiNO, new { @readonly = "readonly", @class = "form-control", id = "KrokiNO", @placeholder = "رقم الكروكي" })
+                    @Html.TextBoxFor(m => m.BuildingPermits.KrokiNO, new { @readonly = "readonly", @class = "form-control", id = "KrokiNO", @placeholder = "رقم الرسم المساحي" })
                     @Html.ValidationMessageFor(m => m.BuildingPermits.KrokiNO, "", new { @style = "color:orange;" })
                 </div>
                 <div class="form-group col-lg-2">
@@ -119,23 +130,11 @@
         </div>
         <div class="row">
             <div class="box col-md-12">
-                <h5> المرفقات الاساسية</h5>
-                <br />
                 @{ Html.RenderPartial("_ListDetailsAttachments", Model);}
             </div>
         </div>
     </div>
 </div>
-
-
-<div class="modal fade" id="MainModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-
-        </div>
-    </div>
-</div>
-
 
 
 

@@ -45,6 +45,14 @@ namespace DMeServices.DAL
         public string OwnerNotes { get; set; }
         public Nullable<int> ContractorCR_No { get; set; }
         public Nullable<int> ContractorID { get; set; }
+        public string DMSupervisionStatment { get; set; }
+        public Nullable<int> SupervisionRelatedID { get; set; }
+        public Nullable<int> WelayahID { get; set; }
+        public Nullable<int> RegionID { get; set; }
+        public Nullable<int> SquareLetterID { get; set; }
+        public Nullable<int> DistrictNo { get; set; }
+        public Nullable<int> UseTypeID { get; set; }
+        public string LandArea { get; set; }
     
         public virtual BldSupervisionServicesTypes BldSupervisionServicesTypes { get; set; }
         public virtual BldPermits BldPermits { get; set; }

@@ -74,7 +74,7 @@
     </ul>
 </div>
 
-<div class="col-lg-12 col-sm-12">
+<div class="col-md-12 col-sm-12">
     <div class="row">
         @using (Html.BeginForm("SaveSupervisionCloseTransaction", "BuildingSupervision", FormMethod.Post, new { encType = "multipart/form-data", @id = "Supervisionform" }))
         {
@@ -87,16 +87,38 @@
             @Html.AntiForgeryToken()
             @Html.HiddenFor(x => x.BuildingSupervision.ID)
             @Html.HiddenFor(x => x.BuildingSupervision.BldPermitID)
+            @Html.HiddenFor(x => x.BuildingPermits.Id)
             @Html.HiddenFor(x => x.BuildingSupervision.ConsultantCivilId)
             @Html.HiddenFor(x => x.BuildingSupervision.TransactNo)
+            @Html.HiddenFor(m => m.BuildingPermits.ConsultantCivilId);
+            @Html.HiddenFor(m => m.BuildingPermits.ConsultantCrNo);
+
+            @Html.HiddenFor(m => m.oUserInfo.CivilId);
+            @Html.HiddenFor(m => m.ShowAdd, new { @id = "userType" });
 
             <div class="row">
-                
+                <div class="box col-md-6">
+                    <h5>تفاصيل التصريح</h5>
+
+                    <div class="form-group col-md-4">
+                        <label class="control-label">ترخيص بناء رقم</label>
+                        @Html.TextBoxFor(m => m.BuildingPermits.LicenseNo, new { @readonly = "readonly", @class = "form-control", id = "PermitLicenseNo", @placeholder = "رقم ترخيص البناء" })
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label class="control-label">تصريح بناء رقم</label>
+                        @Html.TextBoxFor(m => m.BuildingSupervision.LicenseNo, new { @readonly = "readonly", @class = "form-control", id = "SupervisionLicenseNo", @placeholder = "رقم تصريح الشروع بالعمل" })
+                    </div>
+                    <div class="col-md-6">
+                        <label class="control-label"> السجل التجاري للمقاول</label>
+                        @Html.TextBoxFor(m => m.BuildingSupervision.ContractorCR_No, null, new { @readonly = "readonly", @class = "form-control", id = "CommercialNo", placeholder = "السجل التجاري للمقاول" })
+                    </div>
+                </div>
+
                 <div class="box col-md-6">
                     <h5>بيانات مكان قطعة الأرض</h5>
                     <div class="form-group col-md-4">
                         <label class="control-label">محافظة</label>
-                        <input class="form-control" placeholder="ظفار" readonly="readonly" />
+                        <label class="form-control" readonly="readonly">ظفار</label>
                     </div>
                     <div class="form-group col-md-4">
                         <label class="control-label">الولاية</label>
@@ -116,6 +138,10 @@
                     <div class="form-group col-md-4">
                         <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.DistrictNo)</label>
                         @Html.TextBoxFor(m => m.BuildingPermits.DistrictNo, new { @readonly = "readonly", @class = "form-control", id = "DistrictNo", @placeholder = "رقم القطعة" })
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label class="control-label">@Html.DisplayNameFor(m => m.BuildingPermits.KrokiNO)</label>
+                        @Html.TextBoxFor(m => m.BuildingPermits.KrokiNO, new { @readonly = "readonly", @class = "form-control", id = "KrokiNO", @placeholder = "رقم الرسم المساحي المسلسل" })
                     </div>
                 </div>
                 <div class="box col-md-6">
@@ -147,30 +173,46 @@
                 <div id="FileBrowse" class="form-group col-md-12">
 
 
-                    <div class="form-group col-lg-2">
-                        <label class="control-label">نزع الخدمة المطلوبة</label>
-                        @Html.DropDownListFor(s => s.ServiceType.ID, (List<SelectListItem>)ViewBag.DDServiceType, new { style = "padding:0px", @class = "form-control", @data_rel = "chosen", id = "ServiceType" })
+                    <div class="form-group col-md-2">
+                        <label class="control-label">نوع الخدمة المطلوبة</label>
+                        @Html.DropDownListFor(s => s.BuildingSupervision.ServiceTypeID, (List<SelectListItem>)ViewBag.DDServiceType, new { style = "padding:0px", @class = "form-control", @data_rel = "chosen", id = "ServiceType" })
                     </div>
-                    <div class="form-group col-lg-6">
+                    <div class="form-group col-md-4">
                         <label class="control-label">@Html.DisplayNameFor(m => m.BuildingSupervision.ConsultantNotes)</label>
                         @Html.TextAreaFor(m => m.BuildingSupervision.ConsultantNotes, new { @class = "form-control", id = "Notes", @placeholder = "ملاحظات" })
                     </div>
-                    <div class="form-group col-lg-4">
-                        <div class="col-lg-10">
+
+                    <div class="form-group col-md-2">
+                        <div class="col-md-10">
                             <label class="control-label">@Html.DisplayName("مرفقات العمل الحالي")</label>
-                        
+
                             @Html.TextBoxFor(m => m.CosultantAttachments.File, new { @type = "file", @multiple = "multiple", @id = "InspectorAttachments", @class = "form-control", @onchange = "onchangeevent(this);" })
                             @Html.ValidationMessageFor(m => m.CosultantAttachments.File, "", new { @style = "color:orange;" })
                         </div>
 
-                        <div class="col-lg-2">
+                        <div class="col-md-2">
                             <div id="CosultantAttachmentsLoader" class="loading" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader"></div>
                             <span id="CosultantAttachmentsSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
                         </div>
                     </div>
+                    <div class="form-group col-md-4" id="divInsuranceRefund">
+                        <div class="col-md-4">
+                            <label class="control-label">@Html.DisplayName("طلب رد مبلغ التأمين")</label>
+
+                            @Html.TextBoxFor(m => m.ChangeConsultantStatment.File, new { @type = "file", @id = "InsuranceRefundStatment", @class = "form-control", @onchange = "onchangeevent(this);" })
+                            @Html.ValidationMessageFor(m => m.ChangeConsultantStatment.File, "", new { @style = "color:orange;" })
+                        </div>
+                        <div class="col-md-4">
+                            <a class="modal-link" href="@Url.Action("PdfPartial", "BuildingSupervision", new { @Id = 5 })">تحميل الملف<i class="fa fa-eye-slash modal-link"></i></a>
+                        </div>
+                        <div class="col-md-1">
+                            <div id="InsuranceRefundStatmentLoader" class="loading" style="display:none;"> <img src="~/Content/ajax-loader.gif" alt="Loader"></div>
+                            <span id="InsuranceRefundStatmentSpan" style="display:none"><i style="font-size: 30px" class="glyphicon glyphicon-ok green"></i></span>
+                        </div>
+                    </div>
                 </div>
 
-                
+
 
                 <br />
                 <div class="row">
@@ -179,7 +221,7 @@
                         <i class="glyphicon glyphicon-ok"></i> حفظ
                     </button>
 
-                    <a style="float:left" href="@Url.Action( "Index","BuildingSupervision")" class="btn btn-primary" role="button">الصفحة السابقة</a>
+                    <a style="float:left" href="@Url.Action("SupervisionDetails", "BuildingSupervision", new { @Id = Model.BuildingSupervision.ID, @showadd = Model.ShowAdd })" class="btn btn-primary" role="button">الصفحة السابقة</a>
 
                 </div>
             </div>
@@ -187,17 +229,6 @@
     </div>
 
 </div>
-
-
-
-<div class="modal fade" id="MainModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-
-        </div>
-    </div>
-</div>
-
 <script src="~/Scripts/jquery-1.10.2.js"></script>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script type="text/javascript">
@@ -217,10 +248,10 @@
         });
 
     });
-    $("#Save").click(function () {
-        alert("top");
-        $('#Supervisionform').submit();
-    });
+    //$("#Save").click(function () {
+    //    alert("top");
+    //    $('#Supervisionform').submit();
+    //});
 
 </script>
 <script>
@@ -303,51 +334,10 @@
         $("#PermitsStatus option[value='0']").attr("disabled", "disabled");
 
         $("#Save").click(function () {
-            alert("down");
+            //alert("down");
             $("#Supervisionform").submit();
         });
-
-
-
     });
 </script>
 
-
-<script type="text/javascript">
-    $(function () {
-        // Initialize numeric spinner input boxes
-        //$(".numeric-spinner").spinedit();
-
-        // Initalize modal dialog
-        // attach modal-container bootstrap attributes to links with .modal-link class.
-        // when a link is clicked with these attributes, bootstrap will display the href content in a modal dialog.
-
-        $('body').on('click', '.modal-link', function (e) {
-
-            $(this).attr('data-target', '#MainModal');
-            $(this).attr('data-toggle', 'modal');
-        });
-
-
-        // Attach listener to .modal-close-btn's so that when the button is pressed the modal dialog disappears
-        $('body').on('click', '.modal-close-btn', function () {
-
-            $('#MainModal').modal('hide');
-        });
-
-        //clear modal cache, so that new content can be loaded
-        $('#MainModal').on('hidden.bs.modal', function () {
-
-            $(this).removeData('bs.modal');
-        });
-
-        $(document).on("hidden.bs.modal", function (e) {
-            $(e.target).removeData("bs.modal").find(".modal-content").empty();
-        });
-
-        $('#CancelModal').on('click', function () {
-            return false;
-        });
-    });
-</script>
 

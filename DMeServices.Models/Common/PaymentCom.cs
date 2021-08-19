@@ -13,6 +13,7 @@ using JsonSerializer = System.Text.Json.JsonSerializer;
 using RestSharp.Deserializers;
 using RestSharp.Serialization.Json;
 using System.Web;
+using DMeServices.DAL;
 //using RestSharp;
 
 namespace DMeServices.Models.Common
@@ -22,12 +23,16 @@ namespace DMeServices.Models.Common
         #region Method ::Pay By Payment getway 
 
         //public static void PayAmount(string UserName, string SourceTypeId, string Amount, string Password, string SuccessUrl, string FailureUrl)
-        
-        public async Task GetListAsync()
+
+        public async Task GetListAsync(string paymentApiUrl, string paymentAPIOpenRequestUrl)
         {
             try
             {
-                string urlBase = "https://www.dhofar.gov.om/ePaymentAPI/API/";
+                //for dhofar.gov.om
+                //string urlBase = Resources.ApiUrls.PaymentAPIDhofar.ToString();
+                //for main.edm.gov.om
+                //string urlBase = Resources.ApiUrls.PaymentAPIODP.ToString();
+                string urlBase = paymentApiUrl;
                 string servicePrefix = "Paymentrequest";
                 string controller = "OpenPaymentRequestQ";
                 var client = new HttpClient
@@ -56,8 +61,8 @@ namespace DMeServices.Models.Common
                     Method = HttpMethod.Get,
                     Content = httpcontent
                 };
-
-                var responseTask = client.GetAsync("https://www.dhofar.gov.om/ePaymentAPI/API/Paymentrequest/OpenPaymentRequestQ?UserName=contract&SourceTypeId=1&Amount=0.650&Password=123&SuccessUrl=eeee&FailureUrl=ssss");
+                var responseTask = client.GetAsync(paymentAPIOpenRequestUrl + "Q?UserName=contract&SourceTypeId=1&Amount=0.650&Password=123&SuccessUrl=eeee&FailureUrl=ssss");
+                //var responseTask = client.GetAsync(Resources.ApiUrls.PaymentAPIOpenRequestDhofar.ToString()+"Q?UserName=contract&SourceTypeId=1&Amount=0.650&Password=123&SuccessUrl=eeee&FailureUrl=ssss");
                 //var resultB = await response.Content.ReadAsStringAsync();
                 //var response = await client.GetAsync(url);
                 //var responseTask = client.GetAsync("Paymentrequest/GetRequestByToken?Token=" + Token);
@@ -71,7 +76,7 @@ namespace DMeServices.Models.Common
                     readTask.Wait();
 
                     string pPaymentrequest = readTask.Result;
-
+                     
                     //    if (!result.IsSuccessStatusCode)
                     //{
                     //return new Response
@@ -80,7 +85,7 @@ namespace DMeServices.Models.Common
                     //    Message = result,
                     //};
                 }
-
+                await Task.FromResult(0);
                 //var list = JsonConvert.DeserializeObject<List<T>>(result);
                 //return new Response
                 //{
@@ -90,6 +95,7 @@ namespace DMeServices.Models.Common
             }
             catch (Exception ex)
             {
+                throw ex;
                 //    return new Response
                 //    {
                 //        IsSuccess = false,
@@ -143,7 +149,7 @@ namespace DMeServices.Models.Common
                 };
             }
         }
-        public static Token PayAmount(string amount, string sourceTypeId, string requestUrl)
+        public static Token PayAmount(string amount, string sourceTypeId, string requestUrl, string paymentAPIOpenRequestUrl)
         {
             string _sourceTypeId = "4";
             string _userName = "engineeringFees";
@@ -151,13 +157,17 @@ namespace DMeServices.Models.Common
             string _successUrl = requestUrl + "PayingSucceeded?Token=";
             string _failureUrl = requestUrl + "PayingFailed?Token=";
 
-            if(sourceTypeId == "3")
-            { 
+            if (sourceTypeId == "3")
+            {
                 _sourceTypeId = "3";
                 _userName = "engineeringInsurance";
             }
-        
-            var client = new RestClient("https://www.dhofar.gov.om/ePaymentAPI/API/Paymentrequest/OpenPaymentRequest");
+            //for publish ePaymentAPI on dhofar.gov.om
+            //var client = new RestClient(Resources.ApiUrls.PaymentAPIOpenRequestDhofar);
+            //for publish ePaymentAPI on main.edm.gov.om
+            var client = new RestClient(paymentAPIOpenRequestUrl);
+            //for test ePaymentAPITest
+            //var client = new RestClient("https://www.dhofar.gov.om/ePaymentAPITest/API/Paymentrequest/OpenPaymentRequest");
             var request = new RestRequest(Method.POST);
             request.AddHeader("content-type", "application/json");
 
@@ -180,14 +190,18 @@ namespace DMeServices.Models.Common
             return (x);
         }
 
-        public static BankResponse GetBankResponse(string token)
+        public static BankResponse GetBankResponse(string token, string paymentAPIGetRequestStatusUrl)
         {
-            
-            var client = new RestClient("https://www.dhofar.gov.om/ePaymentAPI/API/Paymentrequest/GetRequestStatus?Token=" + token);
+            //for publish ePaymentAPI dhofar.gov.om
+            //var client = new RestClient(Resources.ApiUrls.PaymentAPIGetRequestStatusDhofar + token);
+            //for publish ePaymentAPI main.edm.gov.om
+            var client = new RestClient(paymentAPIGetRequestStatusUrl + token);
+            //for test ePaymentAPITest
+            //var client = new RestClient("https://www.dhofar.gov.om/ePaymentAPITest/API/Paymentrequest/GetRequestStatus?Token=" + token);
             var request = new RestRequest(Method.GET);
             request.AddHeader("content-type", "application/json");
 
-            
+
             IRestResponse restResponse = client.Execute(request);
             //string response = restResponse.Content;
             //return response;
@@ -196,6 +210,30 @@ namespace DMeServices.Models.Common
 
             return (x);
         }
+        public static int GetPaymentIDBySupervisionID(int supervisionID)
+        {
+            using (var db = new eServicesEntities())
+            {
+                try
+                {
+                    var _BldPayment = db.BldPayment.Where(x => x.SupervisionID == supervisionID && x.PaymentType == 3 && x.PaymentStatus == 1).OrderByDescending(x => x.PaymentDate).SingleOrDefault();
+
+                    if (_BldPayment != null)
+                    {
+                        return _BldPayment.PaymentID;
+                    }
+                    else
+                    {
+                        return 0;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+        }
+
         //public class BankResponse
         //{
         //    public int status { get; set; }
@@ -244,6 +282,7 @@ namespace DMeServices.Models.Common
             public string Message { get; set; }
             public object Result { get; set; }
         }
+
         #endregion
 
 

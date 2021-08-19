@@ -66,22 +66,26 @@
 </style>
 <ul class="breadcrumb">
     <li>
-        <a href="@Url.Action("Index","Home")">الرئيسية</a>
+        <a onclick="return Loading();" href="@Url.Action(Model.ShowAdd ? "Index" : "LandProjects", "BuildingPermits")">الرئيسية</a>
     </li>
     <li>
-        <a href="#">تراخيص ورقابة البناء</a>
+        <a onclick="return Loading();" href="#">تراخيص البناء</a>
     </li>
 </ul>
 
 <div class="col-lg-12 col-sm-12">
     <div class="row">
         <div class="col-lg-6 col-sm-6">
-            <a style="@(Model.ShowAdd ? "display:inline" : "display:none")" href="@Url.Action("NewPermits", "BuildingPermits")" class="btn btn-primary ">
-                <i class="glyphicon glyphicon-plus icon-white"></i> إضافة ترخيص بناء جديد
+            <a style="@(Model.ShowAdd ? "display:inline" : "display:none")" onclick="return Loading();" href="@Url.Action("NewPermits", "BuildingPermits", new { @showadd =  Model.ShowAdd})" class="btn btn-primary ">
+                <i class="glyphicon glyphicon-plus icon-white"></i> إضافة ترخيص بناء
+            </a>
+            <a style="@(Model.ShowAdd ? "display:none" : "display:inline")" onclick="return Loading();" href="@Url.Action("NewPermits", "BuildingPermits", new { @showadd =  Model.ShowAdd})" class="btn btn-primary ">
+                <i class="glyphicon glyphicon-plus icon-white"></i> ملحق تسوير
             </a>
         </div>
+        
         <div class="col-lg-6 col-sm-6">
-            <a href="@Url.Action("Index","BuildingSupervision", new {@showadd = Model.ShowAdd})" class="btn btn-primary ">
+            <a onclick="return Loading();" href="@Url.Action(Model.ShowAdd ? "ConsultantIndex" : "OwnerIndex","BuildingSupervision")" class="btn btn-primary ">
                 <i class="glyphicon glyphicon-plus icon-white"></i>طلبات رقابة البناء
             </a>
         </div>
@@ -100,7 +104,7 @@
                                 <th>رقم المعاملة</th>
                                 <th>اسم المالك</th>
                                 <th>الرقم المدني</th>
-                                <th>الموقع</th>
+                                <th>المنطقة</th>
                                 <th>تاريخ الطلب</th>
                                 <th>حالة الطلب</th>
                             </tr>
@@ -115,7 +119,7 @@
                                     Region = DMeServices.Models.Common.BuildingServices.RegionsCom.RegionByID((int)item.RegionID).RegionArName;
                                 }
                                 <tr>
-                                    <td class="center"> <a class="btn btn-primary modal-link" href="@Url.Action("PermitDetails", "BuildingPermits", new { @Id = item.Id })"> @item.TransactNo  </a> </td>
+                                    <td class="center"> <a class="btn btn-primary" onclick="return Loading();" href="@Url.Action("PermitDetails", "BuildingPermits", new { @Id = item.Id })"> @item.TransactNo  </a> </td>
                                     @*<td class="center">@item.TransactNo</td>*@
                                     @{
                                         if (item.WorkflowStatus == null)
@@ -147,7 +151,6 @@
                                             <td class="center"> @item.OwnerCivilId</td>
                                         }
                                     }
-
                                     <td class="center">@Region</td>
                                     <td class="center">@item.RequestDate.ToString("yyyy/MM/dd-HH:mm")</td>
                                     <td class="center @StatusColor">@Status</td>
@@ -161,5 +164,3 @@
         <!--/span-->
     </div>
 </div>
-
-

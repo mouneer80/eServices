@@ -21,24 +21,12 @@
           <DataField>ID</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="OwnerCivilId">
-          <DataField>OwnerCivilId</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
         <Field Name="KrokiNO">
           <DataField>KrokiNO</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="OwnerName">
-          <DataField>OwnerName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
         <Field Name="LicenseNo">
           <DataField>LicenseNo</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="TransactNo">
-          <DataField>TransactNo</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="DmFileNumber">
@@ -93,14 +81,6 @@
           <DataField>WelyahArName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="WelyahEnName">
-          <DataField>WelyahEnName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="WelyahCode">
-          <DataField>WelyahCode</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
         <Field Name="ServiceNameAR">
           <DataField>ServiceNameAR</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -111,10 +91,6 @@
         </Field>
         <Field Name="ArLetter">
           <DataField>ArLetter</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="EnLetter">
-          <DataField>EnLetter</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="BuildingType">
@@ -213,6 +189,14 @@
           <DataField>UnitNo</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="owners">
+          <DataField>owners</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="DMSupervisionStatment">
+          <DataField>DMSupervisionStatment</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>InternalEngineeringDataSet</rd:DataSetName>
@@ -273,9 +257,9 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=Fields!OwnerName.Value</Value>
+                    <Value>=Fields!owners.Value</Value>
                     <Style>
-                      <FontSize>12pt</FontSize>
+                      <FontSize>=iif(len(Fields!owners.Value.ToString) &gt; 60, "10pt", "12pt")</FontSize>
                       <FontWeight>Bold</FontWeight>
                       <Color>#364392</Color>
                     </Style>
